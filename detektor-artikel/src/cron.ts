@@ -10,6 +10,7 @@ import { advance, checkKey, settleCheck, type CheckDoc } from './engine/cascade.
 import { settleBatch } from './routes/checks.ts';
 import { wibDate } from './data/settings.ts';
 import { runPurge, archiveCheck } from './data/purge.ts';
+import { refreshFx } from './data/fx.ts';
 import { repairDepositOps } from './data/deposit.ts';
 
 /** Pemeriksaan yang belum selesai 2 jam setelah dibuat dihentikan oleh sweep (token/kuota kembali utuh). */
@@ -125,6 +126,8 @@ export async function scheduled(event: ScheduledController, env: Env): Promise<v
   await retention(env);
   await runPurge(env);
   await runBackup(env);
+  // Kurs USD/IDR harian (MASTER-BLUEPRINT §28.4): hanya dokumen kurs yang ditulis.
+  await refreshFx(env, new Store(env.DATA)).catch(() => undefined);
 }
 
 export { checkKey };

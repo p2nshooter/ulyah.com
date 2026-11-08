@@ -13,7 +13,7 @@ export const FETCH_LIMITS = { maxBytes: 5 * 1024 * 1024, timeoutMs: 15_000, maxR
 export const BOT_UA = 'Mozilla/5.0 (compatible; xscanbot/1.0; +https://xscan.es/en/how-it-works)';
 
 export class InputUrlError extends Error {
-  constructor(public code: 'bad_url' | 'blocked_host' | 'robots' | 'too_big' | 'timeout' | 'not_html' | 'http' | 'redirects' | 'empty' | 'bad_sitemap', message: string) {
+  constructor(public code: 'bad_url' | 'blocked_host' | 'protected' | 'robots' | 'too_big' | 'timeout' | 'not_html' | 'http' | 'redirects' | 'empty' | 'bad_sitemap', message: string) {
     super(message);
   }
 }
@@ -47,6 +47,17 @@ const numericHost = (h: string) => /^\d+$/.test(h);
 const INTERNAL_NAMES = /(^|\.)(localhost|local|internal|intranet|lan|home|corp|localdomain|home\.arpa)$/i;
 const METADATA_HOSTS = new Set(['metadata.google.internal', 'metadata', 'instance-data', 'metadata.azure.com']);
 
+/**
+ * Situs yang tidak pernah dipindai (pemilik, 8 Nov 2026: „Tolak seluruh scanning website2 yg sy sebutkan“ —
+ * MASTER-BLUEPRINT §29). Berlaku untuk domain itu sendiri dan semua subdomainnya, untuk URL langsung, setiap
+ * pengalihan, dan setiap entri sitemap. Daftar ini hanya ada di server; pesan ke member tidak menyebut daftarnya.
+ */
+export const PROTECTED_DOMAINS = ['axto.io', 'xscan.es', 'ascan.es', 'xaa.es', 'ulyah.com', '1fr.fr', 'tilawa.de', 'dawa.im', 'xad.es'] as const;
+export function isProtectedHost(host: string): boolean {
+  const h = host.toLowerCase().replace(/\.+$/, '');
+  return PROTECTED_DOMAINS.some((d) => h === d || h.endsWith('.' + d));
+}
+
 /** Memeriksa URL masukan member. Mengembalikan URL yang sudah dinormalisasi (tanpa #fragmen) atau melempar galat. */
 export function checkUrl(raw: string, base?: URL): URL {
   let u: URL;
@@ -63,6 +74,7 @@ export function checkUrl(raw: string, base?: URL): URL {
     throw new InputUrlError('blocked_host', 'Alamat jaringan internal tidak boleh dipindai.');
   }
   if (u.port && u.port !== '80' && u.port !== '443') throw new InputUrlError('blocked_host', 'Port ini tidak diizinkan (hanya 80/443).');
+  if (isProtectedHost(host)) throw new InputUrlError('protected', 'Situs ini tidak dapat dipindai di xscan.es.');
   u.hash = '';
   return u;
 }

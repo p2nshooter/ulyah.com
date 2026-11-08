@@ -54,7 +54,14 @@
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     var tog = t.closest('[data-toggle]');
-    if (tog) { var target = document.getElementById(tog.getAttribute('data-toggle')) || $('.' + tog.getAttribute('data-toggle')); if (target) target.classList.toggle('open'); }
+    if (tog) {
+      var target = document.getElementById(tog.getAttribute('data-toggle')) || $('.' + tog.getAttribute('data-toggle'));
+      if (target) {
+        var open = target.classList.toggle('open');
+        if (target.id === 'side') setSide(open);
+      }
+    }
+    if (t.closest('[data-close-side]')) setSide(false);
     if (t.closest('[data-print]')) { $$('.reveal, .ring, .cbar').forEach(function (el) { el.classList.add('in'); }); window.print(); }
     var cp = t.closest('[data-copy]');
     if (cp) { var src = $(cp.getAttribute('data-copy')); var text = src ? src.textContent.replace(/\s+/g, ' ').trim() : ''; if (cp.getAttribute('data-copy') === '#totpSecret') text = text.replace(/\s/g, ''); if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { toast(T('Disalin ✓', 'Copied ✓')); }); }
@@ -250,7 +257,7 @@
       clearTimeout(timer);
       timer = setTimeout(function () {
         if (w < 1) return;
-        var mode = (form.querySelector('input[name=mode]:checked') || {}).value || 'auto';
+        var mode = (form.querySelector('input[name=mode]:checked') || {}).value || 'smart';
         var rub = form.querySelector('select[name=rubric]').value ? '1' : '0';
         api('/api/estimate?words=' + w + '&mode=' + mode + '&rubric=' + rub).then(function (e) {
           $('#estLo').textContent = fmt(e.min); $('#estTy').textContent = fmt(e.typical); $('#estRes').textContent = fmt(e.reserve);
@@ -265,17 +272,17 @@
     ta.addEventListener('input', estimate);
     form.addEventListener('change', estimate);
     estimate();
-    /* Fable 5.1: jendela konfirmasi sebelum dipakai (pemilik, 8 Nov 2026). Esc / Tidak → kembali ke AUTO. */
-    var fdlg = form.querySelector('[data-fable-dialog]'), fok = form.querySelector('[data-fable-ok]');
+    /* Elite: jendela konfirmasi sebelum dipakai (pemilik, 8 Nov 2026). Esc / Tidak → kembali ke AUTO. */
+    var fdlg = form.querySelector('[data-elite-dialog]'), fok = form.querySelector('[data-elite-ok]');
     if (fdlg && fok) {
       var openF = function () { if (typeof fdlg.showModal === 'function') { if (!fdlg.open) fdlg.showModal(); } else fdlg.setAttribute('open', ''); };
       var closeF = function () { if (typeof fdlg.close === 'function') fdlg.close(); else fdlg.removeAttribute('open'); };
-      var backAuto = function () { fok.value = '0'; var a = form.querySelector('input[name=mode][value=auto]'); if (a) a.checked = true; closeF(); estimate(); };
-      form.addEventListener('change', function (ev) { if (ev.target.name === 'mode') { if (ev.target.value === 'fable' && fok.value !== '1') openF(); if (ev.target.value !== 'fable') fok.value = '0'; } });
-      fdlg.querySelector('[data-fable-yes]').addEventListener('click', function () { fok.value = '1'; closeF(); estimate(); });
-      fdlg.querySelector('[data-fable-no]').addEventListener('click', backAuto);
+      var backAuto = function () { fok.value = '0'; var a = form.querySelector('input[name=mode][value=smart]'); if (a) a.checked = true; closeF(); estimate(); };
+      form.addEventListener('change', function (ev) { if (ev.target.name === 'mode') { if (ev.target.value === 'elite' && fok.value !== '1') openF(); if (ev.target.value !== 'elite') fok.value = '0'; } });
+      fdlg.querySelector('[data-elite-yes]').addEventListener('click', function () { fok.value = '1'; closeF(); estimate(); });
+      fdlg.querySelector('[data-elite-no]').addEventListener('click', backAuto);
       fdlg.addEventListener('cancel', function (ev) { ev.preventDefault(); backAuto(); });
-      form.addEventListener('submit', function (ev) { var m = form.querySelector('input[name=mode]:checked'); if (m && m.value === 'fable' && fok.value !== '1') { ev.preventDefault(); openF(); } });
+      form.addEventListener('submit', function (ev) { var m = form.querySelector('input[name=mode]:checked'); if (m && m.value === 'elite' && fok.value !== '1') { ev.preventDefault(); openF(); } });
     }
     var purSel = form.querySelector('[data-purpose]'), purHint = form.querySelector('[data-purpose-hint]');
     if (purSel && purHint) purSel.addEventListener('change', function () { purHint.textContent = purSel.options[purSel.selectedIndex].getAttribute('data-hint') || ''; });
@@ -418,7 +425,7 @@
       runBtn.setAttribute('aria-busy', 'true');
       try {
         var modeSel = $('[data-batch-mode]', batch);
-        var res = await api('/api/batches/' + batch.getAttribute('data-batch') + '/run', { agree: true, mode: modeSel ? modeSel.value : 'auto', entries: queue.map(function (e) { return { title: e.title, author: e.author, text: e.text }; }) });
+        var res = await api('/api/batches/' + batch.getAttribute('data-batch') + '/run', { agree: true, mode: modeSel ? modeSel.value : 'smart', entries: queue.map(function (e) { return { title: e.title, author: e.author, text: e.text }; }) });
         queue = []; renderQueue(); await runIds(res.ids);
       } catch (e) { bErr.hidden = false; bErr.textContent = '⚠ ' + e.message; }
       runBtn.removeAttribute('aria-busy');
@@ -455,8 +462,13 @@
   $$('[data-convert]').forEach(function (f) {
     var tp = Number(f.getAttribute('data-tp')) || 1, inp = $('[data-convert-in]', f), out = $('[data-convert-out]', f);
     if (!inp || !out) return;
-    var upd = function () { out.textContent = fmt(Math.floor((Number(inp.value) || 0) / tp)); };
-    inp.addEventListener('input', upd); upd();
+    var sel = $('[data-convert-engine]', f), pages = $('[data-convert-pages]', f);
+    var upd = function () {
+      var tok = Math.floor((Number(inp.value) || 0) / tp);
+      out.textContent = fmt(tok);
+      if (pages && sel) { var o = sel.options[sel.selectedIndex], tpp = Number(o && o.getAttribute('data-tpp')) || 0; pages.textContent = tpp > 0 ? fmt(Math.floor(tok / tpp)) : '—'; }
+    };
+    inp.addEventListener('input', upd); if (sel) sel.addEventListener('change', upd); upd();
   });
 
   /* ── Admin → Harga: pratinjau langsung (rumus sama dengan server: engine/pricing.ts) ── */
@@ -471,9 +483,13 @@
       var tPrice = unit * fx * m, tCost = unit * fx;
       $$('[data-out="tokenPrice"]', pf).forEach(function (el) { el.textContent = rp(tPrice); });
       $$('[data-pkg-row]', pf).forEach(function (row) {
-        var tok = Number($('[data-tokens]', row).value) || 0, disc = Math.min(50, Math.max(0, Number($('[data-disc]', row).value) || 0)) / 100;
-        var price = nice(tok * tPrice * (1 - disc)), cost = Math.round(tok * tCost), cut = Math.floor(price * aff / 100);
+        var disc = Math.min(50, Math.max(0, Number($('[data-disc]', row).value) || 0)) / 100;
+        var ti = $('[data-target-input]', row), tok, price;
+        if (ti) { price = Number(ti.value) || 0; tok = Math.floor(price / (tPrice * (1 - disc))); }
+        else { tok = Number($('[data-tokens]', row).value) || 0; price = nice(tok * tPrice * (1 - disc)); }
+        var cost = Math.round(tok * tCost), cut = Math.floor(price * aff / 100);
         var set = function (k, v) { var el = $('[data-out="' + k + '"]', row); if (el) el.textContent = v; };
+        if (ti) set('tokens', fmt(tok));
         set('price', rp(price)); set('cost', rp(cost)); set('profit', rp(price - cost)); set('profitAff', rp(price - cost - cut));
       });
       $$('[data-page-row]', pf).forEach(function (row) {
@@ -574,6 +590,20 @@
     });
     $('[data-pwa-close]', bar).addEventListener('click', function () { store.set(KEY, String(Date.now())); hide(); });
   })();
+
+  /* ── Menu portal di HP: ✕, ketuk di luar menu, atau Esc menutupnya (pemilik, 8 Nov 2026) ── */
+  function setSide(open) {
+    var side = document.getElementById('side');
+    var back = $('.side-backdrop');
+    if (!side) return;
+    side.classList.toggle('open', open);
+    document.body.classList.toggle('side-open', open);
+    if (back) back.hidden = !open;
+    var tg = $('[data-toggle="side"]');
+    if (tg) tg.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) { var c = side.querySelector('[data-close-side]'); if (c) c.focus(); }
+  }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('side-open')) setSide(false); });
 
   /* ── Notifikasi admin: lencana per menu + pemberitahuan saat ada yang baru ── */
   (function () {

@@ -9,12 +9,15 @@ import { tr, fmtNum, fmtDate, type Lang } from '../lib/i18n.ts';
 import { page, pageHead, flash, empty, tip, LOGO, BRAND, TAGLINE } from '../pages/ui.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { getBilling, getEngine } from '../data/settings.ts';
-import { packagePrice, tokenPriceIdr } from '../engine/pricing.ts';
+import { packagePrice, tokenPriceIdr, parseMode, PUBLIC_NAME } from '../engine/pricing.ts';
 import { bi } from '../engine/rubrics.ts';
 import { credit } from '../data/wallet.ts';
-import { getUser } from '../data/users.ts';
+import { getUser, updateUser } from '../data/users.ts';
 import { getAffiliateSettings, payCommission } from '../data/affiliate.ts';
-import { addStats } from '../data/stats.ts';
+import { addStats, getStats } from '../data/stats.ts';
+import { raiseTier, tierFromOrder, tierFromTotal, clampTier, tierOf, modeAllowed } from '../data/tiers.ts';
+import { getPaypal, paypalReady } from '../data/paypal.ts';
+import { startPaypal } from './paypal.ts';
 import { audit } from '../data/audit.ts';
 import { newId } from '../lib/crypto.ts';
 import { invTs, type Store } from '../lib/store.ts';
@@ -64,7 +67,7 @@ export function invoicePaper(L: Lang, o: Order, pay: PaymentSettings): Raw {
   </header>
   <div class="inv-parties">
     <div><h5 class="first">${tr(L, 'Dari', 'From')}</h5><p><b>xscan.es — ${BRAND}</b><br>hello@axto.io</p></div>
-    <div><h5 class="first">${tr(L, 'Kepada', 'Bill to')}</h5><p><b>${o.name ?? o.email}</b><br>${o.email}</p></div>
+    <div><h5 class="first">${tr(L, 'Kepada', 'Bill to')}</h5><p data-bill-to>${o.billTo?.company ? html`<b>${o.billTo.company}</b><br>${tr(L, 'u.p.', 'attn.')} ${o.name ?? o.email}` : html`<b>${o.name ?? o.email}</b>`}<br>${o.billTo?.email || o.email}${o.billTo?.address ? html`<br>${o.billTo.address}` : ''}${o.billTo?.city || o.billTo?.postal ? html`<br>${[o.billTo?.postal, o.billTo?.city].filter(Boolean).join(' ')}` : ''}${o.billTo?.country ? html`<br>${o.billTo.country}` : ''}${o.billTo?.taxId ? html`<br>${tr(L, 'NPWP/Tax ID', 'Tax/VAT ID')}: ${o.billTo.taxId}` : ''}${o.billTo?.po ? html`<br>PO: ${o.billTo.po}` : ''}</p></div>
     <div><h5 class="first">${tr(L, 'Rincian', 'Details')}</h5><dl class="kv tight"><dt>${tr(L, 'Tanggal', 'Date')}</dt><dd>${fmtDate(L, o.createdAt, false)}</dd><dt>${tr(L, 'No. pesanan', 'Order no.')}</dt><dd><small>${o.id}</small></dd><dt>${tr(L, 'Mata uang', 'Currency')}</dt><dd>${cur}</dd>${o.creditedAt ? html`<dt>${tr(L, 'Lunas', 'Paid')}</dt><dd>${fmtDate(L, o.creditedAt)}</dd>` : ''}</dl></div>
   </div>
   <table class="tbl inv-lines"><thead><tr><th>${tr(L, 'Uraian', 'Description')}</th><th class="n">${tr(L, 'Jumlah', 'Qty')}</th><th class="n">${tr(L, 'Nilai', 'Amount')}</th></tr></thead>
@@ -76,10 +79,12 @@ export function invoicePaper(L: Lang, o: Order, pay: PaymentSettings): Raw {
   </tbody>
   <tfoot><tr><th colspan="2">${tr(L, 'Total yang dibayar', 'Total due')}</th><th class="n inv-total">${fmtMoney(L, cur, total)}</th></tr>
   ${cur === 'USD' ? html`<tr><td colspan="3" class="muted small">${tr(L, `Bila dibayar dalam Rupiah lewat layanan kiriman uang: ${fmtMoney(L, 'IDR', o.priceIdr)}.`, `If paid in Rupiah through a money-transfer service: ${fmtMoney(L, 'IDR', o.priceIdr)}.`)}</td></tr>` : ''}</tfoot></table>
+  ${cur === 'USD' && o.fxRate ? html`<p class="muted small" data-fx-line>${tr(L, `Kurs yang dipakai: 1 USD = Rp ${fmtNum(L, o.fxRate)} (kurs harian otomatis saat invoice dibuat).`, `Exchange rate used: 1 USD = Rp ${fmtNum(L, o.fxRate)} (automatic daily rate when this invoice was issued).`)}</p>` : ''}
+  ${o.method === 'paypal' ? html`<div class="inv-pay" data-inv-paypal><h5>${tr(L, 'Pembayaran', 'Payment')}</h5><p>PayPal${o.paypal?.captureId ? html` · ${tr(L, 'ID transaksi', 'Transaction ID')} <b>${o.paypal.captureId}</b>` : ''}${o.paypal?.mode === 'sandbox' ? html` · <em>sandbox</em>` : ''}</p><p class="muted small">${tr(L, 'Dibayar lewat PayPal — token masuk otomatis begitu PayPal mengonfirmasi, tanpa unggah bukti.', 'Paid through PayPal — tokens are added automatically once PayPal confirms, no proof upload needed.')}</p></div>` : html`
   <div class="inv-pay"><h5>${tr(L, 'Pembayaran', 'Payment')}</h5>
     <p>${tr(L, 'Transfer bank ke', 'Bank transfer to')} <b>${pay.bankName}</b> · ${tr(L, 'a.n.', 'beneficiary')} <b>${pay.beneficiary}</b> · ${cur === 'USD' ? html`USD <b>${pay.accountUsd}</b> · SWIFT <b>${pay.swift}</b>` : html`IDR <b>${pay.accountIdr}</b>`}</p>
     <p class="muted small">${isDeposit(o) ? tr(L, 'Saldo deposit bertambah setelah dana diverifikasi admin — tepat sekali, tercatat di riwayat deposit. Saldo deposit dan saldo token tidak bisa diuangkan. Invoice ini dibuat secara elektronik.', 'The deposit balance increases after the admin verifies the funds — exactly once, recorded in the deposit history. Deposit and token balances cannot be cashed out. This invoice was generated electronically.') : tr(L, 'Token masuk ke akun setelah dana diverifikasi admin — tepat sekali, tercatat di buku besar token. Saldo token tidak bisa diuangkan. Invoice ini dibuat secara elektronik.', 'Tokens are added after the admin verifies the funds — exactly once, recorded in the token ledger. Token balance cannot be cashed out. This invoice was generated electronically.')}</p>
-  </div>
+  </div>`}
 </article>`;
 }
 
@@ -181,9 +186,16 @@ function uploadForm(L: Lang, o: Order): Raw {
 export async function completeOrder(store: Store, o: Order, by: string): Promise<void> {
   if (isDeposit(o)) await topUp(store, o.uid, o.priceIdr, o.id, `Invoice ${invoiceNo(o)}`);
   else await credit(store, o.uid, o.tokens, 'purchase', `Invoice ${invoiceNo(o)} (${o.pkg})`, `order:${o.id}`, by);
+  // Mesin mengikuti pembelian (MASTER-BLUEPRINT §28.3, §28.6): paket ini membuka tingkatnya; total pembayaran besar
+  // (deposit maupun paket) membuka Enterprise / Super Enterprise / VVIP.
+  await raiseTier(store, o.uid, tierFromOrder(o, (await getBilling(store)).packages));
   // Rekap member (sekali per pesanan): uang masuk dan token dibeli.
   const usd = currencyOf(o) === 'USD';
   await addStats(store, o.uid, `ord:${o.id}`, { paidIdr: usd ? 0 : o.priceIdr, paidUsd: usd ? o.priceUsd : 0, tokensBought: isDeposit(o) ? 0 : o.tokens, depositTopupIdr: isDeposit(o) ? o.priceIdr : 0 });
+  {
+    const st = await getStats(store, o.uid);
+    await raiseTier(store, o.uid, tierFromTotal(st.paidIdr + st.paidUsd * (o.fxRate ?? (await getEngine(store)).fx)));
+  }
   const buyer = await getUser(store, o.uid);
   const aff = await getAffiliateSettings(store);
   // Komisi dihitung dari nilai Rupiah tagihan (saldo afiliasi dalam Rupiah) — juga untuk pesanan USD.
@@ -223,7 +235,7 @@ async function openOrders(store: Store, uid: string): Promise<number> {
   return open;
 }
 
-async function saveOrder(store: Store, o: Order): Promise<void> {
+export async function saveOrder(store: Store, o: Order): Promise<void> {
   await store.put(orderKey(o.id), o);
   await store.createOnce(`i/user-orders/${o.uid}/${invTs(o.createdAt)}~${o.id}`, {}, { pkg: o.pkg, at: o.createdAt });
   await store.createOnce(`i/orders/${invTs(o.createdAt)}~${o.id}`, {}, { pkg: o.pkg, email: o.email, cur: currencyOf(o), amount: amountOf(o), at: o.createdAt });
@@ -240,17 +252,36 @@ export function registerMemberPayments(app: Hono<HonoEnv>): void {
   app.post('/app/deposit/isi', async (c) => {
     const user = c.get('user')!;
     const store = c.get('store');
-    const pay = await getPayment(store);
-    if (!pay.idrEnabled) return c.redirect('/app/token?err=currency#deposit');
-    const idr = Math.round(Number((await c.req.parseBody()).idr));
-    if (!Number.isFinite(idr) || idr < pay.minDepositIdr || idr > pay.maxDepositIdr) return c.redirect('/app/token?err=amount#deposit');
+    const [pay, eng] = await Promise.all([getPayment(store), getEngine(store)]);
+    // Deposit bebas nominal dalam IDR atau USD, lewat transfer BNI (IDR/USD) atau PayPal (USD) — tanpa batas atas bawaan
+    // (MASTER-BLUEPRINT §28.6). Saldo deposit selalu Rupiah; USD dikonversi dengan kurs hari ini yang dibekukan di invoice.
+    const f = await c.req.parseBody();
+    const via = f.via === 'paypal' ? 'paypal' : 'transfer';
+    const inCur: Currency = f.cur === 'USD' ? 'USD' : 'IDR';
+    const amount = Number(String(f.amount ?? f.idr ?? '').replace(/[^\d.]/g, ''));
+    if (!Number.isFinite(amount) || amount <= 0 || amount > 1e13) return c.redirect('/app/token?err=amount#deposit');
+    const idr = inCur === 'USD' ? Math.round(amount * eng.fx) : Math.round(amount);
+    const usd = inCur === 'USD' ? Math.round(amount * 100) / 100 : Math.round((amount / eng.fx) * 100) / 100;
+    if (idr < pay.minDepositIdr || (pay.maxDepositIdr > 0 && idr > pay.maxDepositIdr)) return c.redirect('/app/token?err=amount#deposit');
+    if (via === 'paypal' && !paypalReady(await getPaypal(c.env, store))) return c.redirect('/app/token?err=currency#deposit');
+    const cur: Currency = via === 'paypal' ? 'USD' : inCur;
+    if (via === 'transfer' && ((cur === 'IDR' && !pay.idrEnabled) || (cur === 'USD' && !pay.usdEnabled))) return c.redirect('/app/token?err=currency#deposit');
     if ((await openOrders(store, user.id)) >= MAX_OPEN_ORDERS) return c.redirect('/app/token?err=pending#deposit');
     const o: Order = {
       id: newId('ord'), kind: 'deposit', uid: user.id, email: user.email, name: user.name, pkg: 'deposit', tokens: 0,
-      currency: 'IDR', priceIdr: idr, priceUsd: 0, status: 'pending', createdAt: Date.now(), proofs: [],
+      currency: cur, priceIdr: idr, priceUsd: usd, status: 'pending', createdAt: Date.now(), proofs: [],
+      method: via, fxRate: eng.fx, billTo: (await getUser(store, user.id))?.billing,
     };
     await saveOrder(store, o);
-    await audit(store, user.id, 'order.create', { id: o.id, kind: 'deposit', idr });
+    await audit(store, user.id, 'order.create', { id: o.id, kind: 'deposit', idr, usd, cur, via });
+    if (via === 'paypal') {
+      try {
+        return c.redirect(await startPaypal(c as Ctx, o));
+      } catch (err) {
+        await audit(store, user.id, 'paypal.start_failed', { orderId: o.id, error: String(err instanceof Error ? err.message : err).slice(0, 200) });
+        return c.redirect(`/app/pesanan/${o.id}?err=paypal`);
+      }
+    }
     return c.redirect(`/app/pesanan/${o.id}`);
   });
 
@@ -262,14 +293,16 @@ export function registerMemberPayments(app: Hono<HonoEnv>): void {
     const [billing, eng] = await Promise.all([getBilling(store), getEngine(store)]);
     const p = billing.packages.find((x) => x.key === f.paket);
     if (!p || !op) return c.redirect('/app/token');
-    const price = packagePrice(p, billing, eng).idr;
+    const pp0 = packagePrice(p, billing, eng);
+    const price = pp0.idr;
     try {
-      await spendForTokens(store, user.id, op, price, p.tokens, 'buy', `Paket ${bi('id', p.name)} dari deposit`);
+      await spendForTokens(store, user.id, op, price, pp0.tokens, 'buy', `Paket ${bi('id', p.name)} dari deposit`);
     } catch (err) {
       if (err instanceof DepositInsufficientError) return c.redirect('/app/token?err=deposit#deposit');
       throw err;
     }
-    await audit(store, user.id, 'deposit.buy', { pkg: p.key, idr: price, tokens: p.tokens });
+    await raiseTier(store, user.id, clampTier(p.tier));
+    await audit(store, user.id, 'deposit.buy', { pkg: p.key, idr: price, tokens: pp0.tokens });
     return c.redirect('/app/token?ok=deposit-buy');
   });
 
@@ -285,13 +318,18 @@ export function registerMemberPayments(app: Hono<HonoEnv>): void {
     const want = Math.floor(Number(f.idr));
     const tokens = Number.isFinite(want) ? Math.floor(want / tp) : 0;
     if (tokens < 1) return c.redirect('/app/token?err=convert#deposit');
+    // Konversi untuk mesin tujuan (MASTER-BLUEPRINT §28.7): Smart Auto, Expert, Elite … sebatas paket member (VVIP bebas).
+    // Token tetap satu saldo; mesin pilihan menjadi bawaan formulir periksa. Hanya nama publik yang tampil.
+    const target = parseMode(f.engine) ?? 'auto';
+    const engine = modeAllowed(target, tierOf(user)) ? target : 'auto';
     try {
-      await spendForTokens(store, user.id, op, tokens * tp, tokens, 'convert', 'Tukar saldo deposit');
+      await spendForTokens(store, user.id, op, tokens * tp, tokens, 'convert', `Tukar saldo deposit — untuk ${PUBLIC_NAME[engine]}`);
     } catch (err) {
       if (err instanceof DepositInsufficientError) return c.redirect('/app/token?err=deposit#deposit');
       throw err;
     }
-    await audit(store, user.id, 'deposit.convert', { idr: tokens * tp, tokens });
+    await updateUser(store, user.id, (u) => (u.preferredMode === engine ? null : { ...u, preferredMode: engine }));
+    await audit(store, user.id, 'deposit.convert', { idr: tokens * tp, tokens, engine });
     return c.redirect('/app/token?ok=deposit-convert');
   });
 
@@ -302,21 +340,34 @@ export function registerMemberPayments(app: Hono<HonoEnv>): void {
     const f = await c.req.parseBody();
     const p = billing.packages.find((x) => x.key === f.paket);
     if (!p) return c.redirect('/app/token');
-    const cur: Currency = isCurrency(f.cur) ? f.cur : 'IDR';
-    if ((cur === 'IDR' && !pay.idrEnabled) || (cur === 'USD' && !pay.usdEnabled)) return c.redirect('/app/token?err=currency');
+    // PayPal (MASTER-BLUEPRINT §28.4): tagihan USD dari harga Rupiah ÷ kurs hari ini, dibayar langsung tanpa unggah bukti.
+    const viaPaypal = f.cur === 'PAYPAL';
+    const cur: Currency = viaPaypal ? 'USD' : isCurrency(f.cur) ? f.cur : 'IDR';
+    if (viaPaypal && !paypalReady(await getPaypal(c.env, store))) return c.redirect('/app/token?err=currency');
+    if (!viaPaypal && ((cur === 'IDR' && !pay.idrEnabled) || (cur === 'USD' && !pay.usdEnabled))) return c.redirect('/app/token?err=currency');
     if ((await openOrders(store, user.id)) >= MAX_OPEN_ORDERS) return c.redirect('/app/token?err=pending');
     const now = Date.now();
     // Harga dihitung di server dari markup yang berlaku lalu dibekukan di pesanan — formulir tidak bisa mengubahnya,
     // dan perubahan markup sesudahnya tidak mengubah tagihan ini.
     const pp = packagePrice(p, billing, eng);
-    const list = packagePrice({ tokens: p.tokens, discountPct: 0 }, billing, eng);
+    // Paket bernominal tetap (Enterprise): diskon menambah token, bukan memotong nominal — tidak ada baris potongan harga.
+    const list = p.targetIdr ? pp : packagePrice({ tokens: p.tokens, discountPct: 0 }, billing, eng);
     const o: Order = {
-      id: newId('ord'), uid: user.id, email: user.email, name: user.name, pkg: p.key, pkgName: p.name, tokens: p.tokens,
+      id: newId('ord'), uid: user.id, email: user.email, name: user.name, pkg: p.key, pkgName: p.name, tokens: pp.tokens,
       discountPct: p.discountPct, currency: cur, priceIdr: pp.idr, priceUsd: pp.usd, listIdr: list.idr, listUsd: list.usd,
-      status: 'pending', createdAt: now, proofs: [],
+      status: 'pending', createdAt: now, proofs: [], method: viaPaypal ? 'paypal' : 'transfer', fxRate: eng.fx,
+      billTo: (await getUser(store, user.id))?.billing,
     };
     await saveOrder(store, o);
-    await audit(store, user.id, 'order.create', { id: o.id, cur, amount: amountOf(o) });
+    await audit(store, user.id, 'order.create', { id: o.id, cur, amount: amountOf(o), method: o.method });
+    if (viaPaypal) {
+      try {
+        return c.redirect(await startPaypal(c as Ctx, o));
+      } catch (err) {
+        await audit(store, user.id, 'paypal.start_failed', { orderId: o.id, error: String(err instanceof Error ? err.message : err).slice(0, 200) });
+        return c.redirect(`/app/pesanan/${o.id}?err=paypal`);
+      }
+    }
     return c.redirect(`/app/pesanan/${o.id}`);
   });
 
@@ -345,7 +396,8 @@ export function registerMemberPayments(app: Hono<HonoEnv>): void {
     const pay = await getPayment(store);
     const err = c.req.query('err');
     const ok = c.req.query('ok');
-    const canUpload = (['pending', 'review', 'rejected'] as OrderStatus[]).includes(o.status) && (o.proofs?.length ?? 0) < MAX_PROOFS;
+    const canUpload = o.method !== 'paypal' && (['pending', 'review', 'rejected'] as OrderStatus[]).includes(o.status) && (o.proofs?.length ?? 0) < MAX_PROOFS;
+    const ppOn = currencyOf(o) === 'USD' && OPEN.includes(o.status) && paypalReady(await getPaypal(c.env, store));
     const body = html`
     ${pageHead(`Invoice ${invoiceNo(o)}`, `${pkgLabel(L, o)} · ${fmtNum(L, o.tokens)} token · ${fmtMoney(L, currencyOf(o), amountOf(o))}`, html`<a class="btn btn-ghost" href="/app/pesanan">← ${tr(L, 'Semua invoice', 'All invoices')}</a><button class="btn btn-ghost" type="button" data-print>🖨 ${tr(L, 'Cetak / PDF', 'Print / PDF')}</button>`)}
     ${flash(L, ok === 'proof' ? tr(L, 'Bukti terkirim. Admin akan memeriksa dana masuk; token masuk otomatis setelah disetujui.', 'Proof sent. The admin will check the incoming funds; tokens are added automatically once approved.') : ok === 'cancel' ? tr(L, 'Pesanan dibatalkan.', 'Order cancelled.') : null, err && ERRS[err] ? tr(L, ERRS[err][0], ERRS[err][1]) : null)}
@@ -356,8 +408,11 @@ export function registerMemberPayments(app: Hono<HonoEnv>): void {
       <li class="${o.status === 'credited' ? 'done' : o.status === 'review' ? 'now' : ''}">${tr(L, 'Admin memeriksa', 'Admin checks')}</li>
       <li class="${o.status === 'credited' ? 'done' : ''}">${tr(L, 'Token masuk', 'Tokens added')}</li>
     </ol>
+    ${ok === 'paid' ? html`<div class="flash ok reveal" data-paid>✓ ${tr(L, 'Pembayaran PayPal diterima — token sudah masuk ke saldo Anda.', 'PayPal payment received — the tokens are in your balance.')}</div>` : ok === 'paypal-pending' ? html`<div class="flash info reveal">⏳ ${tr(L, 'PayPal sedang memproses pembayaran. Token masuk otomatis begitu PayPal mengonfirmasi.', 'PayPal is processing the payment. Tokens are added automatically once PayPal confirms.')}</div>` : ok === 'paypal-cancel' ? html`<div class="flash info reveal">ⓘ ${tr(L, 'Pembayaran PayPal dibatalkan. Anda bisa mencobanya lagi atau membayar dengan transfer.', 'PayPal payment cancelled. You can try again or pay by transfer.')}</div>` : ''}
+    ${err === 'paypal' ? html`<div class="flash err reveal">⚠ ${tr(L, 'PayPal belum bisa memproses pembayaran ini. Coba lagi sebentar lagi, atau bayar dengan transfer.', 'PayPal could not process this payment. Try again shortly, or pay by transfer.')}</div>` : ''}
+    ${ppOn ? html`<form method="post" action="/app/pesanan/${o.id}/paypal" class="card paypal-box reveal noprint" data-paypal-pay><h3>⚡ ${tr(L, 'Bayar cepat dengan PayPal', 'Pay fast with PayPal')}</h3><p class="muted">${tr(L, `Tanpa unggah bukti: setelah Anda menyetujui di PayPal, token masuk otomatis. Tagihan ${fmtMoney(L, 'USD', o.priceUsd)}.`, `No proof upload: once you approve in PayPal, tokens are added automatically. Amount ${fmtMoney(L, 'USD', o.priceUsd)}.`)}</p><button class="btn btn-primary" type="submit">${tr(L, 'Bayar dengan PayPal', 'Pay with PayPal')}</button></form>` : ''}
     ${invoicePaper(L, o, pay)}
-    ${o.status === 'pending' || o.status === 'rejected' || o.status === 'review' ? payGuide(L, o, pay) : ''}
+    ${o.method !== 'paypal' && (o.status === 'pending' || o.status === 'rejected' || o.status === 'review') ? payGuide(L, o, pay) : ''}
     ${canUpload ? uploadForm(L, o) : ''}
     <section class="card reveal noprint"><h3>${tr(L, 'Bukti transfer terkirim', 'Transfer proofs sent')}</h3>${proofList(L, o, `/app/pesanan/${o.id}`)}</section>
     ${noCashNotice(L)}
@@ -587,7 +642,7 @@ export function registerAdminPayments(admin: Hono<HonoEnv>): void {
         ${fld('accountUsd', tr(L, 'No. rekening USD', 'USD account number'))}
         ${fld('whatsapp', tr(L, 'WhatsApp bantuan pembayaran (opsional)', 'Payment help WhatsApp (optional)'), tr(L, 'Angka dengan kode negara, mis. 628…', 'Digits with country code, e.g. 628…'), '628…')}
         <label class="field"><span>${tr(L, 'Deposit minimum (Rp)', 'Minimum deposit (Rp)')}</span><input type="number" name="minDepositIdr" min="10000" step="1000" value="${p.minDepositIdr}"></label>
-        <label class="field"><span>${tr(L, 'Deposit maksimum per pesanan (Rp)', 'Maximum deposit per order (Rp)')}</span><input type="number" name="maxDepositIdr" min="10000" step="1000" value="${p.maxDepositIdr}"></label>
+        <label class="field"><span>${tr(L, 'Deposit maksimum per pesanan (Rp, 0 = tanpa batas)', 'Maximum deposit per order (Rp, 0 = no limit)')}</span><input type="number" name="maxDepositIdr" min="0" step="1000" value="${p.maxDepositIdr}"></label>
       </div>
       <label class="field"><span>${tr(L, 'Catatan tambahan di invoice (opsional)', 'Extra note on invoices (optional)')}</span><textarea name="note" rows="3" maxlength="1000">${p.note}</textarea></label>
       <div class="btn-row"><button class="btn btn-primary" type="submit">${tr(L, 'Simpan', 'Save')}</button><button class="btn btn-ghost" type="submit" name="reset" value="1" data-confirm="${tr(L, 'Kembalikan ke rekening bawaan (sama dengan ulyah.com)?', 'Restore the default accounts (same as ulyah.com)?')}">${tr(L, 'Kembalikan bawaan', 'Restore defaults')}</button></div>
@@ -607,9 +662,11 @@ export function registerAdminPayments(admin: Hono<HonoEnv>): void {
           beneficiary: s('beneficiary'), beneficiaryAddress: s('beneficiaryAddress'), accountIdr: s('accountIdr', 40), accountUsd: s('accountUsd', 40),
           whatsapp: s('whatsapp', 20).replace(/\D/g, ''), note: s('note', 1000),
           minDepositIdr: Math.max(10_000, Math.round(Number(f.minDepositIdr) || DEFAULT_PAYMENT.minDepositIdr)),
-          maxDepositIdr: Math.max(10_000, Math.round(Number(f.maxDepositIdr) || DEFAULT_PAYMENT.maxDepositIdr)),
+          // 0 / kosong = tanpa batas atas (pemilik, 8 Nov 2026: „tanpa limit“).
+          maxDepositIdr: Math.max(0, Math.round(Number(f.maxDepositIdr) || 0)),
+          depVersion: 2,
         };
-    if (next.maxDepositIdr < next.minDepositIdr) next.maxDepositIdr = next.minDepositIdr;
+    if (next.maxDepositIdr > 0 && next.maxDepositIdr < next.minDepositIdr) next.maxDepositIdr = next.minDepositIdr;
     if (!next.idrEnabled && !next.usdEnabled) next.idrEnabled = true;
     await store.put(PAYMENT_DOC, next);
     await audit(store, c.get('user')!.id, 'payment.settings', { idr: next.idrEnabled, usd: next.usdEnabled });

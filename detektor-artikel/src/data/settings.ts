@@ -1,5 +1,6 @@
 /** Setelan yang diatur admin; semuanya punya nilai bawaan yang langsung bekerja. Disimpan di k/ (R2). */
 import type { Store } from '../lib/store.ts';
+import { FX_DOC, effectiveFx, type FxDoc } from './fx.ts';
 import type { Thresholds } from '../engine/fuse.ts';
 import { DEFAULT_THRESHOLDS } from '../engine/fuse.ts';
 import type { Sealed } from '../lib/crypto.ts';
@@ -21,6 +22,8 @@ export interface EngineSettings {
   rubricVerify: boolean;
   prices: Record<string, Price>;
   fx: number;
+  /** Kurs yang diisi admin (dipakai bila kurs otomatis mati atau gagal). `fx` sudah berisi kurs yang berlaku. */
+  fxManual?: number;
   retentionDays: number;
   dailyCapUsd: number;
   updatedAt?: number;
@@ -47,17 +50,24 @@ export const DEFAULT_ENGINE: EngineSettings = {
   dailyCapUsd: 25,
 };
 
+/**
+ * Pengaturan mesin + kurs hari ini (MASTER-BLUEPRINT §28.4): `fx` = kurs otomatis harian bila aktif, `fxManual` = kurs yang
+ * diisi admin (cadangan). Dua dokumen dibaca bersamaan; cron hanya menulis dokumen kurs.
+ */
 export async function getEngine(store: Store): Promise<EngineSettings> {
-  const s = await store.get<Partial<EngineSettings>>('k/engine.json');
-  if (!s) return structuredClone(DEFAULT_ENGINE);
-  return {
-    ...DEFAULT_ENGINE,
-    ...s,
-    models: { ...DEFAULT_ENGINE.models, ...s.models },
-    effort: { ...DEFAULT_ENGINE.effort, ...s.effort },
-    thresholds: { ...DEFAULT_ENGINE.thresholds, ...s.thresholds },
-    prices: { ...DEFAULT_ENGINE.prices, ...s.prices },
-  };
+  const [s, fx] = await Promise.all([store.get<Partial<EngineSettings>>('k/engine.json'), store.get<FxDoc>(FX_DOC)]);
+  const base: EngineSettings = !s
+    ? structuredClone(DEFAULT_ENGINE)
+    : {
+        ...DEFAULT_ENGINE,
+        ...s,
+        models: { ...DEFAULT_ENGINE.models, ...s.models },
+        effort: { ...DEFAULT_ENGINE.effort, ...s.effort },
+        thresholds: { ...DEFAULT_ENGINE.thresholds, ...s.thresholds },
+        prices: { ...DEFAULT_ENGINE.prices, ...s.prices },
+      };
+  const manual = base.fxManual ?? base.fx;
+  return { ...base, fxManual: manual, fx: effectiveFx(manual, fx) };
 }
 
 /* ── token berbayar (pemilik, 2 Nov 2026: "sistem token berbayar … keuntungan mulai 10x, 20x sampai 500x, bisa diedit manual") ── */
@@ -65,11 +75,23 @@ export async function getEngine(store: Store): Promise<EngineSettings> {
 export interface TokenPackage {
   key: string;
   name: { id: string; en: string };
+  /** Token paket (untuk paket bernominal tetap: dihitung dari nominal — lihat `targetIdr`). */
   tokens: number;
-  /** Diskon paket (0–50%). Harga dihitung otomatis dari markup — tidak diisi manual. */
+  /** Diskon paket: 0–10, 15, 20, 25, 30 % (pemilik, 8 Nov 2026), bawaan 0. Harga dihitung otomatis dari markup. */
   discountPct: number;
   note: { id: string; en: string };
+  /** Tingkat yang dibuka paket ini (1 Starter … 6 Super Enterprise) — mesin mengikuti pembelian. */
+  tier?: number;
+  /** Paket bernominal tetap (Enterprise Rp10 jt, Super Enterprise Rp20 jt): token = nominal ÷ harga token setelah diskon. */
+  targetIdr?: number;
 }
+
+/** Pilihan diskon paket yang boleh dipakai admin (pemilik: „0-10, 15,20 & 25, 30“). */
+export const DISCOUNT_STEPS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30] as const;
+export const normalizeDiscount = (v: unknown): number => {
+  const n = Math.round(Number(v) || 0);
+  return DISCOUNT_STEPS.reduce((best, s) => (Math.abs(s - n) < Math.abs(best - n) ? s : best), 0);
+};
 
 export interface BillingSettings {
   /** Modal per token: 1 token = satuan kerja AI senilai US$ ini (bawaan 0,001). */
@@ -82,6 +104,8 @@ export interface BillingSettings {
   welcomeTokens: number;
   /** Batas pemeriksaan berjalan bersamaan per member (anti-curang & anti-banjir). */
   maxConcurrent: number;
+  /** Versi susunan paket (2 = enam paket + Enterprise, diskon bawaan 0 — 8 Nov 2026). */
+  pkgVersion?: number;
   /**
    * Naskah yang pernah diunggah member yang sama dengan mesin yang sama (MASTER-BLUEPRINT §26): bagian itu ditagih persen
    * ini dari harga normal (bawaan 50 — pemilik, 8 Nov 2026). Biaya AI perusahaan untuk bagian itu selalu 0.
@@ -96,6 +120,18 @@ export interface BillingSettings {
 export const MARKUP_MIN = 5;
 export const MARKUP_MAX = 500;
 
+/** Enam paket (pemilik, 8 Nov 2026): diskon kosong dulu — admin yang mengisi. */
+export function DEFAULT_PACKAGES(): TokenPackage[] {
+  return [
+    { key: 'starter', tier: 1, name: { id: 'Starter', en: 'Starter' }, tokens: 300, discountPct: 0, note: { id: 'Untuk mencoba beberapa naskah · mesin Essential & Smart Auto', en: 'To try a few texts · Essential engine & Smart Auto' } },
+    { key: 'reguler', tier: 2, name: { id: 'Reguler', en: 'Regular' }, tokens: 1_000, discountPct: 0, note: { id: 'Membuka mesin Advanced', en: 'Unlocks the Advanced engine' } },
+    { key: 'pro', tier: 3, name: { id: 'Pro (guru, dosen, juri)', en: 'Pro (teachers, judges)' }, tokens: 3_000, discountPct: 0, note: { id: 'Membuka Expert & Forensic Panel — cocok untuk sesi lomba', en: 'Unlocks Expert & Forensic Panel — suits contest sessions' } },
+    { key: 'lembaga', tier: 4, name: { id: 'Lembaga', en: 'Institution' }, tokens: 12_000, discountPct: 0, note: { id: 'Untuk sekolah, kampus, panitia', en: 'For schools, campuses, organisers' } },
+    { key: 'enterprise', tier: 5, targetIdr: 10_000_000, name: { id: 'Enterprise', en: 'Enterprise' }, tokens: 0, discountPct: 0, note: { id: 'Semua mesin terbuka, termasuk Elite. Disarankan Expert & Elite untuk hasil terbaik.', en: 'Every engine unlocked, including Elite. Expert & Elite recommended for the best results.' } },
+    { key: 'super-enterprise', tier: 6, targetIdr: 20_000_000, name: { id: 'Super Enterprise', en: 'Super Enterprise' }, tokens: 0, discountPct: 0, note: { id: 'Semua mesin terbuka untuk volume terbesar. Disarankan Expert & Elite.', en: 'Every engine unlocked for the largest volumes. Expert & Elite recommended.' } },
+  ];
+}
+
 export const DEFAULT_BILLING: BillingSettings = {
   tokenUnitUsd: 0.001,
   markup: 20,
@@ -103,12 +139,8 @@ export const DEFAULT_BILLING: BillingSettings = {
   welcomeTokens: 0,
   maxConcurrent: 3,
   reusePct: 50,
-  packages: [
-    { key: 'starter', name: { id: 'Starter', en: 'Starter' }, tokens: 300, discountPct: 0, note: { id: 'Untuk mencoba beberapa naskah', en: 'To try a few texts' } },
-    { key: 'reguler', name: { id: 'Reguler', en: 'Regular' }, tokens: 1_000, discountPct: 10, note: { id: 'Hemat 10%', en: 'Save 10%' } },
-    { key: 'pro', name: { id: 'Pro (guru, dosen, juri)', en: 'Pro (teachers, judges)' }, tokens: 3_000, discountPct: 20, note: { id: 'Hemat 20% — cocok untuk sesi lomba', en: 'Save 20% — suits contest sessions' } },
-    { key: 'lembaga', name: { id: 'Lembaga', en: 'Institution' }, tokens: 12_000, discountPct: 30, note: { id: 'Hemat 30% untuk sekolah, kampus, panitia', en: 'Save 30% for schools, campuses, organisers' } },
-  ],
+  pkgVersion: 2,
+  packages: DEFAULT_PACKAGES(),
   manualText: '',
 };
 
@@ -119,7 +151,20 @@ export async function getBilling(store: Store): Promise<BillingSettings> {
   b.tokenUnitUsd = Number(b.tokenUnitUsd) > 0 ? Number(b.tokenUnitUsd) : DEFAULT_BILLING.tokenUnitUsd;
   b.reusePct = Math.min(100, Math.max(0, Math.round(Number(b.reusePct ?? DEFAULT_BILLING.reusePct))));
   if (!Number.isFinite(b.reusePct)) b.reusePct = DEFAULT_BILLING.reusePct;
-  b.packages = (b.packages ?? DEFAULT_BILLING.packages).map((p) => ({ ...p, discountPct: Math.min(50, Math.max(0, Number(p.discountPct) || 0)) }));
+  // Susunan paket lama (4 paket, diskon 10/20/30 %) → enam paket dengan diskon 0 (pemilik, 8 Nov 2026: „Diskon kosongin
+  // aja dulu“); nama dan token yang sudah diubah admin dipertahankan.
+  if ((s?.pkgVersion ?? 1) < 2) {
+    const old = new Map((b.packages ?? []).map((p) => [p.key, p]));
+    b.packages = DEFAULT_PACKAGES().map((d) => (old.has(d.key) && !d.targetIdr ? { ...d, name: old.get(d.key)!.name ?? d.name, tokens: old.get(d.key)!.tokens || d.tokens } : d));
+    b.pkgVersion = 2;
+  }
+  const defs = new Map(DEFAULT_PACKAGES().map((p) => [p.key, p]));
+  b.packages = (b.packages ?? DEFAULT_PACKAGES()).map((p, i) => ({
+    ...p,
+    tier: Math.min(6, Math.max(1, Math.round(Number(p.tier ?? defs.get(p.key)?.tier ?? i + 1)))),
+    targetIdr: p.targetIdr ?? defs.get(p.key)?.targetIdr,
+    discountPct: normalizeDiscount(p.discountPct),
+  }));
   return b;
 }
 

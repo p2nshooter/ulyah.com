@@ -240,9 +240,9 @@ await p.uncheck('#controls-form input[name=fableEnabled]');
 await p.click('#controls-form button[type=submit]');
 await p.waitForURL(/kendali\?ok=1/);
 await p.goto(BASE + '/app/periksa');
-ok((await p.locator('[data-soon="fable"]').count()) === 1 && await p.locator('input[name=mode][value=fable]').isDisabled() && /Segera hadir/.test(await p.textContent('[data-soon="fable"]')), 'Fable mati: kartu „Segera hadir“ di formulir, tidak bisa dipilih');
+ok((await p.locator('[data-soon="elite"]').count()) === 1 && await p.locator('input[name=mode][value=elite]').isDisabled() && /Segera hadir/.test(await p.textContent('[data-soon="elite"]')), 'Fable mati: kartu „Segera hadir“ di formulir, tidak bisa dipilih');
 await p.goto(BASE + '/harga');
-ok(/Segera hadir/.test(await p.textContent('#engine-status tr[data-engine="Claude Fable 5.1"]')), 'Fable mati: halaman harga menandai „Segera hadir“');
+ok(/Segera hadir/.test(await p.textContent('#engine-status tr[data-engine="Elite"]')), 'Fable mati: halaman harga menandai „Segera hadir“ (nama publik Elite)');
 await p.goto(BASE + '/panduan');
 ok(/segera hadir/.test(await p.textContent('#g-mesin')), 'Fable mati: panduan ikut menyebut „segera hadir“');
 await p.goto(BASE + '/admin/kendali');
@@ -611,6 +611,13 @@ await p.fill('form[action$="/kuota"] input[name=tokens]', '500');
 await p.fill('form[action$="/kuota"] input[name=note]', 'uji e2e');
 await p.click('form[action$="/kuota"] button[type=submit]');
 await p.waitForURL(/\?ok=1/);
+// Member Starter: Smart Auto hanya sampai Essential = mesin berbeda dari Smart Auto paket Lembaga → diperiksa ulang.
+await m2.goto(BASE + '/app/periksa');
+ok((await m2.locator('[data-locked="advanced"]').count()) === 1 && (await m2.locator('[data-locked="expert"]').count()) === 1, 'paket Starter: Advanced & Expert terkunci');
+// Admin menaikkan paketnya ke Lembaga: Smart Auto-nya sama dengan milik guru → hasil tersimpan bisa dipakai.
+await p.selectOption('[data-member-tier] select[name=tier]', '4');
+await p.click('[data-member-tier] button');
+await p.waitForURL(/\?ok=1/);
 callsBefore = await nCalls();
 await m2.goto(BASE + '/app/periksa');
 await m2.fill('textarea[name=text]', ESSAY);
@@ -629,9 +636,9 @@ ok(!('cost' in js2.data.report) && !JSON.stringify(js2).includes('reuse'), 'undu
 callsBefore = await nCalls();
 await m2.goto(BASE + '/app/periksa');
 await m2.fill('textarea[name=text]', ESSAY);
-await m2.fill('input[name=title]', 'Naskah peserta (Haiku)');
+await m2.fill('input[name=title]', 'Naskah peserta (Essential)');
 await m2.selectOption('select[name=rubric]', '');
-await m2.check('input[name=mode][value=haiku]');
+await m2.check('input[name=mode][value=essential]');
 await m2.check('input[name=agree]');
 await m2.click('.check-form button[type=submit]');
 await m2.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
@@ -666,15 +673,15 @@ ok(fs.statSync(`${OUT}/report.pdf`).size > 20000, 'cetak A4 ke PDF');
 // 3b. Mesin pilihan klien: Sonnet saja
 await m.goto(BASE + '/app/periksa');
 await m.fill('textarea[name=text]', ESSAY);
-await m.waitForFunction(() => /token/.test(document.querySelector('[data-mode-est="sonnet"]')?.textContent || ''), null, { timeout: 10000 });
-ok(true, 'perkiraan token per mesin (Haiku/Sonnet/Opus/AUTO) tampil di formulir');
-await m.check('input[name=mode][value=sonnet]');
-await m.fill('input[name=title]', 'Esai mode Sonnet');
+await m.waitForFunction(() => /token/.test(document.querySelector('[data-mode-est="advanced"]')?.textContent || ''), null, { timeout: 10000 });
+ok(true, 'perkiraan token per mesin (Essential/Advanced/Expert/Smart Auto) tampil di formulir');
+await m.check('input[name=mode][value=advanced]');
+await m.fill('input[name=title]', 'Esai mode Advanced');
 await m.selectOption('select[name=purpose]', 'lomba');
 await m.check('input[name=agree]');
 await m.click('.check-form button[type=submit]');
 await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
-ok(/Claude Sonnet/.test(await m.textContent('.pmeta')), 'laporan menyebut mesin Claude Sonnet');
+ok(/Advanced/.test(await m.textContent('.pmeta')) && !/Sonnet|Claude/.test(await m.textContent('.pmeta')), 'laporan menyebut mesin dengan nama publik (Advanced), bukan nama model');
 // Keperluan laporan (pemilik, 8 Nov 2026): laporan lomba berbeda dari laporan umum.
 ok(/Lembar Penilaian Naskah Lomba/.test(await m.textContent('.report .phead')) && /Peserta/.test(await m.textContent('.pmeta')) && /Lomba/.test(await m.textContent('.pmeta')), 'laporan lomba: judul, sebutan peserta, dan keperluan');
 ok(/Juri/.test(await m.textContent('.report .sign')) && /Ketua panitia/.test(await m.textContent('.report .sign')), 'laporan lomba: kolom tanda tangan juri dan ketua panitia');
@@ -686,34 +693,49 @@ ok((await m.locator('[data-assist-note]').count()) === 0 && !/tidak memutuskan/.
 await m.goto(BASE + '/app');
 ok((await m.locator('[data-assist-note]').count()) === 1, 'dasbor: pemberitahuan alat bantu tampil');
 
-// Claude Fable 5.1 (pemilik, 8 Nov 2026): pilihan premium, kalimat elegan, jendela „Anda yakin?“.
+// Mesin mengikuti pembelian (MASTER-BLUEPRINT §28.3): paket Lembaga (member kedua, total bayar kecil) belum membuka Elite.
+await m2.goto(BASE + '/app/periksa');
+ok((await m2.locator('[data-locked="elite"]').count()) === 1 && await m2.locator('input[name=mode][value=elite]').isDisabled() && /Enterprise/.test(await m2.textContent('[data-locked="elite"]')), 'paket Lembaga: Elite terkunci dengan petunjuk paket Enterprise');
+ok((await m2.locator('[data-locked]').count()) === 1, 'paket Lembaga: Essential, Advanced, Expert, Forensic Panel terbuka');
+// Total pembayaran guru ≥ Rp10 jt (paket Lembaga Rp19,8 jt): otomatis setara Enterprise — Elite terbuka tanpa campur tangan admin.
 await m.goto(BASE + '/app/periksa');
-ok((await m.locator('.mode-card.premium input[value=fable]').count()) === 1 && /lebih cepat/.test(await m.textContent('.mode-card.premium')), 'Fable 5.1 tersedia dengan keterangan biaya yang elegan');
+ok((await m.locator('[data-locked]').count()) === 0 && !(await m.locator('input[name=mode][value=elite]').isDisabled()), 'total bayar ≥ Rp10 jt: semua mesin terbuka otomatis (Enterprise)');
+await p.goto(BASE + '/admin/anggota?email=panitia%40example.com');
+await p.selectOption('[data-member-tier] select[name=tier]', '5');
+await p.click('[data-member-tier] button');
+await p.waitForURL(/\?ok=1/);
+ok(/Enterprise/.test(await p.textContent('[data-member-tier]')) && /Elite/.test(await p.textContent('[data-member-tier]')), 'Admin → member: paket diubah ke Enterprise, semua mesin terbuka');
+await m2.goto(BASE + '/app/periksa');
+ok((await m2.locator('[data-locked]').count()) === 0, 'setelah diubah admin: Elite terbuka untuk member kedua');
+
+// Elite (Claude Fable 5.1 — nama asli hanya di admin): pilihan premium, kalimat elegan, jendela „Anda yakin?“.
+await m.goto(BASE + '/app/periksa');
+ok((await m.locator('.mode-card.premium input[value=elite]').count()) === 1 && /lebih cepat/.test(await m.textContent('.mode-card.premium')), 'Fable 5.1 tersedia dengan keterangan biaya yang elegan');
 await m.fill('textarea[name=text]', ESSAY.replace(/Literasi/g, 'Literasi media'));
-await m.check('input[name=mode][value=fable]');
-await m.waitForSelector('[data-fable-dialog][open]');
-ok(/Anda yakin ingin memakai Claude Fable 5\.1\?/.test(await m.textContent('[data-fable-dialog]')), 'memilih Fable membuka jendela „Anda yakin?“');
-await m.click('[data-fable-no]');
-ok(await m.isChecked('input[name=mode][value=auto]') && (await m.inputValue('[data-fable-ok]')) === '0', '„Tidak“ mengembalikan pilihan ke AUTO');
+await m.check('input[name=mode][value=elite]');
+await m.waitForSelector('[data-elite-dialog][open]');
+ok(/Anda yakin ingin memakai Elite\?/.test(await m.textContent('[data-elite-dialog]')), 'memilih Elite membuka jendela „Anda yakin?“');
+await m.click('[data-elite-no]');
+ok(await m.isChecked('input[name=mode][value=smart]') && (await m.inputValue('[data-elite-ok]')) === '0', '„Tidak“ mengembalikan pilihan ke AUTO');
 // Tanpa konfirmasi (JS dilewati) server tetap menolak.
-await m.check('input[name=mode][value=fable]');
-await m.click('[data-fable-no]');
-await m.evaluate(() => { const f = document.querySelector('.check-form'); f.querySelector('input[name=mode][value=fable]').checked = true; f.querySelector('input[name=agree]').checked = true; HTMLFormElement.prototype.submit.call(f); });
+await m.check('input[name=mode][value=elite]');
+await m.click('[data-elite-no]');
+await m.evaluate(() => { const f = document.querySelector('.check-form'); f.querySelector('input[name=mode][value=elite]').checked = true; f.querySelector('input[name=agree]').checked = true; HTMLFormElement.prototype.submit.call(f); });
 await m.waitForLoadState();
 ok(/konfirmasi/.test(await m.textContent('.flash.err')), 'server menolak Fable tanpa konfirmasi');
 await m.fill('textarea[name=text]', ESSAY.replace(/Literasi/g, 'Literasi media'));
-await m.check('input[name=mode][value=auto]');
-await m.check('input[name=mode][value=fable]');
-await m.waitForSelector('[data-fable-dialog][open]');
-await m.click('[data-fable-yes]');
-ok((await m.inputValue('[data-fable-ok]')) === '1', '„Ya, saya yakin“ mengonfirmasi Fable');
-await m.fill('input[name=title]', 'Esai mode Fable');
+await m.check('input[name=mode][value=smart]');
+await m.check('input[name=mode][value=elite]');
+await m.waitForSelector('[data-elite-dialog][open]');
+await m.click('[data-elite-yes]');
+ok((await m.inputValue('[data-elite-ok]')) === '1', '„Ya, saya yakin“ mengonfirmasi Fable');
+await m.fill('input[name=title]', 'Esai mode Elite');
 await m.check('input[name=agree]');
 await m.click('.check-form button[type=submit]');
 await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
-ok(/Fable 5\.1/.test(await m.textContent('.pmeta')) && /Laporan Analisis Tulisan/.test(await m.textContent('.report .phead')), 'laporan Fable 5.1 (keperluan umum)');
+ok(/Elite/.test(await m.textContent('.pmeta')) && !/Fable|Claude/.test(await m.textContent('.pmeta')) && /Laporan Analisis Tulisan/.test(await m.textContent('.report .phead')), 'laporan Elite (keperluan umum), tanpa nama model');
 await m.goto(BASE + '/app');
-ok((await m.locator('.mode-pages tbody tr').count()) === 4, 'dasbor: prediksi halaman per mesin');
+ok((await m.locator('.mode-pages tbody tr').count()) === 5, 'dasbor: prediksi halaman per mesin (Essential, Advanced, Expert, Elite, Smart Auto)');
 
 // 4. Sesi lomba: dua naskah, rekap
 await m.goto(BASE + '/app/sesi');
@@ -735,6 +757,179 @@ await m.screenshot({ path: `${OUT}/recap.png`, fullPage: true });
 
 await m.goto(BASE + '/app/laporan');
 ok((await m.locator('.notice-purge').count()) >= 1, 'pemberitahuan pembersihan otomatis 90 hari di riwayat kerja');
+
+
+// ── Smart Auto benar-benar naik bertahap sesuai paket; mesin tunggal benar-benar satu mesin (pemilik, 8 Nov 2026:
+//    „Pastikan fitur auto engine nya betul2 bekerja, auto scalling engine, atau client bisa memilih engine tertentu saja“) ──
+{
+  const uniq = (tag) => ESSAY.trim().split(/\n\s*\n/).map((x) => `${tag} ${x}`).join('\n\n');
+  const setTier = async (t) => {
+    await p.goto(BASE + '/admin/anggota?email=guru%40example.com');
+    await p.selectOption('[data-member-tier] select[name=tier]', t);
+    await p.click('[data-member-tier] button');
+    await p.waitForURL(/\?ok=1/);
+  };
+  const run = async (tag, slug) => {
+    const before = await nCalls();
+    await m.goto(BASE + '/app/periksa');
+    await m.fill('textarea[name=text]', uniq(tag));
+    await m.fill('input[name=title]', 'Uji ' + tag);
+    await m.check(`input[name=mode][value=${slug}]`);
+    if (slug === 'elite') { await m.waitForSelector('[data-elite-dialog][open]'); await m.click('[data-elite-yes]'); }
+    await m.check('input[name=agree]');
+    await m.click('.check-form button[type=submit]');
+    await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+    return (await (await fetch(MOCK)).json()).slice(before).map((x) => x.model);
+  };
+  const has = (ms, re) => ms.some((x) => re.test(x));
+  const only = (ms, re) => ms.length > 0 && ms.every((x) => re.test(x));
+  await setTier('1');
+  let ms = await run('Starter', 'smart');
+  ok(only(ms, /haiku/), `Smart Auto paket Starter: hanya Essential (${ms.length} panggilan)`);
+  await setTier('2');
+  ms = await run('Reguler', 'smart');
+  ok(has(ms, /haiku/) && has(ms, /sonnet/) && !has(ms, /opus|fable/), 'Smart Auto paket Reguler: Essential → Advanced (tidak sampai Expert)');
+  await setTier('3');
+  ms = await run('Pro', 'smart');
+  const nH = ms.filter((x) => /haiku/.test(x)).length, nS = ms.filter((x) => /sonnet/.test(x)).length, nO = ms.filter((x) => /opus/.test(x)).length;
+  ok(nH > 0 && nS > 0 && nO > 0 && !has(ms, /fable/), `Smart Auto paket Pro: naik bertahap Essential (${nH}) → Advanced (${nS}) → Expert (${nO})`);
+  ok(ms.findIndex((x) => /sonnet/.test(x)) > ms.findIndex((x) => /haiku/.test(x)) && ms.findIndex((x) => /opus/.test(x)) > ms.findIndex((x) => /sonnet/.test(x)), 'Smart Auto: urutan termurah dulu, mesin mahal hanya untuk kalimat yang masih meragukan');
+  const autoRid = m.url().split('/').pop().split('?')[0];
+  const usage = await m.textContent('.usage');
+  ok(/Essential/.test(usage) && /Advanced/.test(usage) && /Expert/.test(usage) && !/haiku|sonnet|opus|claude/i.test(usage), 'rincian token Smart Auto: tiap tingkat dengan nama publik');
+  ok(Boolean(autoRid), 'laporan Smart Auto tersimpan');
+  ms = await run('Essential', 'essential');
+  ok(only(ms, /haiku/), 'pilih Essential saja: semua panggilan Essential');
+  ms = await run('Advanced', 'advanced');
+  ok(only(ms, /sonnet/), 'pilih Advanced saja: semua panggilan Advanced (termasuk uji tebak lanjutan)');
+  ms = await run('Expert', 'expert');
+  ok(only(ms, /opus/), 'pilih Expert saja: semua panggilan Expert');
+  await setTier('5');
+  ms = await run('Elite', 'elite');
+  ok(only(ms, /fable/), 'pilih Elite saja (Enterprise): semua panggilan Elite');
+  ms = await run('Enterprise', 'smart');
+  ok(has(ms, /haiku/) && has(ms, /opus/) && !has(ms, /fable/), 'Smart Auto Enterprise: tetap mulai dari yang termurah, Elite hanya bila dipilih');
+  await setTier('');
+  ok(/diatur admin|set by admin/.test(await p.textContent('[data-member-tier]')) === false, 'paket guru kembali mengikuti pembelian');
+}
+
+// ── 28. Nama mesin rahasia, menu HP, paket Enterprise, PayPal, kurs harian, deposit tanpa batas, profil penagihan ──
+{
+  const SECRET = /claude|haiku|sonnet|opus|fable|anthropic/i;
+  for (const [page_, path] of [[m, '/'], [m, '/harga'], [m, '/en/pricing'], [m, '/cara-kerja'], [m, '/panduan'], [m, '/kebijakan-privasi'], [m, '/contoh-laporan'], [m, '/en/sample-report'], [m, '/app/periksa'], [m, '/app/token'], [m, `/app/laporan/${rid}`], [m, `/app/laporan/${rid}/cetak`]]) {
+    await page_.goto(BASE + path);
+    const html = await page_.content();
+    ok(!SECRET.test(html.replace(/<script[\s\S]*?<\/script>/g, '')), `rahasia perusahaan: tidak ada nama model/penyedia di ${path}`);
+  }
+  const jsx = await m.evaluate(async (u) => (await fetch(u)).text(), `/app/laporan/${rid}/unduh.json`);
+  for (const mm of jsx.matchAll(new RegExp(SECRET.source, 'gi'))) console.log('BOCOR JSON:', jsx.slice(Math.max(0, mm.index - 120), mm.index + 40));
+  ok(!SECRET.test(jsx), 'unduhan JSON tanpa nama model/penyedia');
+  const est = await m.evaluate(async () => (await fetch('/api/estimate?words=500&mode=smart')).text());
+  ok(!SECRET.test(est) && /"essential"/.test(est) && /"elite"/.test(est), 'API perkiraan memakai slug publik');
+
+  // Situs milik pemilik tidak pernah dipindai (pemilik, 8 Nov 2026: „Tolak seluruh scanning website2 yg sy sebutkan“).
+  await m.goto(BASE + '/app/periksa');
+  for (const u of ['https://xscan.es/', 'https://www.ulyah.com/artikel', 'https://app.axto.io/x', 'https://dawa.im/a']) {
+    const r = await m.evaluate(async (url) => { const x = await fetch('/api/extract', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url }) }); return { s: x.status, j: await x.json() }; }, u);
+    ok(r.s === 422 && r.j.code === 'protected' && !/axto|ulyah|xaa|tilawa|dawa|xad|1fr|ascan/i.test(r.j.error), `URL ${u} ditolak tanpa membuka daftar situs`);
+  }
+  const smr = await m.evaluate(async () => { const x = await fetch('/api/sitemap', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url: 'https://xaa.es/sitemap.xml' }) }); return { s: x.status, j: await x.json() }; });
+  ok(smr.s === 422 && smr.j.code === 'protected', 'impor sitemap situs pemilik ditolak');
+
+  // Menu portal di HP: tombol ✕ menutup, tombol beranda tersedia.
+  await m.setViewportSize({ width: 390, height: 844 });
+  await m.goto(BASE + '/app');
+  await m.click('.mobilebar [data-toggle="side"]');
+  ok(await m.evaluate(() => document.getElementById('side').classList.contains('open') && document.body.classList.contains('side-open')), 'menu HP terbuka');
+  await m.click('#side .side-close');
+  ok(await m.evaluate(() => !document.getElementById('side').classList.contains('open') && !document.body.classList.contains('side-open')), 'tombol ✕ menutup menu HP');
+  await m.click('.mobilebar [data-toggle="side"]');
+  await m.click('.side-backdrop', { position: { x: 375, y: 420 } });
+  ok(await m.evaluate(() => !document.getElementById('side').classList.contains('open')), 'ketuk di luar menu menutupnya');
+  ok((await m.locator('.mobilebar .home-btn[href="/"]').count()) === 1 && (await m.locator('#side .side-home').count()) === 1, 'tombol beranda di portal member');
+  await m.setViewportSize({ width: 1280, height: 900 });
+  await p.goto(BASE + '/admin');
+  ok((await p.locator('#side .side-home').count()) === 1 && (await p.locator('.mobilebar .home-btn').count()) === 1, 'tombol beranda di portal admin');
+
+  // Paket Enterprise & Super Enterprise: nominal tetap, token & halaman per mesin, diskon bawaan 0.
+  await m.goto(BASE + '/harga');
+  ok(/10\.000\.000/.test(await m.textContent('[data-plan="enterprise"] .price')) && /20\.000\.000/.test(await m.textContent('[data-plan="super-enterprise"] .price')), 'harga: Enterprise Rp10 jt & Super Enterprise Rp20 jt');
+  ok(Number((await m.textContent('[data-plan="enterprise"] [data-plan-tokens]')).replace(/\D/g, '')) > 0 && /Elite/.test(await m.textContent('[data-plan="enterprise"] .plan-pages')), 'Enterprise: token didapat & halaman per mesin termasuk Elite');
+  ok((await m.locator('.plan .pill.p-hum').count()) === 0, 'diskon bawaan kosong (0%)');
+  await m.goto(BASE + '/');
+  ok((await m.locator('[data-showcase] .showcase-card').count()) >= 8 && /Mulai bersama xscan\.es/.test(await m.textContent('[data-showcase]')), 'beranda: sorotan keunggulan + ajakan');
+
+  // Kurs harian: admin memperbarui → harga USD mengikuti.
+  await p.goto(BASE + '/admin/kurs');
+  await p.click('button[value=refresh]');
+  await p.waitForURL(/kurs\?ok=1/);
+  ok(/16\.23/.test(await p.textContent('[data-fx-card]')) && /test-0/.test(await p.textContent('[data-fx-card]')), 'kurs otomatis diperbarui dari sumber kurs');
+
+  // PayPal: admin CRUD terenkripsi, uji koneksi, webhook; member bayar paket tanpa unggah bukti.
+  await p.goto(BASE + '/admin/paypal');
+  await p.fill('[data-paypal-mode="sandbox"] input[name=clientId]', 'BAD_CLIENT_ID_0123456789_xyz');
+  await p.fill('[data-paypal-mode="sandbox"] input[name=secret]', 'BAD_SECRET_0123456789_abcdef');
+  await p.click('[data-paypal-mode="sandbox"] form:has(input[value=save]) button');
+  await p.waitForURL(/paypal\?ok=/);
+  ok(/•••• _xyz/.test(await p.textContent('[data-paypal-mode="sandbox"]')) && !/BAD_SECRET/.test(await p.content()), 'PayPal: kredensial tersimpan, hanya 4 karakter terakhir yang tampil');
+  await p.click('[data-paypal-mode="sandbox"] form:has(input[value=test]) button');
+  await p.waitForURL(/paypal\?err=/);
+  ok(/menolak/.test(await p.textContent('.flash.err')), 'PayPal: uji koneksi menolak kredensial salah');
+  await p.fill('[data-paypal-mode="sandbox"] input[name=clientId]', 'SANDBOX_TEST_CLIENT_ID_0123456789');
+  await p.fill('[data-paypal-mode="sandbox"] input[name=secret]', 'SANDBOX_TEST_SECRET_0123456789');
+  await p.click('[data-paypal-mode="sandbox"] form:has(input[value=save]) button');
+  await p.waitForURL(/paypal\?ok=/);
+  await p.click('[data-paypal-mode="sandbox"] form:has(input[value=test]) button');
+  await p.waitForURL(/paypal\?ok=/);
+  ok(/berhasil/.test(await p.textContent('.flash')), 'PayPal: uji koneksi sandbox berhasil');
+  await p.click('[data-paypal-mode="sandbox"] form:has(input[value=webhook]) button');
+  await p.waitForURL(/paypal\?ok=/);
+  ok((await p.inputValue('[data-paypal-mode="sandbox"] input[name=hookId]')) === 'WH-TEST-12345', 'PayPal: webhook terdaftar otomatis');
+  await p.check('[data-paypal-settings] input[name=enabled]');
+  await p.click('[data-paypal-settings] button');
+  await p.waitForURL(/paypal\?ok=/);
+  ok(/PayPal aktif/.test(await p.textContent('[data-paypal-settings]')), 'PayPal diaktifkan (sandbox)');
+
+  // Profil penagihan perusahaan → invoice.
+  await m.goto(BASE + '/app/pengaturan');
+  await m.fill('[data-billing-profile] input[name=company]', 'PT Literasi Nusantara');
+  await m.fill('[data-billing-profile] input[name=taxId]', '01.234.567.8-901.000');
+  await m.fill('[data-billing-profile] input[name=po]', 'PO-7788');
+  await m.click('[data-billing-profile] button');
+  await m.waitForURL(/pengaturan\?ok=1/);
+
+  await m.goto(BASE + '/app/token');
+  const balPP = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
+  const starterTok = Number((await m.textContent('[data-plan="starter"] [data-plan-tokens]')).replace(/\D/g, ''));
+  await m.click('[data-plan="starter"] button[value=PAYPAL]');
+  await m.waitForURL(/\/app\/pesanan\/ord_\w+\?ok=paid/, { timeout: 30000 });
+  ok((await m.locator('[data-paid]').count()) === 1 && (await m.locator('.stamp').count()) === 1, 'PayPal: kembali dari PayPal → capture → invoice LUNAS tanpa unggah bukti');
+  ok(/PT Literasi Nusantara/.test(await m.textContent('[data-bill-to]')) && /PO-7788/.test(await m.textContent('[data-bill-to]')), 'invoice memuat profil penagihan perusahaan');
+  ok(/1 USD = Rp/.test(await m.textContent('[data-fx-line]')) && /PayPal/.test(await m.textContent('[data-inv-paypal]')), 'invoice USD: kurs yang dipakai & ID transaksi PayPal');
+  await m.goto(BASE + '/app/token');
+  ok(Number(await m.getAttribute('.stat-hero .stat-v', 'data-count')) === balPP + starterTok, `PayPal: ${starterTok} token masuk otomatis`);
+
+  // Webhook: tanda tangan salah ditolak, benar diterima (diproses sekali).
+  const hook = async (sig, id) => (await fetch(BASE + '/api/paypal/webhook', { method: 'POST', headers: { 'content-type': 'application/json', 'paypal-transmission-sig': sig, 'paypal-auth-algo': 'SHA256withRSA', 'paypal-cert-url': 'https://api.sandbox.paypal.com/cert', 'paypal-transmission-id': id, 'paypal-transmission-time': new Date().toISOString() }, body: JSON.stringify({ id, event_type: 'PAYMENT.CAPTURE.COMPLETED', resource: { id: 'CAPX', custom_id: 'ord_nonexistent', amount: { value: '1.00', currency_code: 'USD' } } }) })).status;
+  ok((await hook('forged', 'WH-EVT-1')) === 400, 'webhook bertanda tangan palsu ditolak');
+  ok((await hook('valid-signature', 'WH-EVT-2')) === 200 && (await hook('valid-signature', 'WH-EVT-2')) === 200, 'webhook sah diterima, peristiwa ganda diabaikan');
+
+  // Deposit tanpa batas atas (IDR) dan deposit USD lewat transfer.
+  await m.goto(BASE + '/app/token');
+  await m.fill('[data-deposit-form] input[name=amount]', '1000000000');
+  await m.selectOption('[data-deposit-form] select[name=cur]', 'IDR');
+  await m.click('[data-deposit-form] button[value=transfer]');
+  await m.waitForURL(/\/app\/pesanan\/ord_/);
+  ok(/1\.000\.000\.000/.test(await m.textContent('.invoice .inv-total')), 'deposit Rp1 miliar diterima (tanpa batas atas)');
+  m.once('dialog', (d) => d.accept());
+  await m.click('form[action$="/batal"] button');
+  await m.waitForURL(/ok=cancel/);
+
+  // Konversi untuk mesin tujuan (nama publik), jadi pilihan bawaan formulir.
+  await m.goto(BASE + '/app/token');
+  ok((await m.locator('[data-engine-balance] .plan-pages li').count()) >= 4, 'kartu „Saldo Anda cukup untuk“ per mesin');
+  ok((await m.locator('[data-convert-engine] option[value=elite]').count()) === 1 && !SECRET.test(await m.textContent('[data-convert-engine]')), 'tukar deposit: pilihan mesin tujuan dengan nama publik');
+}
 
 // 5. Ponsel
 const mob = await ctx({ viewport: { width: 390, height: 844 }, isMobile: true });

@@ -25,6 +25,26 @@ export interface User {
   ref?: string;
   /** Hash IP terakhir (anti referal-diri), bukan IP mentahnya. */
   ipHash?: string;
+  /** Tingkat dari pembelian (1 Starter … 6 Super Enterprise) dan ubahan admin — MASTER-BLUEPRINT §28.3. */
+  tier?: number;
+  tierOverride?: number;
+  /** Negara terdeteksi saat daftar (ISO-2, dari jaringan Cloudflare) — bahasa & mata uang bawaan. */
+  country?: string;
+  /** Profil penagihan untuk invoice (perorangan/perusahaan, dalam & luar negeri) — MASTER-BLUEPRINT §28.5. */
+  billing?: BillingProfile;
+  /** Mesin tujuan yang dipilih saat menukar deposit (mode internal) — jadi pilihan bawaan formulir periksa (§28.7). */
+  preferredMode?: string;
+}
+
+export interface BillingProfile {
+  company?: string;
+  taxId?: string;
+  address?: string;
+  city?: string;
+  postal?: string;
+  country?: string;
+  email?: string;
+  po?: string;
 }
 
 export const userKey = (id: string) => `c/users/${id}.json`;
@@ -45,7 +65,7 @@ export async function getUser(store: Store, id: string): Promise<User | null> {
 
 export class EmailTakenError extends Error {}
 
-export async function createUser(store: Store, input: { email: string; name: string; password: string; lang: Lang; role?: Role; ref?: string; ipHash?: string }): Promise<User> {
+export async function createUser(store: Store, input: { email: string; name: string; password: string; lang: Lang; role?: Role; ref?: string; ipHash?: string; country?: string }): Promise<User> {
   const id = newId('usr');
   const email = input.email.trim().toLowerCase();
   const won = await store.createOnce(await emailGuardKey(email), { id });
@@ -59,6 +79,7 @@ export async function createUser(store: Store, input: { email: string; name: str
     pass: await hashPassword(input.password),
     sv: 1,
     createdAt: Date.now(),
+    country: input.country && /^[A-Z]{2}$/.test(input.country) ? input.country : undefined,
     ref: input.ref,
     ipHash: input.ipHash,
   };

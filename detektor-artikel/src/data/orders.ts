@@ -7,6 +7,7 @@
  * di `f/proofs/…` (bucket privat, hanya dilayani ke pemilik pesanan dan admin), antrean verifikasi di
  * `i/order-review/`.
  */
+import { B } from '../brand.ts';
 import type { Store } from '../lib/store.ts';
 import type { Lang } from '../lib/i18n.ts';
 import { fmtNum } from '../lib/i18n.ts';
@@ -56,6 +57,13 @@ export interface Order {
   listUsd?: number;
   status: OrderStatus;
   createdAt: number;
+  /** Cara bayar: transfer + unggah bukti (bawaan) atau PayPal (otomatis, tanpa unggah). */
+  method?: 'transfer' | 'paypal';
+  /** Kurs USD/IDR yang dipakai saat pesanan dibuat (dibekukan di invoice). */
+  fxRate?: number;
+  paypal?: { orderId?: string; mode?: 'sandbox' | 'live'; captureId?: string; status?: string; payerEmail?: string; amount?: string; refunded?: boolean; at?: number };
+  /** Profil penagihan pembeli saat pesanan dibuat (perusahaan, NPWP/VAT, alamat) — tampil di invoice. */
+  billTo?: import('./users.ts').BillingProfile;
   creditedAt?: number;
   reviewedAt?: number;
   cancelledAt?: number;
@@ -84,7 +92,7 @@ export function fmtMoney(L: Lang, cur: Currency, v: number): string {
 export function invoiceNo(o: Pick<Order, 'id' | 'createdAt'>): string {
   const d = new Date(o.createdAt + 7 * 3600_000); // WIB
   const ymd = `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
-  return `XS-${ymd}-${o.id.slice(-6).toUpperCase()}`;
+  return `${B.invoicePrefix}-${ymd}-${o.id.slice(-6).toUpperCase()}`;
 }
 
 /** Jenis berkas bukti dikenali dari isi (magic bytes), bukan dari nama atau tipe yang dikirim peramban. */
@@ -114,9 +122,11 @@ export interface PaymentSettings {
   /** Nomor WhatsApp untuk pertanyaan pembayaran (opsional, angka saja dengan kode negara). */
   whatsapp: string;
   note: string;
-  /** Deposit Rupiah minimum & maksimum per pesanan. */
+  /** Deposit Rupiah minimum & maksimum per pesanan; maksimum 0 = tanpa batas (pemilik, 8 Nov 2026). */
   minDepositIdr: number;
   maxDepositIdr: number;
+  /** Versi aturan deposit (2 = tanpa batas atas bawaan). */
+  depVersion?: number;
 }
 
 export const PAYMENT_DOC = 'k/payment.json';
@@ -140,7 +150,8 @@ export const DEFAULT_PAYMENT: PaymentSettings = {
   whatsapp: '',
   note: '',
   minDepositIdr: 50_000,
-  maxDepositIdr: 100_000_000,
+  maxDepositIdr: 0,
+  depVersion: 2,
 };
 
 export async function getPayment(store: Store): Promise<PaymentSettings> {
@@ -148,6 +159,12 @@ export async function getPayment(store: Store): Promise<PaymentSettings> {
   const p = { ...DEFAULT_PAYMENT, ...(s ?? {}) };
   if (!p.idrEnabled && !p.usdEnabled) p.idrEnabled = true;
   p.minDepositIdr = Math.max(10_000, Math.round(Number(p.minDepositIdr) || DEFAULT_PAYMENT.minDepositIdr));
-  p.maxDepositIdr = Math.max(p.minDepositIdr, Math.round(Number(p.maxDepositIdr) || DEFAULT_PAYMENT.maxDepositIdr));
+  // Pemilik, 8 Nov 2026: „tanpa limit, mau deposit 100jt-1milyar jg g apa2“ — batas lama Rp100 jt dihapus sekali.
+  if ((s?.depVersion ?? 1) < 2) {
+    p.maxDepositIdr = 0;
+    p.depVersion = 2;
+  }
+  const mx = Math.round(Number(p.maxDepositIdr) || 0);
+  p.maxDepositIdr = mx > 0 ? Math.max(p.minDepositIdr, mx) : 0;
   return p;
 }

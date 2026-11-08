@@ -45,7 +45,7 @@ function authShell(L: Lang, title: string, inner: ReturnType<typeof html>, side:
 const sideCopy = (L: Lang) => ({
   h: tr(L, 'Periksa tulisan dengan tenang.', 'Check writing with confidence.'),
   p: tr(L, 'Persen AI per kalimat, rubrik siap juri, laporan yang bisa dicetak — Bahasa Indonesia & English.', 'Per-sentence AI percentages, judge-ready rubrics, printable reports — Indonesian & English.'),
-  points: [tr(L, 'Bayar sesuai pemakaian — gagal tidak dipotong', 'Pay for what you use — failures are not deducted'), tr(L, 'Teks dienkripsi & terhapus otomatis', 'Texts encrypted & deleted automatically'), tr(L, 'Haiku → Sonnet → Opus, termurah dulu', 'Haiku → Sonnet → Opus, cheapest first')],
+  points: [tr(L, 'Bayar sesuai pemakaian — gagal tidak dipotong', 'Pay for what you use — failures are not deducted'), tr(L, 'Teks dienkripsi & terhapus otomatis', 'Texts encrypted & deleted automatically'), tr(L, 'Essential → Advanced → Expert, termurah dulu', 'Essential → Advanced → Expert, cheapest first')],
 });
 
 function loginForm(L: Lang, err?: string, email = ''): string {
@@ -225,7 +225,7 @@ auth.post('/daftar', async (c) => {
   }
   let user: User;
   try {
-    user = await createUser(store, { email: v.email, name: v.name, password, lang: f.lang === 'en' ? 'en' : 'id', ref, ipHash });
+    user = await createUser(store, { email: v.email, name: v.name, password, lang: f.lang === 'en' ? 'en' : 'id', ref, ipHash, country: (c.req.header('cf-ipcountry') ?? '').toUpperCase() });
   } catch (err) {
     if (err instanceof EmailTakenError) return c.html(signupForm(L, tr(L, 'E-mail sudah terdaftar. Silakan masuk.', 'E-mail already registered. Please log in.'), v), 409);
     throw err;

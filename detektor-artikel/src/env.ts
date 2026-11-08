@@ -13,6 +13,11 @@ export interface Env {
   OWNER_BOOTSTRAP_PASSWORD?: string;
   /** Hanya untuk uji lokal (server tiruan); tidak dipasang di produksi. */
   ANTHROPIC_BASE_URL?: string;
+  /** Kredensial PayPal awal (JSON {mode, clientId, secret}) dari alur kerja paypal-seed.yml — ditanam sekali ke R2 terenkripsi. */
+  PAYPAL_SEED?: string;
+  /** Hanya uji lokal: server PayPal / kurs tiruan. */
+  PAYPAL_BASE_URL?: string;
+  FX_URLS?: string;
   /** Domain kanonik setelah domain sendiri dipasang (mis. domain yang dibeli). Kosong = workers.dev, noindex. */
   CANONICAL_HOST?: string;
 }
