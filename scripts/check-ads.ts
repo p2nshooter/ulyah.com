@@ -96,7 +96,7 @@ for (const [tenant, pub] of Object.entries(EXPECTED)) {
 }
 check("dawa stays on its own original account", /dawa:\s*ORIGINAL_ACCOUNT/.test(adConfig));
 
-console.log("\n=== the sixteen stacked accounts (owner, 7 Nov 2026) are the same everywhere ===");
+console.log("\n=== the stacked accounts (owner, 7–8 Nov 2026) are the same everywhere ===");
 // adsense-stack.json at the root is the one list; apps/web and detektor-artikel (xscan.es) carry copies.
 const stackFile = JSON.parse(read("adsense-stack.json")) as { stack: string[]; primary: Record<string, string>; keep: string[] };
 const listIn = (src: string, name: string) => {
@@ -126,7 +126,7 @@ for (const d of stackFile.keep) {
   check(`${d} (keeps its existing code) has a primary outside or inside the stack`, Boolean(stackFile.primary[d]));
 }
 for (const [d, p] of Object.entries(stackFile.primary)) {
-  if (!stackFile.keep.includes(d)) check(`${d}: primary is one of the sixteen`, stackFile.stack.includes(p), p);
+  if (!stackFile.keep.includes(d)) check(`${d}: primary is one of the stacked accounts`, stackFile.stack.includes(p), p);
 }
 check(
   "ads.txt is built per site from the same constant (AD_ACCOUNTS, one line per account)",

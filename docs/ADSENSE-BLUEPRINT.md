@@ -658,6 +658,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 7 Nov | „Masukan di portal admin agar tau perkiraan di habiskan kuota gratis perminggu“ | ✅ xscan.es Admin → Biaya API: kartu „Prediksi biaya kuota gratis per minggu“ — jumlah member bisa diubah; per halaman, per member, token internal, per minggu dan per bulan (khas dan terburuk), nilai jual setara, titik impas paket termurah, cakupan anggaran harian; rumus `freeQuotaForecast` dari harga, kurs, satuan token, markup dan paket yang berlaku (uji unit + e2e) |
 | 7 Nov | „Perketat logika engine agar tidak bocor dan tidak melebar kemana2 … jgn sampe ada kebocoran biaya baik dari engine maupun dari kecurangan member“ · „Untuk gratis halaman sifatnya dynamic page ya, bisa d rubah dr portal admin, misal … 5 halaman perminggu, atau 10 halaman perbulan … pastikan ketika admin rubah, semua ikut berubah jgn sampai ada miss dan konflik“ | ✅ xscan.es: tag blok prompt di naskah/judul/penulis dipagari; genre & jenjang hanya dari daftar resmi; batas biaya harian ikut menghitung biaya terburuk pemeriksaan yang sedang berjalan; member dengan 3 pemeriksaan gagal berbiaya dalam 24 jam dijeda + audit. Kuota gratis = satu dokumen `k/free.json` (Admin → Kuota gratis: halaman per minggu/bulan, ukuran halaman, maks. per pemeriksaan, anggaran harian, zona waktu); prediksi biaya di Biaya API dan Kuota gratis membaca dokumen itu; konflik dinormalkan di server (maks. per pemeriksaan ≤ kuota). Uji unit 25/25, e2e lulus |
 | 7 Nov | „Gunakan beberapa bahasa, Indonesia Inggris Spanyol, Arab, German & Perancis, china dan India, dan untuk kemampuan engine multi bahasa seluruh dunia...pastikan ketika client merubah ke bhs lain, jgn pernah berubah sebelum d rubah manual oleh member di halaman manapun.. Catat bahwa project ini tidak hanya untuk Indonesia, tp global. Pembayaran lihat rekening di ulyah.com … upload manual client setelah membayar termasuk invoice... Hanya Indonesia defoul bahasa Indonesia, jika terdeteksi negara luar pastika defoultnya bahasa inggris“ | ✅ xscan.es: bahasa = pilihan manual (akun → cookie) → negara (ID → Indonesia, lainnya → Inggris), tombol bahasa menyimpan pilihan, crawler tidak dialihkan (e2e). Pembayaran sudah memakai rekening ulyah.com + invoice + unggah bukti (e2e). 📝 delapan bahasa antarmuka dan mesin multi-bahasa: `detektor-artikel/docs/MASTER-BLUEPRINT.md` §22 fase G1–G4 |
+| 8 Nov | „Ada yg ketinggalan, situs zufiq.de input semua kode adsense seperti di yg td drubah“ · „Termasuk tambahan situs zufiq.de td yg belum ke input ke website yg di tumpuk kode adsense nya... skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0“ | 🔄 §23.5 — akun ke-17 `ca-pub-8212039662308316` di tumpukan semua domain; zufiq.de ikut ditumpuk dengan kodenya sendiri (ca-pub-9338499658056112) tetap sebagai satu-satunya loader |
 | 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
 
 ---
@@ -1777,6 +1778,14 @@ Kode hanya membuka pintu verifikasi; penilaian „low value“ (§22) ditentukan
 2. §24: 70 artikel per situs, versi Inggris yang ditulis (bukan terjemahan mesin), niche SEO yang tegas, tautan antar-
    situs yang relevan.
 3. Ajukan satu per satu, setelah halaman terindeks dan ada kunjungan organik (§22.2 D).
+
+### 23.5 Akun ke-17 dan zufiq.de (pemilik, 8 Nov 2026)
+
+- `ca-pub-8212039662308316` masuk tumpukan sebagai akun ke-17 di **semua** domain: satu tag meta dan satu baris ads.txt
+  per domain. Ini kode lama qurm.de yang sempat dihapus 7 Nov; sekarang kembali lewat tumpukan.
+- zufiq.de ikut ditumpuk. Kodenya sendiri (`ca-pub-9338499658056112`) tetap menjadi akun utama — satu-satunya loader —
+  seperti 11 domain *keep* lainnya, jadi tinjauan AdSense yang sedang berjalan tidak terputus.
+- Jumlah akun per domain sekarang 17 (akun utama salah satu tumpukan) atau 18 (akun utama di luar tumpukan).
 
 ### 23.4 Verifikasi Sedo: jenius.es, xscan.es, ascan.es
 

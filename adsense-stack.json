@@ -5,9 +5,9 @@
     "accounts(domain) = [primary[domain], ...stack] without duplicates, in that order.",
     "keep: the owner's list of domains whose existing code stays ('kode adsense yg sudah ada biarkan saja, jgn di hapus, tambahin dengan kode adsense baru'); their primary is that existing code. Every other domain's old code is removed ('Domain yg lain kode adsensenya boleh di hapus ikuti dengan perintah terbaru') and its primary is one of the 16 stacked accounts.",
     "Copies: apps/web/src/lib/ad-config.ts and detektor-artikel/src/pages/ui.ts hold the same values (scripts/check-ads.ts compares them with this file); the partner repositories (axto.us, axtodev, guardian-ai, xaa, Jai, Lie, oldco.in, profity.in) carry their own copy; scripts/site-audit.mjs checks every live domain against this file.",
-    "Publisher ids are public by nature (every ads.txt shows them). dawa.es is not the owner's and is never listed. zufiq.de is not in the owner's list of 7 Nov 2026 and keeps its single account."
+    "8 Nov 2026 (owner): 'skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0' — added as the 17th stacked account; and 'Termasuk tambahan situs zufiq.de td yg belum ke input' — zufiq.de joins the stack and keeps its own code (ca-pub-9338499658056112) as the only loader. Publisher ids are public by nature (every ads.txt shows them). dawa.es is not the owner's and is never listed."
   ],
-  "since": "2026-11-07",
+  "since": "2026-11-08",
   "stack": [
     "ca-pub-9915280882234592",
     "ca-pub-9354298681597606",
@@ -24,7 +24,8 @@
     "ca-pub-9433622530024776",
     "ca-pub-6146217038829045",
     "ca-pub-2493615451319531",
-    "ca-pub-5693981744147503"
+    "ca-pub-5693981744147503",
+    "ca-pub-8212039662308316"
   ],
   "keep": [
     "axto.us",
@@ -37,19 +38,18 @@
     "lie.skin",
     "qkb.es",
     "rough.lat",
-    "saved.lat"
+    "saved.lat",
+    "zufiq.de"
   ],
   "primary": {
     "axto.io": "ca-pub-9915280882234592",
     "xaa.es": "ca-pub-9354298681597606",
     "xscan.es": "ca-pub-9354298681597606",
-
     "ulyah.com": "ca-pub-5092800160376210",
     "tilawa.de": "ca-pub-6560360898389273",
     "1fr.fr": "ca-pub-5928074389292014",
     "xad.es": "ca-pub-5517446616694631",
     "dawa.im": "ca-pub-9354298681597606",
-
     "byodd.de": "ca-pub-1480130604232181",
     "byoxy.de": "ca-pub-6146217038829045",
     "byoy.de": "ca-pub-5092800160376210",
@@ -64,31 +64,25 @@
     "zoevian.de": "ca-pub-5928074389292014",
     "zolun.de": "ca-pub-6016479123891586",
     "zuvik.de": "ca-pub-4613976964728693",
-
     "axto.dev": "ca-pub-6381187608934514",
-
     "dawo.es": "ca-pub-7349356139063654",
     "qkb.es": "ca-pub-3121033501099075",
     "rough.es": "ca-pub-4906992051458194",
     "xko.es": "ca-pub-4906992051458194",
     "ascan.es": "ca-pub-9433622530024776",
     "jenius.es": "ca-pub-6146217038829045",
-
     "oldco.in": "ca-pub-6293576511807510",
     "profity.in": "ca-pub-2493615451319531",
-
     "dai.lat": "ca-pub-2493615451319531",
     "jai.lat": "ca-pub-5693981744147503",
     "pab.lat": "ca-pub-7250589269548267",
     "rough.lat": "ca-pub-9246828178432700",
     "saved.lat": "ca-pub-9246828178432700",
-
     "crone.skin": "ca-pub-9653574958783349",
     "lie.skin": "ca-pub-2271696914011881",
-
     "axto.us": "ca-pub-2990015102981265",
-
     "odaily.xyz": "ca-pub-9221781326457936",
-    "xdaily.xyz": "ca-pub-5693981744147503"
+    "xdaily.xyz": "ca-pub-5693981744147503",
+    "zufiq.de": "ca-pub-9338499658056112"
   }
 }

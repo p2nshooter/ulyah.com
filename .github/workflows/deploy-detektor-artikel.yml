@@ -133,7 +133,7 @@ jobs:
           curl -sf "$URL/api/health"
           ads=$(curl -sf "$URL/ads.txt")
           echo "ads.txt: $ads"
-          # 7 Nov 2026: 16 akun ditumpuk (adsense-stack.json di akar repo) — satu baris ads.txt dan satu tag meta per akun,
+          # 7–8 Nov 2026: akun-akun ditumpuk (adsense-stack.json di akar repo) — satu baris ads.txt dan satu tag meta per akun,
           # akun utama lebih dulu; satu loader (akun utama). docs/ADSENSE-BLUEPRINT.md §23.
           STACK="$GITHUB_WORKSPACE/adsense-stack.json"
           want=$(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const a=[...new Set([s.primary["xscan.es"],...s.stack])];process.stdout.write(a.map(c=>"google.com, "+c.replace(/^ca-/,"")+", DIRECT, f08c47fec0942fa0").join("\n"))' "$STACK")
@@ -150,5 +150,5 @@ jobs:
             echo ""
             echo "- Situs publik: $URL"
             [ -n "$WORKERS_URL" ] && [ "$WORKERS_URL" != "$URL" ] && echo "- Alamat cadangan: $WORKERS_URL"
-            echo "- AdSense: loader ca-pub-9354298681597606 + tag meta dan ads.txt untuk 16 akun ✅"
+            echo "- AdSense: loader ca-pub-9354298681597606 + tag meta dan ads.txt untuk semua akun di adsense-stack.json ✅"
           } >> "$GITHUB_STEP_SUMMARY"

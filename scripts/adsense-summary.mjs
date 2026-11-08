@@ -21,7 +21,7 @@ const REPO = {
   "lie.skin": "Lie · src/lib/site.ts + public/ads.txt",
   "axto.us": "axto.us · sites/axto.us (engine)",
   "ascan.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat",
-  "jenius.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat (blueprint §25)",
+  "jenius.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat (blueprint §26)",
 };
 const repoOf = (d) => REPO[d] || `ulyah.com · sites/${d} (engine)`;
 const pub = (c) => c.replace(/^ca-/, "");
@@ -41,19 +41,19 @@ L.push(" saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 websi
 L.push(" adsense dari akun yg berbeda“.");
 L.push("");
 L.push(" Cara menumpuk (rapi, tidak bentrok):");
-L.push("   • ads.txt   : SATU BARIS PER AKUN (akun utama dulu, lalu 16 akun). Boleh banyak baris.");
+L.push(`   • ads.txt   : SATU BARIS PER AKUN (akun utama dulu, lalu ${S.stack.length} akun). Boleh banyak baris.`);
 L.push("   • tag meta  : SATU TAG PER AKUN di <head> setiap halaman, jadi setiap akun bisa");
 L.push("                 memverifikasi situs dengan tag meta atau dengan ads.txt.");
 L.push("   • loader    : HANYA SATU per halaman, yaitu akun utama domain itu. Google mengabaikan");
 L.push("                 tag kepala AdSense kedua di halaman yang sama („Only one AdSense head tag");
-L.push("                 supported per page“), jadi 16 loader hanya menambah error, bukan iklan.");
+L.push("                 supported per page“), jadi banyak loader hanya menambah error, bukan iklan.");
 L.push("   • Auto ads saja, tanpa slot manual. Sumber tunggal: adsense-stack.json di repo ulyah.com.");
 L.push("");
-L.push("-".repeat(69), " A. 16 AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik)", "-".repeat(69), "");
+L.push("-".repeat(69), ` A. ${S.stack.length} AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik; ke-17 ditambah 8 Nov 2026)`, "-".repeat(69), "");
 S.stack.forEach((c, i) => L.push(` ${String(i + 1).padStart(2)}. ${c}`));
-L.push("", " Baris ads.txt ke-16 akun (sama di setiap domain):");
+L.push("", ` Baris ads.txt ke-${S.stack.length} akun (sama di setiap domain):`);
 for (const c of S.stack) L.push(`   ${ads(c)}`);
-L.push("", " Tag meta ke-16 akun (sama di setiap domain):");
+L.push("", ` Tag meta ke-${S.stack.length} akun (sama di setiap domain):`);
 for (const c of S.stack) L.push(`   ${meta(c)}`);
 L.push("", "-".repeat(69), " B. PER DOMAIN: akun utama (satu-satunya loader) + akun tambahan", "-".repeat(69), "");
 for (const d of domains) {
@@ -62,19 +62,18 @@ for (const d of domains) {
   const inStack = S.stack.includes(p);
   const all = [...new Set([p, ...S.stack])];
   L.push(`[${d}]   ${all.length} akun   (${repoOf(d)})`);
-  L.push(`    akun utama : ${p}${kept ? "   ← kode lama, TETAP (daftar keep pemilik)" : inStack ? "   ← salah satu dari 16" : ""}`);
+  L.push(`    akun utama : ${p}${kept ? "   ← kode lama, TETAP (daftar keep pemilik)" : inStack ? "   ← salah satu akun tumpukan" : ""}`);
   L.push(`    loader     : ${loader(p)}`);
   if (!inStack) {
-    L.push(`    ads.txt    : ${ads(p)}   + 16 baris di bagian A`);
-    L.push(`    meta       : ${meta(p)}   + 16 tag di bagian A`);
+    L.push(`    ads.txt    : ${ads(p)}   + ${S.stack.length} baris di bagian A`);
+    L.push(`    meta       : ${meta(p)}   + ${S.stack.length} tag di bagian A`);
   } else {
-    L.push(`    ads.txt    : 16 baris di bagian A (akun utama di baris pertama)`);
-    L.push(`    meta       : 16 tag di bagian A (akun utama lebih dulu)`);
+    L.push(`    ads.txt    : ${S.stack.length} baris di bagian A (akun utama di baris pertama)`);
+    L.push(`    meta       : ${S.stack.length} tag di bagian A (akun utama lebih dulu)`);
   }
   L.push("");
 }
 L.push("-".repeat(69), " C. TIDAK IKUT DITUMPUK", "-".repeat(69), "");
-L.push("  zufiq.de     ca-pub-9338499658056112   (tidak ada di daftar pemilik 7 Nov 2026 — satu akun, tidak diubah)");
 L.push("  dawa.es      ca-pub-6371903555702163   (sudah milik orang lain — tidak diubah)");
 L.push("");
 L.push("-".repeat(69), " Catatan", "-".repeat(69));
@@ -82,13 +81,13 @@ L.push("  • Kode lama yang DIHAPUS 7 Nov 2026 (domain di luar daftar keep, per
 L.push("    kode adsensenya boleh di hapus ikuti dengan perintah terbaru“): axto.io 8991272269211824,");
 L.push("    xaa.es 6284085719914185, tilawa.de 5944786950535069, 1fr.fr 4548005919629272,");
 L.push("    byodd.de 2228462932360966, byoy.de 1768325549147657, nexvilo.de 6908951782430508,");
-L.push("    qulen.de 7516944260248026, qurm.de 8212039662308316, velnixo.de 7345352440829958,");
+L.push("    qulen.de 7516944260248026, qurm.de 8212039662308316 (kembali 8 Nov 2026 sebagai akun tumpukan ke-17), velnixo.de 7345352440829958,");
 L.push("    zavik.de 5254913739159445, rough.es 4504974645924459, dai.lat 8469557036744946,");
 L.push("    jai.lat 6019445914743449.");
 L.push("  • Riwayat kode sebelum 7 Nov 2026: docs/ADSENSE-CODES.md.");
 L.push("  • Kebijakan AdSense: satu orang hanya boleh punya SATU akun AdSense. Banyak akun di satu situs");
 L.push("    diperbolehkan bila akun-akun itu milik orang/badan yang berbeda (mis. situs bagi hasil).");
-L.push("    Jika ke-16 akun milik satu orang yang sama, Google dapat menutup akun-akun tambahan.");
+L.push("    Jika akun-akun tumpukan milik satu orang yang sama, Google dapat menutup akun-akun tambahan.");
 L.push("");
 writeFileSync(new URL("../docs/ADSENSE-SEMUA-DOMAIN.txt", import.meta.url), L.join("\n"));
 console.log(`wrote docs/ADSENSE-SEMUA-DOMAIN.txt (${domains.length} domains)`);
