@@ -12,6 +12,9 @@ import { wibDate } from './data/settings.ts';
 import { runPurge } from './data/purge.ts';
 import { repairDepositOps } from './data/deposit.ts';
 
+/** Pemeriksaan yang belum selesai 2 jam setelah dibuat dihentikan oleh sweep (token/kuota kembali utuh). */
+export const CHECK_DEADLINE_MS = 2 * 3600_000;
+
 export async function sweep(env: Env, maxSteps = 4): Promise<number> {
   const store = new Store(env.DATA);
   const { items } = await store.list<{ uid: string; at: number }>('i/active/', { limit: 100 });
@@ -32,6 +35,19 @@ export async function sweep(env: Env, maxSteps = 4): Promise<number> {
     }
     // Hanya yang ditinggal: tidak ada sewa aktif dan tidak berubah 90 detik terakhir.
     if (doc.lease > now || now - doc.updatedAt < 90_000) continue;
+    // Batas waktu total (MASTER-BLUEPRINT §9.5, §21): lebih dari 2 jam belum selesai → dihentikan, seluruh token/kuota kembali.
+    if (now - doc.createdAt > CHECK_DEADLINE_MS) {
+      const failed = await store.cas<CheckDoc>(checkKey(doc.id), (cur) =>
+        cur && cur.stage !== 'done' && cur.stage !== 'failed' && cur.lease <= Date.now()
+          ? { ...cur, stage: 'failed', lease: 0, error: { code: 'timeout', msg: 'Pemeriksaan melewati batas waktu 2 jam dan dihentikan. Token Anda dikembalikan utuh.' }, updatedAt: Date.now() }
+          : null,
+      );
+      if (failed && failed.stage === 'failed') {
+        await settleCheck(env, store, failed);
+        if (failed.batchId) await settleBatch(env, store, failed.batchId);
+      }
+      continue;
+    }
     const after = await advance(env, doc.id);
     steps += 1;
     if (after?.batchId && (after.stage === 'done' || after.stage === 'failed')) await settleBatch(env, store, after.batchId);

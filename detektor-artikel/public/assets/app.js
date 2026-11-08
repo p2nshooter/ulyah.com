@@ -144,11 +144,81 @@
     }
     throw new Error('docx');
   }
+  /* ── berkas → teks, semuanya di peramban (berkas tidak pernah dikirim ke server) ──
+   * MASTER-BLUEPRINT §7: DOCX, PDF, RTF, HTML, TXT/MD; tanda tangan berkas (magic bytes) dicek, maks. 20 MB. */
+  var MAX_FILE = 20 * 1024 * 1024;
+  async function headBytes(file, n) { return new Uint8Array(await file.slice(0, n).arrayBuffer()); }
+  var startsWith = function (b, sig) { for (var i = 0; i < sig.length; i++) if (b[i] !== sig.charCodeAt(i)) return false; return true; };
+  var badFile = function (kind) { return new Error(T('Berkas rusak atau bukan ' + kind + '.', 'The file is damaged or not a ' + kind + '.')); };
+  function tidyText(s) {
+    return s.replace(/\r\n?/g, '\n').replace(/[ \t ]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').replace(/[ \t ]{2,}/g, ' ').trim();
+  }
+  function htmlText(src) {
+    var doc = new DOMParser().parseFromString(src, 'text/html');
+    doc.querySelectorAll('script,style,noscript,template,svg,iframe,form,nav,header,footer,aside,figure').forEach(function (n) { n.remove(); });
+    var root = doc.querySelector('article') || doc.querySelector('main') || doc.body;
+    if (!root) return '';
+    var blocks = root.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,blockquote,pre,td,dd,dt');
+    var out = [];
+    if (blocks.length) blocks.forEach(function (b) { if (!b.querySelector('p,li,blockquote')) { var t = b.textContent.replace(/\s+/g, ' ').trim(); if (t) out.push(t); } });
+    else out.push(root.textContent);
+    return tidyText(out.join('\n\n'));
+  }
+  function rtfText(src) {
+    if (src.slice(0, 5) !== '{\\rtf') throw badFile('RTF');
+    var s = src.replace(/\{\\\*[^{}]*(\{[^{}]*\}[^{}]*)*\}/g, '')
+      .replace(/\{\\(fonttbl|colortbl|stylesheet|info|listtable|listoverridetable|rsidtbl|generator|xmlnstbl)[\s\S]*?\}\s*(?=[\\{])/g, '');
+    var cp1252 = { 0x80: '€', 0x82: '‚', 0x84: '„', 0x85: '…', 0x91: '‘', 0x92: '’', 0x93: '“', 0x94: '”', 0x96: '–', 0x97: '—' };
+    s = s.replace(/\\u(-?\d+)\??/g, function (_, n) { var c = Number(n); if (c < 0) c += 65536; return String.fromCharCode(c); })
+      .replace(/\\'([0-9a-f]{2})/gi, function (_, h) { var c = parseInt(h, 16); return cp1252[c] || String.fromCharCode(c); })
+      .replace(/\\(par|pard|sect|page)\b ?/g, function (m, w) { return w === 'pard' ? '' : '\n\n'; })
+      .replace(/\\line\b ?/g, '\n').replace(/\\tab\b ?/g, '\t')
+      .replace(/\\[{}\\]/g, function (m) { return m.slice(1); })
+      .replace(/\\[a-z]+-?\d* ?/gi, '')
+      .replace(/[{}]/g, '');
+    return tidyText(s);
+  }
+  var pdfLib = null;
+  async function pdfText(file) {
+    if (!startsWith(await headBytes(file, 5), '%PDF-')) throw badFile('PDF');
+    if (!pdfLib) {
+      pdfLib = await import('/assets/vendor/pdfjs/pdf.min.mjs');
+      pdfLib.GlobalWorkerOptions.workerSrc = '/assets/vendor/pdfjs/pdf.worker.min.mjs';
+    }
+    var pdf;
+    try { pdf = await pdfLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise; }
+    catch (e) { throw (e && e.name === 'PasswordException') ? new Error(T('PDF terkunci sandi — buka kuncinya dulu.', 'The PDF is password-protected — unlock it first.')) : badFile('PDF'); }
+    if (pdf.numPages > 300) throw new Error(T('PDF lebih dari 300 halaman — pecah dulu.', 'The PDF has more than 300 pages — split it first.'));
+    var pages = [];
+    for (var p = 1; p <= pdf.numPages; p++) {
+      var tc = await (await pdf.getPage(p)).getTextContent();
+      var line = '', lines = [];
+      tc.items.forEach(function (it) { line += it.str; if (it.hasEOL) { lines.push(line); line = ''; } else if (it.str && !/\s$/.test(it.str)) line += ' '; });
+      if (line.trim()) lines.push(line);
+      // Baris yang tidak diakhiri tanda titik/tanya/seru disambung (paragraf PDF dipotong per baris tata letak).
+      var para = '', paras = [];
+      lines.map(function (l) { return l.replace(/\s+/g, ' ').trim(); }).forEach(function (l) {
+        if (!l) { if (para) { paras.push(para); para = ''; } return; }
+        para = para ? (/-$/.test(para) ? para.slice(0, -1) + l : para + ' ' + l) : l;
+        if (/[.!?:”"»)]$/.test(l) && l.length < 75) { paras.push(para); para = ''; }
+      });
+      if (para) paras.push(para);
+      pages.push(paras.join('\n\n'));
+    }
+    var text = tidyText(pages.join('\n\n'));
+    if (words(text) < 30) throw new Error(T('Teks PDF tidak terbaca (mungkin hasil pindaian/gambar). Tempel teksnya, atau unggah .docx.', 'No readable text in the PDF (it may be a scan/image). Paste the text, or upload a .docx.'));
+    return text;
+  }
   async function fileText(file) {
     var name = file.name.toLowerCase();
-    if (name.endsWith('.docx')) return docxText(await file.arrayBuffer());
+    if (file.size > MAX_FILE) throw new Error(T('Berkas lebih dari 20 MB.', 'The file is larger than 20 MB.'));
+    if (file.size === 0) throw new Error(T('Berkas kosong.', 'The file is empty.'));
+    if (name.endsWith('.docx')) { if (!startsWith(await headBytes(file, 2), 'PK')) throw badFile('DOCX'); return docxText(await file.arrayBuffer()); }
+    if (name.endsWith('.pdf')) return pdfText(file);
+    if (name.endsWith('.rtf')) return rtfText(await file.text());
+    if (name.endsWith('.html') || name.endsWith('.htm')) return htmlText(await file.text());
     if (name.endsWith('.txt') || name.endsWith('.md')) return file.text();
-    throw new Error(T('Format belum didukung — gunakan .docx atau .txt.', 'Unsupported format — use .docx or .txt.'));
+    throw new Error(T('Format belum didukung — gunakan .docx, .pdf, .rtf, .html atau .txt.', 'Unsupported format — use .docx, .pdf, .rtf, .html or .txt.'));
   }
   var words = function (s) { var m = (s || '').match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu); return m ? m.length : 0; };
   function parseName(fname) {
@@ -186,6 +256,8 @@
           $('#estLo').textContent = fmt(e.min); $('#estTy').textContent = fmt(e.typical); $('#estRes').textContent = fmt(e.reserve);
           if (e.modes) $$('[data-mode-est]', form).forEach(function (el) { var x = e.modes[el.getAttribute('data-mode-est')]; if (x) el.textContent = '≈ ' + fmt(x.min) + '–' + fmt(x.typical) + ' token · ' + T('dipesan ', 'reserved ') + fmt(x.reserve); });
           if (pg) pg.textContent = String(e.pages).replace('.', LANG === 'en' ? '.' : ',');
+          var sh = form.querySelector('[data-est-short]');
+          if (sh) { sh.hidden = !(e.short > 0); var shn = sh.querySelector('[data-est-short-n]'); if (shn) shn.textContent = fmt(e.short); }
           if (box) { box.classList.add('updated'); setTimeout(function () { box.classList.remove('updated'); }, 600); }
         }).catch(function () { /* diam */ });
       }, 350);
@@ -302,6 +374,29 @@
       txt.textContent = bi18n.done;
       setTimeout(function () { location.reload(); }, 800);
     }
+    /* Impor dari sitemap (MASTER-BLUEPRINT §7): daftar URL dari server, lalu setiap artikel diambil server satu per satu
+     * (3 bersamaan) dan masuk antrean; yang gagal dicatat dengan alasannya. Mengambil teks tidak memotong token. */
+    var smBtn = $('[data-sitemap-run]', batch), smIn = $('[data-sitemap-url]', batch), smLog = $('[data-sitemap-log]', batch);
+    if (smBtn && smIn) smBtn.addEventListener('click', async function () {
+      var u = smIn.value.trim(); if (!u) { smIn.focus(); return; }
+      smBtn.setAttribute('aria-busy', 'true'); smBtn.disabled = true; smLog.hidden = false; smLog.textContent = bi18n.smLoading;
+      try {
+        var sm = await api('/api/sitemap', { url: u });
+        var urls = sm.urls, ok = 0, bad = [], idx = 0;
+        smLog.textContent = bi18n.smFound.replace('{n}', urls.length) + (sm.skipped ? ' · ' + bi18n.smSkipped.replace('{n}', sm.skipped) : '');
+        async function worker() {
+          while (idx < urls.length) {
+            var url = urls[idx++];
+            try { var a = await api('/api/extract', { url: url }); queue.push({ title: a.title || url, author: a.author || '', text: a.text, words: a.words }); ok++; renderQueue(); }
+            catch (e) { bad.push(url + ' — ' + e.message); if (e.status === 429) { idx = urls.length; } }
+            smLog.textContent = bi18n.smProgress.replace('{ok}', ok).replace('{bad}', bad.length).replace('{n}', urls.length);
+          }
+        }
+        await Promise.all([worker(), worker(), worker()]);
+        if (bad.length) { var ul = document.createElement('ul'); ul.className = 'sm-errors'; bad.slice(0, 50).forEach(function (b) { var li = document.createElement('li'); li.textContent = b; ul.appendChild(li); }); smLog.appendChild(ul); }
+      } catch (e) { smLog.textContent = '⚠ ' + e.message; }
+      smBtn.removeAttribute('aria-busy'); smBtn.disabled = false;
+    });
     var runBtn = $('[data-run]', batch);
     if (runBtn) runBtn.addEventListener('click', async function () {
       bErr.hidden = true;

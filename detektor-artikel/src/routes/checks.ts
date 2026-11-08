@@ -5,18 +5,21 @@ import { Store, invTs } from '../lib/store.ts';
 import { schedulePurge } from '../data/purge.ts';
 import { newId, seal } from '../lib/crypto.ts';
 import { tr, GENRES, LEVELS, type Lang } from '../lib/i18n.ts';
-import { countWords } from '../engine/preprocess.ts';
+import { countWords, preprocess } from '../engine/preprocess.ts';
 import { advance, checkKey, textKey, type CheckDoc, type ReportSummary, reportKey } from '../engine/cascade.ts';
 import { getEngine, getBilling, spendToday, getFree, freeSpendToday, type FreeSettings } from '../data/settings.ts';
 import { normalPages, firstPages, freeStatus, reserveFreePages, releaseFreePages, FreeQuotaError, isDisposable, networkAllows, networkOf, periodOf } from '../data/free.ts';
 import { sha256Hex } from '../lib/crypto.ts';
-import { reserve, refund, InsufficientError, type Reservation } from '../data/wallet.ts';
+import { reserve, refund, balanceOf, InsufficientError, type Reservation } from '../data/wallet.ts';
 import { estimateTokens, hardBoundUsd, freeWorstUsd, isMode, MODES, type Mode } from '../engine/pricing.ts';
 import { isAdmin, type User } from '../data/users.ts';
 import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { limit, count } from '../lib/ratelimit.ts';
-import { fetchArticle, InputUrlError } from '../lib/extract.ts';
+import { fetchArticle, collectSitemap, InputUrlError } from '../lib/extract.ts';
+import { getControls, addMemberDay, SpendLimitError } from '../data/controls.ts';
+import { applyRouter } from '../engine/router.ts';
+import { wibDate } from '../data/settings.ts';
 
 export const checks = new Hono<HonoEnv>();
 
@@ -95,9 +98,13 @@ export async function createCheck(
   user: User,
   inputIn: NewCheck,
   L: Lang,
-  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
+  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean; noCache?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
 ): Promise<CheckDoc> {
   if (!env.MASTER_KEY) throw new CheckInputError(500, 'MASTER_KEY belum dipasang.');
+  const controls = await getControls(store);
+  if (controls.emergencyStop && !opts.bench) {
+    throw new CheckInputError(503, tr(L, `Pemeriksaan sedang dihentikan sementara oleh admin.${controls.stopNote ? ` ${controls.stopNote}` : ''} Saldo Anda aman.`, `Checks are paused by the admin for now.${controls.stopNote ? ` ${controls.stopNote}` : ''} Your balance is safe.`));
+  }
   let input = inputIn;
   // ── Cek Gratis (docs/MASTER-BLUEPRINT.md §20): kuota halaman normal dari Admin → Kuota gratis, Haiku saja ──
   let freeSet: FreeSettings | null = null;
@@ -135,7 +142,15 @@ export async function createCheck(
   if (words < 30) throw new CheckInputError(400, tr(L, 'Teks terlalu pendek (minimal 30 kata).', 'Text too short (minimum 30 words).'));
   const maxWords = isAdmin(user) ? 60_000 : 20_000;
   if (words > maxWords) throw new CheckInputError(400, tr(L, `Teks terlalu panjang (maks. ${maxWords} kata per pemeriksaan).`, `Text too long (max ${maxWords} words per check).`));
-  const eng = await getEngine(store);
+  // Cache hasil (MASTER-BLUEPRINT §8.4, §20.2): naskah + pengaturan yang sama dari akun yang sama dalam 7 hari → laporan
+  // lama dipakai lagi, tanpa token dan tanpa halaman kuota (tidak membayar AI dua kali untuk jawaban yang sama).
+  if (!opts.bench && !opts.batchId && !opts.prepaid && !opts.free && !opts.noCache) {
+    const hit = await cachedCheck(store, user.id, input, Boolean(free));
+    if (hit) return hit;
+  }
+  const routedEng = applyRouter(await getEngine(store), controls);
+  if (routedEng.blocked.length) throw new CheckInputError(503, tr(L, 'Tidak ada mesin AI aktif yang mampu untuk pemeriksaan ini. Hubungi admin.', 'No active AI engine can run this check. Contact the admin.'));
+  const eng = routedEng.eng;
   // Batas biaya harian menghitung juga biaya TERBURUK semua pemeriksaan yang sedang berjalan (biaya mereka baru dicatat
   // saat selesai), supaya banyak pemeriksaan yang dibuat bersamaan tidak bisa melewati batas.
   const worstUsd = free && freeSet ? freeWorstUsd(eng, freeSet, free.pages) : hardBoundUsd(words, input.mode, Boolean(input.rubricId), eng);
@@ -169,6 +184,18 @@ export async function createCheck(
         const st = periodOf(freeSet);
         throw new FreeChoiceError(tr(L, 'Sisa kuota gratis berubah. Pilih lagi.', 'The free quota left has changed. Choose again.'), { pages: free.pages, remaining: err.remaining, quota: freeSet.pages, maxPerCheck: freeSet.maxPerCheck, period: freeSet.period, resetAt: st.resetAt, allowedNow: Math.min(err.remaining, freeSet.maxPerCheck), wordsPerPage: freeSet.wordsPerPage });
       }
+      throw err;
+    }
+  }
+  // Batas belanja (Admin → Kendali biaya): per pemeriksaan dan per member per hari, dicek sebelum token dipesan.
+  if (charge && controls.maxTokensPerCheck > 0 && est.reserve > controls.maxTokensPerCheck) {
+    throw new CheckInputError(400, tr(L, `Pemeriksaan ini memesan ${est.reserve} token, di atas batas ${controls.maxTokensPerCheck} token per pemeriksaan. Pendekkan naskah atau pilih mesin yang lebih hemat.`, `This check reserves ${est.reserve} tokens, above the limit of ${controls.maxTokensPerCheck} tokens per check. Shorten the text or choose a cheaper engine.`));
+  }
+  if (charge && controls.memberDailyTokens > 0) {
+    try {
+      await addMemberDay(store, user.id, wibDate(), est.reserve, controls.memberDailyTokens);
+    } catch (err) {
+      if (err instanceof SpendLimitError) throw new CheckInputError(429, tr(L, `Batas harian ${err.limit} token per member tercapai (sudah dipesan ${err.used}). Coba lagi besok.`, `The daily limit of ${err.limit} tokens per member is reached (${err.used} reserved). Try again tomorrow.`));
       throw err;
     }
   }
@@ -309,11 +336,45 @@ checks.post('/api/extract', async (c) => {
   const user = c.get('user');
   const L = portalLang(c);
   if (!user) return c.json({ error: 'login' }, 401);
-  if (!(await limit(c.env, `extract:${user.id}`, 30, 3600))) return c.json({ error: tr(L, 'Terlalu banyak pengambilan URL per jam.', 'Too many URL fetches per hour.') }, 429);
+  if (!(await limit(c.env, `extract:${user.id}`, 150, 3600))) return c.json({ error: tr(L, 'Terlalu banyak pengambilan URL per jam.', 'Too many URL fetches per hour.') }, 429);
   const body = (await c.req.json().catch(() => ({}))) as { url?: unknown };
   try {
     const a = await fetchArticle(String(body.url ?? '').slice(0, 2000));
     return c.json({ url: a.url, title: a.title.slice(0, 200), author: a.author.slice(0, 120), published: a.published.slice(0, 40), lang: a.lang.slice(0, 12), words: a.words, text: a.text.slice(0, 200_000) });
+  } catch (err) {
+    if (err instanceof InputUrlError) return c.json({ error: L === 'en' ? URL_ERR_EN[err.code] : err.message, code: err.code }, 422);
+    throw err;
+  }
+});
+
+export const RESULT_CACHE_DAYS = 7;
+
+async function cachedCheck(store: Store, uid: string, input: NewCheck, free: boolean): Promise<CheckDoc | null> {
+  const hash = await sha256Hex(preprocess(input.text).normalized);
+  const { items } = await store.list(`i/hash/${uid}/${hash.slice(0, 32)}/`, { limit: 50 });
+  for (const it of items.reverse()) {
+    const rep = await store.get<ReportSummary>(reportKey(it.id));
+    if (!rep || rep.uid !== uid || Date.now() - rep.createdAt > RESULT_CACHE_DAYS * 86_400_000) continue;
+    if (rep.mode !== input.mode || (rep.rubric?.id ?? null) !== (input.rubricId ?? null) || rep.reportLang !== input.reportLang) continue;
+    if (Boolean(rep.free) !== free || rep.genre !== input.genre || rep.level !== input.level) continue;
+    const doc = await store.get<CheckDoc>(checkKey(rep.checkId));
+    if (doc && doc.stage === 'done' && doc.reportId === rep.id) return doc;
+  }
+  return null;
+}
+
+/** Daftar URL artikel dari sitemap (bertingkat maks. 3) untuk sesi massal. Tanpa AI, tanpa token. */
+export const SITEMAP_MAX_PER_IMPORT = 50;
+checks.post('/api/sitemap', async (c) => {
+  const user = c.get('user');
+  const L = portalLang(c);
+  if (!user) return c.json({ error: 'login' }, 401);
+  if (!(await limit(c.env, `sitemap:${user.id}`, 10, 3600))) return c.json({ error: tr(L, 'Terlalu banyak impor sitemap per jam.', 'Too many sitemap imports per hour.') }, 429);
+  const body = (await c.req.json().catch(() => ({}))) as { url?: unknown };
+  try {
+    const r = await collectSitemap(String(body.url ?? '').slice(0, 2000), SITEMAP_MAX_PER_IMPORT);
+    if (!r.urls.length) return c.json({ error: tr(L, 'Sitemap tidak berisi URL artikel yang boleh diambil.', 'The sitemap holds no article URL that may be fetched.') }, 422);
+    return c.json(r);
   } catch (err) {
     if (err instanceof InputUrlError) return c.json({ error: L === 'en' ? URL_ERR_EN[err.code] : err.message, code: err.code }, 422);
     throw err;
@@ -328,12 +389,15 @@ checks.get('/api/estimate', async (c) => {
   const mode: Mode = isMode(c.req.query('mode')) ? (c.req.query('mode') as Mode) : 'auto';
   const rubric = c.req.query('rubric') === '1';
   const b = await getBilling(store);
-  const eng = await getEngine(store);
+  const eng = applyRouter(await getEngine(store), await getControls(store)).eng;
   const all = Object.fromEntries(MODES.map((m) => [m, estimateTokens(words, m, rubric, b, eng)]));
   const pages = Math.round((words / b.wordsPerPage) * 10) / 10;
   // Cek Gratis memakai kuota halaman, bukan token: perkiraan token-nya nol (kuota dihitung server saat dikirim).
-  if (c.req.query('mode') === 'free') return c.json({ min: 0, typical: 0, reserve: 0, modes: all, pages, free: true });
-  return c.json({ ...all[mode], modes: all, pages });
+  if (c.req.query('mode') === 'free') return c.json({ min: 0, typical: 0, reserve: 0, modes: all, pages, free: true, short: 0 });
+  // Pratinjau sebelum memindai (file pemilik „Xscan“ §4): saldo, kekurangan, lalu tombol isi saldo di formulir.
+  const balance = isAdmin(c.get('user')!) ? Number.MAX_SAFE_INTEGER : await balanceOf(store, c.get('user')!.id);
+  const short = Math.max(0, all[mode]!.reserve - balance);
+  return c.json({ ...all[mode], modes: all, pages, short });
 });
 
 /* ── tinjauan ulang (sengketa): Forensik penuh oleh tiga model, ditagih seperti pemeriksaan biasa ── */
@@ -354,7 +418,7 @@ checks.post('/api/reports/:id/review', async (c) => {
   const { raw } = await unseal<{ raw: string }>(c.env.MASTER_KEY, textSealed);
   let doc: CheckDoc;
   try {
-    doc = await createCheck(c.env, store, user, { text: raw, title: `${orig.title} (${tr(L, 'tinjauan', 'review')})`, author: orig.author, genre: orig.genre, level: orig.level, reportLang: orig.reportLang, rubricId: orig.rubricId, mode: 'forensic' }, L);
+    doc = await createCheck(c.env, store, user, { text: raw, title: `${orig.title} (${tr(L, 'tinjauan', 'review')})`, author: orig.author, genre: orig.genre, level: orig.level, reportLang: orig.reportLang, rubricId: orig.rubricId, mode: 'forensic' }, L, { noCache: true });
   } catch (err) {
     await store.del(`u/review/${rep.id}`);
     if (err instanceof CheckInputError) return c.json({ error: err.message }, err.status as 400);
@@ -397,10 +461,24 @@ checks.post('/api/batches/:id/run', async (c) => {
   if (!body.agree) return c.json({ error: tr(L, 'Centang pernyataan bahwa Anda berhak memeriksa naskah ini.', 'Tick the statement that you are entitled to check these texts.') }, 400);
   const entries = (body.entries ?? []).filter((e) => countWords(String(e.text ?? '')) >= 30 && countWords(String(e.text ?? '')) <= 20_000).slice(0, 200);
   if (!entries.length) return c.json({ error: tr(L, 'Tidak ada naskah yang memenuhi syarat (30–20.000 kata).', 'No eligible text (30–20,000 words).') }, 400);
-  const eng = await getEngine(store);
+  const controls = await getControls(store);
+  if (controls.emergencyStop) return c.json({ error: tr(L, 'Pemeriksaan sedang dihentikan sementara oleh admin. Saldo Anda aman.', 'Checks are paused by the admin for now. Your balance is safe.') }, 503);
+  const eng = applyRouter(await getEngine(store), controls).eng;
   const billing = await getBilling(store);
   const mode: Mode = isMode(body.mode) ? body.mode : 'auto';
-  const total = entries.reduce((a, e) => a + estimateTokens(countWords(String(e.text)), mode, Boolean(batch.rubricId), billing, eng).reserve, 0);
+  const each = entries.map((e) => estimateTokens(countWords(String(e.text)), mode, Boolean(batch.rubricId), billing, eng).reserve);
+  const total = each.reduce((a, b) => a + b, 0);
+  if (!isAdmin(user) && controls.maxTokensPerCheck > 0 && Math.max(...each) > controls.maxTokensPerCheck) {
+    return c.json({ error: tr(L, `Ada naskah yang memesan ${Math.max(...each)} token, di atas batas ${controls.maxTokensPerCheck} token per pemeriksaan.`, `One text reserves ${Math.max(...each)} tokens, above the limit of ${controls.maxTokensPerCheck} tokens per check.`) }, 400);
+  }
+  if (!isAdmin(user) && controls.memberDailyTokens > 0) {
+    try {
+      await addMemberDay(store, user.id, wibDate(), total, controls.memberDailyTokens);
+    } catch (err) {
+      if (err instanceof SpendLimitError) return c.json({ error: tr(L, `Batas harian ${err.limit} token per member tercapai (sudah dipesan ${err.used}).`, `The daily limit of ${err.limit} tokens per member is reached (${err.used} reserved).`) }, 429);
+      throw err;
+    }
+  }
   let reserved: Reservation | null = null;
   if (!isAdmin(user)) {
     try {

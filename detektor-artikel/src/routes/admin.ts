@@ -19,6 +19,8 @@ import { depositBalance, adminAdjust } from '../data/deposit.ts';
 import { reportKey, checkKey, type ReportSummary, type CheckDoc } from '../engine/cascade.ts';
 import { invTs } from '../lib/store.ts';
 import { runBackup } from '../cron.ts';
+import { getControls, normalizeControls, CONTROLS_DOC } from '../data/controls.ts';
+import { applyRouter, CAPABILITY, FABLE, type RouteNote } from '../engine/router.ts';
 
 export const admin = new Hono<HonoEnv>();
 
@@ -615,6 +617,73 @@ const membersOf = (c: Ctx) => {
   const q = Number(c.req.query('anggota'));
   return Number.isFinite(q) && q >= 1 ? Math.min(1_000_000, Math.round(q)) : 100;
 };
+
+/* ── Kendali biaya: tombol darurat, router, model aktif, batas belanja (MASTER-BLUEPRINT §8.3–§8.4, §9.5) ── */
+admin.get('/admin/kendali', async (c) => {
+  const L = portalLang(c);
+  const store = c.get('store');
+  const k = await getControls(store);
+  const eng = await getEngine(store);
+  const r = applyRouter(eng, k);
+  const usd = (m: string) => (eng.prices[m] ? `US$${eng.prices[m]!.in} / US$${eng.prices[m]!.out}` : '—');
+  const reasonText = (x: RouteNote['reason']) =>
+    x === 'cheaper' ? tr(L, 'lebih murah & mampu', 'cheaper & capable') : x === 'disabled' ? tr(L, 'pilihan admin dimatikan', 'admin’s choice is off') : tr(L, 'sesuai pilihan', 'as chosen');
+  const tierName: Record<string, string> = { t1: tr(L, 'Tingkat 1 (sederhana)', 'Tier 1 (simple)'), t2: tr(L, 'Tingkat 2 (menengah)', 'Tier 2 (medium)'), t3: tr(L, 'Tingkat 3 (kompleks)', 'Tier 3 (complex)') };
+  const body = html`
+  ${pageHead(tr(L, 'Kendali biaya', 'Cost controls'), tr(L, 'Tombol darurat, pemilihan mesin termurah yang mampu, dan batas belanja. Berlaku seketika untuk semua pemeriksaan.', 'Emergency stop, cheapest-capable engine routing and spending limits. Applies at once to every check.'))}
+  ${flash(L, c.req.query('ok') ? tr(L, 'Tersimpan — berlaku untuk pemeriksaan berikutnya dan tahap berikutnya dari yang sedang berjalan.', 'Saved — applies to the next checks and the next stage of running ones.') : null, null)}
+  ${k.emergencyStop ? html`<section class="card stop-banner reveal" data-stop-on role="alert"><h3>⛔ ${tr(L, 'Tombol darurat MENYALA', 'Emergency stop is ON')}</h3><p>${tr(L, 'Tidak ada panggilan AI baru. Pemeriksaan yang berjalan berhenti di tahap berikutnya dan seluruh token/kuotanya kembali.', 'No new AI calls. Running checks stop at their next stage and all their tokens/quota return.')}</p></section>` : ''}
+  <form class="card reveal" method="post" action="/admin/kendali" id="controls-form">
+    <h3>${tr(L, 'Tombol darurat', 'Emergency stop')}</h3>
+    <div class="grid g2">
+      <label class="field"><span>${tr(L, 'Status', 'Status')}</span><select name="emergencyStop"><option value="0" ${k.emergencyStop ? '' : 'selected'}>${tr(L, 'Normal — layanan berjalan', 'Normal — service running')}</option><option value="1" ${k.emergencyStop ? 'selected' : ''}>${tr(L, 'HENTIKAN semua panggilan AI', 'STOP all AI calls')}</option></select></label>
+      <label class="field"><span>${tr(L, 'Pesan untuk member (opsional)', 'Message for members (optional)')}</span><input name="stopNote" maxlength="300" value="${k.stopNote}"></label>
+    </div>
+    <h3>${tr(L, 'Router mesin', 'Engine router')}</h3>
+    <div class="grid g2">
+      <label class="field"><span>${tr(L, 'Cara memilih', 'How to choose')}</span><select name="router"><option value="auto" ${k.router === 'auto' ? 'selected' : ''}>${tr(L, 'Otomatis — termurah yang mampu (disarankan)', 'Automatic — cheapest capable (recommended)')}</option><option value="manual" ${k.router === 'manual' ? 'selected' : ''}>${tr(L, 'Manual — pilihan Admin → Mesin', 'Manual — Admin → Engine choice')}</option></select></label>
+      <fieldset class="field"><legend>${tr(L, 'Model aktif', 'Active models')}</legend>
+        ${Object.keys(CAPABILITY).map((m) => html`<label class="check"><input type="checkbox" name="on_${m}" value="1" ${m === 'claude-haiku-5-5' ? 'checked disabled' : k.disabledModels.includes(m) ? '' : 'checked'}> <span><code>${m}</code> · ${usd(m)} ${m === FABLE ? html`<small class="muted">(${tr(L, 'lebih mahal dari Opus; retensi 30 hari; tidak untuk naskah rahasia', 'pricier than Opus; 30-day retention; never for confidential texts')})</small>` : ''}</span></label>`)}
+        <label class="check"><input type="checkbox" name="fableEnabled" value="1" ${k.fableEnabled ? 'checked' : ''}> <span>${tr(L, 'Izinkan Fable 5.1 sebagai tingkat banding', 'Allow Fable 5.1 as the appeal tier')}</span></label>
+      </fieldset>
+    </div>
+    <h3>${tr(L, 'Batas belanja', 'Spending limits')}</h3>
+    <div class="grid g2">
+      <label class="field"><span>${tr(L, 'Maks. token per pemeriksaan (0 = tanpa batas)', 'Max tokens per check (0 = no limit)')}</span><input type="number" name="maxTokensPerCheck" min="0" step="1" value="${k.maxTokensPerCheck}"></label>
+      <label class="field"><span>${tr(L, 'Maks. token per member per hari (0 = tanpa batas)', 'Max tokens per member per day (0 = no limit)')}</span><input type="number" name="memberDailyTokens" min="0" step="1" value="${k.memberDailyTokens}"></label>
+    </div>
+    <p class="muted">${k.updatedAt ? tr(L, `Terakhir diubah ${fmtDate(L, k.updatedAt)}.`, `Last changed ${fmtDate(L, k.updatedAt)}.`) : tr(L, 'Masih nilai bawaan.', 'Still the defaults.')}</p>
+    <button class="btn btn-primary" type="submit">${tr(L, 'Simpan kendali', 'Save controls')}</button>
+  </form>
+  <section class="card reveal" id="route-table"><h3>${tr(L, 'Mesin yang dipakai sekarang', 'Engines in use now')}</h3>
+    <table class="tbl"><thead><tr><th>${tr(L, 'Tingkat', 'Tier')}</th><th>${tr(L, 'Pilihan Admin → Mesin', 'Admin → Engine choice')}</th><th>${tr(L, 'Dipakai', 'Used')}</th><th>${tr(L, 'Alasan', 'Reason')}</th></tr></thead>
+    <tbody>${r.notes.map((n) => html`<tr data-route="${n.tier}"><td>${tierName[n.tier]}</td><td><code>${n.configured}</code></td><td><b><code>${n.used}</code></b> · ${usd(n.used)}</td><td>${reasonText(n.reason)}</td></tr>`)}${r.blocked.map((t) => html`<tr data-route="${t}" class="warn"><td>${tierName[t]}</td><td colspan="3">⚠ ${tr(L, 'tidak ada model aktif yang mampu — pemeriksaan ditolak tanpa memanggil API', 'no active capable model — checks are refused without calling the API')}</td></tr>`)}</tbody></table>
+  </section>`;
+  return c.html(shell(c, tr(L, 'Kendali biaya', 'Cost controls'), body, 'controls'));
+});
+
+admin.post('/admin/kendali', async (c) => {
+  const store = c.get('store');
+  const f = (await c.req.parseBody()) as Record<string, string>;
+  const before = await getControls(store);
+  const next = normalizeControls({
+    emergencyStop: f.emergencyStop === '1',
+    stopNote: f.stopNote ?? '',
+    router: f.router === 'manual' ? 'manual' : 'auto',
+    disabledModels: Object.keys(CAPABILITY).filter((m) => m !== 'claude-haiku-5-5' && f[`on_${m}`] !== '1'),
+    fableEnabled: f.fableEnabled === '1',
+    maxTokensPerCheck: Number(f.maxTokensPerCheck),
+    memberDailyTokens: Number(f.memberDailyTokens),
+  });
+  next.updatedAt = Date.now();
+  next.updatedBy = me(c).id;
+  await store.put(CONTROLS_DOC, next);
+  const { updatedAt: _a, updatedBy: _b, ...was } = before;
+  const { updatedAt: _c, updatedBy: _d, ...now } = next;
+  const action = next.emergencyStop !== before.emergencyStop ? (next.emergencyStop ? 'controls.emergency_stop_on' : 'controls.emergency_stop_off') : 'controls.saved';
+  await audit(store, me(c).id, action, { before: was, after: now });
+  return c.redirect('/admin/kendali?ok=1');
+});
 
 admin.get('/admin/kuota-gratis', async (c) => {
   const L = portalLang(c);

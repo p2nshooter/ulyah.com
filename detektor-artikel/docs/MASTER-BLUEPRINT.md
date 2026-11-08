@@ -101,10 +101,10 @@ Dibaca dari kode di `detektor-artikel/src` dan uji e2e (`test/e2e.mjs`, „SEMUA
 | Analisis lanjutan (isi, mutu, struktur, SEO, sumber, orisinalitas) | 🟡 rubrik, kesalahan bahasa | Modul §6 | X3–X4 |
 | Skor lanjutan (Overall, Classification, Content, Readability, SEO, Originality, Source, Writing) | 🟡 | §6.7 | X3 |
 | Ekspor PDF/TXT/DOCX/XLSX/CSV, salin, bagikan, bandingkan dua artikel | 🟡 PDF (cetak), HTML, JSON, CSV | TXT, DOCX, XLSX, tautan bagikan, bandingkan | X4 |
-| Scan URL, sitemap, PDF/RTF/HTML, bulk | 🟡 teks/docx · ✅ URL artikel (8 Nov 2026) · ✅ pembaca sitemap (modul) | §7 | X1 |
-| Smart AI Engine Router termurah yang mampu | 🟡 kaskade + harga per model | Router berbasis kemampuan + biaya §8 | X1 |
-| Fable 5.1 | 🟡 harga ada | Tingkat banding (mati bawaan) §8 | X1 |
-| Cek saldo sebelum API, reservasi, rekonsiliasi | ✅ | Batas belanja per member/per scan, emergency stop, rekonsiliasi harian §9 | X1 |
+| Scan URL, sitemap, PDF/RTF/HTML, bulk | ✅ URL artikel, sitemap → sesi massal, unggah DOCX/PDF/RTF/HTML/TXT (8 Nov 2026) | §7 | X1 ✅ |
+| Smart AI Engine Router termurah yang mampu | ✅ `src/engine/router.ts` (otomatis/manual, model bisa dimatikan) | Router berbasis kemampuan + biaya §8 | X1 ✅ |
+| Fable 5.1 | ✅ mati bawaan; hanya bila dinyalakan, tidak untuk naskah rahasia | Tingkat banding §8 | X1 ✅ |
+| Cek saldo sebelum API, reservasi, rekonsiliasi | ✅ + tombol darurat, batas per pemeriksaan & per member/hari, batas waktu 2 jam, cache hasil 7 hari | §9 | X1 ✅ |
 | Deposit Rupiah → kredit (Rp1.000 = 1.000 kredit, diatur admin) | ✅ (kurs token diatur) | Tampilan „kredit“, kurs dicatat per transaksi | X1 |
 | Peran: Super Admin, Admin, Moderator, Finance Admin, Organizer, Judge, Member, Guest | 🟡 3 peran | 8 peran + izin rinci §11 | X5 |
 | Kompetisi lengkap (organizer, peserta, juri, rubrik berbobot, blind, multi-juri, tie-breaker, final approval) | 🟡 | §12 | X5 |
@@ -245,6 +245,22 @@ menu/footer/skrip, judul/penulis/tanggal/bahasa dari meta. Mengambil teks tidak 
 (30 per jam per member). Pembaca sitemap bertingkat (`collectSitemap`) sudah teruji; penyambungannya ke sesi massal,
 unggah PDF/RTF/HTML, dan antrean menyusul. Uji: `test/extract.test.ts` (SSRF lewat pengalihan ke 169.254.169.254, robots,
 ukuran, pengalihan berulang, bukan HTML, halaman kosong, sitemap) + e2e (alamat internal ditolak, naskah tidak tersentuh).
+
+### 7.1 Fase X1 selesai (8 Nov 2026)
+
+| Bagian | Kode | Uji |
+|---|---|---|
+| URL artikel (SSRF, robots.txt, 5 MB, 15 s, 5 pengalihan) | `src/lib/extract.ts`, `POST /api/extract` | `test/extract.test.ts`, e2e |
+| Sitemap → sesi massal (bertingkat maks. 3, maks. 50 artikel sekali impor, 3 diambil bersamaan, kegagalan per URL dicatat) | `POST /api/sitemap`, halaman sesi | unit + e2e (alamat internal ditolak) |
+| Unggah DOCX/PDF/RTF/HTML/TXT, tanda tangan berkas dicek, maks. 20 MB, PDF ≤ 300 halaman, PDF pindaian/terkunci diberi pesan | `public/assets/app.js` (di peramban, berkas tidak dikirim), pdf.js 6.4.299 lokal (`public/assets/vendor/pdfjs`, Apache-2.0) | e2e (PDF asli, RTF, HTML, PDF palsu) |
+| Router termurah yang mampu, mode otomatis/manual, model bisa dimatikan, Fable mati bawaan | `src/engine/router.ts` | `test/router.test.ts`, e2e |
+| Tombol darurat, batas token per pemeriksaan & per member per hari | `src/data/controls.ts`, Admin → Kendali biaya, audit log | unit + e2e |
+| Pratinjau biaya: perkiraan, saldo, kekurangan + tautan isi saldo | `/api/estimate`, formulir periksa | e2e |
+| Cache hasil: naskah + pengaturan sama dalam 7 hari → laporan lama, 0 token, 0 halaman kuota („Ajukan tinjauan“ tetap menilai ulang) | `cachedCheck` di `src/routes/checks.ts` | e2e |
+| Batas waktu total 2 jam: pemeriksaan macet dihentikan, token/kuota kembali, idempoten | `sweep` di `src/cron.ts` | `test/deadline.test.ts` |
+
+Belum di X1 (dicatat untuk fase berikutnya): Batch API diskon 50 % untuk pilihan „Hemat ≤24 jam“ dan antrean
+Cloudflare Queues untuk sitemap > 50 artikel (X4/X6), deteksi semua bahasa dunia (§22 G4).
 
 **Pratinjau sebelum memindai** (Xscan §4): jumlah halaman, jumlah artikel, token masuk dan keluar perkiraan (dihitung
 dari isi yang sudah diekstrak, bukan dari jumlah halaman), mesin termurah yang memenuhi syarat, perkiraan kredit, saldo,
@@ -602,7 +618,7 @@ Master_xscan Bagian 32 (pekerjaan selesai, berkas, data, endpoint, uji dan hasil
 | Fase | Isi | Selesai bila | Status |
 |---|---|---|---|
 | X0 | Blueprint ini; artikel publik (§16) + alat gratis; AdSense 16 akun live | 70 artikel ID+EN terbit bertahap sesuai jadwal; `site-audit` OK | blueprint ✅ · AdSense ✅ kode · artikel ⏳ |
-| X1 | Router berbasis biaya + kemampuan (§8), batas belanja, emergency stop, rekonsiliasi reservasi, masukan URL/sitemap/PDF/RTF/HTML (§7), pratinjau biaya | uji unit router & kredit, uji SSRF, e2e scan URL | ⏳ |
+| X1 | Router berbasis biaya + kemampuan (§8), batas belanja, emergency stop, rekonsiliasi reservasi, masukan URL/sitemap/PDF/RTF/HTML (§7), pratinjau biaya | uji unit router & kredit, uji SSRF, e2e scan URL | ✅ 8 Nov 2026 (§7.1) |
 | X2 | Klasifikasi kategori (11) + jenis (34) + deteksi tambahan + keyakinan + koreksi manual (§4) | set uji berlabel ≥200 naskah, akurasi dan kalibrasi dicatat jujur | ⏳ |
 | X3 | Templat laporan A–I (§5), modul analisis §6.1–6.3, 6.7, rubrik untuk jenis baru | setiap templat punya contoh laporan publik; cetak 2 halaman rapi | ⏳ |
 | X4 | SEO, sumber & referensi, orisinalitas (§6.4–6.6), ekspor TXT/DOCX/XLSX, PDF server, bagikan, bandingkan dua artikel | berkas benar-benar terbuka di Word/Excel/PDF reader | ⏳ |

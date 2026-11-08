@@ -29,6 +29,25 @@ function makeDocx(paragraphs) {
   return Buffer.concat([...locals, cd, end]);
 }
 
+/** PDF teks sungguhan (Helvetica, satu baris per paragraf) dengan tabel xref yang benar. */
+function makePdf(lines) {
+  const esc = (t) => t.replace(/[\\()]/g, (c) => '\\' + c);
+  const content = 'BT /F1 12 Tf 72 760 Td 16 TL ' + lines.map((l) => `(${esc(l)}) Tj T* T*`).join(' ') + ' ET';
+  const objs = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>',
+    `<< /Length ${Buffer.byteLength(content)} >>\nstream\n${content}\nendstream`,
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+  ];
+  let out = '%PDF-1.4\n';
+  const offs = [];
+  objs.forEach((o, i) => { offs.push(Buffer.byteLength(out)); out += `${i + 1} 0 obj\n${o}\nendobj\n`; });
+  const xref = Buffer.byteLength(out);
+  out += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n` + offs.map((o) => `${String(o).padStart(10, '0')} 00000 n \n`).join('') + `trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+  return Buffer.from(out, 'latin1');
+}
+
 const BASE = process.env.BASE || 'http://127.0.0.1:8787';
 const OUT = process.env.OUT || 'e2e-out';
 fs.mkdirSync(OUT, { recursive: true });
@@ -183,6 +202,33 @@ await p.click('#free-form button[type=submit]');
 await p.waitForURL(/kuota-gratis\?ok=1/);
 await p.screenshot({ path: `${OUT}/admin-kuota-gratis.png`, fullPage: true });
 
+// Kendali biaya (MASTER-BLUEPRINT §8–§9): router termurah yang mampu, tombol darurat, batas belanja.
+await p.goto(BASE + '/admin/kendali');
+ok((await p.locator('#route-table tr[data-route="t1"]').innerText()).includes('claude-haiku-5-5') && (await p.locator('#route-table tr[data-route="t3"]').innerText()).includes('claude-opus-5-5'), 'router: Haiku → Sonnet → Opus, Fable tidak dipakai');
+await p.uncheck('#controls-form input[name="on_claude-sonnet-5-5"]');
+await p.click('#controls-form button[type=submit]');
+await p.waitForURL(/kendali\?ok=1/);
+ok((await p.locator('#route-table tr[data-route="t2"]').innerText()).includes('claude-opus-5-5'), 'Sonnet dimatikan → tingkat 2 memakai termurah yang mampu (Opus), tidak turun ke Haiku');
+await p.check('#controls-form input[name="on_claude-sonnet-5-5"]');
+await p.selectOption('#controls-form select[name=emergencyStop]', '1');
+await p.fill('#controls-form input[name=stopNote]', 'Perawatan singkat.');
+await p.click('#controls-form button[type=submit]');
+await p.waitForURL(/kendali\?ok=1/);
+ok((await p.locator('[data-stop-on]').count()) === 1, 'tombol darurat menyala: peringatan tampil di admin');
+await p.goto(BASE + '/app/periksa');
+await p.fill('textarea[name=text]', fs.readFileSync(new URL('./fixtures/esai.txt', import.meta.url), 'utf8'));
+await p.check('input[name=agree]');
+await p.click('.check-form button[type=submit]');
+await p.waitForLoadState();
+ok(/dihentikan sementara oleh admin\. Perawatan singkat\./.test(await p.textContent('.flash.err')), 'tombol darurat: pemeriksaan baru ditolak sebelum AI dipanggil, dengan pesan admin');
+await p.goto(BASE + '/admin/kendali');
+await p.selectOption('#controls-form select[name=emergencyStop]', '0');
+await p.click('#controls-form button[type=submit]');
+await p.waitForURL(/kendali\?ok=1/);
+ok((await p.locator('[data-stop-on]').count()) === 0 && (await p.locator('#route-table tr[data-route="t2"]').innerText()).includes('claude-sonnet-5-5'), 'tombol darurat dimatikan, Sonnet aktif lagi');
+await p.goto(BASE + '/admin/audit');
+ok(/controls\.emergency_stop_on/.test(await p.textContent('main')) && /controls\.emergency_stop_off/.test(await p.textContent('main')), 'audit log mencatat tombol darurat nyala & mati');
+
 // Uji mesin (pemilik tidak dipotong token)
 await p.goto(BASE + '/admin/mesin');
 await p.click('form[action="/admin/mesin/uji"] button');
@@ -226,6 +272,20 @@ const urlErr = await m.textContent('.toast.err');
 ok(/jaringan internal/.test(urlErr), `ambil URL: alamat internal ditolak (SSRF) dengan pesan jelas — "${urlErr}"`);
 ok((await m.inputValue('textarea[name=text]')) === fromDocx, 'ambil URL gagal: teks naskah tidak tersentuh');
 await m.fill('[data-url-input]', '');
+// Unggah PDF / RTF / HTML (MASTER-BLUEPRINT §7): teks diambil di peramban, berkas tidak dikirim; berkas palsu ditolak.
+const PDF_LINES = ['Literasi digital di sekolah kami makin penting setiap tahun.', 'Banyak siswa membagikan berita tanpa membaca isinya dulu.', 'Guru mengajak kami memeriksa sumber sebelum percaya.', 'Kami belajar membandingkan judul dengan isi berita.', 'Paragraf kedua dari berkas PDF.'];
+await m.setInputFiles('#fileInput', { name: 'esai.pdf', mimeType: 'application/pdf', buffer: makePdf(PDF_LINES) });
+await m.waitForFunction(() => document.querySelector('textarea[name=text]').value.includes('Paragraf kedua dari berkas PDF'), null, { timeout: 20000 });
+ok(/^Literasi digital di sekolah kami makin penting setiap tahun\.\s+Banyak siswa[\s\S]+\s+Paragraf kedua dari berkas PDF\.$/.test(await m.inputValue('textarea[name=text]')), 'unggah .pdf: teks terbaca di peramban (pdf.js lokal, CSP ketat)');
+await m.setInputFiles('#fileInput', { name: 'esai.rtf', mimeType: 'application/rtf', buffer: Buffer.from("{\\rtf1\\ansi{\\fonttbl{\\f0 Arial;}}\\f0 Judul RTF\\par Caf\\'e9 dan \\u8220?kutipan\\u8221? di sini.\\par Paragraf dua.}", 'latin1') });
+await m.waitForFunction(() => document.querySelector('textarea[name=text]').value.includes('Paragraf dua.'));
+ok((await m.inputValue('textarea[name=text]')) === 'Judul RTF\n\nCafé dan “kutipan” di sini.\n\nParagraf dua.', 'unggah .rtf: paragraf, aksen dan kutipan utuh');
+await m.setInputFiles('#fileInput', { name: 'artikel.html', mimeType: 'text/html', buffer: Buffer.from('<html><body><nav>Menu situs</nav><article><h1>Judul HTML</h1><p>Paragraf <b>satu</b>.</p><script>alert(1)</script><p>Paragraf dua.</p></article><footer>Hak cipta</footer></body></html>') });
+await m.waitForFunction(() => document.querySelector('textarea[name=text]').value.startsWith('Judul HTML'));
+ok((await m.inputValue('textarea[name=text]')) === 'Judul HTML\n\nParagraf satu.\n\nParagraf dua.', 'unggah .html: isi utama saja, tanpa menu/skrip/footer');
+await m.setInputFiles('#fileInput', { name: 'palsu.pdf', mimeType: 'application/pdf', buffer: Buffer.from('bukan pdf sama sekali') });
+await m.waitForFunction(() => /rusak atau bukan PDF/.test(document.querySelector('.toasts')?.textContent || ''));
+ok(true, 'berkas palsu (.pdf tanpa tanda %PDF) ditolak dengan pesan jelas');
 await m.fill('textarea[name=text]', ESSAY);
 await m.waitForTimeout(800);
 ok(Number((await m.textContent('#estRes')).replace(/\D/g, '')) > 0, 'perkiraan token dari server tampil');
@@ -404,6 +464,16 @@ ok(js.signature.startsWith('hmac-sha256:') && js.data.report.id === rid, 'unduh 
 await m.goto(BASE + '/app/token');
 const after = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
 ok(after < tokAfterConv && after > 0, `token dipotong sesuai biaya nyata (sisa ${after})`);
+// Cache hasil (MASTER-BLUEPRINT §8.4): naskah + pengaturan sama dalam 7 hari → laporan lama, tanpa token.
+await m.goto(BASE + '/app/periksa');
+await m.fill('textarea[name=text]', ESSAY);
+await m.fill('input[name=title]', 'Esai Literasi Digital (kirim ulang)');
+await m.check('input[name=agree]');
+await m.click('.check-form button[type=submit]');
+await m.waitForURL(/\/app\/laporan\/rpt_\w+\?cache=1/);
+ok(m.url().includes(`/app/laporan/${rid}?cache=1`) && (await m.locator('[data-cache-hit]').count()) === 1, 'naskah + pengaturan sama: laporan lama dipakai lagi dengan pemberitahuan');
+await m.goto(BASE + '/app/token');
+ok(Number(await m.getAttribute('.stat-hero .stat-v', 'data-count')) === after, 'cache hasil: tidak ada token yang dipotong');
 await m.goto(BASE + '/app/laporan?q=literasi');
 ok((await m.locator('tbody tr').count()) >= 1, 'riwayat kerja: pencarian');
 const csv = await inPage('/app/laporan/ekspor.csv');
@@ -435,6 +505,10 @@ await m.click('form[action="/app/sesi"] button[type=submit]');
 await m.waitForURL(/\/app\/sesi\/ses_/);
 fs.writeFileSync(`${OUT}/01_Nadia_Literasi.txt`, ESSAY);
 fs.writeFileSync(`${OUT}/02_Raka_Sampah Plastik.txt`, ESSAY.replace(/Literasi/g, 'Sampah plastik'));
+await m.fill('[data-sitemap-url]', 'http://127.0.0.1:8787/sitemap.xml');
+await m.click('[data-sitemap-run]');
+await m.waitForFunction(() => /jaringan internal/.test(document.querySelector('[data-sitemap-log]')?.textContent || ''));
+ok(true, 'impor sitemap: alamat internal ditolak server (SSRF), antrean tidak berubah');
 await m.setInputFiles('#filesInput', [`${OUT}/01_Nadia_Literasi.txt`, `${OUT}/02_Raka_Sampah Plastik.txt`]);
 await m.check('[data-agree]');
 await m.click('[data-run]');
@@ -459,6 +533,6 @@ ok(calls.every((x) => !/sonnet|opus/.test(x.model) || (x.fallbacks === 'default'
 ok(calls.filter((x) => x.model === 'claude-sonnet-5-5').length >= 3, 'mode Sonnet benar-benar memanggil Sonnet');
 await browser.close();
 // 402 (saldo kurang), 404 bukti milik akun lain, 409 pilihan kuota gratis, 403 JSON Cek Gratis dan 422 URL internal memang disengaja di atas.
-const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e));
+const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e) && !/\/app\/periksa :: .*status of 503/.test(e) && !/\/app\/sesi\/ses_\w+ :: .*status of 422/.test(e));
 if (real.length) { console.error('Galat konsol:\n' + real.join('\n')); process.exit(1); }
 console.log('SEMUA LULUS');
