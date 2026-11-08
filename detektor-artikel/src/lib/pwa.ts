@@ -7,7 +7,12 @@
  */
 import { B } from '../brand.ts';
 
-export const SW_VERSION = 'v1';
+/**
+ * Versi aset statis: dinaikkan setiap kali app.css/app.js berubah. Service worker menyimpan aset cache-first, jadi tanpa
+ * versi baru perangkat yang sudah memasang aplikasi tidak pernah menerima tampilan/skrip baru.
+ */
+export const ASSET_V = '20261108d';
+export const SW_VERSION = `v-${ASSET_V}`;
 
 export function manifest(lang: 'id' | 'en'): string {
   return JSON.stringify({
@@ -32,7 +37,7 @@ export function manifest(lang: 'id' | 'en'): string {
 
 /** Service worker: aset statis cache-first, navigasi selalu ke jaringan dengan halaman luring sebagai cadangan. */
 export function serviceWorker(): string {
-  const precache = ['/offline', '/assets/app.css?v=1', '/assets/app.js?v=1', B.icon192, B.favicon32];
+  const precache = ['/offline', `/assets/app.css?v=${ASSET_V}`, `/assets/app.js?v=${ASSET_V}`, B.icon192, B.favicon32];
   return `const C = 'pwa-${B.id}-${SW_VERSION}';
 const PRE = ${JSON.stringify(precache)};
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(C).then((c) => c.addAll(PRE)).then(() => self.skipWaiting())); });

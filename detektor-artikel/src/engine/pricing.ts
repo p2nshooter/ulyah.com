@@ -20,6 +20,24 @@ export const MODES: Mode[] = ['auto', 'haiku', 'sonnet', 'opus', 'fable', 'foren
 export const FABLE_MODEL = 'claude-fable-5-1';
 export const isMode = (x: unknown): x is Mode => typeof x === 'string' && (MODES as string[]).includes(x);
 
+/**
+ * Nama mesin rahasia (pemilik, 8 Nov 2026; MASTER-BLUEPRINT §28.2): member dan publik hanya melihat nama & slug ini —
+ * di teks, formulir (`value=`), API perkiraan, laporan, dan unduhan. Model sebenarnya hanya tampil di portal admin.
+ */
+export const PUBLIC_MODE: Record<Mode, string> = { auto: 'smart', haiku: 'essential', sonnet: 'advanced', opus: 'expert', fable: 'elite', forensic: 'forensic' };
+export const PUBLIC_NAME: Record<Mode, string> = { auto: 'Smart Auto', haiku: 'Essential', sonnet: 'Advanced', opus: 'Expert', fable: 'Elite', forensic: 'Forensic Panel' };
+/** Slug publik (atau nama internal lama) → mode internal. */
+export function parseMode(x: unknown): Mode | null {
+  if (typeof x !== 'string') return null;
+  const hit = (Object.entries(PUBLIC_MODE) as [Mode, string][]).find(([, slug]) => slug === x);
+  if (hit) return hit[0];
+  return isMode(x) ? x : null;
+}
+/** Nama publik model AI (untuk rincian token, laporan): tidak pernah menampilkan ID model penyedia. */
+export function publicModelName(model: string): string {
+  return /haiku/i.test(model) ? 'Essential' : /sonnet/i.test(model) ? 'Advanced' : /opus/i.test(model) ? 'Expert' : /fable/i.test(model) ? 'Elite' : 'AI';
+}
+
 const TOK_PER_WORD = 1.7; // Bahasa Indonesia (English ± 1,35) — dipakai yang lebih besar agar aman
 const SYS = 3000;
 
@@ -54,9 +72,9 @@ export function estimateCostUsd(words: number, mode: Mode, rubric: boolean, eng:
   }
   if (mode === 'haiku') return { min: tier1 * 0.7, typical: tier1, max: tier1 * 1.6 };
   if (mode === 'sonnet' || mode === 'opus' || mode === 'fable') {
-    // Pemeriksa per kalimat, per paragraf, dan rubrik berjalan di model terpilih; uji tebak lanjutan tetap Haiku.
+    // Mesin tunggal: pemeriksa per kalimat, per paragraf, rubrik, DAN uji tebak lanjutan berjalan di mesin terpilih.
     const p = mode === 'sonnet' ? s : mode === 'opus' ? o : price(eng, FABLE_MODEL);
-    const one = usd(p, (SYS + T) * 2 + (rubric ? 4500 + T : 0), 2.9 * T + 600 + 2 * T + (rubric ? 2500 + 1.6 * T : 0)) + usd(h, 1800 + 0.6 * T, 1200);
+    const one = usd(p, (SYS + T) * 2 + (rubric ? 4500 + T : 0), 2.9 * T + 600 + 2 * T + (rubric ? 2500 + 1.6 * T : 0)) + usd(p, 1800 + 0.6 * T, 1200);
     return { min: one * 0.7, typical: one, max: one * 1.6 };
   }
   const typical = tier1 + 0.3 * sonnet(0.5) + 0.08 * opus(0.3) + (rubric ? 0.3 * rub(s) : 0);
@@ -77,7 +95,7 @@ export function hardBoundUsd(words: number, mode: Mode, rubric: boolean, eng: En
   const inT = SYS + T + 600;
   if (mode === 'haiku' || mode === 'sonnet' || mode === 'opus' || mode === 'fable') {
     const p = mode === 'haiku' ? h : mode === 'sonnet' ? s : mode === 'opus' ? o : price(eng, FABLE_MODEL);
-    return chunks * usd(p, inT, 16000) + usd(p, inT, 12000) + usd(h, inT, 4000) + (rubric ? usd(p, inT + 1500, 16000) : 0);
+    return chunks * usd(p, inT, 16000) + usd(p, inT, 12000) + usd(p, inT, 4000) + (rubric ? usd(p, inT + 1500, 16000) : 0);
   }
   let total = chunks * usd(h, inT, 16000) + usd(h, inT, 12000) + usd(h, inT, 4000) + (rubric ? usd(h, inT + 1500, 16000) : 0);
   total += chunks * usd(s, inT, 16000) + (rubric ? usd(s, inT + 1500, 16000) : 0);
@@ -114,14 +132,27 @@ export interface PackagePrice {
   usd: number;
   /** Modal API bila semua token paket terpakai (Rp). */
   costIdr: number;
+  /** Token yang didapat (paket bernominal tetap: nominal ÷ harga token setelah diskon). */
+  tokens: number;
+}
+
+/** Harga USD = harga Rupiah ÷ kurs hari ini (kurs harian otomatis, MASTER-BLUEPRINT §28.4). */
+export function niceUsd(x: number): number {
+  if (x >= 100) return Math.round(x);
+  return Math.max(0.5, Math.round(x * 2) / 2);
 }
 
 /** Harga paket diturunkan dari markup — ikut berubah otomatis begitu markup disimpan. */
-export function packagePrice(p: { tokens: number; discountPct: number }, b: BillingSettings, eng: EngineSettings): PackagePrice {
+export function packagePrice(p: { tokens: number; discountPct: number; targetIdr?: number }, b: BillingSettings, eng: EngineSettings): PackagePrice {
   const disc = Math.min(50, Math.max(0, p.discountPct || 0)) / 100;
-  const idr = niceIdr(p.tokens * tokenPriceIdr(b, eng) * (1 - disc));
-  const usdv = Math.max(0.5, Math.round(p.tokens * b.tokenUnitUsd * b.markup * (1 - disc) * 2) / 2);
-  return { idr, usd: usdv, costIdr: Math.round(p.tokens * tokenCostIdr(b, eng)) };
+  const tp = tokenPriceIdr(b, eng);
+  if (p.targetIdr && p.targetIdr > 0) {
+    // Enterprise / Super Enterprise: nominal tetap; token mengikuti harga token (markup) dan diskon paket.
+    const tokens = Math.floor(p.targetIdr / (tp * (1 - disc)));
+    return { idr: p.targetIdr, usd: niceUsd(p.targetIdr / eng.fx), costIdr: Math.round(tokens * tokenCostIdr(b, eng)), tokens };
+  }
+  const idr = niceIdr(p.tokens * tp * (1 - disc));
+  return { idr, usd: niceUsd(idr / eng.fx), costIdr: Math.round(p.tokens * tokenCostIdr(b, eng)), tokens: p.tokens };
 }
 
 /** Bagian afiliasi terbesar yang bisa diatur admin (lihat getAffiliateSettings: 0–50 %). */
@@ -186,7 +217,7 @@ export interface ModePages {
 export function predictByMode(balance: number, b: BillingSettings, eng: EngineSettings, rubric = true): ModePages[] {
   const docWords = b.wordsPerPage * 5;
   const tp = tokenPriceIdr(b, eng);
-  return (['haiku', 'sonnet', 'opus', 'auto'] as Mode[]).map((mode) => {
+  return (['haiku', 'sonnet', 'opus', 'fable', 'auto'] as Mode[]).map((mode) => {
     const c = estimateCostUsd(docWords, mode, rubric, eng);
     const lo = c.min / 5;
     const hi = mode === 'auto' ? (c.typical * 2.2) / 5 : c.max / 5;
@@ -304,7 +335,7 @@ export function freeQuotaForecast(eng: EngineSettings, b: BillingSettings, membe
   };
   const typical = one(usd(Math.min(q.typicalInPerPage, free.tokensPerPage), q.systemTokens, q.typicalOutPerPage));
   const worst = one(usd(q.systemTokens + free.tokensPerPage, 0, q.maxOutPerPage));
-  const cheapest = [...b.packages].sort((x, y) => x.tokens - y.tokens)[0];
+  const cheapest = [...b.packages].filter((p) => !p.targetIdr).sort((x, y) => x.tokens - y.tokens)[0];
   let breakEven: FreeForecast['breakEven'] = null;
   if (cheapest) {
     const pp = packagePrice(cheapest, b, eng);

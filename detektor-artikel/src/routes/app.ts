@@ -5,13 +5,17 @@ import { tr, fmtNum, fmtDate, fmtScore, GENRES, LEVELS, LABELS, MODE_INFO, type 
 import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice, BRAND_HOST, assistNotice } from '../pages/ui.ts';
 import { PURPOSES, PURPOSE_INFO, pt, isPurpose } from '../lib/purpose.ts';
 import { getControls, engineAvailability } from '../data/controls.ts';
-import { FABLE_MODEL } from '../engine/pricing.ts';
+import { FABLE_MODEL, PUBLIC_MODE, PUBLIC_NAME, parseMode, publicModelName } from '../engine/pricing.ts';
 import { getStats, statsKey, type MemberStats } from '../data/stats.ts';
 import { rebuildStats } from '../data/stats-rebuild.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
+import { getPaypal, paypalReady } from '../data/paypal.ts';
+import { registerMemberPaypal } from './paypal.ts';
+import { tierOf, modeAllowed, clampTier, isVvip, TIERS, ENGINE_MIN_TIER } from '../data/tiers.ts';
+import { planCard, plansNote } from '../pages/plans.ts';
 import { reportPages, usagePanel, rateTable, modePagesTable } from '../pages/report.ts';
 import { rateCard, predictByMode, packagePrice, tokenPriceIdr } from '../engine/pricing.ts';
-import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
+import { portalLang, isForeign, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { RUBRICS, bi, getRubric } from '../engine/rubrics.ts';
 import { getEngine, getBilling, measuredCostPer1k, getFree, type BillingSettings, type EngineSettings } from '../data/settings.ts';
 import { freeStatus } from '../data/free.ts';
@@ -75,7 +79,7 @@ const q = (c: Ctx, k: string) => c.req.query(k) ?? null;
 
 export async function pagesLine(L: Lang, balance: number, b: BillingSettings, eng: EngineSettings, store: Ctx['var']['store']): Promise<Raw> {
   const pr = predictPages(balance, b, eng, await measuredCostPer1k(store));
-  return html`<p class="predict">≈ <b>${fmtNum(L, pr.pages.low)}–${fmtNum(L, pr.pages.high)}</b> ${tr(L, 'halaman', 'pages')} <small class="muted">(${tr(L, `±${b.wordsPerPage} kata/halaman · ${pr.perPage.low}–${pr.perPage.high} token per halaman`, `±${b.wordsPerPage} words/page · ${pr.perPage.low}–${pr.perPage.high} tokens per page`)})</small> ${tip(tr(L, 'Perkiraan, bukan janji: pemakaian nyata tergantung model AI yang terpakai (Haiku saja, atau naik ke Sonnet/Opus), panjang naskah, dan rubrik.', 'An estimate, not a promise: real usage depends on which AI models are used (Haiku only, or escalation to Sonnet/Opus), text length and rubric.'))}</p>`;
+  return html`<p class="predict">≈ <b>${fmtNum(L, pr.pages.low)}–${fmtNum(L, pr.pages.high)}</b> ${tr(L, 'halaman', 'pages')} <small class="muted">(${tr(L, `±${b.wordsPerPage} kata/halaman · ${pr.perPage.low}–${pr.perPage.high} token per halaman`, `±${b.wordsPerPage} words/page · ${pr.perPage.low}–${pr.perPage.high} tokens per page`)})</small> ${tip(tr(L, 'Perkiraan, bukan janji: pemakaian nyata tergantung model AI yang terpakai (Essential saja, atau naik ke Advanced/Expert), panjang naskah, dan rubrik.', 'An estimate, not a promise: real usage depends on which AI models are used (Essential only, or escalation to Advanced/Expert), text length and rubric.'))}</p>`;
 }
 
 app.get('/app', async (c) => {
@@ -147,7 +151,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
       <div class="estimate" data-estimate-box aria-live="polite"><div><small class="muted">${tr(L, 'Panjang', 'Length')}</small><b><span id="wc">0</span> ${tr(L, 'kata', 'words')} · <span id="pg">0</span> ${tr(L, 'hal.', 'pages')}</b></div><div><small class="muted">${tr(L, 'Biaya nyata biasanya', 'Real cost usually')}</small><b><span id="estLo">—</span>–<span id="estTy">—</span> token</b></div><div><small class="muted">${tr(L, 'Dipesan dulu (sisa kembali)', 'Reserved first (rest returns)')}</small><b><span id="estRes">—</span> token</b></div><div><small class="muted">${tr(L, 'Saldo', 'Balance')}</small><b>${fmtNum(L, v.__balance ? Number(v.__balance) : 0)} token</b></div></div>
       <p class="muted small" data-reuse-note>♻ ${tr(L, `Bagian naskah yang pernah Anda periksa dengan mesin yang sama dipakai lagi tanpa memanggil AI dan dihitung ${v.__reusePct ?? '50'}%; sisa pesanan kembali otomatis.`, `Parts of the text you already checked with the same engine are reused without calling the AI and count ${v.__reusePct ?? '50'}%; the rest of the reservation returns automatically.`)}</p>
       <p class="est-short warn" data-est-short hidden>${tr(L, 'Saldo kurang', 'Balance short by')} <b data-est-short-n>0</b> token — <a href="/app/token">${tr(L, 'isi saldo dulu', 'top up first')}</a> ${tr(L, 'atau pilih Cek Gratis / mesin yang lebih hemat.', 'or choose the Free Check / a cheaper engine.')}</p>
-      <p class="muted small">${tr(L, 'Perkiraan dari server; pemakaian nyata tergantung model AI yang terpakai — sebagian besar naskah cukup diperiksa Haiku (paling hemat).', 'Estimates come from the server; real usage depends on the AI models used — most texts only need Haiku (the most economical).')}</p>
+      <p class="muted small">${tr(L, 'Perkiraan dari server; pemakaian nyata tergantung model AI yang terpakai — sebagian besar naskah cukup diperiksa Essential (paling hemat).', 'Estimates come from the server; real usage depends on the AI models used — most texts only need Essential (the most economical).')}</p>
     </div></section>
     <section class="card step reveal"><div class="step-n">2</div><div class="step-body">
       <h3>${tr(L, 'Keterangan', 'Details')}</h3>
@@ -166,19 +170,19 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
         <label class="field"><span>${tr(L, 'Keperluan laporan', 'What the report is for')} ${tip(tr(L, 'Judul, sebutan penulis, dan kolom tanda tangan laporan menyesuaikan keperluan.', 'The report’s title, how the writer is named and the signature boxes follow its purpose.'))}</span><select name="purpose" data-purpose>${PURPOSES.map((p) => html`<option value="${p}" data-hint="${pt(L, PURPOSE_INFO[p].hint)}" ${(isPurpose(v.purpose) ? v.purpose : 'umum') === p ? 'selected' : ''}>${pt(L, PURPOSE_INFO[p].name)}</option>`)}</select><small class="muted" data-purpose-hint>${pt(L, PURPOSE_INFO[isPurpose(v.purpose) ? v.purpose : 'umum'].hint)}</small></label>
       </div>
       ${freeOn && fv ? html`<fieldset class="modes free-mode"><legend>${tr(L, 'Cek Gratis', 'Free Check')}</legend>
-        <label class="mode-card ${fv.remaining > 0 ? '' : 'off'}"><input type="radio" name="mode" value="free" ${v.mode === 'free' ? 'checked' : ''} ${fv.remaining > 0 ? '' : 'disabled'} data-free-remaining="${fv.remaining}"><span><b>${tr(L, `Gratis — sisa ${fv.remaining} dari ${fv.f.pages} halaman per ${per}`, `Free — ${fv.remaining} of ${fv.f.pages} pages left this ${per}`)}</b><small>${tr(L, `Mesin hemat (Claude Haiku), penilaian per paragraf, tanpa rubrik. Maks. ${fv.f.maxPerCheck} halaman per pemeriksaan (1 halaman = maks. ${fv.f.wordsPerPage} kata). Kuota baru: ${fmtDate(L, fv.resetAt)}. Laporannya memuat iklan dan tanda air logo ${BRAND_HOST}.`, `Economy engine (Claude Haiku), judged per paragraph, no rubric. At most ${fv.f.maxPerCheck} pages per check (1 page = at most ${fv.f.wordsPerPage} words). New quota: ${fmtDate(L, fv.resetAt)}. The report carries ads and a ${BRAND_HOST} logo watermark.`)}</small><em class="mode-est">${tr(L, 'Untuk hasil per kalimat, rubrik dan laporan lengkap: pilih Cek Lengkap di bawah.', 'For per-sentence results, rubrics and the full report: choose a Full Check below.')}</em></span></label>
+        <label class="mode-card ${fv.remaining > 0 ? '' : 'off'}"><input type="radio" name="mode" value="free" ${v.mode === 'free' ? 'checked' : ''} ${fv.remaining > 0 ? '' : 'disabled'} data-free-remaining="${fv.remaining}"><span><b>${tr(L, `Gratis — sisa ${fv.remaining} dari ${fv.f.pages} halaman per ${per}`, `Free — ${fv.remaining} of ${fv.f.pages} pages left this ${per}`)}</b><small>${tr(L, `Mesin hemat (Essential), penilaian per paragraf, tanpa rubrik. Maks. ${fv.f.maxPerCheck} halaman per pemeriksaan (1 halaman = maks. ${fv.f.wordsPerPage} kata). Kuota baru: ${fmtDate(L, fv.resetAt)}. Laporannya memuat iklan dan tanda air logo ${BRAND_HOST}.`, `Economy engine (Essential), judged per paragraph, no rubric. At most ${fv.f.maxPerCheck} pages per check (1 page = at most ${fv.f.wordsPerPage} words). New quota: ${fmtDate(L, fv.resetAt)}. The report carries ads and a ${BRAND_HOST} logo watermark.`)}</small><em class="mode-est">${tr(L, 'Untuk hasil per kalimat, rubrik dan laporan lengkap: pilih Cek Lengkap di bawah.', 'For per-sentence results, rubrics and the full report: choose a Full Check below.')}</em></span></label>
       </fieldset>` : ''}
-      <fieldset class="modes"><legend>${tr(L, 'Mesin AI', 'AI engine')} ${tip(tr(L, 'AUTO memilih sendiri: Haiku dulu, lalu Sonnet/Opus hanya untuk kalimat yang ragu. Atau pilih satu model.', 'AUTO chooses for you: Haiku first, then Sonnet/Opus only for doubtful sentences. Or pick one model.'))}</legend>
-        ${(['auto', 'haiku', 'sonnet', 'opus', 'fable', 'forensic'] as const).map((m) => { const isOff = (v.__off ?? '').split(',').includes(m); return html`<label class="mode-card ${m === 'auto' ? 'rec' : ''} ${m === 'fable' ? 'premium' : ''} ${isOff ? 'off soon' : ''}" ${isOff ? raw(`data-soon="${m}"`) : ''}><input type="radio" name="mode" value="${m}" ${!isOff && (v.mode ?? 'auto') === m ? 'checked' : ''} ${isOff ? 'disabled' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}${isOff ? html` <em class="soon-tag">${m === 'fable' ? tr(L, 'Segera hadir', 'Coming soon') : tr(L, 'Sedang nonaktif', 'Switched off')}</em>` : ''}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small>${m === 'fable' && v.__fableX ? html`<small class="premium-cost">${tr(L, `Biaya per token AI ± ${v.__fableX}`, `Cost per AI token ± ${v.__fableX}`)}</small>` : ''}<em class="mode-est" data-mode-est="${m}">—</em></span></label>`; })}
+      <fieldset class="modes"><legend>${tr(L, 'Mesin AI', 'AI engine')} ${tip(tr(L, 'Smart Auto memilih sendiri: Essential dulu, lalu Advanced/Expert hanya untuk kalimat yang ragu. Atau pilih satu model.', 'Smart Auto chooses for you: Essential first, then Advanced/Expert only for doubtful sentences. Or pick one model.'))}</legend>
+        ${(['auto', 'haiku', 'sonnet', 'opus', 'fable', 'forensic'] as const).map((m) => { const isOff = (v.__off ?? '').split(',').includes(m); const locked = !isOff && !modeAllowed(m, clampTier(v.__tier)); const need = TIERS[ENGINE_MIN_TIER[m]]; return html`<label class="mode-card ${m === 'auto' ? 'rec' : ''} ${m === 'fable' ? 'premium' : ''} ${isOff ? 'off soon' : ''} ${locked ? 'off locked' : ''}" ${isOff ? raw(`data-soon="${PUBLIC_MODE[m]}"`) : locked ? raw(`data-locked="${PUBLIC_MODE[m]}"`) : ''}><input type="radio" name="mode" value="${PUBLIC_MODE[m]}" ${!isOff && !locked && (parseMode(v.mode) ?? 'auto') === m && v.mode !== 'free' ? 'checked' : ''} ${isOff || locked ? 'disabled' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}${isOff ? html` <em class="soon-tag">${m === 'fable' ? tr(L, 'Segera hadir', 'Coming soon') : tr(L, 'Sedang nonaktif', 'Switched off')}</em>` : locked ? html` <a class="soon-tag lock-tag" href="/app/token#paket">🔒 ${tr(L, `paket ${need.id}`, `${need.en} package`)}</a>` : ''}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small>${m === 'fable' && v.__fableX ? html`<small class="premium-cost">${tr(L, `Biaya per token AI ± ${v.__fableX}`, `Cost per AI token ± ${v.__fableX}`)}</small>` : ''}<em class="mode-est" data-mode-est="${PUBLIC_MODE[m]}">—</em></span></label>`; })}
       </fieldset>
-      ${v.__fable === '1' ? html`<input type="hidden" name="fable_ok" value="${v.fable_ok === '1' ? '1' : '0'}" data-fable-ok>
-      <dialog class="fable-dialog" data-fable-dialog aria-labelledby="fableTitle">
-        <div class="fable-dialog-in">
-          <span class="fable-gem" aria-hidden="true">✦</span>
-          <h3 id="fableTitle">${tr(L, 'Anda yakin ingin memakai Claude Fable 5.1?', 'Are you sure you want to use Claude Fable 5.1?')}</h3>
-          <p>${tr(L, 'Claude Fable 5.1 adalah mesin paling istimewa yang kami sediakan — telaahnya paling mendalam dan cermat. Keistimewaan itu datang dengan biaya yang jauh lebih tinggi daripada mesin lain', 'Claude Fable 5.1 is the most exceptional engine we offer — its review is the deepest and most careful. That excellence comes at a far higher cost than the other engines')}${v.__fableX ? ` (± ${v.__fableX})` : ''}${tr(L, ', sehingga saldo token Anda akan berkurang jauh lebih cepat.', ', so your token balance will go down much faster.')}</p>
-          <p>${tr(L, 'Kami menyarankannya hanya untuk naskah yang benar-benar menentukan. Untuk pemeriksaan sehari-hari, AUTO sudah memberi hasil yang sangat baik dengan biaya jauh lebih ringan.', 'We suggest it only for texts that truly matter. For everyday checks, AUTO already gives excellent results at a much lighter cost.')}</p>
-          <div class="btn-row"><button type="button" class="btn btn-primary" data-fable-yes>✦ ${tr(L, 'Ya, saya yakin memakai Fable', 'Yes, I am sure — use Fable')}</button><button type="button" class="btn btn-ghost" data-fable-no>${tr(L, 'Tidak, kembali ke AUTO', 'No, back to AUTO')}</button></div>
+      ${v.__fable === '1' ? html`<input type="hidden" name="elite_ok" value="${v.elite_ok === '1' ? '1' : '0'}" data-elite-ok>
+      <dialog class="elite-dialog" data-elite-dialog aria-labelledby="eliteTitle">
+        <div class="elite-dialog-in">
+          <span class="elite-gem" aria-hidden="true">✦</span>
+          <h3 id="eliteTitle">${tr(L, 'Anda yakin ingin memakai Elite?', 'Are you sure you want to use Elite?')}</h3>
+          <p>${tr(L, 'Elite adalah mesin paling istimewa yang kami sediakan — telaahnya paling mendalam dan cermat. Keistimewaan itu datang dengan biaya yang jauh lebih tinggi daripada mesin lain', 'Elite is the most exceptional engine we offer — its review is the deepest and most careful. That excellence comes at a far higher cost than the other engines')}${v.__fableX ? ` (± ${v.__fableX})` : ''}${tr(L, ', sehingga saldo token Anda akan berkurang jauh lebih cepat.', ', so your token balance will go down much faster.')}</p>
+          <p>${tr(L, 'Kami menyarankannya hanya untuk naskah yang benar-benar menentukan. Untuk pemeriksaan sehari-hari, Smart Auto sudah memberi hasil yang sangat baik dengan biaya jauh lebih ringan.', 'We suggest it only for texts that truly matter. For everyday checks, Smart Auto already gives excellent results at a much lighter cost.')}</p>
+          <div class="btn-row"><button type="button" class="btn btn-primary" data-elite-yes>✦ ${tr(L, 'Ya, saya yakin memakai Elite', 'Yes, I am sure — use Elite')}</button><button type="button" class="btn btn-ghost" data-elite-no>${tr(L, 'Tidak, kembali ke Smart Auto', 'No, back to Smart Auto')}</button></div>
         </div>
       </dialog>` : ''}
       <label class="check"><input type="checkbox" name="agree" required ${v.agree ? 'checked' : ''}> <span>${tr(L, 'Saya berhak memeriksa naskah ini (milik sendiri, sebagai guru/juri/editor, atau dengan izin penulis).', 'I am entitled to check this text (my own, as a teacher/judge/editor, or with the author’s consent).')}</span></label>
@@ -195,16 +199,22 @@ async function fableVars(c: Ctx): Promise<Record<string, string>> {
   const av = engineAvailability(k);
   const off = (['sonnet', 'opus', 'fable', 'forensic'] as const).filter((m) => !av[m]).join(',');
   const __reusePct = String((await getBilling(store)).reusePct);
-  if (!av.fable) return { __fable: '0', __off: off, __reusePct };
+  const __tier = String(tierOf(c.get('user')));
+  if (!av.fable) return { __fable: '0', __off: off, __reusePct, __tier };
   const eng = await getEngine(store);
   const L = portalLang(c);
   const blend = (m: string) => (eng.prices[m] ? 3 * eng.prices[m]!.in + eng.prices[m]!.out : 0);
   const f = blend(FABLE_MODEL), o = blend(eng.models.t3), h = blend(eng.models.t1);
   const x = (n: number) => (n >= 10 ? String(Math.round(n)) : n.toLocaleString(L === 'en' ? 'en-US' : 'id-ID', { maximumFractionDigits: 1 }));
-  return { __fable: '1', __off: off, __reusePct, __fableX: o && h ? tr(L, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`) : '' };
+  return { __fable: '1', __off: off, __reusePct, __tier, __fableX: o && h ? tr(L, `${x(f / o)}× Expert, ${x(f / h)}× Essential`, `${x(f / o)}× Expert, ${x(f / h)}× Essential`) : '' };
 }
 
-app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)), ...(await fableVars(c)) }, await freeView(c))));
+app.get('/app/periksa', async (c) => {
+  const u = c.get('user')!;
+  // Mesin tujuan dari konversi terakhir (§28.7) jadi pilihan bawaan; Elite tetap lewat jendela „Anda yakin?“.
+  const pref = u.preferredMode && u.preferredMode !== 'fable' && modeAllowed(parseMode(u.preferredMode) ?? 'auto', tierOf(u)) ? PUBLIC_MODE[parseMode(u.preferredMode) ?? 'auto'] : undefined;
+  return c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), u.id)), ...(pref ? { mode: pref } : {}), ...(await fableVars(c)) }, await freeView(c)));
+});
 
 app.post('/app/periksa', async (c) => {
   const L = portalLang(c);
@@ -235,11 +245,11 @@ app.get('/app/proses/:id', async (c) => {
   if (doc.stage === 'done' && doc.reportId) return c.redirect(`/app/laporan/${doc.reportId}`);
   const stages: [string, string, string][] = [
     ['prep', tr(L, 'Membaca naskah & mengukur gaya tulisan', 'Reading the text & measuring writing style'), tr(L, 'tanpa memakai AI', 'without using AI')],
-    ['t1', 'Claude Haiku · Ultra', tr(L, 'memeriksa setiap kalimat & paragraf', 'checks every sentence & paragraph')],
-    ['t2', 'Claude Sonnet', tr(L, 'hanya kalimat yang ragu', 'doubtful sentences only')],
-    ['t3', 'Claude Opus', tr(L, 'pemeriksa terakhir bila perlu', 'final checker if needed')],
+    ['t1', 'Essential · Ultra', tr(L, 'memeriksa setiap kalimat & paragraf', 'checks every sentence & paragraph')],
+    ['t2', 'Advanced', tr(L, 'hanya kalimat yang ragu', 'doubtful sentences only')],
+    ['t3', 'Expert', tr(L, 'pemeriksa terakhir bila perlu', 'final checker if needed')],
     ['fuse', tr(L, 'Menggabungkan semua hasil', 'Combining all results'), tr(L, 'menghitung persen & kesimpulan', 'computing percentages & the conclusion')],
-    ['rubric2', tr(L, 'Memeriksa ulang nilai', 'Double-checking the score'), tr(L, 'Sonnet menilai ulang bila ragu', 'Sonnet re-grades when unsure')],
+    ['rubric2', tr(L, 'Memeriksa ulang nilai', 'Double-checking the score'), tr(L, 'Advanced menilai ulang bila ragu', 'Advanced re-grades when unsure')],
   ];
   const body = html`
   ${pageHead(tr(L, 'Sedang menelaah naskah', 'Examining the text'), doc.title)}
@@ -376,7 +386,7 @@ app.get('/app/laporan/:id', async (c) => {
   ${s.free ? html`<section class="card free-report reveal" data-free-report>
     <p class="free-badge">${tr(L, 'Cek Gratis', 'Free Check')}</p>
     ${s.free.partialOf ? html`<p class="warn">${tr(L, `Sebagian: hanya ${s.free.pages} halaman pertama dari ${s.free.partialOf} halaman yang diperiksa. Persen dan kesimpulan berlaku untuk bagian itu saja.`, `Partial: only the first ${s.free.pages} of ${s.free.partialOf} pages were checked. The percentages and the conclusion apply to that part only.`)}</p>` : ''}
-    <p>${tr(L, 'Hasil ini dari mesin hemat (Claude Haiku) yang menilai per paragraf. Untuk hasil yang lebih memuaskan — penilaian per kalimat yang diperiksa ulang Sonnet dan Opus bila ragu, rubrik, kemiripan antar-naskah, dan laporan tanpa iklan — pakai Cek Lengkap.', 'This result comes from the economy engine (Claude Haiku), judged per paragraph. For a more thorough result — per-sentence judgements re-checked by Sonnet and Opus when in doubt, rubrics, cross-text similarity and an ad-free report — use the Full Check.')}</p>
+    <p>${tr(L, 'Hasil ini dari mesin hemat (Essential) yang menilai per paragraf. Untuk hasil yang lebih memuaskan — penilaian per kalimat yang diperiksa ulang Advanced dan Expert bila ragu, rubrik, kemiripan antar-naskah, dan laporan tanpa iklan — pakai Cek Lengkap.', 'This result comes from the economy engine (Essential), judged per paragraph. For a more thorough result — per-sentence judgements re-checked by Advanced and Expert when in doubt, rubrics, cross-text similarity and an ad-free report — use the Full Check.')}</p>
     <div class="btn-row"><a class="btn btn-primary" href="/app/periksa">${tr(L, 'Cek Lengkap', 'Full Check')}</a><a class="btn btn-ghost" href="/app/token">${tr(L, 'Isi saldo', 'Top up')}</a></div>
   </section>` : ''}
   ${s.reuseOwn && s.reuseOwn.words > 0 ? html`<div class="flash ok reveal" data-reuse-own>♻ ${tr(L, `${fmtNum(L, s.reuseOwn.words)} kata naskah ini (${Math.round((s.reuseOwn.words * 100) / Math.max(1, s.analyzedWords))}%) pernah Anda periksa dengan mesin yang sama, jadi hasil tersimpannya dipakai lagi tanpa memanggil AI dan ${s.free ? 'halaman kuotanya' : 'tokennya'} dihitung ${s.reuseOwn.pct}%. Untuk menilai ulang dari awal, pakai „Ajukan tinjauan“ atau pilih mesin lain.`, `${fmtNum(L, s.reuseOwn.words)} words of this text (${Math.round((s.reuseOwn.words * 100) / Math.max(1, s.analyzedWords))}%) were checked by you before with the same engine, so the stored result was reused without calling the AI and ${s.free ? 'its quota pages count' : 'its tokens count'} at ${s.reuseOwn.pct}%. To re-assess from scratch, use “Request review” or choose another engine.`)}</div>` : ''}
@@ -386,7 +396,7 @@ app.get('/app/laporan/:id', async (c) => {
     tr(L, '<b>Tiga cincin</b> = porsi kata AI, campuran, dan manusia (selalu 100%).', '<b>Three rings</b> = share of AI, mixed and human words (always 100%).'),
     tr(L, '<b>Label</b> hanya “AI” atau “manusia” bila sistem yakin; selain itu “Tidak meyakinkan”.', 'The <b>label</b> is only “AI” or “human” when the system is confident; otherwise “Inconclusive”.'),
     tr(L, 'Di <b>lampiran</b>, arahkan kursor/ketuk kalimat untuk melihat peluang & alasannya.', 'In the <b>appendix</b>, hover/tap a sentence to see its probability & reasons.'),
-    tr(L, 'Merasa keliru? <b>Ajukan tinjauan</b> — Haiku, Sonnet, dan Opus menilai ulang seluruh teks tanpa melihat hasil ini (ditagih token seperti pemeriksaan forensik).', 'Think it is wrong? <b>Request a review</b> — Haiku, Sonnet and Opus re-score the whole text blind to this result (charged like a forensic check).'),
+    tr(L, 'Merasa keliru? <b>Ajukan tinjauan</b> — Essential, Advanced, dan Expert menilai ulang seluruh teks tanpa melihat hasil ini (ditagih token seperti pemeriksaan forensik).', 'Think it is wrong? <b>Request a review</b> — Essential, Advanced and Expert re-score the whole text blind to this result (charged like a forensic check).'),
   ])}
   <div class="grid g2 noprint">
     <form method="post" action="/app/laporan/${s.id}/catatan" class="card form reveal"><h3>${tr(L, 'Catatan kerja', 'Work note')}</h3><textarea name="note" rows="3" maxlength="1000" placeholder="${tr(L, 'mis. sudah dikonfirmasi ke penulis, draf diterima…', 'e.g. confirmed with the author, drafts received…')}">${note?.text ?? ''}</textarea><button class="btn btn-ghost btn-sm" type="submit">${tr(L, 'Simpan catatan', 'Save note')}</button></form>
@@ -426,8 +436,23 @@ app.get('/app/laporan/:id/unduh.json', async (c) => {
   if (!r) return c.notFound();
   // Laporan Cek Gratis tidak diberi segel digital (tidak untuk dijadikan bukti resmi).
   if (r.s.free) return c.text('Not available for Free Check reports', 403);
-  const { enc: _enc, cost: _cost, uid: _uid, ...pub } = r.s;
-  const payload = JSON.stringify({ report: pub, detail: r.d });
+  const { enc: _enc, cost: _cost, uid: _uid, ...rest } = r.s;
+  // Nama mesin rahasia (MASTER-BLUEPRINT §28.2): unduhan tidak pernah membawa ID model atau nama penyedia AI.
+  const sig = rest.signals;
+  const pub = {
+    ...rest,
+    mode: PUBLIC_MODE[rest.mode] ?? rest.mode,
+    signals: { stylo: sig.stylo, regen: sig.regen, essentialSentences: sig.haikuA, essentialParagraphs: sig.haikuB, advanced: sig.sonnet, expert: sig.opus, traces: sig.traces },
+    path: { ...rest.path, tiers: rest.path.tiers.map((t) => publicModelName(t)) },
+    rubric: rest.rubric ? { ...rest.rubric, verifiedBy: rest.rubric.verifiedBy.map((m) => publicModelName(m)) } : rest.rubric,
+    usage: rest.usage ? {
+      ...rest.usage,
+      lines: rest.usage.lines.map((l) => ({ ...l, model: publicModelName(l.model) })),
+      rates: Object.fromEntries(Object.entries(rest.usage.rates).map(([m, v]) => [publicModelName(m), v])),
+    } : undefined,
+  };
+  const detail = r.d?.rubric ? { ...r.d, rubric: { ...r.d.rubric, aspects: r.d.rubric.aspects.map((a) => ({ ...a, by: publicModelName(a.by) })) } } : r.d;
+  const payload = JSON.stringify({ report: pub, detail });
   const signature = await hmac(`${c.env.SESSION_SECRET ?? ''}:report-signature`, payload);
   const body = `{"format":"aca-report-v1","verify":"${origin(c)}/v/${r.s.verifyCode}","signature":"hmac-sha256:${signature}","data":${payload}}`;
   return new Response(body, { headers: { 'content-type': 'application/json; charset=utf-8', 'content-disposition': `attachment; filename="ai-content-analyzer-${r.s.id}.json"` } });
@@ -576,7 +601,7 @@ app.get('/app/sesi/:id', async (c) => {
     <div class="muted small sm-log" data-sitemap-log hidden aria-live="polite"></div>
     <div class="queue" data-queue hidden><table class="tbl"><thead><tr><th>${tr(L, 'Peserta', 'Entrant')}</th><th>${tr(L, 'Judul', 'Title')}</th><th class="n">${tr(L, 'Kata', 'Words')}</th><th></th></tr></thead><tbody data-queue-body></tbody></table>
       <div class="row-between"><small class="muted"><b data-queue-total>0</b> ${tr(L, 'kata', 'words')} · ${tr(L, 'token dipesan saat dijalankan, sisanya kembali', 'tokens are reserved on run, the rest returns')}</small>
-      <select data-batch-mode aria-label="${tr(L, 'Mesin AI', 'AI engine')}">${(['auto', 'haiku', 'sonnet', 'opus'] as const).map((m) => html`<option value="${m}">${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</option>`)}</select>
+      <select data-batch-mode aria-label="${tr(L, 'Mesin AI', 'AI engine')}">${(['auto', 'haiku', 'sonnet', 'opus'] as const).map((m) => html`<option value="${PUBLIC_MODE[m]}">${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</option>`)}</select>
       <label class="check"><input type="checkbox" data-agree> <span>${tr(L, 'Saya berhak memeriksa naskah-naskah ini.', 'I am entitled to check these texts.')}</span></label>
       <button class="btn btn-primary" type="button" data-run>${tr(L, 'Jalankan pemeriksaan', 'Run the checks')} →</button></div></div>
     <div class="flash err" data-batch-err hidden></div>
@@ -635,10 +660,21 @@ app.get('/app/token', async (c) => {
   const L = portalLang(c);
   const user = c.get('user')!;
   const store = c.get('store');
-  const [eng, billing, measured, bal, led, pay, dep, depLed] = await Promise.all([
-    getEngine(store), getBilling(store), measuredCostPer1k(store), balanceOf(store, user.id), ledger(store, user.id, 25),
-    getPayment(store), depositBalance(store, user.id), depositLedger(store, user.id, 15),
+  const [eng, billing, bal, led, pay, dep, depLed, ppDoc, controls] = await Promise.all([
+    getEngine(store), getBilling(store), balanceOf(store, user.id), ledger(store, user.id, 25),
+    getPayment(store), depositBalance(store, user.id), depositLedger(store, user.id, 15), getPaypal(c.env, store), getControls(store),
   ]);
+  // Luar negeri: harga USD lebih dulu dan PayPal disarankan (MASTER-BLUEPRINT §28.4).
+  const foreign = isForeign(c);
+  const paypalOn = paypalReady(ppDoc);
+  const av = engineAvailability(controls);
+  const avail = { haiku: true, sonnet: av.sonnet, opus: av.opus, fable: av.fable };
+  // Mesin tujuan konversi & „saldo cukup untuk“ per mesin (MASTER-BLUEPRINT §28.7) — hanya mesin yang terbuka & aktif.
+  const myTier = tierOf(user);
+  const perPage = new Map(predictByMode(bal, billing, eng).map((x) => [x.mode, x]));
+  const convertModes = (['auto', 'haiku', 'sonnet', 'opus', 'fable'] as const)
+    .filter((m) => modeAllowed(m, myTier) && (m === 'auto' || m === 'haiku' || avail[m]))
+    .map((m) => { const x = perPage.get(m); return { mode: m, tpp: x ? Math.round(((x.perPage.low + x.perPage.high) / 2) * 100) / 100 : 0, pages: x?.pages }; });
   // Rekap pemakaian & pembayaran member sendiri (MASTER-BLUEPRINT §27) — tanpa biaya AI atau laba (rahasia perusahaan).
   const mine = (await store.get<MemberStats>(statsKey(user.id)))?.rebuiltAt ? await getStats(store, user.id) : await rebuildStats(store, user.id);
   const { items: oi } = await store.list(`i/user-orders/${user.id}/`, { limit: 6 });
@@ -659,6 +695,10 @@ app.get('/app/token', async (c) => {
     <div class="stat stat-hero reveal"><span class="stat-k">${tr(L, 'Saldo deposit (Rupiah)', 'Deposit balance (Rupiah)')}</span><b class="stat-v">Rp ${fmtNum(L, dep)}</b><p class="predict">${tr(L, `≈ ${fmtNum(L, Math.floor(dep / tp))} token bila ditukar sekarang (1 token = Rp ${fmtNum(L, tp)})`, `≈ ${fmtNum(L, Math.floor(dep / tp))} tokens if converted now (1 token = Rp ${fmtNum(L, tp)})`)}</p></div>
   </div>
   ${noCashNotice(L)}
+  <section class="card reveal" data-engine-balance><div class="row-between"><h3>${tr(L, 'Saldo Anda cukup untuk', 'Your balance covers')}</h3><span class="pill ${isVvip(myTier) ? 'p-vvip' : 'p-b'}">${isVvip(myTier) ? '♛ VVIP' : tr(L, `Paket ${TIERS[myTier].id}`, `${TIERS[myTier].en} package`)}</span></div>
+    <ul class="plan-pages">${convertModes.map((m) => html`<li class="${user.preferredMode === m.mode ? 'rec' : ''}"><span>${PUBLIC_NAME[m.mode]}</span><b>${m.pages ? `${fmtNum(L, m.pages.low)}–${fmtNum(L, m.pages.high)}` : '—'}</b> <small>${tr(L, 'hal.', 'pp.')}</small></li>`)}</ul>
+    <p class="muted small">${isVvip(myTier) ? tr(L, 'VVIP: semua mesin terbuka, tanpa batas token harian, dan 3× pemeriksaan bersamaan.', 'VVIP: every engine unlocked, no daily token limit, and 3× concurrent checks.') : tr(L, 'Perkiraan per mesin yang terbuka untuk paket Anda. Total pembayaran ≥ Rp10 jt membuka Enterprise, ≥ Rp20 jt Super Enterprise, ≥ Rp100 jt VVIP.', 'Estimates per engine unlocked by your package. Total payments ≥ Rp10m unlock Enterprise, ≥ Rp20m Super Enterprise, ≥ Rp100m VVIP.')}</p>
+  </section>
   <section class="card reveal" data-my-stats><h3>${tr(L, 'Riwayat pemakaian & pembayaran Anda', 'Your usage & payment history')}</h3>
     <div class="grid g4">
       ${stat(tr(L, 'Sudah dibayar', 'Paid so far'), `Rp ${fmtNum(L, mine.paidIdr)}`, mine.paidUsd ? `+ US$ ${fmtNum(L, mine.paidUsd, 2)}` : undefined)}
@@ -669,34 +709,38 @@ app.get('/app/token', async (c) => {
     <p class="muted small">${mine.firstAt ? tr(L, `Sejak ${fmtDate(L, mine.firstAt, false)}. Riwayat ini tidak pernah dihapus.`, `Since ${fmtDate(L, mine.firstAt, false)}. This history is never deleted.`) : tr(L, 'Belum ada pemakaian. Riwayat ini tidak pernah dihapus.', 'No usage yet. This history is never deleted.')}</p>
   </section>
   <h2 class="reveal" id="paket">${tr(L, 'Paket token', 'Token packages')}</h2>
-  <div class="grid g4 plans">${billing.packages.map((p) => {
-    const pr = predictPages(p.tokens, billing, eng, measured);
+  <div class="grid g3 plans">${billing.packages.map((p) => {
     const pp = packagePrice(p, billing, eng);
     const op = newId('dop');
-    return html`<div class="plan reveal ${pick === p.key ? 'featured' : ''}"><h3>${bi(L, p.name)}</h3>
-      <p class="price">Rp ${fmtNum(L, pp.idr)}</p>${pay.usdEnabled ? html`<p class="price-alt">US$${fmtNum(L, pp.usd, Number.isInteger(pp.usd) ? 0 : 2)}</p>` : ''}
-      ${p.discountPct > 0 ? html`<p class="pill p-hum">${tr(L, `hemat ${p.discountPct}%`, `save ${p.discountPct}%`)}</p>` : ''}
-      <p><b>${fmtNum(L, p.tokens)}</b> token</p><p class="predict-sm">≈ ${fmtNum(L, pr.pages.low)}–${fmtNum(L, pr.pages.high)} ${tr(L, 'halaman*', 'pages*')}</p><p class="muted">${bi(L, p.note)}</p>
-      <form method="post" action="/app/token/pesan" class="plan-buy"><input type="hidden" name="paket" value="${p.key}">
-        ${pay.idrEnabled ? html`<button class="btn ${pick === p.key ? 'btn-primary' : 'btn-ghost'} btn-sm" type="submit" name="cur" value="IDR">${tr(L, 'Transfer Rupiah', 'Pay in Rupiah')}</button>` : ''}
-        ${pay.usdEnabled ? html`<button class="btn btn-ghost btn-sm" type="submit" name="cur" value="USD">${tr(L, 'Bayar USD (luar negeri)', 'Pay in USD (abroad)')}</button>` : ''}
+    const actions = html`<form method="post" action="/app/token/pesan" class="plan-buy"><input type="hidden" name="paket" value="${p.key}">
+        ${paypalOn ? html`<button class="btn ${foreign ? 'btn-primary' : 'btn-ghost'} btn-sm pp-btn" type="submit" name="cur" value="PAYPAL" data-paypal>${tr(L, 'Bayar cepat PayPal (USD)', 'Pay fast with PayPal (USD)')}</button>` : ''}
+        ${pay.idrEnabled ? html`<button class="btn ${!foreign && pick === p.key ? 'btn-primary' : 'btn-ghost'} btn-sm" type="submit" name="cur" value="IDR">${tr(L, 'Transfer Rupiah', 'Pay in Rupiah')}</button>` : ''}
+        ${pay.usdEnabled ? html`<button class="btn btn-ghost btn-sm" type="submit" name="cur" value="USD">${tr(L, 'Transfer USD (luar negeri)', 'USD bank transfer (abroad)')}</button>` : ''}
       </form>
-      <form method="post" action="/app/deposit/beli"><input type="hidden" name="paket" value="${p.key}"><input type="hidden" name="op" value="${op}"><button class="btn btn-primary btn-sm" type="submit" ${dep < pp.idr ? 'disabled' : ''} data-confirm="${tr(L, `Beli paket ini dengan saldo deposit Rp ${fmtNum(L, pp.idr)}?`, `Buy this package with Rp ${fmtNum(L, pp.idr)} of deposit?`)}">💰 ${tr(L, 'Beli dari saldo deposit', 'Buy with deposit')}</button></form>
-    </div>`;
+      <form method="post" action="/app/deposit/beli"><input type="hidden" name="paket" value="${p.key}"><input type="hidden" name="op" value="${op}"><button class="btn btn-primary btn-sm" type="submit" ${dep < pp.idr ? 'disabled' : ''} data-confirm="${tr(L, `Beli paket ini dengan saldo deposit Rp ${fmtNum(L, pp.idr)}?`, `Buy this package with Rp ${fmtNum(L, pp.idr)} of deposit?`)}">💰 ${tr(L, 'Beli dari saldo deposit', 'Buy with deposit')}</button></form>`;
+    return planCard(L, p, billing, eng, { usdFirst: foreign, featured: pick === p.key, actions, avail });
   })}</div>
-  <p class="muted small reveal">* ${tr(L, `Perkiraan, bukan janji: ±${billing.wordsPerPage} kata per halaman; pemakaian nyata tergantung model AI yang terpakai (Haiku saja, atau naik ke Sonnet/Opus), panjang naskah, dan rubrik.`, `An estimate, not a promise: ±${billing.wordsPerPage} words per page; real usage depends on the AI models used (Haiku only, or escalation to Sonnet/Opus), text length and rubric.`)}</p>
+  ${plansNote(L, billing)}
   <section class="card reveal" id="deposit"><h3>💰 ${tr(L, 'Saldo deposit Rupiah', 'Rupiah deposit')}</h3>
     <p class="muted">${tr(L, 'Isi saldo sekali, pakai berkali-kali: beli paket token dari saldo, atau tukar sebagian saldo menjadi token kapan saja. Sisa deposit tidak bisa diuangkan, tetapi selalu bisa dipakai untuk membeli atau ditukar menjadi token.', 'Top up once, use many times: buy token packages from the balance, or convert part of it into tokens any time. The remaining deposit cannot be cashed out, but it can always be used to buy or convert into tokens.')}</p>
     <div class="grid g2">
-      ${pay.idrEnabled ? html`<form method="post" action="/app/deposit/isi" class="form"><h4>1 · ${tr(L, 'Isi saldo (transfer)', 'Top up (bank transfer)')}</h4>
-        <label class="field"><span>${tr(L, 'Nominal (Rp)', 'Amount (Rp)')}</span><input type="number" name="idr" min="${pay.minDepositIdr}" max="${pay.maxDepositIdr}" step="1000" required value="${Math.max(pay.minDepositIdr, 100_000)}" id="depAmt"></label>
-        <div class="chips">${[50_000, 100_000, 250_000, 500_000, 1_000_000].filter((v) => v >= pay.minDepositIdr && v <= pay.maxDepositIdr).map((v) => html`<button type="button" class="chip" data-set="#depAmt" data-value="${v}">Rp ${fmtNum(L, v)}</button>`)}</div>
-        <small class="muted">${tr(L, `Minimum Rp ${fmtNum(L, pay.minDepositIdr)}. Setelah memesan Anda mendapat invoice, rekening tujuan, dan formulir unggah bukti transfer.`, `Minimum Rp ${fmtNum(L, pay.minDepositIdr)}. After ordering you get an invoice, the destination account and a proof upload form.`)}</small>
-        <button class="btn btn-primary" type="submit">${tr(L, 'Buat invoice deposit', 'Create deposit invoice')}</button></form>` : ''}
+      <form method="post" action="/app/deposit/isi" class="form" data-deposit-form><h4>1 · ${tr(L, 'Isi saldo — nominal bebas', 'Top up — any amount')}</h4>
+        <div class="grid g2">
+          <label class="field"><span>${tr(L, 'Nominal', 'Amount')}</span><input type="number" name="amount" min="1" step="any" required value="${foreign ? 100 : Math.max(pay.minDepositIdr, 1_000_000)}" id="depAmt" inputmode="decimal"></label>
+          <label class="field"><span>${tr(L, 'Mata uang', 'Currency')}</span><select name="cur" data-dep-cur><option value="IDR" ${!foreign ? 'selected' : ''}>IDR (Rp)</option><option value="USD" ${foreign ? 'selected' : ''}>USD (US$)</option></select></label>
+        </div>
+        <div class="chips">${(foreign ? [100, 500, 1_000, 5_000, 10_000] : [1_000_000, 10_000_000, 20_000_000, 100_000_000, 1_000_000_000]).map((v) => html`<button type="button" class="chip" data-set="#depAmt" data-value="${v}">${foreign ? `US$${fmtNum(L, v)}` : `Rp ${fmtNum(L, v)}`}</button>`)}</div>
+        <small class="muted" data-dep-note>${tr(L, `Tanpa batas atas — Rp100 juta sampai Rp1 miliar pun bisa. Minimum Rp ${fmtNum(L, pay.minDepositIdr)}. USD dikonversi ke saldo Rupiah dengan kurs hari ini (1 USD ≈ Rp ${fmtNum(L, eng.fx)}). Total pembayaran ≥ Rp10 jt membuka Enterprise, ≥ Rp20 jt Super Enterprise, ≥ Rp100 jt VVIP — semua mesin.`, `No upper limit — even Rp100 million to Rp1 billion. Minimum Rp ${fmtNum(L, pay.minDepositIdr)}. USD is converted into the Rupiah balance at today’s rate (1 USD ≈ Rp ${fmtNum(L, eng.fx)}). Total payments ≥ Rp10m unlock Enterprise, ≥ Rp20m Super Enterprise, ≥ Rp100m VVIP — every engine.`)}</small>
+        <div class="btn-row">
+          ${paypalOn ? html`<button class="btn ${foreign ? 'btn-primary' : 'btn-ghost'} pp-btn" type="submit" name="via" value="paypal" data-dep-paypal>⚡ ${tr(L, 'Bayar cepat PayPal (USD)', 'Pay fast with PayPal (USD)')}</button>` : ''}
+          ${pay.idrEnabled || pay.usdEnabled ? html`<button class="btn ${foreign && paypalOn ? 'btn-ghost' : 'btn-primary'}" type="submit" name="via" value="transfer">🏦 ${tr(L, 'Transfer bank (BNI)', 'Bank transfer (BNI)')}</button>` : ''}
+        </div></form>
       <form method="post" action="/app/deposit/tukar" class="form" data-convert data-tp="${tp}"><h4>2 · ${tr(L, 'Tukar saldo menjadi token', 'Convert balance into tokens')}</h4>
         <input type="hidden" name="op" value="${newId('dop')}">
         <label class="field"><span>${tr(L, 'Nominal yang ditukar (Rp)', 'Amount to convert (Rp)')}</span><input type="number" name="idr" min="${tp}" max="${dep}" step="1" required value="${dep}" data-convert-in></label>
-        <p class="predict">= <b data-convert-out>${fmtNum(L, Math.floor(dep / tp))}</b> token · <small class="muted">1 token = Rp ${fmtNum(L, tp)}</small></p>
+        <label class="field"><span>${tr(L, 'Untuk mesin', 'For engine')} ${tip(tr(L, 'Pilih mesin yang akan Anda pakai. Pratinjau menghitung perkiraan halamannya, dan mesin ini menjadi pilihan bawaan saat memeriksa. Token tetap bisa dipakai di semua mesin yang terbuka untuk paket Anda.', 'Choose the engine you will use. The preview estimates its pages, and it becomes your default when checking. Tokens still work on every engine your package unlocks.'))}</span>
+          <select name="engine" data-convert-engine>${convertModes.map((m) => html`<option value="${PUBLIC_MODE[m.mode]}" data-tpp="${m.tpp}" ${m.mode === (user.preferredMode ?? 'auto') ? 'selected' : ''}>${PUBLIC_NAME[m.mode]}${m.mode === 'auto' ? tr(L, ' — fleksibel, termurah yang mampu', ' — flexible, cheapest capable') : ''}</option>`)}</select></label>
+        <p class="predict">= <b data-convert-out>${fmtNum(L, Math.floor(dep / tp))}</b> token ≈ <b data-convert-pages>—</b> ${tr(L, 'halaman', 'pages')} · <small class="muted">1 token = Rp ${fmtNum(L, tp)}</small></p>
         <button class="btn btn-ghost" type="submit" ${dep < tp ? 'disabled' : ''}>${tr(L, 'Tukar sekarang', 'Convert now')}</button></form>
     </div>
     ${depLed.length ? html`<details class="more"><summary>${tr(L, 'Riwayat deposit', 'Deposit history')}</summary><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Waktu', 'Time')}</th><th>${tr(L, 'Jenis', 'Kind')}</th><th class="n">Rp</th><th>${tr(L, 'Catatan', 'Note')}</th></tr></thead><tbody>${depLed.map((e) => html`<tr><td><small>${fmtDate(L, e.at)}</small></td><td>${({ topup: tr(L, 'isi saldo', 'top-up'), buy: tr(L, 'beli paket', 'package'), convert: tr(L, 'tukar token', 'to tokens'), admin: 'admin', refund: tr(L, 'kembali', 'refund') } as Record<string, string>)[e.kind] ?? e.kind}</td><td class="n ${e.idr < 0 ? 'neg' : 'pos'}">${e.idr > 0 ? '+' : ''}${fmtNum(L, e.idr)}</td><td><small>${e.note}</small></td></tr>`)}</tbody></table></div></details>` : ''}
@@ -741,6 +785,22 @@ app.get('/app/pengaturan', async (c) => {
       <div class="strength" aria-hidden="true"><i></i></div>
       <button class="btn btn-primary" type="submit">${tr(L, 'Ganti sandi', 'Change password')}</button>
       <p class="muted">${tr(L, 'Mengganti sandi mengeluarkan semua perangkat lain.', 'Changing the password signs out every other device.')}</p></form>
+    <form method="post" action="/app/pengaturan/penagihan" class="card form reveal" data-billing-profile><h3>${tr(L, 'Profil penagihan (invoice)', 'Billing profile (invoices)')}</h3>
+      <p class="muted small">${tr(L, 'Untuk perusahaan, lembaga, atau pembeli luar negeri: data ini tampil di bagian „Kepada“ setiap invoice baru dan di kepala laporan.', 'For companies, institutions or buyers abroad: this appears under “Bill to” on every new invoice and in report headers.')}</p>
+      <label class="field"><span>${tr(L, 'Nama perusahaan / lembaga', 'Company / organisation')}</span><input name="company" value="${user.billing?.company ?? ''}" maxlength="120" autocomplete="organization"></label>
+      <div class="grid g2">
+        <label class="field"><span>${tr(L, 'NPWP / VAT / Tax ID', 'Tax / VAT ID')}</span><input name="taxId" value="${user.billing?.taxId ?? ''}" maxlength="40"></label>
+        <label class="field"><span>${tr(L, 'Nomor PO (opsional)', 'PO number (optional)')}</span><input name="po" value="${user.billing?.po ?? ''}" maxlength="40"></label>
+      </div>
+      <label class="field"><span>${tr(L, 'Alamat', 'Address')}</span><input name="address" value="${user.billing?.address ?? ''}" maxlength="200" autocomplete="street-address"></label>
+      <div class="grid g3">
+        <label class="field"><span>${tr(L, 'Kota', 'City')}</span><input name="city" value="${user.billing?.city ?? ''}" maxlength="80" autocomplete="address-level2"></label>
+        <label class="field"><span>${tr(L, 'Kode pos', 'Postal code')}</span><input name="postal" value="${user.billing?.postal ?? ''}" maxlength="20" autocomplete="postal-code"></label>
+        <label class="field"><span>${tr(L, 'Negara', 'Country')}</span><input name="country" value="${user.billing?.country ?? (user.country === 'ID' ? 'Indonesia' : user.country ?? '')}" maxlength="60" autocomplete="country-name"></label>
+      </div>
+      <label class="field"><span>${tr(L, 'E-mail penagihan', 'Billing e-mail')}</span><input type="email" name="email" value="${user.billing?.email ?? ''}" maxlength="120"></label>
+      <button class="btn btn-primary" type="submit">${tr(L, 'Simpan profil penagihan', 'Save billing profile')}</button>
+    </form>
     <section class="card reveal"><h3>${tr(L, 'Verifikasi 2 langkah', 'Two-step verification')}</h3><p>${user.totp ? html`<span class="pill p-hum">✓ ${tr(L, 'Aktif', 'On')}</span>` : html`<span class="pill p-unk">${tr(L, 'Belum aktif', 'Off')}</span>`}</p>${user.totp ? '' : html`<a class="btn btn-ghost" href="/2fa/pasang">${tr(L, 'Aktifkan 2FA', 'Turn on 2FA')}</a>`}</section>
   </div>`;
   return c.html(shell(c, tr(L, 'Pengaturan', 'Settings'), body, 'settings'));
@@ -751,6 +811,26 @@ app.post('/app/pengaturan', async (c) => {
   const f = (await c.req.parseBody()) as Record<string, string>;
   const ret = Number(f.retention);
   await updateUser(c.get('store'), user.id, (u) => ({ ...u, name: String(f.name ?? u.name).slice(0, 80) || u.name, lang: f.lang === 'en' ? 'en' : 'id', retentionDays: [0, 7, 30, 90].includes(ret) ? ret : u.retentionDays }));
+  return c.redirect('/app/pengaturan?ok=1');
+});
+
+/** Alamat email penagihan: pemeriksaan linear (tanpa regex bertingkat yang bisa lambat pada masukan jahat). */
+function validEmail(e: string): boolean {
+  if (e.length > 120 || /\s/.test(e)) return false;
+  const at = e.indexOf('@');
+  if (at < 1 || at !== e.lastIndexOf('@')) return false;
+  const domain = e.slice(at + 1);
+  const dot = domain.lastIndexOf('.');
+  return dot > 0 && dot < domain.length - 1;
+}
+
+app.post('/app/pengaturan/penagihan', async (c) => {
+  const user = c.get('user')!;
+  const f = (await c.req.parseBody()) as Record<string, string>;
+  const t = (k: string, n: number) => String(f[k] ?? '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, n) || undefined;
+  const email = t('email', 120);
+  const billing = { company: t('company', 120), taxId: t('taxId', 40), po: t('po', 40), address: t('address', 200), city: t('city', 80), postal: t('postal', 20), country: t('country', 60), email: email && validEmail(email) ? email : undefined };
+  await updateUser(c.get('store'), user.id, (u) => ({ ...u, billing }));
   return c.redirect('/app/pengaturan?ok=1');
 });
 
@@ -771,5 +851,6 @@ app.post('/app/pengaturan/sandi', async (c) => {
 
 registerMemberAffiliate(app);
 registerMemberPayments(app);
+registerMemberPaypal(app);
 
 export { textKey };

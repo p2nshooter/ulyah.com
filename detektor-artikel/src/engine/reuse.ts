@@ -82,7 +82,7 @@ export async function paraHash(text: string): Promise<string> {
 }
 
 /** Kunci mesin: mode + model + effort yang benar-benar dipakai + versi mesin. Berbeda satu saja = mesin baru. */
-export async function engineKey(s: EngineSettings, mode: Mode, free: boolean): Promise<string> {
+export async function engineKey(s: EngineSettings, mode: Mode, free: boolean, ceiling: 1 | 2 | 3 = 3): Promise<string> {
   const spec = free
     ? { m: 'free', j: freeModel(s), e: 'low' }
     : mode === 'haiku'
@@ -93,7 +93,7 @@ export async function engineKey(s: EngineSettings, mode: Mode, free: boolean): P
           ? { m: mode, j: s.models.t3, e: s.effort.t3 }
           : mode === 'fable'
             ? { m: mode, j: FABLE_MODEL, e: s.effort.t3 }
-            : { m: mode, models: s.models, effort: s.effort };
+            : { m: mode, models: s.models, effort: s.effort, ...(mode === 'auto' && ceiling < 3 ? { c: ceiling } : {}) };
   return (await sha256Hex(`${ENGINE_REV}|${JSON.stringify(spec)}`)).slice(0, 20);
 }
 

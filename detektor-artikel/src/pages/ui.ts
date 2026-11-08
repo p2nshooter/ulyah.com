@@ -5,6 +5,7 @@ import type { User } from '../data/users.ts';
 import { isAdmin } from '../data/users.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
 import { B, isAscan } from '../brand.ts';
+import { ASSET_V } from '../lib/pwa.ts';
 
 /** Nama, logo, warna dan akun AdSense datang dari lapisan merek (src/brand.ts) — xscan.es atau ascan.es. */
 export const BRAND = B.name;
@@ -103,9 +104,9 @@ ${raw(ADSENSE_METAS)}
 <link rel="icon" href="${B.favicon32}" sizes="32x32" type="image/png"><link rel="icon" href="${B.favicon64}" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="${B.appleTouch}"><meta property="og:image" content="${B.ogImage}"><meta property="og:site_name" content="${B.host}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONT}">
-<link rel="stylesheet" href="/assets/app.css?v=1">${isAscan ? html`<link rel="stylesheet" href="${B.css}">` : ''}
+<link rel="stylesheet" href="/assets/app.css?v=${ASSET_V}">${isAscan ? html`<link rel="stylesheet" href="${B.css}">` : ''}
 ${o.jsonld ? raw(`<script type="application/ld+json">${JSON.stringify(o.jsonld).replace(/</g, '\\u003c')}</script>`) : ''}
-<script src="/assets/app.js?v=1" defer></script>
+<script src="/assets/app.js?v=${ASSET_V}" defer></script>
 ${(o.area === 'public' && !o.noindex) || (o.area === 'app' && o.ads) ? raw(`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>`) : ''}
 </head>`;
 }
@@ -167,6 +168,8 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/kendali', '🛡', tr(L, 'Kendali biaya', 'Cost controls'), 'controls'],
           ['/admin/pesanan', '🧾', tr(L, 'Pesanan & bukti TF', 'Orders & proofs'), 'orders'],
           ['/admin/pembayaran', '🏦', tr(L, 'Rekening pembayaran', 'Payment accounts'), 'payments'],
+          ['/admin/paypal', '🅿', 'PayPal', 'paypal'],
+          ['/admin/kurs', '💱', tr(L, 'Kurs USD/IDR', 'USD/IDR rate'), 'fx'],
           ['/admin/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
           ['/admin/laporan', '▤', tr(L, 'Laporan', 'Reports'), 'reports'],
           ['/admin/biaya', '＄', tr(L, 'Biaya API', 'API cost'), 'cost'],
@@ -185,8 +188,10 @@ function sideNav(o: PageOpts): Raw {
           ['/app/pengaturan', '⚙', tr(L, 'Pengaturan', 'Settings'), 'settings'],
           [L === 'en' ? '/en/guide' : '/panduan', '📘', tr(L, 'Panduan', 'Guide'), 'guide'],
         ];
+  // Pemilik, 8 Nov 2026: tombol ✕ untuk menutup menu di HP dan tombol ke beranda situs dari portal member maupun admin.
   return html`<aside class="side" id="side" ${o.area === 'admin' ? raw('data-admin-notify') : ''}>
-  <a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${brandMark(o.area === 'admin' ? html` <em class="tag-admin">Admin</em>` : '')}</a>
+  <div class="side-head"><a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${brandMark(o.area === 'admin' ? html` <em class="tag-admin">Admin</em>` : '')}</a><button class="side-close" type="button" data-close-side aria-label="${tr(L, 'Tutup menu', 'Close menu')}" title="${tr(L, 'Tutup menu', 'Close menu')}">✕</button></div>
+  <a class="side-home" href="${L === 'en' ? '/en' : '/'}" data-home-link>🏠 <span>${tr(L, 'Beranda situs', 'Website home')}</span></a>
   <nav aria-label="${tr(L, 'Navigasi portal', 'Portal navigation')}">
     ${items.map(([href, ic, label, key]) => html`<a href="${href}" class="${o.active === key ? 'on' : ''}" data-nav="${key}"><i aria-hidden="true">${ic}</i><span>${label}</span><b class="nav-badge" data-badge="${key}" hidden></b></a>`)}
   </nav>
@@ -207,7 +212,7 @@ export function page(o: PageOpts): string {
   } else if (o.area === 'print') {
     bodyHtml = html`<main id="main" class="page-print">${o.body}</main>`;
   } else {
-    bodyHtml = html`<div class="shell">${sideNav(o)}<div class="shell-main"><header class="mobilebar"><button class="icon-btn" type="button" data-toggle="side" aria-label="Menu">☰</button><a class="brand" href="/app">${brandMark()}</a></header><main id="main" class="page-app">${o.body}</main></div></div>`;
+    bodyHtml = html`<div class="shell">${sideNav(o)}<div class="side-backdrop" data-close-side hidden></div><div class="shell-main"><header class="mobilebar"><button class="icon-btn" type="button" data-toggle="side" aria-label="Menu" aria-controls="side">☰</button><a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${brandMark()}</a><a class="icon-btn home-btn" href="${L === 'en' ? '/en' : '/'}" aria-label="${tr(L, 'Beranda situs', 'Website home')}" title="${tr(L, 'Beranda situs', 'Website home')}">🏠</a></header><main id="main" class="page-app">${o.body}</main></div></div>`;
   }
   return `<!doctype html><html lang="${L}">${head(o)}<body class="area-${o.area} brand-${B.id}"><a class="skip" href="#main">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>${o.area === 'print' ? '' : installBar(L)}${bodyHtml}<div class="toasts" aria-live="polite"></div></body></html>`;
 }

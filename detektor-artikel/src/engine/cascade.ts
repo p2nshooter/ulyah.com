@@ -81,6 +81,8 @@ export interface CheckDoc {
   reportId?: string;
   /** Tanpa hasil tersimpan (uji mesin, „Ajukan tinjauan“): selalu dinilai AI dari awal. */
   noReuse?: boolean;
+  /** Batas naik Smart Auto menurut paket member (1 Essential, 2 + Advanced, 3 + Expert) — MASTER-BLUEPRINT §28.3. */
+  ceiling?: 1 | 2 | 3;
   /** Hasil tersimpan (MASTER-BLUEPRINT §26): kata milik sendiri / member lain yang tidak dikirim ke AI, US$ yang dihemat. */
   reuse?: { own: number; other: number; savedUsd: number; pct: number };
   /** Kunci hasil tersimpan pemeriksaan ini (mesin + daftar „pernah mengunggah“ member). */
@@ -152,6 +154,8 @@ export interface ReportSummary {
   samePrior: number;
   /** Bagian naskah yang pernah diperiksa member ini sendiri dengan mesin yang sama (ditagih `pct` %). */
   reuseOwn?: { words: number; pct: number };
+  /** Perusahaan/lembaga pemesan dari profil penagihan (MASTER-BLUEPRINT §28.5). */
+  org?: string;
   purged?: boolean;
   /** Kapan naskah & rincian kalimatnya dihapus otomatis (riwayat dan angka tetap — MASTER-BLUEPRINT §27). */
   purgedAt?: number;
@@ -361,7 +365,16 @@ async function judgeB(
   }
 }
 
-async function regenTest(ctx: CallCtx, settings: EngineSettings, pp: Prepped): Promise<{ p: number | null; overlaps: number[] }> {
+/**
+ * Mesin tunggal (Essential/Advanced/Expert/Elite): member memilih SATU mesin, jadi semua panggilan — termasuk uji tebak
+ * lanjutan — memakai mesin itu (pemilik, 8 Nov 2026: „client bisa memilih engine tertentu saja“). Smart Auto & Forensic
+ * Panel memulai dari Essential.
+ */
+function regenModel(settings: EngineSettings, mode: Mode): string {
+  return mode === 'sonnet' || mode === 'opus' || mode === 'fable' ? judgeModel(settings, mode).model : settings.models.t1;
+}
+
+async function regenTest(ctx: CallCtx, settings: EngineSettings, pp: Prepped, mode: Mode): Promise<{ p: number | null; overlaps: number[] }> {
   const ss = body(pp);
   if (!settings.regen || pp.analyzedWords < 300 || ss.length < 8) return { p: null, overlaps: [] };
   const cuts: { prefix: string; real: string }[] = [];
@@ -381,7 +394,7 @@ async function regenTest(ctx: CallCtx, settings: EngineSettings, pp: Prepped): P
   try {
     const r = await callModel<{ continuations: { k: number; text: string }[] }>(ctx, {
       tier: 't1-regen',
-      model: settings.models.t1,
+      model: regenModel(settings, mode),
       effort: settings.effort.regen,
       system: REGEN_SYSTEM,
       user: `${cuts.map((c, k) => `<naskah k="${k}">\n${c.prefix}\n</naskah>`).join('\n')}\nFor each <naskah> above, write how the text most likely continues: about 120 words, same language and voice. Return one continuation per k.`,
@@ -484,7 +497,7 @@ function signalsOf(prep: PrepOut, t1: T1Out | null, t2: EscalationOut | null, t3
  */
 async function reusePlanOf(env: Env, store: Store, settings: EngineSettings, doc: CheckDoc, prep: PrepOut): Promise<ReusePlan | null> {
   if (doc.bench || doc.noReuse) return null;
-  return sub(store, env, doc.id, 'reuse', async () => planReuse(store, doc.uid, await engineKey(settings, doc.mode, Boolean(doc.free)), prep.pp, prep.hash));
+  return sub(store, env, doc.id, 'reuse', async () => planReuse(store, doc.uid, await engineKey(settings, doc.mode, Boolean(doc.free), doc.ceiling), prep.pp, prep.hash));
 }
 
 const freshPars = (plan: ReusePlan | null, pp: Prepped) => new Set(pp.paragraphs.filter((p) => p.kind === 'body' && !plan?.pars[p.i]).map((p) => p.i));
@@ -541,9 +554,9 @@ async function escalateWithReuse(ctx: CallCtx, tier: 't2' | 't3', model: string,
 }
 
 /** Uji tebak-lanjutan menilai naskah utuh: dipakai ulang bila identik, dilewati bila sebagian tersimpan (bagian lama 0 biaya). */
-async function regenWithReuse(ctx: CallCtx, settings: EngineSettings, pp: Prepped, plan: ReusePlan | null): Promise<T1Out['regen']> {
+async function regenWithReuse(ctx: CallCtx, settings: EngineSettings, pp: Prepped, plan: ReusePlan | null, mode: Mode): Promise<T1Out['regen']> {
   if (plan && (plan.words.own + plan.words.other) > 0) return { p: plan.full && plan.doc ? plan.doc.regen : null, overlaps: [] };
-  return regenTest(ctx, settings, pp);
+  return regenTest(ctx, settings, pp, mode);
 }
 
 /** Rubrik: dipakai ulang hanya dari pemeriksaan member ini sendiri dengan naskah, rubrik, dan bahasa laporan yang sama. */
@@ -596,7 +609,7 @@ async function stageT1(ctx: CallCtx, env: Env, store: Store, settings: EngineSet
   const [a, b, regen] = await Promise.all([
     sub(store, env, doc.id, 't1-a', () => judgeAWithReuse(ctx, settings, doc, pp, plan)),
     sub(store, env, doc.id, 't1-b', () => judgeBWithReuse(ctx, settings, doc, pp, plan)),
-    sub(store, env, doc.id, 't1-regen', () => regenWithReuse(ctx, settings, pp, plan)),
+    sub(store, env, doc.id, 't1-regen', () => regenWithReuse(ctx, settings, pp, plan, doc.mode)),
     rubric && !rubricReused ? sub(store, env, doc.id, 'rubric', () => { const jm = judgeModel(settings, doc.mode); return gradeWith(ctx, 'rubric', jm.model, jm.effort, rubric, doc, pp); }) : Promise.resolve(null),
   ]);
   const t1: T1Out = { a, b, regen };
@@ -613,6 +626,8 @@ async function stageT1(ctx: CallCtx, env: Env, store: Store, settings: EngineSet
   else targets = tier2Targets(pp, sig, t, false);
   // Kalimat di paragraf tersimpan tidak pernah dikirim lagi ke AI (biaya perusahaan 0 untuk bagian lama).
   if (plan) targets = targets.filter((i) => !plan.pars[pp.sentences[i]!.par]);
+  // Paket Starter: Smart Auto tidak naik ke Advanced/Expert.
+  if ((doc.ceiling ?? 3) < 2) targets = [];
   await store.put(subKey(doc.id, 't2-targets'), { targets });
   const next = targets.length > 0 || hasCached(plan, 't2');
   return { stage: next ? 't2' : 'fuse', t2n: targets.length, skipped: next ? [] : ['t2', 't3'] };
@@ -631,6 +646,7 @@ async function stageT2(ctx: CallCtx, env: Env, store: Store, settings: EngineSet
   const sig = signalsOf(prep, t1, t2, null, doc.mode);
   let t3 = tier3Targets(prep.pp, sig, settings.thresholds, doc.mode === 'forensic', doc.mode === 'forensic' ? 100_000 : settings.maxOpusSentences);
   if (plan) t3 = t3.filter((i) => !plan.pars[prep.pp.sentences[i]!.par]);
+  if ((doc.ceiling ?? 3) < 3) t3 = [];
   await store.put(subKey(doc.id, 't3-targets'), { targets: t3 });
   const next = t3.length > 0 || hasCached(plan, 't3');
   return { stage: next ? 't3' : 'fuse', t3n: t3.length, skipped: next ? [] : ['t3'] };
@@ -730,7 +746,7 @@ async function loadAll(env: Env, store: Store, id: string) {
 
 async function stageFuse(env: Env, store: Store, settings: EngineSettings, doc: CheckDoc): Promise<Partial<CheckDoc>> {
   const rubric = getRubric(doc.rubricId);
-  if (rubric && settings.rubricVerify && (doc.mode === 'auto' || doc.mode === 'forensic')) {
+  if (rubric && settings.rubricVerify && (doc.mode === 'auto' || doc.mode === 'forensic') && (doc.ceiling ?? 3) >= 2) {
     const all = await loadAll(env, store, doc.id);
     if (all.rubric) {
       const sealed = await store.get<Sealed>(textKey(doc.id));
@@ -752,7 +768,7 @@ async function stageRubric2(ctx: CallCtx, env: Env, store: Store, settings: Engi
     const y = s2.aspects.find((z) => z.key === a.key);
     return x && y && Math.abs(x.level - y.level) >= 2;
   });
-  if (far) await sub(store, env, doc.id, 'rubric3', () => gradeWith(ctx, 'rubric3', settings.models.t3, settings.effort.t3, rubric, doc, prep.pp));
+  if (far && (doc.ceiling ?? 3) >= 3) await sub(store, env, doc.id, 'rubric3', () => gradeWith(ctx, 'rubric3', settings.models.t3, settings.effort.t3, rubric, doc, prep.pp));
   return finalize(env, store, settings, { ...doc, cost: doc.cost + ctx.cost });
 }
 
@@ -897,6 +913,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     usage: { lines, rates, exact, reserved: doc.reserved, charged: doc.reserve && 'tokens' in doc.reserve ? tokens : 0, refunded: doc.reserve && 'tokens' in doc.reserve ? Math.max(0, doc.reserved - tokens) : 0 },
     samePrior: prior.filter((x) => x.id !== reportId).length,
     reuseOwn: plan && plan.words.own > 0 ? { words: plan.words.own, pct: billing.reusePct } : undefined,
+    org: (await getUser(store, doc.uid))?.billing?.company || undefined,
     enc: await seal(master(env), detail),
   };
   const created = await store.createOnce(reportKey(reportId), summary);
@@ -923,7 +940,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
   let rx = doc.rx;
   if (!doc.bench && all.t1 && !all.t1.a.refused && !all.t1.b.refused && !all.t1.a.injection && !all.t1.b.injection) {
     try {
-      const ek = plan?.ek ?? (await engineKey(settings, doc.mode, Boolean(doc.free)));
+      const ek = plan?.ek ?? (await engineKey(settings, doc.mode, Boolean(doc.free), doc.ceiling));
       const hashes: Record<number, string> = plan?.hashes ?? Object.fromEntries(await Promise.all(bodyParagraphs(pp).map(async (p) => [p.i, await paraHash(p.text)] as const)));
       const t2t = (await store.get<{ targets: number[] }>(subKey(doc.id, 't2-targets')))?.targets ?? [];
       const t3t = (await store.get<{ targets: number[] }>(subKey(doc.id, 't3-targets')))?.targets ?? [];

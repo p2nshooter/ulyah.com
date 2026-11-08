@@ -35,8 +35,11 @@ export interface GuideValues {
   tz: Pair;
   /** Mesin aktif saat ini (Admin → Kendali biaya). */
   engines: { sonnet: boolean; opus: boolean; fable: boolean };
-  /** Paket token saat ini: nama, token, diskon, harga Rupiah. */
-  packages: { name: Pair; tokens: number; discountPct: number; idr: number }[];
+  /** Paket token saat ini: nama, token yang didapat, diskon, harga Rupiah & USD, tingkat yang dibuka. */
+  packages: { name: Pair; tokens: number; discountPct: number; idr: number; usd: number; tier: number }[];
+  /** Kurs USD/IDR hari ini dan apakah PayPal aktif. */
+  fx: number;
+  paypal: boolean;
   /** Persen tagihan untuk naskah yang pernah diunggah member yang sama dengan mesin yang sama (Admin → Harga & token). */
   reusePct: number;
 }
@@ -111,6 +114,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       steps: [
         ['Buka menu Token dan deposit, lalu pilih paket yang Anda inginkan.', 'Open Tokens and deposit, then choose the package you want.'],
         [`Paket saat ini: ${v.packages.map((p) => `${p.name[0]} ${fmtNum('id', p.tokens)} token ${rp(p.idr, 0)}${p.discountPct ? ` (hemat ${p.discountPct}%)` : ''}`).join('; ')}.`, `Packages right now: ${v.packages.map((p) => `${p.name[1]} ${fmtNum('en', p.tokens)} tokens ${rp(p.idr, 1)}${p.discountPct ? ` (save ${p.discountPct}%)` : ''}`).join('; ')}.`],
+        ['Setiap kartu paket menyebut token yang didapat, perkiraan halaman untuk setiap mesin, dan mesin yang terbuka. Starter membuka Essential dan Smart Auto, Reguler menambah Advanced, Pro dan Lembaga menambah Expert dan Forensic Panel, sedangkan Enterprise dan Super Enterprise membuka semua mesin termasuk Elite.', 'Every package card shows the tokens you get, the estimated pages for each engine and the engines it unlocks. Starter unlocks Essential and Smart Auto, Regular adds Advanced, Pro and Institution add Expert and Forensic Panel, and Enterprise and Super Enterprise unlock every engine including Elite.'],
         ['Invoice dibuat. Di invoice tertera nomor invoice, jumlah yang harus dibayar, dan rekening tujuan.', 'An invoice is created. It shows the invoice number, the amount to pay, and the bank account to pay into.'],
         ['Transfer dari m-banking, internet banking, atau ATM bank apa pun, persis sesuai jumlah di invoice.', 'Transfer from mobile banking, internet banking or any bank ATM, exactly the amount on the invoice.'],
         ['Simpan bukti transfer, bisa tangkapan layar atau PDF, lalu unggah di halaman invoice yang sama.', 'Keep the transfer receipt, a screenshot or a PDF, and upload it on the same invoice page.'],
@@ -122,7 +126,9 @@ export function memberGuide(v: GuideValues): GuideSection[] {
     {
       id: 'luar-negeri', icon: '🌍', title: ['Membayar dari luar negeri (USD)', 'Paying from abroad (USD)'],
       steps: [
-        ['Pilih mata uang USD saat memesan. Invoice akan menampilkan dua cara bayar.', 'Choose USD when you order. The invoice shows two ways to pay.'],
+        ...(v.paypal ? [[`Cara tercepat: tekan Bayar cepat PayPal di kartu paket. Anda masuk ke PayPal, menyetujui pembayaran dalam dolar, lalu kembali ke situs ini dan token langsung masuk tanpa unggah bukti. Harga dolar dihitung dari harga Rupiah dengan kurs hari ini, sekitar ${fmtNum('id', v.fx)} rupiah per dolar.`, `Fastest way: press Pay fast with PayPal on a package card. You go to PayPal, approve the payment in dollars, come back to this site and the tokens arrive at once, with no receipt to upload. The dollar price comes from the Rupiah price at today's rate, about ${fmtNum('en', v.fx)} rupiah per dollar.`] as Pair] : []),
+        ['Untuk invoice perusahaan, isi Profil penagihan di menu Pengaturan: nama perusahaan, nomor pajak, alamat, dan nomor PO. Data itu tampil di setiap invoice baru.', 'For company invoices, fill in the Billing profile under Settings: company name, tax number, address and PO number. They appear on every new invoice.'],
+        ['Bila memilih transfer bank dalam USD, invoice menampilkan dua cara bayar.', 'If you choose a USD bank transfer, the invoice shows two ways to pay.'],
         ['Cara pertama: transfer bank internasional SWIFT ke rekening USD yang tertera. Pilih biaya transfer OUR agar dana tiba utuh.', 'First way: an international SWIFT transfer to the USD account shown. Choose the OUR charge option so the full amount arrives.'],
         ['Cara kedua: layanan kiriman uang ke rekening Rupiah yang tertera.', 'Second way: a money-transfer service to the Rupiah account shown.'],
         ['Unggah bukti transfer atau dokumen MT103 di halaman invoice. Token masuk setelah dana yang tiba sesuai tagihan.', 'Upload the receipt or the MT103 document on the invoice page. Tokens are added once the funds that arrive match the invoice.'],
@@ -165,12 +171,12 @@ export function memberGuide(v: GuideValues): GuideSection[] {
     {
       id: 'mesin', icon: '⚙', title: ['Memilih mesin dan melihat perkiraan biaya', 'Choosing an engine and checking the cost estimate'],
       steps: [
-        ['AUTO adalah pilihan yang disarankan: mesin hemat memeriksa dulu, lalu mesin yang lebih kuat hanya memeriksa ulang kalimat yang meragukan.', 'AUTO is the recommended choice: the economy engine checks first, and stronger engines re-check only the doubtful sentences.'],
-        ['Anda juga bisa memilih satu mesin saja: Haiku yang paling hemat, Sonnet yang lebih teliti, atau Opus yang paling mendalam.', 'You can also pick a single engine: Haiku, the most economical; Sonnet, more thorough; or Opus, the deepest.'],
+        ['Smart Auto adalah pilihan yang disarankan: mesin hemat memeriksa dulu, lalu mesin yang lebih kuat hanya memeriksa ulang kalimat yang meragukan.', 'Smart Auto is the recommended choice: the economy engine checks first, and stronger engines re-check only the doubtful sentences.'],
+        ['Anda juga bisa memilih satu mesin saja: Essential yang paling hemat, Advanced yang lebih teliti, atau Expert yang paling mendalam.', 'You can also pick a single engine: Essential, the most economical; Advanced, more thorough; or Expert, the deepest.'],
         v.engines.fable
-          ? ['Ada pula Claude Fable 5.1, pilihan premium untuk naskah yang benar-benar menentukan. Biayanya jauh di atas mesin lain sehingga saldo token berkurang jauh lebih cepat. Sebelum dipakai, Anda diminta memastikan pilihan itu lewat jendela Anda yakin.', 'There is also Claude Fable 5.1, the premium choice for texts that truly matter. It costs far more than the other engines, so your token balance goes down much faster. Before it is used, you are asked to confirm the choice in an Are you sure window.']
-          : ['Claude Fable 5.1, pilihan premium, segera hadir. Kartunya sudah tampil di formulir dengan tanda Segera hadir dan belum bisa dipilih.', 'Claude Fable 5.1, the premium choice, is coming soon. Its card already shows on the form marked Coming soon and cannot be chosen yet.'],
-        ...((!v.engines.sonnet || !v.engines.opus) ? [['Mesin yang sedang dinonaktifkan admin tampil dengan tanda Sedang nonaktif dan tidak bisa dipilih. AUTO tetap berjalan dengan mesin yang aktif.', 'An engine the admin has switched off shows as Switched off and cannot be chosen. AUTO keeps working with the active engines.'] as Pair] : []),
+          ? ['Ada pula Elite, pilihan premium untuk naskah yang benar-benar menentukan. Biayanya jauh di atas mesin lain sehingga saldo token berkurang jauh lebih cepat. Sebelum dipakai, Anda diminta memastikan pilihan itu lewat jendela Anda yakin.', 'There is also Elite, the premium choice for texts that truly matter. It costs far more than the other engines, so your token balance goes down much faster. Before it is used, you are asked to confirm the choice in an Are you sure window.']
+          : ['Elite, pilihan premium, segera hadir. Kartunya sudah tampil di formulir dengan tanda Segera hadir dan belum bisa dipilih.', 'Elite, the premium choice, is coming soon. Its card already shows on the form marked Coming soon and cannot be chosen yet.'],
+        ...((!v.engines.sonnet || !v.engines.opus) ? [['Mesin yang sedang dinonaktifkan admin tampil dengan tanda Sedang nonaktif dan tidak bisa dipilih. Smart Auto tetap berjalan dengan mesin yang aktif.', 'An engine the admin has switched off shows as Switched off and cannot be chosen. Smart Auto keeps working with the active engines.'] as Pair] : []),
         ['Kotak perkiraan menunjukkan jumlah kata, perkiraan pemakaian token, token yang dipesan, dan saldo Anda.', 'The estimate box shows the word count, the expected token use, the tokens to be reserved, and your balance.'],
         ['Kalau saldo kurang, kotak itu menyebut berapa kekurangannya dan memberi tautan untuk isi saldo.', 'If your balance is too low, the box shows how much is missing and gives you a link to top up.'],
         [`Naskah yang pernah Anda periksa sendiri dengan mesin yang sama, seluruhnya atau hanya sebagian halaman, tidak dikirim lagi ke AI. Hasil tersimpannya dipakai lagi dan bagian itu hanya dihitung ${v.reusePct} persen dari token, atau dari halaman Cek Gratis. Bagian yang baru tetap diperiksa seperti biasa.`, `Text you already checked yourself with the same engine, whole or only some pages, is not sent to the AI again. Its stored result is reused and that part counts only ${v.reusePct} percent of the tokens, or of the Free Check pages. New parts are checked as usual.`],
@@ -211,7 +217,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       id: 'tinjauan', icon: '⚖', title: ['Merasa hasilnya keliru? Ajukan tinjauan', 'Think the result is wrong? Request a review'],
       steps: [
         ['Buka laporannya, lalu tekan Ajukan tinjauan.', 'Open the report and press Request review.'],
-        ['Tiga mesin, yaitu Haiku, Sonnet, dan Opus, menilai ulang seluruh teks tanpa melihat hasil sebelumnya.', 'Three engines, Haiku, Sonnet and Opus, re-assess the whole text without seeing the earlier result.'],
+        ['Tiga mesin, yaitu Essential, Advanced, dan Expert, menilai ulang seluruh teks tanpa melihat hasil sebelumnya.', 'Three engines, Essential, Advanced and Expert, re-assess the whole text without seeing the earlier result.'],
         ['Tinjauan ditagih token seperti pemeriksaan biasa dan hanya bisa diajukan sekali untuk setiap laporan.', 'A review is charged in tokens like a normal check and can be requested once per report.'],
       ],
     },

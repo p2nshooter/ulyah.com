@@ -86,10 +86,10 @@ export const LEVELS: { key: string; id: string; en: string }[] = [
 ];
 
 export const MODE_INFO: Record<string, { id: string; en: string; did: string; den: string }> = {
-  auto: { id: 'AUTO — sistem memilih', en: 'AUTO — system chooses', did: 'Haiku dulu; kalimat yang ragu naik ke Sonnet, yang masih diperdebatkan ke Opus. Akurat & hemat — disarankan.', den: 'Haiku first; doubtful sentences go up to Sonnet, still-disputed ones to Opus. Accurate & economical — recommended.' },
-  haiku: { id: 'Claude Haiku', en: 'Claude Haiku', did: 'Paling hemat & cepat. Cocok untuk penyaringan awal banyak naskah.', den: 'Cheapest & fastest. Good for first-pass screening of many texts.' },
-  sonnet: { id: 'Claude Sonnet', en: 'Claude Sonnet', did: 'Lebih teliti untuk naskah akademik & lomba. Biaya menengah.', den: 'More careful for academic & contest texts. Mid cost.' },
-  opus: { id: 'Claude Opus', en: 'Claude Opus', did: 'Model terkuat di kelasnya untuk naskah yang menentukan. Biaya tinggi.', den: 'The strongest of its class for texts that matter. High cost.' },
-  fable: { id: 'Claude Fable 5.1 — premium', en: 'Claude Fable 5.1 — premium', did: 'Telaah paling mendalam yang kami sediakan, untuk naskah yang benar-benar memerlukan ketelitian tertinggi. Biayanya jauh di atas mesin lain, sehingga saldo token berkurang jauh lebih cepat.', den: 'The deepest review we offer, for texts that truly call for the highest care. It costs far more than the other engines, so your token balance goes down much faster.' },
-  forensic: { id: 'Forensik penuh', en: 'Full forensic', did: 'Haiku, Sonnet, dan Opus menilai seluruh teks — untuk sengketa.', den: 'Haiku, Sonnet and Opus all score the whole text — for disputes.' },
+  auto: { id: 'Smart Auto — sistem memilih', en: 'Smart Auto — system chooses', did: 'Essential dulu; kalimat yang ragu naik ke Advanced, yang masih diperdebatkan ke Expert. Akurat & hemat — disarankan.', den: 'Essential first; doubtful sentences go up to Advanced, still-disputed ones to Expert. Accurate & economical — recommended.' },
+  haiku: { id: 'Essential', en: 'Essential', did: 'Paling hemat & cepat. Cocok untuk penyaringan awal banyak naskah.', den: 'Cheapest & fastest. Good for first-pass screening of many texts.' },
+  sonnet: { id: 'Advanced', en: 'Advanced', did: 'Lebih teliti untuk naskah akademik & lomba. Biaya menengah.', den: 'More careful for academic & contest texts. Mid cost.' },
+  opus: { id: 'Expert', en: 'Expert', did: 'Model terkuat di kelasnya untuk naskah yang menentukan. Biaya tinggi.', den: 'The strongest of its class for texts that matter. High cost.' },
+  fable: { id: 'Elite — premium', en: 'Elite — premium', did: 'Telaah paling mendalam yang kami sediakan, untuk naskah yang benar-benar memerlukan ketelitian tertinggi. Biayanya jauh di atas mesin lain, sehingga saldo token berkurang jauh lebih cepat.', den: 'The deepest review we offer, for texts that truly call for the highest care. It costs far more than the other engines, so your token balance goes down much faster.' },
+  forensic: { id: 'Forensic Panel', en: 'Forensic Panel', did: 'Essential, Advanced, dan Expert menilai seluruh teks — untuk sengketa.', den: 'Essential, Advanced and Expert all score the whole text — for disputes.' },
 };

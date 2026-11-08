@@ -2,6 +2,8 @@
  * AI Content Analyzer — detektor artikel AI & penilai tulisan (ID/EN) di Cloudflare Workers.
  * Data hanya di R2 (aturan tetap pemilik). Satu Worker: situs publik, portal member, portal admin, API, cron.
  */
+import { registerPaypalWebhook } from './routes/paypal.ts';
+import { getPaypal, paypalReady } from './data/paypal.ts';
 import { Hono } from 'hono';
 import type { Env } from './env.ts';
 import { loadSession, chosenLang, countryLang, isCrawler, type HonoEnv, type Ctx } from './lib/session.ts';
@@ -13,7 +15,7 @@ import { app as memberApp } from './routes/app.ts';
 import { admin } from './routes/admin.ts';
 import { checks } from './routes/checks.ts';
 import { registerPublicAffiliate } from './routes/affiliate.ts';
-import { getBilling, getEngine, measuredCostPer1k } from './data/settings.ts';
+import { getFree, getBilling, getEngine, measuredCostPer1k } from './data/settings.ts';
 import { getAffiliateSettings } from './data/affiliate.ts';
 import { scheduled } from './cron.ts';
 import { manifest, serviceWorker } from './lib/pwa.ts';
@@ -89,7 +91,16 @@ app.use('*', async (c, next) => {
   if (url.pathname.startsWith('/app') || url.pathname.startsWith('/admin') || url.pathname.startsWith('/api')) h.set('Cache-Control', 'no-store');
 });
 
-app.get('/api/health', (c) => c.json({ ok: true }));
+// `paypal`: hanya „ready“/„off“ (tombol PayPal memang terlihat publik) — dipakai paypal-seed.yml untuk memastikan seed tertanam.
+app.get('/api/health', async (c) => {
+  let paypal = 'off';
+  try {
+    if (c.env.MASTER_KEY) paypal = paypalReady(await getPaypal(c.env, c.get('store'))) ? 'ready' : 'off';
+  } catch {
+    paypal = 'error';
+  }
+  return c.json({ ok: true, paypal });
+});
 
 const originOf = (c: Ctx) => (c.env.CANONICAL_HOST ? `https://${c.env.CANONICAL_HOST}` : new URL(c.req.url).origin);
 const pubCtx = (c: Ctx, L: Lang) => ({ L, user: c.get('user'), origin: originOf(c), noindex: false });
@@ -117,7 +128,8 @@ function both(key: PageKey, render: (c: Ctx, L: Lang) => Promise<string> | strin
 both('home', async (c, L) => {
   const store = c.get('store');
   const aff = await getAffiliateSettings(store);
-  return homePage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store), aff.enabled ? aff.ratePct : null);
+  const fq = await getFree(store);
+  return homePage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store), aff.enabled ? aff.ratePct : null, fq.enabled ? { pages: fq.pages, period: fq.period } : null);
 });
 both('how', (c, L) => howPage(pubCtx(c, L)));
 both('acc', async (c, L) => accuracyPage(pubCtx(c, L), await c.get('store').get<PublishedAccuracy>('k/accuracy.json')));
@@ -126,7 +138,7 @@ both('price', async (c, L) => {
   return pricingPage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store), engineAvailability(await getControls(store)));
 });
 both('sample', (c, L) => samplePage(pubCtx(c, L)));
-both('guide', async (c, L) => guidePage(pubCtx(c, L), await guideValues(c.get('store'))));
+both('guide', async (c, L) => guidePage(pubCtx(c, L), await guideValues(c.get('store'), c.env)));
 both('privacy', (c, L) => policyPage(pubCtx(c, L), 'privacy'));
 both('terms', (c, L) => policyPage(pubCtx(c, L), 'terms'));
 both('ethics', (c, L) => policyPage(pubCtx(c, L), 'ethics'));
@@ -172,6 +184,7 @@ app.get('/sitemap.xml', (c) => {
 });
 
 registerPublicAffiliate(app);
+registerPaypalWebhook(app);
 app.route('/', auth);
 app.route('/', checks);
 app.route('/', memberApp);

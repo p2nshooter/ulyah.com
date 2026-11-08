@@ -1220,3 +1220,179 @@ Mengubah pembersihan otomatis 90 hari (2 Nov 2026):
   pesanan & pembayaran, rincian deposit (isi saldo, beli paket dari deposit, tukar token, koreksi admin) dan buku besar token.
 - **Portal member → Token**: „Riwayat pemakaian & pembayaran Anda“ — sudah dibayar, token dibeli, token terpakai, jumlah
   pemeriksaan. Tanpa biaya AI, laba, atau markup (rahasia perusahaan).
+
+---
+
+## 28. Menu HP, nama mesin rahasia, paket Enterprise, PayPal, kurs harian, pengguna luar negeri (pemilik, 8 Nov 2026)
+
+> (tangkapan layar menu kiri portal di HP) „Tolong adain tombol sebelah close buat nutup menu, ini ga bisa di minimize menu2
+> sebelah kirinya... Terus adain tombol buat ke homepage awal walaupun berada di portal member maupun portal admin.“
+>
+> „Hati2 konversi mata uang dari idr ke USD, pastikan live update setiap hari otomatis mengikuti harga dollar, dan gunakan
+> PayPal untuk fast payment tanpa upload, bikinin semua kebutuhannya termasuk sandbox dan live, termasuk secret dan client id
+> nya yg bisa sy input manual dari portal admin & di encrypt... Ini untuk sandbox PayPal langsung anda input aja.. Inget
+> wajib bisa d crud … Buatkan pembayaran mengikuti harga mark-up dan konversi mata uang nya live, tp pastiin yg update hanya
+> mata uang jgn update semua“
+>
+> „Buatkan webhooknya, untuk PayPal sarankan untuk WNA atau jika ip terdeteksi bukan ip Indonesia, dan pastikan defoultnya
+> bahasa Inggris jika ip terdeteksi bukan dari ip indonesia... Penggunaan portal member juga wajib bisa menyesuaikan jika bukan
+> dari WNI, sampai ke laporan.. Cek dulu … apa saja yg d butuhkan sampai ke laporan termasuk jika perusahaan...“
+>
+> „Klo bisa kasih juga harga enterprice … Enterprice deposit 10jt …, 20jt …, jgn lupa kasih juga brp token yg d dapat dan
+> berapa halaman yg bisa di scan.“ · „Diskon kosongin aja dulu, jgn ada diskon, nama engine di rubah aja biar jadi rahasia
+> perusahaan … misal engine beginer buat starter dan seterusnya, klo enterprise semua engine terbuka dan bisa scalling jika di
+> auto, cari yg termurah tp tetep optimal. Engine aktif mengikuti pembelian, enterprice dan super enterpeice aktif semua.
+> Diskon biar nanti sy yg rubah sendiri, defoultnya kosongin aja dulu“ · „Disisi client / portal member dan homepage seluruh
+> nama engine berubah, tp di portal admin make alias atau di jelasin dulu“ · „Lihat lg promosi2 yg ada di homepage jgn sampe
+> ada yg ketinggalan, cek seluruh pembaruan dari A-Z nya“
+
+### 28.1 Menu portal di HP
+Tombol ✕ di samping menu kiri (dan ketuk di luar menu / tombol Esc) menutup menu; tombol „Beranda“ ke halaman depan situs ada
+di menu dan di kepala portal member maupun admin.
+
+### 28.2 Nama mesin rahasia (alias publik)
+| Model sebenarnya (hanya admin) | Nama publik bawaan | Paket minimum |
+|---|---|---|
+| Claude Haiku 5.5 | **Essential** | Starter (dan Cek Gratis) |
+| Claude Sonnet 5.5 | **Advanced** | Reguler |
+| Claude Opus 5.5 | **Expert** | Pro |
+| Claude Fable 5.1 | **Elite** | Enterprise |
+| tiga model sekaligus | **Forensic Panel** | Pro |
+| router termurah yang mampu | **Smart Auto** | semua paket (naik ke Advanced/Expert hanya sebatas paketnya) |
+- Beranda, portal member, laporan (layar, cetak, HTML, JSON), panduan, harga, e-mail: hanya nama publik; nama penyedia AI tidak
+  disebut (kebijakan privasi menyebut kategori „penyedia model AI pihak ketiga“ sesuai GDPR).
+- Admin → Kendali biaya: tabel alias ↔ model sebenarnya, nama publik bisa diubah.
+
+### 28.3 Paket & Enterprise
+- Paket: Starter, Reguler, Pro, Lembaga, **Enterprise** (Rp10.000.000) dan **Super Enterprise** (Rp20.000.000) — dua yang
+  terakhir ditentukan oleh nominal; token = nominal ÷ harga token (setelah diskon). Kartu paket menyebut token yang didapat dan
+  perkiraan halaman yang bisa diperiksa per mesin.
+- **Diskon bawaan 0 % semua paket**; admin memilih 0–10, 15, 20, 25, 30 %.
+- **Mesin mengikuti pembelian**: tingkat member = paket tertinggi yang pernah lunas (admin bisa mengubah). Enterprise & Super
+  Enterprise membuka semua mesin; Enterprise disarankan Expert & Elite, tetapi tetap bisa memilih yang lebih hemat. Smart Auto
+  memakai yang termurah yang mampu, hanya sampai mesin yang terbuka untuk paket itu.
+- **Smart Auto & mesin tunggal diuji nyata** (pemilik, 8 Nov 2026: „Pastikan fitur auto engine nya betul2 bekerja, auto
+  scalling engine, atau client bisa memilih engine tertentu saja, ini berlaku di semua member yg engine nya terbuka lebih dr 2
+  engine“):
+  - Smart Auto selalu mulai dari Essential; hanya kalimat yang meragukan naik ke Advanced, dan hanya yang masih diperdebatkan
+    naik ke Expert — sebatas paket (Starter: Essential saja; Reguler: sampai Advanced; Pro ke atas: sampai Expert).
+  - Elite tidak dipakai Smart Auto karena biayanya jauh di atas Expert („cari yg termurah tp tetep optimal“); Elite dipakai
+    bila member memilihnya sendiri.
+  - Memilih satu mesin (Essential / Advanced / Expert / Elite) berarti **semua** panggilan memakai mesin itu, termasuk uji
+    tebak lanjutan (sebelumnya selalu Essential); perkiraan dan batas biaya mutlak ikut disesuaikan.
+  - Uji e2e memeriksa model yang benar-benar dipanggil untuk setiap paket dan setiap pilihan mesin.
+
+### 28.4 Kurs harian & PayPal
+- Kurs USD/IDR diperbarui otomatis sekali sehari (cron) ke satu dokumen `k/fx.json`; hanya angka kurs yang ditulis. Semua harga
+  USD = harga Rupiah (markup + diskon) ÷ kurs hari itu. Gagal mengambil → kurs terakhir tetap dipakai, admin melihat
+  peringatan. Admin bisa mengunci kurs manual.
+- **PayPal** (Orders v2, tanpa unggah bukti): mode **sandbox/live**, Client ID + Secret per mode diisi di Admin (CRUD,
+  terenkripsi MASTER_KEY, tampil hanya 4 karakter terakhir), tombol uji koneksi, daftar webhook otomatis. Alur: pesan paket →
+  PayPal → kembali → capture di server (nominal & mata uang dicek) → token masuk otomatis; webhook
+  `PAYMENT.CAPTURE.COMPLETED` (tanda tangan diverifikasi PayPal) menuntaskan pesanan bila member menutup jendela; pengembalian
+  dana/sengketa dicatat dan diberi tanda di Admin. Kredensial sandbox pemilik dipasang lewat secret Worker (alur kerja
+  `paypal-seed.yml`), tidak pernah di repositori.
+- IP luar Indonesia: bahasa Inggris, harga USD, PayPal disarankan di urutan pertama; transfer bank tetap tersedia.
+
+### 28.5 Member luar negeri & perusahaan
+- Profil penagihan (Pengaturan): nama perusahaan, NPWP/VAT/Tax ID, alamat, negara, e-mail penagihan, nomor PO — tampil di
+  invoice („Bill to“). Invoice USD menyebut kurs yang dipakai.
+- Laporan mengikuti bahasa member (EN untuk luar negeri), tanggal format internasional (UTC), nama perusahaan di kepala bila ada.
+- Kebijakan privasi: pengendali data, dasar hukum, transfer internasional, hak subjek data (GDPR), DPA untuk perusahaan atas
+  permintaan.
+
+### 28.6 Deposit tanpa batas & VVIP (pemilik, 8 Nov 2026)
+
+> „Deposit manual dengan IDR / USD baik dr PayPal maupun ke rek BNI tanpa limit, mau deposit 100jt-1milyar jg g apa2, engine VVIP“
+
+- Isi deposit dengan nominal bebas dalam **IDR atau USD**, dibayar lewat **transfer BNI** (IDR/USD) atau **PayPal** (USD);
+  **tanpa batas atas** (Admin → Rekening: maksimum 0 = tanpa batas, bawaan). USD dikonversi ke saldo Rupiah dengan kurs harian
+  yang dibekukan di invoice. Bila PayPal menolak nominal sebesar itu, member diarahkan ke transfer BNI.
+- **VVIP**: total pembayaran (deposit + paket) setara ≥ Rp100 jt → tingkat VVIP: semua mesin termasuk Elite, tidak terkena batas
+  token harian per member, dan 3× pemeriksaan bersamaan. ≥ Rp20 jt = Super Enterprise, ≥ Rp10 jt = Enterprise.
+
+### 28.7 Konversi untuk mesin tujuan (pemilik, 8 Nov 2026)
+
+> „Tinggal nanti client konversi, apakah mau di konversi husus menggunakan fable 5 saja, atau OPUS 5.5 saja, atau auto, engine
+> VVIP bebas konversi ke token ke inginan. Ingat ya tp jgn di tampilkan nama asli engine nya“ · „Kembangin lg logika biar lebih
+> elite“
+
+- Tukar deposit → token: member memilih **mesin tujuan** (Smart Auto, Essential, Advanced, Expert, Elite — hanya yang terbuka
+  untuk paketnya dan sedang aktif; VVIP semua). Pratinjau: token + perkiraan halaman untuk mesin itu. Buku besar mencatat
+  „untuk {nama publik}“; mesin itu menjadi **pilihan bawaan formulir periksa** (Elite tetap lewat jendela „Anda yakin?“).
+- Token tetap satu saldo (bisa dipakai di semua mesin yang terbuka) supaya tidak ada token „terkunci“ yang hangus.
+- Kartu „Saldo Anda cukup untuk“: perkiraan halaman per mesin terbuka + lencana paket/VVIP.
+
+---
+
+## 29. VVIP: pindai gambar & situs web, pembuat prompt & blueprint, unduhan semua format (pemilik, 8 Nov 2026) — direncanakan
+
+> „Bukan hanya text ya yg di scan, logo jg/gambar jg di scan, tp pake check box, apakah artikel saja atau dengan gambar yg mau di
+> scan, untuk VVIP bisa scan website juga, tp jgn pernah tolak seluruh scaning axto.io, xscan.es ascan.es xaa.es ulyah.com 1fr.fr
+> tilawa.de dawa.im xad.es, dengan report yg luar biasa mantap... Bisa bikin promt jg, bisa bikin blueprint dengan hasil yg bisa
+> di download dalam bentuk semua file .doc pdf HTML dll sesuai permintaan... Pokoknya VVIP bikin lebih menyenangkan agar client
+> bisa cepat menghabiskan... Coba kembangin apa aja yg bisa d lakukan VVIP“
+
+Rencana (dibangun bertahap sesudah §28 tayang):
+1. **Kotak centang „Artikel saja / Artikel + gambar“** di formulir periksa: gambar & logo dari berkas/URL dinilai mesin yang
+   mendukung gambar (tanda gambar buatan AI, keaslian logo, teks di dalam gambar, kesesuaian dengan artikel); laporan memuat bagian
+   „Gambar“ dengan miniatur, skor, dan alasan. Ditagih sesuai pemakaian (token per gambar tampil di perkiraan).
+2. **Pindai situs web (VVIP)**: masukkan domain → sitemap + halaman penting dipindai (artikel & gambar), laporan situs: sebaran
+   skor, halaman paling berisiko, kualitas konten, SEO dasar, tren — format dasbor (sejalan ascan.es).
+3. **Domain milik pemilik selalu DITOLAK** (pemilik, 8 Nov 2026, mengganti perintah sebelumnya: „Tolak seluruh scanning
+   website2 yg sy sebutkan“): axto.io, xscan.es, ascan.es, xaa.es, ulyah.com, 1fr.fr, tilawa.de, dawa.im, xad.es **beserta semua
+   subdomainnya** tidak pernah dipindai — URL langsung, pengalihan ke domain itu, entri sitemap, maupun pindai situs VVIP.
+   Penjaga ada di `checkUrl` (`src/lib/extract.ts`, `PROTECTED_DOMAINS`), jadi semua jalur ambil-URL ikut tertolak dan situsnya
+   tidak pernah dihubungi. Pesan ke member netral („Situs ini tidak dapat dipindai di xscan.es.“) dan tidak menyebut daftarnya.
+   **Sudah tayang bersama §28** (uji unit `test/extract.test.ts`).
+4. **Studio VVIP**: pembuat **prompt** (untuk penulisan, penilaian, riset) dan pembuat **blueprint/dokumen** (rencana proyek, rubrik,
+   SOP) dari permintaan member; hasil bisa diunduh **DOCX, PDF, HTML, Markdown, TXT, JSON**; tersimpan di riwayat.
+5. Pengalaman VVIP: lencana, antrean prioritas, ringkasan pemakaian, saran mesin, templat laporan premium; semua mesin dengan nama
+   publik saja; biaya ditagih per pemakaian token seperti biasa (tidak ada biaya tersembunyi).
+
+### 29.1 Studio Kerja VVIP — „mau ngerjain apapun di situ“ (pemilik, 8 Nov 2026)
+
+> „Vvip bisa memperbaiki program, memperbaiki artikel, memperbaiki logo, membuat logo dll membuat website offline dengan multi
+> page dll pokoknya bikin biar mau ngerjain apapun di situ... Bisa nyambung ke GitHub, masuk repo GitHub dan memperbaiki atau
+> custom“
+
+Studio VVIP menjadi ruang kerja serba bisa (semua mesin dengan nama publik saja, ditagih per token seperti pemeriksaan):
+1. **Perbaiki artikel**: dari laporan atau teks baru — perbaikan bahasa, alur, fakta yang ditandai, gaya (formal, populer,
+   akademik), versi „lebih manusiawi“ dengan perbandingan sebelum/sesudah; unduh DOCX/PDF/HTML/MD/TXT.
+2. **Perbaiki program**: unggah berkas kode atau ZIP proyek → analisis galat, saran, dan berkas yang sudah diperbaiki dengan
+   tampilan diff; unduh ZIP hasil.
+3. **Logo & gambar**: perbaiki logo (SVG — dirapikan, warna, varian gelap/terang, ukuran ikon/favikon) dan **buat logo baru**
+   dalam SVG (bisa diunduh SVG/PNG); pratinjau langsung.
+4. **Website offline multi-halaman**: dari permintaan member dibuat situs statis (beberapa halaman HTML + CSS + JS + aset) yang
+   bisa dipratinjau di studio dan diunduh sebagai ZIP untuk dibuka tanpa internet.
+5. **Prompt & blueprint/dokumen** (butir 4 di atas) di studio yang sama.
+6. **Sambung ke GitHub** (OAuth GitHub App milik xscan.es, izin per repositori yang dipilih member): pilih repo → minta
+   perbaikan atau kustomisasi → studio membuat **cabang baru + pull request** (tidak pernah push ke cabang utama, tidak pernah
+   menggabungkan sendiri); token GitHub member disegel (MASTER_KEY) dan bisa diputus kapan saja; repo dan kode member tidak
+   disimpan setelah sesi selesai kecuali riwayat ringkas.
+7. Batas keamanan: tidak menjalankan kode member di server (hanya analisis & menulis berkas); berkas dibatasi ukuran; isi
+   rahasia (kunci API, sandi) yang terdeteksi di kode member disamarkan dan diperingatkan; semua pekerjaan tercatat di riwayat.
+8. Urutan bangun: (a) artikel + prompt/blueprint + unduhan semua format; (b) logo SVG + website offline ZIP; (c) perbaiki
+   program (unggah); (d) GitHub App + cabang/PR; (e) pindai gambar & situs web.
+
+---
+
+## 30. Token habis / gagal: tetap terpotong, pekerjaan bisa dilanjutkan (pemilik, 8 Nov 2026)
+
+> „Limit habis tetep terpotong, gagal tetep terpotong tp pekerjaan bisa d lanjutkan jika deposit lagi atau membeli token lagi“
+
+Mengganti aturan lama „Gagal = tidak ditagih“ (semua teks publik, panduan, ketentuan, dan beranda ikut diganti).
+1. **Gagal di tengah jalan**: token untuk kerja AI yang sudah selesai **ditagih** (tarif publik × pemakaian nyata, tidak pernah
+   melebihi pesanan); sisa pesanan kembali. Hasil tahap yang sudah selesai **disimpan** (terenkripsi), status menjadi
+   „Terhenti — bisa dilanjutkan“. Tombol **Lanjutkan** memesan token untuk sisa pekerjaan lalu meneruskan dari tahap yang
+   terhenti; tahap yang sudah dibayar tidak pernah ditagih ulang. Gagal sebelum ada kerja AI = 0 token.
+2. **Saldo habis**: pemeriksaan boleh dimulai bila saldo ≥ perkiraan minimum; seluruh saldo yang tersedia dipesan
+   (terpotong). Sebelum setiap tahap AI, bila pemakaian sudah mencapai pesanan, pemeriksaan **dijeda** („Menunggu token“) —
+   pemakaian ditagih, tidak ada yang dikembalikan. Setelah member **isi deposit atau beli token**, tombol Lanjutkan (atau
+   otomatis saat halaman laporan dibuka) memesan sisa yang diperlukan dan meneruskan pekerjaan.
+3. **Sesi massal**: naskah dimulai berurutan selama pesanan sesi mencukupi; sisanya „Menunggu token“ dan berjalan setelah
+   member menambah token (tombol Lanjutkan sesi). Naskah gagal di sesi ditagih pemakaiannya seperti butir 1.
+4. Pembukuan: setiap putaran (mulai, lanjut) punya kunci idempotensi sendiri; laporan rincian token menampilkan putaran
+   „Lanjutan“; rekap member/admin (§27) menghitung token gagal yang ditagih; penjaga rugi tetap aktif.
+5. Batas yang tidak berubah: batas harian member (Admin → Kendali biaya) dan batas per pemeriksaan tetap menolak di awal;
+   tombol darurat admin tetap menghentikan tanpa panggilan AI baru (pemakaian sebelum berhenti ditagih, bisa dilanjutkan).

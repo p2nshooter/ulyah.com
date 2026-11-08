@@ -104,6 +104,18 @@ export function countryLang(c: Ctx): Lang | null {
   return cc === 'ID' ? 'id' : 'en';
 }
 
+/**
+ * Pengunjung luar negeri (pemilik, 8 Nov 2026: „untuk PayPal sarankan untuk WNA atau jika ip terdeteksi bukan ip Indonesia“):
+ * negara jaringan bukan ID; tanpa header negara → negara akun, lalu bahasa pilihan.
+ */
+export function isForeign(c: Ctx): boolean {
+  const cc = (c.req.header('cf-ipcountry') ?? '').trim().toUpperCase();
+  if (cc && cc !== 'XX' && cc !== 'T1') return cc !== 'ID';
+  const u = c.get('user');
+  if (u?.country) return u.country !== 'ID';
+  return portalLang(c) === 'en';
+}
+
 /** Crawler mesin pencari dan iklan tidak pernah dialihkan bahasanya: setiap versi bahasa harus bisa diindeks. */
 export function isCrawler(c: Ctx): boolean {
   return /bot\b|bot\/|crawl|spider|slurp|mediapartners|adsbot|googlebot|google-inspectiontool|googleother|bingpreview|yandex|baidu|duckduck|facebookexternalhit|embedly|lighthouse|headlesschrome|petalbot|applebot/i.test(c.req.header('user-agent') ?? '');

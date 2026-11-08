@@ -13,6 +13,8 @@ SESSION_SECRET=dev-session-secret-only-for-local-tests-0123456789
 OWNER_BOOTSTRAP_EMAIL=owner@example.com
 OWNER_BOOTSTRAP_PASSWORD=pemilik-rahasia-123
 ANTHROPIC_BASE_URL=http://127.0.0.1:8788
+PAYPAL_BASE_URL=http://127.0.0.1:8788
+FX_URLS=http://127.0.0.1:8788/fx/er
 VARS
 fi
 if curl -s -o /dev/null http://127.0.0.1:8787/api/health; then

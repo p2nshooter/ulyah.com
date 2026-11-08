@@ -7,6 +7,7 @@ import { rebuildStats } from '../data/stats-rebuild.ts';
 import { page, pageHead, guide, flash, stat, labelPill, tip } from '../pages/ui.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { isAdmin, getUser, updateUser, findByEmail, type User } from '../data/users.ts';
+import { DISCOUNT_STEPS, normalizeDiscount } from '../data/settings.ts';
 import { getEngine, getBilling, spendToday, KEY_DOC, wibDate, DEFAULT_ENGINE, DEFAULT_BILLING, MARKUP_MIN, MARKUP_MAX, getFree, normalizeFree, FREE_DOC, FREE_LIMITS, type EngineSettings, type KeyRecord, type BillingSettings, type Effort, type SpendDay } from '../data/settings.ts';
 import { estimateTokens, hardBoundUsd, predictByMode, packagePrice, tokenPriceIdr, tokenCostIdr, minRevenueMultiple, freeQuotaForecast, type FreeForecast } from '../engine/pricing.ts';
 import { registerAdminAffiliate } from './affiliate.ts';
@@ -17,6 +18,10 @@ import { audit, type AuditEntry } from '../data/audit.ts';
 import { balanceOf, credit, ledger } from '../data/wallet.ts';
 import { createCheck } from './checks.ts';
 import { registerAdminPayments } from './payments.ts';
+import { registerAdminPaypal } from './paypal.ts';
+import { getFx, refreshFx, FX_DOC } from '../data/fx.ts';
+import { tierOf, modeAllowed, clampTier, TIERS, ENGINE_MIN_TIER } from '../data/tiers.ts';
+import { PUBLIC_NAME, PUBLIC_MODE } from '../engine/pricing.ts';
 import { depositBalance, adminAdjust, depositLedger } from '../data/deposit.ts';
 import { orderKey, isDeposit, currencyOf, type Order } from '../data/orders.ts';
 import { reportKey, checkKey, type ReportSummary, type CheckDoc } from '../engine/cascade.ts';
@@ -184,7 +189,7 @@ admin.get('/admin/mesin', async (c) => {
     <section class="card reveal"><h3>${tr(L, 'Biaya, kurs & privasi', 'Cost, rate & privacy')}</h3>
       <div class="grid g4">
         ${num('dailyCapUsd', e.dailyCapUsd, '1', tr(L, 'Di atas plafon, pemeriksaan baru ditolak sampai besok.', 'Above the cap, new checks are refused until tomorrow.'))}
-        ${num('retentionDays', e.retentionDays, '1')}${num('fx', e.fx, '100', tr(L, 'Kurs Rp per US$ untuk menghitung harga Rupiah (token, paket, per halaman) dan modal.', 'Rp per US$ rate used for Rupiah prices (token, packages, per page) and cost.'))}
+        ${num('retentionDays', e.retentionDays, '1')}${num('fx', e.fxManual ?? e.fx, '100', tr(L, 'Kurs manual (cadangan): dipakai bila kurs otomatis harian dimatikan atau gagal diambil.', 'Manual rate (fallback): used when the automatic daily rate is off or cannot be fetched.'))}
         <label class="check"><input type="checkbox" name="regen" ${e.regen ? 'checked' : ''}> <span>${tr(L, 'Uji regenerasi (S3)', 'Regeneration test (S3)')}</span></label>
         <label class="check"><input type="checkbox" name="rubricVerify" ${e.rubricVerify ? 'checked' : ''}> <span>${tr(L, 'Verifikasi rubrik oleh Sonnet bila ragu', 'Sonnet rubric verification when unsure')}</span></label>
       </div></section>
@@ -218,7 +223,8 @@ admin.post('/admin/mesin', async (c) => {
         maxOpusSentences: Math.round(n('maxOpusSentences', cur.maxOpusSentences, 0, 500)),
         dailyCapUsd: n('dailyCapUsd', cur.dailyCapUsd, 0, 100_000),
         retentionDays: Math.round(n('retentionDays', cur.retentionDays, 0, 90)),
-        fx: n('fx', cur.fx, 1, 1e6),
+        fx: n('fx', cur.fxManual ?? cur.fx, 1, 1e6),
+        fxManual: n('fx', cur.fxManual ?? cur.fx, 1, 1e6),
         regen: Boolean(f.regen),
         rubricVerify: Boolean(f.rubricVerify),
       };
@@ -439,12 +445,27 @@ admin.get('/admin/anggota/:id', async (c) => {
       ${stat(tr(L, 'Pesanan lunas', 'Paid orders'), fmtNum(L, orders.filter((o) => o.status === 'credited').length), tr(L, `${fmtNum(L, orders.length)} pesanan seluruhnya`, `${fmtNum(L, orders.length)} orders in total`))}
     </div>
   </section>
+  <form method="post" action="/admin/anggota/${u.id}/tingkat" class="card row-form reveal" data-member-tier>
+    <p class="grow"><b>${tr(L, 'Paket / akses mesin', 'Package / engine access')}:</b> ${tr(L, TIERS[tierOf(u)].id, TIERS[tierOf(u)].en)} ${u.tierOverride ? html`<em class="muted">(${tr(L, 'diatur admin', 'set by admin')})</em>` : html`<em class="muted">(${tr(L, 'dari pembelian', 'from purchases')})</em>`}<br><small class="muted">${tr(L, 'Mesin terbuka', 'Engines unlocked')}: Smart Auto${(['haiku', 'sonnet', 'opus', 'fable'] as const).filter((m) => modeAllowed(m, tierOf(u))).map((m) => ` · ${PUBLIC_NAME[m]}`).join('')}</small></p>
+    <label class="field"><span>${tr(L, 'Ubah', 'Change')}</span><select name="tier"><option value="">${tr(L, 'Ikuti pembelian', 'Follow purchases')}</option>${([1, 2, 3, 4, 5, 6] as const).map((t) => html`<option value="${t}" ${u.tierOverride === t ? 'selected' : ''}>${tr(L, TIERS[t].id, TIERS[t].en)}</option>`)}</select></label>
+    <button class="btn btn-ghost" type="submit">${tr(L, 'Simpan', 'Save')}</button>
+  </form>
   ${statsCard(L, mstats, (await getEngine(store)).fx, tr(L, 'Token & laba member ini', 'This member’s tokens & profit'))}
   <section class="card reveal" data-member-orders><h3>${tr(L, 'Pesanan & pembayaran', 'Orders & payments')}</h3>${orders.length ? html`<div class="tbl-wrap"><table class="tbl hover"><thead><tr><th>${tr(L, 'Tanggal', 'Date')}</th><th>${tr(L, 'Pesanan', 'Order')}</th><th>${tr(L, 'Jenis', 'Type')}</th><th class="n">${tr(L, 'Nominal', 'Amount')}</th><th class="n">Token</th><th>Status</th></tr></thead><tbody>${orders.map((o) => html`<tr data-href="/admin/pesanan/${o.id}"><td><small>${fmtDate(L, o.createdAt)}</small></td><td><a href="/admin/pesanan/${o.id}">${o.id}</a></td><td>${isDeposit(o) ? tr(L, 'Isi saldo deposit', 'Deposit top-up') : html`${tr(L, 'Paket', 'Package')} ${o.pkgName ? (L === 'en' ? o.pkgName.en : o.pkgName.id) : o.pkg}`}</td><td class="n">${currencyOf(o) === 'USD' ? `US$ ${fmtNum(L, o.priceUsd, 2)}` : `Rp ${fmtNum(L, o.priceIdr)}`}</td><td class="n">${isDeposit(o) ? '—' : fmtNum(L, o.tokens)}</td><td><span class="pill ${o.status === 'credited' ? 'p-hum' : o.status === 'review' ? 'p-b' : 'p-unk'}">${o.status}</span></td></tr>`)}</tbody></table></div>` : html`<p class="muted">${tr(L, 'Belum ada pesanan.', 'No orders yet.')}</p>`}</section>
   <section class="card reveal" data-member-deposit><h3>${tr(L, 'Rincian deposit: isi saldo & konversi ke token', 'Deposit detail: top-ups & conversions to tokens')}</h3>${depLed.length ? html`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Waktu', 'Time')}</th><th>${tr(L, 'Jenis', 'Kind')}</th><th class="n">Rp</th><th class="n">${tr(L, 'Saldo setelahnya', 'Balance after')}</th><th>${tr(L, 'Catatan', 'Note')}</th></tr></thead><tbody>${depLed.map((e) => html`<tr><td><small>${fmtDate(L, e.at)}</small></td><td>${({ topup: tr(L, 'isi saldo', 'top-up'), buy: tr(L, 'beli paket dari deposit', 'package from deposit'), convert: tr(L, 'tukar ke token', 'converted to tokens'), admin: tr(L, 'koreksi admin', 'admin adjustment'), refund: tr(L, 'kembali', 'refund') } as Record<string, string>)[e.kind] ?? e.kind}</td><td class="n ${e.idr < 0 ? 'neg' : 'pos'}">${e.idr > 0 ? '+' : ''}${fmtNum(L, e.idr)}</td><td class="n">${e.balance !== undefined ? fmtNum(L, e.balance) : '—'}</td><td><small>${e.note}</small></td></tr>`)}</tbody></table></div>` : html`<p class="muted">${tr(L, 'Belum ada transaksi deposit.', 'No deposit transactions yet.')}</p>`}</section>
   <section class="card reveal"><h3>${tr(L, 'Laporan', 'Reports')}</h3>${reps.length ? html`<ul class="clean">${reps.map((r) => html`<li>${labelPill(L, r.meta.label)} <a href="/app/laporan/${r.id}">${r.meta.title}</a> <small class="muted">${fmtDate(L, r.meta.at)}</small></li>`)}</ul>` : html`<p class="muted">—</p>`}</section>
   <section class="card reveal" data-member-ledger><h3>${tr(L, 'Buku besar token (masuk, terpakai, kembali)', 'Token ledger (in, used, returned)')}</h3>${led.length ? html`<ul class="clean">${led.map((e) => html`<li><small>${fmtDate(L, e.at)}</small> · ${e.kind} · <b>${e.tokens > 0 ? '+' : ''}${fmtNum(L, e.tokens)}</b> token · <small>${e.note}</small></li>`)}</ul>` : html`<p class="muted">—</p>`}</section>`;
   return c.html(shell(c, u.name, body, 'members'));
+});
+
+admin.post('/admin/anggota/:id/tingkat', async (c) => {
+  const store = c.get('store');
+  const id = c.req.param('id');
+  const f = (await c.req.parseBody()) as Record<string, string>;
+  const t = f.tier ? clampTier(f.tier) : undefined;
+  await updateUser(store, id, (u: User) => ({ ...u, tierOverride: t }));
+  await audit(store, me(c).id, 'member.tier', { uid: id, tier: t ?? 'purchases' });
+  return c.redirect(`/admin/anggota/${id}?ok=1`);
 });
 
 admin.post('/admin/anggota/:id/kuota', async (c) => {
@@ -533,7 +554,8 @@ admin.get('/admin/harga', async (c) => {
       <tbody>${b.packages.map((p, k) => {
         const pp = packagePrice(p, b, eng);
         const affCut = aff.enabled ? Math.floor((pp.idr * aff.ratePct) / 100) : 0;
-        return html`<tr data-pkg-row><td><input name="name_${k}" value="${p.name.id}" maxlength="60"></td><td class="n"><input type="number" name="tokens_${k}" value="${p.tokens}" min="1" data-live data-tokens></td><td class="n"><input type="number" name="disc_${k}" value="${p.discountPct}" min="0" max="50" step="1" data-live data-disc></td><td class="n" data-out="price">Rp ${fmtNum(L, pp.idr)}</td><td class="n" data-out="cost">Rp ${fmtNum(L, pp.costIdr)}</td><td class="n pos" data-out="profit">Rp ${fmtNum(L, pp.idr - pp.costIdr)}</td><td class="n" data-out="profitAff">Rp ${fmtNum(L, pp.idr - pp.costIdr - affCut)}</td></tr>`;
+        const discSel = html`<select name="disc_${k}" data-live data-disc>${DISCOUNT_STEPS.map((d) => html`<option value="${d}" ${p.discountPct === d ? 'selected' : ''}>${d}%</option>`)}</select>`;
+        return html`<tr data-pkg-row ${p.targetIdr ? raw(`data-target="${p.targetIdr}"`) : ''}><td><input name="name_${k}" value="${p.name.id}" maxlength="60"><br><small class="muted">${tr(L, `membuka: ${TIERS[clampTier(p.tier)].id}`, `unlocks: ${TIERS[clampTier(p.tier)].en}`)}</small></td><td class="n">${p.targetIdr ? html`<label class="muted small">${tr(L, 'Nominal Rp', 'Amount Rp')}<input type="number" name="target_${k}" value="${p.targetIdr}" min="1000000" step="500000" data-live data-target-input></label><br><b data-out="tokens">${fmtNum(L, pp.tokens)}</b> token` : html`<input type="number" name="tokens_${k}" value="${p.tokens}" min="1" data-live data-tokens>`}</td><td class="n">${discSel}</td><td class="n" data-out="price">Rp ${fmtNum(L, pp.idr)}</td><td class="n" data-out="cost">Rp ${fmtNum(L, pp.costIdr)}</td><td class="n pos" data-out="profit">Rp ${fmtNum(L, pp.idr - pp.costIdr)}</td><td class="n" data-out="profitAff">Rp ${fmtNum(L, pp.idr - pp.costIdr - affCut)}</td></tr>`;
       })}</tbody></table></div>
       <p class="muted small">${tr(L, `Modal maks. = semua token paket terpakai (biaya AI terburuk untuk paket itu). Komisi afiliasi ${aff.enabled ? aff.ratePct : 0}% dihitung dari harga jual.`, `Max cost = all package tokens used (the worst AI cost for that package). Affiliate commission ${aff.enabled ? aff.ratePct : 0}% is taken from the sale price.`)}</p>
     </section>
@@ -585,8 +607,9 @@ admin.post('/admin/harga', async (c) => {
     packages: cur.packages.map((p, k) => ({
       ...p,
       name: { ...p.name, id: String(f[`name_${k}`] ?? p.name.id).slice(0, 60) || p.name.id },
-      tokens: Math.round(num(`tokens_${k}`, p.tokens, 1, 1e8)),
-      discountPct: Math.round(num(`disc_${k}`, p.discountPct, 0, 50)),
+      tokens: p.targetIdr ? 0 : Math.round(num(`tokens_${k}`, p.tokens, 1, 1e8)),
+      targetIdr: p.targetIdr ? Math.round(num(`target_${k}`, p.targetIdr, 1_000_000, 1e10)) : undefined,
+      discountPct: normalizeDiscount(f[`disc_${k}`] ?? p.discountPct),
     })),
     manualText: String(f.manualText ?? '').slice(0, 2000),
     updatedAt: Date.now(),
@@ -671,6 +694,12 @@ admin.get('/admin/kendali', async (c) => {
   const body = html`
   ${pageHead(tr(L, 'Kendali biaya', 'Cost controls'), tr(L, 'Tombol darurat, pemilihan mesin termurah yang mampu, dan batas belanja. Berlaku seketika untuk semua pemeriksaan.', 'Emergency stop, cheapest-capable engine routing and spending limits. Applies at once to every check.'))}
   ${flash(L, c.req.query('ok') ? tr(L, 'Tersimpan — berlaku untuk pemeriksaan berikutnya dan tahap berikutnya dari yang sedang berjalan.', 'Saved — applies to the next checks and the next stage of running ones.') : null, null)}
+  <section class="card reveal" data-alias-table><h3>${tr(L, 'Nama mesin publik (rahasia perusahaan)', 'Public engine names (company confidential)')}</h3>
+    <p class="muted small">${tr(L, 'Member, beranda, laporan, panduan, dan unduhan hanya menampilkan nama publik. Nama model sebenarnya hanya ada di portal admin.', 'Members, the homepage, reports, the guide and downloads only show the public names. Real model names appear only in the admin portal.')}</p>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Model sebenarnya', 'Real model')}</th><th>${tr(L, 'Nama publik', 'Public name')}</th><th>${tr(L, 'Kode formulir', 'Form code')}</th><th>${tr(L, 'Paket minimum', 'Minimum package')}</th></tr></thead><tbody>
+      ${([['haiku', eng.models.t1], ['sonnet', eng.models.t2], ['opus', eng.models.t3], ['fable', 'claude-fable-5-1'], ['forensic', `${eng.models.t1} + ${eng.models.t2} + ${eng.models.t3}`], ['auto', tr(L, 'router termurah yang mampu (naik sebatas paket)', 'cheapest capable router (escalates within the package)')]] as const).map(([m, real]) => html`<tr><td><code>${real}</code></td><td><b>${PUBLIC_NAME[m]}</b></td><td><code>${PUBLIC_MODE[m]}</code></td><td>${tr(L, TIERS[ENGINE_MIN_TIER[m]].id, TIERS[ENGINE_MIN_TIER[m]].en)}</td></tr>`)}
+    </tbody></table></div>
+  </section>
   ${k.emergencyStop ? html`<section class="card stop-banner reveal" data-stop-on role="alert"><h3>⛔ ${tr(L, 'Tombol darurat MENYALA', 'Emergency stop is ON')}</h3><p>${tr(L, 'Tidak ada panggilan AI baru. Pemeriksaan yang berjalan berhenti di tahap berikutnya dan seluruh token/kuotanya kembali.', 'No new AI calls. Running checks stop at their next stage and all their tokens/quota return.')}</p></section>` : ''}
   <form class="card reveal" method="post" action="/admin/kendali" id="controls-form">
     <h3>${tr(L, 'Tombol darurat', 'Emergency stop')}</h3>
@@ -909,6 +938,41 @@ admin.post('/admin/keuangan/hitung-ulang', async (c) => {
   return c.redirect('/admin/keuangan?ok=1');
 });
 
+/* ── Kurs USD/IDR harian (MASTER-BLUEPRINT §28.4) ── */
+admin.get('/admin/kurs', async (c) => {
+  const L = portalLang(c);
+  const store = c.get('store');
+  const [fx, eng] = await Promise.all([getFx(store), getEngine(store)]);
+  const body = html`
+  ${pageHead(tr(L, 'Kurs USD/IDR', 'USD/IDR rate'), tr(L, 'Diperbarui otomatis sekali sehari dari sumber kurs terbuka. Hanya angka kurs yang ditulis; harga Rupiah dan USD langsung mengikutinya.', 'Updated automatically once a day from open rate sources. Only the rate is written; Rupiah and USD prices follow it at once.'))}
+  ${flash(L, c.req.query('ok') ? tr(L, 'Tersimpan.', 'Saved.') : null, fx.lastError && (!fx.at || fx.lastError.at > fx.at) ? tr(L, `Pembaruan terakhir gagal (${fx.lastError.msg}); kurs sebelumnya tetap dipakai.`, `The last update failed (${fx.lastError.msg}); the previous rate stays in use.`) : null)}
+  <div class="grid g3" data-fx-card>
+    ${stat(tr(L, 'Kurs yang berlaku', 'Rate in use'), `Rp ${fmtNum(L, eng.fx)}`, fx.auto !== false && fx.usdIdr ? tr(L, `otomatis · ${fx.source ?? ''}`, `automatic · ${fx.source ?? ''}`) : tr(L, 'manual (Admin → Mesin)', 'manual (Admin → Engine)'))}
+    ${stat(tr(L, 'Diperbarui', 'Updated'), fx.at ? fmtDate(L, fx.at) : '—')}
+    ${stat(tr(L, 'Kurs manual cadangan', 'Manual fallback rate'), `Rp ${fmtNum(L, eng.fxManual ?? eng.fx)}`)}
+  </div>
+  <form method="post" action="/admin/kurs" class="card row-form reveal">
+    <label class="check grow"><input type="checkbox" name="auto" value="1" ${fx.auto !== false ? 'checked' : ''}> <span>${tr(L, 'Pakai kurs otomatis harian (disarankan)', 'Use the automatic daily rate (recommended)')}</span></label>
+    <button class="btn btn-primary" name="act" value="save" type="submit">${tr(L, 'Simpan', 'Save')}</button>
+    <button class="btn btn-ghost" name="act" value="refresh" type="submit">↻ ${tr(L, 'Perbarui sekarang', 'Update now')}</button>
+  </form>
+  ${fx.history?.length ? html`<section class="card reveal"><h3>${tr(L, '30 hari terakhir', 'Last 30 days')}</h3><div class="tbl-wrap"><table class="tbl"><tbody>${[...fx.history].reverse().map((h) => html`<tr><td>${h.d}</td><td class="n">Rp ${fmtNum(L, h.r)}</td></tr>`)}</tbody></table></div></section>` : ''}`;
+  return c.html(shell(c, tr(L, 'Kurs USD/IDR', 'USD/IDR rate'), body, 'fx'));
+});
+
+admin.post('/admin/kurs', async (c) => {
+  const store = c.get('store');
+  const f = (await c.req.parseBody()) as Record<string, string>;
+  const cur = await getFx(store);
+  if (f.act === 'refresh') {
+    await refreshFx(c.env, store);
+  } else {
+    await store.put(FX_DOC, { ...cur, auto: f.auto === '1' });
+  }
+  await audit(store, me(c).id, 'fx.saved', { act: f.act, auto: f.auto === '1' });
+  return c.redirect('/admin/kurs?ok=1');
+});
+
 admin.get('/admin/audit', async (c) => {
   const L = portalLang(c);
   const store = c.get('store');
@@ -941,5 +1005,6 @@ admin.post('/admin/cadangan', async (c) => {
 
 registerAdminAffiliate(admin);
 registerAdminPayments(admin);
+registerAdminPaypal(admin, (c, title, body, active) => shell(c, title, body as Raw, active));
 
 export { LABELS, checkKey, DEFAULT_BILLING, type CheckDoc, type Lang };

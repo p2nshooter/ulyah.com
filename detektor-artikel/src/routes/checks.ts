@@ -11,7 +11,7 @@ import { getEngine, getBilling, spendToday, getFree, freeSpendToday, type FreeSe
 import { normalPages, firstPages, freeStatus, reserveFreePages, releaseFreePages, FreeQuotaError, isDisposable, networkAllows, networkOf, periodOf } from '../data/free.ts';
 import { sha256Hex } from '../lib/crypto.ts';
 import { reserve, refund, balanceOf, InsufficientError, type Reservation } from '../data/wallet.ts';
-import { estimateTokens, hardBoundUsd, freeWorstUsd, isMode, MODES, type Mode } from '../engine/pricing.ts';
+import { estimateTokens, hardBoundUsd, freeWorstUsd, parseMode, PUBLIC_MODE, PUBLIC_NAME, MODES, type Mode } from '../engine/pricing.ts';
 import { isAdmin, type User } from '../data/users.ts';
 import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
@@ -22,6 +22,7 @@ import { getControls, addMemberDay, SpendLimitError, engineAvailability } from '
 import { applyRouter } from '../engine/router.ts';
 import { wibDate } from '../data/settings.ts';
 import { addStats } from '../data/stats.ts';
+import { tierOf, modeAllowed, autoCeiling, isVvip, TIERS, ENGINE_MIN_TIER } from '../data/tiers.ts';
 
 export const checks = new Hono<HonoEnv>();
 
@@ -92,9 +93,9 @@ export function sanitizeInput(raw: Record<string, unknown>, L: Lang): NewCheck {
     level: LEVELS.some((l) => l.key === raw.level) ? String(raw.level) : 'unknown',
     reportLang: raw.reportLang === 'en' ? 'en' : raw.reportLang === 'id' ? 'id' : L,
     rubricId: getRubric(rubricId) ? rubricId : null,
-    mode: isMode(raw.mode) ? raw.mode : 'auto',
+    mode: parseMode(raw.mode) ?? 'auto',
     purpose: isPurpose(raw.purpose) ? raw.purpose : 'umum',
-    fableOk: raw.fable_ok === '1' || raw.fableConfirm === true,
+    fableOk: raw.elite_ok === '1' || raw.fable_ok === '1' || raw.eliteConfirm === true || raw.fableConfirm === true,
   };
 }
 
@@ -154,12 +155,19 @@ export async function createCheck(
   // Mesin yang dimatikan admin tidak pernah diganti diam-diam dengan mesin lain (apalagi yang lebih mahal): ditolak.
   const avail = engineAvailability(controls);
   if ((input.mode === 'sonnet' && !avail.sonnet) || (input.mode === 'opus' && !avail.opus) || (input.mode === 'forensic' && !avail.forensic)) {
-    throw new CheckInputError(403, tr(L, 'Mesin yang dipilih sedang nonaktif. Pilih AUTO atau mesin lain yang aktif.', 'The chosen engine is switched off for now. Choose AUTO or another active engine.'));
+    throw new CheckInputError(403, tr(L, 'Mesin yang dipilih sedang nonaktif. Pilih Smart Auto atau mesin lain yang aktif.', 'The chosen engine is switched off for now. Choose Smart Auto or another active engine.'));
+  }
+  // Mesin mengikuti pembelian (MASTER-BLUEPRINT §28.3): mesin di atas paket member ditolak, tidak dialihkan diam-diam.
+  const tier = tierOf(user);
+  // „Ajukan tinjauan“ (sengketa) tetap terbuka untuk semua member.
+  if (!opts.bench && !free && !opts.noCache && !modeAllowed(input.mode, tier)) {
+    const need = TIERS[ENGINE_MIN_TIER[input.mode]];
+    throw new CheckInputError(403, tr(L, `Mesin ${PUBLIC_NAME[input.mode]} terbuka mulai paket ${need.id}. Pilih Smart Auto, atau beli paket ${need.id} di menu Token.`, `The ${PUBLIC_NAME[input.mode]} engine unlocks from the ${need.en} package. Choose Smart Auto, or buy the ${need.en} package under Tokens.`));
   }
   // Fable 5.1 (pemilik, 8 Nov 2026): hanya bila diizinkan admin, dan hanya setelah member menekan „Ya, saya yakin“.
   if (input.mode === 'fable') {
-    if (!controls.fableEnabled || controls.disabledModels.includes('claude-fable-5-1')) throw new CheckInputError(403, tr(L, 'Claude Fable 5.1 sedang tidak tersedia. Silakan pilih mesin lain.', 'Claude Fable 5.1 is not available right now. Please choose another engine.'));
-    if (!input.fableOk && !opts.bench) throw new CheckInputError(400, tr(L, 'Mohon konfirmasi dulu bahwa Anda memang ingin memakai Claude Fable 5.1.', 'Please confirm first that you really want to use Claude Fable 5.1.'));
+    if (!controls.fableEnabled || controls.disabledModels.includes('claude-fable-5-1')) throw new CheckInputError(403, tr(L, 'Elite sedang tidak tersedia. Silakan pilih mesin lain.', 'Elite is not available right now. Please choose another engine.'));
+    if (!input.fableOk && !opts.bench) throw new CheckInputError(400, tr(L, 'Mohon konfirmasi dulu bahwa Anda memang ingin memakai Elite.', 'Please confirm first that you really want to use Elite.'));
   }
   const routedEng = applyRouter(await getEngine(store), controls);
   if (routedEng.blocked.length) throw new CheckInputError(503, tr(L, 'Tidak ada mesin AI aktif yang mampu untuk pemeriksaan ini. Hubungi admin.', 'No active AI engine can run this check. Contact the admin.'));
@@ -184,9 +192,11 @@ export async function createCheck(
   const charge = !(opts.prepaid || opts.free || opts.bench || opts.freeQuota || isAdmin(user));
   if (charge || opts.freeQuota) {
     // Anti-banjir: batas pemeriksaan berjalan bersamaan per member.
-    const { items: running } = await store.list(`i/user-active/${user.id}/`, { limit: billing.maxConcurrent + 1 });
-    if (running.length >= billing.maxConcurrent) {
-      throw new CheckInputError(429, tr(L, `Maksimal ${billing.maxConcurrent} pemeriksaan berjalan bersamaan. Tunggu yang sedang berjalan selesai.`, `At most ${billing.maxConcurrent} checks may run at once. Wait for the running ones to finish.`));
+    // VVIP (MASTER-BLUEPRINT §28.6): 3× pemeriksaan bersamaan.
+    const maxRun = billing.maxConcurrent * (isVvip(tier) ? 3 : 1);
+    const { items: running } = await store.list(`i/user-active/${user.id}/`, { limit: maxRun + 1 });
+    if (running.length >= maxRun) {
+      throw new CheckInputError(429, tr(L, `Maksimal ${maxRun} pemeriksaan berjalan bersamaan. Tunggu yang sedang berjalan selesai.`, `At most ${maxRun} checks may run at once. Wait for the running ones to finish.`));
     }
   }
   if (free && freeSet) {
@@ -204,7 +214,7 @@ export async function createCheck(
   if (charge && controls.maxTokensPerCheck > 0 && est.reserve > controls.maxTokensPerCheck) {
     throw new CheckInputError(400, tr(L, `Pemeriksaan ini memesan ${est.reserve} token, di atas batas ${controls.maxTokensPerCheck} token per pemeriksaan. Pendekkan naskah atau pilih mesin yang lebih hemat.`, `This check reserves ${est.reserve} tokens, above the limit of ${controls.maxTokensPerCheck} tokens per check. Shorten the text or choose a cheaper engine.`));
   }
-  if (charge && controls.memberDailyTokens > 0) {
+  if (charge && controls.memberDailyTokens > 0 && !isVvip(tier)) {
     try {
       await addMemberDay(store, user.id, wibDate(), est.reserve, controls.memberDailyTokens);
     } catch (err) {
@@ -243,6 +253,7 @@ export async function createCheck(
     purpose: input.purpose ?? 'umum',
     free,
     noReuse: opts.noCache || undefined,
+    ceiling: opts.bench || opts.noCache ? undefined : autoCeiling(tier),
     stage: 'prep',
     attempts: 0,
     lease: 0,
@@ -285,9 +296,28 @@ async function inflightWorstUsd(store: Store): Promise<{ all: number; free: numb
   return { all, free };
 }
 
-export function statusOf(doc: CheckDoc | null) {
+/**
+ * Pesan galat untuk member: tidak pernah menyebut penyedia AI, nama model, kunci, atau saldo akun perusahaan (rahasia
+ * perusahaan, MASTER-BLUEPRINT §28.2). Rincian aslinya tetap tersimpan di pemeriksaan untuk admin.
+ */
+const MEMBER_ERR: Record<string, [string, string]> = {
+  no_key: ['Layanan pemeriksaan sedang disiapkan admin.', 'The checking service is being set up by the admin.'],
+  bad_key: ['Layanan pemeriksaan sedang mengalami gangguan; admin sudah diberi tahu.', 'The checking service is having trouble; the admin has been notified.'],
+  bad_request: ['Layanan pemeriksaan sedang mengalami gangguan; admin sudah diberi tahu.', 'The checking service is having trouble; the admin has been notified.'],
+  retry: ['Layanan sedang sibuk; sistem mencoba lagi otomatis.', 'The service is busy; the system retries automatically.'],
+  refusal: ['Sebagian naskah tidak bisa dinilai otomatis.', 'Part of the text could not be assessed automatically.'],
+  truncated: ['Naskah terlalu rumit untuk diselesaikan sekali jalan.', 'The text was too complex to finish in one go.'],
+  timeout: ['Pemeriksaan melewati batas waktu.', 'The check ran past its time limit.'],
+};
+export function memberError(err: CheckDoc['error'] | undefined, L: Lang = 'id'): { code: string; msg: string } | null {
+  if (!err) return null;
+  const m = MEMBER_ERR[err.code];
+  return { code: err.code, msg: m ? (L === 'en' ? m[1] : m[0]) : err.msg };
+}
+
+export function statusOf(doc: CheckDoc | null, L: Lang = 'id') {
   if (!doc) return null;
-  return { id: doc.id, stage: doc.stage, t2n: doc.t2n ?? null, t3n: doc.t3n ?? null, skipped: doc.skipped ?? [], reportId: doc.reportId ?? null, error: doc.error ?? null, words: doc.analyzedWords ?? null, lang: doc.lang ?? null, reserved: doc.reserved, charged: doc.charged ?? null, retryAt: doc.lease > Date.now() ? doc.lease : null };
+  return { id: doc.id, stage: doc.stage, t2n: doc.t2n ?? null, t3n: doc.t3n ?? null, skipped: doc.skipped ?? [], reportId: doc.reportId ?? null, error: memberError(doc.error, L), words: doc.analyzedWords ?? null, lang: doc.lang ?? null, reserved: doc.reserved, charged: doc.charged ?? null, retryAt: doc.lease > Date.now() ? doc.lease : null };
 }
 
 async function ownCheck(c: Ctx, store: Store, id: string): Promise<CheckDoc | null> {
@@ -320,19 +350,20 @@ checks.post('/api/checks', async (c) => {
 checks.get('/api/checks/:id', async (c) => {
   const doc = await ownCheck(c, c.get('store'), c.req.param('id'));
   if (!doc) return c.json({ error: 'not found' }, 404);
-  return c.json(statusOf(doc));
+  return c.json(statusOf(doc, portalLang(c)));
 });
 
 checks.post('/api/checks/:id/advance', async (c) => {
   const doc = await ownCheck(c, c.get('store'), c.req.param('id'));
   if (!doc) return c.json({ error: 'not found' }, 404);
   const after = await advance(c.env, doc.id);
-  return c.json(statusOf(after ?? doc));
+  return c.json(statusOf(after ?? doc, portalLang(c)));
 });
 
 const URL_ERR_EN: Record<InputUrlError['code'], string> = {
   bad_url: 'Invalid URL — only http/https addresses without a user name or password.',
   blocked_host: 'Internal network addresses cannot be scanned.',
+  protected: 'This site cannot be scanned on xscan.es.',
   robots: 'This site’s robots.txt does not allow that page to be fetched.',
   too_big: 'The page is larger than 5 MB.',
   timeout: 'The site took too long to answer.',
@@ -385,18 +416,19 @@ checks.get('/api/estimate', async (c) => {
   if (!c.get('user')) return c.json({ error: 'login' }, 401);
   const store = c.get('store');
   const words = Math.max(0, Math.min(60_000, Number(c.req.query('words') ?? 0) || 0));
-  const mode: Mode = isMode(c.req.query('mode')) ? (c.req.query('mode') as Mode) : 'auto';
+  const mode: Mode = parseMode(c.req.query('mode')) ?? 'auto';
   const rubric = c.req.query('rubric') === '1';
   const b = await getBilling(store);
   const eng = applyRouter(await getEngine(store), await getControls(store)).eng;
-  const all = Object.fromEntries(MODES.map((m) => [m, estimateTokens(words, m, rubric, b, eng)]));
+  const all = Object.fromEntries(MODES.map((m) => [m, estimateTokens(words, m, rubric, b, eng)])) as Record<Mode, ReturnType<typeof estimateTokens>>;
+  const modes = Object.fromEntries(MODES.map((m) => [PUBLIC_MODE[m], all[m]]));
   const pages = Math.round((words / b.wordsPerPage) * 10) / 10;
   // Cek Gratis memakai kuota halaman, bukan token: perkiraan token-nya nol (kuota dihitung server saat dikirim).
-  if (c.req.query('mode') === 'free') return c.json({ min: 0, typical: 0, reserve: 0, modes: all, pages, free: true, short: 0 });
+  if (c.req.query('mode') === 'free') return c.json({ min: 0, typical: 0, reserve: 0, modes, pages, free: true, short: 0 });
   // Pratinjau sebelum memindai (file pemilik „Xscan“ §4): saldo, kekurangan, lalu tombol isi saldo di formulir.
   const balance = isAdmin(c.get('user')!) ? Number.MAX_SAFE_INTEGER : await balanceOf(store, c.get('user')!.id);
   const short = Math.max(0, all[mode]!.reserve - balance);
-  return c.json({ ...all[mode], modes: all, pages, short });
+  return c.json({ ...all[mode], modes, pages, short });
 });
 
 /* ── tinjauan ulang (sengketa): Forensik penuh oleh tiga model, ditagih seperti pemeriksaan biasa ── */
@@ -466,13 +498,13 @@ checks.post('/api/batches/:id/run', async (c) => {
   if (controls.emergencyStop) return c.json({ error: tr(L, 'Pemeriksaan sedang dihentikan sementara oleh admin. Saldo Anda aman.', 'Checks are paused by the admin for now. Your balance is safe.') }, 503);
   const eng = applyRouter(await getEngine(store), controls).eng;
   const billing = await getBilling(store);
-  const mode: Mode = isMode(body.mode) ? body.mode : 'auto';
+  const mode: Mode = parseMode(body.mode) ?? 'auto';
   const each = entries.map((e) => estimateTokens(countWords(String(e.text)), mode, Boolean(batch.rubricId), billing, eng).reserve);
   const total = each.reduce((a, b) => a + b, 0);
   if (!isAdmin(user) && controls.maxTokensPerCheck > 0 && Math.max(...each) > controls.maxTokensPerCheck) {
     return c.json({ error: tr(L, `Ada naskah yang memesan ${Math.max(...each)} token, di atas batas ${controls.maxTokensPerCheck} token per pemeriksaan.`, `One text reserves ${Math.max(...each)} tokens, above the limit of ${controls.maxTokensPerCheck} tokens per check.`) }, 400);
   }
-  if (!isAdmin(user) && controls.memberDailyTokens > 0) {
+  if (!isAdmin(user) && controls.memberDailyTokens > 0 && !isVvip(tierOf(user))) {
     try {
       await addMemberDay(store, user.id, wibDate(), total, controls.memberDailyTokens);
     } catch (err) {
