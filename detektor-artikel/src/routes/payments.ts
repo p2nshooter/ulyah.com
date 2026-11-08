@@ -14,6 +14,7 @@ import { bi } from '../engine/rubrics.ts';
 import { credit } from '../data/wallet.ts';
 import { getUser } from '../data/users.ts';
 import { getAffiliateSettings, payCommission } from '../data/affiliate.ts';
+import { addStats } from '../data/stats.ts';
 import { audit } from '../data/audit.ts';
 import { newId } from '../lib/crypto.ts';
 import { invTs, type Store } from '../lib/store.ts';
@@ -180,10 +181,16 @@ function uploadForm(L: Lang, o: Order): Raw {
 export async function completeOrder(store: Store, o: Order, by: string): Promise<void> {
   if (isDeposit(o)) await topUp(store, o.uid, o.priceIdr, o.id, `Invoice ${invoiceNo(o)}`);
   else await credit(store, o.uid, o.tokens, 'purchase', `Invoice ${invoiceNo(o)} (${o.pkg})`, `order:${o.id}`, by);
+  // Rekap member (sekali per pesanan): uang masuk dan token dibeli.
+  const usd = currencyOf(o) === 'USD';
+  await addStats(store, o.uid, `ord:${o.id}`, { paidIdr: usd ? 0 : o.priceIdr, paidUsd: usd ? o.priceUsd : 0, tokensBought: isDeposit(o) ? 0 : o.tokens, depositTopupIdr: isDeposit(o) ? o.priceIdr : 0 });
   const buyer = await getUser(store, o.uid);
   const aff = await getAffiliateSettings(store);
   // Komisi dihitung dari nilai Rupiah tagihan (saldo afiliasi dalam Rupiah) — juga untuk pesanan USD.
-  if (buyer?.ref && aff.enabled) await payCommission(store, buyer.ref, o.id, o.email, o.priceIdr, aff.ratePct);
+  if (buyer?.ref && aff.enabled) {
+    const com = await payCommission(store, buyer.ref, o.id, o.email, o.priceIdr, aff.ratePct);
+    if (com > 0) await addStats(store, o.uid, `com:${o.id}`, { commissionIdr: com });
+  }
 }
 
 /* ── portal member ─────────────────────────────────────────────────── */

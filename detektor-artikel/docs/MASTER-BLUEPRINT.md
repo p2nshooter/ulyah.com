@@ -1126,3 +1126,97 @@ antarmuka.
 - Panduan member/admin (§23) ikut diperbarui. Uji e2e: laporan lomba, pemberitahuan hanya di portal, cetak tanpa
   pemberitahuan, jendela Fable (tidak/ya), penolakan server tanpa konfirmasi, panggilan `claude-fable-5-1` dengan fallback.
 - Masih berlaku: templat laporan A–I per kategori penulis dan laporan kompetisi lengkap (J) adalah fase X3/X5.
+
+---
+
+## 25. PWA, notifikasi admin, mesin nyala/mati di seluruh situs, kuota gratis 1–20 (pemilik, 8 Nov 2026) — ✅ dibangun
+
+> „Buatkan agar xscan dan ascan bisa di install di HP dengan logo gambar HP di paling atas, jika sudah d install hilangkan
+> logonya, buatkan notifikasi jika ada pembayaran masuk yg belum di cek, atau ada yg baru di setiap menu masing2“ ·
+> „engine bisa di on/off di portal admin, misal fable 5 di off mana seluruh website ini fable 5 di tandai comming soon atau
+> off“ · „Penerapan komisi affiliate & diskon member wajib dynamic page … termasuk gratis 1-20 halaman / minggu … perubahan2
+> wajib lu sesuai sampai ke panduan“
+
+- **PWA** (`src/lib/pwa.ts`, merek dari `src/brand.ts`): manifest, service worker (hanya aset statis + halaman luring; data
+  member tidak pernah di-cache di perangkat), spanduk „Pasang di HP“ di paling atas, hilang setelah terpasang.
+- **Notifikasi admin** (`src/data/notify.ts`): lencana per menu tiap menit (bukti TF menunggu dicek; member/laporan/pencairan
+  baru sejak menu terakhir dibuka), toast, notifikasi perangkat opsional, angka di judul tab.
+- **Mesin nyala/mati** (`engineAvailability` di `src/data/controls.ts`, satu sumber): kartu mesin nonaktif tampil „Segera hadir“
+  (Fable) / „Sedang nonaktif“ (Sonnet, Opus, Forensik) di formulir, halaman harga (tabel „Mesin AI yang tersedia“) dan
+  panduan. **Server menolak** mode yang mesinnya dimatikan — tidak pernah dialihkan diam-diam ke mesin lain yang lebih mahal.
+- **Kuota gratis 1–20 halaman** per periode dengan penggeser di Admin → Kuota gratis; maks. per pemeriksaan ikut dibatasi.
+- **Panduan selalu sesuai**: kuota, ukuran halaman, harga token, **paket + diskon**, **komisi afiliasi**, status mesin dibaca
+  dari Admin setiap kali halaman panduan dibuka; panduan member menambah „Pasang di HP“, panduan admin „Notifikasi“.
+
+---
+
+## 26. Naskah yang pernah diunggah: hasil dipakai ulang, biaya AI perusahaan 0 (pemilik, 8 Nov 2026)
+
+> „Jika client upload file dengan file yg sudah pernah di upload atau sebagian halaman pernah di upload, gunakan chache kecuali
+> beda mesin, tetep potong biaya di sisi client tp berikan potongan 50% namun di sisi biaya perusahaan wajib 0 biaya file yg
+> pernah di upload“ · „Jika menggunakan mesin yg sama, tp jika mesin baru biaya tetep normal“ · „Tp jika member lain upload
+> file yg pernah di upload baik keseluruhan maupun sebagian maka member yg upload tetep biaya normal, tp disisi biaya
+> perusahaan 0“
+
+| Siapa yang mengunggah | Mesin sama | Mesin berbeda / baru |
+|---|---|---|
+| Member yang sama (pernah mengunggah paragraf itu dengan mesin itu) | hasil tersimpan dipakai, **tanpa panggilan AI**; member membayar **50 %** (diatur di Admin → Harga & token) | diperiksa ulang, biaya normal |
+| Member lain | hasil tersimpan dipakai, **tanpa panggilan AI**; member membayar **normal**, tidak diberi tahu bahwa naskah pernah diunggah orang lain | diperiksa ulang, biaya normal |
+
+- **Satuan:** paragraf isi (bukan seluruh berkas), jadi berkas yang sebagian halamannya sama hanya memanggil AI untuk paragraf
+  baru. Kunci: hash paragraf + **kunci mesin** (mode, model tiap tingkat, effort, versi mesin `ENGINE_REV`). Mengganti
+  model/effort di Admin atau memperbarui prompt = mesin baru = diperiksa ulang normal.
+- **Yang disimpan per paragraf** (`x/p/{mesin}/{hash}`): skor & kode alasan per kalimat (tingkat 1, 2, 3), skor paragraf,
+  nilai dokumen lintasannya, dan bagian token AI (masuk/keluar/cache/US$) per tingkat untuk menghitung harga normal. Tanpa
+  teks naskah. Milik member dicatat per pemeriksaan di `x/mh/{uid}/{mesin}/…` (daftar hash paragraf).
+- **Harga normal** = token AI tersimpan × tarif terbuka saat ini (sama seperti panggilan baru). Baris „Hasil tersimpan Anda“
+  di rincian token hanya muncul untuk member yang sama; untuk member lain baris tampil seperti biasa (privasi: tidak ada tanda
+  naskah pernah diunggah orang lain). Biaya AI perusahaan (`cost`) hanya dari panggilan baru → 0 untuk bagian tersimpan.
+- **Seluruh naskah identik:** catatan gaya (ringkasan) dan uji tebak-lanjutan ikut dipakai ulang (`x/d/{mesin}/{hash}`);
+  **penilaian rubrik** (berisi kalimat masukan untuk satu pengunggah) hanya dipakai ulang untuk member yang sama, rubrik dan
+  bahasa laporan yang sama; selain itu dinilai baru (biaya normal). Sebagian sama: uji tebak-lanjutan dilewati (tidak memanggil
+  AI untuk bagian lama), rubrik dinilai utuh.
+- **Pesanan token** tetap perkiraan penuh; selisihnya kembali otomatis saat selesai. **Cek Gratis:** halaman yang pernah
+  diperiksa sendiri dihitung 50 % (dibulatkan ke atas), sisa halaman kuota kembali.
+- **Masa simpan: tidak pernah dihapus** (pemilik, 8 Nov 2026: „Chache perusahaan jgn di hapus walaupun sudah 90 hari“).
+  Hasil tersimpan per paragraf, catatan naskah utuh, dan daftar „pernah mengunggah“ milik member bukan teks naskah, jadi
+  tetap ada setelah naskahnya dihapus; mesin baru (kunci lain) otomatis tidak memakainya. Tidak dipakai untuk uji mesin dan
+  „Ajukan tinjauan“ (selalu dinilai ulang penuh).
+- Menggantikan cache lama „naskah + pengaturan sama 7 hari → laporan lama, 0 token“ (§20.2).
+- Admin melihat penghematan (paragraf/kata dipakai ulang, US$ dihemat) di detail pemeriksaan. Panduan member & admin, halaman
+  harga, formulir periksa ikut menyebut potongan yang berlaku.
+
+---
+
+## 27. Riwayat hasil kerja member tidak pernah dihapus (pemilik, 8 Nov 2026)
+
+> „Chache perusahaan jgn di hapus walaupun sudah 90 hari, member saja yg d hapus, tp history member jgn pernah d hapus“ ·
+> „Hasil kerja member history nya jgn di hapus, berikan saja penanda dr tgl dll yg pernah d kerjakan member“
+
+Mengubah pembersihan otomatis 90 hari (2 Nov 2026):
+
+| Dihapus otomatis (90 hari, atau lebih cepat sesuai masa simpan teks pilihan member) | Tidak pernah dihapus |
+|---|---|
+| teks naskah (terenkripsi), tahap AI per pemeriksaan, rincian per kalimat yang memuat teks naskah, sidik jari kemiripan sesi, berkas unggahan (bukti transfer) | **riwayat hasil kerja**: daftar laporan & pemeriksaan, judul, tanggal dikerjakan, mesin, keperluan, persen AI/campuran/manusia, label, nilai rubrik, token, kode verifikasi (halaman /v tetap jalan), catatan member, sesi lomba/kelas beserta rekap angkanya; invoice & buku saldo; **hasil tersimpan perusahaan** (§26) dan log biaya |
+
+- **Penanda** di riwayat kerja dan di halaman laporan: tanggal dikerjakan + „Arsip — naskah dihapus otomatis pada {tanggal}“
+  (atau „akan dihapus pada {tanggal}“ sebelum waktunya). Laporan arsip tetap bisa dibuka, dicetak, dan diverifikasi dari angka
+  yang tersimpan.
+- Semua teks pemberitahuan (portal, harga, privasi, ketentuan, panduan bersuara) disesuaikan: „naskah dan berkas dihapus,
+  riwayat tetap“.
+
+### 27.1 Rekap token & laba per member (pemilik, 8 Nov 2026)
+
+> „Di simpan d portal member sendiri dan di portal admin, agar admin tau sudah berapa token yg d keluarkan, berapa yg di bayar
+> dan berapa profitnya“ · „Tampilkan di portal admin termasuk sisa saldo, sisa token, token terpakai, rincian topup member,
+> konversi dari saldo ke token dll setiap member“
+
+- `u/stats/{uid}.json` (`src/data/stats.ts`), ditambah sekali per kejadian (penanda `u/stats-once/…`): pemeriksaan selesai/gagal,
+  sesi lomba, pesanan lunas (paket/deposit), komisi afiliasi, deposit ditukar token. Tidak pernah dihapus. Data lama dihitung
+  ulang dari catatan (`stats-rebuild.ts`; tombol „Hitung ulang“, otomatis saat halaman member pertama dibuka).
+- **Admin → Token & laba** (`/admin/keuangan`): total + tabel per member — dibayar, token dibeli, token terpakai, **sisa token**,
+  **top-up**, **saldo → token**, **sisa saldo deposit**, pemeriksaan, biaya AI, komisi, laba kas; laba atas token terpakai dan
+  penghematan hasil tersimpan di kartu total. **Admin → Anggota → member**: kartu saldo/token/deposit, kartu laba, tabel
+  pesanan & pembayaran, rincian deposit (isi saldo, beli paket dari deposit, tukar token, koreksi admin) dan buku besar token.
+- **Portal member → Token**: „Riwayat pemakaian & pembayaran Anda“ — sudah dibayar, token dibeli, token terpakai, jumlah
+  pemeriksaan. Tanpa biaya AI, laba, atau markup (rahasia perusahaan).

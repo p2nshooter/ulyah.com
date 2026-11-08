@@ -16,6 +16,8 @@ import { registerPublicAffiliate } from './routes/affiliate.ts';
 import { getBilling, getEngine, measuredCostPer1k } from './data/settings.ts';
 import { getAffiliateSettings } from './data/affiliate.ts';
 import { scheduled } from './cron.ts';
+import { manifest, serviceWorker } from './lib/pwa.ts';
+import { getControls, engineAvailability } from './data/controls.ts';
 import { page, ADS_TXT } from './pages/ui.ts';
 import { html } from './lib/html.ts';
 import { tr } from './lib/i18n.ts';
@@ -121,7 +123,7 @@ both('how', (c, L) => howPage(pubCtx(c, L)));
 both('acc', async (c, L) => accuracyPage(pubCtx(c, L), await c.get('store').get<PublishedAccuracy>('k/accuracy.json')));
 both('price', async (c, L) => {
   const store = c.get('store');
-  return pricingPage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store));
+  return pricingPage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store), engineAvailability(await getControls(store)));
 });
 both('sample', (c, L) => samplePage(pubCtx(c, L)));
 both('guide', async (c, L) => guidePage(pubCtx(c, L), await guideValues(c.get('store'))));
@@ -153,6 +155,12 @@ app.get('/robots.txt', (c) => {
   return c.text(body, 200, { 'cache-control': 'public, max-age=3600' });
 });
 
+app.get('/manifest.webmanifest', (c) => c.body(manifest(chosenLang(c as Ctx) === 'en' ? 'en' : 'id'), 200, { 'content-type': 'application/manifest+json', 'cache-control': 'public, max-age=3600' }));
+app.get('/sw.js', (c) => c.body(serviceWorker(), 200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-cache', 'service-worker-allowed': '/' }));
+app.get('/offline', (c) => {
+  const L: Lang = chosenLang(c as Ctx) === 'en' ? 'en' : 'id';
+  return c.html(page({ L, title: tr(L, 'Sedang luring', 'You are offline'), area: 'public', noindex: true, user: null, body: html`<section class="section"><div class="wrap narrow center"><h1>📶 ${tr(L, 'Sedang luring', 'You are offline')}</h1><p class="lead">${tr(L, 'Sambungan internet terputus. Laporan dan saldo Anda aman di server; buka lagi begitu tersambung.', 'Your connection dropped. Your reports and balance are safe on the server; open the app again once you are back online.')}</p><a class="btn btn-primary" href="/app">${tr(L, 'Coba lagi', 'Try again')}</a></div></section>` }));
+});
 app.get('/ads.txt', (c) => c.text(ADS_TXT, 200, { 'cache-control': 'public, max-age=3600' }));
 
 app.get('/sitemap.xml', (c) => {

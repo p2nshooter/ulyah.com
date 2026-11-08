@@ -5,7 +5,7 @@ import { Store, invTs } from '../lib/store.ts';
 import { schedulePurge } from '../data/purge.ts';
 import { newId, seal } from '../lib/crypto.ts';
 import { tr, GENRES, LEVELS, type Lang } from '../lib/i18n.ts';
-import { countWords, preprocess } from '../engine/preprocess.ts';
+import { countWords } from '../engine/preprocess.ts';
 import { advance, checkKey, textKey, type CheckDoc, type ReportSummary, reportKey } from '../engine/cascade.ts';
 import { getEngine, getBilling, spendToday, getFree, freeSpendToday, type FreeSettings } from '../data/settings.ts';
 import { normalPages, firstPages, freeStatus, reserveFreePages, releaseFreePages, FreeQuotaError, isDisposable, networkAllows, networkOf, periodOf } from '../data/free.ts';
@@ -18,9 +18,10 @@ import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { limit, count } from '../lib/ratelimit.ts';
 import { fetchArticle, collectSitemap, InputUrlError } from '../lib/extract.ts';
 import { isPurpose, type Purpose } from '../lib/purpose.ts';
-import { getControls, addMemberDay, SpendLimitError } from '../data/controls.ts';
+import { getControls, addMemberDay, SpendLimitError, engineAvailability } from '../data/controls.ts';
 import { applyRouter } from '../engine/router.ts';
 import { wibDate } from '../data/settings.ts';
+import { addStats } from '../data/stats.ts';
 
 export const checks = new Hono<HonoEnv>();
 
@@ -148,11 +149,12 @@ export async function createCheck(
   if (words < 30) throw new CheckInputError(400, tr(L, 'Teks terlalu pendek (minimal 30 kata).', 'Text too short (minimum 30 words).'));
   const maxWords = isAdmin(user) ? 60_000 : 20_000;
   if (words > maxWords) throw new CheckInputError(400, tr(L, `Teks terlalu panjang (maks. ${maxWords} kata per pemeriksaan).`, `Text too long (max ${maxWords} words per check).`));
-  // Cache hasil (MASTER-BLUEPRINT §8.4, §20.2): naskah + pengaturan yang sama dari akun yang sama dalam 7 hari → laporan
-  // lama dipakai lagi, tanpa token dan tanpa halaman kuota (tidak membayar AI dua kali untuk jawaban yang sama).
-  if (!opts.bench && !opts.batchId && !opts.prepaid && !opts.free && !opts.noCache) {
-    const hit = await cachedCheck(store, user.id, input, Boolean(free));
-    if (hit) return hit;
+  // Naskah yang pernah diunggah (MASTER-BLUEPRINT §26): bagian yang tersimpan dengan mesin yang sama tidak dikirim lagi ke
+  // AI (biaya perusahaan 0) — dicari di tahap pertama mesin; pesanan di bawah tetap perkiraan penuh, selisihnya kembali.
+  // Mesin yang dimatikan admin tidak pernah diganti diam-diam dengan mesin lain (apalagi yang lebih mahal): ditolak.
+  const avail = engineAvailability(controls);
+  if ((input.mode === 'sonnet' && !avail.sonnet) || (input.mode === 'opus' && !avail.opus) || (input.mode === 'forensic' && !avail.forensic)) {
+    throw new CheckInputError(403, tr(L, 'Mesin yang dipilih sedang nonaktif. Pilih AUTO atau mesin lain yang aktif.', 'The chosen engine is switched off for now. Choose AUTO or another active engine.'));
   }
   // Fable 5.1 (pemilik, 8 Nov 2026): hanya bila diizinkan admin, dan hanya setelah member menekan „Ya, saya yakin“.
   if (input.mode === 'fable') {
@@ -240,6 +242,7 @@ export async function createCheck(
     mode: input.mode,
     purpose: input.purpose ?? 'umum',
     free,
+    noReuse: opts.noCache || undefined,
     stage: 'prep',
     attempts: 0,
     lease: 0,
@@ -253,7 +256,7 @@ export async function createCheck(
     await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now, worst: worstUsd, free: Boolean(free) });
     if (charge || opts.freeQuota) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
     if (!opts.bench) await store.createOnce(`i/user-checks/${user.id}/${invTs(now)}~${id}`, {}, { title: input.title, at: now, batch: opts.batchId ?? null });
-    // Hasil kerja & naskah member dibersihkan otomatis 90 hari setelah dibuat (laporan ikut terhapus).
+    // Naskah member dibersihkan otomatis 90 hari setelah dibuat; riwayat & angka laporan tidak pernah dihapus (§27).
     if (!opts.bench) await schedulePurge(store, 'c', id, now);
   } catch (err) {
     // Dokumen gagal dibuat setelah token dipesan: kembalikan pesanan (idempoten), jangan sampai saldo hilang.
@@ -358,22 +361,6 @@ checks.post('/api/extract', async (c) => {
     throw err;
   }
 });
-
-export const RESULT_CACHE_DAYS = 7;
-
-async function cachedCheck(store: Store, uid: string, input: NewCheck, free: boolean): Promise<CheckDoc | null> {
-  const hash = await sha256Hex(preprocess(input.text).normalized);
-  const { items } = await store.list(`i/hash/${uid}/${hash.slice(0, 32)}/`, { limit: 50 });
-  for (const it of items.reverse()) {
-    const rep = await store.get<ReportSummary>(reportKey(it.id));
-    if (!rep || rep.uid !== uid || Date.now() - rep.createdAt > RESULT_CACHE_DAYS * 86_400_000) continue;
-    if (rep.mode !== input.mode || (rep.rubric?.id ?? null) !== (input.rubricId ?? null) || rep.reportLang !== input.reportLang) continue;
-    if (Boolean(rep.free) !== free || rep.genre !== input.genre || rep.level !== input.level || (rep.purpose ?? 'umum') !== (input.purpose ?? 'umum')) continue;
-    const doc = await store.get<CheckDoc>(checkKey(rep.checkId));
-    if (doc && doc.stage === 'done' && doc.reportId === rep.id) return doc;
-  }
-  return null;
-}
 
 /** Daftar URL artikel dari sitemap (bertingkat maks. 3) untuk sesi massal. Tanpa AI, tanpa token. */
 export const SITEMAP_MAX_PER_IMPORT = 50;
@@ -541,6 +528,8 @@ export async function settleBatch(env: Env, store: Store, batchId: string): Prom
   if (due > 0) {
     await refund(store, batch.uid, due, `Penyelesaian sesi ${batchId} (ditagih ${charged} token)`, `batch:${batchId}:${already + due}`);
   }
+  // Rekap member (sekali per sesi): token sesi yang benar-benar dipotong.
+  await addStats(store, batch.uid, `batch:${batchId}`, { tokensUsed: charged });
   await store.cas<Batch>(batchKey(batchId), (cur) => (cur && (cur.refundedTokens ?? 0) < already + due ? { ...cur, refundedTokens: already + due, settled: true } : cur && !cur.settled ? { ...cur, settled: true } : null));
   await store.del(`i/open-batches/${batchId}`);
   return { charged, refunded: due };

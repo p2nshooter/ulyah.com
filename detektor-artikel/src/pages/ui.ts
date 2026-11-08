@@ -99,6 +99,7 @@ ${o.canonical ? html`<link rel="canonical" href="${o.canonical}">` : ''}
 ${o.alt && o.path ? html`<link rel="alternate" hreflang="${o.L === 'id' ? 'en' : 'id'}" href="${o.alt}"><link rel="alternate" hreflang="${o.L}" href="${o.path}">` : ''}
 ${raw(ADSENSE_METAS)}
 <meta name="theme-color" content="${B.themeColor}">
+<link rel="manifest" href="/manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="${B.host}">
 <link rel="icon" href="${B.favicon32}" sizes="32x32" type="image/png"><link rel="icon" href="${B.favicon64}" sizes="64x64" type="image/png"><link rel="apple-touch-icon" href="${B.appleTouch}"><meta property="og:image" content="${B.ogImage}"><meta property="og:site_name" content="${B.host}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONT}">
@@ -169,6 +170,7 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
           ['/admin/laporan', '▤', tr(L, 'Laporan', 'Reports'), 'reports'],
           ['/admin/biaya', '＄', tr(L, 'Biaya API', 'API cost'), 'cost'],
+          ['/admin/keuangan', '📒', tr(L, 'Token & laba', 'Tokens & profit'), 'finance'],
           ['/admin/audit', '⌁', tr(L, 'Audit & cadangan', 'Audit & backups'), 'audit'],
           ['/admin/panduan', '📘', tr(L, 'Panduan admin', 'Admin guide'), 'guide'],
         ]
@@ -183,13 +185,13 @@ function sideNav(o: PageOpts): Raw {
           ['/app/pengaturan', '⚙', tr(L, 'Pengaturan', 'Settings'), 'settings'],
           [L === 'en' ? '/en/guide' : '/panduan', '📘', tr(L, 'Panduan', 'Guide'), 'guide'],
         ];
-  return html`<aside class="side" id="side">
+  return html`<aside class="side" id="side" ${o.area === 'admin' ? raw('data-admin-notify') : ''}>
   <a class="brand" href="${o.area === 'admin' ? '/admin' : '/app'}">${brandMark(o.area === 'admin' ? html` <em class="tag-admin">Admin</em>` : '')}</a>
   <nav aria-label="${tr(L, 'Navigasi portal', 'Portal navigation')}">
-    ${items.map(([href, ic, label, key]) => html`<a href="${href}" class="${o.active === key ? 'on' : ''}"><i aria-hidden="true">${ic}</i><span>${label}</span></a>`)}
+    ${items.map(([href, ic, label, key]) => html`<a href="${href}" class="${o.active === key ? 'on' : ''}" data-nav="${key}"><i aria-hidden="true">${ic}</i><span>${label}</span><b class="nav-badge" data-badge="${key}" hidden></b></a>`)}
   </nav>
   <div class="side-foot">
-    ${o.area === 'admin' ? html`<a href="/app" class="side-link">← ${tr(L, 'Portal member', 'Member portal')}</a>` : isAdmin(u) ? html`<a href="/admin" class="side-link">⚑ ${tr(L, 'Portal admin', 'Admin portal')}</a>` : ''}
+    ${o.area === 'admin' ? html`<a href="/app" class="side-link">← ${tr(L, 'Portal member', 'Member portal')}</a><button type="button" class="side-link" data-notify-enable hidden>🔔 ${tr(L, 'Aktifkan notifikasi', 'Turn on notifications')}</button>` : isAdmin(u) ? html`<a href="/admin" class="side-link">⚑ ${tr(L, 'Portal admin', 'Admin portal')}</a>` : ''}
     <a href="/lang?to=${L === 'id' ? 'en' : 'id'}" class="side-link">🌐 ${L === 'id' ? 'English' : 'Bahasa Indonesia'}</a>
     <form method="post" action="/keluar"><button class="side-link" type="submit">⎋ ${tr(L, 'Keluar', 'Log out')}</button></form>
     ${u ? html`<div class="who"><b>${u.name}</b><small>${u.email}</small></div>` : ''}
@@ -207,7 +209,7 @@ export function page(o: PageOpts): string {
   } else {
     bodyHtml = html`<div class="shell">${sideNav(o)}<div class="shell-main"><header class="mobilebar"><button class="icon-btn" type="button" data-toggle="side" aria-label="Menu">☰</button><a class="brand" href="/app">${brandMark()}</a></header><main id="main" class="page-app">${o.body}</main></div></div>`;
   }
-  return `<!doctype html><html lang="${L}">${head(o)}<body class="area-${o.area} brand-${B.id}"><a class="skip" href="#main">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>${bodyHtml}<div class="toasts" aria-live="polite"></div></body></html>`;
+  return `<!doctype html><html lang="${L}">${head(o)}<body class="area-${o.area} brand-${B.id}"><a class="skip" href="#main">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>${o.area === 'print' ? '' : installBar(L)}${bodyHtml}<div class="toasts" aria-live="polite"></div></body></html>`;
 }
 
 /* ── komponen ─────────────────────────────────────────────────────────── */
@@ -266,8 +268,8 @@ export function words(L: Lang, n: number): string {
 
 /** Pemberitahuan pembersihan otomatis (pemilik, 2 Nov 2026). */
 export function purgeNotice(L: Lang, compact = false): Raw {
-  const t = tr(L, `Semua hasil kerja (laporan, naskah, sesi lomba/kelas) dan berkas yang Anda unggah dihapus otomatis ${PURGE_DAYS} hari setelah dibuat. Unduh atau cetak laporan yang ingin disimpan. Catatan transaksi (invoice, saldo) tetap disimpan.`, `All your work (reports, texts, contest/class sessions) and the files you upload are deleted automatically ${PURGE_DAYS} days after they are created. Download or print the reports you want to keep. Transaction records (invoices, balances) are kept.`);
-  return compact ? html`<p class="muted small notice-purge noprint">🗓 ${t}</p>` : html`<div class="notice-purge noprint" role="note">🗓 <b>${tr(L, `Dibersihkan otomatis setiap ${PURGE_DAYS} hari.`, `Cleaned automatically after ${PURGE_DAYS} days.`)}</b> ${t}</div>`;
+  const t = tr(L, `Naskah, rincian per kalimat, dan berkas yang Anda unggah dihapus otomatis ${PURGE_DAYS} hari setelah dibuat. Riwayat kerja Anda — tanggal, judul, angka hasil, nilai, token, dan kode verifikasi — tidak pernah dihapus; laporan lama diberi tanda Arsip. Catatan transaksi (invoice, saldo) tetap disimpan.`, `Texts, per-sentence detail and the files you upload are deleted automatically ${PURGE_DAYS} days after they are created. Your work history — date, title, result figures, score, tokens and verification code — is never deleted; older reports are marked Archive. Transaction records (invoices, balances) are kept.`);
+  return compact ? html`<p class="muted small notice-purge noprint">🗓 ${t}</p>` : html`<div class="notice-purge noprint" role="note">🗓 <b>${tr(L, `Naskah dibersihkan otomatis setelah ${PURGE_DAYS} hari; riwayat tetap.`, `Texts are cleaned after ${PURGE_DAYS} days; history stays.`)}</b> ${t}</div>`;
 }
 
 export function csrfField(token: string): Raw {
@@ -281,4 +283,17 @@ export function csrfField(token: string): Raw {
  */
 export function assistNotice(L: Lang): Raw {
   return html`<div class="assist-note noprint reveal" role="note" data-assist-note><b>ⓘ ${tr(L, `${B.host} membantu Anda menganalisis — tidak memutuskan.`, `${B.host} helps you analyse — it does not decide.`)}</b> ${tr(L, 'Keputusan akhir, seperti nilai, peringkat, sanksi, atau kelayakan terbit, tetap di tangan Anda sebagai guru, juri, panitia, editor, atau pimpinan.', 'The final call — a grade, a ranking, a sanction or whether to publish — stays with you as the teacher, judge, organiser, editor or manager.')}</div>`;
+}
+
+/**
+ * Spanduk „Pasang di HP“ di paling atas (pemilik, 8 Nov 2026). Tersembunyi sampai peramban menawarkan pemasangan
+ * (atau di iPhone/iPad: petunjuk Bagikan → Tambahkan ke Layar Utama); hilang setelah terpasang atau ditutup (7 hari).
+ */
+export function installBar(L: Lang): Raw {
+  return html`<div class="pwa-bar" data-pwa-bar hidden role="region" aria-label="${tr(L, 'Pasang aplikasi', 'Install the app')}">
+  <span class="pwa-phone" aria-hidden="true">📱</span><img src="${B.icon192}" width="36" height="36" alt="">
+  <div class="pwa-txt"><b>${tr(L, `Pasang ${B.host} di HP Anda`, `Install ${B.host} on your phone`)}</b><small data-pwa-hint>${tr(L, 'Buka lebih cepat dari layar utama, seperti aplikasi.', 'Open it faster from your home screen, like an app.')}</small><small data-pwa-ios hidden>${tr(L, 'Ketuk ⎙ Bagikan, lalu „Tambahkan ke Layar Utama“.', 'Tap ⎙ Share, then “Add to Home Screen”.')}</small></div>
+  <button class="btn btn-primary btn-sm" type="button" data-pwa-install hidden>${tr(L, 'Pasang', 'Install')}</button>
+  <button class="icon-btn" type="button" data-pwa-close aria-label="${tr(L, 'Tutup', 'Close')}">×</button>
+</div>`;
 }

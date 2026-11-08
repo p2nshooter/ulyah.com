@@ -2,10 +2,12 @@
 import { Hono } from 'hono';
 import { html, raw, jsonScript, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtUsd, LABELS, MODE_INFO, type Lang, type LabelKey } from '../lib/i18n.ts';
+import { getStats, money, sumStats, statsKey, type MemberStats } from '../data/stats.ts';
+import { rebuildStats } from '../data/stats-rebuild.ts';
 import { page, pageHead, guide, flash, stat, labelPill, tip } from '../pages/ui.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { isAdmin, getUser, updateUser, findByEmail, type User } from '../data/users.ts';
-import { getEngine, getBilling, spendToday, KEY_DOC, wibDate, DEFAULT_ENGINE, DEFAULT_BILLING, MARKUP_MIN, MARKUP_MAX, getFree, normalizeFree, FREE_DOC, FREE_LIMITS, type EngineSettings, type KeyRecord, type BillingSettings, type Effort } from '../data/settings.ts';
+import { getEngine, getBilling, spendToday, KEY_DOC, wibDate, DEFAULT_ENGINE, DEFAULT_BILLING, MARKUP_MIN, MARKUP_MAX, getFree, normalizeFree, FREE_DOC, FREE_LIMITS, type EngineSettings, type KeyRecord, type BillingSettings, type Effort, type SpendDay } from '../data/settings.ts';
 import { estimateTokens, hardBoundUsd, predictByMode, packagePrice, tokenPriceIdr, tokenCostIdr, minRevenueMultiple, freeQuotaForecast, type FreeForecast } from '../engine/pricing.ts';
 import { registerAdminAffiliate } from './affiliate.ts';
 import { getAffiliateSettings } from '../data/affiliate.ts';
@@ -15,11 +17,13 @@ import { audit, type AuditEntry } from '../data/audit.ts';
 import { balanceOf, credit, ledger } from '../data/wallet.ts';
 import { createCheck } from './checks.ts';
 import { registerAdminPayments } from './payments.ts';
-import { depositBalance, adminAdjust } from '../data/deposit.ts';
+import { depositBalance, adminAdjust, depositLedger } from '../data/deposit.ts';
+import { orderKey, isDeposit, currencyOf, type Order } from '../data/orders.ts';
 import { reportKey, checkKey, type ReportSummary, type CheckDoc } from '../engine/cascade.ts';
 import { invTs } from '../lib/store.ts';
 import { runBackup } from '../cron.ts';
 import { adminGuide, guideBody } from '../pages/guide.ts';
+import { adminBadges, markSeen, SEEN_BY_PATH } from '../data/notify.ts';
 import { getControls, normalizeControls, CONTROLS_DOC } from '../data/controls.ts';
 import { applyRouter, CAPABILITY, FABLE, type RouteNote } from '../engine/router.ts';
 
@@ -28,6 +32,15 @@ export const admin = new Hono<HonoEnv>();
 admin.use('/admin/*', guard);
 admin.use('/admin', guard);
 admin.use('/api/admin/*', guard);
+// Membuka menu Anggota / Laporan / Afiliasi menandai isinya sudah dilihat (lencana menu itu kembali nol).
+admin.use('/admin/*', async (c, next) => {
+  await next();
+  const key = SEEN_BY_PATH[new URL(c.req.url).pathname];
+  if (key && c.req.method === 'GET' && c.res.status === 200) await markSeen(c.get('store'), c.get('user')!.id, key);
+});
+
+/** Lencana notifikasi per menu (dibaca portal admin tiap 60 detik). */
+admin.get('/api/admin/notifications', async (c) => c.json(await adminBadges(c.get('store'), c.get('user')!.id), 200, { 'cache-control': 'no-store' }));
 
 async function guard(c: Ctx, next: () => Promise<void>) {
   const u = c.get('user');
@@ -395,8 +408,12 @@ admin.get('/admin/anggota/:id', async (c) => {
   if (!u) return c.notFound();
   const bal = await balanceOf(store, u.id);
   const dep = await depositBalance(store, u.id);
-  const led = await ledger(store, u.id, 15);
+  const led = await ledger(store, u.id, 100);
+  const depLed = await depositLedger(store, u.id, 200);
+  const { items: oi } = await store.list(`i/user-orders/${u.id}/`, { limit: 50 });
+  const orders = (await Promise.all(oi.map((it) => store.get<Order>(orderKey(it.id))))).filter((o): o is Order => Boolean(o));
   const { items: reps } = await store.list<{ title: string; label: LabelKey; ai: number; at: number }>(`i/user-reports/${u.id}/`, { limit: 10 });
+  const mstats = (await store.get<MemberStats>(statsKey(u.id)))?.rebuiltAt ? await getStats(store, u.id) : await rebuildStats(store, u.id);
   const isOwner = me(c).role === 'owner';
   const body = html`
   ${pageHead(u.name, `${u.email} · ${u.role}${u.suspended ? ' · ' + tr(L, 'DITANGGUHKAN', 'SUSPENDED') : ''}`)}
@@ -410,8 +427,23 @@ admin.get('/admin/anggota/:id', async (c) => {
       <label class="field"><span>${tr(L, 'Sandi sementara (opsional)', 'Temporary password (optional)')}</span><input name="temp" minlength="8" autocomplete="off"></label>
       <div class="btn-row"><button class="btn btn-ghost" name="act" value="${u.suspended ? 'unsuspend' : 'suspend'}" type="submit">${u.suspended ? tr(L, 'Aktifkan lagi', 'Reactivate') : tr(L, 'Tangguhkan', 'Suspend')}</button><button class="btn btn-ghost" name="act" value="reset2fa" type="submit">${tr(L, 'Reset 2FA', 'Reset 2FA')}</button><button class="btn btn-ghost" name="act" value="logout" type="submit">${tr(L, 'Keluarkan semua sesi', 'Sign out everywhere')}</button><button class="btn btn-primary" name="act" value="save" type="submit">${tr(L, 'Simpan', 'Save')}</button></div></form>
   </div>
+  <section class="card reveal" data-member-wallet><h3>${tr(L, 'Saldo, token, dan deposit', 'Balance, tokens and deposit')}</h3>
+    <div class="grid g4">
+      ${stat(tr(L, 'Sisa token', 'Tokens left'), fmtNum(L, bal))}
+      ${stat(tr(L, 'Token terpakai', 'Tokens used'), fmtNum(L, mstats.tokensUsed), tr(L, `dari ${fmtNum(L, mstats.tokensBought)} token dibeli`, `of ${fmtNum(L, mstats.tokensBought)} tokens bought`))}
+      ${stat(tr(L, 'Sisa saldo deposit', 'Deposit left'), `Rp ${fmtNum(L, dep)}`)}
+      ${stat(tr(L, 'Total isi saldo (top-up)', 'Total top-ups'), `Rp ${fmtNum(L, mstats.depositTopupIdr)}`)}
+      ${stat(tr(L, 'Saldo ditukar ke token', 'Deposit converted to tokens'), `Rp ${fmtNum(L, mstats.depositToTokensIdr)}`, tr(L, `→ ${fmtNum(L, mstats.tokensFromDeposit)} token`, `→ ${fmtNum(L, mstats.tokensFromDeposit)} tokens`))}
+      ${stat(tr(L, 'Token dari paket (transfer)', 'Tokens from packages (transfer)'), fmtNum(L, Math.max(0, mstats.tokensBought - mstats.tokensFromDeposit)))}
+      ${stat(tr(L, 'Pemeriksaan', 'Checks'), fmtNum(L, mstats.checks), tr(L, `${fmtNum(L, mstats.freeChecks)} Cek Gratis`, `${fmtNum(L, mstats.freeChecks)} Free Checks`))}
+      ${stat(tr(L, 'Pesanan lunas', 'Paid orders'), fmtNum(L, orders.filter((o) => o.status === 'credited').length), tr(L, `${fmtNum(L, orders.length)} pesanan seluruhnya`, `${fmtNum(L, orders.length)} orders in total`))}
+    </div>
+  </section>
+  ${statsCard(L, mstats, (await getEngine(store)).fx, tr(L, 'Token & laba member ini', 'This member’s tokens & profit'))}
+  <section class="card reveal" data-member-orders><h3>${tr(L, 'Pesanan & pembayaran', 'Orders & payments')}</h3>${orders.length ? html`<div class="tbl-wrap"><table class="tbl hover"><thead><tr><th>${tr(L, 'Tanggal', 'Date')}</th><th>${tr(L, 'Pesanan', 'Order')}</th><th>${tr(L, 'Jenis', 'Type')}</th><th class="n">${tr(L, 'Nominal', 'Amount')}</th><th class="n">Token</th><th>Status</th></tr></thead><tbody>${orders.map((o) => html`<tr data-href="/admin/pesanan/${o.id}"><td><small>${fmtDate(L, o.createdAt)}</small></td><td><a href="/admin/pesanan/${o.id}">${o.id}</a></td><td>${isDeposit(o) ? tr(L, 'Isi saldo deposit', 'Deposit top-up') : html`${tr(L, 'Paket', 'Package')} ${o.pkgName ? (L === 'en' ? o.pkgName.en : o.pkgName.id) : o.pkg}`}</td><td class="n">${currencyOf(o) === 'USD' ? `US$ ${fmtNum(L, o.priceUsd, 2)}` : `Rp ${fmtNum(L, o.priceIdr)}`}</td><td class="n">${isDeposit(o) ? '—' : fmtNum(L, o.tokens)}</td><td><span class="pill ${o.status === 'credited' ? 'p-hum' : o.status === 'review' ? 'p-b' : 'p-unk'}">${o.status}</span></td></tr>`)}</tbody></table></div>` : html`<p class="muted">${tr(L, 'Belum ada pesanan.', 'No orders yet.')}</p>`}</section>
+  <section class="card reveal" data-member-deposit><h3>${tr(L, 'Rincian deposit: isi saldo & konversi ke token', 'Deposit detail: top-ups & conversions to tokens')}</h3>${depLed.length ? html`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Waktu', 'Time')}</th><th>${tr(L, 'Jenis', 'Kind')}</th><th class="n">Rp</th><th class="n">${tr(L, 'Saldo setelahnya', 'Balance after')}</th><th>${tr(L, 'Catatan', 'Note')}</th></tr></thead><tbody>${depLed.map((e) => html`<tr><td><small>${fmtDate(L, e.at)}</small></td><td>${({ topup: tr(L, 'isi saldo', 'top-up'), buy: tr(L, 'beli paket dari deposit', 'package from deposit'), convert: tr(L, 'tukar ke token', 'converted to tokens'), admin: tr(L, 'koreksi admin', 'admin adjustment'), refund: tr(L, 'kembali', 'refund') } as Record<string, string>)[e.kind] ?? e.kind}</td><td class="n ${e.idr < 0 ? 'neg' : 'pos'}">${e.idr > 0 ? '+' : ''}${fmtNum(L, e.idr)}</td><td class="n">${e.balance !== undefined ? fmtNum(L, e.balance) : '—'}</td><td><small>${e.note}</small></td></tr>`)}</tbody></table></div>` : html`<p class="muted">${tr(L, 'Belum ada transaksi deposit.', 'No deposit transactions yet.')}</p>`}</section>
   <section class="card reveal"><h3>${tr(L, 'Laporan', 'Reports')}</h3>${reps.length ? html`<ul class="clean">${reps.map((r) => html`<li>${labelPill(L, r.meta.label)} <a href="/app/laporan/${r.id}">${r.meta.title}</a> <small class="muted">${fmtDate(L, r.meta.at)}</small></li>`)}</ul>` : html`<p class="muted">—</p>`}</section>
-  <section class="card reveal"><h3>${tr(L, 'Buku besar', 'Ledger')}</h3>${led.length ? html`<ul class="clean">${led.map((e) => html`<li><small>${fmtDate(L, e.at)}</small> · ${e.kind} · <b>${e.tokens > 0 ? '+' : ''}${fmtNum(L, e.tokens)}</b> token · <small>${e.note}</small></li>`)}</ul>` : html`<p class="muted">—</p>`}</section>`;
+  <section class="card reveal" data-member-ledger><h3>${tr(L, 'Buku besar token (masuk, terpakai, kembali)', 'Token ledger (in, used, returned)')}</h3>${led.length ? html`<ul class="clean">${led.map((e) => html`<li><small>${fmtDate(L, e.at)}</small> · ${e.kind} · <b>${e.tokens > 0 ? '+' : ''}${fmtNum(L, e.tokens)}</b> token · <small>${e.note}</small></li>`)}</ul>` : html`<p class="muted">—</p>`}</section>`;
   return c.html(shell(c, u.name, body, 'members'));
 });
 
@@ -522,6 +554,11 @@ admin.get('/admin/harga', async (c) => {
         <label class="field"><span>${tr(L, 'Token sambutan akun baru', 'Welcome tokens for new accounts')}</span><input type="number" name="welcomeTokens" min="0" step="1" value="${b.welcomeTokens}"></label>
         <label class="field"><span>${tr(L, 'Maks. pemeriksaan bersamaan / member', 'Max concurrent checks / member')}</span><input type="number" name="maxConcurrent" min="1" max="20" value="${b.maxConcurrent}"></label>
       </div>
+      <div class="slider-row" data-reuse-setting>
+        <label class="field"><span>${tr(L, 'Naskah yang pernah diunggah member yang sama: ditagih (%)', 'Text the same member uploaded before: charged (%)')} ${tip(tr(L, 'Bagian naskah (seluruh berkas atau sebagian paragraf) yang pernah diperiksa member yang sama dengan mesin yang sama tidak dikirim lagi ke AI — biaya AI perusahaan 0. Member membayar persen ini dari harga normal (bawaan 50%). Member lain yang mengunggah naskah yang sama membayar normal dan tetap tanpa panggilan AI. Mesin berbeda = diperiksa ulang dengan biaya normal.', 'Parts of a text (a whole file or some paragraphs) the same member already checked with the same engine are not sent to the AI again — company AI cost 0. The member pays this percentage of the normal price (default 50%). Other members uploading the same text pay the normal price, still without an AI call. A different engine = checked again at the normal price.'))}</span>
+          <input type="range" min="0" max="100" step="5" value="${b.reusePct}" data-sync-to="#reusePct" aria-label="${tr(L, 'Persen tagihan naskah yang pernah diunggah', 'Charge for re-uploaded text (%)')}"></label>
+        <label class="field"><span>%</span><input id="reusePct" type="number" name="reusePct" min="0" max="100" step="1" value="${b.reusePct}"></label>
+      </div>
       <label class="field"><span>${tr(L, 'Instruksi pembayaran (hanya tampil di halaman pesanan pembeli yang sudah masuk)', 'Payment instructions (shown only on a signed-in buyer’s order page)')}</span><textarea name="manualText" rows="5" maxlength="2000" placeholder="${tr(L, 'Mis. transfer ke rekening …, sebutkan nomor pesanan, kirim bukti ke WhatsApp …', 'E.g. transfer to account …, quote the order number, send proof via WhatsApp …')}">${b.manualText}</textarea></label>
     </section>
     <div class="form-end"><button class="btn btn-primary" type="submit">${tr(L, 'Simpan — semua harga ikut berubah', 'Save — every price updates')}</button></div>
@@ -544,6 +581,7 @@ admin.post('/admin/harga', async (c) => {
     wordsPerPage: Math.round(num('wordsPerPage', cur.wordsPerPage, 100, 1000)),
     welcomeTokens: Math.round(num('welcomeTokens', cur.welcomeTokens, 0, 1e6)),
     maxConcurrent: Math.round(num('maxConcurrent', cur.maxConcurrent, 1, 20)),
+    reusePct: Math.round(num('reusePct', cur.reusePct, 0, 100)),
     packages: cur.packages.map((p, k) => ({
       ...p,
       name: { ...p.name, id: String(f[`name_${k}`] ?? p.name.id).slice(0, 60) || p.name.id },
@@ -555,7 +593,7 @@ admin.post('/admin/harga', async (c) => {
     updatedBy: me(c).id,
   };
   await store.put('k/billing.json', next);
-  await audit(store, me(c).id, 'billing.saved', { markup: next.markup, tokenUnitUsd: next.tokenUnitUsd, packages: next.packages.map((p) => [p.key, p.tokens, p.discountPct]) });
+  await audit(store, me(c).id, 'billing.saved', { markup: next.markup, tokenUnitUsd: next.tokenUnitUsd, reusePct: next.reusePct, packages: next.packages.map((p) => [p.key, p.tokens, p.discountPct]) });
   return c.redirect('/admin/harga?ok=1');
 });
 
@@ -689,10 +727,11 @@ admin.post('/admin/kendali', async (c) => {
 });
 
 /* ── Panduan admin A–Z dengan suara (pemilik, 8 Nov 2026: „Termasuk panduan untuk admin“). Hanya admin. ── */
-admin.get('/admin/panduan', (c) => {
+admin.get('/admin/panduan', async (c) => {
   const L = portalLang(c);
+  const bill = await getBilling(c.get('store'));
   const body = html`${pageHead(tr(L, 'Panduan admin A–Z', 'Admin guide A–Z'), tr(L, 'Cara mengelola situs dari portal ini, langkah demi langkah. Rahasia perusahaan: jangan dibagikan.', 'How to run the site from this portal, step by step. Company confidential: do not share.'))}
-  ${guideBody(L, adminGuide(), tr(L, 'Baca atau dengarkan. Tekan Dengarkan semua untuk dibacakan berurutan.', 'Read it or listen to it. Press Listen to all to hear it in order.'))}`;
+  ${guideBody(L, adminGuide({ reusePct: bill.reusePct }), tr(L, 'Baca atau dengarkan. Tekan Dengarkan semua untuk dibacakan berurutan.', 'Read it or listen to it. Press Listen to all to hear it in order.'))}`;
   return c.html(shell(c, tr(L, 'Panduan admin', 'Admin guide'), body, 'guide'));
 });
 
@@ -709,7 +748,7 @@ admin.get('/admin/kuota-gratis', async (c) => {
   <form class="card reveal" method="post" action="/admin/kuota-gratis" id="free-form">
     <div class="grid g3">
       <label class="field"><span>${tr(L, 'Kuota gratis', 'Free quota')}</span><select name="enabled"><option value="1" ${f.enabled ? 'selected' : ''}>${tr(L, 'Nyala', 'On')}</option><option value="0" ${f.enabled ? '' : 'selected'}>${tr(L, 'Mati', 'Off')}</option></select></label>
-      ${num('pages', f.pages, tr(L, 'Halaman gratis per periode', 'Free pages per period'), tr(L, 'Contoh: 5 per minggu, atau 10 per bulan.', 'For example 5 a week, or 10 a month.'))}
+      <label class="field"><span>${tr(L, 'Halaman gratis per periode', 'Free pages per period')} ${tip(tr(L, 'Geser 1–20. Contoh: 5 per minggu, atau 10 per bulan.', 'Slide 1–20. For example 5 a week, or 10 a month.'))}</span><div class="slider-row"><input type="range" min="${FREE_LIMITS.pages[0]}" max="${FREE_LIMITS.pages[1]}" step="1" value="${f.pages}" data-sync-to="#freePages" aria-label="${tr(L, 'Halaman gratis', 'Free pages')}"><input id="freePages" type="number" name="pages" min="${FREE_LIMITS.pages[0]}" max="${FREE_LIMITS.pages[1]}" step="1" value="${f.pages}" required></div></label>
       <label class="field"><span>${tr(L, 'Periode reset', 'Reset period')}</span><select name="period"><option value="week" ${f.period === 'week' ? 'selected' : ''}>${tr(L, 'Per minggu (Senin 00.00)', 'Weekly (Monday 00:00)')}</option><option value="month" ${f.period === 'month' ? 'selected' : ''}>${tr(L, 'Per bulan (tanggal 1, 00.00)', 'Monthly (the 1st, 00:00)')}</option></select></label>
       ${num('wordsPerPage', f.wordsPerPage, tr(L, 'Kata per halaman', 'Words per page'), tr(L, 'Halaman Legal satu spasi ±700 kata.', 'A single-spaced Legal page is about 700 words.'))}
       ${num('charsPerPage', f.charsPerPage, tr(L, 'Karakter per halaman', 'Characters per page'), tr(L, 'Menutup celah kata yang sangat panjang.', 'Closes the very-long-word loophole.'))}
@@ -773,14 +812,101 @@ admin.get('/admin/biaya', async (c) => {
     agg.set(key, a);
   }
   const freeCard = freeForecastCard(L, freeQuotaForecast(eng, await getBilling(store), membersOf(c), await getFree(store)), '/admin/biaya', { d: date });
+  const day = await store.get<SpendDay>(`k/spend/${date}.json`);
   const body = html`
   ${pageHead(tr(L, 'Biaya API Claude', 'Claude API cost'), tr(L, 'Dari token nyata setiap panggilan (usage).', 'From the real tokens of every call (usage).'))}
   ${freeCard}
+  <section class="card reveal" data-reuse-saved><h3>${tr(L, 'Hemat dari hasil tersimpan', 'Saved by stored results')}</h3>
+    <p>${tr(L, `Naskah (seluruhnya atau sebagian) yang pernah diperiksa dengan mesin yang sama tidak dikirim lagi ke AI. Tanggal ini: <b>${fmtNum(L, day?.savedWords ?? 0)}</b> kata dipakai ulang, biaya AI yang tidak dikeluarkan <b>${fmtUsd(day?.saved ?? 0)}</b> (≈ Rp ${fmtNum(L, (day?.saved ?? 0) * eng.fx)}).`, `Text (whole or partial) already checked with the same engine is not sent to the AI again. This date: <b>${fmtNum(L, day?.savedWords ?? 0)}</b> words reused, AI cost avoided <b>${fmtUsd(day?.saved ?? 0)}</b> (≈ Rp ${fmtNum(L, (day?.saved ?? 0) * eng.fx)}).`)}</p>
+    <p class="muted small">${tr(L, `Member yang sama membayar ${(await getBilling(store)).reusePct}% untuk bagian itu (Admin → Harga & token); member lain membayar normal.`, `The same member pays ${(await getBilling(store)).reusePct}% for that part (Admin → Pricing & tokens); other members pay the normal price.`)}</p>
+  </section>
   <form class="card row-form reveal" method="get"><label class="field"><span>${tr(L, 'Tanggal (WIB)', 'Date (WIB)')}</span><input type="date" name="d" value="${date}"></label><button class="btn btn-primary" type="submit">${tr(L, 'Tampilkan', 'Show')}</button></form>
   <div class="grid g3">${stat(tr(L, 'Total biaya', 'Total cost'), fmtUsd(total), `≈ Rp ${fmtNum(L, total * eng.fx)}`)}${stat(tr(L, 'Panggilan', 'Calls'), fmtNum(L, calls))}${stat(tr(L, 'Rata-rata per panggilan', 'Average per call'), fmtUsd(calls ? total / calls : 0))}</div>
   <div class="card reveal"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Tahap · model', 'Stage · model')}</th><th class="n">${tr(L, 'Panggilan', 'Calls')}</th><th class="n">${tr(L, 'Token masuk', 'Input tok.')}</th><th class="n">${tr(L, 'Token keluar', 'Output tok.')}</th><th class="n">Cache</th><th class="n">US$</th></tr></thead>
   <tbody>${[...agg.entries()].sort((a, b) => b[1].cost - a[1].cost).map(([k, a]) => html`<tr><td>${k}</td><td class="n">${fmtNum(L, a.calls)}</td><td class="n">${fmtNum(L, a.in)}</td><td class="n">${fmtNum(L, a.out)}</td><td class="n">${fmtNum(L, a.cacheRead)}</td><td class="n">${fmtUsd(a.cost)}</td></tr>`)}</tbody></table></div></div>`;
   return c.html(shell(c, tr(L, 'Biaya API', 'API cost'), body, 'cost'));
+});
+
+/* ── Token & laba (pemilik, 8 Nov 2026; MASTER-BLUEPRINT §27): token keluar, uang dibayar, laba — per member & total ── */
+
+function statsCard(L: Lang, s: MemberStats, fx: number, title: string): Raw {
+  const m = money(s, fx);
+  const rp = (n: number) => `Rp ${fmtNum(L, Math.round(n))}`;
+  return html`<section class="card reveal" data-member-stats><h3>${title}</h3>
+    <div class="grid g4">
+      ${stat(tr(L, 'Dibayar', 'Paid'), rp(m.revenueIdr), s.paidUsd ? `US$ ${fmtNum(L, s.paidUsd, 2)} + Rp ${fmtNum(L, s.paidIdr)}` : undefined)}
+      ${stat(tr(L, 'Token dibeli', 'Tokens bought'), fmtNum(L, s.tokensBought), m.perToken ? tr(L, `≈ Rp ${fmtNum(L, m.perToken, 1)} / token`, `≈ Rp ${fmtNum(L, m.perToken, 1)} / token`) : undefined)}
+      ${stat(tr(L, 'Token dikeluarkan (terpakai)', 'Tokens spent (used)'), fmtNum(L, s.tokensUsed), tr(L, `${fmtNum(L, s.checks)} pemeriksaan · ${fmtNum(L, s.freeChecks)} gratis`, `${fmtNum(L, s.checks)} checks · ${fmtNum(L, s.freeChecks)} free`))}
+      ${stat(tr(L, 'Biaya AI', 'AI cost'), rp(m.costIdr), `${fmtUsd(s.costUsd)}${s.freeCostUsd ? tr(L, ` · gratis ${fmtUsd(s.freeCostUsd)}`, ` · free ${fmtUsd(s.freeCostUsd)}`) : ''}`)}
+      ${stat(tr(L, 'Komisi afiliasi', 'Affiliate commission'), rp(s.commissionIdr))}
+      ${stat(tr(L, 'Laba kas', 'Cash profit'), rp(m.cashProfitIdr), tr(L, 'dibayar − biaya AI − komisi', 'paid − AI cost − commission'))}
+      ${stat(tr(L, 'Laba atas token terpakai', 'Profit on used tokens'), rp(m.usedProfitIdr), tr(L, 'nilai token terpakai − biaya AI − bagian komisi', 'value of used tokens − AI cost − commission share'))}
+      ${stat(tr(L, 'Hemat dari hasil tersimpan', 'Saved by stored results'), rp(m.savedIdr), fmtUsd(s.savedUsd))}
+    </div>
+    <p class="muted small">${s.firstAt ? tr(L, `Aktivitas ${fmtDate(L, s.firstAt, false)} – ${fmtDate(L, s.lastAt ?? s.firstAt, false)}.`, `Activity ${fmtDate(L, s.firstAt, false)} – ${fmtDate(L, s.lastAt ?? s.firstAt, false)}.`) : tr(L, 'Belum ada aktivitas.', 'No activity yet.')} ${tr(L, 'Rekap ini tidak pernah dihapus. Kurs dari Admin → Mesin.', 'This summary is never deleted. Exchange rate from Admin → Engine.')}</p>
+  </section>`;
+}
+
+admin.get('/admin/keuangan', async (c) => {
+  const L = portalLang(c);
+  const store = c.get('store');
+  const eng = await getEngine(store);
+  const users: { id: string; email: string; name: string }[] = [];
+  let cursor: string | undefined;
+  do {
+    const r = await store.list<{ email: string; name: string }>('i/users/', { limit: 1000, cursor });
+    users.push(...r.items.map((u) => ({ id: u.id, email: u.meta.email, name: u.meta.name })));
+    cursor = r.cursor;
+  } while (cursor && users.length < 10_000);
+  const rows: { u: (typeof users)[number]; s: MemberStats; bal: number; dep: number }[] = [];
+  for (let k = 0; k < users.length; k += 50) {
+    await Promise.all(users.slice(k, k + 50).map(async (u) => {
+      const [st, bal, dep] = await Promise.all([getStats(store, u.id), balanceOf(store, u.id), depositBalance(store, u.id)]);
+      rows.push({ u, s: st, bal, dep });
+    }));
+  }
+  const totalBal = rows.reduce((a, r) => a + r.bal, 0);
+  const totalDep = rows.reduce((a, r) => a + r.dep, 0);
+  const total = sumStats(rows.map((r) => r.s));
+  const pendingRebuild = rows.filter((r) => !r.s.rebuiltAt).length;
+  const sort = c.req.query('urut') ?? 'laba';
+  const key = (r: (typeof rows)[number]) => (sort === 'token' ? r.s.tokensUsed : sort === 'bayar' ? money(r.s, eng.fx).revenueIdr : money(r.s, eng.fx).cashProfitIdr);
+  const active = rows.filter((r) => r.s.checks || r.s.tokensBought || r.s.paidIdr || r.s.paidUsd || r.s.costUsd || r.bal || r.dep).sort((a, b) => key(b) - key(a));
+  const rp = (n: number) => `Rp ${fmtNum(L, Math.round(n))}`;
+  const body = html`
+  ${pageHead(tr(L, 'Token & laba', 'Tokens & profit'), tr(L, 'Berapa token yang dikeluarkan, berapa yang dibayar, dan labanya — per member dan total. Rahasia perusahaan: hanya admin.', 'How many tokens were spent, how much was paid, and the profit — per member and in total. Company confidential: admins only.'))}
+  ${flash(L, c.req.query('ok') ? tr(L, 'Rekap dihitung ulang.', 'Summaries recalculated.') : null, null)}
+  ${statsCard(L, total, eng.fx, tr(L, `Total ${fmtNum(L, rows.length)} akun`, `Total of ${fmtNum(L, rows.length)} accounts`))}
+  <div class="grid g4">
+    ${stat(tr(L, 'Sisa token semua member', 'Tokens left, all members'), fmtNum(L, totalBal), tr(L, 'kewajiban layanan yang belum dipakai', 'service still owed'))}
+    ${stat(tr(L, 'Sisa saldo deposit semua member', 'Deposit left, all members'), `Rp ${fmtNum(L, totalDep)}`)}
+    ${stat(tr(L, 'Total isi saldo (top-up)', 'Total top-ups'), `Rp ${fmtNum(L, total.depositTopupIdr)}`)}
+    ${stat(tr(L, 'Saldo ditukar ke token', 'Deposit converted to tokens'), `Rp ${fmtNum(L, total.depositToTokensIdr)}`, tr(L, `→ ${fmtNum(L, total.tokensFromDeposit)} token`, `→ ${fmtNum(L, total.tokensFromDeposit)} tokens`))}
+  </div>
+  <form method="post" action="/admin/keuangan/hitung-ulang" class="card row-form reveal" data-stats-rebuild>
+    <p class="grow">${pendingRebuild ? tr(L, `${fmtNum(L, pendingRebuild)} akun belum pernah dihitung ulang dari catatan lama (sebelum rekap ini ada). Tekan tombol — 25 akun per tekan, aman diulang.`, `${fmtNum(L, pendingRebuild)} accounts were never recalculated from older records (before this summary existed). Press the button — 25 accounts per press, safe to repeat.`) : tr(L, 'Semua akun sudah dihitung dari catatan lengkap. Hitung ulang hanya bila diperlukan.', 'Every account has been calculated from the full records. Recalculate only when needed.')}</p>
+    <button class="btn btn-ghost" type="submit">↻ ${tr(L, 'Hitung ulang', 'Recalculate')}</button>
+  </form>
+  <section class="card reveal"><div class="row-between"><h3>${tr(L, 'Per member', 'Per member')}</h3>
+    <small>${tr(L, 'Urutkan', 'Sort')}: <a href="?urut=laba">${tr(L, 'laba', 'profit')}</a> · <a href="?urut=bayar">${tr(L, 'dibayar', 'paid')}</a> · <a href="?urut=token">${tr(L, 'token terpakai', 'tokens used')}</a></small></div>
+  ${active.length ? html`<div class="tbl-wrap"><table class="tbl hover" data-finance-table><thead><tr><th>${tr(L, 'Member', 'Member')}</th><th class="n">${tr(L, 'Dibayar', 'Paid')}</th><th class="n">${tr(L, 'Token dibeli', 'Bought')}</th><th class="n">${tr(L, 'Token terpakai', 'Used')}</th><th class="n">${tr(L, 'Sisa token', 'Tokens left')}</th><th class="n">${tr(L, 'Top-up', 'Top-ups')}</th><th class="n">${tr(L, 'Saldo → token', 'Deposit → tokens')}</th><th class="n">${tr(L, 'Sisa saldo', 'Deposit left')}</th><th class="n">${tr(L, 'Pemeriksaan', 'Checks')}</th><th class="n">${tr(L, 'Biaya AI', 'AI cost')}</th><th class="n">${tr(L, 'Komisi', 'Commission')}</th><th class="n">${tr(L, 'Laba kas', 'Cash profit')}</th><th>${tr(L, 'Terakhir', 'Last')}</th></tr></thead>
+  <tbody>${active.slice(0, 500).map(({ u, s, bal, dep }) => { const m = money(s, eng.fx); return html`<tr data-href="/admin/anggota/${u.id}"><td><a href="/admin/anggota/${u.id}">${u.name || u.email}</a><br><small class="muted">${u.email}</small></td><td class="n">${rp(m.revenueIdr)}</td><td class="n">${fmtNum(L, s.tokensBought)}</td><td class="n">${fmtNum(L, s.tokensUsed)}</td><td class="n">${fmtNum(L, bal)}</td><td class="n">${rp(s.depositTopupIdr)}</td><td class="n">${rp(s.depositToTokensIdr)}</td><td class="n">${rp(dep)}</td><td class="n">${fmtNum(L, s.checks)}</td><td class="n">${rp(m.costIdr)}</td><td class="n">${rp(s.commissionIdr)}</td><td class="n ${m.cashProfitIdr < 0 ? 'neg' : 'pos'}">${rp(m.cashProfitIdr)}</td><td><small>${s.lastAt ? fmtDate(L, s.lastAt, false) : '—'}</small></td></tr>`; })}</tbody></table></div>` : html`<p class="muted">${tr(L, 'Belum ada aktivitas.', 'No activity yet.')}</p>`}
+  </section>`;
+  return c.html(shell(c, tr(L, 'Token & laba', 'Tokens & profit'), body, 'finance'));
+});
+
+admin.post('/admin/keuangan/hitung-ulang', async (c) => {
+  const store = c.get('store');
+  const { items } = await store.list('i/users/', { limit: 1000 });
+  let n = 0;
+  const all = (await Promise.all(items.map(async (u) => ({ id: u.id, s: await store.get<MemberStats>(statsKey(u.id)) })))).sort((a, b) => (a.s?.rebuiltAt ?? 0) - (b.s?.rebuiltAt ?? 0));
+  for (const u of all) {
+    if (n >= 25) break;
+    await rebuildStats(store, u.id);
+    n += 1;
+  }
+  await audit(store, me(c).id, 'stats.rebuilt', { accounts: n });
+  return c.redirect('/admin/keuangan?ok=1');
 });
 
 admin.get('/admin/audit', async (c) => {

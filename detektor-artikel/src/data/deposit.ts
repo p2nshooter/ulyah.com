@@ -10,6 +10,7 @@
  * Bila Worker berhenti di tengah, cron menyelesaikan ke depan: deposit yang sudah terpotong SELALU berbuah token
  * (kredit idempoten), operasi yang belum memotong deposit dibatalkan. Tidak ada uang member yang bisa hilang.
  */
+import { addStats } from './stats.ts';
 import type { Store } from '../lib/store.ts';
 import { credit } from './wallet.ts';
 
@@ -137,6 +138,7 @@ export async function spendForTokens(store: Store, uid: string, opId: string, id
   }
   if (r.result === 'applied') await log(store, uid, { kind, idr: -idr, note: `${note} → ${tokens} token`, balance: r.balance });
   await credit(store, uid, tokens, 'purchase', note, `dep:${opId}`);
+  await addStats(store, uid, `dep:${opId}`, { tokensBought: tokens, tokensFromDeposit: tokens, depositToTokensIdr: idr });
   await store.cas<DepositOp>(opKey(opId), (o) => (o && o.state === 'started' ? { ...o, state: 'done' } : null));
   await store.del(openKey(opId));
   return r.result === 'applied' ? 'done' : 'duplicate';
@@ -156,6 +158,7 @@ export async function repairDepositOps(store: Store, olderThanMs = 5 * 60_000): 
     const d = await getDeposit(store, op.uid);
     if (d.applied?.includes(`buy:${op.id}`)) {
       await credit(store, op.uid, op.tokens, 'purchase', op.note, `dep:${op.id}`);
+      await addStats(store, op.uid, `dep:${op.id}`, { tokensBought: op.tokens, tokensFromDeposit: op.tokens, depositToTokensIdr: op.idr });
       await store.cas<DepositOp>(opKey(op.id), (o) => (o && o.state === 'started' ? { ...o, state: 'done' } : null));
     } else {
       // Deposit belum terpotong: tutup operasinya, lalu pastikan tidak ada potongan yang menyusul dengan kunci ini.

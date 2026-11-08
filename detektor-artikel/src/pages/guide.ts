@@ -33,6 +33,12 @@ export interface GuideValues {
   purgeDays: number;
   /** Nama zona waktu reset kuota untuk dibacakan, mis. ["WIB (Jakarta)", "Western Indonesia Time (Jakarta)"]. */
   tz: Pair;
+  /** Mesin aktif saat ini (Admin → Kendali biaya). */
+  engines: { sonnet: boolean; opus: boolean; fable: boolean };
+  /** Paket token saat ini: nama, token, diskon, harga Rupiah. */
+  packages: { name: Pair; tokens: number; discountPct: number; idr: number }[];
+  /** Persen tagihan untuk naskah yang pernah diunggah member yang sama dengan mesin yang sama (Admin → Harga & token). */
+  reusePct: number;
 }
 
 export function memberGuide(v: GuideValues): GuideSection[] {
@@ -68,6 +74,16 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       ],
     },
     {
+      id: 'pasang', icon: '📱', title: ['Pasang di HP seperti aplikasi', 'Install it on your phone like an app'],
+      steps: [
+        ['Buka situs ini di HP. Bila peramban menawarkannya, muncul spanduk Pasang di paling atas layar.', 'Open this site on your phone. When the browser offers it, an Install banner appears at the very top.'],
+        ['Tekan Pasang. Ikon aplikasi masuk ke layar utama dan terbuka penuh tanpa bilah alamat.', 'Press Install. The app icon lands on your home screen and opens full screen, without the address bar.'],
+        ['Di iPhone atau iPad, ketuk tombol Bagikan lalu pilih Tambahkan ke Layar Utama.', 'On an iPhone or iPad, tap the Share button and choose Add to Home Screen.'],
+        ['Setelah terpasang, spanduk itu tidak muncul lagi. Anda juga bisa menutupnya; spanduk baru muncul lagi seminggu kemudian.', 'Once installed, the banner stops appearing. You can also close it; it comes back a week later.'],
+        ['Data Anda tetap di server, bukan di HP: laporan dan saldo aman walau aplikasi dihapus.', 'Your data stays on the server, not on the phone: reports and balance are safe even if you remove the app.'],
+      ],
+    },
+    {
       id: 'gratis', icon: '🎁', title: ['Cek Gratis', 'The Free Check'],
       steps: v.freeOn
         ? [
@@ -94,6 +110,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       id: 'beli', icon: '🛒', title: ['Membeli paket token dengan transfer Rupiah', 'Buying a token package by Rupiah transfer'],
       steps: [
         ['Buka menu Token dan deposit, lalu pilih paket yang Anda inginkan.', 'Open Tokens and deposit, then choose the package you want.'],
+        [`Paket saat ini: ${v.packages.map((p) => `${p.name[0]} ${fmtNum('id', p.tokens)} token ${rp(p.idr, 0)}${p.discountPct ? ` (hemat ${p.discountPct}%)` : ''}`).join('; ')}.`, `Packages right now: ${v.packages.map((p) => `${p.name[1]} ${fmtNum('en', p.tokens)} tokens ${rp(p.idr, 1)}${p.discountPct ? ` (save ${p.discountPct}%)` : ''}`).join('; ')}.`],
         ['Invoice dibuat. Di invoice tertera nomor invoice, jumlah yang harus dibayar, dan rekening tujuan.', 'An invoice is created. It shows the invoice number, the amount to pay, and the bank account to pay into.'],
         ['Transfer dari m-banking, internet banking, atau ATM bank apa pun, persis sesuai jumlah di invoice.', 'Transfer from mobile banking, internet banking or any bank ATM, exactly the amount on the invoice.'],
         ['Simpan bukti transfer, bisa tangkapan layar atau PDF, lalu unggah di halaman invoice yang sama.', 'Keep the transfer receipt, a screenshot or a PDF, and upload it on the same invoice page.'],
@@ -150,9 +167,14 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       steps: [
         ['AUTO adalah pilihan yang disarankan: mesin hemat memeriksa dulu, lalu mesin yang lebih kuat hanya memeriksa ulang kalimat yang meragukan.', 'AUTO is the recommended choice: the economy engine checks first, and stronger engines re-check only the doubtful sentences.'],
         ['Anda juga bisa memilih satu mesin saja: Haiku yang paling hemat, Sonnet yang lebih teliti, atau Opus yang paling mendalam.', 'You can also pick a single engine: Haiku, the most economical; Sonnet, more thorough; or Opus, the deepest.'],
-        ['Bila tersedia, ada pula Claude Fable 5.1, pilihan premium untuk naskah yang benar-benar menentukan. Biayanya jauh di atas mesin lain sehingga saldo token berkurang jauh lebih cepat. Sebelum dipakai, Anda diminta memastikan pilihan itu lewat jendela Anda yakin.', 'When available there is also Claude Fable 5.1, the premium choice for texts that truly matter. It costs far more than the other engines, so your token balance goes down much faster. Before it is used, you are asked to confirm the choice in an Are you sure window.'],
+        v.engines.fable
+          ? ['Ada pula Claude Fable 5.1, pilihan premium untuk naskah yang benar-benar menentukan. Biayanya jauh di atas mesin lain sehingga saldo token berkurang jauh lebih cepat. Sebelum dipakai, Anda diminta memastikan pilihan itu lewat jendela Anda yakin.', 'There is also Claude Fable 5.1, the premium choice for texts that truly matter. It costs far more than the other engines, so your token balance goes down much faster. Before it is used, you are asked to confirm the choice in an Are you sure window.']
+          : ['Claude Fable 5.1, pilihan premium, segera hadir. Kartunya sudah tampil di formulir dengan tanda Segera hadir dan belum bisa dipilih.', 'Claude Fable 5.1, the premium choice, is coming soon. Its card already shows on the form marked Coming soon and cannot be chosen yet.'],
+        ...((!v.engines.sonnet || !v.engines.opus) ? [['Mesin yang sedang dinonaktifkan admin tampil dengan tanda Sedang nonaktif dan tidak bisa dipilih. AUTO tetap berjalan dengan mesin yang aktif.', 'An engine the admin has switched off shows as Switched off and cannot be chosen. AUTO keeps working with the active engines.'] as Pair] : []),
         ['Kotak perkiraan menunjukkan jumlah kata, perkiraan pemakaian token, token yang dipesan, dan saldo Anda.', 'The estimate box shows the word count, the expected token use, the tokens to be reserved, and your balance.'],
         ['Kalau saldo kurang, kotak itu menyebut berapa kekurangannya dan memberi tautan untuk isi saldo.', 'If your balance is too low, the box shows how much is missing and gives you a link to top up.'],
+        [`Naskah yang pernah Anda periksa sendiri dengan mesin yang sama, seluruhnya atau hanya sebagian halaman, tidak dikirim lagi ke AI. Hasil tersimpannya dipakai lagi dan bagian itu hanya dihitung ${v.reusePct} persen dari token, atau dari halaman Cek Gratis. Bagian yang baru tetap diperiksa seperti biasa.`, `Text you already checked yourself with the same engine, whole or only some pages, is not sent to the AI again. Its stored result is reused and that part counts only ${v.reusePct} percent of the tokens, or of the Free Check pages. New parts are checked as usual.`],
+        ['Ingin penilaian baru dari awal untuk naskah yang sama? Pilih mesin lain, atau tekan Ajukan tinjauan di laporan. Keduanya diperiksa ulang oleh AI dengan biaya normal.', 'Want a fresh assessment of the same text? Choose another engine, or press Request review on the report. Both are checked again by the AI at the normal price.'],
       ],
     },
     {
@@ -209,7 +231,8 @@ export function memberGuide(v: GuideValues): GuideSection[] {
         ['Menu Laporan berisi semua hasil Anda. Gunakan kotak cari untuk menemukan judul atau penulis.', 'Reports holds all your results. Use the search box to find a title or a writer.'],
         ['Riwayat bisa diekspor ke CSV untuk dibuka di Excel atau Google Sheets.', 'The history can be exported to CSV and opened in Excel or Google Sheets.'],
         ['Di setiap laporan ada kotak Catatan kerja, misalnya sudah dikonfirmasi ke penulis.', 'Every report has a Work note box, for example confirmed with the writer.'],
-        [`Hasil kerja dan berkas dihapus otomatis ${v.purgeDays} hari setelah dibuat. Invoice dan catatan saldo tetap disimpan.`, `Work results and files are deleted automatically ${v.purgeDays} days after they were made. Invoices and balance records are kept.`],
+        [`Naskah, rincian per kalimat, dan berkas unggahan dihapus otomatis ${v.purgeDays} hari setelah dibuat. Riwayat kerja Anda, yaitu tanggal, judul, angka hasil, nilai, token, dan kode verifikasi, tidak pernah dihapus. Laporan lama diberi tanda Arsip. Invoice dan catatan saldo tetap disimpan.`, `Texts, per-sentence detail and uploaded files are deleted automatically ${v.purgeDays} days after they were made. Your work history, meaning the date, title, result figures, score, tokens and verification code, is never deleted. Older reports are marked Archive. Invoices and balance records are kept.`],
+        ['Di menu Token tersedia riwayat pemakaian dan pembayaran Anda: berapa yang sudah dibayar, token yang dibeli, token yang terpakai, dan jumlah pemeriksaan.', 'The Tokens menu shows your usage and payment history: how much you have paid, tokens bought, tokens used and the number of checks.'],
       ],
     },
   ];
@@ -257,7 +280,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
   return sections;
 }
 
-export function adminGuide(): GuideSection[] {
+export function adminGuide(v: { reusePct: number } = { reusePct: 50 }): GuideSection[] {
   return [
     {
       id: 'a-prinsip', icon: '🧭', title: ['Prinsip kerja portal admin', 'How the admin portal works'],
@@ -266,6 +289,15 @@ export function adminGuide(): GuideSection[] {
         ['Tugas admin: memasang kunci API, menyetujui bukti transfer, mengatur harga dan kuota, serta memantau biaya.', 'The admin’s jobs: install the API key, approve transfer receipts, set prices and quotas, and watch costs.'],
         ['Setiap perubahan pengaturan tercatat di Audit, lengkap dengan nilai sebelum dan sesudahnya.', 'Every settings change is recorded under Audit, with the value before and after.'],
         ['Jangan pernah membagikan isi portal admin, kunci API, atau angka markup kepada siapa pun. Itu rahasia perusahaan.', 'Never share the admin portal contents, the API key or the markup figures with anyone. They are company secrets.'],
+      ],
+    },
+    {
+      id: 'a-notif', icon: '🔔', title: ['Notifikasi di menu admin', 'Notifications in the admin menu'],
+      steps: [
+        ['Angka merah di samping menu menunjukkan hal yang perlu perhatian. Diperbarui sendiri setiap menit.', 'A red number next to a menu shows what needs attention. It refreshes by itself every minute.'],
+        ['Pesanan dan bukti TF: jumlah bukti transfer yang menunggu dicek. Angkanya baru hilang setelah pesanan disetujui atau ditolak.', 'Orders and receipts: the number of transfer receipts waiting to be checked. It only clears once an order is approved or rejected.'],
+        ['Anggota, Laporan, dan Afiliasi: jumlah yang baru sejak menu itu terakhir Anda buka. Membuka menu itu mengembalikan angkanya ke nol.', 'Members, Reports and Affiliate: how many are new since you last opened that menu. Opening the menu sets it back to zero.'],
+        ['Tekan Aktifkan notifikasi di bawah menu agar perangkat juga menampilkan pemberitahuan selama portal terbuka.', 'Press Turn on notifications under the menu so your device also shows a notice while the portal is open.'],
       ],
     },
     {
@@ -299,6 +331,10 @@ export function adminGuide(): GuideSection[] {
         ['Harga jual sama dengan modal dikali markup. Markup boleh 5 sampai 500 kali.', 'The selling price is cost times markup. The markup may be 5 to 500 times.'],
         ['Simpan markup baru, maka semua harga di situs dan portal ikut berubah otomatis.', 'Save a new markup and every price on the site and portal follows automatically.'],
         ['Paket token dan diskonnya diatur di halaman yang sama. Penjaga tidak-rugi memastikan token yang dipesan selalu menutup biaya terburuk.', 'Token packages and their discounts are set on the same page. A no-loss guard makes sure reserved tokens always cover the worst-case cost.'],
+        [`Naskah yang pernah diunggah, seluruhnya atau sebagian, dengan mesin yang sama tidak dikirim lagi ke AI, jadi biaya AI perusahaan untuk bagian itu nol. Member yang sama membayar ${v.reusePct} persen dari harga normal; angka ini diatur dengan penggeser di Harga dan token. Member lain yang mengunggah naskah yang sama membayar harga normal tanpa diberi tahu. Mesin berbeda berarti diperiksa ulang dengan biaya normal.`, `Text uploaded before, whole or in part, with the same engine is not sent to the AI again, so the company's AI cost for that part is zero. The same member pays ${v.reusePct} percent of the normal price; set this with the slider under Pricing and tokens. Other members uploading the same text pay the normal price without being told. A different engine means a fresh check at the normal price.`],
+        ['Penghematan harian, yaitu kata yang dipakai ulang dan biaya AI yang tidak dikeluarkan, tampil di halaman Biaya API.', 'Daily savings, the words reused and the AI cost avoided, appear on the API cost page.'],
+        ['Menu Token dan laba menampilkan per member dan totalnya: uang yang dibayar, token dibeli, token yang dikeluarkan, biaya AI, komisi afiliasi, laba kas, dan laba atas token terpakai. Rekap ini tidak pernah dihapus. Untuk data lama tekan Hitung ulang.', 'The Tokens and profit menu shows, per member and in total: money paid, tokens bought, tokens spent, AI cost, affiliate commission, cash profit and profit on used tokens. This summary is never deleted. For older data press Recalculate.'],
+        ['Hasil tersimpan perusahaan tidak pernah dihapus. Setelah sembilan puluh hari hanya naskah dan berkas member yang dihapus; riwayat kerja member tetap ada dengan tanda Arsip.', 'The company’s stored results are never deleted. After ninety days only members’ texts and files are deleted; their work history stays, marked Archive.'],
       ],
     },
     {

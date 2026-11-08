@@ -1,6 +1,115 @@
 # jenius.es — Blueprint
 
-**Perpustakaan baca anak dengan suara pembaca, asisten guru AI, dan kelas pintar**
+**E-Book with Voice — perpustakaan baca bersuara untuk semua jenjang, gratis untuk umum, dengan portal guru dan kelas**
+
+## 0. Perintah pemilik terbaru (8 Nov 2026) — MENGGANTIKAN keputusan lama yang bertentangan
+
+Dicatat dulu sebelum dibangun (pemilik: „Jgn sampe lupa blueprint untuk jenius.es agar tidak ketinggalan catat dulu perintah
+jenius.es yg ada di chat2 sebelumnya“). Bila bagian lama di bawah berbeda, **bagian 0 ini yang berlaku**.
+
+### 0.1 Kutipan perintah
+
+1. „Kembangkan dulu jenius.es … cari referensi artikel minimal 500 sumber github … Klasifikasikan kategorinya … TK, SD, SMP,
+   sma, mahasiswa, s1, s2, s3 DR, PROFESOR, profesional sampai umum, termasuk buku pembelajaran bahasa asing“.
+2. „design full A-Z termasuk animasi, cover, voice, dan seluruh AUTO nya … artikel interaktif beranimasi, auto slide, auto
+   pindah halaman, dan auto voice … sampai satu bab buku habis atau sampai satu buku habis“.
+3. „Referensikan situs xscan.es & ascan.es di dalam portal member untuk tugas2 lanjutan“.
+4. „Project ini free untuk umum, dan buatkan fasilitas pendidikan untuk guru“: grup (guru mengundang murid ke grup), chat
+   grup, berbagi buku rekomendasi, soal, berbagi tautan kelas, nilai, **nama kelas unik**, rekomendasi jenjang (SD/SMP/…)
+   supaya buku sesuai.
+5. „pastikan project ini 100% siap produksi tanpa bug … bukan project sampah … lalu ajukan ke adsense … kerjakan hati2 satu
+   persatu termasuk artikelnya“.
+6. „Catat semua ratusan referensi github & web sumber2 terbuka yg mengizinkan bukunya bisa di serap, klasifikasin, tarik
+   apapun yg bisa di ambil termasuk animasi2nya jika menarik, jadikan blueprint agar lu ga lupa“ → **`docs/JENIUS-SOURCES.md`**
+   (39 platform + 752 repositori GitHub, per jenjang, aturan lisensi).
+7. „Pake 2 bahasa aja dulu, Indonesia & Inggris tp engine mampu mendeteksi seluruh bahasa global dunia“ → jenius.es
+   **Indonesia + Inggris** (bukan Spanyol). Buku tetap dalam bahasa aslinya; antarmuka dan artikel ID/EN.
+8. „Buatkan agar xscan dan ascan bisa di install di HP dengan logo gambar HP di paling atas, jika sudah d install hilangkan
+   logonya, buatkan notifikasi …“ → berlaku juga untuk jenius.es: **PWA** dengan spanduk pasang di atas (hilang setelah
+   terpasang), notifikasi untuk admin/guru (anggota baru, pesan grup, tugas).
+9. Logo jenius.es dari pemilik (8 Nov 2026): logo utama „jenius.es — E-Book with Voice“, lencana bundar, ikon aplikasi
+   persegi „j“ dengan gelombang suara. Disimpan di `jenius/public/assets/` saat J0.
+10. Urutan pemilik: xscan.es disempurnakan → blueprint ascan.es → **jenius.es dikerjakan** („Jgn kerjakan ascan.es dulu tapi
+    lanjut ke jenius.es“, „Kerjakan“). AdSense selalu didahulukan.
+
+### 0.2 Yang berubah dari blueprint 7 Nov
+
+| Hal | Lama | Sekarang |
+|---|---|---|
+| Pembaca | anak 4–12 tahun | **semua jenjang**: TK, SD, SMP, SMA, mahasiswa/S1, S2, S3/Dr, profesor, profesional, umum, + bahasa asing |
+| Bahasa | Spanyol + Inggris | **Indonesia + Inggris** |
+| Biaya | asisten guru mungkin berbayar | **gratis untuk umum** (membaca, suara, kelas, grup); biaya AI ditahan oleh batas harian dan model termurah (§7) |
+| Sumber | 8 platform | `docs/JENIUS-SOURCES.md` (≥ 500 repositori GitHub + 39 platform) |
+| Mode baca | pembaca + read-along | **AUTO penuh**: halaman berganti sendiri, suara lanjut per halaman sampai akhir bab/buku, slide/animasi otomatis |
+| Guru | kelas + tugas | grup kelas dengan undangan, chat grup, berbagi buku/soal/tautan, nilai, nama kelas unik, rekomendasi jenjang |
+| Tautan | xscan.es di artikel | xscan.es & ascan.es **di portal member** untuk tugas lanjutan (memeriksa tulisan/tugas) |
+| Aplikasi | PWA baca offline | PWA terpasang di HP dengan spanduk pasang + notifikasi |
+
+### 0.25 Konsep dari kami (pemilik, 8 Nov 2026: „Klo ide klasifikasi yg sy berikan kurang elegan dan kurang menarik, sy serahkan semua idenya dari sisi Anda dan kembangkan konsep portal guru, portal member umum, dll.. Inget ini project gratis jd ambil sumber yg gratis jg“)
+
+**Prinsip:** semuanya **gratis** untuk pembaca, guru, dan sekolah; hanya sumber yang gratis dan berlisensi terbuka
+(`docs/JENIUS-SOURCES.md`); tanpa layanan berbayar wajib — suara dari peramban + suara terbuka yang dirender sekali, AI hanya
+Haiku dengan anggaran harian, dan situs hidup dari AdSense di halaman dewasa.
+
+**Jalur Baca** — pengganti daftar jenjang yang kaku. Delapan jalur bernama, berwarna, dan berikon; jenjang pemilik tetap
+tercatat di balik setiap jalur supaya rekomendasi kelas tepat.
+
+| Jalur | Untuk | Jenjang pemilik | Isi khas | Suara bawaan |
+|---|---|---|---|---|
+| 🌱 **Tunas** | anak yang mulai membaca | TK, SD kelas 1–2 | buku bergambar, kata besar, satu kalimat per halaman | suara anak |
+| 🌿 **Tumbuh** | pembaca muda | SD kelas 3–6 | cerita bab pendek, fabel, sains anak, kuis ringan | guru perempuan |
+| 🔥 **Jelajah** | remaja | SMP, SMA | novel petualangan, sains populer, buku pelajaran terbuka | narator muda |
+| 🎓 **Kampus** | mahasiswa | Mahasiswa, S1 | buku teks terbuka (OpenStax, Open Textbook), klasik dunia | narator |
+| 🔬 **Cendekia** | peneliti | S2, S3/Dr, Profesor | monografi akses terbuka (DOAB, OAPEN), filsafat & sejarah klasik | narator tenang |
+| 💼 **Profesi** | pekerja | Profesional | teknologi, data, bisnis, kepemimpinan | narator |
+| ☕ **Santai** | semua orang | Umum | sastra, sejarah, pengembangan diri, puisi | pilihan pembaca |
+| 🌍 **Lintas Bahasa** | belajar bahasa asing | semua jenjang | teks paralel, kalimat dua bahasa, buku kursus bahasa | penutur bahasa itu |
+
+Setiap buku juga punya **Rak tema** (Petualangan, Sains & Alam, Sejarah & Tokoh, Budaya, Bahasa, Teknologi, Seni & Puisi,
+Diri & Karier), **durasi dengar** (mis. „12 menit“), dan **tingkat 1–5 di dalam jalurnya**. „Lintas Bahasa“ bisa digabung
+dengan jalur lain (mis. Tumbuh + Lintas Bahasa = cerita anak dua bahasa).
+
+**Portal Pembaca (member umum, gratis):** Lanjutkan Mendengar (satu ketukan kembali ke halaman terakhir) · Rak Saya
+(sedang dibaca, selesai, ingin dibaca) · Target harian (menit dengar/baca, rangkaian hari) · Sorotan & catatan · Lencana
+per jalur · Rekomendasi „karena Anda menyelesaikan …“ · **Mode Keluarga** (profil anak di bawah akun orang tua, tanpa
+e-mail anak, batas waktu layar) · bahasa antarmuka ID/EN.
+
+**Ruang Guru (gratis):** Kelas dengan **nama unik** dan jalur kelas · Undangan (tautan, kode, QR) · **Grup & chat kelas**
+(dimoderasi guru) · **Rak Kelas** (buku rekomendasi sesuai jalur) · **Bank Soal** (dibuat dari isi buku oleh Haiku, guru
+menyunting) · **Tugas & Nilai** (tenggat, nilai otomatis untuk pilihan ganda, nilai guru untuk isian) · Rapor baca per
+murid, ekspor CSV · **Tugas lanjutan**: periksa tulisan murid di xscan.es, analisis artikel/situs di ascan.es.
+
+**Ruang Murid:** kelas saya, tugas dan tenggat, chat kelas, rapor baca, lencana.
+
+**Portal Orang Tua:** profil anak, persetujuan bergabung ke kelas, laporan mingguan, batas waktu layar.
+
+**Admin:** antrean impor dan persetujuan (lisensi dicek otomatis), katalog & jalur, suara, artikel, moderasi chat,
+kunci API & anggaran harian AI, notifikasi (impor gagal, laporan chat, kelas baru), AdSense.
+
+### 0.3 Pengalaman baca AUTO (inti produk)
+
+- **Mode Dengar-Baca:** tekan Putar sekali → suara membaca halaman, kata disorot, halaman berganti sendiri dengan animasi
+  balik halaman, berlanjut sampai akhir bab (atau seluruh buku bila dipilih). Jeda/lanjut, kecepatan 0,75–1,5×, pilihan
+  suara (anak, guru perempuan, guru laki-laki, narator). Posisi terakhir tersimpan; „lanjutkan dari halaman 37“.
+- **Mode Slide:** buku bergambar tampil sebagai slide penuh layar dengan transisi; artikel interaktif tampil per bagian
+  dengan animasi masuk (hormati `prefers-reduced-motion`).
+- **Sampul:** dari sumber bila ada; bila tidak, sampul tipografi otomatis (judul, penulis, warna jenjang) — tanpa gambar
+  makhluk bernyawa buatan AI (aturan ekosistem).
+- **Suara:** jalur A pembaca suara perangkat (gratis, offline); jalur B suara sintetis terbuka yang dirender sekali per
+  halaman dan disimpan (Kokoro/Piper, lisensi terbuka) sesuai anggaran R2 §8.5; LibriVox (suara manusia, domain publik)
+  untuk judul yang tersedia.
+
+### 0.4 Portal guru dan kelas
+
+- Guru membuat **kelas dengan nama unik** (createOnce di R2: `cls/{slug}`), jenjang, mata pelajaran.
+- **Undang murid:** tautan kelas + kode; murid bergabung tanpa e-mail (anak) atau dengan akun (dewasa); orang tua menyetujui
+  untuk anak di bawah umur.
+- **Grup & chat:** chat grup kelas (moderasi guru, saringan kata, tanpa berbagi data pribadi, pesan disimpan 90 hari).
+- **Berbagi:** buku rekomendasi, soal (pilihan ganda/isian; bisa dibuat AI dari isi buku), tautan kelas.
+- **Nilai:** nilai per soal/tugas, rekap kelas, ekspor CSV; progres baca per murid.
+- **Rekomendasi jenjang:** katalog menyaring dan menyarankan buku sesuai jenjang kelas.
+- **Tugas lanjutan:** tautan ke xscan.es (memeriksa tulisan murid) dan ascan.es (analisis artikel & domain) dari portal.
+
 
 Disusun 7 November 2026. Perintah pemilik (dengan dua tangkapan layar konsep: *3. Digital Literacy & Reading AI*,
 *4. AI Teacher Assistant*, *5. Smart Classroom*):
@@ -256,8 +365,9 @@ setelah pemilik menyetujui anggaran. Alternatif tanpa biaya penyimpanan: gambar 
 
 - Kode AdSense sudah disiapkan: akun utama **ca-pub-6146217038829045** + 16 akun ditumpuk (`adsense-stack.json`),
   dipasang saat situs dibuat. Verifikasi Sedo sudah ada di DNS (7 Nov 2026).
+- **Akun AdSense (8 Nov 2026):** akun utama ca-pub-6146217038829045 + 21 akun tumpukan (`adsense-stack.json`).
 - **Iklan hanya di halaman dewasa** (§1 no. 5): beranda, artikel, panduan, halaman guru publik.
-- **70 artikel** untuk orang tua dan guru, Spanyol + versi Inggris yang ditulis (bukan terjemahan mesin), ≥1.500 kata,
+- **70 artikel** untuk orang tua, guru, pelajar, dan pembaca umum, **Indonesia + versi Inggris** yang ditulis (bukan terjemahan mesin, §0), ≥1.500 kata,
   sumber resmi (UNESCO, Ministerio de Educación y FP, OECD PISA, Instituto Cervantes, RAE untuk ejaan), terbit bertahap.
 
 Kluster (10 artikel per kluster):

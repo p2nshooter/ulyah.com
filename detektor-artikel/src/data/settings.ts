@@ -82,6 +82,11 @@ export interface BillingSettings {
   welcomeTokens: number;
   /** Batas pemeriksaan berjalan bersamaan per member (anti-curang & anti-banjir). */
   maxConcurrent: number;
+  /**
+   * Naskah yang pernah diunggah member yang sama dengan mesin yang sama (MASTER-BLUEPRINT §26): bagian itu ditagih persen
+   * ini dari harga normal (bawaan 50 — pemilik, 8 Nov 2026). Biaya AI perusahaan untuk bagian itu selalu 0.
+   */
+  reusePct: number;
   packages: TokenPackage[];
   manualText: string;
   updatedAt?: number;
@@ -97,6 +102,7 @@ export const DEFAULT_BILLING: BillingSettings = {
   wordsPerPage: 300,
   welcomeTokens: 0,
   maxConcurrent: 3,
+  reusePct: 50,
   packages: [
     { key: 'starter', name: { id: 'Starter', en: 'Starter' }, tokens: 300, discountPct: 0, note: { id: 'Untuk mencoba beberapa naskah', en: 'To try a few texts' } },
     { key: 'reguler', name: { id: 'Reguler', en: 'Regular' }, tokens: 1_000, discountPct: 10, note: { id: 'Hemat 10%', en: 'Save 10%' } },
@@ -111,6 +117,8 @@ export async function getBilling(store: Store): Promise<BillingSettings> {
   const b = s ? { ...DEFAULT_BILLING, ...s } : structuredClone(DEFAULT_BILLING);
   b.markup = Math.min(MARKUP_MAX, Math.max(MARKUP_MIN, Number(b.markup) || DEFAULT_BILLING.markup));
   b.tokenUnitUsd = Number(b.tokenUnitUsd) > 0 ? Number(b.tokenUnitUsd) : DEFAULT_BILLING.tokenUnitUsd;
+  b.reusePct = Math.min(100, Math.max(0, Math.round(Number(b.reusePct ?? DEFAULT_BILLING.reusePct))));
+  if (!Number.isFinite(b.reusePct)) b.reusePct = DEFAULT_BILLING.reusePct;
   b.packages = (b.packages ?? DEFAULT_BILLING.packages).map((p) => ({ ...p, discountPct: Math.min(50, Math.max(0, Number(p.discountPct) || 0)) }));
   return b;
 }
@@ -133,6 +141,10 @@ export interface SpendDay {
   usd: number;
   words: number;
   checks: number;
+  /** Biaya AI yang tidak dikeluarkan karena hasil tersimpan dipakai ulang (MASTER-BLUEPRINT §26). */
+  saved?: number;
+  /** Kata yang tidak dikirim ke AI karena hasil tersimpan. */
+  savedWords?: number;
 }
 
 export async function spendToday(store: Store): Promise<number> {
@@ -141,11 +153,17 @@ export async function spendToday(store: Store): Promise<number> {
 }
 
 /** Satu tulis per pemeriksaan selesai (bukan per panggilan API) — tidak menjadi kunci panas. */
-export async function addSpend(store: Store, usd: number, words = 0): Promise<void> {
-  if (!(usd > 0) && !(words > 0)) return;
+export async function addSpend(store: Store, usd: number, words = 0, saved = 0, savedWords = 0): Promise<void> {
+  if (!(usd > 0) && !(words > 0) && !(saved > 0)) return;
   await store.cas<SpendDay>(
     `k/spend/${wibDate()}.json`,
-    (cur) => ({ usd: Math.round(((cur?.usd ?? 0) + Math.max(0, usd)) * 1e6) / 1e6, words: (cur?.words ?? 0) + Math.max(0, words), checks: (cur?.checks ?? 0) + (words > 0 ? 1 : 0) }),
+    (cur) => ({
+      usd: Math.round(((cur?.usd ?? 0) + Math.max(0, usd)) * 1e6) / 1e6,
+      words: (cur?.words ?? 0) + Math.max(0, words),
+      checks: (cur?.checks ?? 0) + (words > 0 ? 1 : 0),
+      saved: Math.round(((cur?.saved ?? 0) + Math.max(0, saved)) * 1e6) / 1e6,
+      savedWords: (cur?.savedWords ?? 0) + Math.max(0, savedWords),
+    }),
     'Biaya harian',
   );
 }
@@ -209,11 +227,12 @@ export const DEFAULT_FREE: FreeSettings = {
 
 /** Batas setiap isian (dipakai server dan formulir admin — satu sumber). */
 export const FREE_LIMITS = {
-  pages: [1, 1000],
+  // Pemilik, 8 Nov 2026: „gratis 1-20 halaman / minggu itu pun dynamic page“.
+  pages: [1, 20],
   wordsPerPage: [100, 2000],
   charsPerPage: [500, 20000],
   tokensPerPage: [200, 5000],
-  maxPerCheck: [1, 1000],
+  maxPerCheck: [1, 20],
   dailyBudgetUsd: [0, 1000],
 } as const;
 

@@ -22,6 +22,9 @@ export interface BrandSpec {
   favicon32: string;
   favicon64: string;
   appleTouch: string;
+  /** Ikon aplikasi PNG untuk PWA (manifest). */
+  icon192: string;
+  icon512: string;
   ogImage: string;
   /** Lencana kecil (menu samping, label CEK GRATIS). */
   badge: { src1x: string; src2x: string };
@@ -46,6 +49,8 @@ export const BRANDS: Record<BrandId, BrandSpec> = {
     favicon32: '/assets/favicon-32.png',
     favicon64: '/assets/favicon-64.png',
     appleTouch: '/assets/apple-touch-icon.png',
+    icon192: '/assets/icon-192.png',
+    icon512: '/assets/icon-512.png',
     ogImage: '/assets/logo-full-1200.webp',
     badge: { src1x: '/assets/logo-badge-96.webp', src2x: '/assets/logo-badge-192.webp' },
     wideLogo: null,
@@ -65,6 +70,8 @@ export const BRANDS: Record<BrandId, BrandSpec> = {
     favicon32: '/assets/ascan/favicon-32.png',
     favicon64: '/assets/ascan/favicon-64.png',
     appleTouch: '/assets/ascan/apple-touch-icon.png',
+    icon192: '/assets/ascan/icon-192.png',
+    icon512: '/assets/ascan/icon-512.png',
     ogImage: '/assets/ascan/logo-main-1200.webp',
     badge: { src1x: '/assets/ascan/badge-96.webp', src2x: '/assets/ascan/badge-192.webp' },
     wideLogo: { src1x: '/assets/ascan/logo-main-600.webp', src2x: '/assets/ascan/logo-main-1200.webp', w: 186, h: 48 },

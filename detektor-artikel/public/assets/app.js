@@ -550,4 +550,62 @@
       window.addEventListener('pagehide', function () { synth.cancel(); });
     }
   }
+
+  /* ── Pasang di HP (PWA) — spanduk paling atas, hilang setelah terpasang ── */
+  (function () {
+    if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); }); }
+    var bar = $('[data-pwa-bar]'); if (!bar) return;
+    var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+    var KEY = 'pwa:dismissed';
+    var dismissed = function () { var t = Number(store.get(KEY) || 0); return t && Date.now() - t < 7 * 86400000; };
+    if (standalone) { store.set('pwa:installed', '1'); return; }
+    if (dismissed() || store.get('pwa:installed') === '1') return;
+    var deferred = null;
+    var show = function () { bar.hidden = false; document.body.classList.add('has-pwa-bar'); };
+    var hide = function () { bar.hidden = true; document.body.classList.remove('has-pwa-bar'); };
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; $('[data-pwa-install]', bar).hidden = false; show(); });
+    window.addEventListener('appinstalled', function () { store.set('pwa:installed', '1'); hide(); });
+    var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    if (ios) { $('[data-pwa-hint]', bar).hidden = true; $('[data-pwa-ios]', bar).hidden = false; show(); }
+    $('[data-pwa-install]', bar).addEventListener('click', function () {
+      if (!deferred) return;
+      deferred.prompt();
+      deferred.userChoice.then(function (r) { if (r && r.outcome === 'accepted') { store.set('pwa:installed', '1'); hide(); } deferred = null; });
+    });
+    $('[data-pwa-close]', bar).addEventListener('click', function () { store.set(KEY, String(Date.now())); hide(); });
+  })();
+
+  /* ── Notifikasi admin: lencana per menu + pemberitahuan saat ada yang baru ── */
+  (function () {
+    var side = $('[data-admin-notify]'); if (!side) return;
+    var MAP = { orders: 'orders', members: 'members', reports: 'reports', payouts: 'aff' };
+    var label = { orders: T('bukti transfer menunggu dicek', 'transfer receipts waiting to be checked'), members: T('member baru', 'new members'), reports: T('laporan baru', 'new reports'), payouts: T('permintaan pencairan baru', 'new payout requests') };
+    var prev = null;
+    try { prev = JSON.parse(sessionStorage.getItem('admin:badges') || 'null'); } catch (e) { prev = null; }
+    var paint = function (b) {
+      Object.keys(MAP).forEach(function (k) { var el = side.querySelector('[data-badge="' + MAP[k] + '"]'); if (el) { el.textContent = b[k] > 98 ? '99+' : String(b[k]); el.hidden = !(b[k] > 0); } });
+      var dash = side.querySelector('[data-badge="dash"]'); if (dash) { dash.textContent = b.total > 98 ? '99+' : String(b.total); dash.hidden = !(b.total > 0); }
+      document.title = document.title.replace(/^\(\d+\+?\) /, '') ; if (b.total > 0) document.title = '(' + (b.total > 98 ? '99+' : b.total) + ') ' + document.title;
+    };
+    var announce = function (b) {
+      if (!prev) return;
+      Object.keys(MAP).forEach(function (k) {
+        var more = (b[k] || 0) - (prev[k] || 0);
+        if (more > 0) {
+          var msg = '🔔 ' + more + ' ' + label[k];
+          toast(msg);
+          if (window.Notification && Notification.permission === 'granted') { try { new Notification(document.title.replace(/^\(\d+\+?\) /, ''), { body: msg, icon: '/assets/icon-192.png', tag: 'admin-' + k }); } catch (e) { /* diam */ } }
+        }
+      });
+    };
+    var poll = function () {
+      api('/api/admin/notifications').then(function (b) { paint(b); announce(b); prev = b; try { sessionStorage.setItem('admin:badges', JSON.stringify(b)); } catch (e) { /* diam */ } }).catch(function () { /* coba lagi nanti */ });
+    };
+    poll(); setInterval(poll, 60000);
+    var en = $('[data-notify-enable]', side);
+    if (en && window.Notification && Notification.permission === 'default') { en.hidden = false; en.addEventListener('click', function () { Notification.requestPermission().then(function () { en.hidden = true; }); }); }
+  })();
+
+  /* ── Slider ↔ angka (Admin → Kuota gratis) ── */
+  $$('[data-sync-to]').forEach(function (r) { var t = $(r.getAttribute('data-sync-to')); if (!t) return; r.addEventListener('input', function () { t.value = r.value; }); t.addEventListener('input', function () { r.value = t.value; }); });
 })();

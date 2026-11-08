@@ -88,3 +88,15 @@ export async function addMemberDay(store: Store, uid: string, date: string, toke
   });
   if (over) throw new SpendLimitError((over as { used: number }).used, limit);
 }
+
+/**
+ * Mesin yang boleh dipilih member saat ini (pemilik, 8 Nov 2026: „engine bisa di on/off di portal admin, misal fable 5 di
+ * off mana seluruh website ini fable 5 di tandai comming soon atau off“). Satu sumber untuk formulir, halaman harga,
+ * panduan, dan penolakan di server. Haiku selalu aktif (Cek Gratis dan tingkat 1 memakainya).
+ */
+export interface EngineAvailability { haiku: boolean; sonnet: boolean; opus: boolean; fable: boolean; forensic: boolean }
+export function engineAvailability(c: Controls): EngineAvailability {
+  const sonnet = !c.disabledModels.includes('claude-sonnet-5-5');
+  const opus = !c.disabledModels.includes('claude-opus-5-5');
+  return { haiku: true, sonnet, opus, fable: c.fableEnabled && !c.disabledModels.includes('claude-fable-5-1'), forensic: sonnet && opus };
+}
