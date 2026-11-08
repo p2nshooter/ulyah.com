@@ -1880,3 +1880,23 @@ Perbaikan:
 | Ukur semua bucket | ✅ 7 Nov — total 5,54 GB, 95 % cache halaman |
 | Aturan baru terpasang (deploy setelah merge) | 🔄 |
 | Total R2 < 5 GB | ⏳ dicek ulang 1–2 hari setelah aturan berlaku (R2 menghapus secara asinkron) |
+
+## 28. Dua bahasa, suara, auto scroll & auto slide untuk semua situs artikel; xko.es „Konten tanpa manfaat“ (pemilik, 8 Nov 2026)
+
+> „…lanjut pengecekan kenapa semua web artikel sy konten tanpa manfaat, klo bisa yg berbahasa Jerman dan Spanyol di terjemahin
+> ke bahasa Inggris semua, jd ada 2 bahasa.. Kecuali situs islam biarkan saja, dan tambahin make voice semua web“
+> „Seluruh web artikel yg bukan make bhs Inggris tolong terjemahin jadi 2 bahasa, dan seluruh website artikel pakein voice, auto
+> scroll, auto slide“
+
+Urutan pemilik: xscan.es selesai → jenius.es → pekerjaan ini. Lingkup: semua situs di `sites/` (mesin bersama `_engine`).
+1. **Pemeriksaan ulang „Konten tanpa manfaat“** (xko.es berstatus *Perlu diperhatikan — Konten tanpa manfaat* di AdSense,
+   tangkapan layar 8 Nov 2026): audit per situs terhadap §22 — kedalaman & keaslian artikel, halaman tipis/duplikat, halaman
+   wajib, navigasi, rasio iklan, kecepatan — lalu perbaikan konkret dan pengajuan ulang peninjauan.
+2. **Dua bahasa**: setiap situs artikel yang bukan berbahasa Inggris (Jerman, Spanyol, dll.) mendapat versi Inggris lengkap
+   (`/en/…`, `hreflang` dua arah, sitemap per bahasa, pemilih bahasa). Terjemahan ditulis rapi (bukan mesin mentah tanpa
+   suntingan) agar tidak menjadi konten tipis. **Situs Islam tidak diterjemahkan** (dibiarkan seperti sekarang).
+3. **Suara (voice)** di semua situs artikel: tombol dengar per artikel (Web Speech API di peramban, suara sesuai bahasa
+   halaman, tanpa biaya server), sorot paragraf yang sedang dibaca.
+4. **Auto scroll**: halaman mengikuti paragraf yang sedang dibacakan; bisa juga dinyalakan tanpa suara (kecepatan bisa diatur).
+5. **Auto slide**: mode tampilan artikel per bagian/slide yang berganti otomatis (bisa dijeda, panah kiri/kanan, geser di HP).
+6. Semua fitur menghormati `prefers-reduced-motion`, bisa dimatikan pengunjung, tidak mengganggu iklan maupun crawler.
