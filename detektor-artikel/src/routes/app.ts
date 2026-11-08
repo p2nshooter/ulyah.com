@@ -21,7 +21,7 @@ import { getEngine, getBilling, measuredCostPer1k, getFree, type BillingSettings
 import { freeStatus } from '../data/free.ts';
 import { balanceOf, ledger } from '../data/wallet.ts';
 import { predictPages } from '../engine/pricing.ts';
-import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, type Batch, type FreeChoice } from './checks.ts';
+import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, resumeCheck, ResumeError, type Batch, type FreeChoice } from './checks.ts';
 import { checkKey, reportKey, textKey, type CheckDoc, type ReportDetail, type ReportSummary } from '../engine/cascade.ts';
 import { newId, unseal, verifyPassword, hashPassword, hmac } from '../lib/crypto.ts';
 import { invTs } from '../lib/store.ts';
@@ -237,15 +237,30 @@ app.post('/app/periksa', async (c) => {
 
 /* ── proses (animasi tahap) ─────────────────────────────────────────── */
 
+const RESUME_MSG: Record<string, [string, string]> = {
+  no_tokens: ['Saldo token belum cukup untuk melanjutkan. Isi deposit atau beli token, lalu klik Lanjutkan lagi — pekerjaan Anda tetap tersimpan.', 'Your token balance is not enough to resume yet. Top up or buy tokens, then click Resume again — your work stays saved.'],
+  daily: ['Batas token harian tercapai. Lanjutkan besok — pekerjaan Anda tetap tersimpan.', 'The daily token limit is reached. Resume tomorrow — your work stays saved.'],
+  busy: ['Terlalu banyak pemeriksaan berjalan bersamaan. Tunggu yang sedang berjalan selesai, lalu lanjutkan.', 'Too many checks are running at once. Wait for them to finish, then resume.'],
+  stopped: ['Layanan sedang dihentikan sementara oleh admin. Coba lagi nanti — pekerjaan Anda tetap tersimpan.', 'The service is paused by the admin. Try again later — your work stays saved.'],
+  no_model: ['Mesin yang diperlukan sedang nonaktif. Coba lagi nanti — pekerjaan Anda tetap tersimpan.', 'The engine needed is switched off. Try again later — your work stays saved.'],
+  gone: ['Naskahnya sudah terhapus otomatis — unggah ulang untuk memeriksanya lagi.', 'The text was deleted automatically — upload it again to check it.'],
+  not_resumable: ['Pemeriksaan ini tidak bisa dilanjutkan.', 'This check cannot be resumed.'],
+  already: ['Pemeriksaan ini sudah dilanjutkan.', 'This check has already been resumed.'],
+};
+
 app.get('/app/proses/:id', async (c) => {
   const L = portalLang(c);
   const user = c.get('user')!;
   const doc = await c.get('store').get<CheckDoc>(checkKey(c.req.param('id')));
   if (!doc || (doc.uid !== user.id && !isAdmin(user))) return c.notFound();
   if (doc.stage === 'done' && doc.reportId) return c.redirect(`/app/laporan/${doc.reportId}`);
+  // Mesin tunggal: tahap pertama memakai mesin yang dipilih member (bukan Essential).
+  const single = doc.mode === 'sonnet' || doc.mode === 'opus' || doc.mode === 'fable';
+  const errCode = c.req.query('err') ?? '';
+  const stopped = doc.stage === 'failed' && Boolean(doc.resume);
   const stages: [string, string, string][] = [
     ['prep', tr(L, 'Membaca naskah & mengukur gaya tulisan', 'Reading the text & measuring writing style'), tr(L, 'tanpa memakai AI', 'without using AI')],
-    ['t1', 'Essential · Ultra', tr(L, 'memeriksa setiap kalimat & paragraf', 'checks every sentence & paragraph')],
+    ['t1', single ? PUBLIC_NAME[doc.mode] : 'Essential · Ultra', tr(L, 'memeriksa setiap kalimat & paragraf', 'checks every sentence & paragraph')],
     ['t2', 'Advanced', tr(L, 'hanya kalimat yang ragu', 'doubtful sentences only')],
     ['t3', 'Expert', tr(L, 'pemeriksa terakhir bila perlu', 'final checker if needed')],
     ['fuse', tr(L, 'Menggabungkan semua hasil', 'Combining all results'), tr(L, 'menghitung persen & kesimpulan', 'computing percentages & the conclusion')],
@@ -258,16 +273,67 @@ app.get('/app/proses/:id', async (c) => {
     <ol class="stages">${stages.map(([k, t, d]) => html`<li data-stage="${k}"><span class="st-dot"><i></i></span><div><b>${t}</b><small>${d}</small><em class="st-note"></em></div></li>`)}</ol>
     <p class="process-msg muted" data-msg>${tr(L, 'Halaman ini boleh ditutup — pemeriksaan tetap berlanjut dan hasilnya muncul di Laporan.', 'You may close this page — the check continues and the result appears under Reports.')}</p>
     <div class="flash err" data-err hidden></div>
+    ${RESUME_MSG[errCode] ? html`<div class="flash err" data-resume-err>${L === 'en' ? RESUME_MSG[errCode]![1] : RESUME_MSG[errCode]![0]}</div>` : ''}
+    <div class="resume-box" data-resume ${stopped ? '' : raw('hidden')}>
+      <p><b>${tr(L, 'Pekerjaan Anda tersimpan.', 'Your work is saved.')}</b> ${tr(L, 'Tahap yang sudah selesai tidak diulang dan tidak ditagih lagi. Klik Lanjutkan untuk meneruskan dari tahap terakhir; bila saldo kurang, isi deposit atau beli token dulu.', 'Finished stages are not repeated or charged again. Click Resume to continue from the last stage; if your balance is short, top up or buy tokens first.')}</p>
+      <div class="btn-row">
+        <form method="post" action="/app/proses/${doc.id}/lanjut"><button class="btn btn-primary" type="submit" data-resume-btn>▶ ${tr(L, 'Lanjutkan pemeriksaan', 'Resume the check')}</button></form>
+        <a class="btn btn-ghost" href="/app/token#paket">${tr(L, 'Beli token', 'Buy tokens')}</a>
+        <a class="btn btn-ghost" href="/app/token#deposit">${tr(L, 'Isi deposit', 'Top up')}</a>
+      </div>
+    </div>
   </section>
   ${jsonScript('i18n-process', {
     skipped: tr(L, 'tidak perlu — hemat', 'not needed — saved'),
     sentences: tr(L, 'kalimat', 'sentences'),
     failed: tr(L, 'Pemeriksaan gagal', 'The check failed'),
+    stopped: tr(L, 'Pemeriksaan terhenti', 'The check stopped'),
+    paused: tr(L, 'Pemeriksaan dijeda — token pesanan habis', 'The check is paused — the reserved tokens ran out'),
     retry: tr(L, 'API sibuk, mencoba lagi…', 'API busy, retrying…'),
-    refunded: tr(L, 'Token yang dipesan sudah dikembalikan — pemeriksaan gagal tidak ditagih.', 'The reserved tokens were returned — failed checks are not charged.'),
+    billedNow: tr(L, 'Kerja AI yang sudah selesai ditagih {n} token.', 'Finished AI work was charged {n} tokens.'),
+    nothing: tr(L, 'Tidak ada token yang ditagih.', 'No tokens were charged.'),
     charged: tr(L, 'ditagih', 'charged'),
   })}`;
   return c.html(shell(c, tr(L, 'Memproses', 'Processing'), body, 'check'));
+});
+
+/** §30: Lanjutkan pemeriksaan yang terhenti (formulir di halaman proses). */
+app.post('/app/proses/:id/lanjut', async (c) => {
+  const user = c.get('user')!;
+  const id = c.req.param('id');
+  try {
+    await resumeCheck(c.env, c.get('store'), user, id, portalLang(c));
+    return c.redirect(`/app/proses/${encodeURIComponent(id)}`);
+  } catch (err) {
+    if (err instanceof ResumeError) return c.redirect(`/app/proses/${encodeURIComponent(id)}?err=${err.code}`);
+    throw err;
+  }
+});
+
+/** §30: Lanjutkan semua naskah sesi yang terhenti / menunggu token, berurutan sampai saldo habis. */
+app.post('/app/sesi/:id/lanjut', async (c) => {
+  const user = c.get('user')!;
+  const store = c.get('store');
+  const L = portalLang(c);
+  const batch = await store.get<Batch>(batchKey(c.req.param('id')));
+  if (!batch || batch.uid !== user.id) return c.notFound();
+  const { items } = await store.list(`i/batch-items/${batch.id}/`, { limit: 1000 });
+  let n = 0;
+  let stop = '';
+  for (const it of items) {
+    const doc = await store.get<CheckDoc>(checkKey(it.id));
+    if (!doc || doc.stage !== 'failed' || !doc.resume) continue;
+    try {
+      await resumeCheck(c.env, store, user, doc.id, L);
+      n += 1;
+    } catch (err) {
+      if (!(err instanceof ResumeError)) throw err;
+      if (err.code === 'gone' || err.code === 'not_resumable' || err.code === 'already') continue;
+      stop = err.code;
+      break;
+    }
+  }
+  return c.redirect(`/app/sesi/${batch.id}?resumed=${n}${stop ? `&err=${stop}` : ''}`);
 });
 
 /* ── laporan ─────────────────────────────────────────────────────────── */
@@ -522,6 +588,8 @@ app.post('/app/sesi', async (c) => {
 interface RecapRow {
   n: number;
   checkId: string;
+  /** §30: terhenti dan bisa dilanjutkan (sebabnya). */
+  resume?: 'failed' | 'tokens';
   title: string;
   author: string;
   stage: string;
@@ -541,7 +609,7 @@ async function recap(c: Ctx, batch: Batch): Promise<RecapRow[]> {
     const s = doc?.reportId ? await store.get<ReportSummary>(reportKey(doc.reportId)) : null;
     const fp = await store.get<{ sig: number[] }>(`c/fp/${batch.id}/${it.id}.json`);
     if (fp) sigs.set(it.id, fp.sig);
-    rows.push({ n: k + 1, checkId: it.id, title: it.meta.title, author: it.meta.author, stage: doc?.stage ?? '?', s, sim: 0, simWith: '', rank: '' });
+    rows.push({ n: k + 1, checkId: it.id, title: it.meta.title, author: it.meta.author, stage: doc?.stage ?? '?', resume: doc?.resume?.reason, s, sim: 0, simWith: '', rank: '' });
   }
   for (const r of rows) {
     const a = sigs.get(r.checkId);
@@ -577,7 +645,7 @@ function recapTable(L: Lang, batch: Batch, rows: RecapRow[]): Raw {
     })}
     <td class="n"><b>${r.s?.rubric ? fmtScore(L, r.s.rubric.total) : '—'}</b></td>
     <td class="n">${r.s ? `${r.s.comp.ai}%` : '—'}</td>
-    <td>${r.s ? labelPill(L, r.s.label) : html`<span class="pill p-unk" data-stage-pill="${r.checkId}">${r.stage === 'failed' ? tr(L, 'gagal', 'failed') : tr(L, 'proses…', 'processing…')}</span>`}</td>
+    <td>${r.s ? labelPill(L, r.s.label) : html`<span class="pill p-unk" data-stage-pill="${r.checkId}">${r.stage === 'failed' ? (r.resume === 'tokens' ? tr(L, 'menunggu token', 'waiting for tokens') : r.resume ? tr(L, 'terhenti — bisa dilanjutkan', 'stopped — can resume') : tr(L, 'gagal', 'failed')) : tr(L, 'proses…', 'processing…')}</span>`}</td>
     <td class="n">${r.sim ? html`<span title="${r.simWith}">${r.sim}%</span>` : '—'}</td>
     <td class="n">${r.rank || '—'}</td>
   </tr>`)}</tbody></table></div>`;
@@ -591,8 +659,15 @@ app.get('/app/sesi/:id', async (c) => {
   if (!batch || (batch.uid !== user.id && !isAdmin(user))) return c.notFound();
   const rows = await recap(c, batch);
   const pending = rows.filter((r) => r.stage !== 'done' && r.stage !== 'failed').map((r) => r.checkId);
+  const resumable = rows.filter((r) => r.stage === 'failed' && r.resume).length;
+  const resumed = Number(c.req.query('resumed') ?? NaN);
+  const errCode = c.req.query('err') ?? '';
   const rubric = getRubric(batch.rubricId);
   const body = html`
+  ${Number.isFinite(resumed) && resumed > 0 ? html`<div class="flash ok" data-batch-resumed>${tr(L, `${resumed} naskah dilanjutkan.`, `${resumed} entries resumed.`)}</div>` : ''}
+  ${RESUME_MSG[errCode] ? html`<div class="flash err">${L === 'en' ? RESUME_MSG[errCode]![1] : RESUME_MSG[errCode]![0]}</div>` : ''}
+  ${resumable ? html`<section class="card reveal resume-box" data-batch-resume><p><b>${tr(L, `${resumable} naskah menunggu dilanjutkan.`, `${resumable} entries are waiting to resume.`)}</b> ${tr(L, 'Pekerjaan yang sudah selesai tersimpan dan tidak ditagih ulang. Tambah token bila perlu, lalu lanjutkan sesi.', 'Finished work is saved and never charged again. Add tokens if needed, then resume the session.')}</p>
+    <div class="btn-row"><form method="post" action="/app/sesi/${batch.id}/lanjut"><button class="btn btn-primary" type="submit">▶ ${tr(L, 'Lanjutkan sesi', 'Resume the session')}</button></form><a class="btn btn-ghost" href="/app/token#paket">${tr(L, 'Beli token', 'Buy tokens')}</a><a class="btn btn-ghost" href="/app/token#deposit">${tr(L, 'Isi deposit', 'Top up')}</a></div></section>` : ''}
   ${pageHead(batch.name, `${batch.category || '—'} · ${rubric ? bi(L, rubric.name) : ''} · ${fmtNum(L, batch.items)} ${tr(L, 'naskah', 'entries')}`, html`<a class="btn btn-ghost" href="/app/sesi/${batch.id}/rekap" target="_blank">🖨 ${tr(L, 'Cetak rekap', 'Print recap')}</a><a class="btn btn-ghost" href="/app/sesi/${batch.id}/rekap.csv">⬇ CSV</a>`)}
   <section class="card reveal" data-batch="${batch.id}" data-lang="${L}">
     <h3>${tr(L, 'Tambah naskah', 'Add entries')}</h3>
@@ -613,6 +688,7 @@ app.get('/app/sesi/:id', async (c) => {
   </section>
   ${jsonScript('batch-pending', pending)}
   ${jsonScript('i18n-batch', {
+    waiting: tr(L, '{n} naskah menunggu token — tersimpan. Tambah token lalu klik „Lanjutkan sesi“.', '{n} entries are waiting for tokens — saved. Add tokens, then click “Resume the session”.'),
     running: tr(L, 'Memeriksa', 'Checking'),
     of: tr(L, 'dari', 'of'),
     done: tr(L, 'Selesai! Memuat rekap…', 'Done! Loading the recap…'),

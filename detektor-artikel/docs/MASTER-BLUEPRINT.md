@@ -1375,6 +1375,28 @@ Studio VVIP menjadi ruang kerja serba bisa (semua mesin dengan nama publik saja,
 8. Urutan bangun: (a) artikel + prompt/blueprint + unduhan semua format; (b) logo SVG + website offline ZIP; (c) perbaiki
    program (unggah); (d) GitHub App + cabang/PR; (e) pindai gambar & situs web.
 
+
+### 29.2 Presentasi, blueprint, prediksi biaya; GitHub jadi rancangan berikutnya (pemilik, 8 Nov 2026)
+
+> „Untuk VVIP bisa bikin presentasi dari upload file atau cuma dari cerita, bisa bikin blueprint output doc, HTML dll, klo
+> untuk konek ke github... Prediksi dulu biaya yg d keluarkan, dan tetap kena biaya saat analisa biaya.. Untuk konek ke GitHub
+> jika tidak logis di masukin blueprint dulu jadi rancangan berikutnya, karena bentuknya hampir sama kaya [agen pemrograman]“
+
+1. **Pembuat presentasi (VVIP)**: dari berkas yang diunggah (DOCX/PDF/TXT/MD/HTML) atau **hanya dari cerita** member →
+   kerangka slide → slide jadi; pratinjau di studio; unduh **PPTX, PDF, HTML** (presentasi mandiri bisa dibuka luring).
+2. **Pembuat blueprint/dokumen**: keluaran **DOCX, PDF, HTML, Markdown, TXT, JSON** sesuai permintaan (lanjutan §29 butir 4).
+3. **Prediksi biaya dulu**: sebelum pekerjaan studio berjalan, sistem menganalisis permintaan (ukuran berkas, jumlah slide/
+   halaman, mesin) dan menampilkan **perkiraan token** (rentang + yang dipesan). Analisis biaya itu sendiri memakai AI, jadi
+   **tetap ditagih** (kecil, tampil di rincian token sebagai „Analisis biaya“). Member menyetujui → pekerjaan berjalan dengan
+   aturan §30 (terhenti → ditagih yang selesai, bisa dilanjutkan).
+4. **Sambung ke GitHub**: bentuknya hampir sama dengan agen pemrograman (membaca repositori, mengubah berkas, membuat PR) —
+   **tidak dibangun sekarang**; dicatat sebagai **rancangan berikutnya** (§29.1 butir 6 dipindah ke sini). Syarat sebelum
+   dibangun: GitHub App milik xscan.es, izin per repositori, eksekusi kode terisolasi, batas biaya per tugas, dan persetujuan
+   member untuk setiap PR.
+5. Urutan bangun studio VVIP diperbarui: (a) prediksi biaya + analisis bertarif; (b) blueprint/dokumen semua format;
+   (c) presentasi dari berkas/cerita; (d) perbaiki artikel; (e) logo SVG + website luring ZIP; (f) perbaiki program
+   (unggah); (g) pindai gambar & situs web; GitHub = rancangan berikutnya.
+
 ---
 
 ## 30. Token habis / gagal: tetap terpotong, pekerjaan bisa dilanjutkan (pemilik, 8 Nov 2026)

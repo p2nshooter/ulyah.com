@@ -347,7 +347,13 @@
       if (st.error && st.stage !== 'failed') { var m = $('[data-msg]', proc); if (m) m.textContent = i18n.retry; }
     }).then(function (st) {
       if (st.stage === 'done' && st.reportId) { proc.classList.add('done'); setTimeout(function () { location.href = '/app/laporan/' + encodeURIComponent(st.reportId); }, reduce ? 0 : 700); }
-      else if (st.stage === 'failed') { errBox.hidden = false; errBox.textContent = '⚠ ' + i18n.failed + ': ' + (st.error ? st.error.msg : '') + ' ' + i18n.refunded; }
+      else if (st.stage === 'failed') {
+        // §30: kerja AI yang sudah selesai ditagih; pekerjaan tersimpan dan bisa dilanjutkan.
+        errBox.hidden = false;
+        var head = st.resumable ? (st.resumeReason === 'tokens' ? i18n.paused : i18n.stopped) : i18n.failed;
+        errBox.textContent = '⚠ ' + head + ': ' + (st.error ? st.error.msg : '') + ' ' + (st.charged ? i18n.billedNow.replace('{n}', st.charged) : i18n.nothing);
+        var rb = $('[data-resume]', proc); if (rb && st.resumable) rb.hidden = false;
+      }
     }).catch(function (e) { errBox.hidden = false; errBox.textContent = '⚠ ' + e.message; });
   }
 
@@ -426,7 +432,9 @@
       try {
         var modeSel = $('[data-batch-mode]', batch);
         var res = await api('/api/batches/' + batch.getAttribute('data-batch') + '/run', { agree: true, mode: modeSel ? modeSel.value : 'smart', entries: queue.map(function (e) { return { title: e.title, author: e.author, text: e.text }; }) });
-        queue = []; renderQueue(); await runIds(res.ids);
+        queue = []; renderQueue();
+        if (res.waiting) toast(bi18n.waiting.replace('{n}', res.waiting));
+        await runIds(res.ids);
       } catch (e) { bErr.hidden = false; bErr.textContent = '⚠ ' + e.message; }
       runBtn.removeAttribute('aria-busy');
     });

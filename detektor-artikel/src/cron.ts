@@ -6,14 +6,14 @@
  */
 import type { Env } from './env.ts';
 import { Store } from './lib/store.ts';
-import { advance, checkKey, settleCheck, type CheckDoc } from './engine/cascade.ts';
+import { advance, checkKey, settleCheck, haltCheck, type CheckDoc } from './engine/cascade.ts';
 import { settleBatch } from './routes/checks.ts';
 import { wibDate } from './data/settings.ts';
 import { runPurge, archiveCheck } from './data/purge.ts';
 import { refreshFx } from './data/fx.ts';
 import { repairDepositOps } from './data/deposit.ts';
 
-/** Pemeriksaan yang belum selesai 2 jam setelah dibuat dihentikan oleh sweep (token/kuota kembali utuh). */
+/** Pemeriksaan yang belum selesai 2 jam setelah putarannya dimulai dihentikan oleh sweep (§30: kerja yang selesai ditagih, bisa dilanjutkan). */
 export const CHECK_DEADLINE_MS = 2 * 3600_000;
 
 export async function sweep(env: Env, maxSteps = 4): Promise<number> {
@@ -37,16 +37,9 @@ export async function sweep(env: Env, maxSteps = 4): Promise<number> {
     // Hanya yang ditinggal: tidak ada sewa aktif dan tidak berubah 90 detik terakhir.
     if (doc.lease > now || now - doc.updatedAt < 90_000) continue;
     // Batas waktu total (MASTER-BLUEPRINT §9.5, §21): lebih dari 2 jam belum selesai → dihentikan, seluruh token/kuota kembali.
-    if (now - doc.createdAt > CHECK_DEADLINE_MS) {
-      const failed = await store.cas<CheckDoc>(checkKey(doc.id), (cur) =>
-        cur && cur.stage !== 'done' && cur.stage !== 'failed' && cur.lease <= Date.now()
-          ? { ...cur, stage: 'failed', lease: 0, error: { code: 'timeout', msg: 'Pemeriksaan melewati batas waktu 2 jam dan dihentikan. Token Anda dikembalikan utuh.' }, updatedAt: Date.now() }
-          : null,
-      );
-      if (failed && failed.stage === 'failed') {
-        await settleCheck(env, store, failed);
-        if (failed.batchId) await settleBatch(env, store, failed.batchId);
-      }
+    if (now - (doc.roundAt ?? doc.createdAt) > CHECK_DEADLINE_MS) {
+      const failed = await haltCheck(env, store, doc.id, 'timeout', 'Pemeriksaan melewati batas waktu 2 jam dan dijeda. Pekerjaan yang sudah selesai tersimpan — klik Lanjutkan untuk meneruskan.');
+      if (failed && failed.stage === 'failed' && failed.batchId) await settleBatch(env, store, failed.batchId);
       continue;
     }
     const after = await advance(env, doc.id);
