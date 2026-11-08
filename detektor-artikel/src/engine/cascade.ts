@@ -20,7 +20,7 @@ import {
   callModel, context, JUDGE_SYSTEM, PARAGRAPH_SCHEMA, REGEN_SYSTEM, rubricSchema, rubricSystem, SENTENCE_SCHEMA, StageError, type CallCtx,
 } from './claude.ts';
 import { getEngine, getBilling, addSpend, addFreeSpend, type EngineSettings } from '../data/settings.ts';
-import { releaseFreePages } from '../data/free.ts';
+import { releaseFreePages, trimFreePages } from '../data/free.ts';
 import type { Purpose } from '../lib/purpose.ts';
 import { getControls } from '../data/controls.ts';
 import { applyRouter } from './router.ts';
@@ -30,6 +30,11 @@ import { aspectValue, categoryOf, getRubric, languageBand, ruleErrors, type Lang
 import { refund, type Reservation } from '../data/wallet.ts';
 import { bump } from '../lib/ratelimit.ts';
 import { getUser } from '../data/users.ts';
+import { addStats } from '../data/stats.ts';
+import {
+  planReuse, engineKey, cachedSentences, cachedParagraphs, mergedDoc, hasCached, reuseLines, buildEntries, saveReuse, parWords, bodyParagraphs, paraHash,
+  type ReusePlan, type RawLine,
+} from './reuse.ts';
 
 export type Stage = 'prep' | 't1' | 't2' | 't3' | 'fuse' | 'rubric2' | 'done' | 'failed';
 export const STAGE_ORDER: Stage[] = ['prep', 't1', 't2', 't3', 'fuse', 'rubric2', 'done'];
@@ -74,6 +79,12 @@ export interface CheckDoc {
   skipped?: string[];
   cost: number;
   reportId?: string;
+  /** Tanpa hasil tersimpan (uji mesin, „Ajukan tinjauan“): selalu dinilai AI dari awal. */
+  noReuse?: boolean;
+  /** Hasil tersimpan (MASTER-BLUEPRINT §26): kata milik sendiri / member lain yang tidak dikirim ke AI, US$ yang dihemat. */
+  reuse?: { own: number; other: number; savedUsd: number; pct: number };
+  /** Kunci hasil tersimpan pemeriksaan ini (mesin + daftar „pernah mengunggah“ member). */
+  rx?: { ek: string; list: string };
 }
 
 export const checkKey = (id: string) => `c/checks/${id}.json`;
@@ -139,7 +150,11 @@ export interface ReportSummary {
   };
   /** Berapa kali teks yang sama persis pernah diperiksa akun ini sebelumnya (anti "memancing" hasil). */
   samePrior: number;
+  /** Bagian naskah yang pernah diperiksa member ini sendiri dengan mesin yang sama (ditagih `pct` %). */
+  reuseOwn?: { words: number; pct: number };
   purged?: boolean;
+  /** Kapan naskah & rincian kalimatnya dihapus otomatis (riwayat dan angka tetap — MASTER-BLUEPRINT §27). */
+  purgedAt?: number;
   revoked?: boolean;
   enc?: Sealed;
 }
@@ -224,8 +239,8 @@ async function readSub<T>(store: Store, env: Env, id: string, name: string): Pro
 const body = (pp: Prepped) => pp.sentences.filter((s) => !s.excluded);
 const numberedSentences = (pp: Prepped, idx?: number[]) =>
   (idx ? idx.map((i) => pp.sentences[i]!) : body(pp)).map((s) => `[${s.i}] ${s.text}`).join('\n');
-const numberedParagraphs = (pp: Prepped) =>
-  pp.paragraphs.filter((p) => p.kind === 'body').map((p) => `¶${p.i} ${p.text}`).join('\n\n');
+const numberedParagraphs = (pp: Prepped, only?: Set<number>) =>
+  pp.paragraphs.filter((p) => p.kind === 'body' && (!only || only.has(p.i))).map((p) => `¶${p.i} ${p.text}`).join('\n\n');
 const plainText = (pp: Prepped) => pp.paragraphs.filter((p) => p.kind !== 'references').map((p) => p.text).join('\n\n');
 
 function chunk<T>(xs: T[], n: number): T[][] {
@@ -272,9 +287,9 @@ export function judgeModel(settings: EngineSettings, mode: Mode): { model: strin
   return { model: settings.models.t1, effort: settings.effort.t1, weight: 1 };
 }
 
-async function judgeA(ctx: CallCtx, settings: EngineSettings, doc: CheckDoc, pp: Prepped): Promise<JudgeAOut> {
+async function judgeA(ctx: CallCtx, settings: EngineSettings, doc: CheckDoc, pp: Prepped, only?: Set<number>): Promise<JudgeAOut> {
   const jm = judgeModel(settings, doc.mode);
-  const parts = chunk(body(pp), 120);
+  const parts = chunk(body(pp).filter((s) => !only || only.has(s.par)), 120);
   const results = await Promise.all(
     parts.map(async (part) => {
       try {
@@ -320,6 +335,7 @@ async function judgeB(
   doc: CheckDoc,
   pp: Prepped,
   ov?: { model: string; effort: EngineSettings['effort']['t1']; maxTokens: number },
+  only?: Set<number>,
 ): Promise<JudgeBOut> {
   const jm = ov ?? judgeModel(settings, doc.mode);
   const L = doc.reportLang === 'en' ? 'English' : 'Indonesian';
@@ -329,7 +345,7 @@ async function judgeB(
       model: jm.model,
       effort: jm.effort,
       system: JUDGE_SYSTEM,
-      user: `${context(pp.lang, doc.genre, doc.level)}\n<naskah>\n${numberedParagraphs(pp)}\n</naskah>\nJudge each numbered paragraph (¶) as a whole: rhythm across its sentences, structure and how its ideas develop. Use the paragraph number as i. Also give doc_p for the whole text, and style_note: at most 40 words in ${L} on what makes the writing feel human or AI-written.`,
+      user: `${context(pp.lang, doc.genre, doc.level)}\n<naskah>\n${numberedParagraphs(pp, only)}\n</naskah>\nJudge each numbered paragraph (¶) as a whole: rhythm across its sentences, structure and how its ideas develop. Use the paragraph number as i. Also give doc_p for the whole text, and style_note: at most 40 words in ${L} on what makes the writing feel human or AI-written.`,
       schema: PARAGRAPH_SCHEMA,
       maxTokens: ov?.maxTokens ?? 12000,
     });
@@ -463,6 +479,90 @@ function signalsOf(prep: PrepOut, t1: T1Out | null, t2: EscalationOut | null, t3
 }
 
 /**
+ * Hasil tersimpan (MASTER-BLUEPRINT §26): dicari sekali per pemeriksaan dan disimpan sebagai tahap `reuse`, sehingga
+ * tahap yang diulang memakai rencana yang sama. Uji mesin dan „Ajukan tinjauan“ selalu dinilai AI dari awal.
+ */
+async function reusePlanOf(env: Env, store: Store, settings: EngineSettings, doc: CheckDoc, prep: PrepOut): Promise<ReusePlan | null> {
+  if (doc.bench || doc.noReuse) return null;
+  return sub(store, env, doc.id, 'reuse', async () => planReuse(store, doc.uid, await engineKey(settings, doc.mode, Boolean(doc.free)), prep.pp, prep.hash));
+}
+
+const freshPars = (plan: ReusePlan | null, pp: Prepped) => new Set(pp.paragraphs.filter((p) => p.kind === 'body' && !plan?.pars[p.i]).map((p) => p.i));
+
+/** Tingkat 1 kalimat: AI hanya untuk paragraf baru, lalu digabung dengan skor tersimpan. */
+async function judgeAWithReuse(ctx: CallCtx, settings: EngineSettings, doc: CheckDoc, pp: Prepped, plan: ReusePlan | null): Promise<JudgeAOut> {
+  const only = freshPars(plan, pp);
+  const freshSentences = body(pp).filter((s) => only.has(s.par));
+  const fresh = freshSentences.length ? await judgeA(ctx, settings, doc, pp, plan ? only : undefined) : null;
+  if (!plan) return fresh!;
+  const freshWords = freshSentences.reduce((a, s) => a + s.words, 0);
+  return {
+    doc: mergedDoc(plan, pp, 'a', fresh && Object.keys(fresh.sentences).length ? fresh.doc : null, freshWords) ?? 0.5,
+    sentences: { ...cachedSentences(plan, pp, 'a'), ...(fresh?.sentences ?? {}) },
+    injection: fresh?.injection ?? false,
+    refused: fresh?.refused,
+  };
+}
+
+/** Tingkat 1 paragraf: sama — AI hanya untuk paragraf baru; catatan gaya dipakai ulang bila naskah identik. */
+async function judgeBWithReuse(
+  ctx: CallCtx,
+  settings: EngineSettings,
+  doc: CheckDoc,
+  pp: Prepped,
+  plan: ReusePlan | null,
+  ov?: { model: string; effort: EngineSettings['effort']['t1']; maxTokens: number },
+): Promise<JudgeBOut> {
+  const only = freshPars(plan, pp);
+  const freshList = pp.paragraphs.filter((p) => only.has(p.i) && p.sentences.some((i) => !pp.sentences[i]!.excluded));
+  const fresh = freshList.length ? await judgeB(ctx, settings, doc, pp, ov, plan ? only : undefined) : null;
+  if (!plan) return fresh!;
+  const freshWords = freshList.reduce((a, p) => a + parWords(pp, p.i), 0);
+  return {
+    doc: mergedDoc(plan, pp, 'b', fresh && !fresh.refused ? fresh.doc : null, freshWords) ?? 0.5,
+    paragraphs: { ...cachedParagraphs(plan), ...(fresh?.paragraphs ?? {}) },
+    styleNote: fresh?.styleNote || (plan.doc?.style[doc.reportLang] ?? ''),
+    injection: fresh?.injection ?? false,
+    refused: fresh?.refused,
+  };
+}
+
+/** Eskalasi (tingkat 2/3): AI hanya untuk kalimat baru; skor tersimpan bagian lama ikut digabung. */
+async function escalateWithReuse(ctx: CallCtx, tier: 't2' | 't3', model: string, effort: EngineSettings['effort']['t2'], doc: CheckDoc, pp: Prepped, targets: number[], plan: ReusePlan | null): Promise<EscalationOut> {
+  const fresh = targets.length ? await escalate(ctx, tier, model, effort, doc, pp, targets) : null;
+  if (!plan) return fresh ?? { doc: null, sentences: {}, targets };
+  const cached = cachedSentences(plan, pp, tier);
+  const freshWords = targets.reduce((a, i) => a + (pp.sentences[i]?.words ?? 0), 0);
+  return {
+    doc: mergedDoc(plan, pp, tier, fresh?.doc ?? null, freshWords),
+    sentences: { ...cached, ...(fresh?.sentences ?? {}) },
+    targets: [...targets, ...Object.keys(cached).map(Number)],
+  };
+}
+
+/** Uji tebak-lanjutan menilai naskah utuh: dipakai ulang bila identik, dilewati bila sebagian tersimpan (bagian lama 0 biaya). */
+async function regenWithReuse(ctx: CallCtx, settings: EngineSettings, pp: Prepped, plan: ReusePlan | null): Promise<T1Out['regen']> {
+  if (plan && (plan.words.own + plan.words.other) > 0) return { p: plan.full && plan.doc ? plan.doc.regen : null, overlaps: [] };
+  return regenTest(ctx, settings, pp);
+}
+
+/** Rubrik: dipakai ulang hanya dari pemeriksaan member ini sendiri dengan naskah, rubrik, dan bahasa laporan yang sama. */
+async function ownRubric(env: Env, store: Store, doc: CheckDoc, plan: ReusePlan | null): Promise<boolean> {
+  if (!plan?.ownSrc || !doc.rubricId) return false;
+  const src = await store.get<CheckDoc>(checkKey(plan.ownSrc));
+  if (!src || src.uid !== doc.uid || src.stage !== 'done' || src.rubricId !== doc.rubricId || src.reportLang !== doc.reportLang) return false;
+  const h = await readSub<RubricRaw>(store, env, src.id, 'rubric');
+  if (!h) return false;
+  await sub(store, env, doc.id, 'rubric', async () => h);
+  for (const name of ['rubric2', 'rubric3']) {
+    const v = await readSub<RubricRaw>(store, env, src.id, name);
+    if (v) await sub(store, env, doc.id, name, async () => v);
+  }
+  await store.put(subKey(doc.id, 'rubric-src'), { id: src.id, report: src.reportId });
+  return true;
+}
+
+/**
  * Cek Gratis: SATU lintasan Haiku termurah (pemilik: „hanya menggunakan haiku yg paling murah“), penilaian per paragraf,
  * effort rendah, keluaran dibatasi 900 token per halaman normal; tanpa uji regenerasi, rubrik, atau eskalasi. Label per
  * kalimat diambil dari paragrafnya, jadi fusi dan laporan memakai kode yang sama dengan pemeriksaan berbayar.
@@ -470,8 +570,9 @@ function signalsOf(prep: PrepOut, t1: T1Out | null, t2: EscalationOut | null, t3
 async function stageT1Free(ctx: CallCtx, env: Env, store: Store, settings: EngineSettings, doc: CheckDoc): Promise<Partial<CheckDoc>> {
   const prep = (await readSub<PrepOut>(store, env, doc.id, 'prep'))!;
   const pp = prep.pp;
+  const plan = await reusePlanOf(env, store, settings, doc, prep);
   const maxTokens = Math.max(1200, 900 * Math.max(1, doc.free?.pages ?? 1));
-  const b = await sub(store, env, doc.id, 't1-b', () => judgeB(ctx, settings, doc, pp, { model: freeModel(settings), effort: 'low', maxTokens }));
+  const b = await sub(store, env, doc.id, 't1-b', () => judgeBWithReuse(ctx, settings, doc, pp, plan, { model: freeModel(settings), effort: 'low', maxTokens }));
   await sub(store, env, doc.id, 't1-a', async (): Promise<JudgeAOut> => {
     const sentences: Record<number, JudgeSentence> = {};
     for (const s of body(pp)) {
@@ -489,12 +590,14 @@ async function stageT1(ctx: CallCtx, env: Env, store: Store, settings: EngineSet
   if (doc.free) return stageT1Free(ctx, env, store, settings, doc);
   const prep = (await readSub<PrepOut>(store, env, doc.id, 'prep'))!;
   const pp = prep.pp;
+  const plan = await reusePlanOf(env, store, settings, doc, prep);
   const rubric = getRubric(doc.rubricId);
+  const rubricReused = rubric ? await ownRubric(env, store, doc, plan) : false;
   const [a, b, regen] = await Promise.all([
-    sub(store, env, doc.id, 't1-a', () => judgeA(ctx, settings, doc, pp)),
-    sub(store, env, doc.id, 't1-b', () => judgeB(ctx, settings, doc, pp)),
-    sub(store, env, doc.id, 't1-regen', () => regenTest(ctx, settings, pp)),
-    rubric ? sub(store, env, doc.id, 'rubric', () => { const jm = judgeModel(settings, doc.mode); return gradeWith(ctx, 'rubric', jm.model, jm.effort, rubric, doc, pp); }) : Promise.resolve(null),
+    sub(store, env, doc.id, 't1-a', () => judgeAWithReuse(ctx, settings, doc, pp, plan)),
+    sub(store, env, doc.id, 't1-b', () => judgeBWithReuse(ctx, settings, doc, pp, plan)),
+    sub(store, env, doc.id, 't1-regen', () => regenWithReuse(ctx, settings, pp, plan)),
+    rubric && !rubricReused ? sub(store, env, doc.id, 'rubric', () => { const jm = judgeModel(settings, doc.mode); return gradeWith(ctx, 'rubric', jm.model, jm.effort, rubric, doc, pp); }) : Promise.resolve(null),
   ]);
   const t1: T1Out = { a, b, regen };
   const sig = signalsOf(prep, t1, null, null, doc.mode);
@@ -508,30 +611,36 @@ async function stageT1(ctx: CallCtx, env: Env, store: Store, settings: EngineSet
   else if (forensic || refused) targets = body(pp).map((s) => s.i);
   else if (gate1Passes(pp, sig, t)) targets = [];
   else targets = tier2Targets(pp, sig, t, false);
+  // Kalimat di paragraf tersimpan tidak pernah dikirim lagi ke AI (biaya perusahaan 0 untuk bagian lama).
+  if (plan) targets = targets.filter((i) => !plan.pars[pp.sentences[i]!.par]);
   await store.put(subKey(doc.id, 't2-targets'), { targets });
-  const skipped = targets.length ? [] : ['t2', 't3'];
-  return { stage: targets.length ? 't2' : 'fuse', t2n: targets.length, skipped };
+  const next = targets.length > 0 || hasCached(plan, 't2');
+  return { stage: next ? 't2' : 'fuse', t2n: targets.length, skipped: next ? [] : ['t2', 't3'] };
 }
 
 async function stageT2(ctx: CallCtx, env: Env, store: Store, settings: EngineSettings, doc: CheckDoc): Promise<Partial<CheckDoc>> {
   const prep = (await readSub<PrepOut>(store, env, doc.id, 'prep'))!;
+  const plan = await reusePlanOf(env, store, settings, doc, prep);
   const { targets } = (await store.get<{ targets: number[] }>(subKey(doc.id, 't2-targets'))) ?? { targets: [] };
-  const t2 = await sub(store, env, doc.id, 't2', () => escalate(ctx, 't2', settings.models.t2, settings.effort.t2, doc, prep.pp, targets));
+  const t2 = await sub(store, env, doc.id, 't2', () => escalateWithReuse(ctx, 't2', settings.models.t2, settings.effort.t2, doc, prep.pp, targets, plan));
   const t1: T1Out = {
     a: (await readSub<JudgeAOut>(store, env, doc.id, 't1-a'))!,
     b: (await readSub<JudgeBOut>(store, env, doc.id, 't1-b'))!,
     regen: (await readSub<T1Out['regen']>(store, env, doc.id, 't1-regen')) ?? { p: null, overlaps: [] },
   };
   const sig = signalsOf(prep, t1, t2, null, doc.mode);
-  const t3 = tier3Targets(prep.pp, sig, settings.thresholds, doc.mode === 'forensic', doc.mode === 'forensic' ? 100_000 : settings.maxOpusSentences);
+  let t3 = tier3Targets(prep.pp, sig, settings.thresholds, doc.mode === 'forensic', doc.mode === 'forensic' ? 100_000 : settings.maxOpusSentences);
+  if (plan) t3 = t3.filter((i) => !plan.pars[prep.pp.sentences[i]!.par]);
   await store.put(subKey(doc.id, 't3-targets'), { targets: t3 });
-  return { stage: t3.length ? 't3' : 'fuse', t3n: t3.length, skipped: t3.length ? [] : ['t3'] };
+  const next = t3.length > 0 || hasCached(plan, 't3');
+  return { stage: next ? 't3' : 'fuse', t3n: t3.length, skipped: next ? [] : ['t3'] };
 }
 
 async function stageT3(ctx: CallCtx, env: Env, store: Store, settings: EngineSettings, doc: CheckDoc): Promise<Partial<CheckDoc>> {
   const prep = (await readSub<PrepOut>(store, env, doc.id, 'prep'))!;
+  const plan = await reusePlanOf(env, store, settings, doc, prep);
   const { targets } = (await store.get<{ targets: number[] }>(subKey(doc.id, 't3-targets'))) ?? { targets: [] };
-  await sub(store, env, doc.id, 't3', () => escalate(ctx, 't3', settings.models.t3, settings.effort.t3, doc, prep.pp, targets));
+  await sub(store, env, doc.id, 't3', () => escalateWithReuse(ctx, 't3', settings.models.t3, settings.effort.t3, doc, prep.pp, targets, plan));
   return { stage: 'fuse' };
 }
 
@@ -692,9 +801,11 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
   const lines: NonNullable<ReportSummary['usage']>['lines'] = [];
   // Sumber kebenaran biaya = log per panggilan (termasuk panggilan yang terulang karena koneksi putus).
   let realCost = 0;
+  const raw: RawLine[] = [];
   for await (const k of store.keys(`l/cu/${doc.id}/`)) {
     const u = await store.get<{ tier: string; model: string; in: number; out: number; cacheRead: number; cost: number }>(k.key);
     if (!u) continue;
+    raw.push(u);
     realCost += u.cost || 0;
     const rate = rates[u.model.replace(/-\d{8}$/, '')];
     // Model fallback di luar tarif standar: token dihitung langsung dari biaya nyatanya (rumus yang sama).
@@ -703,10 +814,37 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
   }
   lines.reverse();
   doc = { ...doc, cost: Math.max(doc.cost, realCost) };
+  // Hasil tersimpan (MASTER-BLUEPRINT §26): tidak ada panggilan AI untuk bagian lama (biaya perusahaan 0). Member yang sama
+  // membayar `reusePct` % dari harga normalnya; member lain membayar harga normal.
+  const plan = doc.bench || doc.noReuse ? null : await readSub<ReusePlan>(store, env, doc.id, 'reuse');
+  const reused = reuseLines(plan, rates, billing, billing.reusePct);
+  const freshCount = lines.length;
+  lines.push(...reused.lines);
+  const rubricSrc = await store.get<{ report?: string }>(subKey(doc.id, 'rubric-src'));
+  if (rubricSrc?.report) {
+    const src = await store.get<ReportSummary>(reportKey(rubricSrc.report));
+    for (const l of src?.usage?.lines ?? []) {
+      if (!l.tier.startsWith('rubric')) continue;
+      const rate = rates[l.model.replace(/-\d{8}$/, '')];
+      const full = rate ? lineTokens(rate, l.in, l.out, l.cache) : l.tokens;
+      lines.push({ tier: 'reuse-own', model: l.model, in: l.in, out: l.out, cache: l.cache, tokens: Math.round(full * billing.reusePct) / 100 });
+      reused.savedUsd += full * billing.tokenUnitUsd;
+    }
+  }
   const exact = Math.round(lines.reduce((a, l) => a + l.tokens, 0) * 100) / 100;
-  const priced = Math.max(lines.length ? 1 : 0, Math.ceil(exact));
+  const priced = Math.max(freshCount ? 1 : 0, Math.ceil(exact - 1e-9));
   // Tidak pernah melebihi pesanan; pesanan sudah ≥ batas biaya mutlak sehingga perusahaan tetap untung.
   const tokens = doc.reserved > 0 ? Math.min(doc.reserved, priced) : priced;
+  // Cek Gratis: halaman yang pernah diperiksa member ini sendiri dihitung `reusePct` % (sisa kuota kembali).
+  let freePages = doc.free?.pages;
+  if (doc.free && plan && plan.words.own > 0 && plan.words.total > 0) {
+    const ratio = (plan.words.total - plan.words.own + (plan.words.own * billing.reusePct) / 100) / plan.words.total;
+    const pages = Math.max(0, Math.ceil(doc.free.pages * ratio - 1e-9));
+    if (pages < doc.free.pages) {
+      await trimFreePages(store, doc.uid, doc.free.periodKey, doc.id, pages);
+      freePages = pages;
+    }
+  }
   const { items: prior } = await store.list(`i/hash/${doc.uid}/${prep.hash.slice(0, 32)}/`, { limit: 50 });
   const reportId = doc.reportId ?? newId('rpt');
   const code = verifyCode();
@@ -715,7 +853,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     checkId: doc.id,
     uid: doc.uid,
     batchId: doc.batchId,
-    free: doc.free ? { pages: doc.free.pages, partialOf: doc.free.partialOf } : undefined,
+    free: doc.free ? { pages: freePages ?? doc.free.pages, partialOf: doc.free.partialOf } : undefined,
     createdAt: Date.now(),
     title: doc.title,
     author: doc.author,
@@ -758,6 +896,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     tokens: doc.free ? 0 : tokens,
     usage: { lines, rates, exact, reserved: doc.reserved, charged: doc.reserve && 'tokens' in doc.reserve ? tokens : 0, refunded: doc.reserve && 'tokens' in doc.reserve ? Math.max(0, doc.reserved - tokens) : 0 },
     samePrior: prior.filter((x) => x.id !== reportId).length,
+    reuseOwn: plan && plan.words.own > 0 ? { words: plan.words.own, pct: billing.reusePct } : undefined,
     enc: await seal(master(env), detail),
   };
   const created = await store.createOnce(reportKey(reportId), summary);
@@ -780,8 +919,33 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
       });
     }
   }
+  // Simpan hasil per paragraf untuk dipakai ulang (bukan uji mesin; tidak bila AI menolak atau ada upaya menyisipkan perintah).
+  let rx = doc.rx;
+  if (!doc.bench && all.t1 && !all.t1.a.refused && !all.t1.b.refused && !all.t1.a.injection && !all.t1.b.injection) {
+    try {
+      const ek = plan?.ek ?? (await engineKey(settings, doc.mode, Boolean(doc.free)));
+      const hashes: Record<number, string> = plan?.hashes ?? Object.fromEntries(await Promise.all(bodyParagraphs(pp).map(async (p) => [p.i, await paraHash(p.text)] as const)));
+      const t2t = (await store.get<{ targets: number[] }>(subKey(doc.id, 't2-targets')))?.targets ?? [];
+      const t3t = (await store.get<{ targets: number[] }>(subKey(doc.id, 't3-targets')))?.targets ?? [];
+      const entries = buildEntries(pp, plan, hashes, {
+        a: all.t1.a.sentences, b: all.t1.b.paragraphs, t2: all.t2?.sentences ?? null, t3: all.t3?.sentences ?? null,
+        d: { a: all.t1.a.doc, b: all.t1.b.doc, t2: all.t2?.doc ?? null, t3: all.t3?.doc ?? null }, t2Targets: t2t, t3Targets: t3t,
+      }, raw, doc.id);
+      const now = Date.now();
+      const whole = !plan || plan.words.own + plan.words.other === 0;
+      const docEntry = whole ? { v: 1 as const, src: doc.id, at: now, regen: all.t1.regen.p, style: all.t1.b.styleNote ? { [doc.reportLang]: all.t1.b.styleNote } : {} } : null;
+      const list = await saveReuse(store, { ek, uid: doc.uid, checkId: doc.id, createdAt: doc.createdAt, docHash: prep.hash, hashes, entries, doc: docEntry, rubric: doc.rubricId, reportLang: doc.reportLang });
+      rx = { ek, list };
+    } catch (err) {
+      console.error('reuse save', err); // laporan tetap selesai; hanya kesempatan menghemat yang hilang
+    }
+  }
   const charged = doc.reserve && 'tokens' in doc.reserve ? final.tokens : 0;
-  return { stage: 'done', reportId: final.id, tokens: final.tokens, charged, cost: doc.cost, analyzedWords: pp.analyzedWords };
+  return {
+    stage: 'done', reportId: final.id, tokens: final.tokens, charged, cost: doc.cost, analyzedWords: pp.analyzedWords, rx,
+    free: doc.free ? { ...doc.free, pages: freePages ?? doc.free.pages } : undefined,
+    reuse: plan ? { own: plan.words.own, other: plan.words.other, savedUsd: Math.round(reused.savedUsd * 1e6) / 1e6, pct: billing.reusePct } : undefined,
+  };
 }
 
 /**
@@ -800,7 +964,19 @@ export async function settleCheck(env: Env, store: Store, doc: CheckDoc): Promis
   // Cek Gratis yang gagal: halaman kuotanya kembali (idempoten).
   if (doc.free && doc.stage === 'failed') await releaseFreePages(store, doc.uid, doc.free.periodKey, doc.id);
   if (await store.createOnce(`u/spend/${doc.id}`, { at: Date.now() })) {
-    await addSpend(store, doc.cost, doc.stage === 'done' ? doc.analyzedWords ?? 0 : 0);
+    const done = doc.stage === 'done';
+    await addSpend(store, doc.cost, done ? doc.analyzedWords ?? 0 : 0, done ? doc.reuse?.savedUsd ?? 0 : 0, done && doc.reuse ? doc.reuse.own + doc.reuse.other : 0);
+    // Rekap member, tidak pernah dihapus (MASTER-BLUEPRINT §27): token terpakai, biaya AI, penghematan.
+    if (!doc.bench) {
+      await addStats(store, doc.uid, `chk:${doc.id}`, {
+        checks: done ? 1 : 0,
+        freeChecks: done && doc.free ? 1 : 0,
+        tokensUsed: done && doc.reserve && 'tokens' in doc.reserve ? doc.charged ?? 0 : 0,
+        costUsd: doc.cost,
+        freeCostUsd: doc.free ? doc.cost : 0,
+        savedUsd: done ? doc.reuse?.savedUsd ?? 0 : 0,
+      });
+    }
     if (doc.free) await addFreeSpend(store, doc.cost);
     // Gagal setelah biaya AI terpakai: tidak ditagih ke member, tetapi dihitung — lebih dari 3 dalam 24 jam membuat
     // pemeriksaan baru member itu dijeda (checks.ts), dan admin melihatnya di audit log.

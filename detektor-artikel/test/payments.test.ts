@@ -78,7 +78,7 @@ test('rekening bawaan = rekening pembayaran ulyah.com; IDR & USD aktif', async (
   assert.ok(p.idrEnabled && p.usdEnabled && DEFAULT_PAYMENT.minDepositIdr > 0);
 });
 
-test(`pembersihan otomatis ${PURGE_DAYS} hari: hasil kerja & unggahan terhapus, catatan transaksi tetap`, async () => {
+test(`pembersihan otomatis ${PURGE_DAYS} hari: naskah & unggahan terhapus, riwayat member + catatan transaksi tetap`, async () => {
   const r2 = new FakeR2();
   const st = new Store(r2);
   const env = { DATA: r2 } as unknown as Env;
@@ -100,6 +100,9 @@ test(`pembersihan otomatis ${PURGE_DAYS} hari: hasil kerja & unggahan terhapus, 
   await st.put('c/batches/ses_old.json', { uid: 'u1', createdAt: old, settled: true });
   await st.put(`i/user-batches/u1/${invTs(old)}~ses_old`, {});
   await st.put('i/batch-items/ses_old/00001~chk_old', {});
+  await st.put('c/fp/ses_old/chk_old.json', { sig: [1, 2, 3] });
+  // Hasil tersimpan perusahaan (§26) — tidak pernah dihapus.
+  await st.put('x/p/ek1/abc.json', { v: 1, src: 'chk_old' });
   await schedulePurge(st, 'b', 'ses_old', old);
   // Bukti transfer lama pada pesanan yang sudah lunas.
   await st.put('c/orders/ord_old.json', { id: 'ord_old', status: 'credited', proofs: [{ key: 'f/proofs/ord_old/1.png', type: 'image/png' }] });
@@ -112,9 +115,16 @@ test(`pembersihan otomatis ${PURGE_DAYS} hari: hasil kerja & unggahan terhapus, 
 
   const res = await runPurge(env);
   assert.deepEqual(res, { checks: 1, batches: 1, proofs: 1 });
-  for (const k of ['c/checks/chk_old.json', 'c/checks/chk_old/t1.json', 'c/texts/chk_old.json', 'l/cu/chk_old/1.json', 'c/reports/rpt_old.json', 'c/verify/ABCD-EFGH.json', 'c/report-notes/rpt_old.json', `i/reports/${invTs(old)}~rpt_old`, `i/user-reports/u1/${invTs(old)}~rpt_old`, 'c/batches/ses_old.json', 'i/batch-items/ses_old/00001~chk_old', 'f/proofs/ord_old/1.png']) {
+  // Pemilik, 8 Nov 2026: hanya naskah & unggahan member yang dihapus; riwayat member dan cache perusahaan tidak pernah.
+  for (const k of ['c/checks/chk_old/t1.json', 'c/texts/chk_old.json', 'c/fp/ses_old/chk_old.json', 'f/proofs/ord_old/1.png']) {
     assert.equal(r2.m.has(k), false, `${k} terhapus`);
   }
+  for (const k of ['c/checks/chk_old.json', 'l/cu/chk_old/1.json', 'c/reports/rpt_old.json', 'c/verify/ABCD-EFGH.json', 'c/report-notes/rpt_old.json', `i/reports/${invTs(old)}~rpt_old`, `i/user-reports/u1/${invTs(old)}~rpt_old`, `i/user-checks/u1/${invTs(old)}~chk_old`, 'c/batches/ses_old.json', 'i/batch-items/ses_old/00001~chk_old', 'x/p/ek1/abc.json']) {
+    assert.ok(r2.m.has(k), `${k} tetap (riwayat / cache perusahaan)`);
+  }
+  const rep = (await st.get<{ purged?: boolean; purgedAt?: number; enc?: unknown }>('c/reports/rpt_old.json'))!;
+  assert.ok(rep.purged && rep.purgedAt && !rep.enc, 'laporan diberi penanda arsip, rincian berisi teks dibuang');
+  assert.ok((await st.get<{ purgedAt?: number }>('c/batches/ses_old.json'))!.purgedAt, 'sesi diberi penanda arsip');
   assert.ok(r2.m.has('c/wallets/u1.json'), 'saldo tetap');
   assert.ok(r2.m.has('c/checks/chk_new.json'), 'pekerjaan baru tetap');
   assert.ok(r2.m.has(`i/purge90/${purgeDate(Date.now())}/c~chk_new`), 'jadwal baru tetap menunggu');

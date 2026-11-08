@@ -1,15 +1,15 @@
 /**
  * Tugas terjadwal (Cron Triggers):
  *  - tiap menit: lanjutkan pemeriksaan yang ditinggal (tab ditutup) + selesaikan token sesi lomba;
- *  - 02.00 WIB: hapus teks yang masa simpannya habis, pembersihan otomatis 90 hari (hasil kerja & unggahan member),
+ *  - 02.00 WIB: hapus teks yang masa simpannya habis, pembersihan otomatis 90 hari (naskah & unggahan member; riwayat tetap),
  *    lalu backup harian ke bucket privat (35 hari).
  */
 import type { Env } from './env.ts';
 import { Store } from './lib/store.ts';
-import { advance, checkKey, reportKey, textKey, settleCheck, type CheckDoc, type ReportSummary } from './engine/cascade.ts';
+import { advance, checkKey, settleCheck, type CheckDoc } from './engine/cascade.ts';
 import { settleBatch } from './routes/checks.ts';
 import { wibDate } from './data/settings.ts';
-import { runPurge } from './data/purge.ts';
+import { runPurge, archiveCheck } from './data/purge.ts';
 import { repairDepositOps } from './data/deposit.ts';
 
 /** Pemeriksaan yang belum selesai 2 jam setelah dibuat dihentikan oleh sweep (token/kuota kembali utuh). */
@@ -100,7 +100,7 @@ export async function runBackup(env: Env, manual = false): Promise<void> {
   await store.put('k/backup-state.json', { at: Date.now(), date, copied, ok: !error, error, last: error ? state.last : Date.now(), manual });
 }
 
-/** Hapus teks naskah yang masa simpannya habis; angka laporan & kode verifikasi tetap. */
+/** Hapus teks naskah yang masa simpannya (pilihan member) habis; riwayat, angka laporan & kode verifikasi tetap. */
 export async function retention(env: Env): Promise<number> {
   const store = new Store(env.DATA);
   const today = wibDate();
@@ -110,10 +110,7 @@ export async function retention(env: Env): Promise<number> {
     if (!m) continue;
     if (m[1]! > today) break;
     const [, , checkId, reportId] = m as unknown as [string, string, string, string];
-    const stageKeys: string[] = [];
-    for await (const s of store.keys(`c/checks/${checkId}/`)) stageKeys.push(s.key);
-    await store.del([textKey(checkId), ...stageKeys]);
-    await store.cas<ReportSummary>(reportKey(reportId), (r) => (r && !r.purged ? { ...r, enc: undefined, purged: true } : null));
+    await archiveCheck(store, checkId, reportId);
     await store.del(k.key);
     purged += 1;
   }

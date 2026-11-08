@@ -159,6 +159,7 @@ const TIER_NAME: Record<string, { id: string; en: string }> = {
   t3: { id: 'Pemeriksaan terakhir', en: 'Final check' },
   rubric2: { id: 'Memeriksa ulang nilai', en: 'Double-checking the score' },
   rubric3: { id: 'Penentu nilai akhir', en: 'Deciding the final score' },
+  'reuse-own': { id: 'Hasil tersimpan Anda (pernah diperiksa)', en: 'Your stored result (checked before)' },
 };
 
 const modelName = (m: string) => (m.includes('haiku') ? 'Claude Haiku' : m.includes('sonnet') ? 'Claude Sonnet' : m.includes('opus') ? 'Claude Opus' : m.includes('fable') ? 'Claude Fable' : m);
@@ -182,6 +183,7 @@ export function usagePanel(L: Lang, s: ReportSummary): Raw {
       ? raw(`<li>${tr(L, `Sebelum AI bekerja, <b>${fmtNum(L, u.reserved)}</b> token dipesan dari saldo.`, `Before the AI started, <b>${fmtNum(L, u.reserved)}</b> tokens were reserved from the balance.`)}</li>`)
       : raw(`<li>${tr(L, 'Pemeriksaan ini tidak memotong saldo (akun admin, uji mesin, atau bagian dari sesi lomba yang diselesaikan sekaligus).', 'This check did not deduct from a balance (admin account, engine test, or part of a contest session settled at once).')}</li>`)}
     ${raw(`<li>${tr(L, `Setiap panggilan AI di bawah dihitung dari token masuk (teks yang dibaca model) dan token keluar (jawaban + berpikir) memakai tarif terbuka. Total tepat: <b>${fmtScore(L, u.exact)}</b> → dibulatkan ke atas <b>${fmtNum(L, Math.ceil(u.exact))}</b>.`, `Each AI call below is counted from input tokens (text the model reads) and output tokens (answer + thinking) using the public rates. Exact total: <b>${fmtScore(L, u.exact)}</b> → rounded up to <b>${fmtNum(L, Math.ceil(u.exact))}</b>.`)}</li>`)}
+    ${u.lines.some((l) => l.tier === 'reuse-own') ? raw(`<li data-reuse-line>${tr(L, `Baris <b>Hasil tersimpan Anda</b> = bagian naskah yang pernah Anda periksa dengan mesin yang sama: tidak ada panggilan AI baru, ditagih <b>${s.reuseOwn?.pct ?? 50}%</b> dari tarif. Token masuk/keluar di baris itu adalah pemakaian AI saat bagian itu pertama kali diperiksa.`, `Rows <b>Your stored result</b> = parts of the text you checked before with the same engine: no new AI call, charged <b>${s.reuseOwn?.pct ?? 50}%</b> of the rate. Their input/output tokens are the AI usage from when that part was first checked.`)}</li>`) : ''}
     ${u.reserved > 0 ? raw(`<li>${tr(L, `Ditagih <b>${fmtNum(L, u.charged)}</b> token (tidak pernah melebihi pesanan); <b>${fmtNum(L, u.refunded)}</b> token kembali ke saldo.`, `Charged <b>${fmtNum(L, u.charged)}</b> tokens (never more than the reservation); <b>${fmtNum(L, u.refunded)}</b> tokens returned to the balance.`)}</li>`) : ''}
   </ol>
   <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Tahap', 'Stage')}</th><th>Model</th><th class="n">${tr(L, 'Token masuk', 'Input tokens')}</th><th class="n">${tr(L, 'Token keluar', 'Output tokens')}</th><th class="n">Cache</th><th class="n">${tr(L, 'Token platform', 'Platform tokens')}</th></tr></thead>

@@ -167,6 +167,22 @@ export async function releaseFreePages(store: Store, uid: string, periodKey: str
   );
 }
 
+/**
+ * Menurunkan halaman yang dipakai satu pemeriksaan (hasil tersimpan milik sendiri dihitung `reusePct` %, MASTER-BLUEPRINT
+ * §26). Hanya bisa turun, idempoten.
+ */
+export async function trimFreePages(store: Store, uid: string, periodKey: string, checkId: string, pages: number): Promise<void> {
+  await store.cas<FreeUsage>(
+    usageKey(uid, periodKey),
+    (cur) => {
+      const had = cur?.checks[checkId];
+      if (!cur || had === undefined || pages >= had) return null;
+      return { used: Math.max(0, cur.used - (had - pages)), checks: { ...cur.checks, [checkId]: Math.max(0, pages) } };
+    },
+    'Kuota gratis',
+  );
+}
+
 /* ── anti-curang ────────────────────────────────────────────────────────────────────────────────────────────────── */
 
 /** Domain e-mail sekali pakai yang paling umum: akun dengan e-mail ini tidak mendapat kuota gratis. */

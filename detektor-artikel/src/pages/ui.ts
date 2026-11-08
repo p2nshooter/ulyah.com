@@ -170,6 +170,7 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
           ['/admin/laporan', '▤', tr(L, 'Laporan', 'Reports'), 'reports'],
           ['/admin/biaya', '＄', tr(L, 'Biaya API', 'API cost'), 'cost'],
+          ['/admin/keuangan', '📒', tr(L, 'Token & laba', 'Tokens & profit'), 'finance'],
           ['/admin/audit', '⌁', tr(L, 'Audit & cadangan', 'Audit & backups'), 'audit'],
           ['/admin/panduan', '📘', tr(L, 'Panduan admin', 'Admin guide'), 'guide'],
         ]
@@ -267,8 +268,8 @@ export function words(L: Lang, n: number): string {
 
 /** Pemberitahuan pembersihan otomatis (pemilik, 2 Nov 2026). */
 export function purgeNotice(L: Lang, compact = false): Raw {
-  const t = tr(L, `Semua hasil kerja (laporan, naskah, sesi lomba/kelas) dan berkas yang Anda unggah dihapus otomatis ${PURGE_DAYS} hari setelah dibuat. Unduh atau cetak laporan yang ingin disimpan. Catatan transaksi (invoice, saldo) tetap disimpan.`, `All your work (reports, texts, contest/class sessions) and the files you upload are deleted automatically ${PURGE_DAYS} days after they are created. Download or print the reports you want to keep. Transaction records (invoices, balances) are kept.`);
-  return compact ? html`<p class="muted small notice-purge noprint">🗓 ${t}</p>` : html`<div class="notice-purge noprint" role="note">🗓 <b>${tr(L, `Dibersihkan otomatis setiap ${PURGE_DAYS} hari.`, `Cleaned automatically after ${PURGE_DAYS} days.`)}</b> ${t}</div>`;
+  const t = tr(L, `Naskah, rincian per kalimat, dan berkas yang Anda unggah dihapus otomatis ${PURGE_DAYS} hari setelah dibuat. Riwayat kerja Anda — tanggal, judul, angka hasil, nilai, token, dan kode verifikasi — tidak pernah dihapus; laporan lama diberi tanda Arsip. Catatan transaksi (invoice, saldo) tetap disimpan.`, `Texts, per-sentence detail and the files you upload are deleted automatically ${PURGE_DAYS} days after they are created. Your work history — date, title, result figures, score, tokens and verification code — is never deleted; older reports are marked Archive. Transaction records (invoices, balances) are kept.`);
+  return compact ? html`<p class="muted small notice-purge noprint">🗓 ${t}</p>` : html`<div class="notice-purge noprint" role="note">🗓 <b>${tr(L, `Naskah dibersihkan otomatis setelah ${PURGE_DAYS} hari; riwayat tetap.`, `Texts are cleaned after ${PURGE_DAYS} days; history stays.`)}</b> ${t}</div>`;
 }
 
 export function csrfField(token: string): Raw {

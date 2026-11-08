@@ -6,6 +6,8 @@ import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, pur
 import { PURPOSES, PURPOSE_INFO, pt, isPurpose } from '../lib/purpose.ts';
 import { getControls, engineAvailability } from '../data/controls.ts';
 import { FABLE_MODEL } from '../engine/pricing.ts';
+import { getStats, statsKey, type MemberStats } from '../data/stats.ts';
+import { rebuildStats } from '../data/stats-rebuild.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
 import { reportPages, usagePanel, rateTable, modePagesTable } from '../pages/report.ts';
 import { rateCard, predictByMode, packagePrice, tokenPriceIdr } from '../engine/pricing.ts';
@@ -15,7 +17,7 @@ import { getEngine, getBilling, measuredCostPer1k, getFree, type BillingSettings
 import { freeStatus } from '../data/free.ts';
 import { balanceOf, ledger } from '../data/wallet.ts';
 import { predictPages } from '../engine/pricing.ts';
-import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, RESULT_CACHE_DAYS, type Batch, type FreeChoice } from './checks.ts';
+import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, type Batch, type FreeChoice } from './checks.ts';
 import { checkKey, reportKey, textKey, type CheckDoc, type ReportDetail, type ReportSummary } from '../engine/cascade.ts';
 import { newId, unseal, verifyPassword, hashPassword, hmac } from '../lib/crypto.ts';
 import { invTs } from '../lib/store.ts';
@@ -143,6 +145,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
       <p class="muted small url-note">${tr(L, 'Hanya halaman publik; robots.txt situs dihormati. Mengambil teks tidak memotong token.', 'Public pages only; the site’s robots.txt is respected. Fetching the text costs no tokens.')}</p>
       <label class="field"><span>${tr(L, 'Atau tempel teks', 'Or paste the text')}</span><textarea name="text" rows="12" required data-wordcount="wc" data-estimate placeholder="${tr(L, 'Tempel naskah di sini…', 'Paste the text here…')}">${v.text ?? ''}</textarea></label>
       <div class="estimate" data-estimate-box aria-live="polite"><div><small class="muted">${tr(L, 'Panjang', 'Length')}</small><b><span id="wc">0</span> ${tr(L, 'kata', 'words')} · <span id="pg">0</span> ${tr(L, 'hal.', 'pages')}</b></div><div><small class="muted">${tr(L, 'Biaya nyata biasanya', 'Real cost usually')}</small><b><span id="estLo">—</span>–<span id="estTy">—</span> token</b></div><div><small class="muted">${tr(L, 'Dipesan dulu (sisa kembali)', 'Reserved first (rest returns)')}</small><b><span id="estRes">—</span> token</b></div><div><small class="muted">${tr(L, 'Saldo', 'Balance')}</small><b>${fmtNum(L, v.__balance ? Number(v.__balance) : 0)} token</b></div></div>
+      <p class="muted small" data-reuse-note>♻ ${tr(L, `Bagian naskah yang pernah Anda periksa dengan mesin yang sama dipakai lagi tanpa memanggil AI dan dihitung ${v.__reusePct ?? '50'}%; sisa pesanan kembali otomatis.`, `Parts of the text you already checked with the same engine are reused without calling the AI and count ${v.__reusePct ?? '50'}%; the rest of the reservation returns automatically.`)}</p>
       <p class="est-short warn" data-est-short hidden>${tr(L, 'Saldo kurang', 'Balance short by')} <b data-est-short-n>0</b> token — <a href="/app/token">${tr(L, 'isi saldo dulu', 'top up first')}</a> ${tr(L, 'atau pilih Cek Gratis / mesin yang lebih hemat.', 'or choose the Free Check / a cheaper engine.')}</p>
       <p class="muted small">${tr(L, 'Perkiraan dari server; pemakaian nyata tergantung model AI yang terpakai — sebagian besar naskah cukup diperiksa Haiku (paling hemat).', 'Estimates come from the server; real usage depends on the AI models used — most texts only need Haiku (the most economical).')}</p>
     </div></section>
@@ -191,13 +194,14 @@ async function fableVars(c: Ctx): Promise<Record<string, string>> {
   const k = await getControls(store);
   const av = engineAvailability(k);
   const off = (['sonnet', 'opus', 'fable', 'forensic'] as const).filter((m) => !av[m]).join(',');
-  if (!av.fable) return { __fable: '0', __off: off };
+  const __reusePct = String((await getBilling(store)).reusePct);
+  if (!av.fable) return { __fable: '0', __off: off, __reusePct };
   const eng = await getEngine(store);
   const L = portalLang(c);
   const blend = (m: string) => (eng.prices[m] ? 3 * eng.prices[m]!.in + eng.prices[m]!.out : 0);
   const f = blend(FABLE_MODEL), o = blend(eng.models.t3), h = blend(eng.models.t1);
   const x = (n: number) => (n >= 10 ? String(Math.round(n)) : n.toLocaleString(L === 'en' ? 'en-US' : 'id-ID', { maximumFractionDigits: 1 }));
-  return { __fable: '1', __off: off, __fableX: o && h ? tr(L, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`) : '' };
+  return { __fable: '1', __off: off, __reusePct, __fableX: o && h ? tr(L, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`) : '' };
 }
 
 app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)), ...(await fableVars(c)) }, await freeView(c))));
@@ -213,8 +217,6 @@ app.post('/app/periksa', async (c) => {
   try {
     const freeQuota = f.mode === 'free' ? { partial: f.partial === '1', netHash: await netHashOf(c) } : undefined;
     const doc = await createCheck(c.env, c.get('store'), c.get('user')!, sanitizeInput(f, L), L, { freeQuota });
-    // Hasil dari cache (naskah + pengaturan sama dalam 7 hari): langsung ke laporan lama, tanpa biaya.
-    if (doc.stage === 'done' && doc.reportId) return c.redirect(`/app/laporan/${doc.reportId}?cache=1`);
     return c.redirect(`/app/proses/${doc.id}`);
   } catch (err) {
     if (err instanceof FreeChoiceError) return c.html(checkForm(c, null, withBal, fv, err.choice), 409);
@@ -275,6 +277,14 @@ interface HistMeta {
 }
 
 /** Riwayat kerja: pencarian & filter di server atas indeks (maks. 1.000 entri terbaru). */
+/** Penanda riwayat (MASTER-BLUEPRINT §27): riwayat tidak pernah dihapus; setelah 90 hari hanya naskah & rinciannya. */
+function archiveMark(L: Lang, at: number): Raw {
+  const when = at + PURGE_DAYS * 86_400_000;
+  return when <= Date.now()
+    ? html`<br><span class="pill p-unk" data-archived title="${tr(L, 'Naskah dihapus otomatis; riwayat dan angka tetap', 'Text deleted automatically; history and figures kept')}">📦 ${tr(L, 'Arsip', 'Archive')} · ${fmtDate(L, when, false)}</span>`
+    : html`<br><small class="muted">${tr(L, `naskah s.d. ${fmtDate(L, when, false)}`, `text until ${fmtDate(L, when, false)}`)}</small>`;
+}
+
 async function history(c: Ctx, max = 1000) {
   const user = c.get('user')!;
   const qText = (c.req.query('q') ?? '').trim().toLowerCase();
@@ -316,7 +326,7 @@ app.get('/app/laporan', async (c) => {
   ${items.length
     ? html`<div class="card reveal"><div class="tbl-wrap"><table class="tbl hover">
       <thead><tr><th>${tr(L, 'Judul', 'Title')}</th><th>${tr(L, 'Komposisi', 'Composition')}</th><th>Label</th><th class="n">${tr(L, 'Nilai', 'Score')}</th><th class="n">Token</th><th>${tr(L, 'Tanggal', 'Date')}</th></tr></thead>
-      <tbody>${items.map((it) => html`<tr data-href="/app/laporan/${it.id}"><td><a href="/app/laporan/${it.id}"><b>${it.meta.title}</b></a>${it.meta.author ? html`<br><small class="muted">${it.meta.author}</small>` : ''}</td><td class="w-bar">${compBar(it.meta)}<small class="muted">AI ${it.meta.ai}% · ${tr(L, 'Campuran', 'Mixed')} ${it.meta.mix}%</small></td><td>${labelPill(L, it.meta.label)}</td><td class="n">${it.meta.total !== null && it.meta.total !== undefined ? fmtScore(L, it.meta.total) : '—'}</td><td class="n">${it.meta.tokens ?? '—'}</td><td><small>${fmtDate(L, it.meta.at)}</small></td></tr>`)}</tbody>
+      <tbody>${items.map((it) => html`<tr data-href="/app/laporan/${it.id}"><td><a href="/app/laporan/${it.id}"><b>${it.meta.title}</b></a>${it.meta.author ? html`<br><small class="muted">${it.meta.author}</small>` : ''}</td><td class="w-bar">${compBar(it.meta)}<small class="muted">AI ${it.meta.ai}% · ${tr(L, 'Campuran', 'Mixed')} ${it.meta.mix}%</small></td><td>${labelPill(L, it.meta.label)}</td><td class="n">${it.meta.total !== null && it.meta.total !== undefined ? fmtScore(L, it.meta.total) : '—'}</td><td class="n">${it.meta.tokens ?? '—'}</td><td><small>${fmtDate(L, it.meta.at)}</small>${archiveMark(L, it.meta.at)}</td></tr>`)}</tbody>
     </table></div>
     <div class="pager"><span class="muted">${fmtNum(L, all.length)} ${tr(L, 'laporan', 'reports')}</span>${page_ > 1 ? html`<a class="btn btn-ghost btn-sm" href="/app/laporan${qs(page_ - 1)}">← ${tr(L, 'Sebelumnya', 'Previous')}</a>` : ''}${page_ * 25 < all.length ? html`<a class="btn btn-ghost btn-sm" href="/app/laporan${qs(page_ + 1)}">${tr(L, 'Berikutnya', 'Next')} →</a>` : ''}</div></div>`
     : empty('📄', qv || lv ? tr(L, 'Tidak ada yang cocok', 'Nothing matches') : tr(L, 'Belum ada laporan', 'No reports yet'), qv || lv ? tr(L, 'Ubah kata kunci atau filter.', 'Change the keyword or filter.') : tr(L, 'Laporan muncul di sini setelah pemeriksaan selesai.', 'Reports appear here once a check finishes.'), html`<a class="btn btn-primary" href="/app/periksa">${tr(L, 'Periksa naskah', 'Check a text')}</a>`)}
@@ -352,7 +362,9 @@ app.get('/app/laporan/:id', async (c) => {
   const note = await c.get('store').get<{ text: string; at: number }>(`c/report-notes/${s.id}.json`);
   const body = html`
   ${pageHead(s.title, `${fmtDate(L, s.createdAt)} · ${fmtNum(L, s.analyzedWords)} ${tr(L, 'kata dianalisis', 'words analysed')} · ${s.free ? tr(L, `Cek Gratis · ${s.free.pages} halaman kuota`, `Free Check · ${s.free.pages} quota pages`) : `${s.tokens} token`}`, html`<button class="btn btn-primary" type="button" data-print>🖨 ${tr(L, 'Cetak / simpan PDF', 'Print / save PDF')}</button>`)}
-  <p class="muted small noprint">🗓 ${tr(L, `Laporan ini dihapus otomatis pada ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} hari). Unduh atau cetak bila ingin menyimpannya.`, `This report is deleted automatically on ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} days). Download or print it to keep it.`)}</p>
+  ${s.purged
+    ? html`<p class="flash info noprint" data-archive-mark>📦 ${tr(L, `Arsip — dikerjakan ${fmtDate(L, s.createdAt, false)}; naskah dan rincian per kalimatnya dihapus otomatis pada ${fmtDate(L, s.purgedAt ?? s.createdAt + PURGE_DAYS * 86_400_000, false)}. Riwayat, angka hasil, nilai, token, dan kode verifikasinya tetap tersimpan selamanya.`, `Archive — done on ${fmtDate(L, s.createdAt, false)}; its text and per-sentence detail were deleted automatically on ${fmtDate(L, s.purgedAt ?? s.createdAt + PURGE_DAYS * 86_400_000, false)}. Its history, result figures, score, tokens and verification code are kept for good.`)}</p>`
+    : html`<p class="muted small noprint" data-archive-mark>🗓 ${tr(L, `Dikerjakan ${fmtDate(L, s.createdAt, false)}. Naskah dan rincian per kalimat dihapus otomatis pada ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} hari); riwayat dan angka hasilnya tetap tersimpan. Unduh atau cetak bila ingin menyimpan rinciannya.`, `Done on ${fmtDate(L, s.createdAt, false)}. The text and per-sentence detail are deleted automatically on ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} days); the history and result figures are kept. Download or print it to keep the detail.`)}</p>`}
   <div class="download-bar noprint reveal">
     <span class="muted">${tr(L, 'Unduh & simpan:', 'Download & keep:')}</span>
     <a class="chip-btn" href="/app/laporan/${s.id}/unduh.html" download>⬇ HTML ${tip(tr(L, 'Satu berkas mandiri yang indah, bisa dibuka tanpa internet.', 'One beautiful self-contained file that opens offline.'))}</a>
@@ -367,7 +379,7 @@ app.get('/app/laporan/:id', async (c) => {
     <p>${tr(L, 'Hasil ini dari mesin hemat (Claude Haiku) yang menilai per paragraf. Untuk hasil yang lebih memuaskan — penilaian per kalimat yang diperiksa ulang Sonnet dan Opus bila ragu, rubrik, kemiripan antar-naskah, dan laporan tanpa iklan — pakai Cek Lengkap.', 'This result comes from the economy engine (Claude Haiku), judged per paragraph. For a more thorough result — per-sentence judgements re-checked by Sonnet and Opus when in doubt, rubrics, cross-text similarity and an ad-free report — use the Full Check.')}</p>
     <div class="btn-row"><a class="btn btn-primary" href="/app/periksa">${tr(L, 'Cek Lengkap', 'Full Check')}</a><a class="btn btn-ghost" href="/app/token">${tr(L, 'Isi saldo', 'Top up')}</a></div>
   </section>` : ''}
-  ${c.req.query('cache') ? html`<div class="flash ok reveal" data-cache-hit>✓ ${tr(L, `Naskah dan pengaturan yang sama sudah diperiksa dalam ${RESULT_CACHE_DAYS} hari terakhir — hasil ini dipakai lagi tanpa memotong token atau kuota. Untuk menilai ulang secara penuh, pakai „Ajukan tinjauan“.`, `The same text with the same settings was checked in the last ${RESULT_CACHE_DAYS} days — this result is reused without spending tokens or quota. For a full re-assessment, use “Request review”.`)}</div>` : ''}
+  ${s.reuseOwn && s.reuseOwn.words > 0 ? html`<div class="flash ok reveal" data-reuse-own>♻ ${tr(L, `${fmtNum(L, s.reuseOwn.words)} kata naskah ini (${Math.round((s.reuseOwn.words * 100) / Math.max(1, s.analyzedWords))}%) pernah Anda periksa dengan mesin yang sama, jadi hasil tersimpannya dipakai lagi tanpa memanggil AI dan ${s.free ? 'halaman kuotanya' : 'tokennya'} dihitung ${s.reuseOwn.pct}%. Untuk menilai ulang dari awal, pakai „Ajukan tinjauan“ atau pilih mesin lain.`, `${fmtNum(L, s.reuseOwn.words)} words of this text (${Math.round((s.reuseOwn.words * 100) / Math.max(1, s.analyzedWords))}%) were checked by you before with the same engine, so the stored result was reused without calling the AI and ${s.free ? 'its quota pages count' : 'its tokens count'} at ${s.reuseOwn.pct}%. To re-assess from scratch, use “Request review” or choose another engine.`)}</div>` : ''}
   ${s.samePrior > 0 ? html`<div class="flash info reveal">ⓘ ${tr(L, `Teks yang sama persis sudah ${s.samePrior}× diperiksa akun ini sebelumnya. Semua hasil tetap tersimpan di riwayat.`, `The exact same text was checked ${s.samePrior}× before by this account. Every result stays in the history.`)}</div>` : ''}
   ${s.revoked ? html`<div class="flash err reveal">⚠ ${tr(L, 'Laporan ini dicabut admin.', 'This report was revoked by the admin.')}</div>` : ''}
   ${guide(L, 'report', tr(L, 'Cara membaca laporan ini', 'How to read this report'), [
@@ -627,6 +639,8 @@ app.get('/app/token', async (c) => {
     getEngine(store), getBilling(store), measuredCostPer1k(store), balanceOf(store, user.id), ledger(store, user.id, 25),
     getPayment(store), depositBalance(store, user.id), depositLedger(store, user.id, 15),
   ]);
+  // Rekap pemakaian & pembayaran member sendiri (MASTER-BLUEPRINT §27) — tanpa biaya AI atau laba (rahasia perusahaan).
+  const mine = (await store.get<MemberStats>(statsKey(user.id)))?.rebuiltAt ? await getStats(store, user.id) : await rebuildStats(store, user.id);
   const { items: oi } = await store.list(`i/user-orders/${user.id}/`, { limit: 6 });
   const orders: Order[] = [];
   for (const it of oi) {
@@ -645,6 +659,15 @@ app.get('/app/token', async (c) => {
     <div class="stat stat-hero reveal"><span class="stat-k">${tr(L, 'Saldo deposit (Rupiah)', 'Deposit balance (Rupiah)')}</span><b class="stat-v">Rp ${fmtNum(L, dep)}</b><p class="predict">${tr(L, `≈ ${fmtNum(L, Math.floor(dep / tp))} token bila ditukar sekarang (1 token = Rp ${fmtNum(L, tp)})`, `≈ ${fmtNum(L, Math.floor(dep / tp))} tokens if converted now (1 token = Rp ${fmtNum(L, tp)})`)}</p></div>
   </div>
   ${noCashNotice(L)}
+  <section class="card reveal" data-my-stats><h3>${tr(L, 'Riwayat pemakaian & pembayaran Anda', 'Your usage & payment history')}</h3>
+    <div class="grid g4">
+      ${stat(tr(L, 'Sudah dibayar', 'Paid so far'), `Rp ${fmtNum(L, mine.paidIdr)}`, mine.paidUsd ? `+ US$ ${fmtNum(L, mine.paidUsd, 2)}` : undefined)}
+      ${stat(tr(L, 'Token dibeli', 'Tokens bought'), fmtNum(L, mine.tokensBought))}
+      ${stat(tr(L, 'Token terpakai', 'Tokens used'), fmtNum(L, mine.tokensUsed))}
+      ${stat(tr(L, 'Pemeriksaan selesai', 'Checks completed'), fmtNum(L, mine.checks), mine.freeChecks ? tr(L, `${fmtNum(L, mine.freeChecks)} di antaranya Cek Gratis`, `${fmtNum(L, mine.freeChecks)} of them Free Checks`) : undefined)}
+    </div>
+    <p class="muted small">${mine.firstAt ? tr(L, `Sejak ${fmtDate(L, mine.firstAt, false)}. Riwayat ini tidak pernah dihapus.`, `Since ${fmtDate(L, mine.firstAt, false)}. This history is never deleted.`) : tr(L, 'Belum ada pemakaian. Riwayat ini tidak pernah dihapus.', 'No usage yet. This history is never deleted.')}</p>
+  </section>
   <h2 class="reveal" id="paket">${tr(L, 'Paket token', 'Token packages')}</h2>
   <div class="grid g4 plans">${billing.packages.map((p) => {
     const pr = predictPages(p.tokens, billing, eng, measured);
@@ -710,7 +733,7 @@ app.get('/app/pengaturan', async (c) => {
     <form method="post" action="/app/pengaturan" class="card form reveal"><h3>${tr(L, 'Profil & privasi', 'Profile & privacy')}</h3>
       <label class="field"><span>${tr(L, 'Nama', 'Name')}</span><input name="name" value="${user.name}" maxlength="80" required></label>
       <label class="field"><span>${tr(L, 'Bahasa portal', 'Portal language')}</span><select name="lang"><option value="id" ${user.lang === 'id' ? 'selected' : ''}>Bahasa Indonesia</option><option value="en" ${user.lang === 'en' ? 'selected' : ''}>English</option></select></label>
-      <label class="field"><span>${tr(L, 'Masa simpan teks', 'Text retention')} ${tip(tr(L, `Setelah masa ini teks naskah dihapus lebih awal. Laporan lengkap tetap dihapus otomatis setelah ${PURGE_DAYS} hari.`, `After this the text is deleted early. The full report is still deleted automatically after ${PURGE_DAYS} days.`))}</span><select name="retention">${[0, 7, 30, 90].map((d) => html`<option value="${d}" ${ret === d ? 'selected' : ''}>${d === 0 ? tr(L, 'Hapus segera setelah laporan jadi', 'Delete as soon as the report is ready') : `${d} ${tr(L, 'hari', 'days')}`}</option>`)}</select></label>
+      <label class="field"><span>${tr(L, 'Masa simpan teks', 'Text retention')} ${tip(tr(L, `Setelah masa ini teks naskah dan rincian per kalimatnya dihapus lebih awal (paling lama ${PURGE_DAYS} hari). Riwayat kerja dan angka hasilnya tidak pernah dihapus.`, `After this the text and its per-sentence detail are deleted early (at most ${PURGE_DAYS} days). Your work history and result figures are never deleted.`))}</span><select name="retention">${[0, 7, 30, 90].map((d) => html`<option value="${d}" ${ret === d ? 'selected' : ''}>${d === 0 ? tr(L, 'Hapus segera setelah laporan jadi', 'Delete as soon as the report is ready') : `${d} ${tr(L, 'hari', 'days')}`}</option>`)}</select></label>
       <button class="btn btn-primary" type="submit">${tr(L, 'Simpan', 'Save')}</button></form>
     <form method="post" action="/app/pengaturan/sandi" class="card form reveal"><h3>${tr(L, 'Ganti sandi', 'Change password')}</h3>
       <label class="field"><span>${tr(L, 'Sandi lama', 'Current password')}</span><input type="password" name="old" required autocomplete="current-password"></label>

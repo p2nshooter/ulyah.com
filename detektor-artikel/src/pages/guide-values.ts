@@ -26,6 +26,7 @@ export async function guideValues(store: Store): Promise<GuideValues> {
     purgeDays: PURGE_DAYS,
     tz: TZ[f.resetTz] ?? [f.resetTz, f.resetTz],
     engines: { sonnet: av.sonnet, opus: av.opus, fable: av.fable },
+    reusePct: b.reusePct,
     packages: b.packages.map((p) => ({ name: [p.name.id, p.name.en] as const, tokens: p.tokens, discountPct: p.discountPct, idr: packagePrice(p, b, eng).idr })),
   };
 }

@@ -1,17 +1,19 @@
 /**
- * Pembersihan otomatis 90 hari (pemilik, 2 Nov 2026): „seluruh hasil kerja client atau upload client akan di
- * bersihkan otomatis setiap 90 hari".
+ * Pembersihan otomatis 90 hari (pemilik, 2 Nov 2026: „seluruh hasil kerja client atau upload client akan di bersihkan
+ * otomatis setiap 90 hari“), dipersempit 8 Nov 2026: „member saja yg d hapus, tp history member jgn pernah d hapus“ ·
+ * „Hasil kerja member history nya jgn di hapus, berikan saja penanda dr tgl dll yg pernah d kerjakan member“
+ * (docs/MASTER-BLUEPRINT.md §27).
  *
  * Saat sesuatu dibuat, satu entri jadwal ditulis (create-once) di `i/purge90/<tanggal hapus WIB>/<jenis>~<id>`.
- * Cron harian memproses semua tanggal ≤ hari ini:
- *  - c (pemeriksaan): teks naskah, tahap AI, log pemakaian, dokumen pemeriksaan, laporan + rinciannya, catatan,
- *    kode verifikasi, dan semua indeksnya;
- *  - b (sesi lomba/kelas): dokumen sesi, daftar naskah, sidik jari kemiripan;
+ * Cron harian memproses semua tanggal ≤ hari ini dan menghapus HANYA isi naskah & berkas member:
+ *  - c (pemeriksaan): teks naskah, tahap AI, rincian per kalimat (memuat teks) — laporan diberi penanda `purgedAt`;
+ *  - b (sesi lomba/kelas): sidik jari kemiripan (turunan teks) — sesi & rekap angkanya tetap;
  *  - p (bukti transfer): berkasnya dihapus; ringkasan pembayaran tetap di invoice (catatan keuangan).
- * Yang TIDAK dihapus: akun, saldo & buku besar token/deposit, pesanan & invoice — catatan transaksi.
+ * Yang TIDAK pernah dihapus: riwayat hasil kerja (daftar laporan, judul, tanggal, mesin, persen, label, nilai, token, kode
+ * verifikasi, catatan, sesi), akun, saldo & buku besar, pesanan & invoice, log biaya, dan hasil tersimpan perusahaan (§26).
  */
 import type { Env } from '../env.ts';
-import { Store, invTs } from '../lib/store.ts';
+import { Store } from '../lib/store.ts';
 import { wibDate } from './settings.ts';
 import { checkKey, reportKey, textKey, type CheckDoc, type ReportSummary } from '../engine/cascade.ts';
 import { orderKey, type Order } from './orders.ts';
@@ -28,30 +30,20 @@ export async function schedulePurge(store: Store, kind: 'c' | 'b' | 'p', id: str
   await store.createOnce(`i/purge90/${purgeDate(createdAt)}/${kind}~${id}`, {});
 }
 
-async function keysUnder(store: Store, prefix: string): Promise<string[]> {
-  const out: string[] = [];
-  for await (const k of store.keys(prefix)) out.push(k.key);
-  return out;
+/** Menghapus isi naskah satu pemeriksaan dan memberi penanda arsip pada laporannya. Riwayat tetap. Aman diulang. */
+export async function archiveCheck(store: Store, checkId: string, reportId?: string, now = Date.now()): Promise<void> {
+  const del: string[] = [textKey(checkId)];
+  for await (const k of store.keys(`c/checks/${checkId}/`)) del.push(k.key);
+  await store.del(del);
+  if (reportId) await store.cas<ReportSummary>(reportKey(reportId), (r) => (r && (!r.purged || !r.purgedAt) ? { ...r, enc: undefined, purged: true, purgedAt: r.purgedAt ?? now } : null));
 }
 
 async function purgeCheck(store: Store, id: string): Promise<boolean> {
   const doc = await store.get<CheckDoc>(checkKey(id));
   // Pemeriksaan yang (sangat tidak mungkin) masih berjalan dilewati; dicoba lagi besok.
   if (doc && doc.stage !== 'done' && doc.stage !== 'failed' && doc.lease > Date.now()) return false;
-  const del: string[] = [textKey(id), checkKey(id), `i/active/${id}`, `u/review/${id}`];
-  del.push(...(await keysUnder(store, `c/checks/${id}/`)), ...(await keysUnder(store, `l/cu/${id}/`)));
-  if (doc) {
-    del.push(`i/user-checks/${doc.uid}/${invTs(doc.createdAt)}~${id}`, `i/user-active/${doc.uid}/${id}`);
-    if (doc.reportId) {
-      const r = await store.get<ReportSummary>(reportKey(doc.reportId));
-      del.push(reportKey(doc.reportId), `c/report-notes/${doc.reportId}.json`, `u/review/${doc.reportId}`);
-      if (r) {
-        del.push(`i/user-reports/${doc.uid}/${invTs(r.createdAt)}~${r.id}`, `i/reports/${invTs(r.createdAt)}~${r.id}`, `i/hash/${doc.uid}/${r.hash.slice(0, 32)}/${r.id}`);
-        if (r.verifyCode) del.push(`c/verify/${r.verifyCode}.json`);
-      }
-    }
-  }
-  await store.del(del);
+  await archiveCheck(store, id, doc?.reportId);
+  if (doc) await store.del([`i/active/${id}`, `i/user-active/${doc.uid}/${id}`]);
   return true;
 }
 
@@ -59,10 +51,10 @@ async function purgeBatch(store: Store, id: string): Promise<boolean> {
   const b = await store.get<{ uid: string; createdAt: number; settled?: boolean }>(`c/batches/${id}.json`);
   // Sesi yang tokennya belum diselesaikan dilewati dulu (cron tiap menit menyelesaikannya).
   if (b && !b.settled && (await store.get(`i/open-batches/${id}`))) return false;
-  const del: string[] = [`c/batches/${id}.json`];
-  if (b) del.push(`i/user-batches/${b.uid}/${invTs(b.createdAt)}~${id}`);
-  del.push(...(await keysUnder(store, `i/batch-items/${id}/`)), ...(await keysUnder(store, `c/fp/${id}/`)));
+  const del: string[] = [];
+  for await (const k of store.keys(`c/fp/${id}/`)) del.push(k.key);
   await store.del(del);
+  if (b) await store.cas<{ purgedAt?: number }>(`c/batches/${id}.json`, (cur) => (cur && !cur.purgedAt ? { ...cur, purgedAt: Date.now() } : null));
   return true;
 }
 

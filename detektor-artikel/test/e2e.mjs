@@ -422,7 +422,10 @@ await m.screenshot({ path: `${OUT}/check-form.png`, fullPage: true });
   // Naskah 8 halaman normal (> maks. 5 per pemeriksaan): pemberitahuan + pilihan, bukan potongan diam-diam.
   await m.goto(BASE + '/app/periksa');
   ok(/sisa 4 dari 5/.test(await m.textContent('.free-mode')), 'kuota berkurang sesuai halaman normal: sisa 4');
-  await m.fill('textarea[name=text]', Array.from({ length: 19 }, () => ESSAY.trim()).join('\n\n'));
+  // Paragraf dibedakan dari Cek Gratis pertama (huruf awal tiap paragraf diubah kapital/kecil: jumlah halaman sama), supaya
+  // uji kuota di bawah tidak terpengaruh potongan „pernah diunggah“ (§26).
+  const ESSAY_B = ESSAY.trim().split(/\n\s*\n/).map((x) => (x[0] === x[0].toUpperCase() ? x[0].toLowerCase() : x[0].toUpperCase()) + x.slice(1)).join('\n\n');
+  await m.fill('textarea[name=text]', Array.from({ length: 19 }, () => ESSAY_B).join('\n\n'));
   await m.check('input[name=mode][value=free]');
   await m.fill('input[name=title]', 'Naskah panjang gratis');
   await m.check('input[name=agree]');
@@ -560,18 +563,96 @@ ok(js.signature.startsWith('hmac-sha256:') && js.data.report.id === rid, 'unduh 
 await m.goto(BASE + '/app/token');
 const after = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
 ok(after < tokAfterConv && after > 0, `token dipotong sesuai biaya nyata (sisa ${after})`);
-// Cache hasil (MASTER-BLUEPRINT §8.4): naskah + pengaturan sama dalam 7 hari → laporan lama, tanpa token.
+// Naskah yang pernah diunggah (MASTER-BLUEPRINT §26): member yang sama + mesin yang sama → tanpa panggilan AI, ditagih 50 %.
+const MOCK = 'http://127.0.0.1:8788/__calls';
+const nCalls = async () => (await (await fetch(MOCK)).json()).length;
+const firstExact = Number(js.data.report.usage.exact);
+const firstNonRubric = js.data.report.usage.lines.filter((l) => !l.tier.startsWith('rubric')).reduce((a, l) => a + l.tokens, 0);
+let callsBefore = await nCalls();
 await m.goto(BASE + '/app/periksa');
 await m.fill('textarea[name=text]', ESSAY);
 await m.fill('input[name=title]', 'Esai Literasi Digital (kirim ulang)');
+ok((await m.locator('[data-reuse-note]').count()) === 1 && /50%/.test(await m.textContent('[data-reuse-note]')), 'formulir menyebut potongan 50% untuk naskah yang pernah diperiksa');
 await m.check('input[name=agree]');
 await m.click('.check-form button[type=submit]');
-await m.waitForURL(/\/app\/laporan\/rpt_\w+\?cache=1/);
-ok(m.url().includes(`/app/laporan/${rid}?cache=1`) && (await m.locator('[data-cache-hit]').count()) === 1, 'naskah + pengaturan sama: laporan lama dipakai lagi dengan pemberitahuan');
+await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+ok((await nCalls()) === callsBefore, 'unggah ulang (member sama, mesin sama): tidak ada panggilan AI baru — biaya perusahaan 0');
+ok((await m.locator('[data-reuse-own]').count()) === 1, 'laporan: pemberitahuan hasil tersimpan milik sendiri');
+ok((await m.locator('[data-reuse-line]').count()) === 1 && (await m.locator('.usage tbody tr', { hasText: 'Hasil tersimpan Anda' }).count()) >= 1, 'rincian token: baris „Hasil tersimpan Anda“');
 await m.goto(BASE + '/app/token');
-ok(Number(await m.getAttribute('.stat-hero .stat-v', 'data-count')) === after, 'cache hasil: tidak ada token yang dipotong');
+const afterReuse = Number(await m.getAttribute('.stat-hero .stat-v', 'data-count'));
+ok(after - afterReuse > 0 && Math.abs(after - afterReuse - firstExact / 2) <= 1.5, `unggah ulang ditagih ±50%: ${after - afterReuse} token (pertama ${firstExact})`);
+ok((await m.locator('[data-my-stats]').count()) === 1 && !/biaya ai|laba|profit|markup/i.test(await m.textContent('[data-my-stats]')), 'portal member: riwayat pemakaian & pembayaran tanpa biaya AI/laba');
+// Sebagian sama: hanya paragraf baru yang dikirim ke AI.
+callsBefore = await nCalls();
+await m.goto(BASE + '/app/periksa');
+await m.fill('textarea[name=text]', `${ESSAY.trim()}\n\nParagraf tambahan ini baru ditulis untuk revisi kedua. Isinya menjelaskan langkah sekolah melatih murid memeriksa sumber berita setiap pekan, lalu mendiskusikannya bersama guru di kelas.`);
+await m.fill('input[name=title]', 'Esai Literasi Digital (revisi)');
+await m.check('input[name=agree]');
+await m.click('.check-form button[type=submit]');
+await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+ok((await nCalls()) > callsBefore && (await m.locator('[data-reuse-own]').count()) === 1, 'sebagian sama: paragraf baru diperiksa AI, sisanya hasil tersimpan');
+
+// Member lain mengunggah naskah yang sama: biaya normal, tanpa panggilan AI, tanpa tanda pernah diunggah orang lain.
+const mem2 = await ctx();
+await mem2.route(BASE + '/**', (route) => route.continue({ headers: { ...route.request().headers(), 'cf-connecting-ip': '10.9.8.66' } }));
+const m2 = await mem2.newPage();
+await m2.goto(BASE + '/daftar');
+await m2.fill('input[name=name]', 'Panitia Lain');
+await m2.fill('input[name=email]', 'panitia@example.com');
+await m2.fill('input[name=password]', 'sandi-panitia-123');
+await m2.check('input[name=agree]');
+await m2.click('form[action^="/daftar"] button[type=submit]');
+await m2.waitForURL(/\/app\?welcome=1/);
+await p.goto(BASE + '/admin/anggota?email=panitia%40example.com');
+await p.fill('form[action$="/kuota"] input[name=tokens]', '500');
+await p.fill('form[action$="/kuota"] input[name=note]', 'uji e2e');
+await p.click('form[action$="/kuota"] button[type=submit]');
+await p.waitForURL(/\?ok=1/);
+callsBefore = await nCalls();
+await m2.goto(BASE + '/app/periksa');
+await m2.fill('textarea[name=text]', ESSAY);
+await m2.fill('input[name=title]', 'Naskah peserta');
+await m2.selectOption('select[name=rubric]', '');
+await m2.check('input[name=agree]');
+await m2.click('.check-form button[type=submit]');
+await m2.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+ok((await nCalls()) === callsBefore, 'member lain, naskah sama, mesin sama: tanpa panggilan AI — biaya perusahaan 0');
+ok((await m2.locator('[data-reuse-own]').count()) === 0 && (await m2.locator('[data-reuse-line]').count()) === 0, 'member lain: tidak ada tanda naskah pernah diunggah orang lain');
+const m2rid = m2.url().split('/').pop().split('?')[0];
+const js2 = JSON.parse(await m2.evaluate(async (u) => (await fetch(u)).text(), `/app/laporan/${m2rid}/unduh.json`));
+ok(js2.data.report.usage.lines.every((l) => l.tier !== 'reuse-own') && Math.abs(js2.data.report.usage.exact - firstNonRubric) <= 0.6, `member lain: harga normal (${js2.data.report.usage.exact} ≈ ${firstNonRubric.toFixed(2)} token tanpa rubrik)`);
+ok(!('cost' in js2.data.report) && !JSON.stringify(js2).includes('reuse'), 'unduhan JSON tanpa biaya AI dan tanpa jejak hasil tersimpan');
+// Mesin lain = penilaian baru dengan biaya normal.
+callsBefore = await nCalls();
+await m2.goto(BASE + '/app/periksa');
+await m2.fill('textarea[name=text]', ESSAY);
+await m2.fill('input[name=title]', 'Naskah peserta (Haiku)');
+await m2.selectOption('select[name=rubric]', '');
+await m2.check('input[name=mode][value=haiku]');
+await m2.check('input[name=agree]');
+await m2.click('.check-form button[type=submit]');
+await m2.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+ok((await nCalls()) > callsBefore, 'mesin berbeda: diperiksa ulang oleh AI');
+// Admin: token keluar, dibayar, laba — per member dan total.
+await p.goto(BASE + '/admin/keuangan');
+ok((await p.locator('[data-finance-table] tr', { hasText: 'guru@example.com' }).count()) === 1 && (await p.locator('[data-finance-table] tr', { hasText: 'panitia@example.com' }).count()) === 1, 'Admin → Token & laba: baris per member');
+ok(/Laba kas/.test(await p.textContent('[data-member-stats]')) && /Token dikeluarkan/.test(await p.textContent('[data-member-stats]')), 'Admin → Token & laba: total token keluar, dibayar, laba');
+await p.click('[data-stats-rebuild] button');
+await p.waitForURL(/keuangan\?ok=1/);
+ok((await p.locator('[data-finance-table] tr', { hasText: 'guru@example.com' }).count()) === 1, 'hitung ulang rekap dari catatan: aman');
+ok(/Sisa token/.test(await p.textContent('[data-finance-table] thead')) && /Saldo → token/.test(await p.textContent('[data-finance-table] thead')), 'Token & laba: kolom sisa token, top-up, saldo→token, sisa saldo');
+await p.goto(BASE + '/admin/anggota?email=guru%40example.com');
+ok((await p.locator('[data-member-wallet]').count()) === 1 && /Sisa token/.test(await p.textContent('[data-member-wallet]')) && /Sisa saldo deposit/.test(await p.textContent('[data-member-wallet]')), 'Admin → member: sisa token, token terpakai, sisa saldo');
+ok(/isi saldo/.test(await p.textContent('[data-member-deposit]')) && /tukar ke token|beli paket dari deposit/.test(await p.textContent('[data-member-deposit]')), 'Admin → member: rincian top-up & konversi saldo ke token');
+ok((await p.locator('[data-member-orders] tbody tr').count()) >= 1, 'Admin → member: tabel pesanan & pembayaran');
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('[data-reuse-saved]').count()) === 1, 'Biaya API: kartu penghematan hasil tersimpan');
+await p.goto(BASE + '/admin/harga');
+ok((await p.locator('[data-reuse-setting] input[name=reusePct]').inputValue()) === '50', 'Admin → Harga: persen naskah pernah diunggah (bawaan 50)');
 await m.goto(BASE + '/app/laporan?q=literasi');
 ok((await m.locator('tbody tr').count()) >= 1, 'riwayat kerja: pencarian');
+ok(/naskah s\.d\./.test(await m.textContent('tbody')), 'riwayat kerja: penanda tanggal naskah dihapus (riwayat tetap)');
 const csv = await inPage('/app/laporan/ekspor.csv');
 ok(csv.status === 200 && csv.text.includes('Literasi'), 'ekspor riwayat CSV');
 await m.goto(`${BASE}/app/laporan/${rid}/cetak`);
