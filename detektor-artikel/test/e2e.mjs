@@ -108,6 +108,28 @@ async function ctx(opts = {}) {
 }
 
 // 1. Halaman publik ID & EN
+// Pasang di HP (PWA, pemilik 8 Nov 2026): manifest, service worker, spanduk paling atas yang hilang setelah terpasang.
+{
+  const man = await (await fetch(BASE + '/manifest.webmanifest')).json();
+  ok(/xscan\.es/.test(man.name) && man.display === 'standalone' && man.icons.length >= 2, 'PWA: manifest aplikasi (nama, ikon, standalone)');
+  ok((await fetch(BASE + man.icons[0].src)).ok && (await fetch(BASE + man.icons[1].src)).ok, 'PWA: ikon aplikasi tersedia');
+  const sw = await fetch(BASE + '/sw.js');
+  ok(sw.ok && /caches/.test(await sw.text()) && sw.headers.get('service-worker-allowed') === '/', 'PWA: service worker');
+  ok((await fetch(BASE + '/offline')).ok, 'PWA: halaman luring');
+  const pc = await ctx();
+  const pg = await pc.newPage();
+  await pg.goto(BASE + '/');
+  ok((await pg.locator('link[rel=manifest]').count()) === 1 && (await pg.locator('[data-pwa-bar]').isHidden()), 'PWA: spanduk pasang tersembunyi sampai peramban menawarkan pemasangan');
+  await pg.evaluate(() => { const e = new Event('beforeinstallprompt'); e.prompt = () => { window.__prompted = true; }; e.userChoice = Promise.resolve({ outcome: 'accepted' }); window.dispatchEvent(e); });
+  ok(await pg.locator('[data-pwa-bar]').isVisible() && await pg.locator('[data-pwa-install]').isVisible(), 'PWA: spanduk „Pasang di HP“ tampil di paling atas');
+  await pg.screenshot({ path: `${OUT}/pwa-bar.png` });
+  await pg.click('[data-pwa-install]');
+  await pg.waitForFunction(() => window.__prompted === true && document.querySelector('[data-pwa-bar]').hidden);
+  await pg.reload();
+  await pg.evaluate(() => window.dispatchEvent(new Event('appinstalled')));
+  ok(await pg.locator('[data-pwa-bar]').isHidden(), 'PWA: setelah dipasang, spanduk hilang');
+  await pc.close();
+}
 const pub = await ctx();
 let p = await pub.newPage();
 for (const path of ['/', '/en', '/cara-kerja', '/en/how-it-works', '/harga', '/en/pricing', '/akurasi', '/contoh-laporan', '/en/sample-report', '/kebijakan-privasi', '/syarat', '/penggunaan-etis', '/verifikasi', '/ads.txt', '/robots.txt']) {
@@ -438,6 +460,12 @@ await uploadProof(m, { name: 'bukti.png', mimeType: 'image/png', buffer: PNG }, 
 ok((await m.locator('.proofs li').count()) === 1, 'bukti transfer terunggah dan tampil');
 await p.goto(BASE + '/admin');
 ok(/1/.test(await p.textContent('a.flash.err')), 'admin: antrean bukti transfer muncul di dasbor');
+// Notifikasi admin (pemilik, 8 Nov 2026): lencana menu untuk bukti transfer yang belum dicek dan member baru.
+await p.waitForSelector('[data-badge="orders"]:not([hidden])');
+ok(Number(await p.textContent('[data-badge="orders"]')) >= 1 && !(await p.locator('[data-badge="members"]').isHidden()), 'notifikasi admin: lencana bukti transfer menunggu dicek + member baru');
+await p.goto(BASE + '/admin/anggota');
+const nb = await p.evaluate(async () => (await fetch('/api/admin/notifications')).json());
+ok(nb.members === 0 && nb.orders >= 1, 'membuka menu Anggota menandai member baru sudah dilihat; bukti transfer tetap menunggu sampai dicek');
 await p.goto(BASE + '/admin/pesanan');
 ok((await p.locator(`a[href="/admin/pesanan/${orderId}"]`).count()) >= 1, 'admin: pesanan ada di tab Perlu diperiksa');
 await p.goto(BASE + `/admin/pesanan/${orderId}`);

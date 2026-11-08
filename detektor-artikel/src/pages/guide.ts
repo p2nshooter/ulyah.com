@@ -68,6 +68,16 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       ],
     },
     {
+      id: 'pasang', icon: '📱', title: ['Pasang di HP seperti aplikasi', 'Install it on your phone like an app'],
+      steps: [
+        ['Buka situs ini di HP. Bila peramban menawarkannya, muncul spanduk Pasang di paling atas layar.', 'Open this site on your phone. When the browser offers it, an Install banner appears at the very top.'],
+        ['Tekan Pasang. Ikon aplikasi masuk ke layar utama dan terbuka penuh tanpa bilah alamat.', 'Press Install. The app icon lands on your home screen and opens full screen, without the address bar.'],
+        ['Di iPhone atau iPad, ketuk tombol Bagikan lalu pilih Tambahkan ke Layar Utama.', 'On an iPhone or iPad, tap the Share button and choose Add to Home Screen.'],
+        ['Setelah terpasang, spanduk itu tidak muncul lagi. Anda juga bisa menutupnya; spanduk baru muncul lagi seminggu kemudian.', 'Once installed, the banner stops appearing. You can also close it; it comes back a week later.'],
+        ['Data Anda tetap di server, bukan di HP: laporan dan saldo aman walau aplikasi dihapus.', 'Your data stays on the server, not on the phone: reports and balance are safe even if you remove the app.'],
+      ],
+    },
+    {
       id: 'gratis', icon: '🎁', title: ['Cek Gratis', 'The Free Check'],
       steps: v.freeOn
         ? [
@@ -266,6 +276,15 @@ export function adminGuide(): GuideSection[] {
         ['Tugas admin: memasang kunci API, menyetujui bukti transfer, mengatur harga dan kuota, serta memantau biaya.', 'The admin’s jobs: install the API key, approve transfer receipts, set prices and quotas, and watch costs.'],
         ['Setiap perubahan pengaturan tercatat di Audit, lengkap dengan nilai sebelum dan sesudahnya.', 'Every settings change is recorded under Audit, with the value before and after.'],
         ['Jangan pernah membagikan isi portal admin, kunci API, atau angka markup kepada siapa pun. Itu rahasia perusahaan.', 'Never share the admin portal contents, the API key or the markup figures with anyone. They are company secrets.'],
+      ],
+    },
+    {
+      id: 'a-notif', icon: '🔔', title: ['Notifikasi di menu admin', 'Notifications in the admin menu'],
+      steps: [
+        ['Angka merah di samping menu menunjukkan hal yang perlu perhatian. Diperbarui sendiri setiap menit.', 'A red number next to a menu shows what needs attention. It refreshes by itself every minute.'],
+        ['Pesanan dan bukti TF: jumlah bukti transfer yang menunggu dicek. Angkanya baru hilang setelah pesanan disetujui atau ditolak.', 'Orders and receipts: the number of transfer receipts waiting to be checked. It only clears once an order is approved or rejected.'],
+        ['Anggota, Laporan, dan Afiliasi: jumlah yang baru sejak menu itu terakhir Anda buka. Membuka menu itu mengembalikan angkanya ke nol.', 'Members, Reports and Affiliate: how many are new since you last opened that menu. Opening the menu sets it back to zero.'],
+        ['Tekan Aktifkan notifikasi di bawah menu agar perangkat juga menampilkan pemberitahuan selama portal terbuka.', 'Press Turn on notifications under the menu so your device also shows a notice while the portal is open.'],
       ],
     },
     {

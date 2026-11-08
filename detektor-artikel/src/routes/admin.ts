@@ -20,6 +20,7 @@ import { reportKey, checkKey, type ReportSummary, type CheckDoc } from '../engin
 import { invTs } from '../lib/store.ts';
 import { runBackup } from '../cron.ts';
 import { adminGuide, guideBody } from '../pages/guide.ts';
+import { adminBadges, markSeen, SEEN_BY_PATH } from '../data/notify.ts';
 import { getControls, normalizeControls, CONTROLS_DOC } from '../data/controls.ts';
 import { applyRouter, CAPABILITY, FABLE, type RouteNote } from '../engine/router.ts';
 
@@ -28,6 +29,15 @@ export const admin = new Hono<HonoEnv>();
 admin.use('/admin/*', guard);
 admin.use('/admin', guard);
 admin.use('/api/admin/*', guard);
+// Membuka menu Anggota / Laporan / Afiliasi menandai isinya sudah dilihat (lencana menu itu kembali nol).
+admin.use('/admin/*', async (c, next) => {
+  await next();
+  const key = SEEN_BY_PATH[new URL(c.req.url).pathname];
+  if (key && c.req.method === 'GET' && c.res.status === 200) await markSeen(c.get('store'), c.get('user')!.id, key);
+});
+
+/** Lencana notifikasi per menu (dibaca portal admin tiap 60 detik). */
+admin.get('/api/admin/notifications', async (c) => c.json(await adminBadges(c.get('store'), c.get('user')!.id), 200, { 'cache-control': 'no-store' }));
 
 async function guard(c: Ctx, next: () => Promise<void>) {
   const u = c.get('user');
