@@ -109,6 +109,11 @@ export function preprocess(raw: string): Prepped {
   const invisible = (text.match(INVISIBLE) ?? []).length;
   text = text.replace(INVISIBLE, '').replace(/[   ]/g, ' ').replace(/[ \t]+/g, ' ');
 
+  // Naskah tidak boleh membuka atau menutup blok prompt sendiri (<naskah>, <rubrik>, <target>): tanda „<“ di depan nama
+  // tag itu diganti „‹“, jadi teks member tetap utuh terbaca tetapi tidak pernah keluar dari blok data (pemilik, 7 Nov 2026:
+  // „Perketat logika engine agar tidak bocor dan tidak melebar kemana2“).
+  text = text.replace(/<(\s*\/?\s*)(naskah|rubrik|target|konteks)\b/gi, '‹$1$2');
+
   let blocks = text.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
   if (blocks.length === 1 && (blocks[0]!.match(/\n/g) ?? []).length >= 2) {
     blocks = blocks[0]!.split('\n').map((s) => s.trim()).filter(Boolean);

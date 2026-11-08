@@ -100,7 +100,7 @@ function publicNav(o: PageOpts): Raw {
       ${links.map(([href, label, key]) => html`<a href="${href}" class="${o.active === key ? 'on' : ''}">${label}</a>`)}
     </nav>
     <div class="nav-actions">
-      ${o.alt ? html`<a class="lang-switch" href="${o.alt}" hreflang="${L === 'id' ? 'en' : 'id'}" title="${tr(L, 'Ganti bahasa', 'Switch language')}"><b>${L === 'id' ? 'ID' : 'EN'}</b><span>${L === 'id' ? 'EN' : 'ID'}</span></a>` : ''}
+      ${o.alt ? html`<a class="lang-switch" href="/lang?to=${L === 'id' ? 'en' : 'id'}&amp;next=${encodeURIComponent(new URL(o.alt, 'https://x.invalid').pathname)}" rel="nofollow" hreflang="${L === 'id' ? 'en' : 'id'}" title="${tr(L, 'Ganti bahasa', 'Switch language')}"><b>${L === 'id' ? 'ID' : 'EN'}</b><span>${L === 'id' ? 'EN' : 'ID'}</span></a>` : ''}
       ${o.user
         ? html`<a class="btn btn-primary btn-sm" href="/app">${tr(L, 'Dasbor', 'Dashboard')}</a>`
         : html`<a class="btn btn-ghost btn-sm hide-sm" href="/masuk${L === 'en' ? '?lang=en' : ''}">${tr(L, 'Masuk', 'Log in')}</a><a class="btn btn-primary btn-sm" href="/daftar${L === 'en' ? '?lang=en' : ''}">${tr(L, 'Daftar', 'Sign up')}</a>`}
@@ -136,6 +136,7 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/benchmark', '◈', tr(L, 'Benchmark akurasi', 'Accuracy benchmark'), 'bench'],
           ['/admin/anggota', '👥', tr(L, 'Anggota', 'Members'), 'members'],
           ['/admin/harga', '％', tr(L, 'Harga & token', 'Pricing & tokens'), 'pricing'],
+          ['/admin/kuota-gratis', '🎁', tr(L, 'Kuota gratis', 'Free quota'), 'free'],
           ['/admin/pesanan', '🧾', tr(L, 'Pesanan & bukti TF', 'Orders & proofs'), 'orders'],
           ['/admin/pembayaran', '🏦', tr(L, 'Rekening pembayaran', 'Payment accounts'), 'payments'],
           ['/admin/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],

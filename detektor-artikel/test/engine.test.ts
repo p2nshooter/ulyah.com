@@ -214,3 +214,47 @@ test('pengaman tidak-rugi: pesanan ≥ biaya terburuk pada markup minimum, disko
     }
   }
 });
+
+test('kuota gratis: prediksi biaya 10 halaman per minggu dan 100 member (MASTER-BLUEPRINT §20.9)', async () => {
+  const { freeQuotaForecast, freeModel } = await import('../src/engine/pricing.ts');
+  const { DEFAULT_FREE } = await import('../src/data/settings.ts');
+  assert.equal(freeModel(DEFAULT_ENGINE), 'claude-haiku-5-5', 'Cek Gratis memakai Haiku termurah');
+  const f = freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100, DEFAULT_FREE);
+  // Haiku 5.5: US$0,10 masuk / US$0,50 keluar / US$0,01 cache per 1 juta token; kurs Rp16.500; 1 token = US$0,001.
+  assert.ok(Math.abs(f.worst.perPageUsd - 0.00073) < 1e-9, `terburuk per halaman ${f.worst.perPageUsd}`);
+  assert.ok(Math.abs(f.typical.perPageUsd - 0.000412) < 1e-9, `khas per halaman ${f.typical.perPageUsd}`);
+  assert.equal(f.worst.perMemberPeriodIdr, 120);
+  assert.equal(f.typical.perMemberPeriodIdr, 68);
+  assert.equal(f.worst.perMemberPeriodTokens, 8);
+  assert.equal(f.typical.perMemberPeriodTokens, 5);
+  assert.equal(f.worst.membersWeekIdr, 12045);
+  assert.equal(f.typical.membersWeekIdr, 6798);
+  assert.equal(f.worst.membersMonthIdr, 52195);
+  assert.equal(f.breakEven?.membersCoveredPerMonth, 180, 'satu paket Starter menutup ±180 member aktif sebulan');
+  assert.equal(f.budget.worstPagesPerDay, 6849);
+  assert.equal(freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 1000, DEFAULT_FREE).worst.membersWeekIdr, 120450, 'linear terhadap jumlah member');
+});
+
+test('kuota gratis dinamis: 5/minggu, 10/bulan, dan pengaturan yang bertentangan dinormalkan', async () => {
+  const { freeQuotaForecast } = await import('../src/engine/pricing.ts');
+  const { DEFAULT_FREE, normalizeFree } = await import('../src/data/settings.ts');
+  // 5 halaman per minggu: tepat separuh biaya 10 per minggu.
+  const five = freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100, normalizeFree({ ...DEFAULT_FREE, pages: 5 }));
+  assert.equal(five.worst.perMemberPeriodIdr, 60);
+  assert.equal(five.worst.membersWeekIdr, Math.round(0.00073 * 5 * 100 * 16500));
+  // 10 halaman per bulan: biaya sebulan = biaya seminggu dari 10/minggu; per minggu = ×12/52.
+  const month = freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100, normalizeFree({ ...DEFAULT_FREE, period: 'month', pages: 10 }));
+  assert.equal(month.worst.membersMonthIdr, 12045);
+  assert.equal(month.worst.membersWeekIdr, Math.round((0.0073 * 100 * 16500 * 12) / 52));
+  assert.ok(month.budget.memberQuotasPerPeriod > five.budget.memberQuotasPerPeriod, 'anggaran harian menampung lebih banyak kuota bulanan');
+  // Halaman normal lebih kecil → kasus terburuk lebih murah.
+  const small = freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100, normalizeFree({ ...DEFAULT_FREE, tokensPerPage: 800 }));
+  assert.ok(small.worst.perPageUsd < freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100, DEFAULT_FREE).worst.perPageUsd);
+  // Konflik: maks. per pemeriksaan tidak bisa melebihi kuota satu periode; nilai di luar batas dipotong; periode tak dikenal → minggu.
+  const n = normalizeFree({ pages: 3, maxPerCheck: 50, wordsPerPage: 99999, dailyBudgetUsd: -4, period: 'year' as never, resetTz: '../etc' });
+  assert.equal(n.maxPerCheck, 3);
+  assert.equal(n.wordsPerPage, 2000);
+  assert.equal(n.dailyBudgetUsd, 0);
+  assert.equal(n.period, 'week');
+  assert.equal(n.resetTz, 'Asia/Jakarta');
+});

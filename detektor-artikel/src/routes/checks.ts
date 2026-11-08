@@ -4,16 +4,16 @@ import type { Env } from '../env.ts';
 import { Store, invTs } from '../lib/store.ts';
 import { schedulePurge } from '../data/purge.ts';
 import { newId, seal } from '../lib/crypto.ts';
-import { tr, type Lang } from '../lib/i18n.ts';
+import { tr, GENRES, LEVELS, type Lang } from '../lib/i18n.ts';
 import { countWords } from '../engine/preprocess.ts';
 import { advance, checkKey, textKey, type CheckDoc, type ReportSummary, reportKey } from '../engine/cascade.ts';
 import { getEngine, getBilling, spendToday } from '../data/settings.ts';
 import { reserve, refund, InsufficientError, type Reservation } from '../data/wallet.ts';
-import { estimateTokens, isMode, MODES, type Mode } from '../engine/pricing.ts';
+import { estimateTokens, hardBoundUsd, isMode, MODES, type Mode } from '../engine/pricing.ts';
 import { isAdmin, type User } from '../data/users.ts';
 import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
-import { limit } from '../lib/ratelimit.ts';
+import { limit, count } from '../lib/ratelimit.ts';
 
 export const checks = new Hono<HonoEnv>();
 
@@ -34,15 +34,26 @@ export class CheckInputError extends Error {
   }
 }
 
+/** Tag blok prompt di teks member dipagari: „<naskah>“ → „‹naskah>“ (sama dengan preprocess.ts). */
+export function fenceTags(s: string): string {
+  return s.replace(/<(\s*\/?\s*)(naskah|rubrik|target|konteks)\b/gi, '‹$1$2');
+}
+
+/** Pemeriksaan gagal yang biayanya ditanggung platform: lebih dari ini dalam 24 jam → jeda (anti-curang). */
+export const MAX_COSTLY_FAILURES_PER_DAY = 3;
+
 export function sanitizeInput(raw: Record<string, unknown>, L: Lang): NewCheck {
   const text = String(raw.text ?? '').slice(0, 400_000);
   const rubricId = String(raw.rubric ?? '') || null;
   return {
     text,
-    title: String(raw.title ?? '').trim().slice(0, 200) || tr(L, 'Tanpa judul', 'Untitled'),
-    author: String(raw.author ?? '').trim().slice(0, 120),
-    genre: String(raw.genre ?? 'general').slice(0, 30),
-    level: String(raw.level ?? 'unknown').slice(0, 30),
+    // Judul dan penulis ikut masuk ke prompt: tag blok prompt dipagari seperti isi naskah (preprocess.ts).
+    title: fenceTags(String(raw.title ?? '').trim().slice(0, 200)) || tr(L, 'Tanpa judul', 'Untitled'),
+    author: fenceTags(String(raw.author ?? '').trim().slice(0, 120)),
+    // Genre dan jenjang masuk ke blok <konteks> di luar <naskah>, jadi hanya nilai dari daftar resmi yang diterima
+    // (pemilik, 7 Nov 2026: „Perketat logika engine agar tidak bocor dan tidak melebar kemana2“).
+    genre: GENRES.some((g) => g.key === raw.genre) ? String(raw.genre) : 'general',
+    level: LEVELS.some((l) => l.key === raw.level) ? String(raw.level) : 'unknown',
     reportLang: raw.reportLang === 'en' ? 'en' : raw.reportLang === 'id' ? 'id' : L,
     rubricId: getRubric(rubricId) ? rubricId : null,
     mode: isMode(raw.mode) ? raw.mode : 'auto',
@@ -64,8 +75,15 @@ export async function createCheck(
   const maxWords = isAdmin(user) ? 60_000 : 20_000;
   if (words > maxWords) throw new CheckInputError(400, tr(L, `Teks terlalu panjang (maks. ${maxWords} kata per pemeriksaan).`, `Text too long (max ${maxWords} words per check).`));
   const eng = await getEngine(store);
-  if ((await spendToday(store)) >= eng.dailyCapUsd) {
+  // Batas biaya harian menghitung juga biaya TERBURUK semua pemeriksaan yang sedang berjalan (biaya mereka baru dicatat
+  // saat selesai), supaya banyak pemeriksaan yang dibuat bersamaan tidak bisa melewati batas.
+  const worstUsd = hardBoundUsd(words, input.mode, Boolean(input.rubricId), eng);
+  if ((await spendToday(store)) + (await inflightWorstUsd(store)) + worstUsd > eng.dailyCapUsd) {
     throw new CheckInputError(503, tr(L, 'Kapasitas harian sedang penuh. Coba lagi besok atau hubungi admin.', 'Daily capacity is full. Try again tomorrow or contact the admin.'));
+  }
+  // Anti-curang: member yang berulang kali membuat pemeriksaan gagal (biaya AI-nya ditanggung platform) dijeda 24 jam.
+  if (!isAdmin(user) && !opts.bench && (await count(env, `costly-fail:${user.id}`, 86_400)) >= MAX_COSTLY_FAILURES_PER_DAY) {
+    throw new CheckInputError(429, tr(L, 'Terlalu banyak pemeriksaan gagal dalam 24 jam terakhir. Coba lagi besok, atau hubungi admin bila ini keliru.', 'Too many failed checks in the last 24 hours. Try again tomorrow, or contact the admin if this is a mistake.'));
   }
   const billing = await getBilling(store);
   const est = estimateTokens(words, input.mode, Boolean(input.rubricId), billing, eng);
@@ -116,7 +134,7 @@ export async function createCheck(
   try {
     await store.put(textKey(id), await seal(env.MASTER_KEY, { raw: input.text }));
     await store.put(checkKey(id), doc);
-    await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now });
+    await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now, worst: worstUsd });
     if (charge) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
     if (!opts.bench) await store.createOnce(`i/user-checks/${user.id}/${invTs(now)}~${id}`, {}, { title: input.title, at: now, batch: opts.batchId ?? null });
     // Hasil kerja & naskah member dibersihkan otomatis 90 hari setelah dibuat (laporan ikut terhapus).
@@ -127,6 +145,19 @@ export async function createCheck(
     throw err;
   }
   return doc;
+}
+
+/** Jumlah biaya terburuk (US$) semua pemeriksaan yang sedang berjalan — dari ringkasan indeks `i/active/`. */
+async function inflightWorstUsd(store: Store): Promise<number> {
+  let sum = 0;
+  let cursor: string | undefined;
+  for (let page = 0; page < 10; page += 1) {
+    const { items, cursor: next } = await store.list<{ worst?: number }>('i/active/', { limit: 1000, cursor });
+    for (const it of items) sum += Number(it.meta.worst) || 0;
+    if (!next) break;
+    cursor = next;
+  }
+  return sum;
 }
 
 export function statusOf(doc: CheckDoc | null) {

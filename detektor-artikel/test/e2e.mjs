@@ -59,6 +59,35 @@ async function ctx(opts = {}) {
   return c;
 }
 
+// 0. Bahasa (pemilik, 7 Nov 2026): Indonesia → ID, negara lain → EN, pilihan manual tidak pernah berubah sendiri,
+//    crawler tidak pernah dialihkan.
+{
+  const us = await ctx({ extraHTTPHeaders: { 'cf-ipcountry': 'US' }, userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36' });
+  const q = await us.newPage();
+  await q.goto(BASE + '/');
+  ok(new URL(q.url()).pathname === '/en', 'pengunjung dari luar negeri: beranda bawaan bahasa Inggris');
+  await q.click('a.lang-switch');
+  await q.waitForURL((u) => new URL(u).pathname === '/');
+  ok((await q.locator('html').getAttribute('lang')) === 'id', 'tombol bahasa: pindah ke Indonesia dan tetap di sana');
+  await q.goto(BASE + '/en/pricing');
+  ok(new URL(q.url()).pathname === '/harga', 'pilihan manual bertahan di halaman lain walau negaranya AS');
+  await us.close();
+  const idn = await ctx({ extraHTTPHeaders: { 'cf-ipcountry': 'ID' }, userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36' });
+  const r = await idn.newPage();
+  await r.goto(BASE + '/en');
+  ok(new URL(r.url()).pathname === '/', 'pengunjung Indonesia tanpa pilihan: bawaan bahasa Indonesia');
+  await r.click('a.lang-switch');
+  await r.waitForURL((u) => new URL(u).pathname === '/en');
+  await r.goto(BASE + '/cara-kerja');
+  ok(new URL(r.url()).pathname === '/en/how-it-works', 'pengunjung Indonesia yang memilih English tetap English di halaman lain');
+  await idn.close();
+  const bot = await ctx({ extraHTTPHeaders: { 'cf-ipcountry': 'US' }, userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' });
+  const b = await bot.newPage();
+  const res = await b.goto(BASE + '/');
+  ok(res.status() === 200 && new URL(b.url()).pathname === '/', 'Googlebot tidak pernah dialihkan bahasanya');
+  await bot.close();
+}
+
 // 1. Halaman publik ID & EN
 const pub = await ctx();
 let p = await pub.newPage();
@@ -118,6 +147,39 @@ await p.waitForURL(/harga\?ok=1/);
 ok((await p.inputValue('input[name=markup]')) === '100', 'markup 100× tersimpan');
 await p.goto(BASE + '/admin/harga');
 await p.screenshot({ path: `${OUT}/admin-harga.png`, fullPage: true });
+
+// Prediksi biaya kuota gratis per minggu di admin (pemilik, 7 Nov 2026; MASTER-BLUEPRINT §20.9).
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('#kuota-gratis').count()) === 1, 'admin: kartu prediksi biaya kuota gratis per minggu tampil');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'prediksi 100 member/minggu (terburuk) = Rp 12.045');
+await p.goto(BASE + '/admin/biaya?anggota=1000');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp120.450', 'prediksi 1.000 member/minggu (terburuk) = Rp 120.450');
+await p.screenshot({ path: `${OUT}/admin-biaya-gratis.png`, fullPage: true });
+
+// Kuota gratis dinamis (pemilik, 7 Nov 2026): diubah sekali di Admin → Kuota gratis, semua bagian ikut.
+await p.goto(BASE + '/admin/kuota-gratis');
+await p.fill('#free-form input[name=pages]', '5');
+await p.fill('#free-form input[name=maxPerCheck]', '50');
+await p.click('#free-form button[type=submit]');
+await p.waitForURL(/kuota-gratis\?ok=1/);
+ok((await p.inputValue('#free-form input[name=maxPerCheck]')) === '5', 'kuota gratis: maks. per pemeriksaan tidak bisa melebihi kuota (50 → 5)');
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp6.022', 'Biaya API ikut berubah: 5 halaman/minggu, 100 member = Rp 6.022/minggu');
+await p.goto(BASE + '/admin/kuota-gratis');
+await p.selectOption('#free-form select[name=period]', 'month');
+await p.fill('#free-form input[name=pages]', '10');
+await p.click('#free-form button[type=submit]');
+await p.waitForURL(/kuota-gratis\?ok=1/);
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('[data-forecast="worst-month"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'Biaya API ikut berubah: 10 halaman/bulan, 100 member = Rp 12.045/bulan');
+ok(/10 halaman per bulan/.test(await p.locator('#kuota-gratis h3').innerText()), 'judul prediksi menyebut periode baru');
+// Kembali ke bawaan (10 per minggu) untuk uji berikutnya.
+await p.goto(BASE + '/admin/kuota-gratis');
+await p.selectOption('#free-form select[name=period]', 'week');
+await p.fill('#free-form input[name=maxPerCheck]', '5');
+await p.click('#free-form button[type=submit]');
+await p.waitForURL(/kuota-gratis\?ok=1/);
+await p.screenshot({ path: `${OUT}/admin-kuota-gratis.png`, fullPage: true });
 
 // Uji mesin (pemilik tidak dipotong token)
 await p.goto(BASE + '/admin/mesin');

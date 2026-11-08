@@ -163,3 +163,88 @@ export async function measuredCostPer1k(store: Store): Promise<number | null> {
   }
   return words >= 20_000 ? (usd * 1000) / words : null;
 }
+
+/* ── kuota gratis (pemilik, 7 Nov 2026; docs/MASTER-BLUEPRINT.md §20) ─────────────────────────────────────────── */
+
+/**
+ * Kuota gratis member — SATU dokumen (`k/free.json`) yang dibaca semua bagian: prediksi biaya di admin sekarang, penegakan
+ * kuota dan teks halaman di fase X1. Pemilik: „Untuk gratis halaman sifatnya dynamic page ya, bisa d rubah dr portal admin,
+ * misal admin mau rubah 5 halaman perminggu, atau 10 halaman perbulan … pastikan ketika admin rubah, semua ikut berubah jgn
+ * sampai ada miss dan konflik“. Tidak ada salinan angka di tempat lain dan tidak ada cache: setiap permintaan membaca
+ * dokumen ini, jadi perubahan admin berlaku seketika di semua halaman.
+ */
+export type FreePeriod = 'week' | 'month';
+
+export interface FreeSettings {
+  enabled: boolean;
+  /** Periode reset: per minggu (Senin 00.00) atau per bulan (tanggal 1, 00.00), waktu lokal `resetTz`. */
+  period: FreePeriod;
+  /** Halaman normal gratis per periode. */
+  pages: number;
+  /** Satu halaman normal = kertas Legal: maks. kata / karakter / token masukan, mana yang tercapai lebih dulu. */
+  wordsPerPage: number;
+  charsPerPage: number;
+  tokensPerPage: number;
+  /** Maks. halaman per pemeriksaan (tidak pernah lebih dari `pages`). */
+  maxPerCheck: number;
+  /** Anggaran biaya AI harian perusahaan untuk semua Cek Gratis (US$). 0 = Cek Gratis berhenti. */
+  dailyBudgetUsd: number;
+  resetTz: string;
+  updatedAt?: number;
+  updatedBy?: string;
+}
+
+export const DEFAULT_FREE: FreeSettings = {
+  enabled: true,
+  period: 'week',
+  pages: 10,
+  wordsPerPage: 700,
+  charsPerPage: 4800,
+  tokensPerPage: 1600,
+  maxPerCheck: 5,
+  dailyBudgetUsd: 5,
+  resetTz: 'Asia/Jakarta',
+};
+
+/** Batas setiap isian (dipakai server dan formulir admin — satu sumber). */
+export const FREE_LIMITS = {
+  pages: [1, 1000],
+  wordsPerPage: [100, 2000],
+  charsPerPage: [500, 20000],
+  tokensPerPage: [200, 5000],
+  maxPerCheck: [1, 1000],
+  dailyBudgetUsd: [0, 1000],
+} as const;
+
+const clampN = (v: unknown, [lo, hi]: readonly [number, number], d: number, int = true) => {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return d;
+  const x = Math.min(hi, Math.max(lo, n));
+  return int ? Math.round(x) : Math.round(x * 100) / 100;
+};
+
+/** Menormalkan isian apa pun menjadi pengaturan yang sah dan tidak saling bertentangan. */
+export function normalizeFree(s: Partial<FreeSettings> | null | undefined): FreeSettings {
+  const b = { ...DEFAULT_FREE, ...(s ?? {}) };
+  const pages = clampN(b.pages, FREE_LIMITS.pages, DEFAULT_FREE.pages);
+  return {
+    enabled: b.enabled !== false,
+    period: b.period === 'month' ? 'month' : 'week',
+    pages,
+    wordsPerPage: clampN(b.wordsPerPage, FREE_LIMITS.wordsPerPage, DEFAULT_FREE.wordsPerPage),
+    charsPerPage: clampN(b.charsPerPage, FREE_LIMITS.charsPerPage, DEFAULT_FREE.charsPerPage),
+    tokensPerPage: clampN(b.tokensPerPage, FREE_LIMITS.tokensPerPage, DEFAULT_FREE.tokensPerPage),
+    // Konflik dicegah di sini: maks. per pemeriksaan tidak pernah melebihi kuota satu periode.
+    maxPerCheck: Math.min(pages, clampN(b.maxPerCheck, FREE_LIMITS.maxPerCheck, DEFAULT_FREE.maxPerCheck)),
+    dailyBudgetUsd: clampN(b.dailyBudgetUsd, FREE_LIMITS.dailyBudgetUsd, DEFAULT_FREE.dailyBudgetUsd, false),
+    resetTz: typeof b.resetTz === 'string' && /^[A-Za-z_]+\/[A-Za-z_]+$/.test(b.resetTz) ? b.resetTz : DEFAULT_FREE.resetTz,
+    updatedAt: b.updatedAt,
+    updatedBy: b.updatedBy,
+  };
+}
+
+export const FREE_DOC = 'k/free.json';
+
+export async function getFree(store: Store): Promise<FreeSettings> {
+  return normalizeFree(await store.get<Partial<FreeSettings>>(FREE_DOC));
+}

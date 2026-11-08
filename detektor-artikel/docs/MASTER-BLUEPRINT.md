@@ -41,6 +41,8 @@ Tanda status: ✅ sudah ada dan teruji · 🟡 ada sebagian · ❌ belum ada · 
 18. Keputusan pemilik yang dibutuhkan
 19. ascan.es — bisnis kembar dengan wajah, kata, dan CSS yang berbeda 100 %
 20. Kuota gratis 10 halaman per minggu, anti-curang, dan iklan di area member
+21. Pengetatan mesin: tidak bocor biaya, tidak melebar
+22. Global: delapan bahasa, mesin multi-bahasa, bahasa bawaan menurut negara
 
 ---
 
@@ -909,4 +911,112 @@ Semua angka berubah otomatis bila admin mengubah harga model, kurs, satuan token
 normal: tabel ini dibuat dari rumus yang sama dan tampil di Admin → Kuota gratis sebagai „Prediksi biaya“.
 
 Fase: masuk **X1** (sebelum ascan.es A0 tayang), untuk kedua merek.
+
+### 20.10 Kuota gratis dinamis dari admin (pemilik, 7 Nov 2026) — ✅ dibangun
+
+„Untuk gratis halaman sifatnya dynamic page ya, bisa d rubah dr portal admin, misal admin mau rubah 5 halaman perminggu,
+atau 10 halaman perbulan, untuk gratis member, pastikan ketika admin rubah, semua ikut berubah jgn sampai ada miss dan
+konflik, pastika dynamic page“.
+
+- **Satu dokumen** `k/free.json` (`getFree`/`normalizeFree` di `src/data/settings.ts`): nyala/mati, halaman per **minggu
+  atau bulan**, ukuran halaman normal (kata/karakter/token), maks. per pemeriksaan, anggaran harian, zona waktu reset.
+- Dibaca di setiap permintaan, tanpa cache dan tanpa salinan angka di tempat lain. Prediksi biaya (Admin → Biaya API dan
+  Admin → Kuota gratis) sudah membacanya; penegakan kuota, notifikasi > kuota, dan teks halaman publik/member di fase X1
+  wajib membaca dokumen yang sama (tidak boleh menulis angka „10“ di teks).
+- **Konflik dicegah di server:** setiap isian dibatasi; maks. per pemeriksaan tidak pernah melebihi kuota satu periode;
+  periode/zona waktu yang tidak dikenal kembali ke bawaan.
+- Setiap perubahan masuk audit log (nilai sebelum dan sesudah).
+- Uji: unit (5/minggu, 10/bulan, halaman lebih kecil, isian bertentangan) dan e2e (admin menyimpan → Biaya API ikut berubah).
+
+---
+
+## 21. Pengetatan mesin: tidak bocor biaya, tidak melebar
+
+Perintah pemilik, 7 Nov 2026: „Perketat logika engine agar tidak bocor dan tidak melebar kemana2, tetep focus dan
+memberikan hasil memuaskan ke customer, jgn sampe ada kebocoran biaya baik dari engine maupun dari kecurangan member,
+perketat“.
+
+### 21.1 Yang sudah ada (diaudit dari kode, 7 Nov 2026)
+
+| Penjaga | Tempat |
+|---|---|
+| Token direservasi dulu sebesar **biaya terburuk** (`hardBoundUsd`) sebelum API dipanggil; uji tidak-rugi pada markup 5× dengan diskon 50 % dan komisi terbesar | `checks.ts`, `pricing.ts`, `engine.test.ts` |
+| Biaya yang ditagih tidak melebihi reservasi; sisa dikembalikan idempoten | `cascade.ts` `settleCheck`, `wallet.ts` |
+| `max_tokens` di setiap panggilan; jawaban terpotong **tidak diulang** (biaya tidak berlipat); maks. 4 percobaan dengan jeda bertambah; retry SDK 2 | `claude.ts`, `cascade.ts` |
+| Opus hanya untuk maks. 40 kalimat yang diragukan (bukan seluruh naskah) | `settings.ts` `maxOpusSentences` |
+| Naskah adalah **data**, bukan instruksi; upaya „abaikan instruksi“ ditandai `injection` | prompt sistem `claude.ts` |
+| Karakter tak terlihat dibuang sebelum analisis | `preprocess.ts` |
+| Maks. 20.000 kata per pemeriksaan; 30 pemeriksaan per jam; maks. pemeriksaan bersamaan per member | `checks.ts` |
+| Peringatan rugi otomatis bila pendapatan < biaya nyata | `settleCheck` → `i/loss/` + audit |
+
+### 21.2 Ditambah 7 Nov 2026 — ✅ dibangun dan diuji
+
+| Celah | Penutup |
+|---|---|
+| Naskah/judul/penulis menulis `</naskah>` untuk keluar dari blok data | tag `<naskah>`, `<rubrik>`, `<target>`, `<konteks>` dipagari menjadi `‹naskah>` (teks tetap terbaca) |
+| Genre dan jenjang berupa 30 karakter bebas di blok `<konteks>` di luar data | hanya nilai dari daftar resmi; selain itu `general`/`unknown` |
+| Batas biaya harian dicek hanya dari pemeriksaan yang **sudah selesai**; banyak pemeriksaan bersamaan bisa melewatinya | gerbang menghitung juga **biaya terburuk semua pemeriksaan yang sedang berjalan** (`i/active/` menyimpan `worst`) |
+| Pemeriksaan gagal tidak ditagih → member bisa sengaja membakar biaya AI | gagal setelah biaya AI terpakai dihitung; **3 kali dalam 24 jam → pemeriksaan baru dijeda**, audit `costly_failures` untuk admin |
+
+Uji: `test/guards.test.ts` (4 uji) + e2e.
+
+### 21.3 Fokus dan mutu hasil (tidak melebar)
+
+- Setiap tahap model menjawab dengan **skema JSON terstruktur**; jawaban yang tidak sah tidak dipakai.
+- Prompt hanya meminta penilaian yang diminta tahap itu; naskah tidak bisa menambah tugas.
+- Mode gratis dikunci ke Haiku termurah (§20.3), tanpa eskalasi.
+- Berikutnya (X1): batas waktu total per pemeriksaan; laporan menandai bagian yang dilewati alih-alih gagal seluruhnya
+  (agar member tetap mendapat hasil, dan biaya tidak terbuang).
+
+---
+
+## 22. Global: delapan bahasa, mesin multi-bahasa, bahasa bawaan menurut negara
+
+Perintah pemilik, 7 Nov 2026:
+
+> „Gunakan beberapa bahasa, Indonesia Inggris Spanyol, Arab, German & Perancis, china dan India, dan untuk kemampuan engine
+> multi bahasa seluruh dunia...pastikan ketika client merubah ke bhs lain, jgn pernah berubah sebelum d rubah manual oleh
+> member di halaman manapun.. Catat bahwa project ini tidak hanya untuk Indonesia, tp global. Pembayaran lihat rekening di
+> ulyah.com dan perhatikan upload manual client setelah membayar termasuk invoice... Hanya Indonesia defoul bahasa
+> Indonesia, jika terdeteksi negara luar pastika defoultnya bahasa inggris“
+
+**xscan.es dan ascan.es adalah produk global, bukan hanya untuk Indonesia.**
+
+### 22.1 Bahasa bawaan dan pilihan manual — ✅ dibangun
+
+- Urutan: **pilihan manual member** (akun, lalu cookie `tl_lang`) → bila belum pernah memilih, **negara pengunjung**
+  (Cloudflare `cf-ipcountry`): Indonesia → bahasa Indonesia, **negara lain → bahasa Inggris**.
+- Tombol bahasa di halaman publik dan portal menyimpan pilihan (`/lang?to=…&next=…`); setelah itu bahasa **tidak pernah
+  berubah sendiri di halaman mana pun** sampai member memilih lagi.
+- **Crawler tidak pernah dialihkan** (Googlebot, AdSense, Bing, dan sejenisnya), sehingga setiap versi bahasa tetap
+  terindeks; hreflang menautkan semua versi. Pengalihan hanya untuk manusia (302).
+- Uji e2e: pengunjung AS → `/en`; memilih Indonesia → tetap Indonesia di halaman lain walau negaranya AS; pengunjung
+  Indonesia → Indonesia; memilih English → tetap English; Googlebot → tidak dialihkan.
+
+### 22.2 Delapan bahasa antarmuka — ⏳ fase G1–G3
+
+Bahasa: **Indonesia (id), Inggris (en), Spanyol (es), Arab (ar), Jerman (de), Prancis (fr), China (zh), Hindi (hi)**.
+
+| Fase | Isi |
+|---|---|
+| G1 | Pindah dari pasangan `tr(L, id, en)` (1.175 teks) ke kamus per bahasa (`i18n/<lang>.ts`) dengan kunci; uji: setiap kunci ada di kedua bahasa lama; tidak ada perubahan tampilan |
+| G2 | Teks enam bahasa baru **ditulis** (bukan terjemahan mesin otomatis yang ditempel tanpa diperiksa), diperiksa per bahasa; arah kanan-ke-kiri untuk Arab (`dir="rtl"`, tata letak dicerminkan); huruf Noto Sans Arabic / SC / Devanagari; format angka, tanggal, mata uang per bahasa; uji: setiap kunci ada di delapan bahasa |
+| G3 | Halaman publik per bahasa dengan alamat sendiri (`/es/…`, `/ar/…`, …), hreflang untuk delapan bahasa + `x-default`, sitemap per bahasa; menu bahasa memuat delapan bahasa; bahasa bawaan per negara diperluas (mis. negara berbahasa Spanyol → es, negara Arab → ar, Jerman/Austria/Swiss-Jerman → de, Prancis/Belgia-Prancis → fr, China/Taiwan/Hong Kong/Singapura → zh, India → hi atau en, selain itu → en) — selalu kalah oleh pilihan manual |
+
+Laporan, rubrik, e-mail, invoice, dan pesan error ikut kamus yang sama. Bahasa laporan bisa dipilih terpisah dari bahasa
+antarmuka.
+
+### 22.3 Mesin multi-bahasa seluruh dunia — ⏳ fase G4
+
+- Sekarang: deteksi bahasa naskah `id`/`en`; bahasa lain ditolak dengan jujur.
+- G4: pengenal bahasa untuk semua bahasa utama dunia; tahap Claude (Haiku/Sonnet/Opus) bekerja di bahasa naskah; sinyal
+  stilometri dan ambang dikalibrasi **per bahasa** dengan set uji berlabel; bahasa tanpa kalibrasi diberi label
+  „beta — akurasi belum diukur“ di laporan, tidak pernah diklaim setara.
+- Delapan bahasa antarmuka dikalibrasi lebih dulu, lalu bahasa lain menurut permintaan.
+
+### 22.4 Pembayaran global — ✅ sudah ada, dicatat
+
+- Rekening bawaan sama dengan ulyah.com (BNI multicurrency „wondr“), IDR dan USD; invoice bernomor; member mengunggah
+  bukti transfer; admin menyetujui; token masuk tepat sekali (diuji e2e).
+- Ke depan (X6): gateway otomatis + PayPal untuk pembeli luar negeri; harga USD di halaman berbahasa selain Indonesia.
 
