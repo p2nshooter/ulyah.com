@@ -6,7 +6,8 @@ import { Hono } from 'hono';
 import type { Env } from './env.ts';
 import { loadSession, chosenLang, countryLang, isCrawler, type HonoEnv, type Ctx } from './lib/session.ts';
 import type { Lang } from './lib/i18n.ts';
-import { homePage, howPage, accuracyPage, pricingPage, samplePage, policyPage, verifyPage, notFoundPage, PATHS, type PageKey, type PublishedAccuracy, type VerifyRecord } from './pages/public.ts';
+import { homePage, howPage, accuracyPage, pricingPage, samplePage, policyPage, verifyPage, notFoundPage, guidePage, PATHS, type PageKey, type PublishedAccuracy, type VerifyRecord } from './pages/public.ts';
+import { guideValues } from './pages/guide-values.ts';
 import { auth } from './routes/auth.ts';
 import { app as memberApp } from './routes/app.ts';
 import { admin } from './routes/admin.ts';
@@ -123,6 +124,7 @@ both('price', async (c, L) => {
   return pricingPage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store));
 });
 both('sample', (c, L) => samplePage(pubCtx(c, L)));
+both('guide', async (c, L) => guidePage(pubCtx(c, L), await guideValues(c.get('store'))));
 both('privacy', (c, L) => policyPage(pubCtx(c, L), 'privacy'));
 both('terms', (c, L) => policyPage(pubCtx(c, L), 'terms'));
 both('ethics', (c, L) => policyPage(pubCtx(c, L), 'ethics'));

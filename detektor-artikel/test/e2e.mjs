@@ -244,6 +244,55 @@ await p.goto(BASE + '/app/afiliasi');
 const refLink = (await p.textContent('#refLink')).trim();
 ok(/\/r\/[A-Z0-9]+$/.test(refLink), 'tautan afiliasi tersedia');
 
+// 2b. Panduan A–Z bersuara (pemilik, 8 Nov 2026): member publik ID/EN, admin hanya di portal admin.
+{
+  const FAKE_SPEECH = () => {
+    window.__spoken = [];
+    Object.defineProperty(window, 'SpeechSynthesisUtterance', { configurable: true, value: function (text) { this.text = text; this.lang = ''; this.rate = 1; } });
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: {
+      speak(u) { window.__spoken.push({ text: u.text, lang: u.lang, voice: u.voice && u.voice.name }); setTimeout(() => u.onend && u.onend(), 5); },
+      cancel() {}, pause() {}, resume() {}, addEventListener() {},
+      getVoices() { return [{ name: 'Google Bahasa Indonesia', lang: 'id-ID' }, { name: 'Google US English', lang: 'en-US' }]; },
+    } });
+  };
+  const gc = await ctx();
+  await gc.addInitScript(FAKE_SPEECH);
+  const g = await gc.newPage();
+  await g.goto(BASE + '/lang?to=id&next=/panduan');
+  await g.waitForURL((u) => new URL(u).pathname === '/panduan');
+  const nSec = await g.locator('[data-gsec]').count();
+  ok(nSec >= 18, `panduan member: ${nSec} bagian A–Z`);
+  const freeTxt = await g.textContent('#g-gratis');
+  ok(/5 halaman gratis per minggu/.test(freeTxt) && /700 kata/.test(freeTxt), 'panduan membaca kuota gratis dari Admin (5 halaman/minggu, 700 kata)');
+  ok(/1 token = Rp \d/.test(await g.textContent('#g-token')), 'panduan menyebut harga 1 token yang berlaku');
+  ok((await g.locator('#g-deposit li').count()) >= 5 && (await g.locator('#g-beli li').count()) >= 5, 'panduan isi saldo, bukti transfer, deposit dan tukar token lengkap');
+  ok((await g.locator('script[type="application/ld+json"]').innerText()).includes('"HowTo"'), 'panduan: data terstruktur HowTo untuk Google');
+  const parts = await g.locator('[data-gtitle], [data-gstep]').count();
+  await g.click('[data-gall]');
+  await g.waitForFunction((n) => window.__spoken.length >= n, parts, { timeout: 30000 });
+  const spoken = await g.evaluate(() => window.__spoken);
+  ok(spoken.every((x) => x.lang === 'id-ID' && x.voice === 'Google Bahasa Indonesia') && /Kenalan dulu/.test(spoken[0].text), `suara ID: ${spoken.length} potongan dibacakan berurutan dari A sampai akhir`);
+  await g.waitForFunction(() => /Selesai dibacakan/.test(document.querySelector('[data-gnow]').textContent));
+  await g.screenshot({ path: `${OUT}/guide-id.png` });
+  await g.goto(BASE + '/lang?to=en&next=/en/guide');
+  await g.waitForURL((u) => new URL(u).pathname === '/en/guide');
+  await g.evaluate(() => { window.__spoken = []; });
+  const one = await g.locator('#g-deposit [data-gtitle], #g-deposit [data-gstep]').count();
+  await g.click('#g-deposit [data-gplay]');
+  await g.waitForFunction(() => /Finished/.test(document.querySelector('[data-gnow]').textContent));
+  const en = await g.evaluate(() => window.__spoken);
+  ok(en.length === one && en.every((x) => x.lang === 'en-US') && /deposit/i.test(en[0].text), 'suara EN: satu bagian (deposit) dibacakan dalam bahasa Inggris');
+  const sm = await (await fetch(BASE + '/sitemap.xml')).text();
+  ok(sm.includes('/panduan') && sm.includes('/en/guide'), 'panduan ada di sitemap');
+  await gc.close();
+  await p.goto(BASE + '/admin/panduan');
+  const nAdm = await p.locator('[data-gsec]').count();
+  ok(nAdm >= 12 && /Tombol darurat/.test(await p.textContent('#g-a-kendali')) && /5 sampai 500/.test(await p.textContent('#g-a-harga')), `panduan admin: ${nAdm} bagian (kendali biaya, markup 5–500×)`);
+  ok((await p.locator('meta[name=robots][content*=noindex]').count()) === 1, 'panduan admin tidak diindeks');
+  const anon = await fetch(BASE + '/admin/panduan', { redirect: 'manual' });
+  ok(anon.status !== 200, `panduan admin tertutup untuk yang bukan admin (${anon.status})`);
+}
+
 // 3. Member: daftar lewat referal (IP lain), tanpa token → ditolak, beli → admin lunasi → periksa
 const mem = await ctx();
 // IP berbeda dari pemilik hanya untuk permintaan ke Worker (bukan ke font pihak ketiga).

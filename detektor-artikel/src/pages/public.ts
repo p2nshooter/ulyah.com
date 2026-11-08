@@ -1,4 +1,5 @@
 /** Halaman publik dua bahasa (ID di akar, EN di /en). */
+import { memberGuide, guideBody, type GuideValues } from './guide.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
 import { html, raw, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtScore, type Lang } from '../lib/i18n.ts';
@@ -21,6 +22,7 @@ export const PATHS = {
   privacy: ['/kebijakan-privasi', '/en/privacy'],
   terms: ['/syarat', '/en/terms'],
   ethics: ['/penggunaan-etis', '/en/ethical-use'],
+  guide: ['/panduan', '/en/guide'],
 } as const;
 export type PageKey = keyof typeof PATHS;
 
@@ -364,3 +366,18 @@ export function notFoundPage(L: Lang, user: User | null): string {
   return page({ L, title: '404', body: html`<section class="section"><div class="wrap narrow center">${raw('<div class="big404">404</div>')}<h1>${tr(L, 'Halaman tidak ditemukan', 'Page not found')}</h1><p class="muted">${tr(L, 'Tautannya mungkin salah ketik atau sudah dipindahkan.', 'The link may be mistyped or moved.')}</p><a class="btn btn-primary" href="${L === 'en' ? '/en' : '/'}">${tr(L, 'Ke beranda', 'Go home')}</a></div></section>`, user, area: 'public', noindex: true });
 }
 
+
+
+/** Panduan member A–Z dengan suara (pemilik, 8 Nov 2026). Angka dibaca dari Admin saat halaman dibuka. */
+export function guidePage(c: Ctx, v: GuideValues): string {
+  const L = c.L;
+  const secs = memberGuide(v);
+  const title = tr(L, 'Panduan lengkap pemakaian A–Z', 'The complete A–Z user guide');
+  const desc = tr(L, 'Langkah demi langkah dengan bahasa sederhana dan suara: daftar, Cek Gratis, beli token, isi dan tukar deposit, unggah berkas, membaca laporan, sesi lomba, dan lainnya.', 'Step by step, in plain words and with voice: signing up, the Free Check, buying tokens, topping up and converting a deposit, uploading files, reading reports, contest sessions and more.');
+  const intro = tr(L, 'Baca atau dengarkan. Tekan Dengarkan semua untuk dibacakan dari awal sampai akhir, atau tekan Dengarkan di bagian yang Anda perlukan.', 'Read it or listen to it. Press Listen to all to hear it from start to finish, or press Listen on the part you need.');
+  const jsonld = {
+    '@context': 'https://schema.org', '@type': 'HowTo', name: title, description: desc, inLanguage: L,
+    step: secs.map((s, n) => ({ '@type': 'HowToSection', position: n + 1, name: s.title[L === 'en' ? 1 : 0], itemListElement: s.steps.map((st, k) => ({ '@type': 'HowToStep', position: k + 1, text: st[L === 'en' ? 1 : 0] })) })),
+  };
+  return frame(c, 'guide', title, desc, html`<section class="section"><div class="wrap narrow"><div class="section-head reveal"><span class="eyebrow">${tr(L, 'Panduan', 'Guide')}</span><h1>${title}</h1></div>${guideBody(L, secs, intro)}</div></section>`, jsonld);
+}

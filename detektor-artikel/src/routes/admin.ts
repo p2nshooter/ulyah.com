@@ -19,6 +19,7 @@ import { depositBalance, adminAdjust } from '../data/deposit.ts';
 import { reportKey, checkKey, type ReportSummary, type CheckDoc } from '../engine/cascade.ts';
 import { invTs } from '../lib/store.ts';
 import { runBackup } from '../cron.ts';
+import { adminGuide, guideBody } from '../pages/guide.ts';
 import { getControls, normalizeControls, CONTROLS_DOC } from '../data/controls.ts';
 import { applyRouter, CAPABILITY, FABLE, type RouteNote } from '../engine/router.ts';
 
@@ -683,6 +684,14 @@ admin.post('/admin/kendali', async (c) => {
   const action = next.emergencyStop !== before.emergencyStop ? (next.emergencyStop ? 'controls.emergency_stop_on' : 'controls.emergency_stop_off') : 'controls.saved';
   await audit(store, me(c).id, action, { before: was, after: now });
   return c.redirect('/admin/kendali?ok=1');
+});
+
+/* ── Panduan admin A–Z dengan suara (pemilik, 8 Nov 2026: „Termasuk panduan untuk admin“). Hanya admin. ── */
+admin.get('/admin/panduan', (c) => {
+  const L = portalLang(c);
+  const body = html`${pageHead(tr(L, 'Panduan admin A–Z', 'Admin guide A–Z'), tr(L, 'Cara mengelola situs dari portal ini, langkah demi langkah. Rahasia perusahaan: jangan dibagikan.', 'How to run the site from this portal, step by step. Company confidential: do not share.'))}
+  ${guideBody(L, adminGuide(), tr(L, 'Baca atau dengarkan. Tekan Dengarkan semua untuk dibacakan berurutan.', 'Read it or listen to it. Press Listen to all to hear it in order.'))}`;
+  return c.html(shell(c, tr(L, 'Panduan admin', 'Admin guide'), body, 'guide'));
 });
 
 admin.get('/admin/kuota-gratis', async (c) => {

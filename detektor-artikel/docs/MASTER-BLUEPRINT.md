@@ -1073,3 +1073,28 @@ antarmuka.
   bukti transfer; admin menyetujui; token masuk tepat sekali (diuji e2e).
 - Ke depan (X6): gateway otomatis + PayPal untuk pembeli luar negeri; harga USD di halaman berbahasa selain Indonesia.
 
+
+---
+
+## 23. Panduan A–Z bersuara untuk member dan admin (pemilik, 8 Nov 2026) — ✅ dibangun
+
+> „Buatkan panduan penggunaan xscan dan ascan secara detail dengan bahasa yg paling mudah d mengerti pengguna, gunakan
+> voice juga … sampai ke pengisian saldo, konversi saldo, penggunaan token, upload file dll, dari A-Z … 2 bahasa
+> Indonesia dan inggris termasuk voice nya“ · „Termasuk panduan untuk admin“
+
+- **Member** — `/panduan` dan `/en/guide` (publik, terindeks, di menu atas, kaki halaman, dan menu samping portal):
+  21 bagian A–U dari kenalan, daftar, Cek Gratis, token, beli paket (transfer + unggah bukti), bayar dari luar negeri,
+  deposit dan tukar ke token, memasukkan naskah (tempel, unggah DOCX/PDF/RTF/HTML/TXT, ambil URL), keterangan & rubrik,
+  mesin & perkiraan biaya, proses, membaca laporan, unduh/cetak/verifikasi, tinjauan, sesi lomba + sitemap, riwayat,
+  afiliasi, pengaturan & 2FA, privasi, sampai mengatasi masalah. Data terstruktur `HowTo`.
+- **Admin** — `/admin/panduan` (hanya admin, noindex; berisi markup, biaya, kendali = rahasia perusahaan): 12 bagian —
+  prinsip, kunci API, mesin, kendali biaya & tombol darurat, harga & markup 5–500×, kuota gratis, pesanan & bukti TF,
+  rekening, anggota, afiliasi, laporan/biaya/benchmark, audit & cadangan.
+- **Suara**: pembaca suara bawaan peramban (Web Speech API), `id-ID` atau `en-US` mengikuti bahasa halaman, memilih
+  suara alami bila ada; dibacakan per langkah, langkah aktif disorot dan digulir; „Dengarkan semua“ berlanjut sampai
+  akhir; jeda, berhenti, kecepatan 0,85–1,3×; pemberitahuan bila perangkat tidak punya suara bahasa itu. Tanpa biaya.
+- **Angka selalu benar**: kuota gratis, ukuran halaman, maks. per pemeriksaan, zona waktu reset, harga 1 token, komisi
+  afiliasi, dan masa simpan dibaca dari Admin setiap kali halaman dibuka (`src/pages/guide-values.ts`).
+- **ascan.es**: panduan ditulis ulang dengan kalimat sendiri di lapisan merek ascan (§19), bukan salinan.
+- Uji e2e: 21 bagian, angka dari Admin, HowTo, suara ID dibacakan berurutan dari awal sampai akhir (mesin suara tiruan),
+  satu bagian EN, sitemap, panduan admin hanya untuk admin dan noindex.
