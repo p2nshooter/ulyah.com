@@ -279,7 +279,8 @@ ok(/\/r\/[A-Z0-9]+$/.test(refLink), 'tautan afiliasi tersedia');
   await g.evaluate(() => { window.__spoken = []; });
   const one = await g.locator('#g-deposit [data-gtitle], #g-deposit [data-gstep]').count();
   ok((await g.locator('html').getAttribute('lang')) === 'en', 'panduan EN terbuka dalam bahasa Inggris');
-  await g.click('#g-deposit [data-gplay]');
+  // Bagian deposit jauh di bawah dan masih beranimasi muncul saat digulir; tombolnya dipicu langsung agar tidak meleset.
+  await g.$eval('#g-deposit [data-gplay]', (b) => b.click());
   await g.waitForFunction((n) => window.__spoken.length >= n, one, { timeout: 15000 }).catch(async (err) => {
     console.error('DIAG suara EN:', g.url(), JSON.stringify(await g.evaluate(() => ({ lang: document.documentElement.lang, now: document.querySelector('[data-gnow]')?.textContent, spoken: window.__spoken.length, sec: !!document.querySelector('#g-deposit') }))));
     throw err;
