@@ -127,6 +127,31 @@ await p.goto(BASE + '/admin/biaya?anggota=1000');
 ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp120.450', 'prediksi 1.000 member/minggu (terburuk) = Rp 120.450');
 await p.screenshot({ path: `${OUT}/admin-biaya-gratis.png`, fullPage: true });
 
+// Kuota gratis dinamis (pemilik, 7 Nov 2026): diubah sekali di Admin → Kuota gratis, semua bagian ikut.
+await p.goto(BASE + '/admin/kuota-gratis');
+await p.fill('#free-form input[name=pages]', '5');
+await p.fill('#free-form input[name=maxPerCheck]', '50');
+await p.click('#free-form button[type=submit]');
+await p.waitForURL(/kuota-gratis\?ok=1/);
+ok((await p.inputValue('#free-form input[name=maxPerCheck]')) === '5', 'kuota gratis: maks. per pemeriksaan tidak bisa melebihi kuota (50 → 5)');
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp6.022', 'Biaya API ikut berubah: 5 halaman/minggu, 100 member = Rp 6.022/minggu');
+await p.goto(BASE + '/admin/kuota-gratis');
+await p.selectOption('#free-form select[name=period]', 'month');
+await p.fill('#free-form input[name=pages]', '10');
+await p.click('#free-form button[type=submit]');
+await p.waitForURL(/kuota-gratis\?ok=1/);
+await p.goto(BASE + '/admin/biaya');
+ok((await p.locator('[data-forecast="worst-month"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'Biaya API ikut berubah: 10 halaman/bulan, 100 member = Rp 12.045/bulan');
+ok(/10 halaman per bulan/.test(await p.locator('#kuota-gratis h3').innerText()), 'judul prediksi menyebut periode baru');
+// Kembali ke bawaan (10 per minggu) untuk uji berikutnya.
+await p.goto(BASE + '/admin/kuota-gratis');
+await p.selectOption('#free-form select[name=period]', 'week');
+await p.fill('#free-form input[name=maxPerCheck]', '5');
+await p.click('#free-form button[type=submit]');
+await p.waitForURL(/kuota-gratis\?ok=1/);
+await p.screenshot({ path: `${OUT}/admin-kuota-gratis.png`, fullPage: true });
+
 // Uji mesin (pemilik tidak dipotong token)
 await p.goto(BASE + '/admin/mesin');
 await p.click('form[action="/admin/mesin/uji"] button');

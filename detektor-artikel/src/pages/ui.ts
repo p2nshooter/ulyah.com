@@ -136,6 +136,7 @@ function sideNav(o: PageOpts): Raw {
           ['/admin/benchmark', '◈', tr(L, 'Benchmark akurasi', 'Accuracy benchmark'), 'bench'],
           ['/admin/anggota', '👥', tr(L, 'Anggota', 'Members'), 'members'],
           ['/admin/harga', '％', tr(L, 'Harga & token', 'Pricing & tokens'), 'pricing'],
+          ['/admin/kuota-gratis', '🎁', tr(L, 'Kuota gratis', 'Free quota'), 'free'],
           ['/admin/pesanan', '🧾', tr(L, 'Pesanan & bukti TF', 'Orders & proofs'), 'orders'],
           ['/admin/pembayaran', '🏦', tr(L, 'Rekening pembayaran', 'Payment accounts'), 'payments'],
           ['/admin/afiliasi', '🤝', tr(L, 'Afiliasi', 'Affiliate'), 'aff'],
