@@ -669,3 +669,11 @@ details.more summary { cursor: pointer; font-weight: 700; color: var(--brand); }
 .url-row .btn.busy { opacity: .7; pointer-events: none; }
 .url-note { margin: 6px 0 10px; }
 @media (max-width: 560px) { .url-row { grid-template-columns: 1fr; } }
+
+/* Kendali biaya */
+.stop-banner { border: 2px solid #c0392b; background: linear-gradient(180deg, rgba(192,57,43,.12), var(--panel)); }
+.stop-banner h3 { margin-top: 0; color: #c0392b; }
+#controls-form h3 { margin: 18px 0 8px; }
+#controls-form h3:first-child { margin-top: 0; }
+#controls-form fieldset { border: 0; padding: 0; margin: 0; }
+#controls-form .check { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; }

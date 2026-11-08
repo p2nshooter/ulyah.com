@@ -21,6 +21,8 @@ import {
 } from './claude.ts';
 import { getEngine, getBilling, addSpend, addFreeSpend, type EngineSettings } from '../data/settings.ts';
 import { releaseFreePages } from '../data/free.ts';
+import { getControls } from '../data/controls.ts';
+import { applyRouter } from './router.ts';
 import { rateCard, lineTokens, tokenCostIdr, minRevenueMultiple, freeModel, type Rate, type Mode } from './pricing.ts';
 import { audit } from '../data/audit.ts';
 import { aspectValue, categoryOf, getRubric, languageBand, ruleErrors, type LangError, type Rubric } from './rubrics.ts';
@@ -829,9 +831,15 @@ export async function advance(env: Env, checkId: string): Promise<CheckDoc | nul
     return { ...cur, lease: now + 600_000, updatedAt: now };
   });
   if (!doc || !got) return doc;
-  const settings = await getEngine(store);
+  // Router (MASTER-BLUEPRINT §8): model termurah yang mampu per tingkat, model yang dimatikan admin tidak pernah dipanggil.
+  const controls = await getControls(store);
+  const routed = applyRouter(await getEngine(store), controls);
+  const settings = routed.eng;
   const ctx: CallCtx = { env, store, settings, checkId, uid: doc.uid, cost: 0 };
   try {
+    // Tombol darurat: tidak ada panggilan AI baru; pemeriksaan berhenti dan seluruh pesanannya kembali (settleCheck).
+    if (controls.emergencyStop && doc.stage !== 'fuse') throw new StageError('stopped', 'Layanan AI dihentikan sementara oleh admin. Token Anda dikembalikan utuh.');
+    if (routed.blocked.length && doc.stage !== 'fuse' && doc.stage !== 'prep') throw new StageError('no_model', 'Tidak ada mesin AI aktif yang mampu untuk tahap ini. Token Anda dikembalikan utuh.');
     let patch: Partial<CheckDoc>;
     switch (doc.stage) {
       case 'prep':

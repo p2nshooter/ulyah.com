@@ -12,7 +12,7 @@ import { REASON_KEYS } from '../lib/i18n.ts';
 
 export class StageError extends Error {
   constructor(
-    readonly code: 'no_key' | 'bad_key' | 'retry' | 'refusal' | 'truncated' | 'bad_request' | 'lang_unsupported' | 'empty' | 'cap',
+    readonly code: 'no_key' | 'bad_key' | 'retry' | 'refusal' | 'truncated' | 'bad_request' | 'lang_unsupported' | 'empty' | 'cap' | 'stopped' | 'no_model',
     message: string,
   ) {
     super(message);

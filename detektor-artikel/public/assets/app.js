@@ -186,6 +186,8 @@
           $('#estLo').textContent = fmt(e.min); $('#estTy').textContent = fmt(e.typical); $('#estRes').textContent = fmt(e.reserve);
           if (e.modes) $$('[data-mode-est]', form).forEach(function (el) { var x = e.modes[el.getAttribute('data-mode-est')]; if (x) el.textContent = '≈ ' + fmt(x.min) + '–' + fmt(x.typical) + ' token · ' + T('dipesan ', 'reserved ') + fmt(x.reserve); });
           if (pg) pg.textContent = String(e.pages).replace('.', LANG === 'en' ? '.' : ',');
+          var sh = form.querySelector('[data-est-short]');
+          if (sh) { sh.hidden = !(e.short > 0); var shn = sh.querySelector('[data-est-short-n]'); if (shn) shn.textContent = fmt(e.short); }
           if (box) { box.classList.add('updated'); setTimeout(function () { box.classList.remove('updated'); }, 600); }
         }).catch(function () { /* diam */ });
       }, 350);

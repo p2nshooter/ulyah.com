@@ -183,6 +183,33 @@ await p.click('#free-form button[type=submit]');
 await p.waitForURL(/kuota-gratis\?ok=1/);
 await p.screenshot({ path: `${OUT}/admin-kuota-gratis.png`, fullPage: true });
 
+// Kendali biaya (MASTER-BLUEPRINT §8–§9): router termurah yang mampu, tombol darurat, batas belanja.
+await p.goto(BASE + '/admin/kendali');
+ok((await p.locator('#route-table tr[data-route="t1"]').innerText()).includes('claude-haiku-5-5') && (await p.locator('#route-table tr[data-route="t3"]').innerText()).includes('claude-opus-5-5'), 'router: Haiku → Sonnet → Opus, Fable tidak dipakai');
+await p.uncheck('#controls-form input[name="on_claude-sonnet-5-5"]');
+await p.click('#controls-form button[type=submit]');
+await p.waitForURL(/kendali\?ok=1/);
+ok((await p.locator('#route-table tr[data-route="t2"]').innerText()).includes('claude-opus-5-5'), 'Sonnet dimatikan → tingkat 2 memakai termurah yang mampu (Opus), tidak turun ke Haiku');
+await p.check('#controls-form input[name="on_claude-sonnet-5-5"]');
+await p.selectOption('#controls-form select[name=emergencyStop]', '1');
+await p.fill('#controls-form input[name=stopNote]', 'Perawatan singkat.');
+await p.click('#controls-form button[type=submit]');
+await p.waitForURL(/kendali\?ok=1/);
+ok((await p.locator('[data-stop-on]').count()) === 1, 'tombol darurat menyala: peringatan tampil di admin');
+await p.goto(BASE + '/app/periksa');
+await p.fill('textarea[name=text]', fs.readFileSync(new URL('./fixtures/esai.txt', import.meta.url), 'utf8'));
+await p.check('input[name=agree]');
+await p.click('.check-form button[type=submit]');
+await p.waitForLoadState();
+ok(/dihentikan sementara oleh admin\. Perawatan singkat\./.test(await p.textContent('.flash.err')), 'tombol darurat: pemeriksaan baru ditolak sebelum AI dipanggil, dengan pesan admin');
+await p.goto(BASE + '/admin/kendali');
+await p.selectOption('#controls-form select[name=emergencyStop]', '0');
+await p.click('#controls-form button[type=submit]');
+await p.waitForURL(/kendali\?ok=1/);
+ok((await p.locator('[data-stop-on]').count()) === 0 && (await p.locator('#route-table tr[data-route="t2"]').innerText()).includes('claude-sonnet-5-5'), 'tombol darurat dimatikan, Sonnet aktif lagi');
+await p.goto(BASE + '/admin/audit');
+ok(/controls\.emergency_stop_on/.test(await p.textContent('main')) && /controls\.emergency_stop_off/.test(await p.textContent('main')), 'audit log mencatat tombol darurat nyala & mati');
+
 // Uji mesin (pemilik tidak dipotong token)
 await p.goto(BASE + '/admin/mesin');
 await p.click('form[action="/admin/mesin/uji"] button');
@@ -459,6 +486,6 @@ ok(calls.every((x) => !/sonnet|opus/.test(x.model) || (x.fallbacks === 'default'
 ok(calls.filter((x) => x.model === 'claude-sonnet-5-5').length >= 3, 'mode Sonnet benar-benar memanggil Sonnet');
 await browser.close();
 // 402 (saldo kurang), 404 bukti milik akun lain, 409 pilihan kuota gratis, 403 JSON Cek Gratis dan 422 URL internal memang disengaja di atas.
-const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e));
+const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e) && !/\/app\/periksa :: .*status of 503/.test(e));
 if (real.length) { console.error('Galat konsol:\n' + real.join('\n')); process.exit(1); }
 console.log('SEMUA LULUS');
