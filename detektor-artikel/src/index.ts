@@ -17,6 +17,7 @@ import { getBilling, getEngine, measuredCostPer1k } from './data/settings.ts';
 import { getAffiliateSettings } from './data/affiliate.ts';
 import { scheduled } from './cron.ts';
 import { manifest, serviceWorker } from './lib/pwa.ts';
+import { getControls, engineAvailability } from './data/controls.ts';
 import { page, ADS_TXT } from './pages/ui.ts';
 import { html } from './lib/html.ts';
 import { tr } from './lib/i18n.ts';
@@ -122,7 +123,7 @@ both('how', (c, L) => howPage(pubCtx(c, L)));
 both('acc', async (c, L) => accuracyPage(pubCtx(c, L), await c.get('store').get<PublishedAccuracy>('k/accuracy.json')));
 both('price', async (c, L) => {
   const store = c.get('store');
-  return pricingPage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store));
+  return pricingPage(pubCtx(c, L), await getBilling(store), await getEngine(store), await measuredCostPer1k(store), engineAvailability(await getControls(store)));
 });
 both('sample', (c, L) => samplePage(pubCtx(c, L)));
 both('guide', async (c, L) => guidePage(pubCtx(c, L), await guideValues(c.get('store'))));

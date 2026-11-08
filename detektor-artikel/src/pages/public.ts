@@ -231,8 +231,14 @@ export function accuracyPage(c: Ctx, acc: PublishedAccuracy | null): string {
 
 /* ── harga ─────────────────────────────────────────────────────────── */
 
-export function pricingPage(c: Ctx, b: BillingSettings, eng: EngineSettings, measured: number | null): string {
+export function pricingPage(c: Ctx, b: BillingSettings, eng: EngineSettings, measured: number | null, avail?: { haiku: boolean; sonnet: boolean; opus: boolean; fable: boolean }): string {
   const L = c.L;
+  const engines: [string, string, boolean][] = [
+    ['Claude Haiku', tr(L, 'paling hemat, cepat', 'the most economical, fast'), true],
+    ['Claude Sonnet', tr(L, 'lebih teliti', 'more careful'), avail?.sonnet ?? true],
+    ['Claude Opus', tr(L, 'terkuat di kelasnya', 'the strongest of its class'), avail?.opus ?? true],
+    ['Claude Fable 5.1', tr(L, 'premium, telaah terdalam', 'premium, the deepest review'), avail?.fable ?? false],
+  ];
   const ex = [300, 1500, 3000].map((w) => ({ w, e: estimateTokens(w, 'auto', true, b, eng) }));
   const body = html`<section class="section"><div class="wrap">
   <div class="section-head reveal center"><span class="eyebrow">${tr(L, 'Harga', 'Pricing')}</span><h1>${tr(L, 'Token berbayar — bayar sesuai pemakaian', 'Paid tokens — pay for what you use')}</h1><p class="lead">${tr(L, `1 token = Rp ${fmtNum(L, Math.ceil(tokenPriceIdr(b, eng)))}. Setiap pemeriksaan memotong token sesuai pemakaian AI yang benar-benar terjadi. Bayar dengan transfer Rupiah, Dolar AS dari luar negeri, atau dari saldo deposit.`, `1 token = Rp ${fmtNum(L, Math.ceil(tokenPriceIdr(b, eng)))}. Each check deducts tokens according to the AI usage that actually happened. Pay by Rupiah transfer, US dollars from abroad, or from a deposit balance.`)}</p></div>
@@ -240,6 +246,9 @@ export function pricingPage(c: Ctx, b: BillingSettings, eng: EngineSettings, mea
     const pr = predictPages(p.tokens, b, eng, measured);
     return html`<article class="plan reveal ${k === 2 ? 'featured' : ''}">${k === 2 ? html`<span class="ribbon">${tr(L, 'Untuk juri & guru', 'For judges & teachers')}</span>` : ''}<h3>${bi(L, p.name)}</h3><p class="price">${L === 'en' ? `US$${fmtNum(L, packagePrice(p, b, eng).usd, Number.isInteger(packagePrice(p, b, eng).usd) ? 0 : 2)}` : `Rp ${fmtNum(L, packagePrice(p, b, eng).idr)}`}</p><p class="price-alt">${L === 'en' ? `Rp ${fmtNum(L, packagePrice(p, b, eng).idr)}` : `US$${fmtNum(L, packagePrice(p, b, eng).usd, Number.isInteger(packagePrice(p, b, eng).usd) ? 0 : 2)}`}</p>${p.discountPct ? html`<span class="pill p-hum">${tr(L, `hemat ${p.discountPct}%`, `save ${p.discountPct}%`)}</span>` : ''}<p><b>${fmtNum(L, p.tokens)}</b> token</p><p class="predict-sm">≈ ${fmtNum(L, pr.pages.low)}–${fmtNum(L, pr.pages.high)} ${tr(L, 'halaman*', 'pages*')}</p><p class="muted">${bi(L, p.note)}</p><a class="btn ${k === 2 ? 'btn-primary' : 'btn-ghost'}" href="/app/token?paket=${p.key}">${tr(L, 'Pilih', 'Choose')}</a></article>`;
   })}</div>
+  <section class="card reveal narrow-block" id="engine-status"><h3>${tr(L, 'Mesin AI yang tersedia', 'Available AI engines')}</h3>
+    <div class="tbl-wrap"><table class="tbl"><tbody>${engines.map(([n, d, on]) => html`<tr data-engine="${n}"><td><b>${n}</b><br><small class="muted">${d}</small></td><td class="n">${on ? html`<span class="pill p-ok">${tr(L, 'Aktif', 'Active')}</span>` : html`<span class="pill p-soon">${n.includes('Fable') ? tr(L, 'Segera hadir', 'Coming soon') : tr(L, 'Sedang nonaktif', 'Switched off')}</span>`}</td></tr>`)}</tbody></table></div>
+  </section>
   <section class="card reveal narrow-block"><h3>${tr(L, 'Prediksi halaman per paket & mesin AI', 'Page estimate per package & AI engine')}</h3>
     <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${tr(L, 'Paket', 'Package')}</th>${(['haiku', 'sonnet', 'opus', 'auto'] as const).map((m) => html`<th class="n">${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</th>`)}</tr></thead>
     <tbody>${b.packages.map((p) => html`<tr><td><b>${bi(L, p.name)}</b><br><small class="muted">${fmtNum(L, p.tokens)} token</small></td>${predictByMode(p.tokens, b, eng).map((x) => html`<td class="n">${fmtNum(L, x.pages.low)}–${fmtNum(L, x.pages.high)} ${tr(L, 'hal.', 'pp.')}</td>`)}</tr>`)}</tbody></table></div>

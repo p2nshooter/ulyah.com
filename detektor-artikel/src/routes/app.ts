@@ -4,7 +4,7 @@ import { html, raw, jsonScript, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtScore, GENRES, LEVELS, LABELS, MODE_INFO, type Lang, type LabelKey } from '../lib/i18n.ts';
 import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice, BRAND_HOST, assistNotice } from '../pages/ui.ts';
 import { PURPOSES, PURPOSE_INFO, pt, isPurpose } from '../lib/purpose.ts';
-import { getControls } from '../data/controls.ts';
+import { getControls, engineAvailability } from '../data/controls.ts';
 import { FABLE_MODEL } from '../engine/pricing.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
 import { reportPages, usagePanel, rateTable, modePagesTable } from '../pages/report.ts';
@@ -166,7 +166,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
         <label class="mode-card ${fv.remaining > 0 ? '' : 'off'}"><input type="radio" name="mode" value="free" ${v.mode === 'free' ? 'checked' : ''} ${fv.remaining > 0 ? '' : 'disabled'} data-free-remaining="${fv.remaining}"><span><b>${tr(L, `Gratis — sisa ${fv.remaining} dari ${fv.f.pages} halaman per ${per}`, `Free — ${fv.remaining} of ${fv.f.pages} pages left this ${per}`)}</b><small>${tr(L, `Mesin hemat (Claude Haiku), penilaian per paragraf, tanpa rubrik. Maks. ${fv.f.maxPerCheck} halaman per pemeriksaan (1 halaman = maks. ${fv.f.wordsPerPage} kata). Kuota baru: ${fmtDate(L, fv.resetAt)}. Laporannya memuat iklan dan tanda air logo ${BRAND_HOST}.`, `Economy engine (Claude Haiku), judged per paragraph, no rubric. At most ${fv.f.maxPerCheck} pages per check (1 page = at most ${fv.f.wordsPerPage} words). New quota: ${fmtDate(L, fv.resetAt)}. The report carries ads and a ${BRAND_HOST} logo watermark.`)}</small><em class="mode-est">${tr(L, 'Untuk hasil per kalimat, rubrik dan laporan lengkap: pilih Cek Lengkap di bawah.', 'For per-sentence results, rubrics and the full report: choose a Full Check below.')}</em></span></label>
       </fieldset>` : ''}
       <fieldset class="modes"><legend>${tr(L, 'Mesin AI', 'AI engine')} ${tip(tr(L, 'AUTO memilih sendiri: Haiku dulu, lalu Sonnet/Opus hanya untuk kalimat yang ragu. Atau pilih satu model.', 'AUTO chooses for you: Haiku first, then Sonnet/Opus only for doubtful sentences. Or pick one model.'))}</legend>
-        ${(['auto', 'haiku', 'sonnet', 'opus', ...(v.__fable === '1' ? (['fable'] as const) : []), 'forensic'] as const).map((m) => html`<label class="mode-card ${m === 'auto' ? 'rec' : ''} ${m === 'fable' ? 'premium' : ''}"><input type="radio" name="mode" value="${m}" ${(v.mode ?? 'auto') === m ? 'checked' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small>${m === 'fable' && v.__fableX ? html`<small class="premium-cost">${tr(L, `Biaya per token AI ± ${v.__fableX}`, `Cost per AI token ± ${v.__fableX}`)}</small>` : ''}<em class="mode-est" data-mode-est="${m}">—</em></span></label>`)}
+        ${(['auto', 'haiku', 'sonnet', 'opus', 'fable', 'forensic'] as const).map((m) => { const isOff = (v.__off ?? '').split(',').includes(m); return html`<label class="mode-card ${m === 'auto' ? 'rec' : ''} ${m === 'fable' ? 'premium' : ''} ${isOff ? 'off soon' : ''}" ${isOff ? raw(`data-soon="${m}"`) : ''}><input type="radio" name="mode" value="${m}" ${!isOff && (v.mode ?? 'auto') === m ? 'checked' : ''} ${isOff ? 'disabled' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}${isOff ? html` <em class="soon-tag">${m === 'fable' ? tr(L, 'Segera hadir', 'Coming soon') : tr(L, 'Sedang nonaktif', 'Switched off')}</em>` : ''}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small>${m === 'fable' && v.__fableX ? html`<small class="premium-cost">${tr(L, `Biaya per token AI ± ${v.__fableX}`, `Cost per AI token ± ${v.__fableX}`)}</small>` : ''}<em class="mode-est" data-mode-est="${m}">—</em></span></label>`; })}
       </fieldset>
       ${v.__fable === '1' ? html`<input type="hidden" name="fable_ok" value="${v.fable_ok === '1' ? '1' : '0'}" data-fable-ok>
       <dialog class="fable-dialog" data-fable-dialog aria-labelledby="fableTitle">
@@ -189,13 +189,15 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, 
 async function fableVars(c: Ctx): Promise<Record<string, string>> {
   const store = c.get('store');
   const k = await getControls(store);
-  if (!k.fableEnabled || k.disabledModels.includes(FABLE_MODEL)) return { __fable: '0' };
+  const av = engineAvailability(k);
+  const off = (['sonnet', 'opus', 'fable', 'forensic'] as const).filter((m) => !av[m]).join(',');
+  if (!av.fable) return { __fable: '0', __off: off };
   const eng = await getEngine(store);
   const L = portalLang(c);
   const blend = (m: string) => (eng.prices[m] ? 3 * eng.prices[m]!.in + eng.prices[m]!.out : 0);
   const f = blend(FABLE_MODEL), o = blend(eng.models.t3), h = blend(eng.models.t1);
   const x = (n: number) => (n >= 10 ? String(Math.round(n)) : n.toLocaleString(L === 'en' ? 'en-US' : 'id-ID', { maximumFractionDigits: 1 }));
-  return { __fable: '1', __fableX: o && h ? tr(L, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`) : '' };
+  return { __fable: '1', __off: off, __fableX: o && h ? tr(L, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`, `${x(f / o)}× Claude Opus, ${x(f / h)}× Claude Haiku`) : '' };
 }
 
 app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)), ...(await fableVars(c)) }, await freeView(c))));

@@ -605,4 +605,7 @@
     var en = $('[data-notify-enable]', side);
     if (en && window.Notification && Notification.permission === 'default') { en.hidden = false; en.addEventListener('click', function () { Notification.requestPermission().then(function () { en.hidden = true; }); }); }
   })();
+
+  /* ── Slider ↔ angka (Admin → Kuota gratis) ── */
+  $$('[data-sync-to]').forEach(function (r) { var t = $(r.getAttribute('data-sync-to')); if (!t) return; r.addEventListener('input', function () { t.value = r.value; }); t.addEventListener('input', function () { r.value = t.value; }); });
 })();

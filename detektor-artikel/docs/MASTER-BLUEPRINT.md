@@ -1126,3 +1126,24 @@ antarmuka.
 - Panduan member/admin (§23) ikut diperbarui. Uji e2e: laporan lomba, pemberitahuan hanya di portal, cetak tanpa
   pemberitahuan, jendela Fable (tidak/ya), penolakan server tanpa konfirmasi, panggilan `claude-fable-5-1` dengan fallback.
 - Masih berlaku: templat laporan A–I per kategori penulis dan laporan kompetisi lengkap (J) adalah fase X3/X5.
+
+---
+
+## 25. PWA, notifikasi admin, mesin nyala/mati di seluruh situs, kuota gratis 1–20 (pemilik, 8 Nov 2026) — ✅ dibangun
+
+> „Buatkan agar xscan dan ascan bisa di install di HP dengan logo gambar HP di paling atas, jika sudah d install hilangkan
+> logonya, buatkan notifikasi jika ada pembayaran masuk yg belum di cek, atau ada yg baru di setiap menu masing2“ ·
+> „engine bisa di on/off di portal admin, misal fable 5 di off mana seluruh website ini fable 5 di tandai comming soon atau
+> off“ · „Penerapan komisi affiliate & diskon member wajib dynamic page … termasuk gratis 1-20 halaman / minggu … perubahan2
+> wajib lu sesuai sampai ke panduan“
+
+- **PWA** (`src/lib/pwa.ts`, merek dari `src/brand.ts`): manifest, service worker (hanya aset statis + halaman luring; data
+  member tidak pernah di-cache di perangkat), spanduk „Pasang di HP“ di paling atas, hilang setelah terpasang.
+- **Notifikasi admin** (`src/data/notify.ts`): lencana per menu tiap menit (bukti TF menunggu dicek; member/laporan/pencairan
+  baru sejak menu terakhir dibuka), toast, notifikasi perangkat opsional, angka di judul tab.
+- **Mesin nyala/mati** (`engineAvailability` di `src/data/controls.ts`, satu sumber): kartu mesin nonaktif tampil „Segera hadir“
+  (Fable) / „Sedang nonaktif“ (Sonnet, Opus, Forensik) di formulir, halaman harga (tabel „Mesin AI yang tersedia“) dan
+  panduan. **Server menolak** mode yang mesinnya dimatikan — tidak pernah dialihkan diam-diam ke mesin lain yang lebih mahal.
+- **Kuota gratis 1–20 halaman** per periode dengan penggeser di Admin → Kuota gratis; maks. per pemeriksaan ikut dibatasi.
+- **Panduan selalu sesuai**: kuota, ukuran halaman, harga token, **paket + diskon**, **komisi afiliasi**, status mesin dibaca
+  dari Admin setiap kali halaman panduan dibuka; panduan member menambah „Pasang di HP“, panduan admin „Notifikasi“.

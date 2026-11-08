@@ -736,3 +736,10 @@ details.more summary { cursor: pointer; font-weight: 700; color: var(--brand); }
 .side nav a { position: relative; }
 .nav-badge { margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: #e5484d; color: #fff; font-size: 11.5px; font-weight: 800; display: inline-grid; place-items: center; }
 .nav-badge[hidden] { display: none; }
+
+/* Mesin nonaktif / segera hadir */
+.mode-card.soon { opacity: .62; cursor: not-allowed; }
+.soon-tag { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--mix-soft); color: var(--ink-2); font-style: normal; font-size: 11.5px; font-weight: 700; }
+.pill.p-soon { background: var(--mix-soft); color: var(--ink-2); }
+.pill.p-ok { background: var(--hum-soft); color: var(--hum); }
+.slider-row { display: grid; grid-template-columns: 1fr 90px; gap: 10px; align-items: center; }

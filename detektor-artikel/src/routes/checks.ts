@@ -18,7 +18,7 @@ import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { limit, count } from '../lib/ratelimit.ts';
 import { fetchArticle, collectSitemap, InputUrlError } from '../lib/extract.ts';
 import { isPurpose, type Purpose } from '../lib/purpose.ts';
-import { getControls, addMemberDay, SpendLimitError } from '../data/controls.ts';
+import { getControls, addMemberDay, SpendLimitError, engineAvailability } from '../data/controls.ts';
 import { applyRouter } from '../engine/router.ts';
 import { wibDate } from '../data/settings.ts';
 
@@ -153,6 +153,11 @@ export async function createCheck(
   if (!opts.bench && !opts.batchId && !opts.prepaid && !opts.free && !opts.noCache) {
     const hit = await cachedCheck(store, user.id, input, Boolean(free));
     if (hit) return hit;
+  }
+  // Mesin yang dimatikan admin tidak pernah diganti diam-diam dengan mesin lain (apalagi yang lebih mahal): ditolak.
+  const avail = engineAvailability(controls);
+  if ((input.mode === 'sonnet' && !avail.sonnet) || (input.mode === 'opus' && !avail.opus) || (input.mode === 'forensic' && !avail.forensic)) {
+    throw new CheckInputError(403, tr(L, 'Mesin yang dipilih sedang nonaktif. Pilih AUTO atau mesin lain yang aktif.', 'The chosen engine is switched off for now. Choose AUTO or another active engine.'));
   }
   // Fable 5.1 (pemilik, 8 Nov 2026): hanya bila diizinkan admin, dan hanya setelah member menekan „Ya, saya yakin“.
   if (input.mode === 'fable') {

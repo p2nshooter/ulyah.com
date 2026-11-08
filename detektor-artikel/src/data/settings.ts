@@ -209,11 +209,12 @@ export const DEFAULT_FREE: FreeSettings = {
 
 /** Batas setiap isian (dipakai server dan formulir admin — satu sumber). */
 export const FREE_LIMITS = {
-  pages: [1, 1000],
+  // Pemilik, 8 Nov 2026: „gratis 1-20 halaman / minggu itu pun dynamic page“.
+  pages: [1, 20],
   wordsPerPage: [100, 2000],
   charsPerPage: [500, 20000],
   tokensPerPage: [200, 5000],
-  maxPerCheck: [1, 1000],
+  maxPerCheck: [1, 20],
   dailyBudgetUsd: [0, 1000],
 } as const;
 

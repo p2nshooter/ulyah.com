@@ -33,6 +33,10 @@ export interface GuideValues {
   purgeDays: number;
   /** Nama zona waktu reset kuota untuk dibacakan, mis. ["WIB (Jakarta)", "Western Indonesia Time (Jakarta)"]. */
   tz: Pair;
+  /** Mesin aktif saat ini (Admin → Kendali biaya). */
+  engines: { sonnet: boolean; opus: boolean; fable: boolean };
+  /** Paket token saat ini: nama, token, diskon, harga Rupiah. */
+  packages: { name: Pair; tokens: number; discountPct: number; idr: number }[];
 }
 
 export function memberGuide(v: GuideValues): GuideSection[] {
@@ -104,6 +108,7 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       id: 'beli', icon: '🛒', title: ['Membeli paket token dengan transfer Rupiah', 'Buying a token package by Rupiah transfer'],
       steps: [
         ['Buka menu Token dan deposit, lalu pilih paket yang Anda inginkan.', 'Open Tokens and deposit, then choose the package you want.'],
+        [`Paket saat ini: ${v.packages.map((p) => `${p.name[0]} ${fmtNum('id', p.tokens)} token ${rp(p.idr, 0)}${p.discountPct ? ` (hemat ${p.discountPct}%)` : ''}`).join('; ')}.`, `Packages right now: ${v.packages.map((p) => `${p.name[1]} ${fmtNum('en', p.tokens)} tokens ${rp(p.idr, 1)}${p.discountPct ? ` (save ${p.discountPct}%)` : ''}`).join('; ')}.`],
         ['Invoice dibuat. Di invoice tertera nomor invoice, jumlah yang harus dibayar, dan rekening tujuan.', 'An invoice is created. It shows the invoice number, the amount to pay, and the bank account to pay into.'],
         ['Transfer dari m-banking, internet banking, atau ATM bank apa pun, persis sesuai jumlah di invoice.', 'Transfer from mobile banking, internet banking or any bank ATM, exactly the amount on the invoice.'],
         ['Simpan bukti transfer, bisa tangkapan layar atau PDF, lalu unggah di halaman invoice yang sama.', 'Keep the transfer receipt, a screenshot or a PDF, and upload it on the same invoice page.'],
@@ -160,7 +165,10 @@ export function memberGuide(v: GuideValues): GuideSection[] {
       steps: [
         ['AUTO adalah pilihan yang disarankan: mesin hemat memeriksa dulu, lalu mesin yang lebih kuat hanya memeriksa ulang kalimat yang meragukan.', 'AUTO is the recommended choice: the economy engine checks first, and stronger engines re-check only the doubtful sentences.'],
         ['Anda juga bisa memilih satu mesin saja: Haiku yang paling hemat, Sonnet yang lebih teliti, atau Opus yang paling mendalam.', 'You can also pick a single engine: Haiku, the most economical; Sonnet, more thorough; or Opus, the deepest.'],
-        ['Bila tersedia, ada pula Claude Fable 5.1, pilihan premium untuk naskah yang benar-benar menentukan. Biayanya jauh di atas mesin lain sehingga saldo token berkurang jauh lebih cepat. Sebelum dipakai, Anda diminta memastikan pilihan itu lewat jendela Anda yakin.', 'When available there is also Claude Fable 5.1, the premium choice for texts that truly matter. It costs far more than the other engines, so your token balance goes down much faster. Before it is used, you are asked to confirm the choice in an Are you sure window.'],
+        v.engines.fable
+          ? ['Ada pula Claude Fable 5.1, pilihan premium untuk naskah yang benar-benar menentukan. Biayanya jauh di atas mesin lain sehingga saldo token berkurang jauh lebih cepat. Sebelum dipakai, Anda diminta memastikan pilihan itu lewat jendela Anda yakin.', 'There is also Claude Fable 5.1, the premium choice for texts that truly matter. It costs far more than the other engines, so your token balance goes down much faster. Before it is used, you are asked to confirm the choice in an Are you sure window.']
+          : ['Claude Fable 5.1, pilihan premium, segera hadir. Kartunya sudah tampil di formulir dengan tanda Segera hadir dan belum bisa dipilih.', 'Claude Fable 5.1, the premium choice, is coming soon. Its card already shows on the form marked Coming soon and cannot be chosen yet.'],
+        ...((!v.engines.sonnet || !v.engines.opus) ? [['Mesin yang sedang dinonaktifkan admin tampil dengan tanda Sedang nonaktif dan tidak bisa dipilih. AUTO tetap berjalan dengan mesin yang aktif.', 'An engine the admin has switched off shows as Switched off and cannot be chosen. AUTO keeps working with the active engines.'] as Pair] : []),
         ['Kotak perkiraan menunjukkan jumlah kata, perkiraan pemakaian token, token yang dipesan, dan saldo Anda.', 'The estimate box shows the word count, the expected token use, the tokens to be reserved, and your balance.'],
         ['Kalau saldo kurang, kotak itu menyebut berapa kekurangannya dan memberi tautan untuk isi saldo.', 'If your balance is too low, the box shows how much is missing and gives you a link to top up.'],
       ],
