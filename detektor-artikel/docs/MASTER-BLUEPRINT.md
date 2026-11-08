@@ -101,7 +101,7 @@ Dibaca dari kode di `detektor-artikel/src` dan uji e2e (`test/e2e.mjs`, „SEMUA
 | Analisis lanjutan (isi, mutu, struktur, SEO, sumber, orisinalitas) | 🟡 rubrik, kesalahan bahasa | Modul §6 | X3–X4 |
 | Skor lanjutan (Overall, Classification, Content, Readability, SEO, Originality, Source, Writing) | 🟡 | §6.7 | X3 |
 | Ekspor PDF/TXT/DOCX/XLSX/CSV, salin, bagikan, bandingkan dua artikel | 🟡 PDF (cetak), HTML, JSON, CSV | TXT, DOCX, XLSX, tautan bagikan, bandingkan | X4 |
-| Scan URL, sitemap, PDF/RTF/HTML, bulk | 🟡 teks/docx | §7 | X1 |
+| Scan URL, sitemap, PDF/RTF/HTML, bulk | 🟡 teks/docx · ✅ URL artikel (8 Nov 2026) · ✅ pembaca sitemap (modul) | §7 | X1 |
 | Smart AI Engine Router termurah yang mampu | 🟡 kaskade + harga per model | Router berbasis kemampuan + biaya §8 | X1 |
 | Fable 5.1 | 🟡 harga ada | Tingkat banding (mati bawaan) §8 | X1 |
 | Cek saldo sebelum API, reservasi, rekonsiliasi | ✅ | Batas belanja per member/per scan, emergency stop, rekonsiliasi harian §9 | X1 |
@@ -237,6 +237,14 @@ kemiripan antar-keduanya).
 | URL artikel | Hanya `https`/`http`; tolak IP privat/loopback/link-local/metadata (SSRF), resolusi DNS dicek ulang setelah redirect; maks. 5 redirect; timeout 15 s; maks. 5 MB; ekstraksi isi utama (buang menu, iklan, footer); hormati robots.txt; batas laju per domain |
 | Sitemap XML | Validasi XML, sitemap bertingkat (maks. kedalaman 3), maks. URL per scan (diatur admin, bawaan 500), URL kembar dibuang, status per URL |
 | Massal (bulk) | Antrean (Cloudflare Queues), konkurensi dibatasi, satu artikel gagal tidak menggagalkan batch, retry terbatas, pause/resume/cancel, laporan error, kredit per pekerjaan |
+
+**Dibangun 8 Nov 2026** (`src/lib/extract.ts`, `POST /api/extract`, tombol „Ambil dari URL“ di formulir periksa):
+http/https saja, tanpa kredensial, host internal/IP privat/metadata ditolak, port 80/443, setiap pengalihan diperiksa
+ulang (maks. 5), 15 detik, 5 MB, robots.txt dihormati (agen `xscanbot`), isi utama dari `<article>`/`<main>` tanpa
+menu/footer/skrip, judul/penulis/tanggal/bahasa dari meta. Mengambil teks tidak memanggil AI dan tidak memotong token
+(30 per jam per member). Pembaca sitemap bertingkat (`collectSitemap`) sudah teruji; penyambungannya ke sesi massal,
+unggah PDF/RTF/HTML, dan antrean menyusul. Uji: `test/extract.test.ts` (SSRF lewat pengalihan ke 169.254.169.254, robots,
+ukuran, pengalihan berulang, bukan HTML, halaman kosong, sitemap) + e2e (alamat internal ditolak, naskah tidak tersentuh).
 
 **Pratinjau sebelum memindai** (Xscan §4): jumlah halaman, jumlah artikel, token masuk dan keluar perkiraan (dihitung
 dari isi yang sudah diekstrak, bukan dari jumlah halaman), mesin termurah yang memenuhi syarat, perkiraan kredit, saldo,

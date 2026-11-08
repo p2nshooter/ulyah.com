@@ -662,3 +662,10 @@ details.more summary { cursor: pointer; font-weight: 700; color: var(--brand); }
   .wm-print { display: block; position: fixed; top: 50%; left: 50%; width: 78%; transform: translate(-50%, -50%) rotate(-28deg); opacity: .1; z-index: 5; pointer-events: none; }
   .wm-print img { display: block; width: 100%; height: auto; }
 }
+
+/* Ambil dari URL (MASTER-BLUEPRINT §7) */
+.url-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end; margin-top: 12px; }
+.url-row .field { margin: 0; }
+.url-row .btn.busy { opacity: .7; pointer-events: none; }
+.url-note { margin: 6px 0 10px; }
+@media (max-width: 560px) { .url-row { grid-template-columns: 1fr; } }

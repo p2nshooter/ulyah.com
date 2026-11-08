@@ -218,6 +218,14 @@ await m.setInputFiles('#fileInput', { name: 'esai.docx', mimeType: 'application/
 await m.waitForFunction(() => document.querySelector('textarea[name=text]').value.includes('Paragraf dua'));
 const fromDocx = await m.inputValue('textarea[name=text]');
 ok(fromDocx === 'Judul: Literasi & Kita\n\nParagraf satu\tdengan tab <aman>.\n\nParagraf dua.', 'unggah .docx: teks, tab, paragraf, dan karakter khusus terbaca utuh');
+// Ambil dari URL (MASTER-BLUEPRINT §7): alamat jaringan internal ditolak server (SSRF), pesan tampil, teks tidak berubah.
+await m.fill('[data-url-input]', 'http://127.0.0.1:8788/__calls');
+await m.click('[data-url-fetch]');
+await m.waitForSelector('.toast.err');
+const urlErr = await m.textContent('.toast.err');
+ok(/jaringan internal/.test(urlErr), `ambil URL: alamat internal ditolak (SSRF) dengan pesan jelas — "${urlErr}"`);
+ok((await m.inputValue('textarea[name=text]')) === fromDocx, 'ambil URL gagal: teks naskah tidak tersentuh');
+await m.fill('[data-url-input]', '');
 await m.fill('textarea[name=text]', ESSAY);
 await m.waitForTimeout(800);
 ok(Number((await m.textContent('#estRes')).replace(/\D/g, '')) > 0, 'perkiraan token dari server tampil');
@@ -450,7 +458,7 @@ ok(calls.some((x) => x.model === 'claude-haiku-5-5' && x.effort === 'high'), 'Ha
 ok(calls.every((x) => !/sonnet|opus/.test(x.model) || (x.fallbacks === 'default' && /server-side-fallback/.test(x.betas || ''))), 'Sonnet/Opus memakai server-side fallback');
 ok(calls.filter((x) => x.model === 'claude-sonnet-5-5').length >= 3, 'mode Sonnet benar-benar memanggil Sonnet');
 await browser.close();
-// 402 (saldo kurang), 404 bukti milik akun lain, 409 pilihan kuota gratis dan 403 JSON Cek Gratis memang disengaja di atas.
-const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e));
+// 402 (saldo kurang), 404 bukti milik akun lain, 409 pilihan kuota gratis, 403 JSON Cek Gratis dan 422 URL internal memang disengaja di atas.
+const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e) && !/\/app\/periksa :: .*status of 422/.test(e));
 if (real.length) { console.error('Galat konsol:\n' + real.join('\n')); process.exit(1); }
 console.log('SEMUA LULUS');
