@@ -16,6 +16,7 @@ import { isAdmin, type User } from '../data/users.ts';
 import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { limit, count } from '../lib/ratelimit.ts';
+import { fetchArticle, InputUrlError } from '../lib/extract.ts';
 
 export const checks = new Hono<HonoEnv>();
 
@@ -285,6 +286,38 @@ checks.post('/api/checks/:id/advance', async (c) => {
   if (!doc) return c.json({ error: 'not found' }, 404);
   const after = await advance(c.env, doc.id);
   return c.json(statusOf(after ?? doc));
+});
+
+const URL_ERR_EN: Record<InputUrlError['code'], string> = {
+  bad_url: 'Invalid URL — only http/https addresses without a user name or password.',
+  blocked_host: 'Internal network addresses cannot be scanned.',
+  robots: 'This site’s robots.txt does not allow that page to be fetched.',
+  too_big: 'The page is larger than 5 MB.',
+  timeout: 'The site took too long to answer.',
+  not_html: 'This address is not an article page (HTML/text).',
+  http: 'The site could not be reached or answered with an error.',
+  redirects: 'Too many redirects.',
+  empty: 'No article text found (under 30 words) — the page may need JavaScript or a login.',
+  bad_sitemap: 'Not an XML sitemap (urlset/sitemapindex).',
+};
+
+/**
+ * Ambil artikel dari URL untuk formulir periksa (MASTER-BLUEPRINT §7, file pemilik „Master_xscan“). Hanya mengambil dan
+ * mengekstrak teks — tidak memanggil AI dan tidak memotong token; pemeriksaan tetap lewat formulir biasa.
+ */
+checks.post('/api/extract', async (c) => {
+  const user = c.get('user');
+  const L = portalLang(c);
+  if (!user) return c.json({ error: 'login' }, 401);
+  if (!(await limit(c.env, `extract:${user.id}`, 30, 3600))) return c.json({ error: tr(L, 'Terlalu banyak pengambilan URL per jam.', 'Too many URL fetches per hour.') }, 429);
+  const body = (await c.req.json().catch(() => ({}))) as { url?: unknown };
+  try {
+    const a = await fetchArticle(String(body.url ?? '').slice(0, 2000));
+    return c.json({ url: a.url, title: a.title.slice(0, 200), author: a.author.slice(0, 120), published: a.published.slice(0, 40), lang: a.lang.slice(0, 12), words: a.words, text: a.text.slice(0, 200_000) });
+  } catch (err) {
+    if (err instanceof InputUrlError) return c.json({ error: L === 'en' ? URL_ERR_EN[err.code] : err.message, code: err.code }, 422);
+    throw err;
+  }
 });
 
 /** Perkiraan token untuk formulir (dihitung server; klien tidak pernah menentukan harga). */

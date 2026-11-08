@@ -193,6 +193,22 @@
     ta.addEventListener('input', estimate);
     form.addEventListener('change', estimate);
     estimate();
+    var urlBtn = form.querySelector('[data-url-fetch]'), urlIn = form.querySelector('[data-url-input]');
+    if (urlBtn && urlIn) {
+      var fetchUrl = function () {
+        var u = urlIn.value.trim();
+        if (!u) { urlIn.focus(); return; }
+        urlBtn.disabled = true; urlBtn.classList.add('busy');
+        api('/api/extract', { url: u }).then(function (a) {
+          ta.value = a.text; estimate();
+          var title = form.querySelector('input[name=title]'); if (title && !title.value && a.title) title.value = a.title;
+          var au = form.querySelector('input[name=author]'); if (au && !au.value && a.author) au.value = a.author;
+          toast(T('Teks diambil dari ', 'Text fetched from ') + new URL(a.url).hostname + ' · ' + fmt(a.words) + T(' kata', ' words'));
+        }).catch(function (e) { toast(e.message, true); }).then(function () { urlBtn.disabled = false; urlBtn.classList.remove('busy'); });
+      };
+      urlBtn.addEventListener('click', fetchUrl);
+      urlIn.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); fetchUrl(); } });
+    }
     wireDrop(form.querySelector('[data-drop]'), async function (files) {
       try {
         var f = files[0]; ta.value = await fileText(f); estimate();
