@@ -121,8 +121,26 @@ Disusun 7 November 2026. Perintah pemilik (dengan dua tangkapan layar konsep: *3
 > sonnet, opus dll, tp dengan logika gunakan yg paling murah tp tetep optimal... Bikin blueprintnya dulu setelah selesai
 > mengerjakan kode adsense“
 
-Status: **blueprint** (belum dibangun). Urutan: kode AdSense semua situs live (`docs/ADSENSE-BLUEPRINT.md` §23) →
+Status (blueprint 7 Nov): **blueprint** (belum dibangun). Urutan: kode AdSense semua situs live (`docs/ADSENSE-BLUEPRINT.md` §23) →
 blueprint ini → persetujuan pemilik atas keputusan di §15 → dibangun fase demi fase (§14).
+
+**Status 9 Nov 2026 — fase J-A dibangun** (perintah pemilik: „Ga usah nanya lg, bikin aja jenius.es sesuai permintaan sy dari
+awal sampai selesai, trus kerjain perintah artikel, bikin 2 bahasa semua situs artikel yg bukan make bhs Inggris“), folder
+`jenius/` (Worker `jenius-es`, deploy `.github/workflows/deploy-jenius.yml`, uji `.github/workflows/jenius-ci.yml`):
+- situs publik **Indonesia + Inggris** (hreflang, sitemap, JSON-LD, robots tanpa blokir crawler), 8 jalur baca, halaman buku,
+  pencarian, 8 halaman wajib (tentang, kontak, privasi, cookie, syarat, aksesibilitas, penafian, panduan) + lisensi buku;
+- **pembaca AUTO** (`jenius/public/assets/reader.js`): Putar sekali → suara sintetis perangkat membacakan, kata disorot,
+  halaman berganti dengan animasi, lanjut sampai akhir bab atau akhir buku (bab berikutnya dibuka dan tetap diputar), mode
+  slide layar penuh untuk buku bergambar, mode baca sendiri, suara per jalur (anak, guru perempuan, guru laki-laki,
+  narator), kecepatan, huruf ramah disleksia, mode malam, kontras tinggi, keyboard & usap, posisi baca tersimpan;
+- impor buku terbuka otomatis (cron tiap menit; Book Dash CC BY 4.0 + Standard Ebooks yang lolos domain publik Indonesia),
+  cadangan harian R2 35 hari (`jenius/src/backup.ts`), data hanya di R2;
+- 4 alat gratis (uji kecepatan baca, rencana baca mingguan, pemilih buku, kartu kosakata bersuara), 10 artikel pertama
+  ID + EN dengan tombol „Dengarkan artikel ini“ (sorot paragraf + gulir otomatis);
+- PWA (spanduk pasang, service worker, bisa dibaca tanpa internet);
+- AdSense: akun utama ca-pub-6146217038829045 + tumpukan `adsense-stack.json`; loader hanya di halaman dewasa — pembaca
+  buku dan jalur anak tanpa loader (tag meta tetap ada).
+Berikutnya: J-B (akun, kelas dengan nama unik, undangan, chat, rak, soal, nilai, AI) lalu J-C (70 artikel).
 
 Tangkapan layar hanya menampilkan butir 3–5 dan ekor butir 2 („Laporan perkembangan siswa. Informasi untuk murid“);
 butir 1 tidak terlihat. Butir 2 ditafsirkan sebagai portal sekolah/orang tua (laporan perkembangan + informasi untuk

@@ -1,0 +1,104 @@
+/**
+ * Katalog di R2 (tidak pernah D1):
+ *  - `b/{id}.json`            metadata buku + daftar bab;
+ *  - `b/{id}/{n}.json`        isi bab (blok);
+ *  - `m/{id}/{file}`          gambar buku bergambar (salinan dari sumber, bukan hotlink);
+ *  - `i/lane/{lane}/{key}~{id}` indeks per jalur dengan ringkasan di customMetadata (daftar tanpa membaca tiap buku);
+ *  - `i/book/{id}`            semua buku (sitemap, halaman lisensi);
+ *  - `q/{id}.json`            status impor per buku; `k/import.json` ringkasan impor.
+ */
+import type { Store } from '../lib/store.ts';
+import type { Block } from './parse.ts';
+import type { LaneId, ShelfId } from './lanes.ts';
+
+export interface ChapterInfo {
+  n: number;
+  title: string;
+  words: number;
+}
+
+export interface BookMeta {
+  id: string;
+  title: string;
+  author: string;
+  translator?: string;
+  illustrator?: string;
+  lanes: LaneId[];
+  shelf: ShelfId;
+  lang: string;
+  source: 'standardebooks' | 'bookdash';
+  sourceUrl: string;
+  license: string;
+  licenseUrl: string;
+  /** Kalimat atribusi lengkap (wajib untuk CC BY). */
+  attribution: string;
+  description: string;
+  subjects: string[];
+  chapters: ChapterInfo[];
+  words: number;
+  /** Menit dengar (±150 kata/menit). */
+  minutes: number;
+  picture: boolean;
+  cover?: string;
+  importedAt: number;
+}
+
+export interface Chapter {
+  n: number;
+  title: string;
+  blocks: Block[];
+}
+
+export interface LaneEntry {
+  title: string;
+  author: string;
+  minutes: number;
+  shelf: ShelfId;
+  lang: string;
+  picture: boolean;
+  cover?: string;
+}
+
+export const bookKey = (id: string) => `b/${id}.json`;
+export const chapterKey = (id: string, n: number) => `b/${id}/${n}.json`;
+export const mediaKey = (id: string, file: string) => `m/${id}/${file}`;
+
+/** Urutan dalam jalur: judul (abjad), tanpa awalan „The/A/An“. */
+export function sortKey(title: string): string {
+  return title.toLowerCase().replace(/^(the|a|an)\s+/, '').replace(/[^a-z0-9]+/g, '-').slice(0, 60);
+}
+
+export async function getBook(store: Store, id: string): Promise<BookMeta | null> {
+  if (!/^[a-z0-9-]{1,90}$/.test(id)) return null;
+  return store.get<BookMeta>(bookKey(id));
+}
+
+export async function getChapter(store: Store, id: string, n: number): Promise<Chapter | null> {
+  if (!/^[a-z0-9-]{1,90}$/.test(id) || !Number.isInteger(n) || n < 1 || n > 5000) return null;
+  return store.get<Chapter>(chapterKey(id, n));
+}
+
+export async function laneBooks(store: Store, lane: LaneId, limit = 200): Promise<{ id: string; meta: LaneEntry }[]> {
+  const out: { id: string; meta: LaneEntry }[] = [];
+  let cursor: string | undefined;
+  do {
+    const r = await store.list<LaneEntry>(`i/lane/${lane}/`, { limit: Math.min(1000, limit), cursor });
+    out.push(...r.items.map((i) => ({ id: i.id, meta: i.meta })));
+    cursor = r.cursor;
+  } while (cursor && out.length < limit);
+  return out.slice(0, limit);
+}
+
+export async function allBookIds(store: Store): Promise<string[]> {
+  const out: string[] = [];
+  for await (const k of store.keys('i/book/')) out.push(k.key.slice('i/book/'.length));
+  return out;
+}
+
+/** Menyimpan buku yang selesai diimpor: metadata dulu, lalu indeks (buku tampil setelah semua babnya ada). */
+export async function publishBook(store: Store, meta: BookMeta): Promise<void> {
+  await store.put(bookKey(meta.id), meta);
+  const summary: LaneEntry = { title: meta.title, author: meta.author, minutes: meta.minutes, shelf: meta.shelf, lang: meta.lang, picture: meta.picture, cover: meta.cover };
+  for (const lane of meta.lanes) await store.put(`i/lane/${lane}/${sortKey(meta.title)}~${meta.id}`, {}, summary as unknown as Record<string, unknown>);
+  await store.put(`i/book/${meta.id}`, {}, { title: meta.title, lanes: meta.lanes.join(',') });
+}

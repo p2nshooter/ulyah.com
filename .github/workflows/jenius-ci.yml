@@ -1,0 +1,48 @@
+name: jenius.es CI
+
+# Uji untuk folder `jenius/` (jenius.es — E-Book with Voice): tipe, unit (pengurai sumber, halaman ID/EN, AdSense, SEO,
+# cadangan) dan ujung-ke-ujung di Chromium sungguhan (pembaca AUTO, alat, artikel bersuara, ponsel) terhadap
+# `wrangler dev` + sumber buku tiruan.
+
+on:
+  pull_request:
+    paths:
+      - 'jenius/**'
+      - 'adsense-stack.json'
+      - '.github/workflows/jenius-ci.yml'
+      - '.github/workflows/deploy-jenius.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'jenius/**'
+
+concurrency:
+  group: jenius-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # Pinned like site-audit.yml: on ubuntu-latest (26.04) `playwright install --with-deps` fails.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: jenius
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Install Playwright Chromium
+        run: npm install --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
+      - name: End-to-end
+        run: bash test/run-e2e.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jenius-e2e
+          path: jenius/e2e-out
+          retention-days: 7

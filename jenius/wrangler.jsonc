@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // jenius.es — E-Book with Voice (docs/JENIUS-BLUEPRINT.md). Alamat cadangan: https://jenius-es.axto.workers.dev
+  "name": "jenius-es",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  // Domain sendiri disisipkan saat deploy, hanya bila zonanya sudah aktif — lihat .github/workflows/deploy-jenius.yml.
+  // __CUSTOM_DOMAIN_ROUTES__
+  "assets": { "directory": "./public", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none" },
+  "observability": { "enabled": true },
+  // Aturan tetap pemilik: SEMUA data di R2, tidak pernah D1.
+  "r2_buckets": [
+    { "binding": "DATA", "bucket_name": "jenius-data" },
+    { "binding": "BACKUPS", "bucket_name": "jenius-backups" }
+  ],
+  // KV hanya untuk penghitung batas laju (id disisipkan saat deploy); data tahan lama tidak pernah di KV.
+  "kv_namespaces": [{ "binding": "RL", "id": "__KV_NAMESPACE_ID__" }],
+  // Impor buku terbuka satu per menit; cadangan harian 02.05 WIB.
+  "triggers": { "crons": ["* * * * *", "5 19 * * *"] },
+  "vars": { "CANONICAL_HOST": "" }
+}

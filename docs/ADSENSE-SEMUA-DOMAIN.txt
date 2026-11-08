@@ -263,7 +263,7 @@
     ads.txt    : 21 baris di bagian A (akun utama di baris pertama)
     meta       : 21 tag di bagian A (akun utama lebih dulu)
 
-[jenius.es]   21 akun   (belum ada situs — kode siap, dipasang saat situsnya dibuat (blueprint §26))
+[jenius.es]   21 akun   (ulyah.com · jenius/src/lib/adsense.ts (Worker jenius-es; ads.txt dari kode))
     akun utama : ca-pub-6146217038829045   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6146217038829045" crossorigin="anonymous"></script>
     ads.txt    : 21 baris di bagian A (akun utama di baris pertama)
