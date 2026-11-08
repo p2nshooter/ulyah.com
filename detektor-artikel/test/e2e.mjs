@@ -68,7 +68,9 @@ function totp(secretB32) {
 
 const browser = await chromium.launch();
 async function ctx(opts = {}) {
-  const c = await browser.newContext({ viewport: { width: 1280, height: 900 }, ...opts });
+  // Service worker diblokir dalam uji: permintaan yang lewat service worker tidak membawa header uji (negara, IP) dan tidak
+  // melewati route() Playwright. Berkas /sw.js dan manifest tetap diuji langsung di bagian PWA.
+  const c = await browser.newContext({ viewport: { width: 1280, height: 900 }, serviceWorkers: 'block', ...opts });
   // Iklan Google tidak dimuat dalam uji (tidak ada jaringan iklan di CI): loader AdSense diganti skrip kosong.
   await c.route(/googlesyndication\.com|doubleclick\.net|googleadservices\.com|adtrafficquality\.google/, (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
   c.on('page', (p) => {
