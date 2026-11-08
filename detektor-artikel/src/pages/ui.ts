@@ -56,6 +56,10 @@ export const ADSENSE_STACK = [
   'ca-pub-2493615451319531',
   'ca-pub-5693981744147503',
   'ca-pub-8212039662308316',
+  'ca-pub-4504974645924459', // 8 Nov 2026 (pemilik): akun tumpukan ke-18
+  'ca-pub-6284085719914185', // 8 Nov 2026 (pemilik): akun tumpukan ke-19
+  'ca-pub-7345352440829958', // 8 Nov 2026 (pemilik): akun tumpukan ke-20
+  'ca-pub-5254913739159445', // 8 Nov 2026 (pemilik): akun tumpukan ke-21
 ];
 export const ADSENSE_ACCOUNTS: readonly string[] = [...new Set([ADSENSE_CLIENT, ...ADSENSE_STACK])];
 export const ADS_TXT = `${ADSENSE_ACCOUNTS.map((a) => `google.com, ${a.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0`).join('\n')}\n`;

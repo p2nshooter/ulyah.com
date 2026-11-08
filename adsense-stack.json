@@ -5,7 +5,8 @@
     "accounts(domain) = [primary[domain], ...stack] without duplicates, in that order.",
     "keep: the owner's list of domains whose existing code stays ('kode adsense yg sudah ada biarkan saja, jgn di hapus, tambahin dengan kode adsense baru'); their primary is that existing code. Every other domain's old code is removed ('Domain yg lain kode adsensenya boleh di hapus ikuti dengan perintah terbaru') and its primary is one of the 16 stacked accounts.",
     "Copies: apps/web/src/lib/ad-config.ts and detektor-artikel/src/pages/ui.ts hold the same values (scripts/check-ads.ts compares them with this file); the partner repositories (axto.us, axtodev, guardian-ai, xaa, Jai, Lie, oldco.in, profity.in) carry their own copy; scripts/site-audit.mjs checks every live domain against this file.",
-    "8 Nov 2026 (owner): 'skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0' — added as the 17th stacked account; and 'Termasuk tambahan situs zufiq.de td yg belum ke input' — zufiq.de joins the stack and keeps its own code (ca-pub-9338499658056112) as the only loader. Publisher ids are public by nature (every ads.txt shows them). dawa.es is not the owner's and is never listed."
+    "8 Nov 2026 (owner): 'skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0' — added as the 17th stacked account; and 'Termasuk tambahan situs zufiq.de td yg belum ke input' — zufiq.de joins the stack and keeps its own code (ca-pub-9338499658056112) as the only loader. Publisher ids are public by nature (every ads.txt shows them). dawa.es is not the owner's and is never listed.",
+    "8 Nov 2026 (owner, after the 17th): 'Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan' — pub-4504974645924459, pub-6284085719914185, pub-7345352440829958 and pub-5254913739159445 join as stacked accounts 18–21 (own meta tag + ads.txt line everywhere, loader unchanged). Also: 1ft.fr in the owner's AdSense account is not the owner's domain (typo of 1fr.fr); it is removed in AdSense by the owner and never appears in this repository."
   ],
   "since": "2026-11-08",
   "stack": [
@@ -25,7 +26,11 @@
     "ca-pub-6146217038829045",
     "ca-pub-2493615451319531",
     "ca-pub-5693981744147503",
-    "ca-pub-8212039662308316"
+    "ca-pub-8212039662308316",
+    "ca-pub-4504974645924459",
+    "ca-pub-6284085719914185",
+    "ca-pub-7345352440829958",
+    "ca-pub-5254913739159445"
   ],
   "keep": [
     "axto.us",

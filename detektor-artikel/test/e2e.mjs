@@ -119,13 +119,13 @@ for (const path of ['/', '/en', '/cara-kerja', '/en/how-it-works', '/harga', '/e
   ok(!r.headers()['x-robots-tag'], 'tidak ada X-Robots-Tag yang menghambat Google');
   // 7 Nov 2026: 16 akun ditumpuk (adsense-stack.json) — satu tag meta per akun, akun utama lebih dulu; satu loader.
   const metas = await p.locator('meta[name="google-adsense-account"]').evaluateAll((els) => els.map((e) => e.getAttribute('content')));
-  ok(metas.length === 17 && metas[0] === 'ca-pub-9354298681597606' && new Set(metas).size === 17 && metas.includes('ca-pub-8212039662308316'), 'AdSense: tag meta per akun (17)');
+  ok(metas.length === 21 && metas[0] === 'ca-pub-9354298681597606' && new Set(metas).size === 21 && metas.includes('ca-pub-8212039662308316'), 'AdSense: tag meta per akun (21)');
   ok((await p.locator('script[src*="adsbygoogle.js?client="]').count()) === 1, 'AdSense: tepat satu loader');
   ok((await p.locator('script[src*="adsbygoogle.js?client=ca-pub-9354298681597606"]').count()) === 1, 'AdSense: loader akun utama');
   ok((await p.locator('meta[name=robots]').count()) === 0, 'beranda bisa diindeks');
   const ads = await (await p.request.get(BASE + '/ads.txt')).text();
   const adsLines = ads.trim().split('\n');
-  ok(adsLines.length === 17 && adsLines[0] === 'google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0' && adsLines.every((l) => /^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/.test(l)), 'ads.txt: satu baris per akun (17)');
+  ok(adsLines.length === 21 && adsLines[0] === 'google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0' && adsLines.every((l) => /^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/.test(l)), 'ads.txt: satu baris per akun (21)');
   const robots = await (await p.request.get(BASE + '/robots.txt')).text();
   ok(/User-agent: Googlebot\nAllow: \//.test(robots) && /User-agent: Mediapartners-Google\nAllow: \//.test(robots) && !/Disallow: \/\n/.test(robots) && /Sitemap: /.test(robots), 'robots.txt membuka semua crawler Google');
   ok((await p.request.get(BASE + '/blueprint')).status() === 404, 'blueprint internal tidak publik');
@@ -278,8 +278,12 @@ ok(/\/r\/[A-Z0-9]+$/.test(refLink), 'tautan afiliasi tersedia');
   await g.waitForURL((u) => new URL(u).pathname === '/en/guide');
   await g.evaluate(() => { window.__spoken = []; });
   const one = await g.locator('#g-deposit [data-gtitle], #g-deposit [data-gstep]').count();
+  ok((await g.locator('html').getAttribute('lang')) === 'en', 'panduan EN terbuka dalam bahasa Inggris');
   await g.click('#g-deposit [data-gplay]');
-  await g.waitForFunction(() => /Finished/.test(document.querySelector('[data-gnow]').textContent));
+  await g.waitForFunction((n) => window.__spoken.length >= n, one, { timeout: 15000 }).catch(async (err) => {
+    console.error('DIAG suara EN:', g.url(), JSON.stringify(await g.evaluate(() => ({ lang: document.documentElement.lang, now: document.querySelector('[data-gnow]')?.textContent, spoken: window.__spoken.length, sec: !!document.querySelector('#g-deposit') }))));
+    throw err;
+  });
   const en = await g.evaluate(() => window.__spoken);
   ok(en.length === one && en.every((x) => x.lang === 'en-US') && /deposit/i.test(en[0].text), 'suara EN: satu bagian (deposit) dibacakan dalam bahasa Inggris');
   const sm = await (await fetch(BASE + '/sitemap.xml')).text();

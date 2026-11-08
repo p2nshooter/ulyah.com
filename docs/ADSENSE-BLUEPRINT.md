@@ -659,6 +659,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 7 Nov | „Perketat logika engine agar tidak bocor dan tidak melebar kemana2 … jgn sampe ada kebocoran biaya baik dari engine maupun dari kecurangan member“ · „Untuk gratis halaman sifatnya dynamic page ya, bisa d rubah dr portal admin, misal … 5 halaman perminggu, atau 10 halaman perbulan … pastikan ketika admin rubah, semua ikut berubah jgn sampai ada miss dan konflik“ | ✅ xscan.es: tag blok prompt di naskah/judul/penulis dipagari; genre & jenjang hanya dari daftar resmi; batas biaya harian ikut menghitung biaya terburuk pemeriksaan yang sedang berjalan; member dengan 3 pemeriksaan gagal berbiaya dalam 24 jam dijeda + audit. Kuota gratis = satu dokumen `k/free.json` (Admin → Kuota gratis: halaman per minggu/bulan, ukuran halaman, maks. per pemeriksaan, anggaran harian, zona waktu); prediksi biaya di Biaya API dan Kuota gratis membaca dokumen itu; konflik dinormalkan di server (maks. per pemeriksaan ≤ kuota). Uji unit 25/25, e2e lulus |
 | 7 Nov | „Gunakan beberapa bahasa, Indonesia Inggris Spanyol, Arab, German & Perancis, china dan India, dan untuk kemampuan engine multi bahasa seluruh dunia...pastikan ketika client merubah ke bhs lain, jgn pernah berubah sebelum d rubah manual oleh member di halaman manapun.. Catat bahwa project ini tidak hanya untuk Indonesia, tp global. Pembayaran lihat rekening di ulyah.com … upload manual client setelah membayar termasuk invoice... Hanya Indonesia defoul bahasa Indonesia, jika terdeteksi negara luar pastika defoultnya bahasa inggris“ | ✅ xscan.es: bahasa = pilihan manual (akun → cookie) → negara (ID → Indonesia, lainnya → Inggris), tombol bahasa menyimpan pilihan, crawler tidak dialihkan (e2e). Pembayaran sudah memakai rekening ulyah.com + invoice + unggah bukti (e2e). 📝 delapan bahasa antarmuka dan mesin multi-bahasa: `detektor-artikel/docs/MASTER-BLUEPRINT.md` §22 fase G1–G4 |
 | 8 Nov | „Ada yg ketinggalan, situs zufiq.de input semua kode adsense seperti di yg td drubah“ · „Termasuk tambahan situs zufiq.de td yg belum ke input ke website yg di tumpuk kode adsense nya... skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0“ | 🔄 §23.5 — akun ke-17 `ca-pub-8212039662308316` di tumpukan semua domain; zufiq.de ikut ditumpuk dengan kodenya sendiri (ca-pub-9338499658056112) tetap sebagai satu-satunya loader |
+| 8 Nov | „Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan … google.com, pub-4504974645924459 … pub-6284085719914185 … Ini jg … pub-7345352440829958 … Ini jg … pub-5254913739159445“ · „1ft.fr di batalin ya, ternyata bukan domain sy“ | Akun tumpukan ke-18 s.d. ke-21 di **semua** domain (tag meta + baris ads.txt; loader tetap akun utama). 1ft.fr = salah ketik di akun AdSense pemilik, tidak ada di repo mana pun; pemilik menghapusnya di AdSense (tombol „Hapus situs“). §23.6 |
 | 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
 
 ---
@@ -1786,6 +1787,24 @@ Kode hanya membuka pintu verifikasi; penilaian „low value“ (§22) ditentukan
 - zufiq.de ikut ditumpuk. Kodenya sendiri (`ca-pub-9338499658056112`) tetap menjadi akun utama — satu-satunya loader —
   seperti 11 domain *keep* lainnya, jadi tinjauan AdSense yang sedang berjalan tidak terputus.
 - Jumlah akun per domain sekarang 17 (akun utama salah satu tumpukan) atau 18 (akun utama di luar tumpukan).
+
+### 23.6 Akun ke-18 s.d. ke-21 (pemilik, 8 Nov 2026)
+
+„Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan … google.com, pub-4504974645924459 … pub-6284085719914185 … Ini jg … pub-7345352440829958 … Ini jg … pub-5254913739159445“
+
+- `ca-pub-4504974645924459` (ke-18), `ca-pub-6284085719914185` (ke-19), `ca-pub-7345352440829958` (ke-20),
+  `ca-pub-5254913739159445` (ke-21) masuk `adsense-stack.json` → setiap domain: 21 akun (domain keep: 22), satu tag meta
+  dan satu baris ads.txt per akun, **tetap satu loader** (akun utama). Dua di antaranya pernah menjadi kode utama domain
+  lain sebelum 7 Nov 2026; kini kembali sebagai akun tumpukan, bukan loader.
+- Disalin ke semua tempat yang membacanya: `apps/web/src/lib/ad-config.ts`, `detektor-artikel/src/pages/ui.ts`, repo mitra
+  (`src/lib/adsense.ts` + `public/ads.txt` + `scripts/check-adsense.mjs` = 21; guardian-ai `dashboard/lib/adsense.ts` +
+  uji), salinan `adsense-stack.json` di axto.us; `sites/*/ADSENSE.txt` dibuat ulang dengan generator mesin
+  (`snippetsText`), `docs/ADSENSE-SEMUA-DOMAIN.txt` dengan `scripts/adsense-summary.mjs`.
+- **1ft.fr** (tangkapan layar AdSense pemilik, akun pub-7250589269548267, „Membutuhkan peninjauan“): bukan domain pemilik —
+  salah ketik dari 1fr.fr. Tidak ada di repo mana pun dan tidak pernah dipasang; pemilik menghapusnya di AdSense
+  („Hapus situs“).
+- Cuplikan setiap akun baru: tag meta `<meta name="google-adsense-account" content="ca-pub-…">`, baris ads.txt
+  `google.com, pub-…, DIRECT, f08c47fec0942fa0`; loader hanya dipakai bila akun itu dijadikan akun utama sebuah domain.
 
 ### 23.4 Verifikasi Sedo: jenius.es, xscan.es, ascan.es
 
