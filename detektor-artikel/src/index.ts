@@ -4,7 +4,7 @@
  */
 import { Hono } from 'hono';
 import type { Env } from './env.ts';
-import { loadSession, type HonoEnv, type Ctx } from './lib/session.ts';
+import { loadSession, chosenLang, countryLang, isCrawler, type HonoEnv, type Ctx } from './lib/session.ts';
 import type { Lang } from './lib/i18n.ts';
 import { homePage, howPage, accuracyPage, pricingPage, samplePage, policyPage, verifyPage, notFoundPage, PATHS, type PageKey, type PublishedAccuracy, type VerifyRecord } from './pages/public.ts';
 import { auth } from './routes/auth.ts';
@@ -88,10 +88,24 @@ app.get('/api/health', (c) => c.json({ ok: true }));
 const originOf = (c: Ctx) => (c.env.CANONICAL_HOST ? `https://${c.env.CANONICAL_HOST}` : new URL(c.req.url).origin);
 const pubCtx = (c: Ctx, L: Lang) => ({ L, user: c.get('user'), origin: originOf(c), noindex: false });
 
+/**
+ * Halaman publik berpasangan (ID ↔ EN). Pengunjung manusia dibawa ke bahasanya: pilihan manual (akun/cookie) bila ada,
+ * bila belum memilih menurut negara (Indonesia → ID, negara lain → EN). Crawler tidak pernah dialihkan, dan hreflang
+ * menautkan kedua versi, jadi keduanya tetap terindeks. Setelah member memilih lewat tombol bahasa, bahasanya tidak
+ * berubah lagi di halaman mana pun sampai ia memilih lagi.
+ */
 function both(key: PageKey, render: (c: Ctx, L: Lang) => Promise<string> | string) {
   const [idp, enp] = PATHS[key];
-  app.get(idp, async (c) => c.html(await render(c as Ctx, 'id')));
-  app.get(enp, async (c) => c.html(await render(c as Ctx, 'en')));
+  const serve = (L: Lang) => async (c: Ctx) => {
+    const want = isCrawler(c) ? null : chosenLang(c) ?? countryLang(c);
+    if (want && want !== L) {
+      const q = new URL(c.req.url).search;
+      return c.redirect(`${want === 'en' ? enp : idp}${q}`, 302);
+    }
+    return c.html(await render(c, L));
+  };
+  app.get(idp, (c) => serve('id')(c as Ctx));
+  app.get(enp, (c) => serve('en')(c as Ctx));
 }
 
 both('home', async (c, L) => {

@@ -84,11 +84,34 @@ export async function loadSession(c: Ctx): Promise<void> {
   c.set('sess', p);
 }
 
-/** Bahasa portal: akun → cookie → bawaan Indonesia. */
-export function portalLang(c: Ctx): Lang {
+/**
+ * Bahasa (pemilik, 7 Nov 2026: „pastikan ketika client merubah ke bhs lain, jgn pernah berubah sebelum d rubah manual oleh
+ * member di halaman manapun … Hanya Indonesia defoul bahasa Indonesia, jika terdeteksi negara luar pastika defoultnya bahasa
+ * inggris“). Urutan: pilihan manual (akun → cookie) → negara pengunjung (Cloudflare `cf-ipcountry`: ID → id, lainnya → en).
+ * Pilihan manual hanya berubah lewat /lang (tombol ganti bahasa).
+ */
+export function chosenLang(c: Ctx): Lang | null {
   const u = c.get('user');
   if (u?.lang) return u.lang;
-  return getCookie(c, 'tl_lang') === 'en' ? 'en' : 'id';
+  const v = getCookie(c, 'tl_lang');
+  return v === 'en' || v === 'id' ? v : null;
+}
+
+/** Bahasa bawaan menurut negara; null bila negara tidak diketahui (uji lokal, tanpa header Cloudflare). */
+export function countryLang(c: Ctx): Lang | null {
+  const cc = (c.req.header('cf-ipcountry') ?? '').trim().toUpperCase();
+  if (!cc) return null;
+  return cc === 'ID' ? 'id' : 'en';
+}
+
+/** Crawler mesin pencari dan iklan tidak pernah dialihkan bahasanya: setiap versi bahasa harus bisa diindeks. */
+export function isCrawler(c: Ctx): boolean {
+  return /bot\b|bot\/|crawl|spider|slurp|mediapartners|adsbot|googlebot|google-inspectiontool|googleother|bingpreview|yandex|baidu|duckduck|facebookexternalhit|embedly|lighthouse|headlesschrome|petalbot|applebot/i.test(c.req.header('user-agent') ?? '');
+}
+
+/** Bahasa portal: pilihan manual → negara → Indonesia. */
+export function portalLang(c: Ctx): Lang {
+  return chosenLang(c) ?? countryLang(c) ?? 'id';
 }
 
 export function setLangCookie(c: Ctx, L: Lang): void {

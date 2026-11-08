@@ -59,6 +59,35 @@ async function ctx(opts = {}) {
   return c;
 }
 
+// 0. Bahasa (pemilik, 7 Nov 2026): Indonesia → ID, negara lain → EN, pilihan manual tidak pernah berubah sendiri,
+//    crawler tidak pernah dialihkan.
+{
+  const us = await ctx({ extraHTTPHeaders: { 'cf-ipcountry': 'US' }, userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36' });
+  const q = await us.newPage();
+  await q.goto(BASE + '/');
+  ok(new URL(q.url()).pathname === '/en', 'pengunjung dari luar negeri: beranda bawaan bahasa Inggris');
+  await q.click('a.lang-switch');
+  await q.waitForURL((u) => new URL(u).pathname === '/');
+  ok((await q.locator('html').getAttribute('lang')) === 'id', 'tombol bahasa: pindah ke Indonesia dan tetap di sana');
+  await q.goto(BASE + '/en/pricing');
+  ok(new URL(q.url()).pathname === '/harga', 'pilihan manual bertahan di halaman lain walau negaranya AS');
+  await us.close();
+  const idn = await ctx({ extraHTTPHeaders: { 'cf-ipcountry': 'ID' }, userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36' });
+  const r = await idn.newPage();
+  await r.goto(BASE + '/en');
+  ok(new URL(r.url()).pathname === '/', 'pengunjung Indonesia tanpa pilihan: bawaan bahasa Indonesia');
+  await r.click('a.lang-switch');
+  await r.waitForURL((u) => new URL(u).pathname === '/en');
+  await r.goto(BASE + '/cara-kerja');
+  ok(new URL(r.url()).pathname === '/en/how-it-works', 'pengunjung Indonesia yang memilih English tetap English di halaman lain');
+  await idn.close();
+  const bot = await ctx({ extraHTTPHeaders: { 'cf-ipcountry': 'US' }, userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' });
+  const b = await bot.newPage();
+  const res = await b.goto(BASE + '/');
+  ok(res.status() === 200 && new URL(b.url()).pathname === '/', 'Googlebot tidak pernah dialihkan bahasanya');
+  await bot.close();
+}
+
 // 1. Halaman publik ID & EN
 const pub = await ctx();
 let p = await pub.newPage();

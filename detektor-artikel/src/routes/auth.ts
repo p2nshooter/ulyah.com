@@ -248,6 +248,9 @@ auth.get('/lang', async (c) => {
   setLangCookie(c, to);
   const user = c.get('user');
   if (user) await updateUser(c.get('store'), user.id, (u) => ({ ...u, lang: to }));
+  // `next`: halaman yang sama dalam bahasa tujuan (tombol bahasa di halaman publik). Hanya jalur di situs ini.
+  const next = c.req.query('next') ?? '';
+  if (/^\/(?!\/)[^\s\\]*$/.test(next)) return c.redirect(next);
   const back = c.req.header('referer');
   return c.redirect(back && new URL(back).host === new URL(c.req.url).host ? back : '/app');
 });
