@@ -19,8 +19,9 @@ import {
 import {
   callModel, context, JUDGE_SYSTEM, PARAGRAPH_SCHEMA, REGEN_SYSTEM, rubricSchema, rubricSystem, SENTENCE_SCHEMA, StageError, type CallCtx,
 } from './claude.ts';
-import { getEngine, getBilling, addSpend, type EngineSettings } from '../data/settings.ts';
-import { rateCard, lineTokens, tokenCostIdr, minRevenueMultiple, type Rate, type Mode } from './pricing.ts';
+import { getEngine, getBilling, addSpend, addFreeSpend, type EngineSettings } from '../data/settings.ts';
+import { releaseFreePages } from '../data/free.ts';
+import { rateCard, lineTokens, tokenCostIdr, minRevenueMultiple, freeModel, type Rate, type Mode } from './pricing.ts';
 import { audit } from '../data/audit.ts';
 import { aspectValue, categoryOf, getRubric, languageBand, ruleErrors, type LangError, type Rubric } from './rubrics.ts';
 import { refund, type Reservation } from '../data/wallet.ts';
@@ -35,6 +36,11 @@ export interface CheckDoc {
   uid: string;
   batchId?: string;
   bench?: { set: string; n: number; label: string; run: string };
+  /**
+   * Cek Gratis (docs/MASTER-BLUEPRINT.md §20): halaman normal yang dipakai dari kuota periode `periodKey`; `partialOf` =
+   * jumlah halaman naskah aslinya bila hanya halaman awal yang diperiksa.
+   */
+  free?: { pages: number; periodKey: string; partialOf?: number };
   createdAt: number;
   updatedAt: number;
   title: string;
@@ -87,6 +93,8 @@ export interface ReportSummary {
   checkId: string;
   uid: string;
   batchId?: string;
+  /** Laporan Cek Gratis: bertanda air, tanpa JSON bertanda tangan; `partialOf` bila naskah hanya diperiksa sebagian. */
+  free?: { pages: number; partialOf?: number };
   createdAt: number;
   title: string;
   author: string;
@@ -299,8 +307,14 @@ async function judgeA(ctx: CallCtx, settings: EngineSettings, doc: CheckDoc, pp:
   return out;
 }
 
-async function judgeB(ctx: CallCtx, settings: EngineSettings, doc: CheckDoc, pp: Prepped): Promise<JudgeBOut> {
-  const jm = judgeModel(settings, doc.mode);
+async function judgeB(
+  ctx: CallCtx,
+  settings: EngineSettings,
+  doc: CheckDoc,
+  pp: Prepped,
+  ov?: { model: string; effort: EngineSettings['effort']['t1']; maxTokens: number },
+): Promise<JudgeBOut> {
+  const jm = ov ?? judgeModel(settings, doc.mode);
   const L = doc.reportLang === 'en' ? 'English' : 'Indonesian';
   try {
     const r = await callModel<{ paragraphs: { i: number; p: number; r: string[] }[]; doc_p: number; style_note: string; injection: boolean }>(ctx, {
@@ -310,7 +324,7 @@ async function judgeB(ctx: CallCtx, settings: EngineSettings, doc: CheckDoc, pp:
       system: JUDGE_SYSTEM,
       user: `${context(pp.lang, doc.genre, doc.level)}\n<naskah>\n${numberedParagraphs(pp)}\n</naskah>\nJudge each numbered paragraph (¶) as a whole: rhythm across its sentences, structure and how its ideas develop. Use the paragraph number as i. Also give doc_p for the whole text, and style_note: at most 40 words in ${L} on what makes the writing feel human or AI-written.`,
       schema: PARAGRAPH_SCHEMA,
-      maxTokens: 12000,
+      maxTokens: ov?.maxTokens ?? 12000,
     });
     ctx.cost += r.cost;
     const paragraphs: Record<number, JudgeSentence> = {};
@@ -441,7 +455,31 @@ function signalsOf(prep: PrepOut, t1: T1Out | null, t2: EscalationOut | null, t3
   };
 }
 
+/**
+ * Cek Gratis: SATU lintasan Haiku termurah (pemilik: „hanya menggunakan haiku yg paling murah“), penilaian per paragraf,
+ * effort rendah, keluaran dibatasi 900 token per halaman normal; tanpa uji regenerasi, rubrik, atau eskalasi. Label per
+ * kalimat diambil dari paragrafnya, jadi fusi dan laporan memakai kode yang sama dengan pemeriksaan berbayar.
+ */
+async function stageT1Free(ctx: CallCtx, env: Env, store: Store, settings: EngineSettings, doc: CheckDoc): Promise<Partial<CheckDoc>> {
+  const prep = (await readSub<PrepOut>(store, env, doc.id, 'prep'))!;
+  const pp = prep.pp;
+  const maxTokens = Math.max(1200, 900 * Math.max(1, doc.free?.pages ?? 1));
+  const b = await sub(store, env, doc.id, 't1-b', () => judgeB(ctx, settings, doc, pp, { model: freeModel(settings), effort: 'low', maxTokens }));
+  await sub(store, env, doc.id, 't1-a', async (): Promise<JudgeAOut> => {
+    const sentences: Record<number, JudgeSentence> = {};
+    for (const s of body(pp)) {
+      const par = b.paragraphs[s.par];
+      if (par) sentences[s.i] = { i: s.i, p: par.p, r: par.r };
+    }
+    return { doc: b.doc, sentences, injection: b.injection, refused: b.refused };
+  });
+  await sub(store, env, doc.id, 't1-regen', async () => ({ p: null, overlaps: [] as number[] }));
+  await store.put(subKey(doc.id, 't2-targets'), { targets: [] });
+  return { stage: 'fuse', t2n: 0, skipped: ['t2', 't3'] };
+}
+
 async function stageT1(ctx: CallCtx, env: Env, store: Store, settings: EngineSettings, doc: CheckDoc): Promise<Partial<CheckDoc>> {
+  if (doc.free) return stageT1Free(ctx, env, store, settings, doc);
   const prep = (await readSub<PrepOut>(store, env, doc.id, 'prep'))!;
   const pp = prep.pp;
   const rubric = getRubric(doc.rubricId);
@@ -670,6 +708,7 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     checkId: doc.id,
     uid: doc.uid,
     batchId: doc.batchId,
+    free: doc.free ? { pages: doc.free.pages, partialOf: doc.free.partialOf } : undefined,
     createdAt: Date.now(),
     title: doc.title,
     author: doc.author,
@@ -707,7 +746,8 @@ async function finalize(env: Env, store: Store, settings: EngineSettings, docIn:
     verifyCode: code,
     engine: { version: '1.0', calibration: 'awal-1', prompt: 'v1' },
     cost: Math.round(doc.cost * 1e6) / 1e6,
-    tokens,
+    // Cek Gratis memakai kuota halaman, bukan token: member tidak pernah melihat atau membayar token untuknya.
+    tokens: doc.free ? 0 : tokens,
     usage: { lines, rates, exact, reserved: doc.reserved, charged: doc.reserve && 'tokens' in doc.reserve ? tokens : 0, refunded: doc.reserve && 'tokens' in doc.reserve ? Math.max(0, doc.reserved - tokens) : 0 },
     samePrior: prior.filter((x) => x.id !== reportId).length,
     enc: await seal(master(env), detail),
@@ -749,8 +789,11 @@ export async function settleCheck(env: Env, store: Store, doc: CheckDoc): Promis
     const back = doc.stage === 'done' ? Math.max(0, doc.reserved - (doc.charged ?? doc.tokens ?? 0)) : doc.reserved;
     await refund(store, doc.uid, back, doc.stage === 'done' ? `Sisa pesanan ${doc.id} (ditagih ${doc.charged ?? 0} token)` : `Pemeriksaan gagal ${doc.id} — tidak ditagih`, `settle:${doc.id}`);
   }
+  // Cek Gratis yang gagal: halaman kuotanya kembali (idempoten).
+  if (doc.free && doc.stage === 'failed') await releaseFreePages(store, doc.uid, doc.free.periodKey, doc.id);
   if (await store.createOnce(`u/spend/${doc.id}`, { at: Date.now() })) {
     await addSpend(store, doc.cost, doc.stage === 'done' ? doc.analyzedWords ?? 0 : 0);
+    if (doc.free) await addFreeSpend(store, doc.cost);
     // Gagal setelah biaya AI terpakai: tidak ditagih ke member, tetapi dihitung — lebih dari 3 dalam 24 jam membuat
     // pemeriksaan baru member itu dijeda (checks.ts), dan admin melihatnya di audit log.
     if (doc.stage === 'failed' && doc.cost > 0 && !doc.bench) {

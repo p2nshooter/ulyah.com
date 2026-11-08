@@ -242,6 +242,12 @@ export const FREE_CHECK = {
 
 const WEEKS_PER_MONTH = 52 / 12;
 
+/** Biaya terburuk satu Cek Gratis sebesar `pages` halaman normal (dipakai gerbang anggaran harian). */
+export function freeWorstUsd(eng: EngineSettings, free: FreeSettings, pages: number): number {
+  const p = price(eng, freeModel(eng));
+  return (((FREE_CHECK.systemTokens + free.tokensPerPage) * p.in + FREE_CHECK.maxOutPerPage * p.out) / 1e6) * Math.max(1, pages);
+}
+
 /** Model Cek Gratis: Haiku termurah yang ada di daftar harga (pemilik: „hanya menggunakan haiku yg paling murah“). */
 export function freeModel(eng: EngineSettings): string {
   const haikus = Object.keys(eng.prices).filter((m) => /haiku/i.test(m));

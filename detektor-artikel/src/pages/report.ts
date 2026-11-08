@@ -4,7 +4,7 @@ import { qrSvg } from '../lib/qr.ts';
 import { tr, fmtNum, fmtScore, fmtDate, LABELS, REASONS, CLASS_NAMES, GENRES, LEVELS, MODE_INFO, type Lang } from '../lib/i18n.ts';
 import type { ReportDetail, ReportSummary } from '../engine/cascade.ts';
 import { getRubric, bi, CATEGORY } from '../engine/rubrics.ts';
-import { compBar, ring, labelPill, BRAND, TAGLINE } from './ui.ts';
+import { compBar, ring, labelPill, BRAND, TAGLINE, WATERMARK } from './ui.ts';
 import { LOGO_DATA_URI } from './logo-data.ts';
 import type { Rate, ModePages } from '../engine/pricing.ts';
 
@@ -54,16 +54,19 @@ export function reportPages(v: ReportView): Raw {
   const header = html`<div class="phead">
     <div class="pbrand">${v.letterhead ? html`<span class="lh">${v.letterhead}</span>` : ''}<img class="plogo" src="${LOGO_DATA_URI}" width="58" height="58" alt=""><div><b>${BRAND}</b><small>${tr(L, 'Laporan Deteksi AI & Penilaian Tulisan', 'AI Detection & Writing Assessment Report')} · ${TAGLINE}</small></div></div>
     <a class="pqr" href="${v.verifyUrl}" title="${tr(L, 'Pindai untuk verifikasi', 'Scan to verify')}">${raw(qrSvg(v.verifyUrl))}<small>${s.verifyCode}</small></a>
-  </div>`;
+  </div>${s.free ? html`<div class="free-mark" aria-label="${tr(L, 'Cek Gratis', 'Free Check')}"><img src="${WATERMARK.badge}" width="18" height="18" alt="">${tr(L, 'CEK GRATIS · Haiku, per paragraf', 'FREE CHECK · Haiku, per paragraph')}${s.free.partialOf ? ` · ${tr(L, `sebagian: ${s.free.pages} dari ${s.free.partialOf} halaman`, `partial: ${s.free.pages} of ${s.free.partialOf} pages`)}` : ''}</div>` : ''}`;
   const foot = (n: number, of: number) => html`<div class="pfoot"><span>${s.id} · ${tr(L, 'sidik teks', 'text fingerprint')} ${s.hash.slice(0, 8)}…${s.hash.slice(-4)}</span><span>${tr(L, 'Verifikasi', 'Verify')}: ${v.verifyUrl.replace(/^https?:\/\//, '')}</span><span>${tr(L, `Hal. ${n}/${of}`, `Page ${n}/${of}`)}</span></div>`;
   const pages = rubric && s.rubric ? 2 : 1;
+  // Tanda air logo domain di setiap halaman laporan Cek Gratis (layar: ubin miring di bawah teks; cetak: satu logo
+  // besar per lembar kertas lewat .wm-print yang position: fixed). docs/MASTER-BLUEPRINT.md §20.7.
+  const wm = s.free ? html`<div class="wm" aria-hidden="true"></div>` : '';
 
   const excerptPar = [...s.paragraphs].sort((a, b) => b.p - a.p)[0];
   const excerpt = d && excerptPar
     ? d.sentences.filter((x) => x.par === excerptPar.i).map((x) => (x.cls === 'ai' ? html`<mark class="s-ai">${x.text}</mark> ` : x.cls === 'mix' ? html`<mark class="s-mix">${x.text}</mark> ` : html`${x.text} `))
     : null;
 
-  const page1 = html`<article class="paper" aria-label="${tr(L, 'Laporan halaman 1', 'Report page 1')}">
+  const page1 = html`<article class="paper" aria-label="${tr(L, 'Laporan halaman 1', 'Report page 1')}">${wm}
   ${header}
   <dl class="pmeta">
     <dt>${tr(L, 'No. laporan', 'Report no.')}</dt><dd>${s.id}</dd><dt>${tr(L, 'Tanggal', 'Date')}</dt><dd>${fmtDate(L, s.createdAt)}</dd>
@@ -92,7 +95,7 @@ export function reportPages(v: ReportView): Raw {
   let page2: Raw | string = '';
   if (rubric && s.rubric) {
     const det = new Map((d?.rubric?.aspects ?? []).map((a) => [a.key, a]));
-    page2 = html`<article class="paper" aria-label="${tr(L, 'Laporan halaman 2', 'Report page 2')}">
+    page2 = html`<article class="paper" aria-label="${tr(L, 'Laporan halaman 2', 'Report page 2')}">${wm}
   <h5 class="first">${tr(L, 'Penilaian rubrik', 'Rubric grading')} — ${bi(L, rubric.name)}</h5>
   <table class="ptable">
     <thead><tr><th>No.</th><th>${tr(L, 'Aspek', 'Aspect')}</th><th class="r">${tr(L, 'Bobot', 'Weight')}</th><th class="c">${tr(L, 'Skor', 'Score')}</th><th class="c">${tr(L, 'Perhitungan', 'Calculation')}</th><th class="r">${tr(L, 'Nilai', 'Value')}</th></tr></thead>
@@ -120,7 +123,7 @@ export function reportPages(v: ReportView): Raw {
   }
 
   const appendix = d
-    ? html`<article class="paper appendix" aria-label="${tr(L, 'Lampiran teks bertanda', 'Marked-text appendix')}">
+    ? html`<article class="paper appendix" aria-label="${tr(L, 'Lampiran teks bertanda', 'Marked-text appendix')}">${wm}
   <h5 class="first">${tr(L, 'Lampiran — teks lengkap bertanda per kalimat', 'Appendix — full text marked per sentence')}</h5>
   <div class="legend"><span><i class="lg-ai"></i>AI ≥ 80%</span><span><i class="lg-mix"></i>${tr(L, 'Campuran 20–80%', 'Mixed 20–80%')}</span><span><i class="lg-hum"></i>${tr(L, 'Manusia ≤ 20%', 'Human ≤ 20%')}</span><span><i class="lg-exc"></i>${tr(L, 'Dikecualikan', 'Excluded')}</span></div>
   <div class="fulltext">${d.paragraphs.map((p) => {
@@ -135,7 +138,8 @@ export function reportPages(v: ReportView): Raw {
   ${foot(pages + 1, pages + 1)}
 </article>`
     : '';
-  return html`<div class="report">${page1}${page2}${appendix}</div>`;
+  const wmPrint = s.free ? html`<div class="wm-print" aria-hidden="true"><img src="${WATERMARK.full}" width="900" height="209" alt=""></div>` : '';
+  return html`<div class="report${s.free ? ' is-free' : ''}">${wmPrint}${page1}${page2}${appendix}</div>`;
 }
 
 export function labelChip(L: Lang, s: ReportSummary): Raw {

@@ -2,16 +2,17 @@
 import { Hono } from 'hono';
 import { html, raw, jsonScript, type Raw } from '../lib/html.ts';
 import { tr, fmtNum, fmtDate, fmtScore, GENRES, LEVELS, LABELS, MODE_INFO, type Lang, type LabelKey } from '../lib/i18n.ts';
-import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice } from '../pages/ui.ts';
+import { page, pageHead, guide, flash, labelPill, compBar, empty, stat, tip, purgeNotice, BRAND_HOST } from '../pages/ui.ts';
 import { PURGE_DAYS } from '../data/policy.ts';
 import { reportPages, usagePanel, rateTable, modePagesTable } from '../pages/report.ts';
 import { rateCard, predictByMode, packagePrice, tokenPriceIdr } from '../engine/pricing.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
 import { RUBRICS, bi, getRubric } from '../engine/rubrics.ts';
-import { getEngine, getBilling, measuredCostPer1k, type BillingSettings, type EngineSettings } from '../data/settings.ts';
+import { getEngine, getBilling, measuredCostPer1k, getFree, type BillingSettings, type EngineSettings } from '../data/settings.ts';
+import { freeStatus } from '../data/free.ts';
 import { balanceOf, ledger } from '../data/wallet.ts';
 import { predictPages } from '../engine/pricing.ts';
-import { createCheck, sanitizeInput, CheckInputError, batchKey, settleBatch, type Batch } from './checks.ts';
+import { createCheck, sanitizeInput, CheckInputError, FreeChoiceError, netHashOf, batchKey, settleBatch, type Batch, type FreeChoice } from './checks.ts';
 import { checkKey, reportKey, textKey, type CheckDoc, type ReportDetail, type ReportSummary } from '../engine/cascade.ts';
 import { newId, unseal, verifyPassword, hashPassword, hmac } from '../lib/crypto.ts';
 import { invTs } from '../lib/store.ts';
@@ -35,8 +36,32 @@ app.use('/app', async (c, next) => {
   await next();
 });
 
-function shell(c: Ctx, title: string, body: Raw, active: string): string {
-  return page({ L: portalLang(c), title, body, user: c.get('user'), area: 'app', active });
+function shell(c: Ctx, title: string, body: Raw, active: string, ads = false): string {
+  return page({ L: portalLang(c), title, body, user: c.get('user'), area: 'app', active, ads });
+}
+
+/** Keadaan kuota gratis member untuk formulir (dari Admin → Kuota gratis). */
+async function freeView(c: Ctx) {
+  const store = c.get('store');
+  const f = await getFree(store);
+  const st = await freeStatus(store, c.get('user')!.id, f);
+  return { f, remaining: st.remaining, resetAt: st.period.resetAt };
+}
+type FreeView = Awaited<ReturnType<typeof freeView>>;
+
+function freeChoiceBox(L: Lang, ch: FreeChoice): Raw {
+  const per = ch.period === 'week' ? tr(L, 'minggu', 'week') : tr(L, 'bulan', 'month');
+  return html`<section class="card free-choice reveal" data-free-choice role="alert">
+    <h3>${tr(L, `Naskah ini ${ch.pages} halaman`, `This text is ${ch.pages} pages`)}</h3>
+    <p>${tr(L, `Satu halaman dihitung dari teksnya (kertas Legal: maks. ${ch.wordsPerPage} kata). Kuota gratis Anda ${ch.quota} halaman per ${per}, maks. ${ch.maxPerCheck} per pemeriksaan; sisa ${ch.remaining} halaman.`, `A page is measured from the text (Legal paper: at most ${ch.wordsPerPage} words). Your free quota is ${ch.quota} pages per ${per}, at most ${ch.maxPerCheck} per check; ${ch.remaining} pages left.`)}</p>
+    ${ch.pages > ch.quota ? html`<p class="warn">${tr(L, `Naskah ini lebih panjang dari seluruh kuota gratis (${ch.quota} halaman).`, `This text is longer than the whole free quota (${ch.quota} pages).`)}</p>` : ''}
+    <div class="choice-row">
+      ${ch.allowedNow > 0 ? html`<button class="btn btn-ghost" type="submit" name="partial" value="1">${tr(L, `Periksa ${ch.allowedNow} halaman pertama gratis`, `Check the first ${ch.allowedNow} pages for free`)}</button>` : ''}
+      <button class="btn btn-primary" type="submit" name="switch" value="paid">${tr(L, 'Periksa semuanya dengan Cek Lengkap (token)', 'Check all of it with the Full Check (tokens)')}</button>
+      <a class="btn btn-ghost" href="/app/token">${tr(L, 'Isi saldo', 'Top up')}</a>
+    </div>
+    <p class="muted small">${tr(L, `Atau tunggu kuota baru: ${fmtDate(L, ch.resetAt)}.`, `Or wait for the new quota: ${fmtDate(L, ch.resetAt)}.`)}</p>
+  </section>`;
 }
 
 const q = (c: Ctx, k: string) => c.req.query(k) ?? null;
@@ -91,8 +116,10 @@ app.get('/app', async (c) => {
 
 /* ── periksa baru ───────────────────────────────────────────────────── */
 
-function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}): string {
+function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}, fv?: FreeView, choice?: FreeChoice): string {
   const L = portalLang(c);
+  const freeOn = Boolean(fv && fv.f.enabled);
+  const per = fv?.f.period === 'month' ? tr(L, 'bulan', 'month') : tr(L, 'minggu', 'week');
   const body = html`
   ${pageHead(tr(L, 'Periksa naskah baru', 'Check a new text'), tr(L, 'Tiga langkah: masukkan teks, isi keterangan, pilih cara menilai.', 'Three steps: add the text, describe it, choose how to grade.'))}
   ${purgeNotice(L, true)}
@@ -103,6 +130,7 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}):
   ])}
   ${flash(L, null, err)}
   <form method="post" action="/app/periksa" class="check-form" data-check-form data-lang="${L}">
+    ${choice ? freeChoiceBox(L, choice) : ''}
     <section class="card step reveal"><div class="step-n">1</div><div class="step-body">
       <h3>${tr(L, 'Teks naskah', 'The text')}</h3>
       <div class="dropzone" data-drop><input type="file" accept=".txt,.md,.docx" data-file hidden id="fileInput"><label for="fileInput" class="drop-label"><span class="drop-ic">⬆</span><b>${tr(L, 'Unggah .docx / .txt', 'Upload .docx / .txt')}</b><small class="muted">${tr(L, 'atau seret berkas ke sini — teks diambil di peramban, berkasnya tidak dikirim', 'or drag a file here — text is extracted in your browser, the file is not sent')}</small></label></div>
@@ -125,28 +153,36 @@ function checkForm(c: Ctx, err?: string | null, v: Record<string, string> = {}):
         <label class="field"><span>${tr(L, 'Rubrik penilaian', 'Grading rubric')}</span><select name="rubric" data-rubric><option value="">${tr(L, 'Tanpa rubrik — deteksi AI saja', 'No rubric — AI detection only')}</option>${RUBRICS.map((r) => html`<option value="${r.id}" ${(v.rubric ?? 'lomba-esai') === r.id ? 'selected' : ''}>${bi(L, r.name)}</option>`)}</select></label>
         <label class="field"><span>${tr(L, 'Bahasa laporan', 'Report language')}</span><select name="reportLang"><option value="id" ${L === 'id' ? 'selected' : ''}>Bahasa Indonesia</option><option value="en" ${L === 'en' ? 'selected' : ''}>English</option></select></label>
       </div>
+      ${freeOn && fv ? html`<fieldset class="modes free-mode"><legend>${tr(L, 'Cek Gratis', 'Free Check')}</legend>
+        <label class="mode-card ${fv.remaining > 0 ? '' : 'off'}"><input type="radio" name="mode" value="free" ${v.mode === 'free' ? 'checked' : ''} ${fv.remaining > 0 ? '' : 'disabled'} data-free-remaining="${fv.remaining}"><span><b>${tr(L, `Gratis — sisa ${fv.remaining} dari ${fv.f.pages} halaman per ${per}`, `Free — ${fv.remaining} of ${fv.f.pages} pages left this ${per}`)}</b><small>${tr(L, `Mesin hemat (Claude Haiku), penilaian per paragraf, tanpa rubrik. Maks. ${fv.f.maxPerCheck} halaman per pemeriksaan (1 halaman = maks. ${fv.f.wordsPerPage} kata). Kuota baru: ${fmtDate(L, fv.resetAt)}. Laporannya memuat iklan dan tanda air logo ${BRAND_HOST}.`, `Economy engine (Claude Haiku), judged per paragraph, no rubric. At most ${fv.f.maxPerCheck} pages per check (1 page = at most ${fv.f.wordsPerPage} words). New quota: ${fmtDate(L, fv.resetAt)}. The report carries ads and a ${BRAND_HOST} logo watermark.`)}</small><em class="mode-est">${tr(L, 'Untuk hasil per kalimat, rubrik dan laporan lengkap: pilih Cek Lengkap di bawah.', 'For per-sentence results, rubrics and the full report: choose a Full Check below.')}</em></span></label>
+      </fieldset>` : ''}
       <fieldset class="modes"><legend>${tr(L, 'Mesin AI', 'AI engine')} ${tip(tr(L, 'AUTO memilih sendiri: Haiku dulu, lalu Sonnet/Opus hanya untuk kalimat yang ragu. Atau pilih satu model.', 'AUTO chooses for you: Haiku first, then Sonnet/Opus only for doubtful sentences. Or pick one model.'))}</legend>
         ${(['auto', 'haiku', 'sonnet', 'opus', 'forensic'] as const).map((m) => html`<label class="mode-card ${m === 'auto' ? 'rec' : ''}"><input type="radio" name="mode" value="${m}" ${(v.mode ?? 'auto') === m ? 'checked' : ''}><span><b>${L === 'en' ? MODE_INFO[m]!.en : MODE_INFO[m]!.id}</b><small>${L === 'en' ? MODE_INFO[m]!.den : MODE_INFO[m]!.did}</small><em class="mode-est" data-mode-est="${m}">—</em></span></label>`)}
       </fieldset>
-      <label class="check"><input type="checkbox" name="agree" required> <span>${tr(L, 'Saya berhak memeriksa naskah ini (milik sendiri, sebagai guru/juri/editor, atau dengan izin penulis).', 'I am entitled to check this text (my own, as a teacher/judge/editor, or with the author’s consent).')}</span></label>
+      <label class="check"><input type="checkbox" name="agree" required ${v.agree ? 'checked' : ''}> <span>${tr(L, 'Saya berhak memeriksa naskah ini (milik sendiri, sebagai guru/juri/editor, atau dengan izin penulis).', 'I am entitled to check this text (my own, as a teacher/judge/editor, or with the author’s consent).')}</span></label>
       <button class="btn btn-primary btn-lg" type="submit" data-busy="${tr(L, 'Menyiapkan…', 'Preparing…')}">${tr(L, 'Periksa sekarang', 'Check now')} →</button>
     </div></section>
   </form>`;
   return shell(c, tr(L, 'Periksa baru', 'New check'), body, 'check');
 }
 
-app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)) })));
+app.get('/app/periksa', async (c) => c.html(checkForm(c, null, { __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)) }, await freeView(c))));
 
 app.post('/app/periksa', async (c) => {
   const L = portalLang(c);
   const f = (await c.req.parseBody()) as Record<string, string>;
+  // „Periksa semuanya dengan Cek Lengkap“ dari kotak pilihan kuota gratis → AUTO berbayar.
+  if (f.switch === 'paid' && f.mode === 'free') f.mode = 'auto';
   const withBal = { ...f, __balance: String(await balanceOf(c.get('store'), c.get('user')!.id)) };
-  if (!f.agree) return c.html(checkForm(c, tr(L, 'Centang pernyataan bahwa Anda berhak memeriksa naskah ini.', 'Tick the statement that you are entitled to check this text.'), withBal), 400);
+  const fv = await freeView(c);
+  if (!f.agree) return c.html(checkForm(c, tr(L, 'Centang pernyataan bahwa Anda berhak memeriksa naskah ini.', 'Tick the statement that you are entitled to check this text.'), withBal, fv), 400);
   try {
-    const doc = await createCheck(c.env, c.get('store'), c.get('user')!, sanitizeInput(f, L), L);
+    const freeQuota = f.mode === 'free' ? { partial: f.partial === '1', netHash: await netHashOf(c) } : undefined;
+    const doc = await createCheck(c.env, c.get('store'), c.get('user')!, sanitizeInput(f, L), L, { freeQuota });
     return c.redirect(`/app/proses/${doc.id}`);
   } catch (err) {
-    if (err instanceof CheckInputError) return c.html(checkForm(c, err.message, withBal), err.status as 400);
+    if (err instanceof FreeChoiceError) return c.html(checkForm(c, null, withBal, fv, err.choice), 409);
+    if (err instanceof CheckInputError) return c.html(checkForm(c, err.message, withBal, fv), err.status as 400);
     throw err;
   }
 });
@@ -279,15 +315,21 @@ app.get('/app/laporan/:id', async (c) => {
   const { s, d } = r;
   const note = await c.get('store').get<{ text: string; at: number }>(`c/report-notes/${s.id}.json`);
   const body = html`
-  ${pageHead(s.title, `${fmtDate(L, s.createdAt)} · ${fmtNum(L, s.analyzedWords)} ${tr(L, 'kata dianalisis', 'words analysed')} · ${s.tokens} token`, html`<button class="btn btn-primary" type="button" data-print>🖨 ${tr(L, 'Cetak / simpan PDF', 'Print / save PDF')}</button>`)}
+  ${pageHead(s.title, `${fmtDate(L, s.createdAt)} · ${fmtNum(L, s.analyzedWords)} ${tr(L, 'kata dianalisis', 'words analysed')} · ${s.free ? tr(L, `Cek Gratis · ${s.free.pages} halaman kuota`, `Free Check · ${s.free.pages} quota pages`) : `${s.tokens} token`}`, html`<button class="btn btn-primary" type="button" data-print>🖨 ${tr(L, 'Cetak / simpan PDF', 'Print / save PDF')}</button>`)}
   <p class="muted small noprint">🗓 ${tr(L, `Laporan ini dihapus otomatis pada ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} hari). Unduh atau cetak bila ingin menyimpannya.`, `This report is deleted automatically on ${fmtDate(L, s.createdAt + PURGE_DAYS * 86_400_000, false)} (${PURGE_DAYS} days). Download or print it to keep it.`)}</p>
   <div class="download-bar noprint reveal">
     <span class="muted">${tr(L, 'Unduh & simpan:', 'Download & keep:')}</span>
     <a class="chip-btn" href="/app/laporan/${s.id}/unduh.html" download>⬇ HTML ${tip(tr(L, 'Satu berkas mandiri yang indah, bisa dibuka tanpa internet.', 'One beautiful self-contained file that opens offline.'))}</a>
-    <a class="chip-btn" href="/app/laporan/${s.id}/unduh.json" download>⬇ ${tr(L, 'Data (JSON)', 'Data (JSON)')} ${tip(tr(L, 'Data lengkap untuk arsip, dengan segel digital — bila isinya diubah sedikit saja, segelnya tidak cocok lagi.', 'Complete data for your archive, with a digital seal — change anything and the seal no longer matches.'))}</a>
+    ${s.free ? '' : html`<a class="chip-btn" href="/app/laporan/${s.id}/unduh.json" download>⬇ ${tr(L, 'Data (JSON)', 'Data (JSON)')} ${tip(tr(L, 'Data lengkap untuk arsip, dengan segel digital — bila isinya diubah sedikit saja, segelnya tidak cocok lagi.', 'Complete data for your archive, with a digital seal — change anything and the seal no longer matches.'))}</a>`}
     <a class="chip-btn" href="/app/laporan/${s.id}/cetak" target="_blank">🖨 ${tr(L, 'Halaman cetak', 'Print page')}</a>
     <a class="chip-btn" href="/v/${s.verifyCode}" target="_blank">▣ ${tr(L, 'Verifikasi', 'Verify')} ${s.verifyCode}</a>
   </div>
+  ${s.free ? html`<section class="card free-report reveal" data-free-report>
+    <p class="free-badge">${tr(L, 'Cek Gratis', 'Free Check')}</p>
+    ${s.free.partialOf ? html`<p class="warn">${tr(L, `Sebagian: hanya ${s.free.pages} halaman pertama dari ${s.free.partialOf} halaman yang diperiksa. Persen dan kesimpulan berlaku untuk bagian itu saja.`, `Partial: only the first ${s.free.pages} of ${s.free.partialOf} pages were checked. The percentages and the conclusion apply to that part only.`)}</p>` : ''}
+    <p>${tr(L, 'Hasil ini dari mesin hemat (Claude Haiku) yang menilai per paragraf. Untuk hasil yang lebih memuaskan — penilaian per kalimat yang diperiksa ulang Sonnet dan Opus bila ragu, rubrik, kemiripan antar-naskah, dan laporan tanpa iklan — pakai Cek Lengkap.', 'This result comes from the economy engine (Claude Haiku), judged per paragraph. For a more thorough result — per-sentence judgements re-checked by Sonnet and Opus when in doubt, rubrics, cross-text similarity and an ad-free report — use the Full Check.')}</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/app/periksa">${tr(L, 'Cek Lengkap', 'Full Check')}</a><a class="btn btn-ghost" href="/app/token">${tr(L, 'Isi saldo', 'Top up')}</a></div>
+  </section>` : ''}
   ${s.samePrior > 0 ? html`<div class="flash info reveal">ⓘ ${tr(L, `Teks yang sama persis sudah ${s.samePrior}× diperiksa akun ini sebelumnya. Semua hasil tetap tersimpan di riwayat.`, `The exact same text was checked ${s.samePrior}× before by this account. Every result stays in the history.`)}</div>` : ''}
   ${s.revoked ? html`<div class="flash err reveal">⚠ ${tr(L, 'Laporan ini dicabut admin.', 'This report was revoked by the admin.')}</div>` : ''}
   ${guide(L, 'report', tr(L, 'Cara membaca laporan ini', 'How to read this report'), [
@@ -300,9 +342,12 @@ app.get('/app/laporan/:id', async (c) => {
     <form method="post" action="/app/laporan/${s.id}/catatan" class="card form reveal"><h3>${tr(L, 'Catatan kerja', 'Work note')}</h3><textarea name="note" rows="3" maxlength="1000" placeholder="${tr(L, 'mis. sudah dikonfirmasi ke penulis, draf diterima…', 'e.g. confirmed with the author, drafts received…')}">${note?.text ?? ''}</textarea><button class="btn btn-ghost btn-sm" type="submit">${tr(L, 'Simpan catatan', 'Save note')}</button></form>
     <div class="card reveal"><h3>${tr(L, 'Tindakan', 'Actions')}</h3><div class="btn-row"><button class="btn btn-ghost" type="button" data-review="${s.id}" data-confirm="${tr(L, 'Jalankan tinjauan forensik penuh? Token dipesan dulu dan sisanya dikembalikan.', 'Run a full forensic review? Tokens are reserved first and the rest is returned.')}">⚖ ${tr(L, 'Ajukan tinjauan', 'Request review')}</button>${s.batchId ? html`<a class="btn btn-ghost" href="/app/sesi/${s.batchId}">← ${tr(L, 'Kembali ke sesi', 'Back to session')}</a>` : ''}</div></div>
   </div>
-  ${usagePanel(L, s)}
+  ${s.free ? '' : usagePanel(L, s)}
   ${reportPages({ L: s.reportLang ?? L, s, d, verifyUrl: `${origin(c)}/v/${s.verifyCode}` })}`;
-  return c.html(shell(c, s.title, body, 'reports'));
+  // Iklan hanya di laporan Cek Gratis (halaman berisi hasil + panduan membacanya); laporan berbayar bebas iklan.
+  // Penanda internal untuk middleware CSP (src/index.ts): hanya halaman ini di area member yang boleh memuat AdSense.
+  if (s.free) c.header('x-ads-page', '1');
+  return c.html(shell(c, s.title, body, 'reports', Boolean(s.free)));
 });
 
 app.post('/app/laporan/:id/catatan', async (c) => {
@@ -319,7 +364,7 @@ app.get('/app/laporan/:id/unduh.html', async (c) => {
   const r = await loadReport(c, c.req.param('id'));
   if (!r) return c.notFound();
   const css = await (await c.env.ASSETS.fetch(new URL('/assets/app.css', c.req.url))).text();
-  const inner = html`${reportPages({ L: r.s.reportLang ?? L, s: r.s, d: r.d, verifyUrl: `${origin(c)}/v/${r.s.verifyCode}` })}${usagePanel(L, r.s)}`;
+  const inner = html`${reportPages({ L: r.s.reportLang ?? L, s: r.s, d: r.d, verifyUrl: `${origin(c)}/v/${r.s.verifyCode}` })}${r.s.free ? '' : usagePanel(L, r.s)}`;
   const doc = `<!doctype html><html lang="${r.s.reportLang ?? L}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${r.s.title.replace(/</g, '&lt;')} — AI Content Analyzer</title><style>${css}</style></head><body class="area-print standalone"><main class="page-print">${inner}</main></body></html>`;
   const name = r.s.title.replace(/[^\p{L}\p{N}]+/gu, '-').slice(0, 60) || r.s.id;
   return new Response(doc, { headers: { 'content-type': 'text/html; charset=utf-8', 'content-disposition': `attachment; filename="ai-content-analyzer-${name}.html"` } });
@@ -329,6 +374,8 @@ app.get('/app/laporan/:id/unduh.html', async (c) => {
 app.get('/app/laporan/:id/unduh.json', async (c) => {
   const r = await loadReport(c, c.req.param('id'));
   if (!r) return c.notFound();
+  // Laporan Cek Gratis tidak diberi segel digital (tidak untuk dijadikan bukti resmi).
+  if (r.s.free) return c.text('Not available for Free Check reports', 403);
   const { enc: _enc, cost: _cost, uid: _uid, ...pub } = r.s;
   const payload = JSON.stringify({ report: pub, detail: r.d });
   const signature = await hmac(`${c.env.SESSION_SECRET ?? ''}:report-signature`, payload);
