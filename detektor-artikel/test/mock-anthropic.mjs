@@ -1,5 +1,6 @@
 // Server Anthropic tiruan untuk uji lokal: /v1/models dan /v1/messages (SSE), jawaban JSON sesuai skema.
 import http from 'node:http';
+import { randomUUID } from 'node:crypto';
 const port = Number(process.argv[2] || 8788);
 let calls = [];
 function reply(body) {
@@ -49,7 +50,7 @@ http.createServer((req, res) => {
       globalThis.ppOrders ??= new Map();
       if (req.method === 'POST' && req.url === '/v2/checkout/orders') {
         const pu = b.purchase_units[0];
-        const id = 'PPORDER' + Math.random().toString(36).slice(2, 10).toUpperCase();
+        const id = 'PPORDER' + randomUUID().replace(/-/g, '').slice(0, 8).toUpperCase();
         globalThis.ppOrders.set(id, { pu, ctx: b.payment_source.paypal.experience_context, captured: false });
         // Persetujuan tiruan: tautan payer-action langsung kembali ke return_url seperti PayPal setelah pembeli menyetujui.
         const back = b.payment_source.paypal.experience_context.return_url + '&token=' + id + '&PayerID=TESTPAYER';

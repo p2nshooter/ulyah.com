@@ -814,12 +814,22 @@ app.post('/app/pengaturan', async (c) => {
   return c.redirect('/app/pengaturan?ok=1');
 });
 
+/** Alamat email penagihan: pemeriksaan linear (tanpa regex bertingkat yang bisa lambat pada masukan jahat). */
+function validEmail(e: string): boolean {
+  if (e.length > 120 || /\s/.test(e)) return false;
+  const at = e.indexOf('@');
+  if (at < 1 || at !== e.lastIndexOf('@')) return false;
+  const domain = e.slice(at + 1);
+  const dot = domain.lastIndexOf('.');
+  return dot > 0 && dot < domain.length - 1;
+}
+
 app.post('/app/pengaturan/penagihan', async (c) => {
   const user = c.get('user')!;
   const f = (await c.req.parseBody()) as Record<string, string>;
   const t = (k: string, n: number) => String(f[k] ?? '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, n) || undefined;
   const email = t('email', 120);
-  const billing = { company: t('company', 120), taxId: t('taxId', 40), po: t('po', 40), address: t('address', 200), city: t('city', 80), postal: t('postal', 20), country: t('country', 60), email: email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? email : undefined };
+  const billing = { company: t('company', 120), taxId: t('taxId', 40), po: t('po', 40), address: t('address', 200), city: t('city', 80), postal: t('postal', 20), country: t('country', 60), email: email && validEmail(email) ? email : undefined };
   await updateUser(c.get('store'), user.id, (u) => ({ ...u, billing }));
   return c.redirect('/app/pengaturan?ok=1');
 });

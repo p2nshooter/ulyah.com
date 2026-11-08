@@ -54,7 +54,8 @@ const METADATA_HOSTS = new Set(['metadata.google.internal', 'metadata', 'instanc
  */
 export const PROTECTED_DOMAINS = ['axto.io', 'xscan.es', 'ascan.es', 'xaa.es', 'ulyah.com', '1fr.fr', 'tilawa.de', 'dawa.im', 'xad.es'] as const;
 export function isProtectedHost(host: string): boolean {
-  const h = host.toLowerCase().replace(/\.+$/, '');
+  let h = host.toLowerCase();
+  while (h.endsWith('.')) h = h.slice(0, -1);
   return PROTECTED_DOMAINS.some((d) => h === d || h.endsWith('.' + d));
 }
 

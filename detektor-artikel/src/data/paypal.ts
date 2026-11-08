@@ -278,10 +278,10 @@ function captureOf(j: {
 export async function capturePaypalOrder(env: Env, d: PaypalDoc, paypalOrderId: string, ourOrderId: string): Promise<CaptureResult> {
   if (!/^[A-Z0-9-]{6,40}$/i.test(paypalOrderId)) throw new PaypalError('bad_id', 'ID pesanan PayPal tidak sah.');
   try {
-    return captureOf(await call(env, d, `/v2/checkout/orders/${paypalOrderId}/capture`, { method: 'POST', body: {}, requestId: `capture-${ourOrderId}` }));
+    return captureOf(await call(env, d, `/v2/checkout/orders/${encodeURIComponent(paypalOrderId)}/capture`, { method: 'POST', body: {}, requestId: `capture-${ourOrderId}` }));
   } catch (err) {
     if (err instanceof PaypalError && (err.code === 'ORDER_ALREADY_CAPTURED' || err.status === 422)) {
-      return captureOf(await call(env, d, `/v2/checkout/orders/${paypalOrderId}`));
+      return captureOf(await call(env, d, `/v2/checkout/orders/${encodeURIComponent(paypalOrderId)}`));
     }
     throw err;
   }

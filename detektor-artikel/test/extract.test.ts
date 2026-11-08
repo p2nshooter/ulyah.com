@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { checkUrl, robotsAllows, htmlToArticle, parseSitemap, fetchArticle, collectSitemap, InputUrlError } from '../src/lib/extract.ts';
+import { checkUrl, robotsAllows, htmlToArticle, parseSitemap, fetchArticle, collectSitemap, InputUrlError, isProtectedHost } from '../src/lib/extract.ts';
 
 const code = (fn: () => unknown) => { try { fn(); return 'ok'; } catch (e) { return (e as InputUrlError).code; } };
 
@@ -20,7 +20,7 @@ test('situs yang dilindungi pemilik ditolak (domain & subdomain, pengalihan, sit
   for (const good of ['https://notxscan.es/', 'https://xscan.es.example.com/', 'https://axto.iox.com/', 'https://kompas.com/']) assert.equal(code(() => checkUrl(good)), 'ok', good);
   const hop = fake({ 'https://pendek.id/a': { status: 301, location: 'https://www.ulyah.com/x' } });
   await assert.rejects(fetchArticle('https://pendek.id/a', hop.f), (e: InputUrlError) => e.code === 'protected', 'pengalihan ke situs dilindungi ditolak');
-  assert.ok(!hop.seen.some((u) => u.includes('ulyah.com')), 'situs dilindungi tidak pernah dihubungi');
+  assert.ok(!hop.seen.some((u) => isProtectedHost(new URL(u).hostname)), 'situs dilindungi tidak pernah dihubungi');
   const sm = fake({ 'https://berita.id/sitemap.xml': { type: 'application/xml', body: '<urlset><url><loc>https://berita.id/a</loc></url><url><loc>https://xad.es/b</loc></url></urlset>' } });
   const r = await collectSitemap('https://berita.id/sitemap.xml', 50, sm.f);
   assert.deepEqual(r.urls, ['https://berita.id/a']);
