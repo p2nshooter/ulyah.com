@@ -7,9 +7,11 @@ import { newId, seal } from '../lib/crypto.ts';
 import { tr, GENRES, LEVELS, type Lang } from '../lib/i18n.ts';
 import { countWords } from '../engine/preprocess.ts';
 import { advance, checkKey, textKey, type CheckDoc, type ReportSummary, reportKey } from '../engine/cascade.ts';
-import { getEngine, getBilling, spendToday } from '../data/settings.ts';
+import { getEngine, getBilling, spendToday, getFree, freeSpendToday, type FreeSettings } from '../data/settings.ts';
+import { normalPages, firstPages, freeStatus, reserveFreePages, releaseFreePages, FreeQuotaError, isDisposable, networkAllows, networkOf, periodOf } from '../data/free.ts';
+import { sha256Hex } from '../lib/crypto.ts';
 import { reserve, refund, InsufficientError, type Reservation } from '../data/wallet.ts';
-import { estimateTokens, hardBoundUsd, isMode, MODES, type Mode } from '../engine/pricing.ts';
+import { estimateTokens, hardBoundUsd, freeWorstUsd, isMode, MODES, type Mode } from '../engine/pricing.ts';
 import { isAdmin, type User } from '../data/users.ts';
 import { getRubric } from '../engine/rubrics.ts';
 import { portalLang, type HonoEnv, type Ctx } from '../lib/session.ts';
@@ -32,6 +34,31 @@ export class CheckInputError extends Error {
   constructor(readonly status: number, message: string) {
     super(message);
   }
+}
+
+/** Naskah lebih panjang dari yang boleh diperiksa gratis sekarang: member memilih (sebagian gratis / isi saldo / tunggu). */
+export interface FreeChoice {
+  pages: number;
+  remaining: number;
+  quota: number;
+  maxPerCheck: number;
+  period: FreeSettings['period'];
+  resetAt: number;
+  /** Halaman awal yang boleh diperiksa gratis sekarang (0 = tidak ada). */
+  allowedNow: number;
+  wordsPerPage: number;
+}
+
+export class FreeChoiceError extends CheckInputError {
+  constructor(message: string, readonly choice: FreeChoice) {
+    super(409, message);
+  }
+}
+
+/** Hash jaringan + perangkat untuk batas akun gratis (tanpa menyimpan IP mentah). */
+export async function netHashOf(c: Ctx): Promise<string> {
+  const ip = c.req.header('cf-connecting-ip') ?? 'local';
+  return (await sha256Hex(`${c.env.MASTER_KEY ?? ''}|${networkOf(ip)}|${c.req.header('user-agent') ?? ''}`)).slice(0, 32);
 }
 
 /** Tag blok prompt di teks member dipagari: „<naskah>“ → „‹naskah>“ (sama dengan preprocess.ts). */
@@ -65,11 +92,44 @@ export async function createCheck(
   env: Env,
   store: Store,
   user: User,
-  input: NewCheck,
+  inputIn: NewCheck,
   L: Lang,
-  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean } = {},
+  opts: { batchId?: string; prepaid?: boolean; bench?: CheckDoc['bench']; free?: boolean; freeQuota?: { partial?: boolean; netHash?: string } } = {},
 ): Promise<CheckDoc> {
   if (!env.MASTER_KEY) throw new CheckInputError(500, 'MASTER_KEY belum dipasang.');
+  let input = inputIn;
+  // ── Cek Gratis (docs/MASTER-BLUEPRINT.md §20): kuota halaman normal dari Admin → Kuota gratis, Haiku saja ──
+  let freeSet: FreeSettings | null = null;
+  let free: CheckDoc['free'];
+  if (opts.freeQuota) {
+    const f = await getFree(store);
+    freeSet = f;
+    const per = f.period === 'week' ? tr(L, 'minggu', 'week') : tr(L, 'bulan', 'month');
+    if (!f.enabled) throw new CheckInputError(403, tr(L, 'Cek Gratis sedang tidak tersedia. Pakai Cek Lengkap (token).', 'The Free Check is not available right now. Use the Full Check (tokens).'));
+    if (isDisposable(user.email)) throw new CheckInputError(403, tr(L, 'Akun dengan e-mail sekali pakai tidak mendapat kuota gratis. Pakai e-mail tetap, atau Cek Lengkap (token).', 'Accounts with a throwaway e-mail address get no free quota. Use a permanent address, or the Full Check (tokens).'));
+    const st = await freeStatus(store, user.id, f);
+    if (opts.freeQuota.netHash && !(await networkAllows(store, user.id, opts.freeQuota.netHash, st.period.key))) {
+      throw new CheckInputError(403, tr(L, `Kuota gratis ${per} ini dari jaringan dan perangkat ini sudah dipakai akun lain. Pakai Cek Lengkap (token), atau tunggu periode berikutnya.`, `This ${per}'s free quota from this network and device is already used by other accounts. Use the Full Check (tokens), or wait for the next period.`));
+    }
+    const count = normalPages(input.text, f);
+    const allowedNow = Math.min(st.remaining, f.maxPerCheck);
+    if (count.pages > allowedNow) {
+      const choice: FreeChoice = { pages: count.pages, remaining: st.remaining, quota: f.pages, maxPerCheck: f.maxPerCheck, period: f.period, resetAt: st.period.resetAt, allowedNow, wordsPerPage: f.wordsPerPage };
+      if (!opts.freeQuota.partial || allowedNow < 1) {
+        throw new FreeChoiceError(
+          count.pages > f.pages
+            ? tr(L, `Naskah ini ${count.pages} halaman — lebih dari seluruh kuota gratis (${f.pages} halaman per ${per}).`, `This text is ${count.pages} pages — more than the whole free quota (${f.pages} pages per ${per}).`)
+            : tr(L, `Naskah ini ${count.pages} halaman; yang bisa diperiksa gratis sekarang ${allowedNow} halaman.`, `This text is ${count.pages} pages; ${allowedNow} can be checked for free right now.`),
+          choice,
+        );
+      }
+      input = { ...input, text: firstPages(input.text, allowedNow, f) };
+      free = { pages: normalPages(input.text, f).pages, periodKey: st.period.key, partialOf: count.pages };
+    } else {
+      free = { pages: count.pages, periodKey: st.period.key };
+    }
+    input = { ...input, mode: 'haiku', rubricId: null };
+  }
   const words = countWords(input.text);
   if (words < 30) throw new CheckInputError(400, tr(L, 'Teks terlalu pendek (minimal 30 kata).', 'Text too short (minimum 30 words).'));
   const maxWords = isAdmin(user) ? 60_000 : 20_000;
@@ -77,8 +137,12 @@ export async function createCheck(
   const eng = await getEngine(store);
   // Batas biaya harian menghitung juga biaya TERBURUK semua pemeriksaan yang sedang berjalan (biaya mereka baru dicatat
   // saat selesai), supaya banyak pemeriksaan yang dibuat bersamaan tidak bisa melewati batas.
-  const worstUsd = hardBoundUsd(words, input.mode, Boolean(input.rubricId), eng);
-  if ((await spendToday(store)) + (await inflightWorstUsd(store)) + worstUsd > eng.dailyCapUsd) {
+  const worstUsd = free && freeSet ? freeWorstUsd(eng, freeSet, free.pages) : hardBoundUsd(words, input.mode, Boolean(input.rubricId), eng);
+  const inflight = await inflightWorstUsd(store);
+  if (free && freeSet && (await freeSpendToday(store)) + inflight.free + worstUsd > freeSet.dailyBudgetUsd) {
+    throw new CheckInputError(503, tr(L, 'Kuota gratis platform untuk hari ini sudah penuh. Coba lagi besok, atau pakai Cek Lengkap (token).', 'Today\u2019s platform-wide free capacity is used up. Try again tomorrow, or use the Full Check (tokens).'));
+  }
+  if ((await spendToday(store)) + inflight.all + worstUsd > eng.dailyCapUsd) {
     throw new CheckInputError(503, tr(L, 'Kapasitas harian sedang penuh. Coba lagi besok atau hubungi admin.', 'Daily capacity is full. Try again tomorrow or contact the admin.'));
   }
   // Anti-curang: member yang berulang kali membuat pemeriksaan gagal (biaya AI-nya ditanggung platform) dijeda 24 jam.
@@ -88,12 +152,23 @@ export async function createCheck(
   const billing = await getBilling(store);
   const est = estimateTokens(words, input.mode, Boolean(input.rubricId), billing, eng);
   const id = newId('chk');
-  const charge = !(opts.prepaid || opts.free || opts.bench || isAdmin(user));
-  if (charge) {
+  const charge = !(opts.prepaid || opts.free || opts.bench || opts.freeQuota || isAdmin(user));
+  if (charge || opts.freeQuota) {
     // Anti-banjir: batas pemeriksaan berjalan bersamaan per member.
     const { items: running } = await store.list(`i/user-active/${user.id}/`, { limit: billing.maxConcurrent + 1 });
     if (running.length >= billing.maxConcurrent) {
       throw new CheckInputError(429, tr(L, `Maksimal ${billing.maxConcurrent} pemeriksaan berjalan bersamaan. Tunggu yang sedang berjalan selesai.`, `At most ${billing.maxConcurrent} checks may run at once. Wait for the running ones to finish.`));
+    }
+  }
+  if (free && freeSet) {
+    try {
+      await reserveFreePages(store, user.id, freeSet, free.pages, id);
+    } catch (err) {
+      if (err instanceof FreeQuotaError) {
+        const st = periodOf(freeSet);
+        throw new FreeChoiceError(tr(L, 'Sisa kuota gratis berubah. Pilih lagi.', 'The free quota left has changed. Choose again.'), { pages: free.pages, remaining: err.remaining, quota: freeSet.pages, maxPerCheck: freeSet.maxPerCheck, period: freeSet.period, resetAt: st.resetAt, allowedNow: Math.min(err.remaining, freeSet.maxPerCheck), wordsPerPage: freeSet.wordsPerPage });
+      }
+      throw err;
     }
   }
   let res: CheckDoc['reserve'];
@@ -124,6 +199,7 @@ export async function createCheck(
     reportLang: input.reportLang,
     rubricId: input.rubricId,
     mode: input.mode,
+    free,
     stage: 'prep',
     attempts: 0,
     lease: 0,
@@ -134,30 +210,36 @@ export async function createCheck(
   try {
     await store.put(textKey(id), await seal(env.MASTER_KEY, { raw: input.text }));
     await store.put(checkKey(id), doc);
-    await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now, worst: worstUsd });
-    if (charge) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
+    await store.createOnce(`i/active/${id}`, {}, { uid: user.id, at: now, worst: worstUsd, free: Boolean(free) });
+    if (charge || opts.freeQuota) await store.createOnce(`i/user-active/${user.id}/${id}`, {}, { at: now });
     if (!opts.bench) await store.createOnce(`i/user-checks/${user.id}/${invTs(now)}~${id}`, {}, { title: input.title, at: now, batch: opts.batchId ?? null });
     // Hasil kerja & naskah member dibersihkan otomatis 90 hari setelah dibuat (laporan ikut terhapus).
     if (!opts.bench) await schedulePurge(store, 'c', id, now);
   } catch (err) {
     // Dokumen gagal dibuat setelah token dipesan: kembalikan pesanan (idempoten), jangan sampai saldo hilang.
     if (res && 'tokens' in res) await refund(store, user.id, res.tokens, `Batal membuat ${id}`, `abort:${id}`);
+    if (free) await releaseFreePages(store, user.id, free.periodKey, id);
     throw err;
   }
   return doc;
 }
 
 /** Jumlah biaya terburuk (US$) semua pemeriksaan yang sedang berjalan — dari ringkasan indeks `i/active/`. */
-async function inflightWorstUsd(store: Store): Promise<number> {
-  let sum = 0;
+async function inflightWorstUsd(store: Store): Promise<{ all: number; free: number }> {
+  let all = 0;
+  let free = 0;
   let cursor: string | undefined;
   for (let page = 0; page < 10; page += 1) {
-    const { items, cursor: next } = await store.list<{ worst?: number }>('i/active/', { limit: 1000, cursor });
-    for (const it of items) sum += Number(it.meta.worst) || 0;
+    const { items, cursor: next } = await store.list<{ worst?: number; free?: boolean }>('i/active/', { limit: 1000, cursor });
+    for (const it of items) {
+      const w = Number(it.meta.worst) || 0;
+      all += w;
+      if (it.meta.free) free += w;
+    }
     if (!next) break;
     cursor = next;
   }
-  return sum;
+  return { all, free };
 }
 
 export function statusOf(doc: CheckDoc | null) {
@@ -182,9 +264,11 @@ checks.post('/api/checks', async (c) => {
   const body = (await c.req.json().catch(() => ({}))) as Record<string, unknown>;
   if (!body.agree) return c.json({ error: tr(L, 'Centang pernyataan bahwa Anda berhak memeriksa naskah ini.', 'Tick the statement that you are entitled to check this text.') }, 400);
   try {
-    const doc = await createCheck(c.env, c.get('store'), user, sanitizeInput(body, L), L);
+    const freeQuota = body.mode === 'free' ? { partial: body.partial === true || body.partial === '1', netHash: await netHashOf(c) } : undefined;
+    const doc = await createCheck(c.env, c.get('store'), user, sanitizeInput(body, L), L, { freeQuota });
     return c.json({ id: doc.id });
   } catch (err) {
+    if (err instanceof FreeChoiceError) return c.json({ error: err.message, choice: err.choice }, 409);
     if (err instanceof CheckInputError) return c.json({ error: err.message }, err.status as 400);
     throw err;
   }
@@ -213,7 +297,10 @@ checks.get('/api/estimate', async (c) => {
   const b = await getBilling(store);
   const eng = await getEngine(store);
   const all = Object.fromEntries(MODES.map((m) => [m, estimateTokens(words, m, rubric, b, eng)]));
-  return c.json({ ...all[mode], modes: all, pages: Math.round((words / b.wordsPerPage) * 10) / 10 });
+  const pages = Math.round((words / b.wordsPerPage) * 10) / 10;
+  // Cek Gratis memakai kuota halaman, bukan token: perkiraan token-nya nol (kuota dihitung server saat dikirim).
+  if (c.req.query('mode') === 'free') return c.json({ min: 0, typical: 0, reserve: 0, modes: all, pages, free: true });
+  return c.json({ ...all[mode], modes: all, pages });
 });
 
 /* ── tinjauan ulang (sengketa): Forensik penuh oleh tiga model, ditagih seperti pemeriksaan biasa ── */

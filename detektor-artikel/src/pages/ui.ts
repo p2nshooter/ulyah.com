@@ -10,6 +10,9 @@ const FONT = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@40
 
 export const LOGO = raw('<img class="logo-mark" src="/assets/logo-badge-96.webp" srcset="/assets/logo-badge-96.webp 1x, /assets/logo-badge-192.webp 2x" width="40" height="40" alt="">');
 export const TAGLINE = 'Detect · Analyze · Verify';
+export const BRAND_HOST = 'xscan.es';
+/** Tanda air laporan Cek Gratis: logo domain yang dipudarkan (berkas dari pemilik, 8 Nov 2026). */
+export const WATERMARK = { full: '/assets/watermark.webp', tile: '/assets/watermark-tile.webp', badge: '/assets/logo-badge-96.webp' } as const;
 
 /**
  * Google AdSense xscan.es (pemilik, 2 Nov 2026: „google.com, pub-9354298681597606, DIRECT, f08c47fec0942fa0").
@@ -61,6 +64,12 @@ export interface PageOpts {
   canonical?: string;
   jsonld?: unknown;
   active?: string;
+  /**
+   * Loader AdSense di area member — HANYA untuk halaman yang berisi konten untuk dibaca (laporan Cek Gratis beserta
+   * panduannya). Tidak pernah di layar unggah, layar proses, pembayaran, pengaturan, admin, atau cetak
+   * (docs/MASTER-BLUEPRINT.md §20.6).
+   */
+  ads?: boolean;
 }
 
 function head(o: PageOpts): Raw {
@@ -81,7 +90,7 @@ ${raw(ADSENSE_METAS)}
 <link rel="stylesheet" href="/assets/app.css?v=1">
 ${o.jsonld ? raw(`<script type="application/ld+json">${JSON.stringify(o.jsonld).replace(/</g, '\\u003c')}</script>`) : ''}
 <script src="/assets/app.js?v=1" defer></script>
-${o.area === 'public' && !o.noindex ? raw(`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>`) : ''}
+${(o.area === 'public' && !o.noindex) || (o.area === 'app' && o.ads) ? raw(`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>`) : ''}
 </head>`;
 }
 

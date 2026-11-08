@@ -194,12 +194,13 @@ export interface FreeSettings {
   updatedBy?: string;
 }
 
+/** Bawaan bila dokumen admin belum ada. Pemilik, 8 Nov 2026: gratis 5 halaman per minggu (diubah di Admin). */
 export const DEFAULT_FREE: FreeSettings = {
   enabled: true,
   period: 'week',
-  pages: 10,
+  pages: 5,
   wordsPerPage: 700,
-  charsPerPage: 4800,
+  charsPerPage: 5600,
   tokensPerPage: 1600,
   maxPerCheck: 5,
   dailyBudgetUsd: 5,
@@ -247,4 +248,15 @@ export const FREE_DOC = 'k/free.json';
 
 export async function getFree(store: Store): Promise<FreeSettings> {
   return normalizeFree(await store.get<Partial<FreeSettings>>(FREE_DOC));
+}
+
+/** Biaya AI semua Cek Gratis hari ini (WIB) — dibandingkan dengan `dailyBudgetUsd` kuota gratis. */
+export async function freeSpendToday(store: Store): Promise<number> {
+  return (await store.get<{ usd: number }>(`k/free-spend/${wibDate()}.json`))?.usd ?? 0;
+}
+
+/** Satu tulis per Cek Gratis selesai/gagal (bukan per panggilan) — tidak menjadi kunci panas. */
+export async function addFreeSpend(store: Store, usd: number): Promise<void> {
+  if (!(usd > 0)) return;
+  await store.cas<{ usd: number }>(`k/free-spend/${wibDate()}.json`, (cur) => ({ usd: Math.round(((cur?.usd ?? 0) + usd) * 1e6) / 1e6 }), 'Biaya gratis harian');
 }

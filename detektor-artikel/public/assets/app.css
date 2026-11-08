@@ -639,3 +639,26 @@ details.more summary { cursor: pointer; font-weight: 700; color: var(--brand); }
 .mode-card.rec::after { content: "★"; position: absolute; top: 8px; right: 10px; color: var(--brand); }
 .mode-pages tr.rec td { background: var(--brand-soft); }
 [data-batch-mode] { width: auto; min-width: 200px; }
+
+/* ── Cek Gratis (docs/MASTER-BLUEPRINT.md §20) ─────────────────────────────────────────────────────────────────── */
+.free-choice { border: 1px solid var(--mix); background: linear-gradient(180deg, var(--mix-soft), var(--panel)); }
+.free-choice h3 { margin-top: 0; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 6px; }
+.free-mode .mode-card.off { opacity: .55; }
+.free-report { border: 1px solid var(--brand-soft); background: linear-gradient(135deg, var(--brand-soft), var(--panel) 60%); }
+.free-badge { display: inline-block; margin: 0 0 8px; padding: 4px 12px; border-radius: 999px; background: var(--brand); color: var(--brand-ink); font-weight: 700; font-size: 13px; letter-spacing: .04em; }
+.free-mark { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 8px 0 0; padding: 6px 10px; border: 1px dashed #d99a1a; border-radius: 8px; color: #5d4300; background: #fdf3d8; font-weight: 700; font-size: 12px; letter-spacing: .06em; text-align: center; }
+.free-mark img { width: 18px; height: 18px; border-radius: 50%; flex: none; }
+/* Tanda air logo domain (laporan Cek Gratis). Di layar: ubin logo miring di bawah teks, tidak bisa diklik/dipilih. */
+.report.is-free .paper { position: relative; isolation: isolate; }
+.paper .wm { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; user-select: none; }
+.paper .wm::before { content: ""; position: absolute; inset: -40%; background: url(/assets/watermark-tile.webp) 0 0 / 300px auto repeat; opacity: .13; transform: rotate(-22deg); animation: wm-drift 60s linear infinite; }
+@keyframes wm-drift { to { background-position: 300px 129px; } }
+@media (prefers-reduced-motion: reduce) { .paper .wm::before { animation: none; } }
+.wm-print { display: none; }
+@media print {
+  .free-mark { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .paper .wm { display: none; }
+  .wm-print { display: block; position: fixed; top: 50%; left: 50%; width: 78%; transform: translate(-50%, -50%) rotate(-28deg); opacity: .1; z-index: 5; pointer-events: none; }
+  .wm-print img { display: block; width: 100%; height: auto; }
+}

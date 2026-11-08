@@ -151,20 +151,21 @@ await p.screenshot({ path: `${OUT}/admin-harga.png`, fullPage: true });
 // Prediksi biaya kuota gratis per minggu di admin (pemilik, 7 Nov 2026; MASTER-BLUEPRINT §20.9).
 await p.goto(BASE + '/admin/biaya');
 ok((await p.locator('#kuota-gratis').count()) === 1, 'admin: kartu prediksi biaya kuota gratis per minggu tampil');
-ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'prediksi 100 member/minggu (terburuk) = Rp 12.045');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp6.022', 'bawaan 5 halaman/minggu: prediksi 100 member/minggu (terburuk) = Rp 6.022');
 await p.goto(BASE + '/admin/biaya?anggota=1000');
-ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp120.450', 'prediksi 1.000 member/minggu (terburuk) = Rp 120.450');
+const k1000 = (await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '');
+ok(k1000 === 'Rp60.225', `prediksi 1.000 member/minggu (terburuk) = ${k1000}`);
 await p.screenshot({ path: `${OUT}/admin-biaya-gratis.png`, fullPage: true });
 
 // Kuota gratis dinamis (pemilik, 7 Nov 2026): diubah sekali di Admin → Kuota gratis, semua bagian ikut.
 await p.goto(BASE + '/admin/kuota-gratis');
-await p.fill('#free-form input[name=pages]', '5');
+await p.fill('#free-form input[name=pages]', '10');
 await p.fill('#free-form input[name=maxPerCheck]', '50');
 await p.click('#free-form button[type=submit]');
 await p.waitForURL(/kuota-gratis\?ok=1/);
-ok((await p.inputValue('#free-form input[name=maxPerCheck]')) === '5', 'kuota gratis: maks. per pemeriksaan tidak bisa melebihi kuota (50 → 5)');
+ok((await p.inputValue('#free-form input[name=maxPerCheck]')) === '10', 'kuota gratis: maks. per pemeriksaan tidak bisa melebihi kuota (50 → 10)');
 await p.goto(BASE + '/admin/biaya');
-ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp6.022', 'Biaya API ikut berubah: 5 halaman/minggu, 100 member = Rp 6.022/minggu');
+ok((await p.locator('[data-forecast="worst-week"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'Biaya API ikut berubah: 10 halaman/minggu, 100 member = Rp 12.045/minggu');
 await p.goto(BASE + '/admin/kuota-gratis');
 await p.selectOption('#free-form select[name=period]', 'month');
 await p.fill('#free-form input[name=pages]', '10');
@@ -173,9 +174,10 @@ await p.waitForURL(/kuota-gratis\?ok=1/);
 await p.goto(BASE + '/admin/biaya');
 ok((await p.locator('[data-forecast="worst-month"]').innerText()).replace(/\s/g, '') === 'Rp12.045', 'Biaya API ikut berubah: 10 halaman/bulan, 100 member = Rp 12.045/bulan');
 ok(/10 halaman per bulan/.test(await p.locator('#kuota-gratis h3').innerText()), 'judul prediksi menyebut periode baru');
-// Kembali ke bawaan (10 per minggu) untuk uji berikutnya.
+// Kembali ke keputusan pemilik (5 halaman per minggu, 8 Nov 2026) untuk uji berikutnya.
 await p.goto(BASE + '/admin/kuota-gratis');
 await p.selectOption('#free-form select[name=period]', 'week');
+await p.fill('#free-form input[name=pages]', '5');
 await p.fill('#free-form input[name=maxPerCheck]', '5');
 await p.click('#free-form button[type=submit]');
 await p.waitForURL(/kuota-gratis\?ok=1/);
@@ -224,6 +226,62 @@ await m.click('.check-form button[type=submit]');
 await m.waitForLoadState();
 ok((await m.locator('.flash.err').count()) === 1, 'tanpa token: pemeriksaan ditolak sebelum AI dipanggil');
 await m.screenshot({ path: `${OUT}/check-form.png`, fullPage: true });
+
+// 3a. Cek Gratis (pemilik, 7–8 Nov 2026; MASTER-BLUEPRINT §20): tanpa token, hanya Haiku, kuota halaman normal,
+//     pemberitahuan bila naskah melebihi kuota, tanda air logo domain, iklan hanya di laporan gratis.
+{
+  const callsBefore = (await (await fetch('http://127.0.0.1:8788/__calls')).json()).length;
+  await m.goto(BASE + '/app/periksa');
+  ok((await m.locator('script[src*="adsbygoogle"]').count()) === 0, 'formulir periksa: tanpa loader iklan');
+  ok(/sisa 5 dari 5 halaman per minggu/.test(await m.textContent('.free-mode')), 'Cek Gratis mengikuti admin: sisa 5 dari 5 halaman per minggu');
+  await m.fill('textarea[name=text]', ESSAY);
+  await m.check('input[name=mode][value=free]');
+  await m.waitForFunction(() => document.querySelector('#estRes')?.textContent.trim() === '0', null, { timeout: 10000 });
+  ok(true, 'Cek Gratis: perkiraan token 0 (yang dipakai kuota halaman)');
+  await m.fill('input[name=title]', 'Esai Cek Gratis');
+  await m.check('input[name=agree]');
+  await m.click('.check-form button[type=submit]');
+  await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+  ok((await m.locator('[data-free-report]').count()) === 1, 'laporan Cek Gratis: kotak saran Cek Lengkap');
+  ok((await m.locator('.free-mark').count()) >= 1, 'laporan Cek Gratis: label CEK GRATIS di kepala laporan');
+  ok((await m.locator('.report.is-free .paper .wm').count()) === (await m.locator('.report.is-free .paper').count()), 'tanda air logo domain di setiap halaman laporan');
+  ok((await m.locator('.wm-print img[src="/assets/watermark.webp"]').count()) === 1, 'tanda air logo domain untuk cetak');
+  ok(await m.evaluate(async () => (await fetch('/assets/watermark.webp')).ok && (await fetch('/assets/watermark-tile.webp')).ok), 'berkas logo tanda air tersedia');
+  ok((await m.locator('script[src*="adsbygoogle"]').count()) === 1, 'laporan Cek Gratis: tepat satu loader AdSense');
+  ok((await m.locator('a[href$="unduh.json"]').count()) === 0, 'Cek Gratis: tanpa tombol unduh data JSON');
+  const fid = m.url().split('/').pop();
+  ok((await m.evaluate(async (u) => (await fetch(u)).status, `/app/laporan/${fid}/unduh.json`)) === 403, 'Cek Gratis: JSON ditolak server (403)');
+  await m.screenshot({ path: `${OUT}/free-report.png`, fullPage: true });
+  await m.goto(`${BASE}/app/laporan/${fid}/cetak`);
+  ok((await m.locator('script[src*="adsbygoogle"]').count()) === 0, 'halaman cetak: tanpa iklan');
+  await m.emulateMedia({ media: 'print' });
+  ok(await m.evaluate(() => getComputedStyle(document.querySelector('.wm-print')).position === 'fixed'), 'cetak: tanda air logo di setiap lembar');
+  await m.pdf({ path: `${OUT}/free-report.pdf`, format: 'A4' });
+  await m.emulateMedia({ media: 'screen' });
+  const fcalls = (await (await fetch('http://127.0.0.1:8788/__calls')).json()).slice(callsBefore);
+  ok(fcalls.length >= 1 && fcalls.every((x) => x.model === 'claude-haiku-5-5' && x.effort === 'low'), `Cek Gratis hanya memanggil Haiku termurah (${fcalls.length} panggilan, effort low)`);
+
+  // Naskah 8 halaman normal (> maks. 5 per pemeriksaan): pemberitahuan + pilihan, bukan potongan diam-diam.
+  await m.goto(BASE + '/app/periksa');
+  ok(/sisa 4 dari 5/.test(await m.textContent('.free-mode')), 'kuota berkurang sesuai halaman normal: sisa 4');
+  await m.fill('textarea[name=text]', Array.from({ length: 19 }, () => ESSAY.trim()).join('\n\n'));
+  await m.check('input[name=mode][value=free]');
+  await m.fill('input[name=title]', 'Naskah panjang gratis');
+  await m.check('input[name=agree]');
+  await m.click('.check-form button[type=submit]');
+  await m.waitForSelector('[data-free-choice]');
+  const note = await m.textContent('[data-free-choice]');
+  ok(/Naskah ini 8 halaman/.test(note) && /Kuota gratis Anda 5 halaman per minggu/.test(note) && /sisa 4 halaman/.test(note), 'pemberitahuan: naskah 8 halaman, kuota 5/minggu, sisa 4');
+  ok(/lebih panjang dari seluruh kuota gratis \(5 halaman\)/.test(note), 'pemberitahuan: naskah lebih panjang dari seluruh kuota');
+  ok((await m.locator('[data-free-choice] a[href="/app/token"]').count()) === 1, 'pemberitahuan menyarankan isi saldo / Cek Lengkap');
+  await m.screenshot({ path: `${OUT}/free-choice.png`, fullPage: true });
+  await m.click('[data-free-choice] button[name=partial]');
+  await m.waitForURL(/\/app\/laporan\/rpt_/, { timeout: 120000 });
+  ok(/hanya 4 halaman pertama dari 8/.test(await m.textContent('[data-free-report]')), 'periksa sebagian: 4 halaman pertama dari 8, ditandai di laporan');
+  await m.goto(BASE + '/app/periksa');
+  ok(/sisa 0 dari 5/.test(await m.textContent('.free-mode')), 'kuota habis: sisa 0 dari 5 halaman');
+  ok(await m.locator('input[name=mode][value=free]').isDisabled(), 'kuota habis: pilihan Cek Gratis nonaktif sampai reset');
+}
 // Bukti transfer kecil (PNG 1×1 dan PDF minimal) — jenis dicek server dari isi berkas.
 const PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64');
 const PDF = Buffer.from('%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF\n');
@@ -392,7 +450,7 @@ ok(calls.some((x) => x.model === 'claude-haiku-5-5' && x.effort === 'high'), 'Ha
 ok(calls.every((x) => !/sonnet|opus/.test(x.model) || (x.fallbacks === 'default' && /server-side-fallback/.test(x.betas || ''))), 'Sonnet/Opus memakai server-side fallback');
 ok(calls.filter((x) => x.model === 'claude-sonnet-5-5').length >= 3, 'mode Sonnet benar-benar memanggil Sonnet');
 await browser.close();
-// 402 (saldo kurang) dan 404 bukti milik akun lain memang disengaja di atas.
-const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e));
+// 402 (saldo kurang), 404 bukti milik akun lain, 409 pilihan kuota gratis dan 403 JSON Cek Gratis memang disengaja di atas.
+const real = errors.filter((e) => !/status of 402/.test(e) && !/\/bukti\/0 :: .*status of 404/.test(e) && !/\/app\/periksa :: .*status of 409/.test(e) && !/\/app\/laporan\/rpt_\w+ :: .*status of 403/.test(e));
 if (real.length) { console.error('Galat konsol:\n' + real.join('\n')); process.exit(1); }
 console.log('SEMUA LULUS');

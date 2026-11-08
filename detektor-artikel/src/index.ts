@@ -74,7 +74,10 @@ app.use('*', async (c, next) => {
   await loadSession(c as Ctx);
   await next();
   const h = c.res.headers;
-  h.set('Content-Security-Policy', PRIVATE_AREA.test(url.pathname) ? CSP : CSP_PUBLIC);
+  // Laporan Cek Gratis memuat AdSense (pemilik, 7 Nov 2026): satu-satunya halaman area member dengan CSP publik.
+  const adsPage = h.get('x-ads-page') === '1' && /^\/app\/laporan\/rpt_[A-Za-z0-9]+$/.test(url.pathname);
+  h.delete('x-ads-page');
+  h.set('Content-Security-Policy', PRIVATE_AREA.test(url.pathname) && !adsPage ? CSP : CSP_PUBLIC);
   h.set('X-Content-Type-Options', 'nosniff');
   h.set('X-Frame-Options', 'DENY');
   h.set('Referrer-Policy', 'strict-origin-when-cross-origin');

@@ -734,7 +734,7 @@ dihitung adalah **halaman normal** dari teks yang benar-benar dikirim ke model:
 > 1 halaman normal = kertas **Legal** (8,5 × 14 inci), satu spasi, huruf 12 pt = **maks. 700 kata, atau 4.800 karakter
 > (termasuk spasi), atau 1.600 token masukan — mana pun yang tercapai lebih dulu.**
 
-`halaman = max(⌈kata/700⌉, ⌈karakter/4.800⌉, ⌈token/1.600⌉)`, minimal 1 per pemeriksaan.
+`halaman = max(⌈kata/700⌉, ⌈karakter/5.600⌉, ⌈token/1.600⌉)` (5.600 karakter: satu halaman 700 kata bahasa Indonesia tidak terhitung dua), minimal 1 per pemeriksaan.
 
 - Tiga ukuran sekaligus menutup celah: kata yang sangat panjang (karakter), teks tanpa spasi atau penuh simbol
   (karakter dan token), bahasa yang boros token (token).
@@ -746,7 +746,7 @@ dihitung adalah **halaman normal** dari teks yang benar-benar dikirim ke model:
 
 | Aturan | Nilai bawaan (diatur admin) |
 |---|---|
-| Kuota | **10 halaman normal per minggu** per akun terverifikasi |
+| Kuota | **5 halaman normal per minggu** per akun terverifikasi — pemilik, 8 Nov 2026 („sudah sy rubah gratis 5 halaman perminggu“); awalnya 10. Angka ini hanya hidup di `k/free.json` (Admin → Kuota gratis) dan bawaan kode `DEFAULT_FREE`; semua teks member membacanya |
 | Reset | setiap **Senin 00.00** waktu lokal situs (xscan.es: WIB, Asia/Jakarta; ascan.es: Europe/Madrid); tidak menumpuk ke minggu berikutnya, tidak bisa ditukar menjadi saldo, tidak bisa dipindahkan |
 | Maks. per pemeriksaan | 5 halaman (dokumen panjang tidak bisa menghabiskan kuota dalam satu kali tanpa sadar) |
 | Minimal per pemeriksaan | 1 halaman (memecah naskah menjadi potongan kecil tidak menghemat kuota) |
@@ -761,8 +761,8 @@ Layar pratinjau menulis: butuh 14 halaman, sisa kuota 3, reset Senin 00.00 (tang
 
 Bila sisa kuota ≤ 2 halaman, beranda member menampilkan pengingat yang sopan dengan saran isi saldo.
 
-**Notifikasi naskah > 10 halaman** (pemilik, 7 Nov 2026: „Berikan notif jika halaman yg di upload melebihi 10 halaman,
-jika menggunakan kuota gratis“): begitu teks selesai diekstrak — sebelum apa pun dikirim ke AI — naskah yang lebih dari
+**Notifikasi naskah > kuota** (pemilik, 7 Nov 2026: „Berikan notif jika halaman yg di upload melebihi 10 halaman,
+jika menggunakan kuota gratis“ — angka mengikuti kuota yang diatur admin, sekarang 5): begitu teks selesai diekstrak — sebelum apa pun dikirim ke AI — naskah yang lebih dari
 **10 halaman normal** (seluruh kuota gratis seminggu) memunculkan pemberitahuan di layar pratinjau dan di daftar unggahan
 massal per berkas: jumlah halaman normalnya, bahwa kuota gratis mingguan hanya 10 halaman (maks. 5 per pemeriksaan),
 lalu tiga pilihan §20.2 dengan biaya Cek Lengkap untuk seluruh naskah dan tombol Isi saldo. Pemberitahuan yang sama
@@ -927,6 +927,35 @@ konflik, pastika dynamic page“.
   periode/zona waktu yang tidak dikenal kembali ke bawaan.
 - Setiap perubahan masuk audit log (nilai sebelum dan sesudah).
 - Uji: unit (5/minggu, 10/bulan, halaman lebih kecil, isian bertentangan) dan e2e (admin menyimpan → Biaya API ikut berubah).
+
+### 20.11 Cek Gratis X1 — ✅ dibangun (8 Nov 2026)
+
+Pemilik, 8 Nov 2026: „untuk gratis kasih tanda air dengan logo domain“.
+
+- **Penegakan kuota** (`src/data/free.ts`): halaman normal dari teks; dokumen CAS `free/{uid}/{periode}.json`, cadangan
+  idempoten per pemeriksaan, kembali utuh bila pemeriksaan gagal; e-mail sekali pakai ditolak; maks. 2 akun per jaringan
+  (IP /24 + perangkat) per periode; anggaran gratis harian (`k/free-spend/{tanggal}.json`) — bila habis, Cek Gratis
+  menunggu hari berikutnya, Cek Lengkap tetap jalan.
+- **Pemberitahuan** bila naskah > sisa kuota atau > maks. per pemeriksaan (409, kotak `[data-free-choice]`): periksa N
+  halaman pertama gratis (laporan ditandai „sebagian: N dari M halaman“), periksa semuanya dengan Cek Lengkap (token),
+  isi saldo, atau tunggu tanggal kuota baru. Persetujuan („Saya berhak…“) tetap tercentang saat formulir tampil lagi.
+- **Mesin**: hanya Haiku termurah (`freeModel`), effort low, satu lintasan per paragraf, tanpa rubrik, tanpa eskalasi.
+  Perkiraan token di formulir = 0; laporan gratis tidak menyebut token (kepala: „Cek Gratis · N halaman kuota“), tanpa
+  rincian token dan tanpa unduhan JSON (403). Biaya API nyata tetap dicatat untuk admin (Biaya API, anggaran harian).
+- **Tanda air logo domain** di setiap halaman laporan gratis: berkas pemilik (logo xscan.es yang dipudarkan) →
+  `public/assets/watermark.webp` (+ `watermark-tile.webp`). Layar: ubin logo miring di bawah teks, bergerak pelan
+  (berhenti bila `prefers-reduced-motion`). Cetak/PDF: satu logo besar `position: fixed` di setiap lembar. Label
+  „CEK GRATIS“ dengan lencana logo di kepala laporan. ascan.es memakai logonya sendiri lewat konstanta `WATERMARK`.
+- **Iklan**: loader AdSense hanya di laporan Cek Gratis (`ads: true`); halaman itu satu-satunya di area member yang
+  mendapat CSP publik (penanda internal `x-ads-page`, diperiksa pola URL laporan). Formulir, layar proses, cetak, token,
+  pembayaran, admin dan laporan berbayar tetap tanpa loader dan dengan CSP ketat. Pilihan Cek Gratis memberi tahu bahwa
+  laporannya memuat iklan dan tanda air.
+- **Uji**: unit `test/free.test.ts`; e2e dengan kuota pemilik 5/minggu (5 → 4 → 0, pemberitahuan naskah 8 halaman,
+  sebagian 4 dari 8, pilihan gratis nonaktif saat habis, hanya Haiku effort low di mock, tanda air di setiap halaman +
+  cetak, satu loader di laporan gratis, nol loader di formulir/cetak); admin mengubah ke 10/minggu dan 10/bulan → prediksi
+  biaya ikut berubah.
+- Berikutnya: beranda member gratis dan Ruang Belajar sebagai halaman konten ber-iklan (§20.6), laporan pemakaian kuota
+  dan konversi gratis → berbayar di admin (§20.7).
 
 ---
 

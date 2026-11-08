@@ -217,7 +217,11 @@ test('pengaman tidak-rugi: pesanan ≥ biaya terburuk pada markup minimum, disko
 
 test('kuota gratis: prediksi biaya 10 halaman per minggu dan 100 member (MASTER-BLUEPRINT §20.9)', async () => {
   const { freeQuotaForecast, freeModel } = await import('../src/engine/pricing.ts');
-  const { DEFAULT_FREE } = await import('../src/data/settings.ts');
+  const { DEFAULT_FREE: BASE, normalizeFree } = await import('../src/data/settings.ts');
+  assert.equal(BASE.pages, 5, 'bawaan: 5 halaman per minggu (pemilik, 8 Nov 2026)');
+  assert.equal(BASE.period, 'week');
+  // Contoh pertanyaan pemilik (7 Nov 2026): 10 halaman per minggu.
+  const DEFAULT_FREE = normalizeFree({ ...BASE, pages: 10 });
   assert.equal(freeModel(DEFAULT_ENGINE), 'claude-haiku-5-5', 'Cek Gratis memakai Haiku termurah');
   const f = freeQuotaForecast(DEFAULT_ENGINE, DEFAULT_BILLING, 100, DEFAULT_FREE);
   // Haiku 5.5: US$0,10 masuk / US$0,50 keluar / US$0,01 cache per 1 juta token; kurs Rp16.500; 1 token = US$0,001.
