@@ -3,6 +3,11 @@ title: Cocina de inducción, vitrocerámica o gas: cuál consume menos y cuál e
 description: Comparativa de eficiencia, coste de uso, potencia necesaria, seguridad y calidad del aire entre placas de inducción, vitrocerámicas y cocinas de gas, con trucos para gastar menos al cocinar.
 category: electrodomesticos-e-iluminacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
 ---
 La cocina es uno de los lugares donde más se nota el cambio tecnológico de los últimos años. Las placas de gas, que dominaron durante décadas, conviven con vitrocerámicas radiantes y, cada vez más, con placas de inducción. Al reformar una cocina o al cambiar de vivienda, la pregunta es inevitable: ¿cuál consume menos, cuál es más barata de usar y cuál conviene elegir?
 

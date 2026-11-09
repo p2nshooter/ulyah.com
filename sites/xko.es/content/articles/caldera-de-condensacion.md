@@ -3,6 +3,11 @@ title: Caldera de condensación: cómo funciona, cuánto ahorra y cuándo cambia
 description: Cómo funciona una caldera de condensación, cuánto gas ahorra, cómo ajustarla para que condense, su mantenimiento obligatorio y cuándo conviene pasar a una bomba de calor.
 category: climatizacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
 ---
 En millones de hogares españoles, la calefacción y el agua caliente dependen de una caldera de gas natural colgada en la cocina o en la galería. Desde 2015, la normativa europea de ecodiseño obliga a que las calderas nuevas que se instalan en viviendas sean, en la práctica, de **condensación**. Si tu caldera tiene más de quince años, es probable que sea convencional o de bajo NOx y que consuma bastante más gas que una moderna.
 

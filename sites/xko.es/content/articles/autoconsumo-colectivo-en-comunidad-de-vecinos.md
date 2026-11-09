@@ -3,6 +3,11 @@ title: Autoconsumo colectivo en comunidades de vecinos: cómo se organiza y repa
 description: Cómo instalar placas solares compartidas en un edificio, qué mayoría hace falta en la junta, cómo se reparten la producción y los costes, qué trámites hay y qué pasa con quien no participa.
 category: autoconsumo-solar
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO) | https://www.miteco.gob.es/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 La mayoría de los españoles vive en pisos, y durante años eso parecía cerrar la puerta al autoconsumo solar. Desde 2019, la normativa permite el **autoconsumo colectivo**, en el que varios vecinos comparten una instalación fotovoltaica situada en la cubierta del edificio o en un lugar cercano y se reparten la energía que produce. Es una de las formas más eficaces de llevar la energía solar a las ciudades.
 

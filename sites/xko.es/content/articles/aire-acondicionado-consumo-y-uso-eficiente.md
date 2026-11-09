@@ -3,6 +3,11 @@ title: Aire acondicionado: cuánto consume y cómo usarlo para gastar menos
 description: Cuánto gasta realmente un aire acondicionado, qué significan SEER y la etiqueta energética, a qué temperatura ponerlo, trucos de uso, mantenimiento y cómo elegir un equipo nuevo.
 category: climatizacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
 ---
 El aire acondicionado ha pasado de ser un lujo a una necesidad en buena parte de España. Las olas de calor se alargan, las noches tropicales son más frecuentes y en muchas ciudades del interior y del sur es difícil dormir en verano sin climatización. Al mismo tiempo, el aire acondicionado puede disparar la factura de la luz si se usa mal o si el equipo es antiguo e ineficiente.
 

@@ -3,6 +3,11 @@ title: Lavadora y lavavajillas eficientes: programas, temperaturas y horarios qu
 description: Cuánta energía gastan la lavadora y el lavavajillas, por qué el programa eco es más largo pero consume menos, qué temperatura usar, cómo cargar, cuándo programarlos y cómo elegir un modelo nuevo.
 category: electrodomesticos-e-iluminacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 La lavadora y el lavavajillas son dos de los electrodomésticos que más se usan en un hogar familiar. Juntos pueden consumir entre 350 y 550 kWh al año, además de agua y detergente. La mayor parte de esa energía no la gasta el motor, sino la **resistencia que calienta el agua**. Por eso, la temperatura y el programa elegidos tienen mucho más peso en el consumo que el propio aparato.
 

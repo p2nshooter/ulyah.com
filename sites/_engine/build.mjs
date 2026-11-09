@@ -38,6 +38,11 @@ const WORDS = {
     updatesIntro: "Hier steht, wann jeder Ratgeber erschienen ist und wann wir ihn überarbeitet haben. Die Daten stammen direkt aus unseren Artikeln: Was hier steht, steht auch über dem jeweiligen Text.",
     published: (n) => (n === 1 ? "Neu erschienen" : `${n} neue Ratgeber`),
     updated: (n) => (n === 1 ? "Überarbeitet" : `${n} Ratgeber überarbeitet`),
+    toolsKicker: "Werkzeuge",
+    calcTitle: "Mit eigenen Zahlen rechnen",
+    toolsTitle: "Rechnen Sie mit Ihren eigenen Zahlen",
+    toolsLead: "Kostenlose Rechner, die in Ihrem Browser laufen: ohne Anmeldung, und nichts, was Sie eingeben, wird gesendet.",
+    toolsOpen: "Öffnen",
   },
   es: {
     sources: "Fuentes y más información",
@@ -48,6 +53,11 @@ const WORDS = {
     updatesIntro: "Aquí se indica cuándo se publicó cada guía y cuándo la revisamos. Las fechas salen directamente de los artículos: lo que figura aquí figura también al principio de cada texto.",
     published: (n) => (n === 1 ? "Publicado" : `${n} guías nuevas`),
     updated: (n) => (n === 1 ? "Revisado" : `${n} guías revisadas`),
+    toolsKicker: "Herramientas",
+    calcTitle: "Calcúlalo con tus datos",
+    toolsTitle: "Haz las cuentas con tus propios datos",
+    toolsLead: "Calculadoras gratuitas que funcionan en tu navegador: sin registro y sin enviar nada de lo que escribes.",
+    toolsOpen: "Abrir",
   },
   en: {
     sources: "Sources and further reading",
@@ -58,6 +68,11 @@ const WORDS = {
     updatesIntro: "This page shows when each guide was published and when we revised it. The dates come straight from the articles: what is listed here is also shown at the top of each piece.",
     published: (n) => (n === 1 ? "Published" : `${n} new guides`),
     updated: (n) => (n === 1 ? "Revised" : `${n} guides revised`),
+    toolsKicker: "Tools",
+    calcTitle: "Work it out with your own numbers",
+    toolsTitle: "Do the sums with your own numbers",
+    toolsLead: "Free calculators that run in your browser: no sign-up, and nothing you type is sent anywhere.",
+    toolsOpen: "Open",
   },
   fr: {
     sources: "Sources et pour aller plus loin",
@@ -68,6 +83,11 @@ const WORDS = {
     updatesIntro: "Cette page indique quand chaque guide a été publié et quand nous l'avons révisé. Les dates viennent directement des articles : ce qui figure ici figure aussi en tête de chaque texte.",
     published: (n) => (n === 1 ? "Publié" : `${n} nouveaux guides`),
     updated: (n) => (n === 1 ? "Révisé" : `${n} guides révisés`),
+    toolsKicker: "Outils",
+    calcTitle: "Calculez avec vos propres chiffres",
+    toolsTitle: "Faites le calcul avec vos propres chiffres",
+    toolsLead: "Des calculateurs gratuits qui fonctionnent dans votre navigateur : sans inscription, et rien de ce que vous saisissez n’est envoyé.",
+    toolsOpen: "Ouvrir",
   },
 };
 
@@ -224,6 +244,11 @@ export async function build(domain, { quiet = false } = {}) {
         const own = file.replace(/\.md$/, "");
         if (en && !existsSync(join(dir, "content", "pages", file))) throw new Error(`content/en/pages/${file}: no original content/pages/${file}`);
         if (en && !data.slug) throw new Error(`content/en/pages/${file}: an English slug is required`);
+        // The English page is the same page: it keeps the original's tool and its place in the order.
+        if (en) {
+          const orig = parseFrontmatter(readFileSync(join(dir, "content", "pages", file), "utf8")).data;
+          for (const k of ["tool", "order"]) if (data[k] == null && orig[k] != null) data[k] = orig[k];
+        }
         // `slug` stays the original one (themes compare it, e.g. "ueber-uns" → AboutPage); the URL is English.
         const slug = en ? own : data.slug || own;
         const urlSlug = data.slug || own;
@@ -231,12 +256,15 @@ export async function build(domain, { quiet = false } = {}) {
         const { headings } = renderMarkdown(body);
         // A tool page (`tool: <name>`): the Markdown is the complete static version — tables a reader and a crawler
         // can use without JavaScript — and theme/assets/tools/<name>.js adds the interactive part above it. The
-        // English page gets the tool when the theme has an English script (tools/<name>.en.js).
+        // English page gets the tool when the theme has an English script (tools/<name>.en.js), or when the tool is
+        // built on the engine's shared runtime (EngineTool.mount), whose one script speaks every language of the site.
         let tool = data.tool;
         if (tool) {
           if (!/^[a-z0-9-]+$/.test(tool)) throw new Error(`${file}: tool is a lowercase name`);
-          const script = en ? `${tool}.en` : tool;
-          if (!existsSync(join(dir, "theme", "assets", "tools", `${script}.js`))) {
+          const toolFile = (n) => join(dir, "theme", "assets", "tools", `${n}.js`);
+          const bilingual = existsSync(toolFile(tool)) && readFileSync(toolFile(tool), "utf8").includes("EngineTool.mount(");
+          const script = en && !bilingual ? `${tool}.en` : tool;
+          if (!existsSync(toolFile(script))) {
             if (!en) throw new Error(`${file}: theme/assets/tools/${tool}.js is missing`);
             tool = undefined;
           } else {
@@ -343,6 +371,18 @@ export async function build(domain, { quiet = false } = {}) {
     for (const a of ed.articles) {
       let body = a.body;
       if (ed.en) body = rewriteLinks(body);
+      // The site's calculators that fit this article (frontmatter `calculators:` or site.json "calculators" per topic,
+      // both naming tool pages by file name), as a box above the sources: the reader can do the sums right away (§30).
+      const calcStems = a.calculators || ed.site.calculators?.[a.category] || [];
+      const calcPages = [].concat(calcStems).map((stem) => ed.pages.find((p) => p.file === `${stem}.md` && p.tool)).filter(Boolean);
+      if (calcPages.length) {
+        const w = WORDS[ed.en ? "en" : ed.site.lang] || WORDS.en;
+        const box =
+          `<aside class="engine-rechner" aria-label="${esc(w.calcTitle)}"><style>.engine-rechner{margin:32px 0;padding:18px 20px;border-radius:16px;border:1px solid color-mix(in srgb,currentColor 18%,transparent);background:color-mix(in srgb,currentColor 4%,transparent)}.engine-rechner p{margin:0 0 8px;font-weight:700}.engine-rechner ul{margin:0;padding-left:1.2em}.engine-rechner li{margin:4px 0}</style>` +
+          `<p>${esc(w.calcTitle)}</p><ul>${calcPages.map((p) => `<li><a href="${p.url}">${esc(p.short || p.title.split(":")[0])}</a>: ${esc(p.description || "")}</li>`).join("")}</ul></aside>\n`;
+        const at = body.indexOf('<section class="engine-quellen"');
+        body = at > -1 ? body.slice(0, at) + box + body.slice(at) : body + "\n" + box;
+      }
       // An animated picture of the article's own subject on top (§29 „setiap artikel kasih gambar animasi yg sesuai
       // tema“), then the listen / auto scroll / slides bar (§28), built by assets/engine-reader.js in place of the
       // empty mark — crawlers and readers without JavaScript see the article unchanged. The mark carries the next
@@ -378,7 +418,7 @@ export async function build(domain, { quiet = false } = {}) {
     assetVersion["palace.en.js"] = createHash("sha256").update(js).digest("hex").slice(0, 10);
   }
   // The engine's own scripts and styles (every site, same code): the article reader bar (§28–29).
-  for (const f of ["engine-reader.js"]) {
+  for (const f of ["engine-reader.js", "engine-tool.js"]) {
     const src = join(ENGINE, "assets", f);
     mkdirSync(join(out, "assets"), { recursive: true });
     cpSync(src, join(out, "assets", f));
@@ -579,12 +619,17 @@ export async function build(domain, { quiet = false } = {}) {
       return html;
     };
 
-    emit(ed.home, finish(ed.home, theme.home(ctx)));
+    emit(ed.home, toolsBand(finish(ed.home, theme.home(ctx)), ed));
     for (const c of categories) emit(c.url, finish(c.url, theme.category(ctx, c)));
     for (const a of articles) emit(a.url, finish(a.url, theme.article(ctx, a)).replace("</body>", `<script src="${asset("engine-reader.js")}" defer></script>\n</body>`));
     for (const p of pages) {
       let html = finish(p.url, theme.page(ctx, p));
-      if (p.tool) html = html.replace("</body>", `<script src="${asset(`tools/${p.tool}.js`)}" defer></script>\n</body>`);
+      if (p.tool) {
+        // A tool on the shared runtime gets the runtime first (both deferred, so they run in this order).
+        const shared = readFileSync(join(dir, "theme", "assets", "tools", `${p.tool}.js`), "utf8").includes("EngineTool.mount(");
+        const runtime = shared ? `<script src="${asset("engine-tool.js")}" defer></script>\n` : "";
+        html = html.replace("</body>", `${runtime}<script src="${asset(`tools/${p.tool}.js`)}" defer></script>\n</body>`);
+      }
       emit(p.url, html);
     }
     if (!ed.en) writeFileSync(join(out, "404.html"), theme.notFound(ctx));
@@ -756,4 +801,29 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     process.exit(2);
   }
   for (const d of domains) await build(d);
+}
+
+/** The site's tools as a band on the home page, right under its first section, unless the theme already shows them
+ *  (§22 A4, §30): a visitor and a crawler see straight away that the site has more than text. */
+function toolsBand(html, ed) {
+  const tools = ed.pages.filter((p) => p.tool);
+  if (!tools.length || tools.some((p) => html.includes(`href="${p.url}"`))) return html;
+  const w = WORDS[ed.en ? "en" : ed.site.lang] || WORDS.en;
+  const esc = (x) => String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const band =
+    `\n<section class="engine-tools-band" aria-labelledby="engine-tools-band-t">` +
+    `<style>.engine-tools-band{max-width:1120px;margin:48px auto;padding:0 20px}.engine-tools-band__kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.78em;font-weight:700;margin:0 0 6px;opacity:.75}` +
+    `.engine-tools-band h2{margin:0 0 8px}.engine-tools-band__lead{margin:0 0 20px;opacity:.85}.engine-tools-band ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}` +
+    `.engine-tools-band a{display:flex;flex-direction:column;gap:6px;height:100%;box-sizing:border-box;padding:18px;border-radius:16px;border:1px solid color-mix(in srgb,currentColor 16%,transparent);text-decoration:none;color:inherit;transition:transform .2s ease,box-shadow .2s ease}` +
+    `.engine-tools-band a:hover,.engine-tools-band a:focus-visible{transform:translateY(-3px);box-shadow:0 10px 24px color-mix(in srgb,currentColor 12%,transparent)}.engine-tools-band strong{font-size:1.05em}.engine-tools-band span{font-size:.92em;opacity:.85}` +
+    `.engine-tools-band em{font-style:normal;font-weight:700;font-size:.9em;margin-top:auto}@media (prefers-reduced-motion:reduce){.engine-tools-band a{transition:none}}</style>` +
+    `<p class="engine-tools-band__kicker">${esc(w.toolsKicker)}</p><h2 id="engine-tools-band-t">${esc(w.toolsTitle)}</h2><p class="engine-tools-band__lead">${esc(w.toolsLead)}</p><ul>` +
+    tools.map((p) => `<li><a href="${p.url}"><strong>${esc(p.short || p.title.split(":")[0])}</strong><span>${esc(p.description || "")}</span><em>${esc(w.toolsOpen)} →</em></a></li>`).join("") +
+    `</ul></section>\n`;
+  const main = html.search(/<main[\s>]/);
+  if (main < 0) return html;
+  const close = html.indexOf("</section>", main);
+  const end = html.indexOf("</main>", main);
+  const at = close > -1 && (end < 0 || close < end) ? close + "</section>".length : end;
+  return at > -1 ? html.slice(0, at) + band + html.slice(at) : html;
 }

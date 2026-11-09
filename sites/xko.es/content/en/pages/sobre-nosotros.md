@@ -24,9 +24,9 @@ We organise our guides into six topics, like the circuits of a fuse box:
 
 ## How we work
 
-Every guide starts from public, verifiable sources: legislation published in the Official State Gazette (BOE), information from the National Markets and Competition Commission (CNMC), the Institute for Energy Diversification and Saving (IDAE), Red Eléctrica and the manufacturers. When we make calculations, we explain the assumptions and round down so as not to promise savings that will not happen. We set this out in detail in [how we calculate](/metodologia/).
+Guides are researched and drafted with the help of AI tools and checked against public sources before they are published: legislation in the Official State Gazette (BOE), the National Markets and Competition Commission (CNMC), the Institute for Energy Diversification and Saving (IDAE), Red Eléctrica, the European Commission and manufacturers' data sheets. Every guide lists the sources it relies on at the end. When we make calculations, we explain the assumptions and round down so as not to promise savings that will not happen. We set this out in detail in [how we calculate](/metodologia/).
 
-We review the guides when rules or reference prices change, and every guide shows its review date.
+So that you can do the sums with your own figures, we publish four [free calculators](/herramientas/): the electricity bill, what each appliance costs to run, the power you need and an offer comparer. We review the guides when rules or reference prices change, every guide shows its review date, and the full list of what has been published and revised is on [what's new](/novedades/).
 
 ## Independence
 

@@ -2,7 +2,7 @@
 title: Sobre XKO
 description: Quiénes somos, qué significa XKO, cómo elegimos y revisamos cada guía de ahorro energético y por qué no vendemos energía ni cobramos de comercializadoras.
 order: 1
-updated: 2026-10-04
+updated: 2026-11-09
 ---
 **XKO** significa **eXpertos en Kilovatios y Optimización**. Somos una publicación digital independiente dedicada a una pregunta que se hace casi cualquier hogar en España: cómo gastar menos energía sin renunciar al confort.
 
@@ -21,9 +21,9 @@ Organizamos las guías en seis temas, como los circuitos de un cuadro eléctrico
 
 ## Cómo trabajamos
 
-Cada guía parte de fuentes públicas y verificables: normativa publicada en el Boletín Oficial del Estado, información de la Comisión Nacional de los Mercados y la Competencia (CNMC), del Instituto para la Diversificación y Ahorro de la Energía (IDAE), de Red Eléctrica y de los fabricantes. Cuando hacemos cálculos, explicamos los supuestos y redondeamos a la baja para no prometer ahorros que no se van a dar. Lo contamos con detalle en [cómo calculamos](/metodologia/).
+Las guías se investigan y redactan con ayuda de herramientas de inteligencia artificial y se comprueban con fuentes públicas antes de publicarse: la normativa del Boletín Oficial del Estado, la Comisión Nacional de los Mercados y la Competencia (CNMC), el Instituto para la Diversificación y Ahorro de la Energía (IDAE), Red Eléctrica, la Comisión Europea y las fichas técnicas de los fabricantes. Cada guía enumera al final las fuentes en las que se apoya. Cuando hacemos cálculos, explicamos los supuestos y redondeamos a la baja para no prometer ahorros que no se van a dar. Lo contamos con detalle en [cómo calculamos](/metodologia/).
 
-Revisamos las guías cuando cambian las normas o los precios de referencia, e indicamos la fecha de revisión en cada una.
+Para que puedas hacer las cuentas con tus propios datos, publicamos cuatro [calculadoras gratuitas](/herramientas/): la factura de la luz, el coste de cada aparato, la potencia que necesitas y un comparador de ofertas. Revisamos las guías cuando cambian las normas o los precios de referencia, indicamos la fecha de revisión en cada una y la lista completa de lo publicado y revisado está en [novedades](/novedades/).
 
 ## Independencia
 

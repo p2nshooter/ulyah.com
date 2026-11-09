@@ -3,6 +3,12 @@ title: Certificado energético de la vivienda: qué es, cuándo es obligatorio y
 description: Qué indica la calificación energética de A a G, cuándo hay que tenerla para vender o alquilar, quién la hace, cuánto cuesta, cuánto dura y qué mejoras suben de letra tu vivienda.
 category: aislamiento-y-ventanas
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO) | https://www.miteco.gob.es/
+  - Código Técnico de la Edificación (CTE) | https://www.codigotecnico.org/
 ---
 Cualquier anuncio de venta o alquiler de una vivienda en España debe mostrar su **calificación energética**, una letra de la A a la G que resume cuánta energía necesita la casa y cuánto CO₂ emite. Para muchos propietarios es solo un trámite más, pero el certificado energético contiene información útil para saber cómo se comporta la vivienda y qué mejoras serían más eficaces. Además, es la llave de muchas ayudas y deducciones por rehabilitación energética.
 

@@ -3,6 +3,11 @@ title: Calefacción eléctrica: qué sistema consume menos y cuál elegir para t
 description: Comparativa honesta entre radiadores de aceite, emisores térmicos, acumuladores, convectores, suelo radiante eléctrico, paneles infrarrojos y bomba de calor, con consumos, costes y casos de uso.
 category: climatizacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
 ---
 La calefacción eléctrica es habitual en muchas viviendas españolas, sobre todo en zonas de inviernos suaves, en pisos sin gas natural y en segundas residencias. Pero bajo ese nombre se esconden sistemas muy distintos, y la publicidad no siempre ayuda: radiadores "de bajo consumo", emisores "inteligentes" o paneles "que ahorran un 70 %" prometen cifras que no se sostienen.
 

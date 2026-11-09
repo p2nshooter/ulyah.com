@@ -3,6 +3,11 @@ title: Mantenimiento de placas solares: limpieza, revisiones y averías habitual
 description: Qué mantenimiento necesita una instalación fotovoltaica doméstica, cada cuánto limpiar los paneles, cómo detectar una bajada de producción, averías típicas del inversor y qué cubre la garantía.
 category: autoconsumo-solar
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Comisión Europea, Centro Común de Investigación: PVGIS, producción solar estimada | https://re.jrc.ec.europa.eu/pvg_tools/en/
 ---
 Una de las ventajas de las placas solares es que necesitan muy poco mantenimiento: no tienen piezas móviles, no consumen combustible y pueden funcionar durante décadas. Pero "poco mantenimiento" no significa "ninguno". La suciedad, las sombras nuevas, una conexión floja o un inversor que se apaga pueden reducir la producción durante meses sin que nadie se dé cuenta, y cada kilovatio hora perdido es ahorro que no llega a la factura.
 

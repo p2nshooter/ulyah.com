@@ -25,7 +25,17 @@
     { "slug": "electrodomesticos-e-iluminacion", "name": "Electrodomésticos e iluminación", "icon": "bombilla", "description": "Etiqueta energética, consumo real de cada aparato, standby, LED y hábitos que se notan en la factura." }
   ],
   "promo": { "slug": "ahorro-inteligente", "label": "✦ Ahorro inteligente" },
+  "sources": "required",
+  "calculators": {
+    "factura-de-la-luz": ["calculadora-factura-luz", "comparador-de-ofertas-de-luz"],
+    "potencia-y-tarifas": ["calculadora-potencia", "comparador-de-ofertas-de-luz"],
+    "autoconsumo-solar": ["calculadora-factura-luz", "calculadora-consumo-electrodomesticos"],
+    "aislamiento-y-ventanas": ["calculadora-consumo-electrodomesticos", "calculadora-factura-luz"],
+    "climatizacion": ["calculadora-consumo-electrodomesticos", "calculadora-potencia"],
+    "electrodomesticos-e-iluminacion": ["calculadora-consumo-electrodomesticos", "calculadora-potencia"]
+  },
   "menu": [
+    { "label": "Calculadoras", "href": "/herramientas/" },
     { "label": "Sobre XKO", "href": "/sobre-nosotros/" },
     { "label": "Cómo calculamos", "href": "/metodologia/" },
     { "label": "Contacto", "href": "/contacto/" }
@@ -56,6 +66,7 @@
     },
     "promo": {"label": "✦ Smart saving"},
     "menu": [
+      {"label": "Calculators", "href": "/herramientas/"},
       {"label": "About XKO", "href": "/sobre-nosotros/"},
       {"label": "How we calculate", "href": "/metodologia/"},
       {"label": "Contact", "href": "/contacto/"}

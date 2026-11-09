@@ -662,6 +662,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 8 Nov | „Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan … google.com, pub-4504974645924459 … pub-6284085719914185 … Ini jg … pub-7345352440829958 … Ini jg … pub-5254913739159445“ · „1ft.fr di batalin ya, ternyata bukan domain sy“ | Akun tumpukan ke-18 s.d. ke-21 di **semua** domain (tag meta + baris ads.txt; loader tetap akun utama). 1ft.fr = salah ketik di akun AdSense pemilik, tidak ada di repo mana pun; pemilik menghapusnya di AdSense (tombol „Hapus situs“). §23.6 |
 | 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
 | 9 Nov | „Tolong translate seluruh website artikel yg berbahasa Jerman dan Spanyol, jgn make auto translate, jadi make 2 bahasa, dan sekaligus pakein voice biar di bacain setiap artikelnya sampai tuntas, auto pindah, auto scroll, suara mengikuti lagam bahasa masing2... Tolong setiap artikel kasih gambar animasi yg sesuai tema, jgn polosan begitu“ | 🔄 §29 — versi Inggris tulisan tangan untuk 22 situs DE/ES, suara sampai tuntas + pindah otomatis ke artikel berikutnya + aksen sesuai bahasa, gambar animasi bertema di setiap artikel |
+| 9 Nov | „Yg sudah selesai langsung selesain PR&Merge, biar langsung live, jgn nunggu semua selesai...“ · „Coba sekalian perbaikin, biar jgn sampe ketolak“ (tangkapan layar AdSense: xko.es **Perlu diperhatikan — Konten tanpa manfaat**; ascan.es dan jenius.es *Membutuhkan peninjauan*; velnixo.de dan ulyah.com *Sedang disiapkan*) · „Bukan cuma xko tpi perbaiki untuk dia web artikel“ · „Jelasin make bhs indonesia aja biar ketahuan sudah sampai mana project d kerjkan“ | 🔄 §30 — PR #425 di-merge; resep §22 (alat + sumber + tanggal revisi + klaim jujur) untuk 20 situs yang belum, satu situs per PR, langsung merge; laporan ke pemilik dalam bahasa Indonesia |
 
 ---
 
@@ -1950,3 +1951,44 @@ tidak disentuh.
 | Gambar animasi bertema (engine, 26 situs) | ✅ 9 Nov — `illustrate.mjs` + `lib/motifs.mjs`: 204 motif bergambar (rumah, perkakas, tanaman, kopi/teh, dapur, kucing, burung, kebersihan, energi, sepeda, olahraga, permata, sains, uang …) dipilih dari subjek judul artikel (kata kunci DE/ES/EN), adegan (bukit/laut/ruang/malam), dua pendamping, partikel, warna dari tema situs; SVG inline 6–10 kB, diam saat `prefers-reduced-motion`; `check.mjs` mewajibkannya di setiap artikel |
 | Engine dua bahasa (`/en/`, hreflang, sitemap, pemilih bahasa, gerbang) | ✅ 9 Nov — `build.mjs` membangun `content/en/` ke `/en/…` bila `site.json` punya `"en"`; teks tema lewat `theme/en.json`; `check.mjs`: semua artikel & halaman ada versi Inggris, panjang ≥ 90 % (de) / 78 % (es) dari aslinya, tidak ada kata Jerman/Spanyol tersisa di menu/label, hreflang dua arah |
 | Terjemahan per situs (22 situs) | 🔄 bertahap — ✅ **xko.es** 9 Nov (40 panduan + 9 halaman, `/en/`, lolos `check.mjs`); berikutnya situs .es/.lat lalu .de |
+
+## 30. „Konten tanpa manfaat“: perbaikan untuk semua situs artikel, yang selesai langsung live (pemilik, 9 Nov 2026)
+
+> „Yg sudah selesai langsung selesain PR&Merge, biar langsung live, jgn nunggu semua selesai...“ — „Coba sekalian perbaikin,
+> biar jgn sampe ketolak“ — „Bukan cuma xko tpi perbaiki untuk dia web artikel“ — „Jelasin make bhs indonesia aja“
+
+AdSense kembali menandai **xko.es: Perlu diperhatikan — Konten tanpa manfaat** (9 Nov). Cara kerja: setiap situs yang selesai
+langsung dibuatkan PR dan di-merge setelah CI hijau (tidak menunggu semua); laporan ke pemilik dalam bahasa Indonesia.
+
+### 30.1 Audit 26 situs (9 Nov 2026, dari repo)
+
+Resep §22 (sumber resmi di setiap artikel, alat interaktif, tanggal revisi, klaim jujur) baru diterapkan di 6 situs:
+zevok.de, saved.lat, rough.lat, byodd.de, byoxy.de, byoy.de. **20 situs lainnya — termasuk xko.es — belum punya satu pun
+sumber, alat, atau tanggal revisi** (±900 artikel): crone.skin, dai.lat, dawo.es, nexvilo.de, odaily.xyz, pab.lat, qarf.de,
+qkb.es, qulen.de, qurm.de, rough.es, rubiy.de, velnixo.de, xdaily.xyz, xko.es, zavik.de, zoevian.de, zolun.de, zufiq.de,
+zuvik.de. Itu sebabnya penilaian „tanpa manfaat“ berulang.
+
+### 30.2 Engine (berlaku untuk semua situs)
+
+| Butir | Isi |
+|---|---|
+| Runtime kalkulator bersama | `sites/_engine/assets/engine-tool.js`: `EngineTool.mount(nama, make)` membangun formulir, membaca „1,5“ dan „1.5“, menyimpan isian terakhir hanya di peramban pengunjung, menampilkan hasil + tabel + catatan, gaya sendiri (warna dari `theme-color`, rapi di HP). Satu skrip alat melayani semua bahasa situs, jadi halaman `/en/` langsung ikut punya alatnya |
+| Pita alat di beranda | Bila situs punya halaman alat dan temanya belum menampilkannya, engine menaruh pita „Herramientas / Werkzeuge / Tools“ dengan kartu setiap alat tepat di bawah bagian pertama beranda (kedua bahasa) |
+| Kotak „Calcúlalo con tus datos“ di artikel | `site.json` → `"calculators": { topik: [halaman alat] }` (atau `calculators:` di artikel): kotak tautan ke alat yang cocok di atas daftar sumber, kedua bahasa |
+| Halaman Inggris mewarisi `tool` dan `order` dari halaman aslinya | — |
+
+### 30.3 Sumber: batas jaringan sesi
+
+Jaringan sesi kerja ini tidak bisa membuka situs resmi (BOE, CNMC, IDAE, dst. ditolak proxy); permintaan lingkungan dengan
+domain-domain itu tidak disetujui. Karena alamat yang tidak bisa diperiksa tidak boleh dipasang, sumber yang ditambahkan adalah
+**halaman utama lembaga resmi dan layanan resminya yang alamatnya pasti** (CNMC dan pembanding penawarannya, e·sios Red Eléctrica,
+web resmi bono social, IDAE, MITECO, CTE, EPREL dan PVGIS Komisi Eropa, Lista Robinson, OCU, BOE). Tautan ke halaman yang lebih
+dalam bisa ditambahkan nanti dari sesi yang jaringannya mengizinkan pemeriksaan.
+
+### 30.4 Status
+
+| Situs | Alat | Sumber | Revisi | Klaim | PR |
+|---|---|---|---|---|---|
+| xko.es | ✅ 4 alat ES+EN: kalkulator factura de la luz (contoh 66,57 € = artikel), coste de cada aparato (15 contoh dari tabel artikel, bulan pemakaian, standby), potencia a contratar (centang alat / maksimum tercatat + 15 %, nilai normal, hemat per tahun), comparador de 3 ofertas (studi kasus artikel: B 549 € < A 593 € < C 627 €) + `/herramientas/` & `/en/tools/`, menu, pita beranda, kotak di 40 artikel | ✅ 2–3 per artikel, `"sources": "required"` | ✅ `updated: 2026-11-09` + catatan perubahan | ✅ „Sobre XKO“: ditulis dengan bantuan AI dan diperiksa terhadap sumber (ES+EN) | 🔄 |
+| 19 situs lain | ⏳ satu situs per PR, urutan: yang sedang ditinjau AdSense dulu | ⏳ | ⏳ | ⏳ | — |
+

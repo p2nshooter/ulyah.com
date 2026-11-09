@@ -3,6 +3,11 @@ title: Aislamiento de fachada y cubierta: SATE, insuflado y trasdosado comparado
 description: Opciones para aislar muros y tejados en España: SATE, insuflado y trasdosado interior, con costes, ahorro, permisos de la comunidad y cómo elegir la solución adecuada.
 category: aislamiento-y-ventanas
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Código Técnico de la Edificación (CTE) | https://www.codigotecnico.org/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 Una gran parte del parque de viviendas español se construyó antes de que existiera ninguna exigencia de aislamiento térmico. Hasta finales de la década de 1970 no hubo normativa, y hasta 2006, con el Código Técnico de la Edificación, las exigencias fueron modestas. El resultado son millones de viviendas con muros y cubiertas que dejan escapar el calor en invierno y lo absorben en verano, lo que se traduce en facturas de calefacción y aire acondicionado altas y en poco confort.
 
