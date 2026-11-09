@@ -178,9 +178,17 @@ export const BOOKDASH_SLUGS = [
 
 export const BOOKDASH_SOURCES: BookDashSource[] = BOOKDASH_SLUGS.map((slug) => ({ kind: 'bookdash', slug, lanes: ['tunas', 'lintas'], shelf: 'keluarga' }));
 
-/** Urutan impor: buku bergambar dulu (paling kecil, untuk anak), lalu Standard Ebooks yang lolos domain publik Indonesia. */
+/** Urutan impor: buku panjang Standard Ebooks (lolos domain publik Indonesia) berselang dengan buku bergambar Book Dash. */
 export function allSources(year = new Date().getUTCFullYear()): Source[] {
-  return [...BOOKDASH_SOURCES, ...SE_SOURCES.filter((s) => pdIndonesia(s, year))];
+  // Berselang: satu buku panjang (puluhan–ratusan halaman), lalu dua buku bergambar — rak anak dan rak buku bab terisi
+  // bersamaan sejak putaran impor pertama (pemilik, 9 Nov 2026: „bukunya puluhan sampai ratusan lembar“).
+  const long = SE_SOURCES.filter((s) => pdIndonesia(s, year));
+  const out: Source[] = [];
+  for (let i = 0, j = 0; i < long.length || j < BOOKDASH_SOURCES.length; i += 1, j += 2) {
+    if (i < long.length) out.push(long[i]!);
+    out.push(...BOOKDASH_SOURCES.slice(j, j + 2));
+  }
+  return out;
 }
 
 const tailOf = (repo: string) => (repo.split('_')[1] ?? repo).replace(/[^a-z0-9-]/g, '');
