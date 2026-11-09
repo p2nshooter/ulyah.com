@@ -72,6 +72,8 @@ try {
 
   await step('beranda: animasi muncul, banner cookie bisa ditutup dan diingat', async () => {
     await page.goto(`${BASE}/`);
+    await page.waitForTimeout(600);
+    await page.screenshot({ path: `${OUT}/home-hero.png` });
     // Bagian dengan animasi muncul berada di bawah layar pertama: gulir dulu, lalu bagian itu tampil.
     await page.mouse.wheel(0, 1200);
     await page.waitForSelector('.reveal.in');
@@ -86,6 +88,9 @@ try {
   });
 
   await step('jalur Tunas → buku bergambar → pembaca slide AUTO sampai buku selesai', async () => {
+    await page.goto(`${BASE}/jalur/tumbuh`);
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${OUT}/lane-books.png` });
     await page.goto(`${BASE}/jalur/tunas`);
     await page.click(`a[href="/buku/${SLOTH}"]`);
     await page.waitForURL(`**/buku/${SLOTH}`);
@@ -248,8 +253,14 @@ try {
       assert.ok(over <= 1, `${p} melebar ${over}px`);
     }
     await m.page.goto(`${BASE}/`);
+    await m.page.waitForTimeout(600);
+    await m.page.screenshot({ path: `${OUT}/home-mobile.png` });
     await m.page.click('[data-menu]');
     await m.page.waitForSelector('.main-nav.open');
+    await m.page.waitForTimeout(700);
+    // Menu menutup seluruh layar di bawah header.
+    const navBox = await m.page.locator('.main-nav').boundingBox();
+    assert.ok(navBox.height > 500, `menu layar penuh (${navBox.height}px)`);
     await m.page.screenshot({ path: `${OUT}/home-mobile-menu.png` });
     await m.page.goto(`${BASE}/baca/${ALICE}/1`);
     await m.page.waitForSelector('[data-reader][data-ready="1"]');

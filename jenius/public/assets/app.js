@@ -19,12 +19,32 @@
     rev.forEach(function (el) { io.observe(el); });
   } else rev.forEach(function (el) { el.classList.add('in'); });
 
-  /* ── menu ponsel ── */
+  /* ── kartu miring 3D + kilau mengikuti kursor (hanya tetikus; mati bila „kurangi gerakan“) ── */
+  if (!reduce && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    $$('[data-tilt]').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        el.classList.add('tilting');
+        el.style.setProperty('--ry', ((x - 0.5) * 10).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', ((0.5 - y) * 8).toFixed(2) + 'deg');
+        el.style.setProperty('--mx', Math.round(x * 100) + '%');
+        el.style.setProperty('--my', Math.round(y * 100) + '%');
+      });
+      el.addEventListener('pointerleave', function () {
+        el.classList.remove('tilting');
+        el.style.setProperty('--rx', '0deg');
+        el.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+
+  /* ── menu ponsel (layar penuh; halaman di belakangnya tidak ikut bergulir) ── */
   var menuBtn = $('[data-menu]'), nav = $('.main-nav');
   if (menuBtn && nav) menuBtn.addEventListener('click', function () {
     var open = nav.classList.toggle('open');
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     menuBtn.textContent = open ? '✕' : '☰';
+    document.documentElement.style.overflow = open && window.innerWidth <= 860 ? 'hidden' : '';
   });
 
   /* ── pemberitahuan cookie ── */

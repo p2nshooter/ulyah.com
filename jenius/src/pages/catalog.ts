@@ -21,7 +21,7 @@ export const coverUrl = (id: string, cover?: string) => (cover ? `/m/${id}/${enc
 export function bookCard(L: Lang, b: Card, lane?: Lane): Raw {
   const ln = lane ?? LANES.find((x) => x.kids === false);
   return html`<a class="book-card" href="${bookPath(L, b.id)}" style="--lane:${ln?.color ?? '#0b4fd8'}">
-    <img class="cover" src="${coverUrl(b.id, b.meta.cover)}" alt="${tr(L, `Sampul ${b.meta.title}`, `Cover of ${b.meta.title}`)}" loading="lazy" width="180" height="270">
+    <span class="bk"><img class="cover" src="${coverUrl(b.id, b.meta.cover)}" alt="${tr(L, `Sampul ${b.meta.title}`, `Cover of ${b.meta.title}`)}" loading="lazy" width="180" height="270"></span>
     <span class="bc-title">${b.meta.title}</span>
     <span class="bc-author">${b.meta.author}</span>
     <span class="bc-meta">🎧 ${minutesLabel(L, b.meta.minutes)}${b.meta.picture ? html` · 🖼 ${tr(L, 'bergambar', 'picture book')}` : ''}</span>
@@ -29,7 +29,7 @@ export function bookCard(L: Lang, b: Card, lane?: Lane): Raw {
 }
 
 export function laneCard(L: Lang, lane: Lane, count: number): Raw {
-  return html`<a class="lane-card reveal" href="${lanePath(L, lane.slug)}" style="--lane:${lane.color}">
+  return html`<a class="lane-card reveal" data-tilt href="${lanePath(L, lane.slug)}" style="--lane:${lane.color}">
     <span class="lane-ic" aria-hidden="true">${lane.icon}</span>
     <span class="lane-name">${pick(L, lane.name)}</span>
     <span class="lane-who">${pick(L, lane.who)} · <small>${pick(L, lane.levels)}</small></span>
@@ -45,6 +45,7 @@ export function homePage(L: Lang, counts: Record<string, number>, featured: { la
   const latest = ARTICLES.slice().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
   return html`
   <section class="hero">
+    <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap hero-in">
       <div class="hero-copy">
         <span class="eyebrow">${tr(L, 'Gratis untuk semua · Indonesia & English', 'Free for everyone · Indonesian & English')}</span>
@@ -54,8 +55,17 @@ export function homePage(L: Lang, counts: Record<string, number>, featured: { la
         <ul class="trust"><li>✓ ${tr(L, `${fmtNum(L, total || 100)}+ buku berlisensi terbuka`, `${fmtNum(L, total || 100)}+ openly licensed books`)}</li><li>✓ ${tr(L, 'Halaman anak tanpa iklan', 'No ads on children’s pages')}</li><li>✓ ${tr(L, 'Bisa dibaca tanpa internet', 'Works offline')}</li></ul>
       </div>
       <div class="hero-demo" aria-hidden="true">
-        <div class="demo-book"><div class="demo-page"><p><span class="w on">Once</span> <span class="w">upon</span> <span class="w">a</span> <span class="w">time</span> <span class="w">there</span> <span class="w">was</span> <span class="w">a</span> <span class="w">little</span> <span class="w">girl</span> <span class="w">who</span> <span class="w">loved</span> <span class="w">stories…</span></p></div><div class="demo-flip"></div></div>
-        <div class="demo-bar"><span class="demo-play">▶</span><span class="demo-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>1×</span></div>
+        <div class="hb">
+          <div class="hb-glow"></div>
+          <div class="hb-book">
+            <div class="hb-page hb-left"><b>${tr(L, 'Bab 1', 'Chapter 1')}</b><i></i><i></i><i class="s"></i><i></i><i></i><i class="s"></i><i></i></div>
+            <div class="hb-page hb-right"><p>${(L === 'en' ? 'Once upon a time a little girl planted a seed in the school garden' : 'Pada suatu pagi seorang anak menanam biji di kebun sekolah').split(' ').map((w, i) => html`<span class="w" style="--k:${i}">${w}</span> `)}</p><i></i><i></i><i class="s"></i></div>
+            <div class="hb-leaf"><div class="hb-front"><i></i><i></i><i class="s"></i><i></i><i></i></div><div class="hb-back"><i></i><i></i><i class="s"></i><i></i></div></div>
+            <div class="hb-spine"></div>
+          </div>
+          <div class="hb-bar"><span class="hb-play">▶</span><span class="demo-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="hb-speed">1×</span></div>
+          <span class="hb-note n1">♪</span><span class="hb-note n2">♫</span><span class="hb-note n3">✦</span><span class="hb-note n4">A</span><span class="hb-note n5">b</span>
+        </div>
       </div>
     </div>
   </section>
@@ -76,7 +86,7 @@ export function homePage(L: Lang, counts: Record<string, number>, featured: { la
           ['🖼', tr(L, 'Mode slide untuk buku bergambar', 'Slide mode for picture books'), tr(L, 'Buku bergambar tampil layar penuh dan bergeser otomatis mengikuti suara — cocok untuk anak dan untuk kelas.', 'Picture books go full screen and slide on by themselves with the voice — great for children and for classrooms.')],
           ['♿', tr(L, 'Nyaman dibaca semua orang', 'Comfortable for everyone'), tr(L, 'Ukuran huruf, huruf ramah disleksia, mode malam, kontras tinggi, dan tanpa animasi bila perangkat meminta.', 'Text size, a dyslexia-friendly font, night mode, high contrast, and no animation when your device asks for it.')],
           ['🏫', tr(L, 'Kelas dan guru, gratis', 'Classes and teachers, free'), tr(L, 'Guru membuat kelas dengan nama unik, mengundang murid, membagikan rak buku dan tugas, lalu melihat laporan baca.', 'Teachers create classes with a unique name, invite students, share shelves and tasks, then see reading reports.')],
-        ].map(([ic, t, d]) => html`<article class="feature reveal"><span class="feature-ic">${ic}</span><h3>${t}</h3><p class="muted">${d}</p></article>`)}
+        ].map(([ic, t, d], i) => html`<article class="feature reveal" data-tilt style="--i:${i}"><span class="feature-ic">${ic}</span><h3>${t}</h3><p class="muted">${d}</p></article>`)}
       </div>
     </div>
   </section>

@@ -11,7 +11,7 @@ import { ADSENSE_METAS, ADSENSE_LOADER } from '../lib/adsense.ts';
 export let ACCOUNTS_OPEN = false;
 export const setAccountsOpen = (v: boolean) => { ACCOUNTS_OPEN = v; };
 
-export const ASSET_V = '20261109a';
+export const ASSET_V = '20261109c';
 export const SITE = { name: 'jenius.es', tagline: ['E-Book bersuara', 'E-Book with Voice'] as const, origin: 'https://jenius.es' };
 
 export interface PageOpts {
@@ -35,12 +35,19 @@ export interface PageOpts {
   user?: { name: string } | null;
 }
 
-const nav = (L: Lang, active?: string) => [
-  ['lanes', tr(L, 'Jalur Baca', 'Reading Lanes')],
-  ['articles', tr(L, 'Artikel', 'Articles')],
-  ['tools', tr(L, 'Alat Gratis', 'Free Tools')],
-  ['teachers', tr(L, 'Untuk Guru', 'For Teachers')],
-].map(([k, t]) => html`<a href="${P(L, k as PageKey)}" ${active === k ? raw('aria-current="page"') : ''}>${t}</a>`);
+// Satu Raw (bukan array): page() memakai template string biasa, dan array di sana tergabung dengan koma.
+const nav = (L: Lang, active?: string): Raw => html`${[
+  ['lanes', '📚', tr(L, 'Jalur Baca', 'Reading Lanes')],
+  ['articles', '📝', tr(L, 'Artikel', 'Articles')],
+  ['tools', '🧰', tr(L, 'Alat Gratis', 'Free Tools')],
+  ['teachers', '🍎', tr(L, 'Untuk Guru', 'For Teachers')],
+].map(([k, ic, t], i) => html`<a href="${P(L, k as PageKey)}" style="--i:${i}" ${active === k ? raw('aria-current="page"') : ''}><span class="nav-ic" aria-hidden="true">${ic}</span><span>${t}</span></a>`)}${[
+  // Ubin tambahan hanya di menu HP (layar penuh).
+  [L === 'en' ? '/en/lanes/textbooks' : '/jalur/buku-pelajaran', '📘', tr(L, 'Buku Pelajaran', 'Textbooks')],
+  [P(L, 'search'), '🔍', tr(L, 'Cari buku', 'Search')],
+  [P(L, 'guide'), '🧭', tr(L, 'Panduan', 'Guide')],
+  [P(L, 'about'), '✨', tr(L, 'Tentang', 'About')],
+].map(([href, ic, t], i) => html`<a class="nav-extra" href="${href}" style="--i:${i + 4}"><span class="nav-ic" aria-hidden="true">${ic}</span><span>${t}</span></a>`)}`;
 
 export function page(o: PageOpts): string {
   const { L } = o;
@@ -77,13 +84,15 @@ ${o.noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" co
 <link rel="manifest" href="/manifest.webmanifest">
 ${ADSENSE_METAS}
 ${o.ads ? ADSENSE_LOADER : ''}
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="/assets/app.css?v=${ASSET_V}">
 ${ld}
 </head>
 <body class="${esc(o.bodyClass ?? '')}">
 <a class="skip" href="#main">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>
 <div class="pwa-bar" data-pwa hidden><img src="/assets/icon-192.png" alt="" width="36" height="36"><span><b>${tr(L, 'Pasang jenius.es di HP', 'Install jenius.es on your phone')}</b> ${tr(L, '— buku bersuara, bisa dibaca tanpa internet.', '— voiced books, readable offline.')}</span><button type="button" class="btn btn-sm btn-primary" data-pwa-install hidden>${tr(L, 'Pasang', 'Install')}</button><button type="button" class="btn btn-sm btn-ghost" data-pwa-close aria-label="${tr(L, 'Tutup', 'Close')}">✕</button></div>
-<header class="top">
+<header class="top"><div class="top-glow" aria-hidden="true"></div>
   <div class="wrap top-in">
     <a class="brand" href="${P(L, 'home')}" aria-label="jenius.es"><img src="/assets/badge-96.webp" alt="" width="40" height="40"><span><b>jenius.es</b><small>${L === 'en' ? SITE.tagline[1] : SITE.tagline[0]}</small></span></a>
     <nav class="main-nav" aria-label="${tr(L, 'Menu utama', 'Main menu')}">${nav(L, o.active)}</nav>
