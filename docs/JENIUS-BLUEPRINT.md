@@ -129,6 +129,20 @@ sama (suara, lembar membalik, sampai akhir buku).
   impor, sumber buku, notifikasi, cadangan). Jenius tetap gratis.
 - **Lebih interaktif:** kuis singkat di akhir bab, tantangan baca, lencana, pencarian instan, rekomendasi per jenjang.
 
+### 0.28 Perpustakaan digital: serap sebanyak mungkin, kategori tepat, judul A–Z (pemilik, 9 Nov 2026)
+
+> „Jadiin aja jenius.us perpustakaan digital... Cari lebih banyak buku serap semua, yg penting nyusun kategori nya tepat, Misal
+> judul A-Z trus, umum, pelajar dan seterusnya“ (dibaca sebagai jenius.es; „.us“ dianggap salah ketik sampai pemilik
+> menyebut sebaliknya).
+
+- Halaman **Perpustakaan** (`/perpustakaan`, `/en/library`): seluruh buku dalam satu katalog dengan dua cara menelusuri —
+  **Judul A–Z** (indeks huruf, lompat per huruf) dan **Kategori**: Anak (TK–SD) · Pelajar (SD/MI, SMP/MTs, SMA/MA, SMK/MAK) ·
+  Mahasiswa & Akademik · Umum (novel, cerita, puisi) · Profesional · Bahasa Asing; di dalamnya rak tema & mata pelajaran.
+- Ringkasan katalog satu dokumen R2 (`k/library.json`) diperbarui oleh langkah berkala, bukan dibaca ulang setiap kunjungan.
+- Penyerapan diperluas terus: BSE 1.198 judul (berjalan per jam), Standard Ebooks (697 judul; hanya yang domain publik di
+  Indonesia), African Storybook, OpenStax CC BY, StoryWeaver/Let's Read/Bloom (CC BY, berbahasa Indonesia) — setiap judul
+  diklasifikasi otomatis ke kategori & jenjang saat impor.
+
 ### 0.3 Pengalaman baca AUTO (inti produk)
 
 - **Mode Dengar-Baca:** tekan Putar sekali → suara membaca halaman, kata disorot, halaman berganti sendiri dengan animasi

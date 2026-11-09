@@ -28,6 +28,8 @@ export interface UploadBook {
   year?: number;
   sourceUrl: string;
   description?: string;
+  /** Versi pengonversi (scripts/bse/convert.mjs VERSION): hasil versi lama dikonversi ulang. */
+  converter: number;
   chapters: { title: string; blocks: Block[] }[];
 }
 
@@ -62,6 +64,8 @@ export function validateUpload(body: unknown): { ok: true; book: UploadBook } | 
     }
     chapters.push({ title: t.replace(/[<>]/g, ''), blocks });
   }
+  const converter = b.converter === undefined ? 1 : Number(b.converter);
+  if (!Number.isInteger(converter) || converter < 1 || converter > 999) return { ok: false, error: 'converter' };
   const part = b.part === undefined ? undefined : Number(b.part);
   const year = b.year === undefined ? undefined : Number(b.year);
   return {
@@ -69,7 +73,7 @@ export function validateUpload(body: unknown): { ok: true; book: UploadBook } | 
     book: {
       id, source: b.source as keyof typeof SOURCES, title: title.replace(/[<>]/g, ''), author: author.replace(/[<>]/g, ''), level: b.level, grade, subject: subject.replace(/[<>]/g, ''),
       part: Number.isInteger(part) ? part : undefined, year: Number.isInteger(year) ? year : undefined, sourceUrl,
-      description: str(b.description, 600)?.replace(/[<>]/g, '') ?? undefined, chapters,
+      description: str(b.description, 600)?.replace(/[<>]/g, '') ?? undefined, converter, chapters,
     },
   };
 }
@@ -107,6 +111,6 @@ export async function storeUpload(store: Store, u: UploadBook, now = Date.now())
     level: u.level, grade: u.grade, subject: u.subject, part: u.part, kids: LEVELS[u.level].kids,
   };
   await publishBook(store, meta);
-  await store.put(`q/${u.id}.json`, { status: 'done', at: now }, { s: 'done', at: now });
+  await store.put(`q/${u.id}.json`, { status: 'done', at: now, v: u.converter }, { s: 'done', at: now, v: u.converter });
   return meta;
 }

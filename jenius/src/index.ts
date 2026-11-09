@@ -161,19 +161,21 @@ app.post('/api/ops/book', async (c) => {
 // Status buku dari satu sumber (sudah tayang / dilewati), agar pipeline tidak mengulang pekerjaan.
 app.post('/api/ops/state', async (c) => {
   if (!(await opsKeyValid(c.env, c.req.header('x-ops-key') ?? '', Date.now(), opsName(c.req.header('x-ops-name'))))) return c.json({ error: 'forbidden' }, 403);
-  const body = (await c.req.json().catch(() => ({}))) as { prefix?: string; skip?: { id: string; reason: string }[] };
+  const body = (await c.req.json().catch(() => ({}))) as { prefix?: string; skip?: { id: string; reason: string; v?: number }[] };
   const prefix = /^[a-z]{2,10}-$/.test(body.prefix ?? '') ? body.prefix! : 'bse-';
   const store = c.get('store');
   for (const s of (body.skip ?? []).slice(0, 200)) {
     if (typeof s?.id === 'string' && s.id.startsWith(prefix) && /^[a-z0-9-]{1,40}$/.test(s.id)) {
-      await store.put(`q/${s.id}.json`, { status: 'skipped', at: Date.now(), reason: String(s.reason ?? '').slice(0, 200) }, { s: 'skipped', at: Date.now() });
+      const v = Number.isInteger(s.v) ? Number(s.v) : 1;
+      await store.put(`q/${s.id}.json`, { status: 'skipped', at: Date.now(), reason: String(s.reason ?? '').slice(0, 200), v }, { s: 'skipped', at: Date.now(), v });
     }
   }
-  const done: string[] = [], skipped: string[] = [];
+  // Setiap buku dengan versi pengonversi yang menghasilkannya (tanpa versi = 1).
+  const done: { id: string; v: number }[] = [], skipped: { id: string; v: number }[] = [];
   let cursor: string | undefined;
   do {
-    const r = await store.list<{ s?: string }>(`q/${prefix}`, { limit: 1000, cursor });
-    for (const it of r.items) (it.meta.s === 'done' ? done : skipped).push(`${prefix}${it.id}`);
+    const r = await store.list<{ s?: string; v?: number }>(`q/${prefix}`, { limit: 1000, cursor });
+    for (const it of r.items) (it.meta.s === 'done' ? done : skipped).push({ id: `${prefix}${it.id}`, v: it.meta.v ?? 1 });
     cursor = r.cursor;
   } while (cursor);
   return c.json({ done, skipped });

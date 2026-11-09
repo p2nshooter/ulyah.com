@@ -303,9 +303,9 @@ test('buku pelajaran: unggah BSE berkunci, divalidasi ketat, tampil per jenjang 
   assert.equal(meta?.kids, true);
   assert.match(meta!.attribution, /dialihmediakan/);
   // Status: buku tayang + daftar dilewati.
-  const st = (await (await post('/api/ops/state', { prefix: 'bse-', skip: [{ id: 'bse-903', reason: 'tanpa izin' }] })).json()) as { done: string[]; skipped: string[] };
-  assert.ok(st.done.includes('bse-901') && st.done.includes('bse-902'));
-  assert.ok(st.skipped.includes('bse-903'));
+  const st = (await (await post('/api/ops/state', { prefix: 'bse-', skip: [{ id: 'bse-903', reason: 'tanpa izin', v: 2 }] })).json()) as { done: { id: string; v: number }[]; skipped: { id: string; v: number }[] };
+  assert.ok(st.done.some((x) => x.id === 'bse-901' && x.v === 1) && st.done.some((x) => x.id === 'bse-902'), 'tanpa versi = versi 1');
+  assert.ok(st.skipped.some((x) => x.id === 'bse-903' && x.v === 2));
   // Halaman: jalur dengan pilihan jenjang & kelompok kelas.
   const lane = await page('/jalur/buku-pelajaran');
   assert.equal(lane.status, 200);

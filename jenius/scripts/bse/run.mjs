@@ -7,7 +7,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { hasPermission, findAuthors, segment } from './convert.mjs';
+import { hasPermission, findAuthors, segment, VERSION } from './convert.mjs';
 
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(`--${k}`); return i < 0 ? d : args[i + 1] ?? d; };
@@ -47,9 +47,10 @@ const summary = { done: 0, skipped: 0, failed: 0 };
 const skips = [];
 let st = { done: [], skipped: [] };
 if (!DRY) st = await state();
-const seen = new Set([...st.done, ...st.skipped]);
+// Buku yang sudah dikerjakan versi pengonversi ini dilewati; hasil versi lama dikerjakan ulang.
+const seen = new Set([...st.done, ...st.skipped].filter((x) => x.v >= VERSION).map((x) => x.id));
 const queue = data.books.filter((b) => (IDS ? IDS.has(String(b.id)) : !seen.has(`bse-${b.id}`))).slice(0, IDS ? undefined : LIMIT);
-console.log(`BSE: ${data.books.length} buku dalam daftar, ${st.done.length} tayang, ${st.skipped.length} dilewati; dikerjakan sekarang: ${queue.length}${DRY ? ' (uji kering)' : ''}`);
+console.log(`BSE (pengonversi v${VERSION}): ${data.books.length} buku dalam daftar, ${st.done.length} tayang, ${st.skipped.length} dilewati; dikerjakan sekarang: ${queue.length}${DRY ? ' (uji kering)' : ''}`);
 
 for (const b of queue) {
   const id = `bse-${b.id}`;
@@ -58,22 +59,40 @@ for (const b of queue) {
     const size = await download(b.file, pdf);
     execFileSync('pdftotext', ['-enc', 'UTF-8', '-q', pdf, txt], { timeout: 300_000 });
     const text = fs.readFileSync(txt, 'utf8');
+    if (args.includes('--debug')) {
+      // Diagnosis: halaman hak cipta, baris „bab“ per halaman, daftar isi — untuk menyetel pengonversi.
+      const pages = text.split('\f');
+      console.log(`  [debug] ${id}: ${pages.length} halaman`);
+      pages.forEach((p, i) => {
+        const ls = p.split('\n').map((l) => l.trim()).filter(Boolean);
+        if (/hak cipta|dialih|digandakan|diunduh|penulis|penyusun/i.test(p) && i < 40) console.log(`  [hc p${i}] ${ls.slice(0, 40).join(' | ').slice(0, 700)}`);
+        ls.forEach((l, k) => { if (/^\s*(bab|chapter|unit|pelajaran|tema)\b/i.test(l) && l.length < 90) console.log(`  [bab p${i} l${k}/${ls.length}] ${l}`); });
+      });
+      const mid = pages[Math.floor(pages.length / 2)].split('\n').slice(0, 30).join(' ⏎ ');
+      console.log(`  [tengah] ${mid.slice(0, 900)}`);
+    }
     if (!hasPermission(text)) {
-      skips.push({ id, reason: 'tanpa kalimat izin di halaman hak cipta' });
+      skips.push({ id, reason: 'tanpa kalimat izin di halaman hak cipta', v: VERSION });
       summary.skipped += 1;
       console.log(`- ${id} ${b.title}: DILEWATI — kalimat izin tidak ditemukan`);
       continue;
     }
-    const { chapters, words } = segment(text);
+    const { chapters, words, quality } = segment(text);
+    if (quality < 0.78) {
+      skips.push({ id, reason: `mutu teks rendah (${Math.round(quality * 100)}% kata utuh; tanda air/rumus)`, v: VERSION });
+      summary.skipped += 1;
+      console.log(`- ${id} ${b.title}: DILEWATI — mutu teks ${Math.round(quality * 100)}%`);
+      continue;
+    }
     if (!chapters.length || words < 1500) {
-      skips.push({ id, reason: `teks terlalu sedikit (${words} kata; PDF hasil pindai?)` });
+      skips.push({ id, reason: `teks terlalu sedikit (${words} kata; PDF hasil pindai?)`, v: VERSION });
       summary.skipped += 1;
       console.log(`- ${id} ${b.title}: DILEWATI — ${words} kata terbaca`);
       continue;
     }
     const author = findAuthors(text) || 'Pusat Perbukuan, Departemen Pendidikan Nasional';
-    const payload = { id, source: 'bse', title: b.title, author, level: b.level, grade: b.grade, subject: b.subject, part: b.part, year: b.year, sourceUrl: b.page, chapters };
-    console.log(`+ ${id} ${b.title} — ${(size / 1e6).toFixed(1)} MB, ${chapters.length} bab, ${words} kata, penulis: ${author}`);
+    const payload = { id, source: 'bse', converter: VERSION, title: b.title, author, level: b.level, grade: b.grade, subject: b.subject, part: b.part, year: b.year, sourceUrl: b.page, chapters };
+    console.log(`+ ${id} ${b.title} — ${(size / 1e6).toFixed(1)} MB, ${chapters.length} bab, ${words} kata, mutu ${Math.round(quality * 100)}%, penulis: ${author}`);
     if (DRY) {
       for (const c of chapters.slice(0, 4)) console.log(`    · ${c.title} (${c.blocks.length} blok): ${(c.blocks.find((x) => x.t === 'p')?.text ?? '').slice(0, 160)}`);
       continue;

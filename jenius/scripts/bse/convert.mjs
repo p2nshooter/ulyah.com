@@ -4,6 +4,9 @@
 //    potong per „BAB …“, susun ulang paragraf (baris terputus, kata berpenggal), tandai subjudul, berhenti di daftar pustaka.
 // Dipakai oleh scripts/bse/run.mjs (GitHub Actions) dan diuji di test/bse.test.ts.
 
+/** Versi pengonversi: buku hasil versi lama dikonversi ulang otomatis oleh run.mjs. */
+export const VERSION = 4;
+
 /** Kalimat izin BSE di halaman hak cipta (2008–2011). */
 export function hasPermission(text) {
   const head = String(text).split('\f').slice(0, 14).join('\n').replace(/\s+/g, ' ').toLowerCase();
@@ -11,8 +14,28 @@ export function hasPermission(text) {
   return /hak cipta/.test(head) && /dibeli/.test(head) && /(departemen|kementerian) pendidikan/.test(head) && /(diunduh|digandakan|difotokopi)/.test(head);
 }
 
-/** Penulis dari halaman hak cipta: baris setelah „Penulis/Penyusun/Pengarang“. */
+/**
+ * Penulis dari baris katalog (KDT) di halaman hak cipta, mis. „Fisika 1 : Untuk SMA/MA Kelas X / Setya Nurachmandani ;
+ * Editor … — Jakarta : Pusat Perbukuan“; bila tidak ada, dari baris setelah „Penulis/Penyusun“.
+ */
 export function findAuthors(text) {
+  const flat = String(text).split('\f').slice(0, 12).join(' ').replace(/\s+/g, ' ');
+  const at = flat.search(/[—–-]{1,2}\s*Jakarta\s*:?\s*Pusat Perbukuan/i);
+  if (at > 0) {
+    const before = flat.slice(Math.max(0, at - 260), at);
+    const slash = before.lastIndexOf('/');
+    if (slash >= 0) {
+      let a = before.slice(slash + 1).split(';')[0];
+      a = a.split(/\s*[—–]\s*|\s*\.\s*-{1,2}\s*|\s+Cet\.?\s*\d/)[0];
+      a = a.replace(/^\s*(penulis|penyusun|pengarang|oleh)\s*,?\s*/i, '').replace(/(…|\.{3})?\s*\[?\s*et\.?\s*al\.?\s*\]?/gi, ' dkk.').replace(/…|\.{3}/g, ' dkk.').replace(/(\s*dkk\.?)+/g, ' dkk.').replace(/[\s.,—–-]+$/g, '').replace(/\s+,/g, ',').replace(/\s+/g, ' ').trim();
+      if (/dkk\.?$/.test(a)) a = a.replace(/,?\s*dkk\.?$/, ', dkk.');
+      if (a.length >= 3 && a.length <= 140 && /\p{Lu}/u.test(a) && !/jakarta|pusat|departemen|untuk|kelas/i.test(a)) return a;
+    }
+  }
+  return authorsFromLabels(text);
+}
+
+function authorsFromLabels(text) {
   const lines = String(text).split('\f').slice(0, 10).join('\n').split('\n').map((l) => l.trim());
   for (let i = 0; i < lines.length; i += 1) {
     const m = /^(penulis|penyusun|pengarang|disusun oleh|ditulis oleh)\s*:?\s*(.*)$/i.exec(lines[i]);
@@ -25,14 +48,14 @@ export function findAuthors(text) {
       if (/^(editor|penyunting|ilustrator|ilustrasi|desain|perancang|layout|tata letak|ukuran|isbn|\d)/i.test(l) || l.length > 60) break;
       names.push(l);
     }
-    const clean = names.map((n) => n.replace(/^[:\-–\s]+|[,;\s]+$/g, '')).filter((n) => /[A-Za-z]{2,}/.test(n) && !/buku|kelas|untuk|pendidikan/i.test(n));
+    const clean = names.map((n) => n.replace(/^[:\-–\s]+|[,;\s]+$/g, '')).filter((n) => /^\p{Lu}/u.test(n) && /[A-Za-z]{2,}/.test(n) && !/\d|buku|kelas|untuk|pendidikan|pengantar|penerbit|editor|ilustra|desain|ukuran/i.test(n));
     if (clean.length) return clean.join(', ');
   }
   return '';
 }
 
 const CHAPTER = /^(BAB|Bab)\s+([IVXLCDM]+|\d{1,2})\b\.?\s*[:.\-–]?\s*(.*)$/;
-const BACK = /^(DAFTAR PUSTAKA|Daftar Pustaka|GLOSARIUM|Glosarium|INDEKS|Indeks|DAFTAR ISTILAH|Daftar Istilah|LAMPIRAN|Lampiran)\s*$/;
+const BACK = /^(DAFTAR PUSTAKA|Daftar Pustaka|GLOSARIUM|Glosarium|INDEKS|Indeks|DAFTAR ISTILAH|Daftar Istilah|LAMPIRAN|Lampiran|KUNCI JAWABAN|Kunci Jawaban)\s*$/i;
 const LEADER = /\.{4,}|…{2,}|\s\d{1,3}$/;
 
 const norm = (l) => l.replace(/\s+/g, ' ').trim();
@@ -52,6 +75,10 @@ function runningLines(pages) {
 
 function isNoise(l) {
   if (/^[\divxlcdm]{1,6}$/i.test(l)) return true; // nomor halaman
+  // Potongan tanda air/alamat situs („da li.c om“, „ka rta .go .id“): semua token sangat pendek atau berupa domain.
+  const tok = l.split(/\s+/).filter(Boolean);
+  if (tok.length >= 2 && !/^bab\b/i.test(l) && tok.every((t) => t.replace(/[^\p{L}]/gu, '').length <= 3)) return true;
+  if (/^\S*\.(com|co|id|net|org|go)(\.\S*)?$/i.test(l.replace(/\s+/g, ''))) return true;
   const letters = (l.match(/\p{L}/gu) ?? []).length;
   if (l.length > 3 && letters / l.length < 0.4) return true; // tabel angka, rumus rusak
   return false;
@@ -118,34 +145,53 @@ function toBlocks(lines) {
 export function segment(raw) {
   const pages = String(raw).replace(/\r/g, '').split('\f').map((p) => p.split('\n').map(norm));
   const running = runningLines(pages);
-  const clean = pages.map((p) => p.map((l) => (running.has(key(l)) || isNoise(l) ? '' : l)));
-  // Awal bab: baris „BAB …“ di bagian atas halaman, bukan di halaman daftar isi (banyak „BAB“ atau titik-titik).
+  // Nomor bab di baris sendiri sesudah „Bab“ tetap disimpan (bukan nomor halaman).
+  const clean = pages.map((p) => {
+    let prev = '';
+    return p.map((l) => {
+      const keep = /^bab$/i.test(prev) && /^([IVXLCDM]+|\d{1,2})$/i.test(l);
+      if (l) prev = l;
+      return keep ? l : running.has(key(l)) || isNoise(l) ? '' : l;
+    });
+  });
+  // Awal bab (pola buku BSE): „Bab …“ di baris paling atas halaman (nomor/judul kadang di baris berikutnya), atau halaman
+  // pembuka dengan „Tujuan Pembelajaran“ di bagian atasnya. Halaman daftar isi/indeks (banyak „Bab“, titik-titik) dilewati.
+  // Buku tanpa „Bab“ (mis. Bahasa Indonesia) memakai „Pelajaran 1“, „Unit 1“, atau „Tema 1“ sebagai pembuka bab.
+  const anyBab = clean.some((p) => p.filter(Boolean).slice(0, 4).some((l) => /^bab\b/i.test(l)));
+  const MARK = anyBab ? /^bab\b/i : /^(bab|pelajaran\s+\d{1,2}|unit\s+\d{1,2}|tema\s+\d{1,2})\b/i;
   const starts = [];
   clean.forEach((p, i) => {
-    const all = p.filter((l) => CHAPTER.test(l));
-    if (all.length !== 1 || p.some((l) => LEADER.test(l) && /\.{4,}/.test(l))) return;
-    const top = p.filter(Boolean).slice(0, 6);
-    const at = top.findIndex((l) => CHAPTER.test(l));
-    if (at < 0) return;
-    const line = top[at];
-    if (/\.{4,}/.test(line)) return;
-    const m = CHAPTER.exec(line);
-    let title = (m[3] ?? '').trim();
-    if (title.length < 3) {
-      // Judul = baris setelah „BAB …“ sampai baris kosong atau subjudul pertama (A. …, 1.1 …), paling banyak dua baris.
-      const rest = [];
-      for (let j = p.indexOf(line) + 1; j < p.length && rest.length < 2; j += 1) {
-        const l = p[j];
-        if (!l) { if (rest.length) break; continue; }
-        if (/^([A-H]|[1-9]\d?(\.\d{1,2}){0,2})\.?\s+\p{Lu}/u.test(l) || l.length > 90) break;
-        rest.push(l);
-      }
-      title = rest.join(' ').trim();
+    const lines = p.filter(Boolean);
+    const babLines = lines.filter((l) => MARK.test(l));
+    if (babLines.length > 1 || lines.some((l) => /\.{6,}|…{3,}/.test(l) || /^daftar isi$/i.test(l))) return;
+    const top = lines.slice(0, 4);
+    const byBab = top.findIndex((l) => MARK.test(l) && l.length < 90);
+    const tujuan = lines.slice(0, 14).findIndex((l) => /^tujuan pembelajaran\b/i.test(l));
+    if (byBab < 0 && tujuan < 0) return;
+    // Judul: baris atas halaman tanpa kata „Bab“, nomor tunggal, dan bagian sesudah „Tujuan Pembelajaran“.
+    let num = '';
+    const titleLines = [];
+    let seen = 0;
+    for (const l of p) {
+      if (!l) { if (titleLines.length) break; continue; }
+      if (++seen > 9) break;
+      if (/^tujuan pembelajaran\b/i.test(l)) break;
+      const m = /^(?:bab|pelajaran|unit|tema)\b\.?\s*([IVXLCDM]+|\d{1,2})?\b\.?\s*[:.\-–]?\s*(.*)$/i.exec(l);
+      if (m) { if (m[1]) num = m[1]; if (m[2] && m[2].length > 2 && !/^\d+$/.test(m[2])) titleLines.push(m[2]); continue; }
+      if (/^([IVXLCDM]+|\d{1,2})$/.test(l)) { if (!num) num = l; continue; }
+      if (l.length > 70 || /[.,;]$/.test(l) || !titleish(l) || /^([A-H]|[1-9]\d?(\.\d{1,2}){0,2})\.?\s+\p{Lu}/u.test(l) || /^(peta konsep|kata kunci|manfaat pembelajaran|standar kompetensi|kompetensi dasar)/i.test(l)) break;
+      if (titleLines.length < 3) titleLines.push(l);
     }
-    starts.push({ page: i, label: `${m[1].toUpperCase() === 'BAB' ? 'Bab' : m[1]} ${m[2]}`, title });
+    starts.push({ page: i, num, title: titleLines.join(' ').replace(/\s+/g, ' ').trim() });
   });
-  // Bab yang sama tidak boleh muncul dua kali berturut-turut (judul bab di kepala halaman).
-  const uniq = starts.filter((s, k) => k === 0 || s.label !== starts[k - 1].label);
+  // Pembuka bab di halaman bersebelahan (sampul bab lalu halaman „Tujuan Pembelajaran“) dihitung satu.
+  const merged = starts.filter((s, k) => k === 0 || s.page - starts[k - 1].page > 1);
+  merged.forEach((s, k) => {
+    s.label = `Bab ${s.num || k + 1}`;
+    s.title = s.title.replace(/\s\d{1,2}(?=\s|$)/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!/\p{L}{3,}/u.test(s.title)) s.title = '';
+  });
+  const uniq = merged;
   let endPage = clean.length;
   const lastStart = uniq.length ? uniq[uniq.length - 1].page : 0;
   for (let i = lastStart + 1; i < clean.length; i += 1) {
@@ -159,17 +205,18 @@ export function segment(raw) {
       for (let p = s.page; p < to; p += 1) {
         const pl = clean[p];
         // Baris judul bab di halaman pertama bab tidak diulang sebagai paragraf.
-        const body = p === s.page ? pl.filter((l) => !CHAPTER.test(l) && l !== s.title && !s.title.includes(l)) : pl;
+        const tl = s.title.toLowerCase();
+        const body = p === s.page ? pl.filter((l, j) => !(j < 14 && l && (/^bab\b/i.test(l) || /^([IVXLCDM]+|\d{1,2})$/.test(l) || tl.includes(l.toLowerCase())))) : pl;
         lines.push(...body, '');
       }
       const blocks = toBlocks(lines);
-      const title = `${s.label}${s.title ? ` · ${titleCase(s.title)}` : ''}`.slice(0, 120);
+      const title = `${s.label}${s.title ? ` · ${titleCase(s.title)}` : ''}`.slice(0, 140);
       if (blocks.length) chapters.push({ title, blocks });
     });
   } else {
     // Tanpa penanda bab: bagian per ±10 halaman, mulai setelah daftar isi bila ada.
     let from = 0;
-    clean.forEach((p, i) => { if (i < 20 && p.some((l) => /^(daftar isi|DAFTAR ISI)$/.test(l))) from = i + 1; });
+    clean.forEach((p, i) => { if (i < 24 && p.some((l) => /^daftar isi$/i.test(l))) from = i + 1; });
     for (let p = from, n = 1; p < endPage; p += 10, n += 1) {
       const lines = [];
       for (let q = p; q < Math.min(endPage, p + 10); q += 1) lines.push(...clean[q], '');
@@ -178,7 +225,18 @@ export function segment(raw) {
     }
   }
   const words = chapters.reduce((a, c) => a + c.blocks.reduce((b, x) => b + (x.text.match(/\S+/g) ?? []).length, 0), 0);
-  return { chapters, words };
+  // Mutu teks: bagian kata yang tampak seperti kata sungguhan (≥ 3 huruf). PDF dengan teks rusak/tanda air dilewati.
+  const toks = chapters.flatMap((c) => c.blocks.flatMap((x) => x.text.split(/\s+/))).filter(Boolean);
+  const real = toks.filter((t) => /^[\p{L}'’-]{3,}[.,;:!?)"”]*$/u.test(t.replace(/^[("“]/, ''))).length;
+  const quality = toks.length ? real / toks.length : 0;
+  return { chapters, words, quality };
+}
+
+/** Baris berbentuk judul: huruf kapital semua, sebagian besar kata berhuruf awal kapital, atau sangat pendek. */
+function titleish(l) {
+  const w = l.split(/\s+/).filter(Boolean);
+  const caps = w.filter((x) => /^\p{Lu}/u.test(x)).length;
+  return l === l.toUpperCase() || w.length <= 3 || caps / w.length >= 0.5;
 }
 
 function titleCase(s) {
