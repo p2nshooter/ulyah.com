@@ -93,7 +93,16 @@ function htmlRes(body: string, status = 200, L?: Lang): Response {
 
 app.get('/api/health', (c) => c.json({ ok: true, service: 'jenius.es' }));
 app.get('/ads.txt', (c) => c.text(ADS_TXT, 200, { 'cache-control': 'public, max-age=3600' }));
-app.get('/robots.txt', (c) => c.text(`User-agent: *\nAllow: /\nDisallow: /api/\n\nUser-agent: Mediapartners-Google\nAllow: /\n\nSitemap: ${origin(c)}/sitemap.xml\n`, 200, { 'cache-control': 'public, max-age=3600' }));
+// Pemilik: „jgn ada satupun yg memblokir crawler google“. Cloudflare bisa menyisipkan grup „Disallow: /“ untuk crawler AI
+// (Google-Extended, GoogleOther, …) di depan robots.txt ini; setiap crawler Google mendapat grup „Allow: /“ sendiri, dan
+// Google menggabungkan grup dengan nama yang sama lalu memakai aturan yang paling longgar bila seri.
+export const GOOGLE_CRAWLERS = ['Googlebot', 'Googlebot-Image', 'Googlebot-News', 'Googlebot-Video', 'Mediapartners-Google', 'AdsBot-Google', 'AdsBot-Google-Mobile', 'Google-InspectionTool', 'Storebot-Google', 'GoogleOther', 'GoogleOther-Image', 'GoogleOther-Video', 'Google-Extended', 'Google-CloudVertexBot', 'Google-Agent', 'Google-GeminiNotebook', 'Google-NotebookLM', 'APIs-Google', 'FeedFetcher-Google', 'Google-Read-Aloud', 'Google-Site-Verification'];
+app.get('/robots.txt', (c) => c.text([
+  ...GOOGLE_CRAWLERS.map((g) => `User-agent: ${g}\nAllow: /\n`),
+  'User-agent: Bingbot\nAllow: /\n',
+  'User-agent: *\nAllow: /\nDisallow: /api/\n',
+  `Sitemap: ${origin(c)}/sitemap.xml\n`,
+].join('\n'), 200, { 'cache-control': 'public, max-age=3600' }));
 
 app.get('/sitemap.xml', async (c) => {
   const o = origin(c);

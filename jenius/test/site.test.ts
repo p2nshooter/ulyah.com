@@ -64,7 +64,9 @@ test('ads.txt, robots.txt (tidak memblokir crawler Google), sitemap dengan hrefl
   assert.equal((await page('/ads.txt')).body, ADS_TXT);
   const robots = (await page('/robots.txt')).body;
   assert.ok(!/^Disallow: \/$/m.test(robots), 'robots tidak menutup situs');
-  assert.match(robots, /User-agent: Mediapartners-Google\nAllow: \//);
+  for (const g of ['Mediapartners-Google', 'Googlebot', 'Google-Extended', 'GoogleOther', 'Google-CloudVertexBot', 'Google-Agent', 'Google-GeminiNotebook', 'Google-NotebookLM', 'AdsBot-Google']) {
+    assert.ok(robots.includes(`User-agent: ${g}\nAllow: /\n`), `${g} dibuka penuh`);
+  }
   assert.match(robots, /Sitemap: https:\/\/jenius\.es\/sitemap\.xml/);
   const sm = (await page('/sitemap.xml')).body;
   for (const k of Object.keys(PAGES) as (keyof typeof PAGES)[]) assert.ok(sm.includes(`<loc>https://jenius.es${PAGES[k][0]}</loc>`) && sm.includes(`<loc>https://jenius.es${PAGES[k][1]}</loc>`));
