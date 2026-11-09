@@ -1,7 +1,7 @@
 ---
 slug: air-source-heat-pumps
 title: Air-source heat pumps at home: how they work, what they cost and when they pay off
-description: What aerothermal heating is, how a heat pump produces heating, hot water and cooling, what COP and SCOP mean, running costs against gas and oil, which emitters it needs and when it is a good investment.
+description: How a heat pump gives heating, hot water and cooling, what COP and SCOP mean, its cost against gas and oil, which emitters it needs and when it is a good investment.
 ---
 Aerothermal energy — *aerotermia*, as it is sold in Spain — has become one of the buzzwords of heating and cooling. It is presented as the alternative to gas and oil boilers, it is required in much new-build housing and it appears in many grants for energy renovation. But what exactly is it, what does it cost, how much does it save and in which homes does it make sense?
 

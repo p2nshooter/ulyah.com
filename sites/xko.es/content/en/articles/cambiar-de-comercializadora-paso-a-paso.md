@@ -1,7 +1,7 @@
 ---
 slug: switching-electricity-supplier-step-by-step
 title: Switching electricity supplier step by step: what you need and what to avoid
-description: How to switch electricity retailer in Spain without interruptions or surprises, the details you need, how long it takes, how to compare offers, what to check in the contract and how to avoid misleading sales.
+description: How to switch electricity retailer in Spain without cuts or surprises: the details you need, how long it takes, comparing offers, checking the contract and avoiding misleading sales.
 ---
 Switching electricity company in Spain is free, needs no building work or new meter and does not interrupt your supply. Even so, many households stay with the same retailer and the same offer for years, often paying more than they need to because a discount ended or the price rose on renewal. Others switch after a sales call without comparing and end up with a worse contract.
 

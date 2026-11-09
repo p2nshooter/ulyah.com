@@ -1,5 +1,5 @@
 ---
-slug: air-conditioning-consumption-and-efficient-use
+slug: air-conditioning-running-costs
 title: Air conditioning: how much it uses and how to run it for less
 description: What an air conditioner really costs to run, what SEER and the energy label mean, which temperature to set, tips for using it, maintenance and how to choose a new unit.
 ---

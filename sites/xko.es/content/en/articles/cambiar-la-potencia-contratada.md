@@ -1,7 +1,7 @@
 ---
 slug: changing-your-contracted-power
 title: Changing your contracted power: the steps, the costs and when it is worth it
-description: How to lower or raise the electrical power contracted for your home in Spain, what the distribution company charges in each case, how long it takes, which documents are needed and how to avoid falling short afterwards.
+description: How to lower or raise your contracted power in Spain, what the distribution company charges, how long it takes, which documents you need and how to avoid falling short.
 ---
 Adjusting your contracted power is one of the simplest ways of cutting the electricity bill for good. If you have more power than you use, lowering it saves money every month without changing any habit. If, on the other hand, the power keeps tripping because you have installed a heat pump or a car charger, raising it may be necessary.
 
