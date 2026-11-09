@@ -147,7 +147,8 @@ jobs:
           echo "$home" | grep -q "adsbygoogle.js?client=${PRIMARY}" || { echo "::error::loader AdSense ${PRIMARY} hilang"; exit 1; }
           en=$(curl -sfL "$URL/en")
           echo "$en" | grep -q '<html lang="en"' || { echo "::error::versi Inggris tidak tampil"; exit 1; }
-          if curl -sf "$URL/robots.txt" | grep -qx 'Disallow: /'; then echo "::error::robots.txt menutup situs"; exit 1; fi
+          # Dibaca seperti Google: robots.txt terkelola Cloudflare boleh menutup bot AI lain, tidak satu pun crawler Google.
+          node scripts/robots-check.mjs "$URL/robots.txt" || { echo "::error::robots.txt menutup crawler Google"; exit 1; }
           curl -sf "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
           curl -sf "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
           for p in /jalur /artikel /alat /untuk-guru /en/articles; do curl -sf -o /dev/null -H 'cookie: jl=id' "$URL$p" || { echo "::error::$p gagal"; exit 1; }; done
