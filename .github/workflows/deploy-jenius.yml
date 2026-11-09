@@ -162,8 +162,9 @@ jobs:
             echo "- AdSense: loader ${PRIMARY} + tag meta dan ads.txt untuk semua akun di adsense-stack.json ✅"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Tanpa cron Cloudflare (batas paket gratis): putaran pertama impor buku langsung setelah deploy, sisanya
+      # Tanpa cron Cloudflare (batas paket gratis): putaran singkat (4 menit) impor buku langsung setelah deploy — agar
+      # deploy berikutnya tidak tertahan lama di antrean — sisanya
       # dikerjakan jenius-ops.yml setiap 30 menit dan langkah latar saat ada kunjungan (jenius/src/ops.ts).
       - name: Import books now (no Cloudflare cron on this plan)
         if: env.PUBLIC_OK_URL != ''
-        run: bash scripts/ops-tick.sh "$PUBLIC_OK_URL" 20
+        run: bash scripts/ops-tick.sh "$PUBLIC_OK_URL" 4
