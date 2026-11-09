@@ -114,7 +114,7 @@
   }
   function go(to, dir) {
     if (busy) return;
-    if (to < 0) { if (D.prev) location.href = D.prev + '#akhir'; return; }
+    if (to < 0) { var pv = chapterHref(-1); if (pv) location.href = pv + '#akhir'; return; }
     if (to >= pages.length) { endOfChapter(); return; }
     busy = true;
     stopVoice();
@@ -187,21 +187,30 @@
   function nextAuto() { if (!playing) return; if (idx + 1 < pages.length) go(idx + 1, 1); else endOfChapter(); }
   function endOfChapter() {
     var last = (D.chapters || []).indexOf(D.ch) === (D.chapters || []).length - 1;
-    if (last || !D.next) {
+    var nextHref = chapterHref(1);
+    if (last || !nextHref) {
       setPlaying(false);
-      donePanel('🎉', T.bookDone || '✓', D.book, '←', false);
+      donePanel('🎉', T.bookDone || '✓', bookHref(), '←', false);
       save('jen:pos:' + D.id, { ch: D.ch, p: 0, at: Date.now(), done: true });
       return;
     }
     if (playing && S.until === 'book') {
       save('jen:autoplay', { id: D.id, at: Date.now() });
       toast(T.chapterDone || '✓', 1400);
-      setTimeout(function () { location.href = D.next; }, 1200);
+      setTimeout(function () { location.href = nextHref; }, 1200);
       return;
     }
     setPlaying(false);
-    var a = donePanel('✅', T.chapterDone || '✓', D.next, (T.next || '→') + ' →', true);
+    var a = donePanel('✅', T.chapterDone || '✓', nextHref, (T.next || '→') + ' →', true);
     a.addEventListener('click', function () { save('jen:autoplay', { id: D.id, at: Date.now() }); });
+  }
+  /* Alamat bab dan buku dibangun dari id buku (di-encode) dan nomor bab, tidak dipakai mentah dari data halaman. */
+  var EN_UI = location.pathname.indexOf('/en/') === 0;
+  function bookHref() { return (EN_UI ? '/en/book/' : '/buku/') + encodeURIComponent(String(D.id)); }
+  function chapterHref(step) {
+    var chs = D.chapters || [], i = chs.indexOf(D.ch) + step;
+    if (i < 0 || i >= chs.length) return null;
+    return (EN_UI ? '/en/read/' : '/baca/') + encodeURIComponent(String(D.id)) + '/' + Math.floor(Number(chs[i]));
   }
   /** Panel akhir bab/buku, dibangun dengan DOM (teks lewat textContent, tautan lewat atribut). */
   function donePanel(icon, title, href, label, nextCh) {
