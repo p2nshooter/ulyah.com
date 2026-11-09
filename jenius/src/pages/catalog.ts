@@ -5,7 +5,7 @@
  */
 import { html, raw, esc, type Raw } from '../lib/html.ts';
 import { tr, pick, P, bookPath, readPath, lanePath, articlePath, toolPath, fmtNum, minutesLabel, type Lang } from '../lib/i18n.ts';
-import { LANES, SHELVES, laneById, type Lane, type ShelfId } from '../catalog/lanes.ts';
+import { LANES, SHELVES, LEVELS, laneById, type Lane, type LevelId, type ShelfId } from '../catalog/lanes.ts';
 import type { BookMeta, LaneEntry } from '../catalog/books.ts';
 import { pageHead } from './layout.ts';
 import { ARTICLES, type ArticleMeta } from '../content/articles.ts';
@@ -107,7 +107,8 @@ export function lanesPage(L: Lang, counts: Record<string, number>): Raw {
   <div class="note card"><h3>${tr(L, 'Rak tema', 'Theme shelves')}</h3><p class="muted">${tr(L, 'Di dalam setiap jalur, buku dikelompokkan ke rak tema:', 'Inside every lane, books are grouped into theme shelves:')} ${Object.values(SHELVES).map((s) => pick(L, s)).join(' · ')}.</p></div></div></section>`;
 }
 
-export function lanePage(L: Lang, lane: Lane, books: Card[], shelf: ShelfId | null): Raw {
+export function lanePage(L: Lang, lane: Lane, books: Card[], shelf: ShelfId | null, level: LevelId | null = null): Raw {
+  if (lane.id === 'pelajaran') return textbookLane(L, lane, books, level);
   const shelves = [...new Set(books.map((b) => b.meta.shelf))];
   const shown = shelf ? books.filter((b) => b.meta.shelf === shelf) : books;
   return html`<section class="page-head lane-head" style="--lane:${lane.color}"><div class="wrap"><span class="eyebrow">${pick(L, lane.levels)}</span><h1><span aria-hidden="true">${lane.icon}</span> ${pick(L, lane.name)}</h1><p class="lead">${pick(L, lane.blurb)}</p>
@@ -115,6 +116,24 @@ export function lanePage(L: Lang, lane: Lane, books: Card[], shelf: ShelfId | nu
   <section class="section"><div class="wrap">
     ${shelves.length > 1 ? html`<nav class="chips" aria-label="${tr(L, 'Rak tema', 'Theme shelves')}"><a class="chip ${shelf ? '' : 'on'}" href="${lanePath(L, lane.slug)}">${tr(L, 'Semua', 'All')}</a>${shelves.map((s) => html`<a class="chip ${shelf === s ? 'on' : ''}" href="${lanePath(L, lane.slug)}?rak=${s}">${pick(L, SHELVES[s])}</a>`)}</nav>` : ''}
     ${shown.length ? html`<div class="book-grid">${shown.map((b) => bookCard(L, b, lane))}</div>` : html`<div class="empty card"><p>${tr(L, 'Buku untuk jalur ini sedang diimpor dari sumber terbuka dan akan tampil sebentar lagi.', 'Books for this lane are being imported from open sources and will appear shortly.')}</p></div>`}
+  </div></section>`;
+}
+
+/** Jalur Buku Pelajaran: pilihan jenjang (SD/MI … Perguruan Tinggi), buku dikelompokkan per kelas. */
+function textbookLane(L: Lang, lane: Lane, books: Card[], level: LevelId | null): Raw {
+  const levels = (Object.keys(LEVELS) as LevelId[]).filter((k) => books.some((b) => b.meta.level === k));
+  const shown = level ? books.filter((b) => b.meta.level === level) : books;
+  const groups = new Map<string, Card[]>();
+  for (const b of shown) {
+    const lv = b.meta.level ?? 'pt';
+    const g = b.meta.grade ? tr(L, `${pick(L, LEVELS[lv].name)} · Kelas ${b.meta.grade}`, `${pick(L, LEVELS[lv].name)} · Grade ${b.meta.grade}`) : pick(L, LEVELS[lv].name);
+    groups.set(g, [...(groups.get(g) ?? []), b]);
+  }
+  return html`<section class="page-head lane-head" style="--lane:${lane.color}"><div class="wrap"><span class="eyebrow">${pick(L, lane.levels)}</span><h1><span aria-hidden="true">${lane.icon}</span> ${pick(L, lane.name)}</h1><p class="lead">${pick(L, lane.blurb)}</p>
+  <p class="muted">${tr(L, `${fmtNum(L, books.length)} buku`, `${fmtNum(L, books.length)} books`)} · ${tr(L, 'dibacakan suara sintetis', 'read by a synthetic voice')} · ${tr(L, 'madrasah (MI, MTs, MA, MAK) memakai buku mata pelajaran umum jenjangnya', 'madrasahs (MI, MTs, MA, MAK) use the general-subject books of their level')}</p></div></section>
+  <section class="section"><div class="wrap">
+    <nav class="chips level-chips" aria-label="${tr(L, 'Jenjang', 'Level')}"><a class="chip ${level ? '' : 'on'}" href="${lanePath(L, lane.slug)}">${tr(L, 'Semua jenjang', 'All levels')}</a>${(Object.keys(LEVELS) as LevelId[]).map((k) => html`<a class="chip ${level === k ? 'on' : ''} ${levels.includes(k) ? '' : 'soon'}" href="${lanePath(L, lane.slug)}?jenjang=${k}">${pick(L, LEVELS[k].name)}</a>`)}</nav>
+    ${shown.length ? [...groups].map(([g, list]) => html`<h2 class="grade-head">${g} <small class="muted">${fmtNum(L, list.length)}</small></h2><div class="book-grid">${list.map((b) => bookCard(L, b, lane))}</div>`) : html`<div class="empty card"><p>${tr(L, 'Buku untuk jenjang ini sedang dikonversi dari sumber resmi yang mengizinkan buku dialihmediakan, dan akan tampil bertahap.', 'Books for this level are being converted from official sources that allow format-shifting, and will appear step by step.')}</p></div>`}
   </div></section>`;
 }
 
@@ -135,7 +154,7 @@ export function bookPage(L: Lang, b: BookMeta): Raw {
       <nav class="crumbs"><a href="${P(L, 'lanes')}">${tr(L, 'Jalur Baca', 'Reading Lanes')}</a> › <a href="${lanePath(L, lane.slug)}">${pick(L, lane.name)}</a></nav>
       <h1>${b.title}</h1>
       <p class="by">${b.author}${b.illustrator ? html` · ${tr(L, 'ilustrasi', 'illustrated by')} ${b.illustrator}` : ''}${b.translator ? html` · ${tr(L, 'terjemahan', 'translated by')} ${b.translator}` : ''}</p>
-      <p class="pills">${b.lanes.map((id) => { const x = laneById(id); return x ? html`<a class="pill" style="--lane:${x.color}" href="${lanePath(L, x.slug)}">${x.icon} ${pick(L, x.name)}</a>` : ''; })}<span class="pill">${pick(L, SHELVES[b.shelf])}</span><span class="pill">🎧 ${minutesLabel(L, b.minutes)}</span><span class="pill">${b.lang.toUpperCase()}</span></p>
+      <p class="pills">${b.lanes.map((id) => { const x = laneById(id); return x ? html`<a class="pill" style="--lane:${x.color}" href="${lanePath(L, x.slug)}">${x.icon} ${pick(L, x.name)}</a>` : ''; })}${b.level ? html`<a class="pill" href="${lanePath(L, laneById('pelajaran')!.slug)}?jenjang=${b.level}">🏫 ${pick(L, LEVELS[b.level].name)}${b.grade ? tr(L, ` · Kelas ${b.grade}`, ` · Grade ${b.grade}`) : ''}</a>` : ''}<span class="pill">${b.subject ?? pick(L, SHELVES[b.shelf])}</span><span class="pill">🎧 ${minutesLabel(L, b.minutes)}</span><span class="pill">${b.lang.toUpperCase()}</span></p>
       <div class="cta-row"><a class="btn btn-primary btn-lg" href="${readPath(L, b.id, 1)}" data-resume-link="${b.id}">▶ ${b.picture ? tr(L, 'Putar slide bersuara', 'Play voiced slides') : tr(L, 'Dengarkan dari awal', 'Listen from the start')}</a><span class="resume-hint muted" data-resume-hint="${b.id}"></span></div>
       ${b.description ? html`<p class="desc">${b.description}</p>` : ''}
     </div>

@@ -86,6 +86,49 @@ murid, ekspor CSV · **Tugas lanjutan**: periksa tulisan murid di xscan.es, anal
 **Admin:** antrean impor dan persetujuan (lisensi dicek otomatis), katalog & jalur, suara, artikel, moderasi chat,
 kunci API & anggaran harian AI, notifikasi (impor gagal, laporan chat, kelas baru), AdSense.
 
+### 0.26 Buku pelajaran semua jenjang + buku umum + cerita anak (pemilik, 9 Nov 2026)
+
+> „Cari lagi dari seluruh GitHub manapun, buku pelajaran dari SD, MI, SMP, Tsanawiyah, SMA, MA, SMK, MAK sampe ke Perguruan
+> tinggi, dan seluruh buku2 umum, buku cerita anak SD berkebun dll“ — dan sebelumnya: „bukunya sederhana banget, voice nya ga
+> keluar … harusnya bukunya puluhan sampe ratusan lembar, dengan animasi buku balik sendiri“.
+
+Hasil penelusuran (detail per sumber: `docs/JENIUS-SOURCES.md` Bagian C):
+- **BSE 2008–2011** (Buku Sekolah Elektronik; hak ciptanya dibeli Depdiknas, halaman hak cipta setiap buku mengizinkan buku
+  „diunduh, digandakan, dicetak, dialihmediakan, atau difotokopi oleh masyarakat“): ±1.200 judul SD kelas 1 sampai SMA kelas 12,
+  termasuk **613 judul SMK** (pertanian, budidaya tanaman, teknik, bisnis, pariwisata, kesehatan …). Indeks: GitHub
+  `Hans5958/Indeks-BSE` (CC BY 4.0). **Dipakai**, dengan syarat yang dicek otomatis per PDF: kalimat izin itu harus ada di
+  halaman hak cipta; buku tanpa kalimat itu tidak diimpor. Tidak dijual, atribusi Pusat Perbukuan & penulis tampil.
+- **Kurikulum 2013 dan Kurikulum Merdeka (SIBI), Buku Teks Utama madrasah Kemenag:** gratis diunduh, tetapi tidak ditemukan
+  izin tertulis untuk diterbitkan ulang di situs beriklan dan dialihsuarakan → **belum dipakai** sampai lisensinya jelas per buku
+  (atau izin tertulis Kemendikdasmen/Kemenag); sementara itu katalog boleh menautkan ke halaman unduhan resminya.
+- **Badan Bahasa (bahan bacaan literasi, cerita anak terjemahan):** lisensi per judul, sebagian CC BY-NC → hanya judul CC BY/CC0.
+- **OpenStax:** dari 87 koleksi di 53 repositori `openstax/osbooks-*`, hanya **4 buku berbahasa Inggris yang CC BY** (Physics,
+  Statistics, Life Liberty and the Pursuit of Happiness, Introduction to Intellectual Property); sisanya kini CC BY-NC-SA → ditolak.
+- **African Storybook** (`global-asp/asp-source`, CC BY per cerita): 368 cerita berbahasa Inggris + teks paralel puluhan bahasa
+  → jalur Tunas & Lintas Bahasa (termasuk cerita bertani/berkebun).
+- **StoryWeaver, Let's Read, Bloom Library (YLAI):** cerita anak berbahasa Indonesia CC BY → importer berikutnya (API platform).
+
+Rancangan tampilan: jalur baru **„Buku Pelajaran“** dengan rak jenjang **SD/MI · SMP/MTs · SMA/MA · SMK/MAK · Perguruan Tinggi**
+dan rak mata pelajaran; madrasah memakai buku mata pelajaran umum yang sama (label MI/MTs/MA/MAK ikut jenjangnya). Konversi PDF
+→ teks per bab berjalan di GitHub Actions (`pdftotext`), hasilnya diunggah ke R2 lewat endpoint ops berkunci; pembaca AUTO yang
+sama (suara, lembar membalik, sampai akhir buku).
+
+### 0.27 Tampilan buku beranimasi, menu, empat portal (pemilik, 9 Nov 2026)
+
+> „Cari jg css menarik, indah, full animasi dari situs2 yg menyajikan animasi2 buku termasuk menu2nya... Jgn lupa portal guru,
+> portal pelajar dan portal umum serta portal super admin... Bikin website ini lebih interaktif dengan konsep yg sy berikan yg
+> sh minta anda kembangkan“
+
+- **Desain:** orisinal (aturan pemilik: CSS tiap situs berbeda, bukan salinan situs lain), memakai pustaka terbuka berlisensi
+  bebas bila perlu — **StPageFlip** (MIT) untuk lembar melengkung seperti buku sungguhan (dua halaman di layar lebar, satu di HP,
+  bisa ditarik dengan jari/tetikus), menu bergaya rak buku dengan animasi buka-tutup, sampul 3D yang miring mengikuti kursor,
+  rak berputar di beranda, transisi halaman lembut; semua menghormati `prefers-reduced-motion`.
+- **Empat portal (fase J-B):** *pelajar* (rak saya, lanjut baca, tugas kelas, nilai, lencana), *guru* (kelas nama unik,
+  undangan tautan/kode/QR, chat moderasi, rak kelas, soal & nilai, ekspor, tautan xscan.es/ascan.es), *umum/keluarga* (rak
+  keluarga, profil anak, rencana baca, statistik), *super admin* (kunci API terenkripsi, anggaran AI, moderasi, persetujuan
+  impor, sumber buku, notifikasi, cadangan). Jenius tetap gratis.
+- **Lebih interaktif:** kuis singkat di akhir bab, tantangan baca, lencana, pencarian instan, rekomendasi per jenjang.
+
 ### 0.3 Pengalaman baca AUTO (inti produk)
 
 - **Mode Dengar-Baca:** tekan Putar sekali → suara membaca halaman, kata disorot, halaman berganti sendiri dengan animasi

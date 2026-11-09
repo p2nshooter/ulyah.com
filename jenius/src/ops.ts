@@ -39,10 +39,15 @@ export async function tick(env: Env, refresh: (store: Store) => Promise<unknown>
   return out;
 }
 
+/** Nama pemanggil: setiap workflow punya dokumen kuncinya sendiri (k/ops-{nama}.json) agar tidak saling menimpa. */
+export const OPS_NAMES = ['tick', 'bse'] as const;
+export const opsName = (v: string | undefined): (typeof OPS_NAMES)[number] => (OPS_NAMES as readonly string[]).includes(v ?? '') ? (v as (typeof OPS_NAMES)[number]) : 'tick';
+
 /** Kunci dari workflow: cocok dengan hash di R2 yang ditulis paling lama 6 jam lalu. */
-export async function opsKeyValid(env: Env, key: string, now = Date.now()): Promise<boolean> {
+export async function opsKeyValid(env: Env, key: string, now = Date.now(), name: (typeof OPS_NAMES)[number] = 'tick'): Promise<boolean> {
   if (!key || key.length < 32) return false;
-  const doc = await new Store(env.DATA).get<{ hash?: string; at?: number }>('k/ops.json');
+  const store = new Store(env.DATA);
+  const doc = (await store.get<{ hash?: string; at?: number }>(`k/ops-${name}.json`)) ?? (name === 'tick' ? await store.get<{ hash?: string; at?: number }>('k/ops.json') : null);
   if (!doc?.hash || !doc.at || now - doc.at > 6 * 3600_000 || doc.at > now + 300_000) return false;
   return timingSafeEqual(await sha256Hex(key), doc.hash);
 }

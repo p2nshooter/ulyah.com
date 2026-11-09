@@ -233,3 +233,7 @@ ul.clean { list-style: none; padding: 0; } ul.clean li { padding: 5px 0; }
 .reader-app.voice-off .r-play::after { content: '🔇'; position: absolute; font-size: 14px; transform: translate(22px, -22px); }
 .r-play { position: relative; }
 @media (prefers-reduced-motion: reduce) { .r-leaf { display: none; } .r-page.r-under::after { animation: none; opacity: 0; } }
+/* jalur Buku Pelajaran */
+.level-chips .chip.soon { opacity: .55; }
+.grade-head { margin: 34px 0 14px; font-size: 22px; display: flex; align-items: baseline; gap: 10px; }
+.grade-head small { font-size: 14px; font-weight: 600; }
