@@ -3,6 +3,11 @@ title: Tenis amateur: cómo mejorar el saque en un mes con práctica bien dirigi
 description: Las claves técnicas del saque de tenis para jugadores aficionados: empuñadura continental, lanzamiento de la bola, posición de trofeo, golpeo y un plan de práctica de cuatro semanas.
 category: padel-y-raqueta
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Tenis (RFET) | https://www.rfet.es/
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
 ---
 El saque es el único golpe del tenis que depende por completo de ti. No hay una pelota que llegue rápida o con efecto, no hay que correr, no hay que adivinar la intención del rival. Y, sin embargo, para muchos jugadores aficionados es el golpe más frágil: dobles faltas en los momentos importantes, primeros saques que nunca entran y segundos saques tan suaves que el rival los ataca sin piedad.
 

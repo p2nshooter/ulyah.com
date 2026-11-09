@@ -3,6 +3,11 @@ title: Cómo elegir zapatillas de running sin dejarse llevar por la moda
 description: Qué mirar al comprar unas zapatillas para correr: comodidad, talla, amortiguación, drop y tipo de terreno, y qué afirmaciones del marketing conviene tomar con cautela.
 category: correr
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Atletismo (RFEA) | https://www.rfea.es/
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
 ---
 Entrar en una tienda de deporte o en una web especializada para comprar unas zapatillas de correr puede ser abrumador. Hay cientos de modelos, cada temporada aparecen tecnologías nuevas con nombres llamativos y los precios van desde lo razonable hasta lo difícil de justificar. Además, abundan los consejos contradictorios: que si necesitas una zapatilla de pronación, que si lo mejor es correr con poca amortiguación, que si las placas de carbono lo cambian todo.
 

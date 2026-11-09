@@ -3,6 +3,11 @@ title: Cuántas series y repeticiones hacer: guía práctica para ganar fuerza y
 description: Cómo elegir series, repeticiones, peso y descansos según tu objetivo, qué significa entrenar cerca del fallo y cómo organizar el volumen semanal sin estancarte ni sobrecargarte.
 category: fuerza-y-movilidad
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
 ---
 "¿Cuántas series y cuántas repeticiones tengo que hacer?" Es probablemente la pregunta más repetida por cualquiera que empieza a entrenar fuerza. Y la respuesta más honesta es: depende de tu objetivo, de tu nivel y de cuánto tiempo tengas. Por suerte, la investigación en ciencias del deporte ha aclarado bastante este tema en los últimos años, y hoy podemos dar orientaciones prácticas y sencillas.
 

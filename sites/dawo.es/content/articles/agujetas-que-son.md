@@ -3,6 +3,11 @@ title: Agujetas: qué son de verdad, por qué aparecen y cómo aliviarlas
 description: La ciencia detrás de las agujetas, por qué no son cristales de ácido láctico, qué ejercicios las provocan, cómo aliviarlas y cuándo un dolor muscular deja de ser normal.
 category: descanso-y-nutricion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
 ---
 Casi todo el mundo las ha sufrido: dos días después de volver al gimnasio, de una excursión con mucha bajada o del primer partido de la temporada, bajar una escalera se convierte en una pequeña odisea. Las agujetas son una de las experiencias más universales del deporte y, al mismo tiempo, una de las más rodeadas de mitos. ¿Son cristales de ácido láctico? ¿Se curan con agua con azúcar? ¿Hay que estirar para evitarlas? ¿Son señal de que el entrenamiento ha sido bueno?
 

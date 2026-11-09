@@ -3,6 +3,11 @@ title: Correr 5 kilómetros sin parar: el método de intervalos que funciona
 description: Cómo pasar de correr treinta minutos a completar tus primeros cinco kilómetros seguidos, con un plan de seis semanas, control del ritmo y consejos para el día de la carrera.
 category: correr
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Atletismo (RFEA) | https://www.rfea.es/
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
 ---
 Los cinco kilómetros son la distancia más popular entre los corredores aficionados, y no por casualidad. Es una meta alcanzable para casi cualquier persona sana en pocos meses, se puede completar en un tiempo razonable y abre la puerta a carreras populares, que en España se celebran prácticamente todos los fines de semana. Para muchos, cruzar la meta de su primer 5K es el momento en que dejan de "salir a correr" y empiezan a considerarse corredores.
 

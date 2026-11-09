@@ -3,6 +3,11 @@ title: Fuerza después de los 50: por qué es más importante que nunca y cómo 
 description: Cómo el entrenamiento de fuerza frena la pérdida de músculo y hueso con la edad, mejora el equilibrio y la autonomía, y cómo empezar con seguridad a partir de los cincuenta años.
 category: fuerza-y-movilidad
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
+  - Ministerio de Sanidad | https://www.sanidad.gob.es/
 ---
 A partir de cierta edad, muchas personas piensan que el ejercicio de fuerza ya no es para ellas. Que es cosa de jóvenes, de gimnasios ruidosos o de deportistas. Nada más lejos de la realidad. Las personas mayores de cincuenta años son precisamente las que más se benefician de entrenar la fuerza, y la ciencia lo respalda con claridad.
 

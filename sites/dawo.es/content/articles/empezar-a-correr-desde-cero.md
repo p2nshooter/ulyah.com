@@ -3,6 +3,11 @@ title: Cómo empezar a correr desde cero: un plan de ocho semanas que sí se pue
 description: Un plan progresivo de ocho semanas para pasar de no correr nada a correr treinta minutos seguidos, con pautas de ritmo, descanso y señales de alarma.
 category: correr
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
+  - Real Federación Española de Atletismo (RFEA) | https://www.rfea.es/
 ---
 Empezar a correr parece sencillo: unas zapatillas, la puerta de casa y ganas. Sin embargo, la mayoría de las personas que lo intentan abandonan en las primeras tres semanas. No suele ser por falta de voluntad, sino por un error de planteamiento: salen a correr demasiado rápido, demasiado tiempo y demasiados días seguidos. El cuerpo protesta, aparecen las molestias en las rodillas o en las espinillas y la experiencia se convierte en algo que se recuerda con más dolor que placer.
 

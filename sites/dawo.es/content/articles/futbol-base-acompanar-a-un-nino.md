@@ -3,6 +3,11 @@ title: Fútbol base: cómo acompañar a un niño que empieza a jugar
 description: Consejos para madres y padres de niños que empiezan en el fútbol: elegir escuela, el papel de la familia en la grada, la diversión como prioridad, la presión y la salud.
 category: futbol
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Fútbol (RFEF) | https://rfef.es/
+  - Asociación Española de Pediatría | https://www.aeped.es/
 ---
 Cada septiembre, miles de niñas y niños se apuntan por primera vez a una escuela de fútbol en España. Para muchos será su primera experiencia en un deporte de equipo, con entrenador, compañeros y partidos los fines de semana. Para sus familias, empieza una etapa de madrugones, desplazamientos, lavadoras y, sobre todo, de emociones en la grada.
 

@@ -15,7 +15,7 @@ Long, practical guides organised in six sections: running, padel and racket spor
 
 ## How we work
 
-The texts are written and reviewed by DAWO's editorial team from reference sources: the World Health Organization's physical-activity recommendations, the sports-science literature and the official rules of each discipline. We would rather explain the reason behind each piece of advice than hand out a list of orders. When the evidence is uncertain, we say so.
+Guides are researched and drafted with the help of AI tools and checked against reference sources before they are published: the World Health Organization's physical-activity recommendations, the sports-science literature and the official rules of each discipline. Every guide lists the sources it relies on at the end, and four [free calculators](/herramientas/) let you apply what we explain to your own figures. We would rather explain the reason behind each piece of advice than hand out a list of orders. When the evidence is uncertain, we say so.
 
 We do not sell training plans, supplements or sports equipment, and no manufacturer pays to appear in our articles. When we mention a type of product, it is to explain what to look for, never to push a brand.
 

@@ -3,6 +3,11 @@ title: Cómo elegir una pala de pádel: forma, balance, dureza y peso explicados
 description: Las claves para elegir pala de pádel según tu nivel y tu juego: redonda, lágrima o diamante, balance, núcleo blando o duro, superficie y peso, y errores habituales al comprar.
 category: padel-y-raqueta
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Federación Española de Pádel | https://www.padelfederacion.es/
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
 ---
 Elegir la primera pala de pádel, o cambiar la que ya tienes, puede ser más complicado de lo que parece. Los catálogos están llenos de términos técnicos como balance, núcleo EVA, fibra de carbono o rugosidad, y los precios varían enormemente. Muchos jugadores acaban comprando la pala que usa su jugador profesional favorito, que suele ser precisamente la menos adecuada para alguien que está empezando.
 

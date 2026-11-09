@@ -3,6 +3,11 @@ title: Del 5K al 10K: cómo aumentar la distancia sin lesionarse
 description: Un plan de ocho semanas para pasar de correr cinco a diez kilómetros, con la progresión de volumen, la tirada larga, el trabajo de fuerza y cómo gestionar la carrera.
 category: correr
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Atletismo (RFEA) | https://www.rfea.es/
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
 ---
 Los diez kilómetros son el siguiente gran paso para muchos corredores que ya completan cinco con soltura. Es una distancia que exige algo más de constancia y de planificación, pero que sigue siendo muy accesible: con tres o cuatro sesiones a la semana y algo de paciencia, la mayoría de los corredores aficionados sanos pueden completarla en dos o tres meses.
 

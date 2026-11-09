@@ -3,6 +3,11 @@ title: Movilidad de cadera y tobillo: la base de casi todos los deportes
 description: Por qué la movilidad de cadera y tobillo influye en la sentadilla, la carrera y los cambios de dirección, cómo comprobarla con pruebas sencillas y una rutina diaria de diez minutos para mejorarla.
 category: fuerza-y-movilidad
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
 ---
 Hay articulaciones que pasan desapercibidas hasta que fallan. La cadera y el tobillo son dos de ellas. Pasamos muchas horas sentados, con la cadera flexionada y los tobillos casi inmóviles dentro del calzado, y poco a poco perdemos rango de movimiento sin darnos cuenta. El problema aparece cuando les pedimos algo más: una sentadilla profunda, una carrera cuesta arriba, un cambio de dirección en un partido o simplemente agacharse a recoger algo del suelo.
 

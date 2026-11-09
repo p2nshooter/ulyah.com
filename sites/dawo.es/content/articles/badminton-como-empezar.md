@@ -3,6 +3,11 @@ title: Bádminton: el deporte de raqueta más rápido y cómo empezar a jugarlo
 description: Reglas básicas, material, golpes fundamentales y beneficios del bádminton para quien quiere empezar, con consejos para los primeros partidos y para prevenir lesiones.
 category: padel-y-raqueta
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
 ---
 Para muchas personas, el bádminton es ese juego de playa o de jardín en el que se golpea un volante sin red y sin reglas. Pero el bádminton de competición es otra cosa: es uno de los deportes de raqueta más rápidos del mundo, exige reflejos, velocidad de pies, resistencia y una gran precisión. En los remates de los jugadores profesionales, el volante puede salir a velocidades que superan con mucho las de cualquier pelota de tenis.
 

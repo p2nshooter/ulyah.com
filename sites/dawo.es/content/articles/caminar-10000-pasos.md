@@ -3,6 +3,11 @@ title: Caminar 10.000 pasos: qué dice la evidencia y cómo integrarlo en el dí
 description: De dónde viene la cifra de los 10.000 pasos, qué dicen los estudios sobre pasos diarios y salud, la importancia del ritmo y cómo sumar más pasos sin cambiar de vida.
 category: ocio-activo
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
+  - Ministerio de Sanidad | https://www.sanidad.gob.es/
 ---
 Los relojes inteligentes, las pulseras de actividad y los teléfonos han popularizado una cifra que muchos persiguen cada día: los 10.000 pasos. Para algunos es un objetivo motivador; para otros, una meta inalcanzable que les hace sentir que, si no llegan, no merece la pena. Pero ¿de dónde sale ese número? ¿Es realmente necesario caminar tanto para notar beneficios?
 
