@@ -21,7 +21,7 @@ const REPO = {
   "lie.skin": "Lie · src/lib/site.ts + public/ads.txt",
   "axto.us": "axto.us · sites/axto.us (engine)",
   "ascan.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat",
-  "jenius.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat (blueprint §26)",
+  "jenius.es": "ulyah.com · jenius/src/lib/adsense.ts (Worker jenius-es; ads.txt dari kode)",
 };
 const repoOf = (d) => REPO[d] || `ulyah.com · sites/${d} (engine)`;
 const pub = (c) => c.replace(/^ca-/, "");

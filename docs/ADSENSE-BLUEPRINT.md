@@ -1900,3 +1900,15 @@ Urutan pemilik: xscan.es selesai → jenius.es → pekerjaan ini. Lingkup: semua
 4. **Auto scroll**: halaman mengikuti paragraf yang sedang dibacakan; bisa juga dinyalakan tanpa suara (kecepatan bisa diatur).
 5. **Auto slide**: mode tampilan artikel per bagian/slide yang berganti otomatis (bisa dijeda, panah kiri/kanan, geser di HP).
 6. Semua fitur menghormati `prefers-reduced-motion`, bisa dimatikan pengunjung, tidak mengganggu iklan maupun crawler.
+
+**Status 9 Nov 2026 — butir 3–5 dibangun untuk semua 26 situs artikel sekaligus** (mesin bersama, satu kode):
+`sites/_engine/assets/engine-reader.js` menggantikan tanda kosong `<div data-engine-reader hidden>` di atas teks setiap
+artikel dengan bilah **Dengarkan / Auto scroll / Slide** dalam bahasa halaman (de, es, en, fr):
+- *Dengarkan*: suara peramban membacakan paragraf demi paragraf sesuai bahasa halaman, paragraf yang dibaca disorot dan
+  halaman ikut bergulir; tombol Stop melayang selalu terjangkau; mulai dari paragraf yang sedang terlihat.
+- *Auto scroll*: halaman bergulir sendiri (kecepatan bisa diatur), berhenti saat pembaca menyentuh/menggulir.
+- *Slide*: artikel per bagian (h2) layar penuh, berganti sendiri (lama tiap slide mengikuti panjangnya, ±200 kata/menit)
+  atau mengikuti suara; panah, Spasi, Esc, geser di HP; tabel bisa digeser di layar kecil.
+Tidak ada teks baru untuk crawler (bilah dibuat skrip), tidak menyentuh iklan, menghormati `prefers-reduced-motion`.
+`check.mjs` mewajibkan bilah ini di setiap artikel. Diuji di Chromium (xko.es, byodd.de, odaily.xyz; desktop & ponsel).
+Berikutnya: butir 1 (audit „Konten tanpa manfaat“ xko.es) dan butir 2 (versi Inggris situs non-Inggris, bertahap per situs).
