@@ -1,0 +1,35 @@
+name: jenius.es ops (impor buku, ringkasan, cadangan)
+
+# Pengganti cron Cloudflare untuk jenius.es: akun ini memakai paket Workers gratis dan batas 5 cron per akun sudah terpakai
+# oleh situs lain (deploy 9 Nov 2026). Setiap 30 menit workflow ini menjalankan satu putaran pekerjaan berkala lewat
+# POST /api/ops/tick (jenius/src/ops.ts): impor buku terbuka bertahap, ringkasan jalur, dan cadangan harian R2.
+# Kuncinya acak dan sekali pakai; hanya hash-nya yang ditulis ke R2, lalu dibatalkan di akhir.
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: jenius-ops
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: jenius
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm ci
+      - name: Run periodic work
+        run: bash scripts/ops-tick.sh https://jenius.es 12

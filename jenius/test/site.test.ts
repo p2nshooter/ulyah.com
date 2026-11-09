@@ -250,3 +250,26 @@ test('perayap: setiap tautan internal dari beranda ID & EN bisa dibuka (tanpa 40
   assert.deepEqual(broken, []);
   assert.ok(seen.size > 60, `${seen.size} halaman dirayapi`);
 });
+
+test('ops tick: kunci sekali pakai (hash di R2), salah/kedaluwarsa ditolak; langkah latar sekali per menit', async () => {
+  const { sha256Hex } = await import('../src/lib/crypto.ts');
+  const { lazyTick } = await import('../src/ops.ts');
+  const store = new Store(env.DATA as never);
+  const key = 'k'.repeat(10) + crypto.randomUUID().replace(/-/g, '');
+  const post = (k: string) => app.fetch(new Request('https://jenius.es/api/ops/tick', { method: 'POST', headers: { 'x-ops-key': k } }), env);
+  assert.equal((await post(key)).status, 403, 'tanpa hash di R2');
+  await store.put('k/ops.json', { hash: await sha256Hex(key), at: Date.now() });
+  assert.equal((await post('salah'.repeat(10))).status, 403, 'kunci salah');
+  const ok = await post(key);
+  assert.equal(ok.status, 200);
+  const j = (await ok.json()) as { import: { total: number } };
+  assert.ok(j.import.total > 0);
+  assert.ok(await store.get('k/tick.json'), 'langkah latar ditahan selama workflow bekerja');
+  await store.put('k/ops.json', { hash: await sha256Hex(key), at: Date.now() - 7 * 3600_000 });
+  assert.equal((await post(key)).status, 403, 'kunci kedaluwarsa');
+  // Langkah latar: klaim CAS, tidak dua kali dalam satu menit.
+  const t0 = Date.now() + 120_000;
+  const first = await lazyTick(env, async () => null, t0);
+  assert.ok(first, 'langkah pertama berjalan');
+  assert.equal(await lazyTick(env, async () => null, t0 + 70_000 - 69_000), null, 'kurang dari semenit: dilewati');
+});

@@ -137,8 +137,9 @@ jobs:
           PRIMARY=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).primary["jenius.es"])' "$STACK")
           want=$(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const a=[...new Set([s.primary["jenius.es"],...s.stack])];process.stdout.write(a.map(c=>"google.com, "+c.replace(/^ca-/,"")+", DIRECT, f08c47fec0942fa0").join("\n"))' "$STACK")
           [ "$ads" = "$want" ] || { echo "::error::ads.txt salah (harus $(echo "$want" | wc -l) baris dari adsense-stack.json)"; exit 1; }
-          # Beranda dengan User-Agent crawler (pengunjung luar Indonesia dialihkan ke /en; crawler tidak).
-          home=$(curl -sfL -A 'Mozilla/5.0 (compatible; Mediapartners-Google)' "$URL/")
+          # Beranda versi Indonesia (cookie bahasa; tanpa itu pengunjung luar Indonesia — termasuk runner ini — dialihkan
+          # ke /en). Tidak memakai User-Agent crawler Google: Cloudflare memblokir crawler palsu dari IP non-Google.
+          home=$(curl -sfL -H 'cookie: jl=id' "$URL/")
           for c in $(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));console.log([...new Set([s.primary["jenius.es"],...s.stack])].join(" "))' "$STACK"); do
             echo "$home" | grep -q "name=\"google-adsense-account\" content=\"$c\"" || { echo "::error::tag meta AdSense $c hilang"; exit 1; }
           done
@@ -149,6 +150,8 @@ jobs:
           if curl -sf "$URL/robots.txt" | grep -qx 'Disallow: /'; then echo "::error::robots.txt menutup situs"; exit 1; fi
           curl -sf "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
           curl -sf "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
+          for p in /jalur /artikel /alat /untuk-guru /en/articles; do curl -sf -o /dev/null -H 'cookie: jl=id' "$URL$p" || { echo "::error::$p gagal"; exit 1; }; done
+          echo "PUBLIC_OK_URL=$URL" >> "$GITHUB_ENV"
           {
             echo "## jenius.es online"
             echo ""
@@ -157,3 +160,9 @@ jobs:
             echo "- Zona ${DOMAIN}: ${ZONE_STATUS}"
             echo "- AdSense: loader ${PRIMARY} + tag meta dan ads.txt untuk semua akun di adsense-stack.json ✅"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Tanpa cron Cloudflare (batas paket gratis): putaran pertama impor buku langsung setelah deploy, sisanya
+      # dikerjakan jenius-ops.yml setiap 30 menit dan langkah latar saat ada kunjungan (jenius/src/ops.ts).
+      - name: Import books now (no Cloudflare cron on this plan)
+        if: env.PUBLIC_OK_URL != ''
+        run: bash scripts/ops-tick.sh "$PUBLIC_OK_URL" 20

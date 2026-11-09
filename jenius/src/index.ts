@@ -17,9 +17,7 @@ import { ARTICLES, articleBySlug, CLUSTERS, type ClusterId } from './content/art
 import { LANES, laneById, type LaneId } from './catalog/lanes.ts';
 import { getBook, getChapter, laneBooks, allBookIds, mediaKey, type BookMeta } from './catalog/books.ts';
 import { paginate } from './catalog/parse.ts';
-import { runImport } from './catalog/importer.ts';
-import { runBackup } from './backup.ts';
-import { allSources, sourceId } from './catalog/sources.ts';
+import { tick, lazyTick, opsKeyValid } from './ops.ts';
 import { html, raw } from './lib/html.ts';
 import { html as h } from './lib/html.ts';
 
@@ -67,6 +65,14 @@ app.use('*', async (c, next) => {
   c.set('store', new Store(c.env.DATA));
   c.set('L', url.pathname === '/en' || url.pathname.startsWith('/en/') ? 'en' : 'id');
   await next();
+  // Pekerjaan berkala tanpa cron (src/ops.ts): satu langkah di latar setelah halaman terkirim, paling sering sekali per menit.
+  if (c.req.method === 'GET' && !url.pathname.startsWith('/api/') && !url.pathname.startsWith('/assets/')) {
+    try {
+      c.executionCtx.waitUntil(lazyTick(c.env, refreshSummary).catch((err) => console.error('jenius tick', err)));
+    } catch {
+      /* tanpa ExecutionContext (uji di dalam proses): lewati */
+    }
+  }
   const hd = c.res.headers;
   hd.set('X-Content-Type-Options', 'nosniff');
   hd.set('Referrer-Policy', 'strict-origin-when-cross-origin');
@@ -122,6 +128,14 @@ if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const cp
 `, 200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-cache' }));
 
 /* ── API buku ───────────────────────────────────────────────────────────── */
+
+// Workflow jenius-ops.yml: satu langkah impor/ringkasan/cadangan per panggilan (kunci sekali pakai, hash di R2).
+app.post('/api/ops/tick', async (c) => {
+  if (!(await opsKeyValid(c.env, c.req.header('x-ops-key') ?? ''))) return c.json({ error: 'forbidden' }, 403);
+  // Selama workflow bekerja, langkah latar dari kunjungan menunggu (tidak mengerjakan buku yang sama bersamaan).
+  await c.get('store').put('k/tick.json', { at: Date.now() });
+  return c.json(await tick(c.env, refreshSummary, { budgetMs: 20_000 }), 200, { 'cache-control': 'no-store' });
+});
 
 app.get('/api/book/:id', async (c) => {
   const b = await getBook(c.get('store'), c.req.param('id'));
@@ -305,17 +319,9 @@ app.onError((err, c) => {
 
 /* ── cron ───────────────────────────────────────────────────────────────── */
 
-export async function scheduled(event: ScheduledController, env: Env): Promise<void> {
-  const store = new Store(env.DATA);
-  if (event.cron === '* * * * *') {
-    const only = env.IMPORT_ONLY ? new Set(env.IMPORT_ONLY.split(',').map((s) => s.trim())) : null;
-    const sources = only ? allSources().filter((s) => only.has(sourceId(s))) : undefined;
-    const r = await runImport(env, { budgetMs: 20_000, sources });
-    if (r.worked) await refreshSummary(store);
-    return;
-  }
-  await refreshSummary(store);
-  await runBackup(env);
+export async function scheduled(_event: ScheduledController, env: Env): Promise<void> {
+  // Hanya bila cron dipasang lagi (Workers Paid); sekarang pekerjaan ini berjalan lewat src/ops.ts.
+  await tick(env, refreshSummary, { budgetMs: 20_000 });
 }
 
 export default {
