@@ -5,7 +5,7 @@
 // Dipakai oleh scripts/bse/run.mjs (GitHub Actions) dan diuji di test/bse.test.ts.
 
 /** Versi pengonversi: buku hasil versi lama dikonversi ulang otomatis oleh run.mjs. */
-export const VERSION = 4;
+export const VERSION = 5;
 
 /** Kalimat izin BSE di halaman hak cipta (2008–2011). */
 export function hasPermission(text) {
@@ -26,13 +26,41 @@ export function findAuthors(text) {
     const slash = before.lastIndexOf('/');
     if (slash >= 0) {
       let a = before.slice(slash + 1).split(';')[0];
-      a = a.split(/\s*[—–]\s*|\s*\.\s*-{1,2}\s*|\s+Cet\.?\s*\d/)[0];
+      a = a.split(/\s*[—–]\s*|\s*\.\s*-{1,2}\s*|\s+Cet\.?\s*\d|[,.;]?\s*\beditor\b|[,.;]?\s*\bpenyunting\b|[,.;]?\s*\bilustra/i)[0];
       a = a.replace(/^\s*(penulis|penyusun|pengarang|oleh)\s*,?\s*/i, '').replace(/(…|\.{3})?\s*\[?\s*et\.?\s*al\.?\s*\]?/gi, ' dkk.').replace(/…|\.{3}/g, ' dkk.').replace(/(\s*dkk\.?)+/g, ' dkk.').replace(/[\s.,—–-]+$/g, '').replace(/\s+,/g, ',').replace(/\s+/g, ' ').trim();
       if (/dkk\.?$/.test(a)) a = a.replace(/,?\s*dkk\.?$/, ', dkk.');
-      if (a.length >= 3 && a.length <= 140 && /\p{Lu}/u.test(a) && !/jakarta|pusat|departemen|untuk|kelas/i.test(a)) return a;
+      a = a.replace(/,(?=\S)/g, ', ').replace(/^Bahasa\s+(?=\p{Lu})/u, '');
+      if (a.length >= 3 && a.length <= 140 && /\p{Lu}/u.test(a) && !/jakarta|pusat|departemen|untuk|kelas/i.test(a) && !/^(naskah|penulis|tim|pengantar|editor)$/i.test(a)) return a;
     }
   }
   return authorsFromLabels(text);
+}
+
+const ROMAN = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8, IX: 9, X: 10, XI: 11, XII: 12 };
+const num = (v) => (/^\d+$/.test(v) ? Number(v) : ROMAN[String(v).toUpperCase()] ?? 0);
+
+/**
+ * Jenjang & kelas dari halaman hak cipta/sampul PDF („Untuk SD/MI Kelas IV“, „untuk SMA / MA Kelas X“, „Sekolah Menengah
+ * Kejuruan“) — lebih tepat daripada indeks sumber, yang kadang menaruh buku SMK „Jilid 3“ di folder Kelas 1.
+ */
+export function findLevel(text, title = '') {
+  const head = String(text).split('\f').slice(0, 12).join(' ').replace(/\s+/g, ' ');
+  const jilid = Number((title.match(/Jilid\s+(\d)/i) || [])[1] || 0);
+  if (/Sekolah Menengah Kejuruan|untuk\s+SMK|\bSMK\s*\/\s*MAK\b/i.test(head)) {
+    const k = head.match(/(?:SMK|Kejuruan)[^.]{0,40}?Kelas\s+([IVX]{1,4}|\d{1,2})\b/i);
+    const g = k ? num(k[1]) : 0;
+    return { level: 'smk', grade: g >= 10 && g <= 12 ? g : jilid >= 1 && jilid <= 3 ? 9 + jilid : 10 };
+  }
+  const m = head.match(/untuk\s+(?:siswa\s+)?(SD|SMP|SMA|MI|MTs|MA|Sekolah Dasar|Sekolah Menengah Pertama|Sekolah Menengah Atas)\b[^.]{0,40}?kelas\s+([IVX]{1,4}|\d{1,2})\b/i)
+    || head.match(/\b(SD|SMP|SMA)\s*\/\s*(?:MI|MTs|MA)\s*,?\s*Kelas\s+([IVX]{1,4}|\d{1,2})\b/i);
+  if (!m) return null;
+  const g = num(m[2]);
+  const k = m[1].toLowerCase();
+  const level = /^(sd|mi|sekolah dasar)$/.test(k) ? 'sd' : /^(smp|mts|sekolah menengah pertama)$/.test(k) ? 'smp' : 'sma';
+  const ok = { sd: [1, 6], smp: [7, 9], sma: [10, 12] }[level];
+  // SMP/SMA kadang menulis kelas 1–3 (urutan lama): ubah ke 7–9 / 10–12.
+  const grade = g >= ok[0] && g <= ok[1] ? g : level !== 'sd' && g >= 1 && g <= 3 ? ok[0] + g - 1 : 0;
+  return grade ? { level, grade } : null;
 }
 
 function authorsFromLabels(text) {

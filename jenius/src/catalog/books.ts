@@ -105,12 +105,23 @@ export async function allBookIds(store: Store): Promise<string[]> {
   return out;
 }
 
+/** Kunci indeks jalur sebuah buku (buku pelajaran berurutan per jenjang lalu kelas, baru judul). */
+export function laneIndexKeys(meta: Pick<BookMeta, 'id' | 'title' | 'lanes' | 'level' | 'grade'>): string[] {
+  const order = meta.level ? `${['sd', 'smp', 'sma', 'smk', 'pt'].indexOf(meta.level)}-${String(meta.grade ?? 0).padStart(2, '0')}-` : '';
+  return meta.lanes.map((lane) => `i/lane/${lane}/${order}${sortKey(meta.title)}~${meta.id}`);
+}
+
 /** Menyimpan buku yang selesai diimpor: metadata dulu, lalu indeks (buku tampil setelah semua babnya ada). */
 export async function publishBook(store: Store, meta: BookMeta): Promise<void> {
-  await store.put(bookKey(meta.id), meta);
   const summary: LaneEntry = { title: meta.title, author: meta.author, minutes: meta.minutes, shelf: meta.shelf, lang: meta.lang, picture: meta.picture, cover: meta.cover, level: meta.level, grade: meta.grade, subject: meta.subject };
-  // Buku pelajaran berurutan per jenjang lalu kelas, baru judul.
-  const order = meta.level ? `${['sd', 'smp', 'sma', 'smk', 'pt'].indexOf(meta.level)}-${String(meta.grade ?? 0).padStart(2, '0')}-` : '';
-  for (const lane of meta.lanes) await store.put(`i/lane/${lane}/${order}${sortKey(meta.title)}~${meta.id}`, {}, summary as unknown as Record<string, unknown>);
+  // Unggah ulang (judul/kelas berubah): entri indeks lama dihapus agar buku tidak tampil dua kali.
+  const old = await store.get<BookMeta>(bookKey(meta.id));
+  await store.put(bookKey(meta.id), meta);
+  const keys = laneIndexKeys(meta);
+  if (old) {
+    const stale = laneIndexKeys(old).filter((k) => !keys.includes(k));
+    if (stale.length) await store.del(stale);
+  }
+  for (const k of keys) await store.put(k, {}, summary as unknown as Record<string, unknown>);
   await store.put(`i/book/${meta.id}`, {}, { title: meta.title, lanes: meta.lanes.join(',') });
 }

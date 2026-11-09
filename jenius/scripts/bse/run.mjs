@@ -7,7 +7,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { hasPermission, findAuthors, segment, VERSION } from './convert.mjs';
+import { hasPermission, findAuthors, findLevel, segment, VERSION } from './convert.mjs';
 
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(`--${k}`); return i < 0 ? d : args[i + 1] ?? d; };
@@ -91,8 +91,13 @@ for (const b of queue) {
       continue;
     }
     const author = findAuthors(text) || 'Pusat Perbukuan, Departemen Pendidikan Nasional';
-    const payload = { id, source: 'bse', converter: VERSION, title: b.title, author, level: b.level, grade: b.grade, subject: b.subject, part: b.part, year: b.year, sourceUrl: b.page, chapters };
-    console.log(`+ ${id} ${b.title} — ${(size / 1e6).toFixed(1)} MB, ${chapters.length} bab, ${words} kata, mutu ${Math.round(quality * 100)}%, penulis: ${author}`);
+    // Jenjang & kelas dari PDF bila tertulis di sana; judul tanpa „Kelas N SD“ buatan indeks, lalu jenjang yang benar.
+    const lv = findLevel(text, b.title) ?? { level: b.level, grade: b.grade };
+    const LEVEL_NAME = { sd: 'SD/MI', smp: 'SMP/MTs', sma: 'SMA/MA', smk: 'SMK/MAK' };
+    const base = b.title.replace(/\s+Kelas\s+\d{1,2}\s+(SD|SMP|SMA|SMK)\s*$/i, '').trim();
+    const title = `${base} Kelas ${lv.grade} ${LEVEL_NAME[lv.level]}`;
+    const payload = { id, source: 'bse', converter: VERSION, title, author, level: lv.level, grade: lv.grade, subject: b.subject, part: b.part, year: b.year, sourceUrl: b.page, chapters };
+    console.log(`+ ${id} ${title} — ${(size / 1e6).toFixed(1)} MB, ${chapters.length} bab, ${words} kata, mutu ${Math.round(quality * 100)}%, penulis: ${author}`);
     if (DRY) {
       for (const c of chapters.slice(0, 4)) console.log(`    · ${c.title} (${c.blocks.length} blok): ${(c.blocks.find((x) => x.t === 'p')?.text ?? '').slice(0, 160)}`);
       continue;

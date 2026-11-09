@@ -109,3 +109,14 @@ test('buku tanpa „Bab“: „Pelajaran 1“ sebagai pembuka bab; ekor „— C
   const kdt = 'Hak Cipta\nBahasa Indonesia, Bahasa Bangsaku : untuk Kelas VIII / Sarwiji Suwandi dan Sutarmo.— Cet.1 — Jakarta : Pusat Perbukuan, Departemen Pendidikan Nasional, 2008.';
   assert.equal(findAuthors(kdt), 'Sarwiji Suwandi dan Sutarmo');
 });
+
+test('jenjang & kelas dari PDF lebih dipercaya daripada indeks sumber', async () => {
+  // @ts-expect-error — modul .mjs
+  const { findLevel } = await import('../scripts/bse/convert.mjs');
+  assert.deepEqual(findLevel('Hak Cipta\nIlmu Pengetahuan Alam 4\nUntuk SD/MI Kelas IV\nPenulis'), { level: 'sd', grade: 4 });
+  assert.deepEqual(findLevel('Cakrawala Sejarah 1 : untuk SMA / MA Kelas X / penulis'), { level: 'sma', grade: 10 });
+  assert.deepEqual(findLevel('Cerdas Belajar IPA untuk SMP/MTs Kelas VII'), { level: 'smp', grade: 7 });
+  assert.deepEqual(findLevel('BUDIDAYA IKAN JILID 3 untuk SMK\nDirektorat Pembinaan Sekolah Menengah Kejuruan', 'Budidaya Ikan Jilid 3 Kelas 1 SD'), { level: 'smk', grade: 12 });
+  assert.deepEqual(findLevel('Matematika untuk SMP Kelas 2'), { level: 'smp', grade: 8 }, 'urutan lama kelas 1–3');
+  assert.equal(findLevel('tanpa keterangan jenjang'), null);
+});
