@@ -320,3 +320,22 @@ test('buku pelajaran: unggah BSE berkunci, divalidasi ketat, tampil per jenjang 
   const ch = (await (await get('/api/book/bse-901/ch/1')).json()) as { pages: { t: string }[][] };
   assert.ok(ch.pages.length >= 1 && ch.pages[0]![0]!.t === 'h');
 });
+
+test('unggah ulang buku pelajaran: indeks jalur & bab lama tidak tertinggal', async () => {
+  const { sha256Hex } = await import('../src/lib/crypto.ts');
+  const store = new Store(env.DATA as never);
+  const key = 'c'.repeat(8) + crypto.randomUUID().replace(/-/g, '');
+  await store.put('k/ops-bse.json', { hash: await sha256Hex(key), at: Date.now() });
+  const post = (body: unknown) => app.fetch(new Request('https://jenius.es/api/ops/book', { method: 'POST', headers: { 'content-type': 'application/json', 'x-ops-key': key, 'x-ops-name': 'bse' }, body: JSON.stringify(body) }), env);
+  const p = { t: 'p', text: 'Ikan nila dibudidayakan di kolam tanah dan kolam beton dengan pakan buatan setiap hari.' };
+  const base = { id: 'bse-950', source: 'bse', author: 'Gusrina', subject: 'Budidaya Ikan', sourceUrl: 'https://annibuku.com/bse/budidaya-ikan-950' };
+  assert.equal((await post({ ...base, title: 'Budidaya Ikan Jilid 3 Kelas 1 SD/MI', level: 'sd', grade: 1, converter: 4, chapters: [{ title: 'Bab I', blocks: [p] }, { title: 'Bab II', blocks: [p] }, { title: 'Bab III', blocks: [p] }] })).status, 200);
+  assert.equal((await post({ ...base, title: 'Budidaya Ikan Jilid 3 Kelas 12 SMK/MAK', level: 'smk', grade: 12, converter: 5, chapters: [{ title: 'Bab I', blocks: [p] }, { title: 'Bab II', blocks: [p] }] })).status, 200);
+  const idx = [...(data as unknown as FakeR2).m.keys()].filter((k) => k.startsWith('i/lane/pelajaran/') && k.endsWith('~bse-950'));
+  assert.equal(idx.length, 1, `satu entri indeks (${idx.join(', ')})`);
+  assert.ok(idx[0]!.startsWith('i/lane/pelajaran/3-12-'), 'SMK kelas 12');
+  assert.equal(await store.get('b/bse-950/3.json'), null, 'bab ketiga lama dihapus');
+  const lane = await page('/jalur/buku-pelajaran?jenjang=smk');
+  assert.ok(lane.body.includes('SMK/MAK · Kelas 12') && lane.body.includes('Budidaya Ikan Jilid 3 Kelas 12 SMK/MAK'));
+  assert.ok(!(await page('/jalur/buku-pelajaran?jenjang=sd')).body.includes('Budidaya Ikan'));
+});

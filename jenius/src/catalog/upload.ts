@@ -93,6 +93,9 @@ export function shelfOf(subject: string): ShelfId {
 /** Bab dulu, metadata dan indeks terakhir (buku tampil setelah semua babnya ada). */
 export async function storeUpload(store: Store, u: UploadBook, now = Date.now()): Promise<BookMeta> {
   const src = SOURCES[u.source];
+  // Unggah ulang dengan bab lebih sedikit: bab lama yang tersisa dihapus.
+  const prev = await store.get<BookMeta>(`b/${u.id}.json`);
+  if (prev && prev.chapters.length > u.chapters.length) await store.del(prev.chapters.filter((c) => c.n > u.chapters.length).map((c) => chapterKey(u.id, c.n)));
   const infos = [];
   let n = 0;
   for (const c of u.chapters) {
