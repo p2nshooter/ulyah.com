@@ -88,3 +88,16 @@ test('pembuka bab tanpa kata „Bab“ (Tujuan Pembelajaran) dan „Bab“ denga
   const b = segment(fisika.join('\f'));
   assert.deepEqual(b.chapters.map((c: { title: string }) => c.title), ['Bab IV · Dinamika Partikel', 'Bab V · Usaha dan Energi']);
 });
+
+test('tanda air terpecah & daftar isi tidak menjadi bab; mutu teks dihitung', () => {
+  const body = (w: string) => wrap(para(8, w)).join('\n');
+  const pages = ['Hak cipta … dialihmediakan', 'Daftar Isi\nBab I Pengukuran\nBab II Gerak', 'Bab\nI\nPengukuran\n\nda li.c om\n' + body('ukur'), 'int on .co\n' + body('ukur'), 'Bab\nII\nGerak Lurus\nka rta .go .id\n' + body('gerak'), body('gerak')];
+  const r = segment(pages.join('\f'));
+  assert.deepEqual(r.chapters.map((c: { title: string }) => c.title), ['Bab I · Pengukuran', 'Bab II · Gerak Lurus']);
+  assert.ok(!JSON.stringify(r.chapters).includes('li.c'), 'potongan tanda air dibuang');
+  assert.ok(r.quality > 0.8, `mutu ${r.quality}`);
+  // Teks berjarak huruf (k e g i a t a n) — hasil PDF yang rusak.
+  const spaced = 'Ukuran a d a l a h k e g i a t a n m e m b a n d i n g k a n b e s a r a n';
+  const junk = segment(['x', 'Bab I Satu\n' + Array.from({ length: 60 }, () => spaced).join('\n'), 'Bab II Dua\n' + Array.from({ length: 60 }, () => spaced).join('\n')].join('\f'));
+  assert.ok(junk.quality < 0.55, `teks rusak bermutu rendah (${junk.quality})`);
+});

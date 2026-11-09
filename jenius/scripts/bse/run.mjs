@@ -77,7 +77,13 @@ for (const b of queue) {
       console.log(`- ${id} ${b.title}: DILEWATI — kalimat izin tidak ditemukan`);
       continue;
     }
-    const { chapters, words } = segment(text);
+    const { chapters, words, quality } = segment(text);
+    if (quality < 0.55) {
+      skips.push({ id, reason: `mutu teks rendah (${Math.round(quality * 100)}% kata utuh; tanda air/rumus)`, v: VERSION });
+      summary.skipped += 1;
+      console.log(`- ${id} ${b.title}: DILEWATI — mutu teks ${Math.round(quality * 100)}%`);
+      continue;
+    }
     if (!chapters.length || words < 1500) {
       skips.push({ id, reason: `teks terlalu sedikit (${words} kata; PDF hasil pindai?)`, v: VERSION });
       summary.skipped += 1;
@@ -86,7 +92,7 @@ for (const b of queue) {
     }
     const author = findAuthors(text) || 'Pusat Perbukuan, Departemen Pendidikan Nasional';
     const payload = { id, source: 'bse', converter: VERSION, title: b.title, author, level: b.level, grade: b.grade, subject: b.subject, part: b.part, year: b.year, sourceUrl: b.page, chapters };
-    console.log(`+ ${id} ${b.title} — ${(size / 1e6).toFixed(1)} MB, ${chapters.length} bab, ${words} kata, penulis: ${author}`);
+    console.log(`+ ${id} ${b.title} — ${(size / 1e6).toFixed(1)} MB, ${chapters.length} bab, ${words} kata, mutu ${Math.round(quality * 100)}%, penulis: ${author}`);
     if (DRY) {
       for (const c of chapters.slice(0, 4)) console.log(`    · ${c.title} (${c.blocks.length} blok): ${(c.blocks.find((x) => x.t === 'p')?.text ?? '').slice(0, 160)}`);
       continue;

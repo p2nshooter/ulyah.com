@@ -5,7 +5,7 @@
 // Dipakai oleh scripts/bse/run.mjs (GitHub Actions) dan diuji di test/bse.test.ts.
 
 /** Versi pengonversi: buku hasil versi lama dikonversi ulang otomatis oleh run.mjs. */
-export const VERSION = 2;
+export const VERSION = 3;
 
 /** Kalimat izin BSE di halaman hak cipta (2008–2011). */
 export function hasPermission(text) {
@@ -74,6 +74,10 @@ function runningLines(pages) {
 
 function isNoise(l) {
   if (/^[\divxlcdm]{1,6}$/i.test(l)) return true; // nomor halaman
+  // Potongan tanda air/alamat situs („da li.c om“, „ka rta .go .id“): semua token sangat pendek atau berupa domain.
+  const tok = l.split(/\s+/).filter(Boolean);
+  if (tok.length >= 2 && !/^bab\b/i.test(l) && tok.every((t) => t.replace(/[^\p{L}]/gu, '').length <= 3)) return true;
+  if (/^\S*\.(com|co|id|net|org|go)(\.\S*)?$/i.test(l.replace(/\s+/g, ''))) return true;
   const letters = (l.match(/\p{L}/gu) ?? []).length;
   if (l.length > 3 && letters / l.length < 0.4) return true; // tabel angka, rumus rusak
   return false;
@@ -155,7 +159,7 @@ export function segment(raw) {
   clean.forEach((p, i) => {
     const lines = p.filter(Boolean);
     const babLines = lines.filter((l) => /^bab\b/i.test(l));
-    if (babLines.length > 1 || lines.some((l) => /\.{6,}/.test(l))) return;
+    if (babLines.length > 1 || lines.some((l) => /\.{6,}|…{3,}/.test(l) || /^daftar isi$/i.test(l))) return;
     const top = lines.slice(0, 4);
     const byBab = top.findIndex((l) => /^bab\b/i.test(l) && l.length < 90);
     const tujuan = lines.slice(0, 14).findIndex((l) => /^tujuan pembelajaran\b/i.test(l));
@@ -178,7 +182,11 @@ export function segment(raw) {
   });
   // Pembuka bab di halaman bersebelahan (sampul bab lalu halaman „Tujuan Pembelajaran“) dihitung satu.
   const merged = starts.filter((s, k) => k === 0 || s.page - starts[k - 1].page > 1);
-  merged.forEach((s, k) => { s.label = `Bab ${s.num || k + 1}`; });
+  merged.forEach((s, k) => {
+    s.label = `Bab ${s.num || k + 1}`;
+    s.title = s.title.replace(/\s\d{1,2}(?=\s|$)/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!/\p{L}{3,}/u.test(s.title)) s.title = '';
+  });
   const uniq = merged;
   let endPage = clean.length;
   const lastStart = uniq.length ? uniq[uniq.length - 1].page : 0;
@@ -213,7 +221,11 @@ export function segment(raw) {
     }
   }
   const words = chapters.reduce((a, c) => a + c.blocks.reduce((b, x) => b + (x.text.match(/\S+/g) ?? []).length, 0), 0);
-  return { chapters, words };
+  // Mutu teks: bagian kata yang tampak seperti kata sungguhan (≥ 3 huruf). PDF dengan teks rusak/tanda air dilewati.
+  const toks = chapters.flatMap((c) => c.blocks.flatMap((x) => x.text.split(/\s+/))).filter(Boolean);
+  const real = toks.filter((t) => /^[\p{L}'’-]{3,}[.,;:!?)"”]*$/u.test(t.replace(/^[("“]/, ''))).length;
+  const quality = toks.length ? real / toks.length : 0;
+  return { chapters, words, quality };
 }
 
 /** Baris berbentuk judul: huruf kapital semua, sebagian besar kata berhuruf awal kapital, atau sangat pendek. */
