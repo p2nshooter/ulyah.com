@@ -58,6 +58,18 @@ for (const b of queue) {
     const size = await download(b.file, pdf);
     execFileSync('pdftotext', ['-enc', 'UTF-8', '-q', pdf, txt], { timeout: 300_000 });
     const text = fs.readFileSync(txt, 'utf8');
+    if (args.includes('--debug')) {
+      // Diagnosis: halaman hak cipta, baris „bab“ per halaman, daftar isi — untuk menyetel pengonversi.
+      const pages = text.split('\f');
+      console.log(`  [debug] ${id}: ${pages.length} halaman`);
+      pages.forEach((p, i) => {
+        const ls = p.split('\n').map((l) => l.trim()).filter(Boolean);
+        if (/hak cipta|dialih|digandakan|diunduh|penulis|penyusun/i.test(p) && i < 40) console.log(`  [hc p${i}] ${ls.slice(0, 40).join(' | ').slice(0, 700)}`);
+        ls.forEach((l, k) => { if (/^\s*(bab|chapter|unit|pelajaran|tema)\b/i.test(l) && l.length < 90) console.log(`  [bab p${i} l${k}/${ls.length}] ${l}`); });
+      });
+      const mid = pages[Math.floor(pages.length / 2)].split('\n').slice(0, 30).join(' ⏎ ');
+      console.log(`  [tengah] ${mid.slice(0, 900)}`);
+    }
     if (!hasPermission(text)) {
       skips.push({ id, reason: 'tanpa kalimat izin di halaman hak cipta' });
       summary.skipped += 1;

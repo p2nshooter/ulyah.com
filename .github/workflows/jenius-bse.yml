@@ -20,6 +20,9 @@ on:
       ids:
         description: 'Id tertentu (pisah koma), opsional'
         default: ''
+      debug:
+        description: 'Cetak diagnosis teks PDF: true/false'
+        default: 'false'
 
 concurrency:
   group: jenius-bse
@@ -58,6 +61,7 @@ jobs:
           IN_LIMIT: ${{ github.event.inputs.limit || '20' }}
           IN_DRY: ${{ github.event.inputs.dry || 'false' }}
           IN_IDS: ${{ github.event.inputs.ids || '' }}
+          IN_DEBUG: ${{ github.event.inputs.debug || 'false' }}
         run: |
           set -eu
           # Masukan workflow lewat env dan diperiksa bentuknya (tanpa menyisipkannya langsung ke skrip).
@@ -66,6 +70,7 @@ jobs:
           set -- --url https://jenius.es --limit "$IN_LIMIT"
           [ "$IN_DRY" = "true" ] && set -- "$@" --dry
           [ -n "$IN_IDS" ] && set -- "$@" --ids "$IN_IDS"
+          [ "$IN_DEBUG" = "true" ] && set -- "$@" --debug
           node scripts/bse/run.mjs "$@"
       - name: Revoke the ops key
         if: always() && github.event.inputs.dry != 'true'
