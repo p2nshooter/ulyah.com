@@ -68,3 +68,23 @@ test('penggalan kata: imbuhan digabung, pengulangan tetap memakai tanda hubung',
   assert.match(t, /menanam bibit di kebun/);
   assert.match(t, /Anak-anak senang/);
 });
+
+test('penulis dari baris katalog (KDT) BSE', () => {
+  const kdt = (line: string) => `Hak Cipta pada Departemen Pendidikan Nasional\nPenulis\n:\nEditor\n:\n${line}\fKata Sambutan … dialihmediakan`;
+  assert.equal(findAuthors(kdt('Fisika 1 : Untuk SMA/MA Kelas X / Setya Nurachmandani ; Editor\nBudi Wahyono ; Ilustrator Haryana Humardani. — Jakarta : Pusat\nPerbukuan, Departemen Pendidikan Nasional, 2009.')), 'Setya Nurachmandani');
+  assert.equal(findAuthors(kdt('Cakrawala Sejarah 1 : untuk SMA / MA Kelas XI / penulis, Wardaya ;\neditor, Sugiharti ; illustrator, Mulyanto . — Jakarta : Pusat Perbukuan,')), 'Wardaya');
+  assert.equal(findAuthors(kdt('A.B.I. Asyiknya Belajar IPA : SD/MI kelas I/Sholehudin, Evi Susanti;\neditor ; Hanjaeli.\n— Jakarta: Pusat Perbukuan, Departemen Pendidikan Nasional, 2007.')), 'Sholehudin, Evi Susanti');
+  assert.equal(findAuthors(kdt('Madrasah Tsanawiyah Kelas VII Edisi 4/Atik Wintarti,…[et. al.].--Jakarta:\nPusat Perbukuan, Departemen Pendidikan Nasional, 2008.')), 'Atik Wintarti, dkk.');
+});
+
+test('pembuka bab tanpa kata „Bab“ (Tujuan Pembelajaran) dan „Bab“ dengan nomor di baris berikutnya', () => {
+  const body = (w: string) => wrap(para(8, w)).join('\n');
+  const sejarah = ['Hak cipta … dialihmediakan', 'Daftar Isi\nPengantar Ilmu Sejarah ........ 1\nTradisi Sejarah ........ 23',
+    'Pengantar Ilmu Sejarah\n\n1\n\nTujuan Pembelajaran\n1. Siswa mampu menjelaskan.\n' + body('sejarah'), body('sejarah'), body('sejarah'),
+    'Tradisi Sejarah Masyarakat\nIndonesia Masa Praaksara\n\n2\n\nTujuan Pembelajaran\n1. Siswa mampu mengidentifikasi.\n' + body('tradisi'), 'Peta Konsep\n' + body('tradisi'), body('tradisi'), 'Daftar Pustaka\nBuku.'];
+  const a = segment(sejarah.join('\f'));
+  assert.deepEqual(a.chapters.map((c: { title: string }) => c.title), ['Bab 1 · Pengantar Ilmu Sejarah', 'Bab 2 · Tradisi Sejarah Masyarakat Indonesia Masa Praaksara']);
+  const fisika = ['Hak cipta … dialihmediakan', 'Bab\nIV\nDinamika Partikel\n\nTujuan Pembelajaran\n• Anda dapat menerapkan hukum Newton.\n' + body('gaya'), body('gaya'), 'Bab\nV\nUsaha dan Energi\n' + body('energi'), body('energi')];
+  const b = segment(fisika.join('\f'));
+  assert.deepEqual(b.chapters.map((c: { title: string }) => c.title), ['Bab IV · Dinamika Partikel', 'Bab V · Usaha dan Energi']);
+});
