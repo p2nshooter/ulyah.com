@@ -140,6 +140,13 @@ awal sampai selesai, trus kerjain perintah artikel, bikin 2 bahasa semua situs a
 - PWA (spanduk pasang, service worker, bisa dibaca tanpa internet);
 - AdSense: akun utama ca-pub-6146217038829045 + tumpukan `adsense-stack.json`; loader hanya di halaman dewasa — pembaca
   buku dan jalur anak tanpa loader (tag meta tetap ada).
+Deploy pertama 9 Nov 2026: zona jenius.es aktif, Worker terpasang sebagai custom domain jenius.es + www, R2 `jenius-data`
+dan `jenius-backups` serta KV `jenius-rl` dibuat sendiri, ads.txt 21 baris terverifikasi. **Cron ditolak Cloudflare**: akun
+memakai paket Workers gratis dan batas 5 cron per akun sudah terpakai. Pengganti tanpa biaya (`jenius/src/ops.ts`):
+`POST /api/ops/tick` dengan kunci acak sekali pakai (hanya hash-nya di R2, `k/ops.json`, berlaku 6 jam) dipanggil
+`.github/workflows/jenius-ops.yml` tiap 30 menit dan sekali langsung setelah deploy, ditambah langkah latar saat ada
+kunjungan (paling sering sekali per menit, klaim CAS `k/tick.json`). Bila akun pindah ke Workers Paid, cron bisa dipasang
+lagi di `jenius/wrangler.jsonc`.
 Berikutnya: J-B (akun, kelas dengan nama unik, undangan, chat, rak, soal, nilai, AI) lalu J-C (70 artikel).
 
 Tangkapan layar hanya menampilkan butir 3–5 dan ekor butir 2 („Laporan perkembangan siswa. Informasi untuk murid“);

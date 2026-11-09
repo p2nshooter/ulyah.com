@@ -17,7 +17,9 @@
   ],
   // KV hanya untuk penghitung batas laju (id disisipkan saat deploy); data tahan lama tidak pernah di KV.
   "kv_namespaces": [{ "binding": "RL", "id": "__KV_NAMESPACE_ID__" }],
-  // Impor buku terbuka satu per menit; cadangan harian 02.05 WIB.
-  "triggers": { "crons": ["* * * * *", "5 19 * * *"] },
+  // Tanpa cron: akun ini memakai paket Workers gratis dan batas 5 cron per akun sudah terpakai (deploy 9 Nov 2026).
+  // Impor, ringkasan jalur, dan cadangan harian berjalan lewat POST /api/ops/tick (workflow jenius-ops.yml) dan langkah
+  // latar saat ada kunjungan — lihat src/ops.ts. Daftar kosong juga melepas jadwal yang sempat terpasang sebagian.
+  "triggers": { "crons": [] },
   "vars": { "CANONICAL_HOST": "" }
 }
