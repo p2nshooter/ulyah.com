@@ -350,7 +350,9 @@ export async function build(domain, { quiet = false } = {}) {
       const next = a.next && a.next !== a ? ` data-next="${esc(a.next.url)}" data-next-title="${esc(a.next.title)}"` : "";
       const voice = ` data-voice-lang="${esc(ed.locale)}"`;
       a.illustration = illustration(a, { site: ed.site, lang: ed.site.lang, themeColor: site0.themeColor });
-      a.html = `<!--engine-content-->\n${a.illustration}\n<div data-engine-reader${next}${voice} hidden></div>\n${body}\n<!--/engine-content-->`;
+      // The way on is a real link written here, so the reader follows it with a click and never builds a URL itself.
+      const nextLink = next ? `<a data-engine-next href="${esc(a.next.url)}" tabindex="-1"></a>` : "";
+      a.html = `<!--engine-content-->\n${a.illustration}\n<div data-engine-reader${next}${voice} hidden>${nextLink}</div>\n${body}\n<!--/engine-content-->`;
     }
     if (ed.en) for (const p of ed.pages) p.html = `<!--engine-content-->\n${rewriteLinks(p.html)}\n<!--/engine-content-->`;
   }

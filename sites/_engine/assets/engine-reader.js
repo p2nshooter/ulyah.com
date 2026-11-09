@@ -29,6 +29,9 @@
     try { var x = new URL(u, location.href); return x.origin === location.origin ? x.pathname + x.search + x.hash : ''; } catch (e) { return ''; }
   })(mark.getAttribute('data-next') || '');
   var nextTitle = mark.getAttribute('data-next-title') || '';
+  // The link to the next article that the build wrote into the mark: following it is how the reader moves on.
+  var nextLink = nextUrl ? mark.querySelector('a[data-engine-next]') : null;
+  if (!nextLink) nextUrl = '';
   var W = {
     de: { listen: 'Vorlesen', stop: 'Stopp', pause: 'Pause', resume: 'Weiter', scroll: 'Automatisch scrollen', slides: 'Als Folien', speed: 'Tempo', close: 'Schließen', prev: 'Zurück', next: 'Weiter', play: 'Abspielen', voice: 'Mit Stimme', bar: 'Artikel vorlesen und anzeigen', slide: 'Folie', of: 'von', settings: 'Einstellungen', voiceName: 'Stimme', auto: 'Automatisch (beste Stimme)', autoNext: 'Danach den nächsten Artikel', nextIs: 'Nächster Artikel', inSec: 'in', sec: 's', cancel: 'Abbrechen', goNow: 'Jetzt', skip: 'Nächster Artikel', cont: 'Weiter vorlesen', contScroll: 'Weiter scrollen', noVoice: 'Auf diesem Gerät ist keine Stimme für diese Sprache installiert. Die Seite scrollt stattdessen langsam mit.', done: 'Alle Artikel gelesen.' },
     es: { listen: 'Escuchar', stop: 'Detener', pause: 'Pausa', resume: 'Seguir', scroll: 'Desplazamiento automático', slides: 'Ver en diapositivas', speed: 'Velocidad', close: 'Cerrar', prev: 'Anterior', next: 'Siguiente', play: 'Reproducir', voice: 'Con voz', bar: 'Escuchar y ver el artículo', slide: 'Diapositiva', of: 'de', settings: 'Ajustes', voiceName: 'Voz', auto: 'Automática (la mejor voz)', autoNext: 'Después, el siguiente artículo', nextIs: 'Siguiente artículo', inSec: 'en', sec: 's', cancel: 'Cancelar', goNow: 'Ya', skip: 'Siguiente artículo', cont: 'Seguir escuchando', contScroll: 'Seguir desplazando', noVoice: 'Este dispositivo no tiene una voz instalada para este idioma. En su lugar, la página se desplaza despacio.', done: 'Has escuchado todos los artículos.' },
@@ -340,7 +343,8 @@
       cancelCountdown();
       sset('engine-reader-flow', { start: flow.start || location.pathname });
       sset('engine-reader-go', { mode: mode, to: nextUrl, t: Date.now(), voice: !!slidesVoice });
-      location.href = nextUrl;
+      if (!nextLink.isConnected) { nextLink.hidden = true; document.body.appendChild(nextLink); }
+      nextLink.click();
     };
     if (now) { go(); return; }
     var secs = 6, t = toast(T.nextIs + ':', [['▶ ' + T.goNow, go], ['✕ ' + T.cancel, function () { cancelCountdown(); sset('engine-reader-flow', null); }]]);
