@@ -27,7 +27,7 @@ export const toolBySlug = (slug: string) => TOOLS.find((t) => t.slug[0] === slug
 
 export function toolsIndex(L: Lang): Raw {
   return html`${pageHead(tr(L, 'Alat gratis untuk orang tua & guru', 'Free tools for parents & teachers'), tr(L, 'Alat kecil yang benar-benar dipakai: mengukur kelancaran membaca, membuat rencana baca, memilih buku, dan membuat kartu kosakata. Semuanya berjalan di peramban Anda.', 'Small tools people actually use: measure reading fluency, plan reading, choose books and make vocabulary cards. Everything runs in your browser.'))}
-  <section class="section"><div class="wrap"><div class="grid g2">${TOOLS.map((t) => html`<a class="tool-card big reveal" href="${toolPath(L, t.slug)}"><span class="feature-ic">${t.icon}</span><b>${pick(L, t.name)}</b><span class="muted">${pick(L, t.blurb)}</span></a>`)}</div></div></section>`;
+  <section class="section"><div class="wrap"><div class="grid g2">${TOOLS.map((t) => html`<a class="tool-card big reveal" data-tilt href="${toolPath(L, t.slug)}"><span class="feature-ic">${t.icon}</span><b>${pick(L, t.name)}</b><span class="muted">${pick(L, t.blurb)}</span></a>`)}</div></div></section>`;
 }
 
 const PASSAGES = {
