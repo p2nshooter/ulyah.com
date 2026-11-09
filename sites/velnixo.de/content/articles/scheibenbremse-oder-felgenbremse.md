@@ -3,6 +3,11 @@ title: "Scheibenbremse oder Felgenbremse? Was beim Fahrrad im Alltag wirklich z�
 description: "Hydraulische Scheibenbremse, mechanische Scheibenbremse, V-Brake, Hydraulik-Felgenbremse oder Rücktritt: Bremsleistung, Wartung, Kosten und Sicherheit im ehrlichen Vergleich."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Bremsen sind das wichtigste Sicherheitsbauteil am Fahrrad. Trotzdem wird bei der Kaufentscheidung oft mehr über Gänge, Farbe und Gewicht gesprochen als über die Bremsen. Dabei unterscheiden sich die verschiedenen Systeme deutlich: in der Bremskraft bei Nässe, in der Dosierbarkeit, im Pflegeaufwand und in den Kosten für Verschleißteile.
 

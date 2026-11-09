@@ -3,6 +3,11 @@ title: "Radurlaub mit Kindern: Familientouren planen, die allen Spaß machen"
 description: "Radurlaub mit Kindern: Etappen für jedes Alter, Anhänger, Kindersitz oder eigenes Rad, familienfreundliche Strecken, Unterkünfte, Pausen und Packliste."
 category: touren-und-reisen
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
 ---
 Ein Radurlaub mit Kindern ist anders als eine Tour unter Erwachsenen. Die Tagesetappen sind kürzer, die Pausen länger, und der Spielplatz am Fluss kann wichtiger sein als die Sehenswürdigkeit im nächsten Ort. Gerade das macht den Reiz aus: Kinder erleben die Landschaft im eigenen Tempo, sind an der frischen Luft, und die Familie verbringt die Tage gemeinsam statt im Auto.
 

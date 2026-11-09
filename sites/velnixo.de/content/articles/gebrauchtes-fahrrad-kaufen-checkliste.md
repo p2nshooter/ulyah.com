@@ -3,6 +3,11 @@ title: "Gebrauchtes Fahrrad kaufen: Die Checkliste gegen Fehlkäufe und Diebesgu
 description: "Worauf du beim Kauf eines gebrauchten Fahrrads achten solltest: Rahmen, Bremsen, Antrieb, Laufräder, Kaufvertrag und die wichtigsten Warnzeichen für gestohlene Räder."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Polizeiliche Kriminalprävention der Länder und des Bundes | https://www.polizei-beratung.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Ein gebrauchtes Fahrrad kann ein echter Glücksgriff sein. Ein solides Trekkingrad, das zehn Jahre alt und gut gepflegt ist, fährt oft besser als ein billiges Neurad aus dem Baumarkt. Außerdem schont der Gebrauchtkauf Ressourcen und den Geldbeutel. Gleichzeitig ist der Gebrauchtmarkt voller Fallen: verschlissene Teile, versteckte Schäden, unrealistische Preise und leider auch gestohlene Räder.
 

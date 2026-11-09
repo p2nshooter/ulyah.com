@@ -3,6 +3,11 @@ title: "Fahrrad-Wartung im Überblick: Der Pflegeplan für das ganze Jahr"
 description: "Was du wöchentlich, monatlich, jährlich und nach Kilometern am Fahrrad prüfen und pflegen solltest: Reifen, Kette, Bremsen, Schaltung, Licht, Schrauben und Lager, mit klarer Grenze zur Werkstatt."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Ein Fahrrad ist erstaunlich genügsam. Trotzdem verschleißen Teile, Schrauben lockern sich, Reifen verlieren Luft und Ketten werden trocken. Wer regelmäßig ein paar Minuten investiert, fährt sicherer, leichter und günstiger, weil kleine Probleme gar nicht erst zu großen Reparaturen werden. Wer sein Rad dagegen nur repariert, wenn etwas kaputt ist, zahlt am Ende meist mehr und steht öfter mit einer Panne am Straßenrand.
 

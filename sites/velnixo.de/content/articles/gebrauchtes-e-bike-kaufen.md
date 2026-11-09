@@ -3,6 +3,11 @@ title: "Gebrauchtes E-Bike kaufen: Akku, Motor und Software richtig prüfen"
 description: "Worauf du beim Kauf eines gebrauchten Pedelecs achten musst: Akkuzustand und Ladezyklen, Motor, Fehlerspeicher, Rahmen, Bremsen, Unterlagen, Schlüssel und Warnzeichen für gestohlene Räder."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Polizeiliche Kriminalprävention der Länder und des Bundes | https://www.polizei-beratung.de/
 ---
 Ein neues Pedelec kostet schnell mehrere tausend Euro. Kein Wunder, dass viele Menschen auf dem Gebrauchtmarkt suchen. Dort finden sich tatsächlich gute Angebote: Räder von Menschen, die umgezogen sind, auf ein Lastenrad wechseln oder ein Dienstrad nach Ende der Leasingzeit übernommen haben. Gleichzeitig ist der Kauf eines gebrauchten Pedelecs anspruchsvoller als der eines normalen Fahrrads. Akku, Motor und Elektronik sind teuer, schwer zu prüfen und können versteckte Mängel haben.
 

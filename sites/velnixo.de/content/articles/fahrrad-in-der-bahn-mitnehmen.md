@@ -3,6 +3,11 @@ title: "Fahrrad in der Bahn mitnehmen: Regional- und Fernverkehr, Tickets, Reser
 description: "Fahrrad im Zug: Regeln im Nah- und Fernverkehr, Fahrradkarte und Reservierung, Pedelecs, Falträder und Lastenräder, Sperrzeiten und Tipps zum Ein- und Aussteigen."
 category: touren-und-reisen
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutsche Bahn | https://www.bahn.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Zug und Fahrrad sind ein ideales Paar. Mit der Bahn kommst du entspannt zum Start einer Radtour, kannst eine Etappe abkürzen, wenn das Wetter umschlägt, oder nach einer Streckentour bequem nach Hause fahren. Auch im Alltag kombinieren viele Pendler Rad und Zug, um längere Wege zur Arbeit zu bewältigen.
 

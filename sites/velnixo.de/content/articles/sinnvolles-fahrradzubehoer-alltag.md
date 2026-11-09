@@ -3,6 +3,11 @@ title: "Sinnvolles Fahrradzubehör: Was im Alltag wirklich hilft und was du dir 
 description: "Welches Fahrradzubehör im Alltag hilft: Ständer, Schutzbleche, Pumpe, Spiegel, Handyhalter, Kettenschutz und mehr, was Pflicht ist und worauf du verzichten kannst."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Straßenverkehrs-Zulassungs-Ordnung (StVZO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvzo_2012/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Rund ums Fahrrad gibt es unzählige Zubehörteile, vom einfachen Klingeln bis zum vernetzten Fahrradcomputer. Manches macht den Alltag spürbar leichter, sicherer oder bequemer, anderes liegt nach einer Woche in der Schublade. Wer gezielt auswählt, spart Geld und hat ein Rad, das genau zu den eigenen Wegen passt.
 

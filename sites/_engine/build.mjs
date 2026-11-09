@@ -808,7 +808,10 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
 function toolsBand(html, ed) {
   const tools = ed.pages.filter((p) => p.tool);
   if (!tools.length || tools.some((p) => html.includes(`href="${p.url}"`))) return html;
-  const w = WORDS[ed.en ? "en" : ed.site.lang] || WORDS.en;
+  // A site may word the band in its own voice (site.json "toolsBand": { kicker, title, lead, open }), e.g. „du“ for „Sie“.
+  const own = (!ed.en && ed.site.toolsBand) || {};
+  const base = WORDS[ed.en ? "en" : ed.site.lang] || WORDS.en;
+  const w = { ...base, toolsKicker: own.kicker || base.toolsKicker, toolsTitle: own.title || base.toolsTitle, toolsLead: own.lead || base.toolsLead, toolsOpen: own.open || base.toolsOpen };
   const esc = (x) => String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   const band =
     `\n<section class="engine-tools-band" aria-labelledby="engine-tools-band-t">` +

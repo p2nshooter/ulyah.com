@@ -3,6 +3,11 @@ title: "Probefahrt beim Fahrradhändler: Worauf du in zehn Minuten achten sollte
 description: "So nutzt du die Probefahrt richtig: Vorbereitung, Einstellung, Teststrecke, Bremsen, Schaltung, Sitzposition und die Fragen, die du dem Händler vor dem Kauf stellen solltest."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Datenblätter, Testberichte und Größentabellen sind hilfreich, aber sie können eines nicht ersetzen: das Gefühl auf dem Rad. Zwei Fahrräder mit fast identischer Ausstattung können sich völlig unterschiedlich fahren. Das eine wirkt ruhig und vertraut, das andere nervös oder träge. Deshalb ist die Probefahrt der wichtigste Schritt vor dem Kauf, und gleichzeitig der, der oft am hastigsten erledigt wird: einmal über den Parkplatz, zurück, „fühlt sich gut an“.
 

@@ -3,6 +3,12 @@ title: "Radtour planen: Strecke, Etappen, Ausrüstung und Unterkunft Schritt fü
 description: "Wie du eine Radtour planst, die zu dir passt: realistische Tagesetappen, Routenplanung mit Karte und App, Höhenmeter, Wetter, Packliste, Verpflegung, Unterkünfte und ein Plan B für unterwegs."
 category: touren-und-reisen
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Deutscher Wetterdienst (DWD) | https://www.dwd.de/
+  - Deutsche Bahn | https://www.bahn.de/
 ---
 Eine Radtour kann ein Nachmittag am Fluss sein, ein Wochenende von Ort zu Ort oder eine mehrwöchige Reise quer durch Deutschland. So unterschiedlich diese Touren sind, die Grundlagen der Planung sind dieselben: Wie weit kann und will ich fahren? Welche Strecke passt? Was muss mit? Wo schlafe ich? Und was mache ich, wenn etwas schiefgeht?
 

@@ -3,6 +3,11 @@ title: "Lastenrad kaufen: Bauarten, Kinder transportieren, Kosten, Förderung un
 description: "Lastenrad kaufen: Long John, Longtail und Dreirad im Vergleich, Kinder transportieren, Abstellen, Kosten, Förderung und eine Checkliste für die Probefahrt."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Zweirad-Industrie-Verband (ZIV) | https://www.ziv-zweirad.de/
 ---
 Lastenräder sind aus vielen Städten nicht mehr wegzudenken. Eltern bringen damit die Kinder in die Kita, Handwerker ihr Werkzeug zur Baustelle, und für den Wocheneinkauf ersetzen sie bei vielen Familien das Zweitauto. Ein Lastenrad ist aber eine größere Anschaffung als ein normales Fahrrad: Es kostet mehr, braucht mehr Platz und fährt sich anders.
 

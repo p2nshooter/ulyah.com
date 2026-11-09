@@ -3,6 +3,11 @@ title: "Fahrradbremsen einstellen: V-Brake und Scheibenbremse prüfen und nachst
 description: "So prüfst und stellst du Fahrradbremsen selbst ein: Bremsbeläge ausrichten, Zugspannung nachstellen, Scheibenbremse zentrieren, Schleifen beseitigen, mit klarer Grenze zur Werkstatt."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
 ---
 Gut eingestellte Bremsen sind die Grundlage für sicheres Radfahren. Mit der Zeit verschleißen Bremsbeläge, Züge längen sich, und Bremssättel verrutschen ein wenig. Die Folge: Der Hebel lässt sich weiter ziehen, die Bremse greift später, schleift oder quietscht. Viele dieser Probleme lassen sich mit einfachem Werkzeug in wenigen Minuten selbst beheben.
 

@@ -25,7 +25,18 @@
     { "slug": "ausruestung", "name": "Ausrüstung & Alltag", "icon": "bag", "description": "Taschen, Bekleidung, Kindersitz und Anhänger, Lastenrad und alles, was das Rad zum Alltagsfahrzeug macht." }
   ],
   "promo": { "slug": "digitale-begleiter", "label": "✦ Digitale Begleiter" },
+  "sources": "required",
+  "toolsBand": { "title": "Rechne mit deinen eigenen Zahlen", "lead": "Kostenlose Rechner, die in deinem Browser laufen: ohne Anmeldung, und nichts, was du eingibst, wird gesendet." },
+  "calculators": {
+    "kaufberatung": ["rahmengroessen-rechner", "uebersetzungsrechner"],
+    "wartung-und-reparatur": ["wartungsplaner", "uebersetzungsrechner"],
+    "e-bike": ["e-bike-reichweitenrechner", "wartungsplaner"],
+    "sicher-unterwegs": ["wartungsplaner"],
+    "touren-und-reisen": ["e-bike-reichweitenrechner", "uebersetzungsrechner"],
+    "ausruestung": ["e-bike-reichweitenrechner", "rahmengroessen-rechner"]
+  },
   "menu": [
+    { "label": "Rechner", "href": "/werkzeuge/" },
     { "label": "Über uns", "href": "/ueber-uns/" },
     { "label": "Kontakt", "href": "/kontakt/" }
   ],

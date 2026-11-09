@@ -3,6 +3,11 @@ title: "Sicher Rad fahren in der Stadt: toter Winkel, Kreuzungen, Dooring und vo
 description: "Sicher Rad fahren in der Stadt: toter Winkel bei Lkw, Abbiegeunfälle, aufgehende Autotüren, Kreisverkehre, Straßenbahnschienen und die richtige Position."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Straßenverkehrs-Ordnung (StVO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvo_2013/
 ---
 Die Stadt ist für Radfahrer Alltag und Herausforderung zugleich. Kurze Wege, Radwege und Fahrradstraßen machen das Rad oft zum schnellsten Verkehrsmittel. Gleichzeitig teilt man sich den Raum mit Autos, Lieferwagen, Bussen, Lkw, Straßenbahnen, Fußgängern und E-Scootern. Die meisten Unfälle mit Radfahrern passieren innerorts, und viele davon an Kreuzungen und Einmündungen.
 

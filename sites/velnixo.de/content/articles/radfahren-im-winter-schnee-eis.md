@@ -3,6 +3,12 @@ title: "Radfahren im Winter: sicher bei Kälte, Schnee und Glätte"
 description: "Radfahren im Winter: Spikereifen und Reifendruck, Fahrtechnik auf Schnee und Glätte, Kleidung in Schichten, Streusalz, Pedelec-Akku und wann du umsteigst."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Straßenverkehrs-Ordnung (StVO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvo_2013/
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Deutscher Wetterdienst (DWD) | https://www.dwd.de/
 ---
 Viele Fahrräder verschwinden im November im Keller und kommen erst im März wieder heraus. Dabei ist Radfahren im Winter oft besser als sein Ruf: Die Wege sind leerer, die Luft ist klar, und wer sich bewegt, friert weniger als an der Bushaltestelle. In vielen Städten werden wichtige Radwege inzwischen auch im Winter geräumt. Trotzdem stellt die kalte Jahreszeit besondere Anforderungen an Fahrer, Rad und Fahrtechnik.
 

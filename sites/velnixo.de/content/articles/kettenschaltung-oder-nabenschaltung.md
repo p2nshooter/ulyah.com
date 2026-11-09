@@ -3,6 +3,11 @@ title: "Kettenschaltung oder Nabenschaltung? Vor- und Nachteile im Alltag ehrlic
 description: "Kettenschaltung, Nabenschaltung oder Riemenantrieb: Welche Schaltung passt zu deinen Strecken, wie viel Pflege braucht sie, was kostet sie und welche Fehler solltest du vermeiden?"
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Die Schaltung entscheidet maßgeblich darüber, wie sich ein Fahrrad fährt, wie viel Pflege es braucht und wie lange die Teile halten. Im Alltag gibt es zwei grundlegende Systeme: die Kettenschaltung, bei der die Kette außen über mehrere Zahnkränze springt, und die Nabenschaltung, bei der die Gänge im Inneren der Hinterradnabe sitzen. Dazu kommen Sonderformen wie Getriebeschaltungen im Tretlager und stufenlose Naben.
 

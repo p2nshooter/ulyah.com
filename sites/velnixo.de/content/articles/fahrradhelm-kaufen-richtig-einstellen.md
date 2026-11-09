@@ -3,6 +3,11 @@ title: "Fahrradhelm kaufen und richtig einstellen: Größe, Normen, MIPS und Aus
 description: "Welcher Fahrradhelm passt zu dir? Kopfumfang messen, Helmtypen vergleichen, Normen und Rotationsschutz verstehen, den Helm richtig einstellen und wissen, wann er ersetzt werden muss."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 In Deutschland gibt es für normale Fahrräder und Pedelecs keine Helmpflicht. Trotzdem trägt inzwischen ein großer Teil der Radfahrenden einen Helm, und das aus gutem Grund: Bei Stürzen sind Kopfverletzungen häufig und oft schwer. Ein gut sitzender Helm kann die Wucht eines Aufpralls deutlich verringern. Er schützt aber nur, wenn er passt, richtig eingestellt ist und nicht zu alt ist.
 

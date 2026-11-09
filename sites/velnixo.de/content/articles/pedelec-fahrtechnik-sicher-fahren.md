@@ -3,6 +3,11 @@ title: "Sicher Pedelec fahren: Fahrtechnik für Anfahren, Kurven, Bremsen und St
 description: "Pedelecs sind schwerer und schneller als normale Fahrräder. So gewöhnst du dich sicher an den Motor: richtige Unterstützungsstufe, Anfahren, Kurventechnik, Bremsen, Absteigen und Fahren im Verkehr."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Wer zum ersten Mal auf einem Pedelec sitzt, ist meist begeistert: Schon nach dem ersten Pedaltritt zieht das Rad kraftvoll an, Steigungen verlieren ihren Schrecken, und Gegenwind fühlt sich an wie eine sanfte Brise. Gleichzeitig verändert der Motor das Fahrverhalten. Ein Pedelec ist schwerer, beschleunigt schneller und erreicht im Alltag häufiger höhere Geschwindigkeiten. Viele Unfälle mit Pedelecs passieren gerade in der Eingewöhnungsphase, bei Wiedereinsteigern und älteren Menschen besonders beim Anfahren, Absteigen und in Kurven.
 

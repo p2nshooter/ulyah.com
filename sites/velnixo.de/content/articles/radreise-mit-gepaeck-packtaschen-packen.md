@@ -3,6 +3,11 @@ title: "Radreise mit Gepäck: Packtaschen richtig packen, Gewicht verteilen und 
 description: "So packst du für eine mehrtägige Radreise: Packtaschen, Lenker- und Rahmentaschen, Gewichtsverteilung, Packliste für Hotel und Zelt, wasserdicht packen und wie das Rad mit Gepäck sicher fährt."
 category: touren-und-reisen
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Eine Radreise mit Gepäck hat etwas Befreiendes: Alles, was du für die nächsten Tage brauchst, ist am Rad, und jeden Abend kommst du an einem neuen Ort an. Damit sich das gut anfühlt, muss das Gepäck stimmen. Zu viel Gewicht macht jeden Anstieg zur Qual, falsch verteiltes Gewicht macht das Rad unruhig, und ein nasser Schlafsack kann eine Tour verderben.
 

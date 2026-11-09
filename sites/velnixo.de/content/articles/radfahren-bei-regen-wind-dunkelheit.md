@@ -3,6 +3,12 @@ title: "Radfahren bei Regen, Wind und Dunkelheit: sicher und trocken durch schle
 description: "Wie du bei Regen, Sturm, Nebel und Dunkelheit sicher Rad fährst: Bremsen und Kurven auf nasser Fahrbahn, Sichtbarkeit, Kleidung, Schutzbleche, Gegenwind und wann du das Rad besser stehen lässt."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Straßenverkehrs-Zulassungs-Ordnung (StVZO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvzo_2012/
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Deutscher Wetterdienst (DWD) | https://www.dwd.de/
 ---
 Wer das Fahrrad im Alltag nutzt, fährt nicht nur bei Sonnenschein. In Deutschland regnet es an vielen Tagen im Jahr, im Herbst und Winter ist es morgens und abends dunkel, und auf freien Strecken bläst oft ein kräftiger Wind. Mit der richtigen Ausrüstung und ein paar angepassten Gewohnheiten ist das aber kein Grund, das Rad stehen zu lassen. Viele Pendler fahren das ganze Jahr, und schlechtes Wetter fühlt sich vom Sattel aus oft weniger schlimm an als vom Fenster aus.
 

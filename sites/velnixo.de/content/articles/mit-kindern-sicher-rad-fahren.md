@@ -3,6 +3,11 @@ title: "Mit Kindern sicher Rad fahren: vom Laufrad bis zum Schulweg"
 description: "Wie Kinder sicher Rad fahren lernen: Laufrad und erstes Rad, Regeln für Gehweg und Fahrbahn, richtig begleiten, Radfahrausbildung und der Schulweg."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Straßenverkehrs-Ordnung (StVO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvo_2013/
 ---
 Radfahren gibt Kindern Freiheit, Bewegung und Selbstvertrauen. Gleichzeitig ist der Straßenverkehr für sie eine besondere Herausforderung: Kinder sind kleiner, werden schlechter gesehen und können Geschwindigkeiten und Entfernungen erst mit der Zeit richtig einschätzen. Das ist keine Frage der Intelligenz, sondern der Entwicklung. Viele Fähigkeiten, die man im Verkehr braucht, entwickeln sich erst bis zum Alter von etwa zehn bis zwölf Jahren vollständig.
 

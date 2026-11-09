@@ -3,6 +3,12 @@ title: "Kindersitz oder Fahrradanhänger? Kinder sicher auf dem Rad mitnehmen"
 description: "Kindersitz, Anhänger, Lastenrad oder Nachläufer: welche Lösung zu welchem Alter passt, was erlaubt ist und wie Kinder sicher und bequem mitfahren."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Viele Eltern möchten ihre Kinder schon früh mit dem Rad mitnehmen: zur Kita, zum Einkaufen oder auf einen Ausflug am Wochenende. Dafür gibt es mehrere Lösungen, und jede hat ihre Stärken. Ein Kindersitz ist leicht und schnell montiert, ein Anhänger bietet mehr Schutz und Platz, ein Lastenrad trägt Kinder und Einkauf zugleich, und ein Nachläufer lässt ältere Kinder schon mittreten.
 

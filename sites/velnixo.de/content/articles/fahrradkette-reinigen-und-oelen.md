@@ -3,6 +3,11 @@ title: "Fahrradkette reinigen und ölen: So läuft sie leise, leicht und lange"
 description: "Schritt für Schritt: Fahrradkette richtig reinigen, das passende Kettenöl wählen, sparsam auftragen und typische Fehler vermeiden, mit Pflegeintervallen für Sommer, Regen und Winter."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Umweltbundesamt | https://www.umweltbundesamt.de/
 ---
 Die Kette ist das am stärksten beanspruchte Bauteil eines Fahrrads. Sie überträgt bei jeder Pedalumdrehung deine ganze Kraft auf das Hinterrad, läuft dabei über Zahnräder, biegt sich hunderte Male pro Minute und ist Regen, Staub und Straßensalz ausgesetzt. Eine gepflegte Kette läuft leise, schaltet präzise und hält tausende Kilometer. Eine vernachlässigte Kette quietscht, rostet, verschleißt schnell und nimmt Ritzel und Kettenblätter mit in den Verschleiß.
 

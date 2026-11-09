@@ -3,6 +3,11 @@ title: "Fernradwege in Deutschland: die schönsten Routen an Flüssen, Küsten u
 description: "Ein Überblick über bekannte Fernradwege in Deutschland: Elbe, Weser, Donau, Main, Mosel, Rhein, Ostsee- und Nordseeküste, dazu das Radnetz Deutschland, ADFC-Qualitätsradrouten und Tipps zur Auswahl."
 category: touren-und-reisen
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Deutsche Bahn | https://www.bahn.de/
 ---
 Deutschland ist ein Land für Radreisende. Ein dichtes Netz von Fernradwegen führt an großen Flüssen entlang, über alte Bahntrassen, an Nord- und Ostsee vorbei und durch die Mittelgebirge. Viele dieser Routen sind durchgehend ausgeschildert, verlaufen größtenteils abseits des Autoverkehrs und haben eine gute Infrastruktur mit Unterkünften, Gasthöfen, Werkstätten und Bahnhöfen.
 

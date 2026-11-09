@@ -3,6 +3,12 @@ title: "E-Bike-Akku richtig laden, lagern und pflegen: so hält er möglichst la
 description: "Wie du den Akku deines Pedelecs schonend lädst, richtig lagerst, im Sommer und Winter schützt, Alterung erkennst und sicher mit Lithium-Ionen-Akkus umgehst."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Umweltbundesamt | https://www.umweltbundesamt.de/
+  - Zweirad-Industrie-Verband (ZIV) | https://www.ziv-zweirad.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Der Akku ist das teuerste Verschleißteil eines Pedelecs. Ein neuer Akku kostet je nach Hersteller und Kapazität oft mehrere hundert Euro, bei großen Akkus auch deutlich mehr. Gleichzeitig entscheidet sein Zustand darüber, wie weit du kommst und wie viel Freude das Rad macht. Die gute Nachricht: Moderne Lithium-Ionen-Akkus sind robust, und mit einigen einfachen Gewohnheiten kannst du ihre Lebensdauer spürbar verlängern.
 
