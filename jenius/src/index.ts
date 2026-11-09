@@ -14,10 +14,11 @@ import { articlesIndex, articlePage, articleJsonLd, infoPage, teachersPage } fro
 import { toolsIndex, toolPage, toolBySlug } from './pages/tools.ts';
 import { infoDoc } from './pages/info.ts';
 import { ARTICLES, articleBySlug, CLUSTERS, type ClusterId } from './content/articles.ts';
-import { LANES, laneById, type LaneId } from './catalog/lanes.ts';
+import { LANES, LEVELS, laneById, isLevel, type LaneId } from './catalog/lanes.ts';
 import { getBook, getChapter, laneBooks, allBookIds, mediaKey, type BookMeta } from './catalog/books.ts';
 import { paginate } from './catalog/parse.ts';
-import { tick, lazyTick, opsKeyValid } from './ops.ts';
+import { tick, lazyTick, opsKeyValid, opsName } from './ops.ts';
+import { validateUpload, storeUpload } from './catalog/upload.ts';
 import { html, raw } from './lib/html.ts';
 import { html as h } from './lib/html.ts';
 
@@ -140,10 +141,42 @@ if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const cp
 
 // Workflow jenius-ops.yml: satu langkah impor/ringkasan/cadangan per panggilan (kunci sekali pakai, hash di R2).
 app.post('/api/ops/tick', async (c) => {
-  if (!(await opsKeyValid(c.env, c.req.header('x-ops-key') ?? ''))) return c.json({ error: 'forbidden' }, 403);
+  if (!(await opsKeyValid(c.env, c.req.header('x-ops-key') ?? '', Date.now(), opsName(c.req.header('x-ops-name'))))) return c.json({ error: 'forbidden' }, 403);
   // Selama workflow bekerja, langkah latar dari kunjungan menunggu (tidak mengerjakan buku yang sama bersamaan).
   await c.get('store').put('k/tick.json', { at: Date.now() });
   return c.json(await tick(c.env, refreshSummary, { budgetMs: 20_000 }), 200, { 'cache-control': 'no-store' });
+});
+
+// Buku hasil konversi di GitHub Actions (BSE PDF → teks): diperiksa ketat lalu ditulis ke R2 (src/catalog/upload.ts).
+app.post('/api/ops/book', async (c) => {
+  if (!(await opsKeyValid(c.env, c.req.header('x-ops-key') ?? '', Date.now(), opsName(c.req.header('x-ops-name'))))) return c.json({ error: 'forbidden' }, 403);
+  let body: unknown;
+  try { body = await c.req.json(); } catch { return c.json({ error: 'json' }, 400); }
+  const v = validateUpload(body);
+  if (!v.ok) return c.json({ error: v.error }, 400);
+  const meta = await storeUpload(c.get('store'), v.book);
+  return c.json({ ok: true, id: meta.id, chapters: meta.chapters.length, words: meta.words });
+});
+
+// Status buku dari satu sumber (sudah tayang / dilewati), agar pipeline tidak mengulang pekerjaan.
+app.post('/api/ops/state', async (c) => {
+  if (!(await opsKeyValid(c.env, c.req.header('x-ops-key') ?? '', Date.now(), opsName(c.req.header('x-ops-name'))))) return c.json({ error: 'forbidden' }, 403);
+  const body = (await c.req.json().catch(() => ({}))) as { prefix?: string; skip?: { id: string; reason: string }[] };
+  const prefix = /^[a-z]{2,10}-$/.test(body.prefix ?? '') ? body.prefix! : 'bse-';
+  const store = c.get('store');
+  for (const s of (body.skip ?? []).slice(0, 200)) {
+    if (typeof s?.id === 'string' && s.id.startsWith(prefix) && /^[a-z0-9-]{1,40}$/.test(s.id)) {
+      await store.put(`q/${s.id}.json`, { status: 'skipped', at: Date.now(), reason: String(s.reason ?? '').slice(0, 200) }, { s: 'skipped', at: Date.now() });
+    }
+  }
+  const done: string[] = [], skipped: string[] = [];
+  let cursor: string | undefined;
+  do {
+    const r = await store.list<{ s?: string }>(`q/${prefix}`, { limit: 1000, cursor });
+    for (const it of r.items) (it.meta.s === 'done' ? done : skipped).push(`${prefix}${it.id}`);
+    cursor = r.cursor;
+  } while (cursor);
+  return c.json({ done, skipped });
 });
 
 app.get('/api/book/:id', async (c) => {
@@ -214,10 +247,12 @@ for (const L of ['id', 'en'] as Lang[]) {
     const books = await laneBooks(c.get('store'), lane.id, 1000);
     const rak = c.req.query('rak');
     const shelf = isShelf(rak) ? rak : null;
+    const jenjang = c.req.query('jenjang');
+    const level = isLevel(jenjang) ? jenjang : null;
     const o = origin(c);
     return htmlRes(render(c, {
       L, title: tr(L, `${pick(L, lane.name)} — buku bersuara untuk ${pick(L, lane.levels)} | jenius.es`, `${pick(L, lane.name)} — voiced books for ${pick(L, lane.levels)} | jenius.es`),
-      desc: pick(L, lane.blurb), path: lanePath(L, lane.slug), alt: lanePath(other(L), lane.slug), ads: !lane.kids, active: 'lanes', body: lanePage(L, lane, books, shelf),
+      desc: pick(L, lane.blurb), path: lanePath(L, lane.slug), alt: lanePath(other(L), lane.slug), ads: !lane.kids || (level !== null && !LEVELS[level].kids), active: 'lanes', body: lanePage(L, lane, books, shelf, level),
       jsonLd: [crumbs(o, [[tr(L, 'Jalur Baca', 'Reading Lanes'), P(L, 'lanes')], [pick(L, lane.name), lanePath(L, lane.slug)]])],
     }), 200, L);
   });
@@ -225,7 +260,7 @@ for (const L of ['id', 'en'] as Lang[]) {
   app.get(L === 'en' ? '/en/book/:id' : '/buku/:id', async (c) => {
     const b = await getBook(c.get('store'), c.req.param('id'));
     if (!b) return notFound(c, L);
-    const kids = b.lanes.some((id) => laneById(id)?.kids);
+    const kids = b.kids ?? b.lanes.some((id) => laneById(id)?.kids);
     const lane = laneById(b.lanes[0] ?? 'santai')!;
     const o = origin(c);
     return htmlRes(render(c, {

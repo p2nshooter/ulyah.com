@@ -102,8 +102,8 @@ test('beranda: pengunjung luar negeri ke /en, crawler & cookie bahasa tidak dial
   assert.equal((await get('/', { 'cf-ipcountry': 'ID' })).status, 200);
 });
 
-test('jalur: 8 jalur ID/EN; jalur anak tanpa loader iklan tetapi tetap ada tag meta', async () => {
-  assert.equal(LANES.length, 8);
+test('jalur: 9 jalur ID/EN; jalur anak tanpa loader iklan tetapi tetap ada tag meta', async () => {
+  assert.equal(LANES.length, 9);
   for (const l of LANES) {
     for (const L of ['id', 'en'] as const) {
       const { status, body } = await page(lanePath(L, l.slug));
@@ -274,4 +274,49 @@ test('ops tick: kunci sekali pakai (hash di R2), salah/kedaluwarsa ditolak; lang
   const first = await lazyTick(env, async () => null, t0);
   assert.ok(first, 'langkah pertama berjalan');
   assert.equal(await lazyTick(env, async () => null, t0 + 70_000 - 69_000), null, 'kurang dari semenit: dilewati');
+});
+
+test('buku pelajaran: unggah BSE berkunci, divalidasi ketat, tampil per jenjang & kelas, halaman SD tanpa iklan', async () => {
+  const { sha256Hex } = await import('../src/lib/crypto.ts');
+  const store = new Store(env.DATA as never);
+  const key = 'b'.repeat(8) + crypto.randomUUID().replace(/-/g, '');
+  await store.put('k/ops-bse.json', { hash: await sha256Hex(key), at: Date.now() });
+  const post = (path: string, body: unknown, k = key) => app.fetch(new Request(`https://jenius.es${path}`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-ops-key': k, 'x-ops-name': 'bse' }, body: JSON.stringify(body) }), env);
+  const para = (w: string) => ({ t: 'p', text: Array.from({ length: 30 }, (_, i) => `Kalimat ${i} tentang ${w} di kebun sekolah.`).join(' ') });
+  const book = {
+    id: 'bse-901', source: 'bse', title: 'Ilmu Pengetahuan Alam Kelas 4 SD <b>', author: 'Siti Rahmawati', level: 'sd', grade: 4, subject: 'Ilmu Pengetahuan Alam', year: 2008,
+    sourceUrl: 'https://annibuku.com/bse/ipa-kelas-4-sd-901',
+    chapters: [{ title: 'Bab I · Tumbuhan Hijau', blocks: [{ t: 'h', text: 'A. Bagian-Bagian Tumbuhan' }, para('akar'), para('daun')] }, { title: 'Bab II · Hewan', blocks: [para('hewan')] }],
+  };
+  assert.equal((await post('/api/ops/book', book, 'x'.repeat(40))).status, 403, 'kunci salah');
+  assert.equal((await post('/api/ops/book', { ...book, grade: 10 })).status, 400, 'kelas tidak cocok dengan jenjang');
+  assert.equal((await post('/api/ops/book', { ...book, source: 'bookdash' })).status, 400, 'sumber tidak diizinkan');
+  assert.equal((await post('/api/ops/book', { ...book, id: '../b/x' })).status, 400, 'id tidak sah');
+  assert.equal((await post('/api/ops/book', { ...book, chapters: [{ title: 'x', blocks: [{ t: 'img', src: 'a', text: 'b' }] }] })).status, 400, 'jenis blok');
+  const ok = await post('/api/ops/book', book);
+  assert.equal(ok.status, 200);
+  const sma = { ...book, id: 'bse-902', title: 'Fisika Kelas 10 SMA', level: 'sma', grade: 10, subject: 'Fisika' };
+  assert.equal((await post('/api/ops/book', sma)).status, 200);
+  const meta = await store.get<{ title: string; level: string; kids: boolean; lanes: string[]; attribution: string }>('b/bse-901.json');
+  assert.equal(meta?.title, 'Ilmu Pengetahuan Alam Kelas 4 SD b', 'tanda HTML dibuang');
+  assert.deepEqual(meta?.lanes, ['pelajaran']);
+  assert.equal(meta?.kids, true);
+  assert.match(meta!.attribution, /dialihmediakan/);
+  // Status: buku tayang + daftar dilewati.
+  const st = (await (await post('/api/ops/state', { prefix: 'bse-', skip: [{ id: 'bse-903', reason: 'tanpa izin' }] })).json()) as { done: string[]; skipped: string[] };
+  assert.ok(st.done.includes('bse-901') && st.done.includes('bse-902'));
+  assert.ok(st.skipped.includes('bse-903'));
+  // Halaman: jalur dengan pilihan jenjang & kelompok kelas.
+  const lane = await page('/jalur/buku-pelajaran');
+  assert.equal(lane.status, 200);
+  assert.ok(lane.body.includes('SD/MI · Kelas 4') && lane.body.includes('SMA/MA · Kelas 10'));
+  assert.ok(lane.body.includes('?jenjang=smk'), 'pilihan jenjang SMK/MAK');
+  assert.equal(loaders(lane.body), 0, 'jalur pelajaran (berisi buku SD) tanpa iklan');
+  assert.equal(loaders((await page('/jalur/buku-pelajaran?jenjang=sma')).body), 1, 'rak SMA/MA boleh beriklan');
+  const sd = await page(bookPath('id', 'bse-901'));
+  assert.equal(sd.status, 200);
+  assert.equal(loaders(sd.body), 0, 'buku SD tanpa iklan');
+  assert.equal(loaders((await page(bookPath('id', 'bse-902'))).body), 1, 'buku SMA beriklan');
+  const ch = (await (await get('/api/book/bse-901/ch/1')).json()) as { pages: { t: string }[][] };
+  assert.ok(ch.pages.length >= 1 && ch.pages[0]![0]!.t === 'h');
 });

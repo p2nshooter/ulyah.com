@@ -865,3 +865,20 @@ Jenjang di sini adalah **perkiraan awal** dari penulis/judul; jenjang final dipu
 Tidak didaftar satu per satu di sini; diambil lewat pencarian `org:GITenberg` saat impor, dengan aturan domain publik Indonesia di atas.
 
 **Jumlah repositori GitHub yang tercatat di Bagian B: 752** (target pemilik ≥ 500).
+
+## Bagian C — Buku pelajaran Indonesia & tambahan 9 Nov 2026 (pemilik: „buku pelajaran dari SD, MI, SMP, Tsanawiyah, SMA, MA, SMK, MAK sampe ke Perguruan tinggi … buku cerita anak SD berkebun“)
+
+Lisensi diperiksa 9 Nov 2026. „Dipakai“ = boleh tayang di situs beriklan dan dialihsuarakan.
+
+| # | Sumber | Jenjang | Jumlah | Lisensi / izin | Keputusan |
+|---|---|---|---|---|---|
+| C1 | BSE 2008–2011 (Depdiknas/Pusat Perbukuan), indeks `github.com/Hans5958/Indeks-BSE` → `dataset/annibuku.json` | SD 1–6, SMP 7–9, SMA 10–12, **SMK 10–12** | ±1.200 (613 SMK) | hak cipta dibeli Depdiknas; halaman hak cipta: „dapat diunduh, digandakan, dicetak, dialihmediakan, atau difotokopi oleh masyarakat“ (penjualan komersial wajib ikut HET) | **Dipakai**; kalimat izin dicek otomatis per PDF, tidak dijual |
+| C2 | BSE Kurikulum 2013 (bse.belajar.kemdikbud.go.id, bsd.pendidikan.id) | SD–SMA | 413 + 2.494 berkas | „Hak Cipta pada Kemendikbud, dilindungi undang-undang“; tanpa izin terbit ulang | **Belum** (hanya tautan ke sumber resmi) |
+| C3 | Kurikulum Merdeka — SIBI (buku.kemdikbud.go.id) | PAUD–SMK | ribuan | gratis diunduh; lisensi tidak dinyatakan seragam | **Belum**; dicek per buku |
+| C4 | Buku Teks Utama PAI & Bahasa Arab madrasah (Kemenag) | MI · MTs · MA · MAK | 90 | gratis diunduh; lisensi tidak dinyatakan | **Belum**; minta izin tertulis |
+| C5 | Badan Bahasa — bahan bacaan literasi & cerita anak terjemahan (budi.kemendikdasmen.go.id) | PAUD–SD | 780+ digital, 3.270 terjemahan | per judul; sebagian CC BY-NC 4.0 | hanya judul CC BY/CC0 |
+| C6 | OpenStax `openstax/osbooks-*` (53 repositori, 87 koleksi) | SMA · Perguruan tinggi | 4 berbahasa Inggris CC BY | Physics, Statistics, Life Liberty and the Pursuit of Happiness, Introduction to Intellectual Property = CC BY 4.0; 69 koleksi lain CC BY-NC-SA | 4 judul **dipakai**, sisanya ditolak |
+| C7 | African Storybook `github.com/global-asp/asp-source` (+ `asp-imagebank`) | TK · SD · Bahasa asing | 368 Inggris + puluhan bahasa | CC BY per cerita (CC BY-NC dibuang) | **Dipakai** (Tunas, Lintas Bahasa) |
+| C8 | Global-ASP `github.com/global-asp/global-asp` | TK · SD | 1 cerita bahasa Indonesia, banyak bahasa dunia | CC BY / CC BY-NC per cerita | judul CC BY dipakai |
+| C9 | StoryWeaver (Pratham Books), Let's Read (The Asia Foundation), Bloom Library (Yayasan Literasi Anak Indonesia) | TK · SD | ratusan judul berbahasa Indonesia (berkebun, alam, keluarga …) | CC BY 4.0 per buku | importer berikutnya |
+

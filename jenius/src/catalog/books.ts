@@ -9,7 +9,7 @@
  */
 import type { Store } from '../lib/store.ts';
 import type { Block } from './parse.ts';
-import type { LaneId, ShelfId } from './lanes.ts';
+import type { LaneId, LevelId, ShelfId } from './lanes.ts';
 
 export interface ChapterInfo {
   n: number;
@@ -26,7 +26,7 @@ export interface BookMeta {
   lanes: LaneId[];
   shelf: ShelfId;
   lang: string;
-  source: 'standardebooks' | 'bookdash';
+  source: 'standardebooks' | 'bookdash' | 'bse' | 'openstax' | 'asp';
   sourceUrl: string;
   license: string;
   licenseUrl: string;
@@ -41,6 +41,13 @@ export interface BookMeta {
   picture: boolean;
   cover?: string;
   importedAt: number;
+  /** Buku pelajaran: jenjang, kelas, mata pelajaran, jilid. */
+  level?: LevelId;
+  grade?: number;
+  subject?: string;
+  part?: number;
+  /** Halaman anak (tanpa iklan) — bila tidak diisi, mengikuti jalurnya. */
+  kids?: boolean;
 }
 
 export interface Chapter {
@@ -57,6 +64,9 @@ export interface LaneEntry {
   lang: string;
   picture: boolean;
   cover?: string;
+  level?: LevelId;
+  grade?: number;
+  subject?: string;
 }
 
 export const bookKey = (id: string) => `b/${id}.json`;
@@ -98,7 +108,9 @@ export async function allBookIds(store: Store): Promise<string[]> {
 /** Menyimpan buku yang selesai diimpor: metadata dulu, lalu indeks (buku tampil setelah semua babnya ada). */
 export async function publishBook(store: Store, meta: BookMeta): Promise<void> {
   await store.put(bookKey(meta.id), meta);
-  const summary: LaneEntry = { title: meta.title, author: meta.author, minutes: meta.minutes, shelf: meta.shelf, lang: meta.lang, picture: meta.picture, cover: meta.cover };
-  for (const lane of meta.lanes) await store.put(`i/lane/${lane}/${sortKey(meta.title)}~${meta.id}`, {}, summary as unknown as Record<string, unknown>);
+  const summary: LaneEntry = { title: meta.title, author: meta.author, minutes: meta.minutes, shelf: meta.shelf, lang: meta.lang, picture: meta.picture, cover: meta.cover, level: meta.level, grade: meta.grade, subject: meta.subject };
+  // Buku pelajaran berurutan per jenjang lalu kelas, baru judul.
+  const order = meta.level ? `${['sd', 'smp', 'sma', 'smk', 'pt'].indexOf(meta.level)}-${String(meta.grade ?? 0).padStart(2, '0')}-` : '';
+  for (const lane of meta.lanes) await store.put(`i/lane/${lane}/${order}${sortKey(meta.title)}~${meta.id}`, {}, summary as unknown as Record<string, unknown>);
   await store.put(`i/book/${meta.id}`, {}, { title: meta.title, lanes: meta.lanes.join(',') });
 }

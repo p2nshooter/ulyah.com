@@ -2,7 +2,7 @@
  * Jalur Baca (docs/JENIUS-BLUEPRINT.md §0.25): delapan jalur bernama pengganti daftar jenjang yang kaku. Jenjang pemilik
  * (TK … Profesor, profesional, umum, bahasa asing) tetap tercatat di balik setiap jalur supaya rekomendasi kelas tepat.
  */
-export type LaneId = 'tunas' | 'tumbuh' | 'jelajah' | 'kampus' | 'cendekia' | 'profesi' | 'santai' | 'lintas';
+export type LaneId = 'tunas' | 'tumbuh' | 'jelajah' | 'pelajaran' | 'kampus' | 'cendekia' | 'profesi' | 'santai' | 'lintas';
 export type Pair = readonly [string, string];
 
 export interface Lane {
@@ -38,6 +38,12 @@ export const LANES: readonly Lane[] = [
     id: 'jelajah', slug: ['jelajah', 'explore'], icon: '🔥', name: ['Jelajah', 'Explore'], color: '#ff7a00', wordsPerPage: 220, voice: 'narrator', kids: true,
     who: ['Remaja', 'Teenagers'], levels: ['SMP · SMA', 'Middle & high school'],
     blurb: ['Petualangan, misteri, dan fiksi ilmiah klasik yang membuat betah membaca sampai bab terakhir.', 'Classic adventure, mystery and science fiction that keep you reading to the last chapter.'],
+  },
+  {
+    // Pemilik, 9 Nov 2026: „buku pelajaran dari SD, MI, SMP, Tsanawiyah, SMA, MA, SMK, MAK sampe ke Perguruan tinggi“.
+    id: 'pelajaran', slug: ['buku-pelajaran', 'textbooks'], icon: '📘', name: ['Buku Pelajaran', 'Textbooks'], color: '#1d4ed8', wordsPerPage: 200, voice: 'teacher-f', kids: true,
+    who: ['Siswa, guru, dan orang tua', 'Students, teachers and parents'], levels: ['SD/MI · SMP/MTs · SMA/MA · SMK/MAK · Perguruan Tinggi', 'Primary · Lower & upper secondary · Vocational · University'],
+    blurb: ['Buku sekolah per jenjang dan kelas yang dibacakan bab demi bab — dengarkan sambil mengikuti teks, ulangi bagian yang sulit.', 'School books by level and grade, read aloud chapter by chapter — listen while following the text, replay the hard parts.'],
   },
   {
     id: 'kampus', slug: ['kampus', 'campus'], icon: '🎓', name: ['Kampus', 'Campus'], color: '#0b4fd8', wordsPerPage: 280, voice: 'narrator', kids: false,
@@ -84,3 +90,14 @@ export const SHELVES = {
   keluarga: ['Keluarga & Persahabatan', 'Family & Friendship'],
 } as const satisfies Record<string, Pair>;
 export type ShelfId = keyof typeof SHELVES;
+
+/** Jenjang di jalur Buku Pelajaran. Madrasah memakai buku mata pelajaran umum yang sama dengan jenjangnya. */
+export type LevelId = 'sd' | 'smp' | 'sma' | 'smk' | 'pt';
+export const LEVELS: Record<LevelId, { name: Pair; grades: readonly number[]; kids: boolean }> = {
+  sd: { name: ['SD/MI', 'Primary (SD/MI)'], grades: [1, 2, 3, 4, 5, 6], kids: true },
+  smp: { name: ['SMP/MTs', 'Lower secondary (SMP/MTs)'], grades: [7, 8, 9], kids: true },
+  sma: { name: ['SMA/MA', 'Upper secondary (SMA/MA)'], grades: [10, 11, 12], kids: false },
+  smk: { name: ['SMK/MAK', 'Vocational (SMK/MAK)'], grades: [10, 11, 12], kids: false },
+  pt: { name: ['Perguruan Tinggi', 'University'], grades: [], kids: false },
+};
+export const isLevel = (v: unknown): v is LevelId => typeof v === 'string' && v in LEVELS;

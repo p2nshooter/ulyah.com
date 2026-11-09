@@ -29,7 +29,7 @@ function fakeSpeech() {
     if (!cur) { synth.speaking = false; return; }
     const u = cur;
     synth.speaking = true;
-    window.__spoken.push({ text: u.text, voice: u.voice && u.voice.name, pitch: u.pitch, rate: u.rate });
+    if (u.volume !== 0 && /\S/.test(u.text)) window.__spoken.push({ text: u.text, voice: u.voice && u.voice.name, pitch: u.pitch, rate: u.rate });
     u.onstart && u.onstart({});
     const re = /\S+/g; let m, i = 0;
     while ((m = re.exec(u.text))) { const ci = m.index; timers.push(setTimeout(() => { if (cur === u && u.onboundary) u.onboundary({ name: 'word', charIndex: ci }); }, ++i * MS)); }
@@ -112,7 +112,12 @@ try {
     const total = Number((await page.textContent('[data-r-count]')).match(/dari (\d+)/)[1]);
     assert.ok(total >= 2, `bab punya beberapa halaman (${total})`);
     await page.click('[data-r-next]');
+    // Lembar membalik: daun 3D muncul di atas halaman lalu hilang.
+    await page.waitForSelector('.r-leaf.fwd', { state: 'attached' });
+    await page.waitForTimeout(330);
+    await page.screenshot({ path: `${OUT}/reader-flip.png` });
     await page.waitForFunction(() => /Hlm 2 /.test(document.querySelector('[data-r-count]').textContent));
+    await page.waitForSelector('.r-leaf', { state: 'detached' });
     await page.keyboard.press('ArrowRight');
     await page.waitForFunction(() => /Hlm 3 /.test(document.querySelector('[data-r-count]').textContent));
     await page.keyboard.press('ArrowLeft');
@@ -140,8 +145,8 @@ try {
     await page.selectOption('[data-r-until]', 'book');
     await page.click('[data-r-close]');
     await page.click('[data-r-play]');
-    await page.waitForURL(`**/baca/${ALICE}/2`, { timeout: 30000 });
-    await page.waitForSelector('[data-reader][data-ready="1"]');
+    // Bab berikutnya dimuat di halaman yang sama (suara tidak terputus); alamatnya ikut berganti.
+    await page.waitForFunction((id) => location.pathname === `/baca/${id}/2`, ALICE, { timeout: 30000 });
     await page.waitForSelector('.r-play.playing');
     await page.waitForSelector('[data-r-page] .w.on');
     const sp = await page.evaluate(() => window.__spoken);
@@ -199,6 +204,30 @@ try {
     assert.equal(await page.locator('.vocab-card').count(), 2);
     await page.click('[data-vocab-say]');
     await page.waitForFunction(() => window.__spoken.length >= 4);
+  });
+
+  await step('mesin suara macet: dicoba ulang dengan suara bawaan, lalu baca sendiri dengan pemberitahuan', async () => {
+    const dead = await browser.newContext({ viewport: { width: 1280, height: 860 }, serviceWorkers: 'block' });
+    await dead.route(/googlesyndication|googleads|doubleclick/, (r) => r.abort());
+    // Mesin yang menerima speak() tetapi tidak pernah mulai berbicara (seperti suara jaringan yang gagal).
+    await dead.addInitScript(() => {
+      window.__calls = 0;
+      class U { constructor(t) { this.text = t; } }
+      const synth = { speaking: false, getVoices() { return [{ name: 'Mati', lang: 'en-GB', localService: false }]; }, addEventListener() {}, speak(u) { if (u.volume !== 0) window.__calls++; }, cancel() {}, pause() {}, resume() {} };
+      window.SpeechSynthesisUtterance = U;
+      Object.defineProperty(window, 'speechSynthesis', { value: synth, configurable: true });
+    });
+    const p = await dead.newPage();
+    p.on('pageerror', (e) => errors.push(`${p.url()} :: ${e.message}`));
+    await p.goto(`${BASE}/baca/${ALICE}/3`);
+    await p.waitForSelector('[data-reader][data-ready="1"]');
+    await p.click('[data-r-play]');
+    await p.waitForSelector('.r-toast', { timeout: 9000 });
+    assert.match(await p.textContent('.r-toast'), /Suara tidak bisa diputar/);
+    assert.equal(await p.evaluate(() => window.__calls), 2, 'satu percobaan ulang dengan suara bawaan');
+    await p.waitForSelector('[data-r-page] .w.on');
+    assert.ok(await p.locator('.reader-app.voice-off').count());
+    await dead.close();
   });
 
   await step('versi Inggris: navigasi dan pembaca berbahasa Inggris', async () => {
