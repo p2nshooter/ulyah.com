@@ -76,7 +76,7 @@ function authorsFromLabels(text) {
       if (/^(editor|penyunting|ilustrator|ilustrasi|desain|perancang|layout|tata letak|ukuran|isbn|\d)/i.test(l) || l.length > 60) break;
       names.push(l);
     }
-    const clean = names.map((n) => n.replace(/^[:\-–\s]+|[,;\s]+$/g, '')).filter((n) => /^\p{Lu}/u.test(n) && /[A-Za-z]{2,}/.test(n) && !/\d|buku|kelas|untuk|pendidikan|pengantar|penerbit|editor|ilustra|desain|ukuran/i.test(n));
+    const clean = names.map((n) => n.replace(/^[:\-–\s]+|[,;\s]+$/g, '')).filter((n) => /^\p{Lu}/u.test(n) && /[A-Za-z]{2,}/.test(n) && !/\d|buku|kelas|untuk|pendidikan|pengantar|penerbit|editor|ilustra|desain|ukuran/i.test(n) && !/^(naskah|penulis|tim|penyusun)$/i.test(n));
     if (clean.length) return clean.join(', ');
   }
   return '';
