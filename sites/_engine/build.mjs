@@ -136,6 +136,9 @@ export async function build(domain, { quiet = false } = {}) {
           sources.map((x) => `<li><a href="${esc(x.url)}" rel="noopener" target="_blank">${esc(x.title)}</a> <span class="engine-quellen__host">(${esc(x.host)})</span></li>`).join("\n") +
           `\n</ul>\n<p class="engine-quellen__stand">${esc(words.checked)} <time datetime="${data.updated || data.date}">${fmtDate(data.updated || data.date)}</time>.</p>\n</section>`;
       }
+      // The listen / auto scroll / slides bar (§28) is built by assets/engine-reader.js in place of this empty mark,
+      // at the top of the article text, so crawlers and readers without JavaScript see the article unchanged.
+      html = `<div data-engine-reader hidden></div>\n${html}`;
       const wordCount = countWords(body);
       const a = {
         ...data,
@@ -245,6 +248,13 @@ export async function build(domain, { quiet = false } = {}) {
         /* a directory */
       }
     }
+  }
+  // The engine's own scripts (every site, same code): the article reader bar (§28).
+  for (const f of ["engine-reader.js"]) {
+    const src = join(ENGINE, "assets", f);
+    mkdirSync(join(out, "assets"), { recursive: true });
+    cpSync(src, join(out, "assets", f));
+    assetVersion[f] = createHash("sha256").update(readFileSync(src)).digest("hex").slice(0, 10);
   }
   const publicDir = join(dir, "public");
   if (existsSync(publicDir)) cpSync(publicDir, out, { recursive: true });
@@ -391,7 +401,7 @@ export async function build(domain, { quiet = false } = {}) {
 
   emit("/", theme.home(ctx));
   for (const c of categories) emit(c.url, theme.category(ctx, c));
-  for (const a of articles) emit(a.url, theme.article(ctx, a));
+  for (const a of articles) emit(a.url, theme.article(ctx, a).replace("</body>", `<script src="${asset("engine-reader.js")}" defer></script>\n</body>`));
   for (const p of pages) {
     let html = theme.page(ctx, p);
     if (p.tool) html = html.replace("</body>", `<script src="${asset(`tools/${p.tool}.js`)}" defer></script>\n</body>`);

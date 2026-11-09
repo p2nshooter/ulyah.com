@@ -211,6 +211,16 @@ export async function check(domain) {
   ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
   gate(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
 
+  // Listen, auto scroll and slides on every article (owner, 8 Nov 2026, docs/ADSENSE-BLUEPRINT.md §28): the mark the
+  // reader bar replaces and the shared script, once each.
+  const noReader = articles.filter((a) => {
+    const f = join(out, a.url, "index.html");
+    if (!existsSync(f)) return true;
+    const s = readFileSync(f, "utf8");
+    return (s.match(/data-engine-reader/g) || []).length !== 1 || (s.match(/\/assets\/engine-reader\.js/g) || []).length !== 1;
+  });
+  ok(noReader.length === 0 && existsSync(join(out, "assets", "engine-reader.js")), `every article has the listen / auto scroll / slides bar (${articles.length})`, noReader.slice(0, 5).map((a) => a.file).join(", "));
+
   // SEO (owner, 27 Oct 2026: "perbaiki dulu seluruh SEO websitenya … link xml sitemap dan file2
   // lain yg d butuhkan … backlink yg tidak melanggar adsense"): seo.mjs reads the built files the
   // way a search engine does — titles, snippets, canonicals, structured data, sitemap, robots,
