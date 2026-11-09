@@ -12,6 +12,7 @@ import { fileURLToPath } from "node:url";
 import { build } from "./build.mjs";
 import { auditSite } from "./seo.mjs";
 import { adsenseFor, adsTxt, adsTxtLine, loaderTag, metaTag } from "./adsense.mjs";
+import { leftovers } from "./lib/i18n.mjs";
 
 const SITES = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MIN_ARTICLES = 40;
@@ -42,7 +43,7 @@ export async function check(domain) {
   };
   let manualSnippets = null;
   console.log(`\n=== ${domain} ===`);
-  const { site, articles, categories, pages, out, scheduled, today } = await build(domain, { quiet: true });
+  const { site, articles, categories, pages, out, scheduled, today, english } = await build(domain, { quiet: true });
   // A draft ("draft": true in site.json) goes online early so AdSense can find
   // its snippet, meta tag and ads.txt, while its articles are still being
   // written: the AdSense gates below stay strict, the content gates only report.
@@ -195,7 +196,8 @@ export async function check(domain) {
     // Auto ads only (owner, 4 Oct 2026: "cukup cuplikan AdSense, ads.txt & tag
     // meta"): a page carries the loader and the meta tag, never a manual unit.
     if (/<ins\b[^>]*adsbygoogle|data-ad-slot|adsbygoogle\.push|\(adsbygoogle\s*=/.test(s)) manualUnits.push(rel);
-    if (!new RegExp(`<html[^>]*lang="${site.lang}`).test(s)) langWrong.push(rel);
+    const pageLang = english && rel.startsWith("/en/") ? "en" : site.lang;
+    if (!new RegExp(`<html[^>]*lang="${pageLang}`).test(s)) langWrong.push(rel);
     for (const m of s.matchAll(/href="(\/[^"#?]*)/g)) {
       const target = m[1];
       if (target.startsWith("/assets/")) continue;
@@ -208,18 +210,64 @@ export async function check(domain) {
   if (site.adsense) ok(missingTag.length === 0, `all ${html.length} pages carry every AdSense meta tag and exactly one loader`, missingTag.slice(0, 5).join(", "));
   ok(banned.length === 0, "no other ad network and no placeholder text anywhere", banned.slice(0, 5).join(", "));
   ok(manualUnits.length === 0, "no manual ad unit anywhere — AdSense loader + meta + ads.txt only (Auto ads)", manualUnits.slice(0, 5).join(", "));
-  ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
+  ok(langWrong.length === 0, `every page declares its language (lang="${site.lang}"${english ? ', /en/ lang="en"' : ""})`, langWrong.slice(0, 5).join(", "));
   gate(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
 
-  // Listen, auto scroll and slides on every article (owner, 8 Nov 2026, docs/ADSENSE-BLUEPRINT.md §28): the mark the
-  // reader bar replaces and the shared script, once each.
-  const noReader = articles.filter((a) => {
+  // Listen, auto scroll and slides on every article (owner, 8–9 Nov 2026, docs/ADSENSE-BLUEPRINT.md §28–29): the mark
+  // the reader bar replaces and the shared script, once each — and the animated picture of the article's subject.
+  const allArticles = [...articles, ...(english ? english.articles : [])];
+  const pageOf = (a) => {
     const f = join(out, a.url, "index.html");
-    if (!existsSync(f)) return true;
-    const s = readFileSync(f, "utf8");
+    return existsSync(f) ? readFileSync(f, "utf8") : "";
+  };
+  const noReader = allArticles.filter((a) => {
+    const s = pageOf(a);
     return (s.match(/data-engine-reader/g) || []).length !== 1 || (s.match(/\/assets\/engine-reader\.js/g) || []).length !== 1;
   });
-  ok(noReader.length === 0 && existsSync(join(out, "assets", "engine-reader.js")), `every article has the listen / auto scroll / slides bar (${articles.length})`, noReader.slice(0, 5).map((a) => a.file).join(", "));
+  ok(noReader.length === 0 && existsSync(join(out, "assets", "engine-reader.js")), `every article has the listen / auto scroll / slides bar (${allArticles.length})`, noReader.slice(0, 5).map((a) => a.url).join(", "));
+  const noNext = allArticles.filter((a) => !/data-engine-reader[^>]*data-next="\/[^"]+"/.test(pageOf(a)));
+  ok(allArticles.length < 2 || noNext.length === 0, "every article names the next one, so the voice carries on (§29)", noNext.slice(0, 5).map((a) => a.url).join(", "));
+  const noPicture = allArticles.filter((a) => {
+    const s = pageOf(a);
+    return (s.match(/<figure class="engine-bild"/g) || []).length !== 1 || !/<figure class="engine-bild"[^>]*><style>[\s\S]*?<\/style><svg [^>]*role="img" aria-label="[^"]{12,}"/.test(s);
+  });
+  ok(noPicture.length === 0, `every article opens with its animated picture (${allArticles.length}, §29)`, noPicture.slice(0, 5).map((a) => a.url).join(", "));
+
+  // The English edition (owner, 8–9 Nov 2026, §28–29: „jgn make auto translate, jadi make 2 bahasa“): complete, written
+  // out in full, in English all the way through, and joined to the original page by page.
+  if (english) {
+    const enByFile = new Map(english.articles.map((a) => [a.file, a]));
+    const missing = articles.filter((a) => !enByFile.has(a.file));
+    ok(missing.length === 0, `English edition: every article has its English version (${english.articles.length}/${articles.length})`, missing.slice(0, 8).map((a) => a.file).join(", "));
+    // English needs about 10 % more words than German and about 10 % fewer than Spanish: an English text far shorter
+    // than its original was cut or summarised, not translated.
+    const floor = site.lang === "de" ? 0.9 : 0.78;
+    const short = articles.filter((a) => enByFile.has(a.file) && enByFile.get(a.file).words < a.words * floor);
+    ok(short.length === 0, `English edition: every article is translated in full (≥ ${Math.round(floor * 100)} % of the original's words)`, short.slice(0, 8).map((a) => `${a.file}: ${enByFile.get(a.file).words}/${a.words}`).join(", "));
+    const enPages = new Map(english.pages.map((p) => [p.file, p]));
+    const noPage = pages.filter((p) => !p.generated && !enPages.has(p.file) && !p.tool);
+    ok(noPage.length === 0, "English edition: every page (about, contact, legal, policies) has its English version", noPage.map((p) => p.file).join(", "));
+    for (const alts of REQUIRED_PAGES.en) {
+      ok(english.pages.some((p) => alts.some((x) => p.url === `/en/${x}/`)), `English edition: page /en/${alts[0]}/ exists`);
+    }
+    const enBadDesc = english.articles.filter((a) => a.description.length < 70 || a.description.length > 200);
+    ok(enBadDesc.length === 0, "English edition: every description is 70–200 characters", enBadDesc.map((a) => `${a.file}: ${a.description.length}`).join(", "));
+    const enTitles = new Map();
+    for (const a of english.articles) enTitles.set(norm(a.title), [...(enTitles.get(norm(a.title)) || []), a.file]);
+    const enDup = [...enTitles.values()].filter((v) => v.length > 1);
+    ok(enDup.length === 0, "English edition: no two articles share a title", enDup.map((d) => d.join(" = ")).join("; "));
+    // Words of the original language left in the theme's own text of an English page (menus, labels, footers).
+    const foreign = [];
+    for (const file of html.filter((f) => f.slice(out.length).startsWith("/en/"))) {
+      for (const hit of leftovers(readFileSync(file, "utf8"), site.lang, english.ui.keep || [])) foreign.push(`${file.slice(out.length)}: …${hit}…`);
+    }
+    ok(foreign.length === 0, `English edition: no ${site.lang === "de" ? "German" : "Spanish"} words left in menus, labels and footers`, [...new Set(foreign)].slice(0, 8).join("\n        "));
+    const noAlt = [...articles, ...english.articles].filter((a) => {
+      const s = pageOf(a);
+      return !s.includes(`hreflang="${site.lang}"`) || !s.includes('hreflang="en"') || !s.includes('hreflang="x-default"');
+    });
+    ok(noAlt.length === 0, "both languages of every article point at each other (hreflang de/es ⇄ en + x-default)", noAlt.slice(0, 5).map((a) => a.url).join(", "));
+  }
 
   // SEO (owner, 27 Oct 2026: "perbaiki dulu seluruh SEO websitenya … link xml sitemap dan file2
   // lain yg d butuhkan … backlink yg tidak melanggar adsense"): seo.mjs reads the built files the

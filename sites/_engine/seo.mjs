@@ -34,6 +34,10 @@ export function auditSite(domain) {
   const html = files.filter((f) => f.endsWith(".html") && !f.endsWith("/404.html"));
   const urlOf = (f) => { const rel = f.slice(out.length).replace(/index\.html$/, ""); return rel || "/"; };
 
+  // The English edition's ecosystem page (content/en/pages/<promo slug>.md, its own English slug), §29.
+  const enPromoFile = site.promo && join(dir, "content", "en", "pages", `${site.promo.slug}.md`);
+  const enPromoSlug = enPromoFile && existsSync(enPromoFile) ? (/^slug:\s*(\S+)/m.exec(readFileSync(enPromoFile, "utf8")) || [])[1] : null;
+  const enPromo = site.en && enPromoSlug ? `/en/${enPromoSlug}/` : null;
   const titles = new Map(), descs = new Map();
   const attr = (tag, name) => (tag.match(new RegExp(`\\b${name}="([^"]*)"`, "i")) || [])[1];
   const metaContent = (s, key, by = "name") => { const m = s.match(new RegExp(`<meta[^>]*\\b${by}="${key}"[^>]*>`, "i")); return m ? attr(m[0], "content") : undefined; };
@@ -113,7 +117,7 @@ export function auditSite(domain) {
     const inBody = [...body.matchAll(/href="https?:\/\/([^/"]+)/gi)].filter((m) => OWN.test(m[1].replace(/^www\./, "")) && m[1].replace(/^www\./, "") !== site.domain).length;
     // The one ecosystem page (site.json "promo") is about the owner's projects, so its links belong
     // in its text; anywhere else a link to another own site inside an article is a link scheme risk.
-    const isPromo = site.promo && url === `/${site.promo.slug}/`;
+    const isPromo = site.promo && (url === `/${site.promo.slug}/` || url === enPromo);
     if (inBody && !isPromo) { articleBodyOwnLinks += inBody; add("warn", url, `${inBody} link(s) to the owner's sites inside the article body`); }
     if (isPromo && own.length > 8) add("warn", url, `${own.length} links on the ecosystem page (keep it to a handful)`);
   }

@@ -76,7 +76,7 @@ Lo explicamos con más detalle en [qué potencia contratar](/guias/que-potencia-
 Imagina un hogar con 5,75 kW contratados que consume 250 kWh al mes. Tras revisar el maxímetro, descubre que su pico mensual nunca ha pasado de 3,8 kW. Baja la potencia a 4,6 kW.
 
 - Ahorro en potencia: 1,15 kW × unos 35 € por kW y año = **unos 40 € al año**, sin cambiar nada en su vida diaria.
-- Si además desplaza un 20 % de su consumo de punta a valle, con una diferencia de precio de 10 céntimos por kWh, ahorra otros 600 kWh × 20 % × 0,10 € = **unos 12 € al año**, que pueden ser más con consumos mayores.
+- Si además desplaza un 20 % de su consumo de punta a valle, con una diferencia de precio de 10 céntimos por kWh, ahorra otros 3.000 kWh × 20 % × 0,10 € = **unos 60 € al año**, y más con consumos mayores.
 
 ## Qué hay dentro de cada término: peajes, cargos y margen
 

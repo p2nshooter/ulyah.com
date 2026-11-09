@@ -661,6 +661,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 8 Nov | „Ada yg ketinggalan, situs zufiq.de input semua kode adsense seperti di yg td drubah“ · „Termasuk tambahan situs zufiq.de td yg belum ke input ke website yg di tumpuk kode adsense nya... skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0“ | 🔄 §23.5 — akun ke-17 `ca-pub-8212039662308316` di tumpukan semua domain; zufiq.de ikut ditumpuk dengan kodenya sendiri (ca-pub-9338499658056112) tetap sebagai satu-satunya loader |
 | 8 Nov | „Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan … google.com, pub-4504974645924459 … pub-6284085719914185 … Ini jg … pub-7345352440829958 … Ini jg … pub-5254913739159445“ · „1ft.fr di batalin ya, ternyata bukan domain sy“ | Akun tumpukan ke-18 s.d. ke-21 di **semua** domain (tag meta + baris ads.txt; loader tetap akun utama). 1ft.fr = salah ketik di akun AdSense pemilik, tidak ada di repo mana pun; pemilik menghapusnya di AdSense (tombol „Hapus situs“). §23.6 |
 | 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
+| 9 Nov | „Tolong translate seluruh website artikel yg berbahasa Jerman dan Spanyol, jgn make auto translate, jadi make 2 bahasa, dan sekaligus pakein voice biar di bacain setiap artikelnya sampai tuntas, auto pindah, auto scroll, suara mengikuti lagam bahasa masing2... Tolong setiap artikel kasih gambar animasi yg sesuai tema, jgn polosan begitu“ | 🔄 §29 — versi Inggris tulisan tangan untuk 22 situs DE/ES, suara sampai tuntas + pindah otomatis ke artikel berikutnya + aksen sesuai bahasa, gambar animasi bertema di setiap artikel |
 
 ---
 
@@ -1912,3 +1913,40 @@ artikel dengan bilah **Dengarkan / Auto scroll / Slide** dalam bahasa halaman (d
 Tidak ada teks baru untuk crawler (bilah dibuat skrip), tidak menyentuh iklan, menghormati `prefers-reduced-motion`.
 `check.mjs` mewajibkan bilah ini di setiap artikel. Diuji di Chromium (xko.es, byodd.de, odaily.xyz; desktop & ponsel).
 Berikutnya: butir 1 (audit „Konten tanpa manfaat“ xko.es) dan butir 2 (versi Inggris situs non-Inggris, bertahap per situs).
+
+## 29. Dua bahasa tulisan tangan, suara sampai tuntas & pindah otomatis, gambar animasi di setiap artikel (pemilik, 9 Nov 2026)
+
+> „Tolong translate seluruh website artikel yg berbahasa Jerman dan Spanyol, jgn make auto translate, jadi make 2 bahasa, dan
+> sekaligus pakein voice biar di bacain setiap artikelnya sampai tuntas, auto pindah, auto scroll, suara mengikuti lagam bahasa
+> masing2... Tolong setiap artikel kasih gambar animasi yg sesuai tema, jgn polosan begitu“
+
+Melanjutkan §28 (butir 2) dan memperdalam butir 3–4. Lingkup: 22 situs artikel non-Inggris di `sites/` — 15 berbahasa Jerman
+(byodd, byoxy, byoy, nexvilo, qarf, qulen, qurm, rubiy, velnixo, zavik, zevok, zoevian, zolun, zufiq, zuvik `.de`) dan 7
+berbahasa Spanyol (dawo.es, qkb.es, rough.es, xko.es, dai.lat, pab.lat, rough.lat): ±940 artikel, ±1,6 juta kata. Situs Islam
+tidak disentuh.
+
+1. **Dua bahasa, tanpa terjemahan otomatis.** Bahasa kedua = Inggris (§28). Terjemahan ditulis sebagai file Markdown di
+   `content/en/` setiap situs — bukan widget/Google Translate, bukan terjemahan di peramban. Engine membangun versi Inggris di
+   `/en/…` (slug Inggris), `hreflang` dua arah + `x-default`, sitemap memuat kedua bahasa, pemilih bahasa di setiap halaman,
+   teks antarmuka tema lewat `theme/en.json`. Versi Inggris sebuah situs baru dinyalakan (`site.json` → `"en"`) setelah
+   seluruh artikel dan halaman wajibnya selesai; gerbang `check.mjs` menolak artikel Inggris yang jauh lebih pendek dari
+   aslinya (tanda terjemahan terpotong) dan sisa teks antarmuka bahasa asli di halaman Inggris.
+2. **Suara sampai tuntas.** Judul, ringkasan dan seluruh isi dibaca kalimat demi kalimat (ucapan panjang berhenti diam-diam di
+   Chrome), sampai bagian sumber.
+3. **Pindah otomatis.** Selesai satu artikel, artikel berikutnya (tema yang sama dulu, lalu tema lain) dimuat di halaman yang
+   sama dan langsung dibacakan; alamat dan judul ikut berganti. Bisa dimatikan; ada hitung mundur dan tombol batal.
+4. **Auto scroll** mengikuti kalimat yang dibaca, dan mode gulir tanpa suara juga lanjut ke artikel berikutnya.
+5. **Logat sesuai bahasa.** Suara dipilih dari locale halaman (de-DE, es-ES, es-419/es-MX untuk `.lat`, en-GB/en-US):
+   suara alami (Natural/Neural/Online/Google/Premium) didahulukan; pengunjung bisa memilih suara lain dari daftar suara
+   bahasa itu; tidak ada suara bahasa lain yang membaca teks Jerman/Spanyol.
+6. **Gambar animasi bertema.** Setiap artikel (kedua bahasa) mendapat ilustrasi SVG animasi di atas teks, dipilih dari topik
+   artikel itu sendiri (kata kunci judul/slug, lalu tema), berwarna sesuai palet situs, ringan (inline, tanpa file gambar),
+   diam bila `prefers-reduced-motion`. Tidak menutupi iklan, tidak menambah teks untuk crawler selain judul gambar.
+
+| Butir | Status |
+|---|---|
+| Dicatat di blueprint | ✅ 9 Nov |
+| Suara sampai tuntas, pindah otomatis, auto scroll, logat (engine, 26 situs) | ✅ 9 Nov — `engine-reader.js`: kalimat demi kalimat (singkatan & angka tidak memutus), suara alami sesuai locale dulu + pilihan suara, hitung mundur 6 dtk lalu artikel berikutnya dibuka dan langsung dibacakan; Safari/iOS yang menolak suara tanpa sentuhan → tombol besar „Weiter vorlesen / Seguir escuchando“; jeda/lanjut/stop/lewati; layar tidak mati selama dibaca (Wake Lock). Diuji dengan suara tiruan di Chromium (desktop & HP) |
+| Gambar animasi bertema (engine, 26 situs) | ✅ 9 Nov — `illustrate.mjs` + `lib/motifs.mjs`: 204 motif bergambar (rumah, perkakas, tanaman, kopi/teh, dapur, kucing, burung, kebersihan, energi, sepeda, olahraga, permata, sains, uang …) dipilih dari subjek judul artikel (kata kunci DE/ES/EN), adegan (bukit/laut/ruang/malam), dua pendamping, partikel, warna dari tema situs; SVG inline 6–10 kB, diam saat `prefers-reduced-motion`; `check.mjs` mewajibkannya di setiap artikel |
+| Engine dua bahasa (`/en/`, hreflang, sitemap, pemilih bahasa, gerbang) | ✅ 9 Nov — `build.mjs` membangun `content/en/` ke `/en/…` bila `site.json` punya `"en"`; teks tema lewat `theme/en.json`; `check.mjs`: semua artikel & halaman ada versi Inggris, panjang ≥ 90 % (de) / 78 % (es) dari aslinya, tidak ada kata Jerman/Spanyol tersisa di menu/label, hreflang dua arah |
+| Terjemahan per situs (22 situs) | 🔄 bertahap — ✅ **xko.es** 9 Nov (40 panduan + 9 halaman, `/en/`, lolos `check.mjs`); berikutnya situs .es/.lat lalu .de |
