@@ -3,6 +3,11 @@ title: Cómo leer la factura de la luz línea a línea y saber qué parte puedes
 description: Guía completa para entender tu factura eléctrica en España: potencia, energía, peajes, impuestos, alquiler del contador, CUPS, tramos horarios y los datos que necesitas para ahorrar.
 category: factura-de-la-luz
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Comisión Nacional de los Mercados y la Competencia (CNMC) | https://www.cnmc.es/
+  - Red Eléctrica: precios del PVPC hora a hora (e·sios) | https://www.esios.ree.es/es/pvpc
 ---
 La factura de la luz es uno de los documentos más importantes de la economía doméstica y, a la vez, uno de los que menos se entienden. Muchas personas solo miran el total a pagar y la fecha de cargo, pero dentro de esas dos o tres páginas está toda la información que necesitas para gastar menos: cuánta potencia tienes contratada, cuánta energía consumes y en qué horas, qué precio pagas por cada kilovatio hora y qué parte del importe son impuestos que no dependen de ti.
 

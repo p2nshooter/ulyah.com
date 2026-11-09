@@ -3,6 +3,11 @@ title: "Platten flicken und Schlauch wechseln: Schritt für Schritt, auch unterw
 description: "So reparierst du einen platten Fahrradreifen: Laufrad ausbauen, Reifen abziehen, Loch finden, flicken oder Schlauch wechseln, Ursache beseitigen und alles sicher wieder einbauen."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - European Tyre and Rim Technical Organisation (ETRTO) | https://www.etrto.org/
 ---
 Ein platter Reifen ist die häufigste Panne beim Radfahren. Früher oder später erwischt es jeden: eine Glasscherbe auf dem Radweg, ein spitzer Stein, ein Dorn im Feldweg oder einfach ein zu niedriger Reifendruck, bei dem der Schlauch an einer Kante eingeklemmt wird. Die gute Nachricht: Mit etwas Übung ist ein Platten in fünfzehn bis zwanzig Minuten behoben, auch am Straßenrand.
 

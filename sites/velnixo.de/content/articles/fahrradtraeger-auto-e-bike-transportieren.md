@@ -3,6 +3,11 @@ title: "Fahrrad und E-Bike mit dem Auto transportieren: Heckträger, Dachträger
 description: "Wie du Fahrräder und schwere Pedelecs sicher mit dem Auto transportierst: Anhängerkupplungsträger, Dachträger, Heckklappenträger und Innenraum, Stützlast, Beleuchtung, Akku und Fahrverhalten."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Stiftung Warentest | https://www.test.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Für den Urlaub am See, die Radtour im Nachbarland oder den Weg zur Werkstatt muss das Fahrrad manchmal ins oder ans Auto. Bei leichten Rädern ist das meist unkompliziert. Bei Pedelecs, die oft 22 bis 30 Kilogramm wiegen, wird der Transport zur Herausforderung: Nicht jeder Träger ist dafür zugelassen, das Anheben ist mühsam, und die zulässige Last des Autos wird schnell erreicht.
 

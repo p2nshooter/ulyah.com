@@ -3,6 +3,11 @@ title: Fútbol 7 y fútbol sala: diferencias, reglas clave y cómo adaptarse a c
 description: Las diferencias entre el fútbol 7 y el fútbol sala en campo, balón, número de jugadores, reglas y exigencias físicas, con consejos para jugadores que pasan de uno a otro.
 category: futbol
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Fútbol (RFEF) | https://rfef.es/
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
 ---
 Para la mayoría de los aficionados adultos, jugar un partido de fútbol once completo es complicado: hace falta reunir a veintidós personas, encontrar un campo grande y disponer de noventa minutos. Por eso, en España, el fútbol que realmente se juega entre amigos, compañeros de trabajo y ligas aficionadas es el **fútbol 7** y el **fútbol sala**. Ambos se practican en miles de instalaciones municipales y privadas, y ambos tienen ligas organizadas para todos los niveles.
 

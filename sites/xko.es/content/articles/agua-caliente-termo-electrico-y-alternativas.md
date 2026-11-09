@@ -3,6 +3,11 @@ title: Agua caliente en casa: termo eléctrico, caldera, bomba de calor o solar
 description: Cuánta energía gasta el agua caliente de un hogar, cómo ahorrar con el termo eléctrico que ya tienes, y comparativa de costes entre termo, caldera, bomba de calor para ACS y solar térmica.
 category: climatizacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Código Técnico de la Edificación (CTE) | https://www.codigotecnico.org/
 ---
 El agua caliente sanitaria, es decir, la de duchas, lavabos y fregadero, es uno de los grandes consumos invisibles de un hogar. En una vivienda sin calefacción eléctrica, puede suponer entre un 15 y un 25 % de la energía total, y en un piso con termo eléctrico es a menudo el aparato que más electricidad consume después del frigorífico y la climatización.
 

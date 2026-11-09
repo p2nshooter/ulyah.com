@@ -3,6 +3,11 @@ title: Consumo en standby: el gasto invisible de los aparatos en espera y cómo 
 description: Cuánto consumen los aparatos en espera en una casa, cómo medir el consumo base de tu vivienda, qué aparatos gastan más apagados y qué soluciones funcionan, de regletas a enchufes programables.
 category: electrodomesticos-e-iluminacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
 ---
 El televisor con su piloto rojo, el microondas que muestra la hora, el descodificador, la consola, el altavoz inteligente, el cargador conectado sin móvil, la impresora que espera trabajos: una vivienda moderna está llena de aparatos que consumen electricidad aunque nadie los use. Cada uno gasta poco, pero sumados funcionan las 24 horas de los 365 días del año.
 

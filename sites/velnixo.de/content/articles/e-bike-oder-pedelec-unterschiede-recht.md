@@ -3,6 +3,11 @@ title: "E-Bike, Pedelec oder S-Pedelec? Die Unterschiede, die Klassen und was re
 description: "Pedelec, S-Pedelec und E-Bike mit Gasgriff verständlich erklärt: Geschwindigkeit, Motorleistung, Führerschein, Versicherung, Helm, Radwege und warum Tuning so riskant ist."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Straßenverkehrsgesetz (StVG), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvg/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Im Alltag sagen fast alle „E-Bike“, wenn sie ein Fahrrad mit Elektromotor meinen. Rechtlich und technisch gibt es aber deutliche Unterschiede, und die haben Folgen: für den Führerschein, die Versicherung, die Helmpflicht und die Frage, ob du auf dem Radweg fahren darfst. Wer ein Rad mit Motor kauft, sollte diese Unterschiede kennen, bevor er sich entscheidet.
 

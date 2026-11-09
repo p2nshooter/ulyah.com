@@ -3,6 +3,11 @@ title: El sueño como herramienta de rendimiento deportivo
 description: Por qué dormir bien mejora la fuerza, la resistencia, la coordinación y la recuperación, cuántas horas necesita un deportista aficionado y hábitos prácticos para dormir mejor.
 category: descanso-y-nutricion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Sociedad Española de Neurología | https://www.sen.es/
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
 ---
 Si existiera un suplemento que mejorara la recuperación muscular, la concentración, el estado de ánimo, el control del apetito y el rendimiento deportivo, sin efectos secundarios y gratis, todo el mundo lo tomaría. Ese "suplemento" existe y se llama sueño. Sin embargo, es probablemente el aspecto más descuidado del entrenamiento de los deportistas aficionados.
 

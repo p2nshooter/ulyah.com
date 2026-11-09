@@ -3,6 +3,11 @@ title: "Reichweite beim E-Bike: was sie bestimmt und wie du sie verlängerst"
 description: "Warum die Reichweite eines Pedelecs so stark schwankt: Akkugröße, Unterstützungsstufe, Gewicht, Gelände, Wind, Reifen und Temperatur, mit praktischen Tipps für mehr Kilometer pro Ladung."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Zweirad-Industrie-Verband (ZIV) | https://www.ziv-zweirad.de/
 ---
 „Wie weit komme ich mit einer Akkuladung?“ ist die Frage, die fast jeder vor dem Kauf eines Pedelecs stellt. Die ehrliche Antwort: Das hängt von vielen Faktoren ab. Derselbe Akku kann an einem Tag für 120 Kilometer reichen und an einem anderen schon nach 40 Kilometern leer sein. Wer versteht, was die Reichweite beeinflusst, kann sie besser planen und mit ein paar einfachen Gewohnheiten deutlich verlängern.
 

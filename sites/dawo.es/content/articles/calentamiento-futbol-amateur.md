@@ -3,6 +3,11 @@ title: Calentamiento para fútbol amateur: quince minutos que evitan lesiones
 description: Un calentamiento completo de quince minutos para el futbolista aficionado, basado en programas de prevención de lesiones, con ejercicios de carrera, fuerza, equilibrio y balón.
 category: futbol
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Fútbol (RFEF) | https://rfef.es/
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
 ---
 En los campos de fútbol aficionado se ve a menudo la misma escena: los jugadores llegan justos de tiempo, se cambian deprisa, dan cuatro toques al balón y empiezan el partido. Diez minutos después, alguien se echa la mano a la parte trasera del muslo después de un sprint. Es una de las lesiones más frecuentes del fútbol, y una de las más ligadas a la falta de preparación.
 

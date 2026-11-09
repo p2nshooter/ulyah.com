@@ -3,6 +3,11 @@ title: Qué potencia contratar en casa: cómo calcularla sin pasarte ni quedarte
 description: Cómo calcular la potencia eléctrica que necesita tu vivienda a partir de tus aparatos y de los datos del contador, con ejemplos por tipo de hogar y errores que encarecen la factura.
 category: potencia-y-tarifas
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Comisión Nacional de los Mercados y la Competencia (CNMC) | https://www.cnmc.es/
+  - CNMC: comparador de ofertas de energía | https://comparador.cnmc.gob.es/
 ---
 La potencia contratada es la parte de la factura de la luz que pagas aunque no enciendas ni una bombilla. Muchos hogares tienen más potencia de la que necesitan porque la heredaron del anterior inquilino, porque alguien la subió "por si acaso" o porque nunca se revisó tras cambiar los electrodomésticos. Cada kilovatio que sobra cuesta varias decenas de euros al año, impuestos incluidos.
 

@@ -3,6 +3,11 @@ title: Iluminación LED en casa: cómo elegir bombillas, cuánto ahorran y error
 description: Guía práctica de bombillas LED: lúmenes, temperatura de color, índice de reproducción cromática, casquillos, regulables, etiqueta energética y cuánto se ahorra al sustituir halógenas y fluorescentes.
 category: electrodomesticos-e-iluminacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Comisión Europea: base de datos de la etiqueta energética (EPREL) | https://eprel.ec.europa.eu/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 La iluminación LED ha cambiado por completo el consumo de luz de las viviendas. Una bombilla LED consume una fracción de lo que gastaba una incandescente o una halógena para dar la misma luz, dura muchos años y ya es la única opción disponible para la mayoría de usos, tras la retirada progresiva de las tecnologías antiguas en la Unión Europea.
 

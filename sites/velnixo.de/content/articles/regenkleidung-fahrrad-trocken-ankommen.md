@@ -3,6 +3,11 @@ title: "Regenkleidung fürs Fahrrad: Jacke, Hose, Cape und Überschuhe richtig w
 description: "Regenkleidung fürs Rad: Jacke, Hose, Cape und Überschuhe im Vergleich, Wassersäule und Atmungsaktivität erklärt, dazu Handschuhe, Helm und Pflege."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Deutscher Wetterdienst (DWD) | https://www.dwd.de/
 ---
 Wer das Fahrrad im Alltag nutzt, wird früher oder später nass. In Deutschland regnet es an vielen Tagen im Jahr, und wer bei jedem Schauer auf Bus oder Auto umsteigt, fährt im Herbst kaum noch Rad. Mit der richtigen Regenkleidung ist Regen aber nur ein kleines Hindernis. Gute Ausrüstung hält dich trocken, ohne dass du darunter im eigenen Schweiß badest, und sie lässt sich schnell an- und ausziehen.
 

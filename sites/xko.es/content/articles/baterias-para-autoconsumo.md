@@ -3,6 +3,11 @@ title: Baterías para autoconsumo solar: cuándo compensan y cómo elegirlas
 description: Cómo funcionan las baterías domésticas para placas solares, tipos y capacidades, cuánto cuestan, cuánto ahorran realmente, cuándo merece la pena instalarlas y qué alternativas existen.
 category: autoconsumo-solar
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO) | https://www.miteco.gob.es/
 ---
 Las baterías domésticas prometen algo muy atractivo: guardar la energía solar que sobra al mediodía para usarla por la noche y depender lo menos posible de la red. En la práctica, son un componente caro cuya rentabilidad depende mucho del perfil de consumo, del tamaño de la instalación solar y de lo que te paguen por los excedentes.
 

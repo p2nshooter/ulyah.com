@@ -3,6 +3,11 @@ title: "Fahrrad winterfest machen und richtig einlagern: Schritt für Schritt du
 description: "Ob du im Winter weiterfährst oder dein Rad bis zum Frühling einlagerst: So schützt du Rahmen, Kette, Bremsen, Reifen und E-Bike-Akku vor Kälte, Feuchtigkeit und Streusalz."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Umweltbundesamt | https://www.umweltbundesamt.de/
 ---
 Wenn die Tage kürzer werden und das erste Streusalz auf den Straßen liegt, stehen Radfahrerinnen und Radfahrer vor einer Entscheidung: weiterfahren oder das Rad bis zum Frühling einlagern? Beides ist völlig in Ordnung. Wichtig ist nur, dass das Fahrrad auf die eine oder andere Weise gut vorbereitet wird. Kälte, Nässe und vor allem Salz setzen Metall, Lagern und Elektronik stark zu. Ein Rad, das den Winter ungeschützt im feuchten Hof verbringt oder nach jeder Salzfahrt nass in den Keller gestellt wird, sieht im März oft traurig aus.
 

@@ -3,6 +3,11 @@ title: "Kinderfahrrad kaufen: Die richtige Größe, das richtige Gewicht, die ri
 description: "Vom Laufrad bis zum Jugendrad: Welche Radgröße zu welchem Kind passt, warum das Gewicht so wichtig ist, welche Bremsen sinnvoll sind und worauf du beim Kauf achten solltest."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Deutscher Verkehrssicherheitsrat (DVR) | https://www.dvr.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Das erste eigene Fahrrad ist für Kinder ein großer Schritt in die Selbstständigkeit. Damit aus dem Schritt keine Enttäuschung wird, muss das Rad passen: Es muss leicht genug sein, damit das Kind es beherrscht, die richtige Größe haben, damit es sicher auf- und absteigen kann, und eine Ausstattung, die dem Alter und den Fähigkeiten entspricht.
 

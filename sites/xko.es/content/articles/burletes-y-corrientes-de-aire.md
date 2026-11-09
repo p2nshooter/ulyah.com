@@ -3,6 +3,11 @@ title: Burletes y corrientes de aire: cómo sellar tu casa por poco dinero
 description: Cómo localizar las infiltraciones de aire en puertas, ventanas, cajones de persiana y enchufes, qué burletes y selladores usar en cada caso y cuánto se ahorra en calefacción y aire acondicionado.
 category: aislamiento-y-ventanas
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Código Técnico de la Edificación (CTE) | https://www.codigotecnico.org/
 ---
 Sentir una corriente fría junto a la ventana, notar que la puerta de la calle silba en días de viento o ver cómo se mueven las cortinas con todo cerrado son señales de un problema muy común: las **infiltraciones de aire**. Por esas rendijas se escapa el aire caliente en invierno y entra el calor en verano, y la calefacción o el aire acondicionado tienen que trabajar más para compensarlo.
 

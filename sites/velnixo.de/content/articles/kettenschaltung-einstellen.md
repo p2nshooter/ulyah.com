@@ -3,6 +3,11 @@ title: "Kettenschaltung einstellen: Schaltwerk, Zugspannung und Anschläge Schri
 description: "Wenn die Kette springt, rattert oder nicht in den nächsten Gang will: So stellst du Schaltwerk und Umwerfer mit Stellschraube, Anschlagschrauben und B-Schraube selbst richtig ein."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Eine gut eingestellte Kettenschaltung arbeitet fast lautlos: Ein Klick, und die Kette springt sauber auf das nächste Ritzel. Eine verstellte Schaltung dagegen rattert, springt zwischen den Gängen, schaltet verzögert oder wirft im schlimmsten Fall die Kette in die Speichen. Die häufigste Ursache ist banal: Der Schaltzug hat sich etwas gelängt oder gesetzt, besonders bei neuen Rädern in den ersten Wochen.
 

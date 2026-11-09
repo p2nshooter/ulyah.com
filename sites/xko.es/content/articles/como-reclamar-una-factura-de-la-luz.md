@@ -3,6 +3,11 @@ title: Cómo reclamar una factura de la luz: pasos, plazos y dónde acudir
 description: Errores frecuentes en la factura de la luz, cómo reclamar por escrito a la comercializadora o la distribuidora, plazos y cómo escalar a consumo o arbitraje.
 category: factura-de-la-luz
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Comisión Nacional de los Mercados y la Competencia (CNMC) | https://www.cnmc.es/
+  - Organización de Consumidores y Usuarios (OCU) | https://www.ocu.org/
 ---
 Una factura de la luz más alta de lo normal no siempre es un error: puede deberse a un invierno frío, a una regularización tras meses de lecturas estimadas o a una subida de precios. Pero los errores existen, y saber reclamar con método marca la diferencia entre recuperar el dinero en pocas semanas o perder meses en llamadas sin resultado.
 

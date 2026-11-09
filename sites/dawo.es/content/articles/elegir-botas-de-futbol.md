@@ -3,6 +3,11 @@ title: Elegir botas de fútbol según el terreno: césped natural, artificial y 
 description: Qué tipo de suela necesitas según la superficie donde juegas, cómo acertar con la talla y el material, y por qué unas botas inadecuadas aumentan el riesgo de lesión.
 category: futbol
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Fútbol (RFEF) | https://rfef.es/
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
 ---
 Cualquiera que haya jugado al fútbol en distintos campos lo sabe: no es lo mismo jugar en un césped natural mojado que en un campo de hierba artificial en pleno agosto o en un campo de tierra apisonada. Cada superficie tiene su agarre, su forma de botar el balón y su manera de castigar las articulaciones. Y cada una pide un tipo de bota distinto.
 

@@ -3,6 +3,11 @@ title: "Fahrradbeleuchtung nach StVZO: Was Pflicht ist und welche Lampen sich lo
 description: "Fahrradbeleuchtung nach StVZO: Pflichtausstattung, zugelassene Lampen mit K-Nummer, Akku oder Dynamo, richtige Einstellung und was gutes Licht kostet."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Straßenverkehrs-Zulassungs-Ordnung (StVZO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvzo_2012/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Im Herbst und Winter fährt man oft im Dunkeln zur Arbeit und zurück. Dann entscheidet die Beleuchtung darüber, ob du die Straße gut siehst und, noch wichtiger, ob andere dich rechtzeitig sehen. In Deutschland regelt die Straßenverkehrs-Zulassungs-Ordnung (StVZO) in Paragraf 67 genau, welche Lichter und Reflektoren ein Fahrrad haben muss. Seit der Reform von 2017 sind die Regeln deutlich praxisnäher geworden: Akkulampen sind erlaubt, und die Lichter dürfen abnehmbar sein.
 

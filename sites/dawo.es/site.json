@@ -25,7 +25,17 @@
     { "slug": "ocio-activo", "name": "Ocio activo", "icon": "montana", "description": "Senderismo, bicicleta, natación y deporte en familia para moverse disfrutando." }
   ],
   "promo": { "slug": "deporte-y-tecnologia", "label": "✦ Deporte y tecnología" },
+  "sources": "required",
+  "calculators": {
+    "correr": ["calculadora-ritmo-carrera", "zonas-frecuencia-cardiaca"],
+    "padel-y-raqueta": ["gasto-energetico-por-actividad", "zonas-frecuencia-cardiaca"],
+    "futbol": ["zonas-frecuencia-cardiaca", "calculadora-sudoracion"],
+    "fuerza-y-movilidad": ["gasto-energetico-por-actividad", "zonas-frecuencia-cardiaca"],
+    "descanso-y-nutricion": ["calculadora-sudoracion", "gasto-energetico-por-actividad"],
+    "ocio-activo": ["gasto-energetico-por-actividad", "zonas-frecuencia-cardiaca"]
+  },
   "menu": [
+    { "label": "Calculadoras", "href": "/herramientas/" },
     { "label": "Sobre DAWO", "href": "/sobre-nosotros/" },
     { "label": "Contacto", "href": "/contacto/" }
   ],

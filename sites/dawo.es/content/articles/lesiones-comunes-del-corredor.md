@@ -3,6 +3,11 @@ title: Las lesiones más comunes del corredor aficionado y cómo prevenirlas
 description: Rodilla del corredor, periostitis, fascitis plantar, tendinopatía aquílea y cintilla iliotibial: qué son, por qué aparecen y qué hábitos reducen el riesgo.
 category: correr
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
+  - Real Federación Española de Atletismo (RFEA) | https://www.rfea.es/
 ---
 Correr es una de las formas más sencillas y eficaces de mantenerse en forma, pero también tiene un lado menos amable: una parte importante de los corredores sufre alguna lesión a lo largo del año. La mayoría no son graves, pero obligan a parar, frustran y, si no se tratan bien, pueden volverse recurrentes.
 

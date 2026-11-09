@@ -3,6 +3,11 @@ title: "Mit dem Fahrrad zur Arbeit pendeln: Route, Ausrüstung, Kleidung und Kos
 description: "Mit dem Rad zur Arbeit: realistische Distanzen, sichere Route, passendes Rad, nicht verschwitzt ankommen, Kosten und was der Arbeitgeber beitragen kann."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Umweltbundesamt | https://www.umweltbundesamt.de/
 ---
 Wer mit dem Fahrrad zur Arbeit fährt, beginnt und beendet den Arbeitstag in Bewegung. Statt im Stau zu stehen oder auf die verspätete Bahn zu warten, rollst du an der Schlange vorbei, sparst Geld und tust nebenbei etwas für die Gesundheit. Viele, die den Umstieg ausprobiert haben, möchten nicht mehr zurück. Trotzdem gibt es berechtigte Fragen: Ist die Strecke zu weit? Was mache ich bei Regen? Und wie komme ich an, ohne durchgeschwitzt im Büro zu sitzen?
 

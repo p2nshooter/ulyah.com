@@ -3,6 +3,11 @@ title: "Panne unterwegs: Notreparaturen am Fahrrad, die jede und jeder können s
 description: "Was tun bei Platten, gerissener Kette, schleifender Bremse, lockerem Lenker oder verbogenem Schaltauge? Notreparaturen am Straßenrand, das richtige Minimalwerkzeug und wann du besser Hilfe holst."
 category: touren-und-reisen
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - European Tyre and Rim Technical Organisation (ETRTO) | https://www.etrto.org/
 ---
 Irgendwann passiert es jedem: Mitten auf der Tour zischt der Reifen, die Kette springt ab oder die Schaltung macht plötzlich, was sie will. Die gute Nachricht: Die meisten Pannen lassen sich mit wenig Werkzeug und etwas Übung am Straßenrand so weit beheben, dass du sicher bis zur nächsten Werkstatt, zur Unterkunft oder nach Hause kommst.
 

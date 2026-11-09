@@ -3,6 +3,11 @@ title: "Fahrradtaschen, Körbe und Gepäckträger: Was transportiert was am best
 description: "Packtaschen, Pendlertaschen, Lenkertaschen, Körbe und Gepäckträger im Vergleich: was zu Einkauf, Arbeitsweg und Reise passt und worauf es beim Kauf ankommt."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Wer das Fahrrad im Alltag nutzt, transportiert ständig etwas: den Laptop zur Arbeit, den Wocheneinkauf, die Sporttasche, ein Picknick oder das Gepäck für ein Wochenende. Mit dem Rucksack geht das eine Weile, doch auf Dauer sind ein nasser Rücken und schmerzende Schultern die Folge. Am Rad selbst ist das Gepäck viel besser aufgehoben.
 

@@ -3,6 +3,11 @@ title: Termostato y temperatura ideal en casa: cuántos grados poner y cuánto a
 description: Qué temperatura poner en invierno y en verano, cuánto ahorra cada grado, cómo programar el termostato y qué aportan de verdad los termostatos inteligentes.
 category: climatizacion
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO) | https://www.miteco.gob.es/
 ---
 El termostato es el aparato más barato de la calefacción y, al mismo tiempo, el que más influye en lo que pagas. Un grado de diferencia en la consigna se nota poco en el confort, pero se nota bastante en la factura a lo largo de un invierno. Y un termostato mal colocado, mal programado o que nadie toca desde que se instaló puede estar calentando la casa cuando no hay nadie o a temperaturas que nadie necesita.
 

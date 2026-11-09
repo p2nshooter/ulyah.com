@@ -3,6 +3,11 @@ title: "Kettenverschleiß messen und Fahrradkette wechseln: der richtige Zeitpun
 description: "Wie du die Längung deiner Fahrradkette misst, wann sie gewechselt werden muss, wie du die passende Kette findest, sie richtig kürzt und mit Kettenschloss oder Nietstift montierst."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Fahrradketten „längen“ sich mit der Zeit. Das klingt seltsam, denn die einzelnen Metallteile werden natürlich nicht länger. Gemeint ist, dass sich die Gelenke zwischen Bolzen und Hülsen abnutzen. Dadurch entsteht in jedem Glied ein winziges Spiel, und über die ganze Kette summiert sich das zu einer messbaren Verlängerung. Eine gelängte Kette greift nicht mehr sauber in die Zähne von Ritzeln und Kettenblättern und nutzt sie ungleichmäßig ab.
 

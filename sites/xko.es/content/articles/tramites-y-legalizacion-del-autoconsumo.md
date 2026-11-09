@@ -4,6 +4,11 @@ seoTitle: "Legalizar el autoconsumo solar: trámites paso a paso"
 description: Qué permisos y registros necesita una instalación de autoconsumo en una vivienda en España, quién se encarga de cada paso, cuánto tarda y cómo evitar los retrasos más habituales.
 category: autoconsumo-solar
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Ministerio para la Transición Ecológica y el Reto Demográfico (MITECO) | https://www.miteco.gob.es/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 Instalar placas solares en una vivienda ya no exige los complejos trámites de hace una década. Desde 2019, la normativa ha simplificado mucho el proceso, sobre todo para instalaciones pequeñas. Aun así, siguen existiendo varios pasos administrativos, y un error o un retraso en cualquiera de ellos puede hacer que pasen meses hasta que veas la compensación de excedentes en tu factura.
 

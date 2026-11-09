@@ -3,6 +3,11 @@ title: Ventanas eficientes: marcos, vidrios y cuánto se ahorra al cambiarlas
 description: Cómo influyen las ventanas en el consumo de calefacción y aire acondicionado, qué marcos y vidrios elegir según tu clima, qué significan los valores U y g y cuándo compensa cambiarlas.
 category: aislamiento-y-ventanas
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Código Técnico de la Edificación (CTE) | https://www.codigotecnico.org/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 Las ventanas son el punto débil térmico de la mayoría de viviendas. Un muro bien construido deja pasar mucho menos calor que una ventana antigua de vidrio simple, y en muchos pisos españoles construidos antes de la década de 1980 las ventanas son responsables de una parte importante de las pérdidas de calor en invierno y de la entrada de calor en verano. Además, por sus rendijas se escapan corrientes de aire que obligan a tener la calefacción más alta para sentirse a gusto.
 

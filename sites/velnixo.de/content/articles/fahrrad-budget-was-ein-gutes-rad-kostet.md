@@ -3,6 +3,12 @@ title: "Was kostet ein gutes Fahrrad? Preisklassen, Spartipps und versteckte Kos
 description: "Wie viel Geld du für ein gutes Alltagsrad, Trekkingrad oder Pedelec einplanen solltest, wo sich Sparen lohnt, wo nicht, und welche Folgekosten oft vergessen werden."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Zweirad-Industrie-Verband (ZIV) | https://www.ziv-zweirad.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 „Was muss ich für ein gutes Fahrrad ausgeben?“ ist eine der häufigsten Fragen im Fahrradladen, und die ehrlichste Antwort lautet: Es kommt darauf an, wofür du es brauchst. Trotzdem gibt es klare Preisbereiche, in denen man bestimmte Qualität erwarten darf, und einige Grenzen, unter denen ein Rad im Alltag mehr Ärger als Freude macht.
 

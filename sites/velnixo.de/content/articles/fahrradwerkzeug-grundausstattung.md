@@ -3,6 +3,11 @@ title: "Werkzeug für die Fahrradwerkstatt zu Hause: die sinnvolle Grundausstatt
 description: "Welches Fahrradwerkzeug du wirklich brauchst: von Pumpe, Inbusschlüssel und Reifenhebern bis Drehmomentschlüssel, Kettenwerkzeug und Montageständer, mit Ausbaustufen und Kaufhinweisen."
 category: wartung-und-reparatur
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Wer sein Fahrrad selbst pflegt, braucht kein vollausgestattetes Profi-Atelier. Für die meisten Arbeiten im Alltag reichen eine Handvoll guter Werkzeuge, die zusammen weniger kosten als eine einzige große Inspektion. Mit jeder weiteren Fähigkeit wächst die Werkstatt dann nach Bedarf.
 

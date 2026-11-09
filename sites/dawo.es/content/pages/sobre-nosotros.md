@@ -2,7 +2,7 @@
 title: Sobre DAWO
 description: Qué es DAWO, quién escribe la revista, cómo elegimos los temas y por qué no publicamos promesas milagro sobre deporte y salud.
 order: 1
-updated: 2026-10-04
+updated: 2026-11-09
 ---
 DAWO es una revista digital independiente dedicada al deporte amateur y a la vida activa. El nombre resume lo que cubrimos: **Deporte, Actividad, Wellness y Ocio**. Escribimos para la persona que corre los domingos, juega al pádel con los compañeros de trabajo, vuelve al gimnasio después de años o quiere que sus hijos disfruten del fútbol sin presiones.
 
@@ -12,7 +12,7 @@ Guías largas y prácticas, organizadas en seis secciones: correr, pádel y depo
 
 ## Cómo trabajamos
 
-Los textos los escribe y revisa la redacción de DAWO a partir de fuentes de referencia: las recomendaciones de actividad física de la Organización Mundial de la Salud, la literatura de ciencias del deporte y el reglamento oficial de cada disciplina. Preferimos explicar el porqué de cada consejo antes que dar una lista de órdenes. Cuando la evidencia es dudosa, lo decimos.
+Las guías se investigan y redactan con ayuda de herramientas de inteligencia artificial y se comprueban con fuentes de referencia antes de publicarse: las recomendaciones de actividad física de la Organización Mundial de la Salud, la literatura de ciencias del deporte y el reglamento oficial de cada disciplina. Cada guía enumera al final las fuentes en las que se apoya, y cuatro [calculadoras gratuitas](/herramientas/) permiten aplicar lo explicado a tus propios datos. Preferimos explicar el porqué de cada consejo antes que dar una lista de órdenes. Cuando la evidencia es dudosa, lo decimos.
 
 No vendemos planes de entrenamiento, suplementos ni material deportivo, y ningún fabricante paga por aparecer en nuestros artículos. Cuando mencionamos un tipo de producto, lo hacemos para explicar en qué fijarse, nunca para empujar una marca.
 

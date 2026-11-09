@@ -3,6 +3,12 @@ title: "Fahrrad gegen Diebstahl sichern: Schlösser, Abschließen, Codierung und
 description: "So schützt du dein Fahrrad und E-Bike vor Diebstahl: welche Schlösser wirklich sicher sind, wie man richtig anschließt, Codierung, GPS-Tracker, Versicherung und was nach einem Diebstahl zu tun ist."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Polizeiliche Kriminalprävention der Länder und des Bundes | https://www.polizei-beratung.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 In Deutschland werden jedes Jahr rund eine Viertelmillion Fahrraddiebstähle angezeigt, und nur etwa jeder zehnte Fall wird aufgeklärt. Die Dunkelziffer ist hoch, denn viele Diebstähle werden gar nicht gemeldet. Besonders begehrt sind hochwertige Räder und Pedelecs, die sich gut weiterverkaufen lassen. Einen hundertprozentigen Schutz gibt es nicht, aber du kannst es Dieben so schwer machen, dass sie lieber weiterziehen.
 

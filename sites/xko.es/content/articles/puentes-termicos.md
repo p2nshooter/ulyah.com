@@ -3,6 +3,11 @@ title: Puentes térmicos: qué son, dónde aparecen y cómo evitar el moho que p
 description: Qué es un puente térmico, por qué causa pérdidas de calor, condensaciones y moho, dónde suele aparecer en las viviendas españolas, cómo detectarlo y qué soluciones existen.
 category: aislamiento-y-ventanas
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Código Técnico de la Edificación (CTE) | https://www.codigotecnico.org/
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
 ---
 Si alguna vez has visto una mancha oscura de moho en la esquina de un dormitorio, una línea de humedad en el techo junto a la fachada o condensación en el marco metálico de una ventana, es muy probable que estuvieras ante un **puente térmico**. Son zonas de la envolvente de la vivienda por donde el calor se escapa con más facilidad que por el resto, y además de aumentar el consumo de calefacción, crean superficies frías donde se condensa la humedad del aire.
 

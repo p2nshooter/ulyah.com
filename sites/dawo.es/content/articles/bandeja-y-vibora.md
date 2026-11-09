@@ -3,6 +3,11 @@ title: La bandeja y la víbora: los golpes que distinguen a un buen jugador de p
 description: Qué son la bandeja y la víbora en pádel, en qué se diferencian del remate, cómo se ejecutan paso a paso y cuándo conviene usar cada una durante el partido.
 category: padel-y-raqueta
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Federación Española de Pádel | https://www.padelfederacion.es/
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
 ---
 Hay un momento en la evolución de todo jugador de pádel en el que deja de rematar cada pelota alta como si fuera la última. Es cuando descubre que el pádel no se gana a golpes de fuerza, sino manteniendo la posición en la red y obligando al rival a equivocarse. En ese momento aparecen dos golpes que marcan la diferencia entre el principiante y el jugador intermedio: la **bandeja** y la **víbora**.
 

@@ -3,6 +3,11 @@ title: El juego de posesión explicado: principios del fútbol de toque para equ
 description: Qué es el juego de posesión, por qué se asocia al fútbol español, cuáles son sus principios básicos y cómo aplicarlos en un equipo aficionado de fútbol 7 o fútbol once.
 category: futbol
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Fútbol (RFEF) | https://rfef.es/
+  - Consejo Superior de Deportes (CSD) | https://www.csd.gob.es/
 ---
 Durante las últimas décadas, el fútbol español se ha asociado a una idea muy concreta: tener el balón, moverlo con pases cortos, ocupar bien los espacios y desgastar al rival hasta encontrar el hueco. Esa forma de jugar, que se suele llamar **juego de posesión** o **juego de posición**, ha influido en clubes, selecciones y escuelas de todo el mundo, y es una de las señas de identidad de la manera de entender el fútbol en España.
 

@@ -3,6 +3,11 @@ title: "Dienstrad-Leasing: So funktioniert das Fahrrad über den Arbeitgeber"
 description: "Dienstrad-Leasing erklärt: Gehaltsumwandlung und Zuschuss, Versteuerung, Kosten, Versicherung, Wartung und was bei Jobwechsel oder am Ende der Laufzeit gilt."
 category: ausruestung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Bundesministerium der Finanzen | https://www.bundesfinanzministerium.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Ein hochwertiges Fahrrad oder Pedelec kostet schnell mehrere Tausend Euro. Beim Dienstrad-Leasing zahlt diesen Betrag nicht der Beschäftigte auf einen Schlag, sondern der Arbeitgeber least das Rad und überlässt es zur Nutzung, auch privat. Für viele ist das ein bequemer Weg zu einem guten Rad, oft zu geringeren Kosten als beim Kauf. Doch das Modell hat Regeln, und nicht jedes Angebot lohnt sich für jeden.
 

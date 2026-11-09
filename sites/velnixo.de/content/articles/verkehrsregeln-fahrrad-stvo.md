@@ -3,6 +3,11 @@ title: "Verkehrsregeln für Radfahrer: Die wichtigsten StVO-Regeln verständlich
 description: "Radweg oder Fahrbahn, Nebeneinanderfahren, Ampeln, Einbahnstraßen, Fahrradstraßen, Überholabstand, Handy und Alkohol: die Regeln der StVO für Radfahrer in Deutschland, klar und praxisnah erklärt."
 category: sicher-unterwegs
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Straßenverkehrs-Ordnung (StVO), gesetze-im-internet.de | https://www.gesetze-im-internet.de/stvo_2013/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Wer Fahrrad fährt, ist ein vollwertiger Verkehrsteilnehmer. Das bedeutet Rechte, etwa auf ausreichend Abstand beim Überholen, aber auch Pflichten. Viele Regeln für Radfahrer stehen in der Straßenverkehrs-Ordnung (StVO), einige in der Straßenverkehrs-Zulassungs-Ordnung (StVZO), die zum Beispiel die Beleuchtung regelt. Seit der großen StVO-Novelle von 2020 hat sich einiges geändert: Es gibt Fahrradzonen, einen Grünpfeil nur für Radfahrer und feste Überholabstände.
 

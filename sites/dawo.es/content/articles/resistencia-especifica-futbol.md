@@ -3,6 +3,11 @@ title: Cómo entrenar la resistencia específica para el fútbol aficionado
 description: Por qué correr largo y lento no basta para el fútbol, cómo combinar la base aeróbica con intervalos y esfuerzos repetidos, y un plan semanal para llegar fuerte a la segunda parte.
 category: futbol
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Real Federación Española de Fútbol (RFEF) | https://rfef.es/
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
 ---
 En el fútbol aficionado hay una frase que se repite en todos los vestuarios: "en la segunda parte no podíamos más". Es la consecuencia lógica de jugar un deporte muy exigente sin una preparación física adecuada. Pero también es habitual ver a jugadores que salen a correr cuarenta minutos a ritmo constante entre semana y aun así se ahogan en los partidos.
 

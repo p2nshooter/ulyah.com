@@ -3,6 +3,11 @@ title: Senderismo para principiantes: cómo preparar tu primera ruta de montaña
 description: Cómo elegir una ruta adecuada, interpretar las señales de los senderos, qué llevar en la mochila, cómo caminar en subidas y bajadas y qué medidas de seguridad tomar antes de salir.
 category: ocio-activo
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Federación Española de Deportes de Montaña y Escalada (FEDME) | https://www.fedme.es/
+  - Agencia Estatal de Meteorología (AEMET) | https://www.aemet.es/
 ---
 España es uno de los países con más montaña de Europa. Desde los Pirineos hasta Sierra Nevada, pasando por los Picos de Europa, el Sistema Central, las sierras de Andalucía o los volcanes de Canarias, hay rutas para todos los niveles a pocas horas de casi cualquier ciudad. Además, existe una extensa red de senderos señalizados que permite caminar con seguridad y descubrir paisajes increíbles.
 

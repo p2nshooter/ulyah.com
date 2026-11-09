@@ -3,6 +3,11 @@ title: "Welches Fahrrad passt zu mir? Alle Fahrradtypen im Überblick"
 description: "Citybike, Trekkingrad, Mountainbike, Gravelbike, Rennrad oder E-Bike: Welcher Fahrradtyp passt zu deinem Alltag, deinen Strecken und deinem Budget? Ein ehrlicher Überblick."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Zweirad-Industrie-Verband (ZIV) | https://www.ziv-zweirad.de/
 ---
 Wer zum ersten Mal ein Fahrrad kauft oder nach vielen Jahren ein neues sucht, steht vor einer verwirrenden Auswahl. Im Laden hängen Räder, die sich auf den ersten Blick kaum unterscheiden, aber zwischen 400 und 4.000 Euro kosten. Im Internet tauchen Begriffe wie Gravel, Urban, Fitnessbike, Crossrad oder SUV-Bike auf. Die gute Nachricht: Hinter all diesen Namen stecken nur eine Handvoll Grundideen. Wer sie kennt, kann das passende Rad mit ruhigem Kopf auswählen.
 

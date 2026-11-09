@@ -3,6 +3,11 @@ title: El core no son solo abdominales: cómo entrenar el tronco de verdad
 description: Qué es el core, para qué sirve en el deporte y en la vida diaria, por qué los abdominales clásicos no son suficientes y qué ejercicios de estabilidad, antiextensión y antirrotación conviene hacer.
 category: fuerza-y-movilidad
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes añadidas y calculadoras enlazadas
+sources:
+  - Sociedad Española de Medicina del Deporte (SEMED) | https://www.femede.es/
+  - Organización Mundial de la Salud: actividad física | https://www.who.int/
 ---
 Pocas palabras se han popularizado tanto en el mundo del fitness como "core". Aparece en clases de gimnasio, en vídeos de internet y en anuncios de aparatos que prometen un abdomen marcado en pocas semanas. Pero detrás de la moda hay una idea importante y bastante mal entendida: el tronco es el centro de casi todos los movimientos que hacemos, y entrenarlo bien va mucho más allá de hacer cientos de abdominales.
 

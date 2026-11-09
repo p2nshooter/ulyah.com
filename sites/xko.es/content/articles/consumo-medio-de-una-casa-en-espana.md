@@ -3,6 +3,11 @@ title: Consumo medio de luz de una casa en España: cifras por tipo de hogar
 description: Cuántos kWh consume al año un hogar español según el número de personas, el tipo de vivienda y la calefacción, en qué se va la electricidad y cómo saber si tu consumo es alto o normal.
 category: factura-de-la-luz
 date: 2026-10-04
+updated: 2026-11-09
+change: Fuentes oficiales añadidas y calculadoras enlazadas
+sources:
+  - Instituto para la Diversificación y Ahorro de la Energía (IDAE) | https://www.idae.es/
+  - Red Eléctrica de España | https://www.ree.es/
 ---
 "¿Gasto mucha luz o es normal?" Es una de las preguntas más habituales cuando llega una factura alta. Para responderla hace falta una referencia: cuántos kilovatios hora consume al año un hogar parecido al tuyo. Esta guía reúne cifras orientativas de consumo eléctrico en España según el tamaño del hogar, el tipo de vivienda y el sistema de calefacción, explica en qué se va la electricidad de una casa y te ayuda a saber si tu consumo es razonable y por dónde empezar a reducirlo.
 

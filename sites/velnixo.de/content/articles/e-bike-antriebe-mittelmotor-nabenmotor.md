@@ -3,6 +3,11 @@ title: "Mittelmotor, Frontmotor oder Heckmotor? E-Bike-Antriebe im ehrlichen Ver
 description: "Wo der Motor sitzt, prägt Fahrgefühl, Gewichtsverteilung, Wartung und Preis eines Pedelecs. So unterscheiden sich Mittelmotor, Frontmotor und Heckmotor, und welcher zu dir passt."
 category: e-bike
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Zweirad-Industrie-Verband (ZIV) | https://www.ziv-zweirad.de/
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
 ---
 Bei Pedelecs entscheidet nicht nur die Größe des Akkus über das Fahrerlebnis, sondern auch die Position des Motors. Ein Motor im Tretlager fühlt sich anders an als einer in der Vorderradnabe oder im Hinterrad. Jede Bauart hat ihre Stärken und Schwächen, und je nach Einsatz, Budget und Fahrstil passt die eine oder andere besser.
 

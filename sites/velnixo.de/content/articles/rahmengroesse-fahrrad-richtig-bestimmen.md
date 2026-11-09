@@ -3,6 +3,11 @@ title: "Rahmengröße richtig bestimmen: Schrittlänge messen, Formel anwenden, 
 description: "So findest du die passende Rahmengröße für Trekkingrad, Citybike, Mountainbike, Rennrad und Gravelbike: Schrittlänge messen, Formel nutzen und die Größe bei der Probefahrt prüfen."
 category: kaufberatung
 date: 2026-10-26
+updated: 2026-11-09
+change: Quellen ergänzt und passende Rechner verlinkt
+sources:
+  - Allgemeiner Deutscher Fahrrad-Club (ADFC) | https://www.adfc.de/
+  - Stiftung Warentest | https://www.test.de/
 ---
 Die Rahmengröße ist die wichtigste Zahl beim Fahrradkauf, und gleichzeitig die, über die am meisten Unsicherheit herrscht. Ein Rad mit zu großem Rahmen ist schwer zu kontrollieren, du kommst beim Anhalten kaum mit den Füßen auf den Boden und musst dich weit nach vorne strecken. Ein zu kleiner Rahmen wirkt zunächst wendig, führt aber auf Dauer zu einer gestauchten Haltung, zu Knieschmerzen und zu verschenkter Kraft.
 
