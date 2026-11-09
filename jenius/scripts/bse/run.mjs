@@ -78,7 +78,7 @@ for (const b of queue) {
       continue;
     }
     const { chapters, words, quality } = segment(text);
-    if (quality < 0.55) {
+    if (quality < 0.78) {
       skips.push({ id, reason: `mutu teks rendah (${Math.round(quality * 100)}% kata utuh; tanda air/rumus)`, v: VERSION });
       summary.skipped += 1;
       console.log(`- ${id} ${b.title}: DILEWATI — mutu teks ${Math.round(quality * 100)}%`);

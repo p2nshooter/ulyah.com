@@ -5,7 +5,7 @@
 // Dipakai oleh scripts/bse/run.mjs (GitHub Actions) dan diuji di test/bse.test.ts.
 
 /** Versi pengonversi: buku hasil versi lama dikonversi ulang otomatis oleh run.mjs. */
-export const VERSION = 3;
+export const VERSION = 4;
 
 /** Kalimat izin BSE di halaman hak cipta (2008–2011). */
 export function hasPermission(text) {
@@ -26,6 +26,7 @@ export function findAuthors(text) {
     const slash = before.lastIndexOf('/');
     if (slash >= 0) {
       let a = before.slice(slash + 1).split(';')[0];
+      a = a.split(/\s*[—–]\s*|\s*\.\s*-{1,2}\s*|\s+Cet\.?\s*\d/)[0];
       a = a.replace(/^\s*(penulis|penyusun|pengarang|oleh)\s*,?\s*/i, '').replace(/(…|\.{3})?\s*\[?\s*et\.?\s*al\.?\s*\]?/gi, ' dkk.').replace(/…|\.{3}/g, ' dkk.').replace(/(\s*dkk\.?)+/g, ' dkk.').replace(/[\s.,—–-]+$/g, '').replace(/\s+,/g, ',').replace(/\s+/g, ' ').trim();
       if (/dkk\.?$/.test(a)) a = a.replace(/,?\s*dkk\.?$/, ', dkk.');
       if (a.length >= 3 && a.length <= 140 && /\p{Lu}/u.test(a) && !/jakarta|pusat|departemen|untuk|kelas/i.test(a)) return a;
@@ -155,13 +156,16 @@ export function segment(raw) {
   });
   // Awal bab (pola buku BSE): „Bab …“ di baris paling atas halaman (nomor/judul kadang di baris berikutnya), atau halaman
   // pembuka dengan „Tujuan Pembelajaran“ di bagian atasnya. Halaman daftar isi/indeks (banyak „Bab“, titik-titik) dilewati.
+  // Buku tanpa „Bab“ (mis. Bahasa Indonesia) memakai „Pelajaran 1“, „Unit 1“, atau „Tema 1“ sebagai pembuka bab.
+  const anyBab = clean.some((p) => p.filter(Boolean).slice(0, 4).some((l) => /^bab\b/i.test(l)));
+  const MARK = anyBab ? /^bab\b/i : /^(bab|pelajaran\s+\d{1,2}|unit\s+\d{1,2}|tema\s+\d{1,2})\b/i;
   const starts = [];
   clean.forEach((p, i) => {
     const lines = p.filter(Boolean);
-    const babLines = lines.filter((l) => /^bab\b/i.test(l));
+    const babLines = lines.filter((l) => MARK.test(l));
     if (babLines.length > 1 || lines.some((l) => /\.{6,}|…{3,}/.test(l) || /^daftar isi$/i.test(l))) return;
     const top = lines.slice(0, 4);
-    const byBab = top.findIndex((l) => /^bab\b/i.test(l) && l.length < 90);
+    const byBab = top.findIndex((l) => MARK.test(l) && l.length < 90);
     const tujuan = lines.slice(0, 14).findIndex((l) => /^tujuan pembelajaran\b/i.test(l));
     if (byBab < 0 && tujuan < 0) return;
     // Judul: baris atas halaman tanpa kata „Bab“, nomor tunggal, dan bagian sesudah „Tujuan Pembelajaran“.
@@ -172,7 +176,7 @@ export function segment(raw) {
       if (!l) { if (titleLines.length) break; continue; }
       if (++seen > 9) break;
       if (/^tujuan pembelajaran\b/i.test(l)) break;
-      const m = /^bab\b\.?\s*([IVXLCDM]+|\d{1,2})?\b\.?\s*[:.\-–]?\s*(.*)$/i.exec(l);
+      const m = /^(?:bab|pelajaran|unit|tema)\b\.?\s*([IVXLCDM]+|\d{1,2})?\b\.?\s*[:.\-–]?\s*(.*)$/i.exec(l);
       if (m) { if (m[1]) num = m[1]; if (m[2] && m[2].length > 2 && !/^\d+$/.test(m[2])) titleLines.push(m[2]); continue; }
       if (/^([IVXLCDM]+|\d{1,2})$/.test(l)) { if (!num) num = l; continue; }
       if (l.length > 70 || /[.,;]$/.test(l) || !titleish(l) || /^([A-H]|[1-9]\d?(\.\d{1,2}){0,2})\.?\s+\p{Lu}/u.test(l) || /^(peta konsep|kata kunci|manfaat pembelajaran|standar kompetensi|kompetensi dasar)/i.test(l)) break;

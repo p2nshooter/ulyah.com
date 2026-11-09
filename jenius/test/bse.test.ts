@@ -101,3 +101,11 @@ test('tanda air terpecah & daftar isi tidak menjadi bab; mutu teks dihitung', ()
   const junk = segment(['x', 'Bab I Satu\n' + Array.from({ length: 60 }, () => spaced).join('\n'), 'Bab II Dua\n' + Array.from({ length: 60 }, () => spaced).join('\n')].join('\f'));
   assert.ok(junk.quality < 0.55, `teks rusak bermutu rendah (${junk.quality})`);
 });
+
+test('buku tanpa „Bab“: „Pelajaran 1“ sebagai pembuka bab; ekor „— Cet.1“ dibuang dari penulis', () => {
+  const body = (w: string) => wrap(para(8, w)).join('\n');
+  const pages = ['Hak cipta … dialihmediakan', 'Pelajaran 1\nPeristiwa\n\n' + body('berita'), body('berita'), 'Pelajaran 2\nKegemaran\n\n' + body('hobi'), body('hobi')];
+  assert.deepEqual(segment(pages.join('\f')).chapters.map((c: { title: string }) => c.title), ['Bab 1 · Peristiwa', 'Bab 2 · Kegemaran']);
+  const kdt = 'Hak Cipta\nBahasa Indonesia, Bahasa Bangsaku : untuk Kelas VIII / Sarwiji Suwandi dan Sutarmo.— Cet.1 — Jakarta : Pusat Perbukuan, Departemen Pendidikan Nasional, 2008.';
+  assert.equal(findAuthors(kdt), 'Sarwiji Suwandi dan Sutarmo');
+});
