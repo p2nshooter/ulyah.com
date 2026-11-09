@@ -24,8 +24,15 @@ export function decodeEntities(s: string): string {
 
 /** Teks bersih: tanpa tag, entitas diurai, tanda khusus tata letak (word joiner, hair space, soft hyphen) dibuang. */
 export function cleanText(htmlFrag: string): string {
-  // Baris baru di sumber hanya format; baris sajak ditandai <br/>.
-  return decodeEntities(htmlFrag.replace(/\s+/g, ' ').replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, ''))
+  // Baris baru di sumber hanya format; baris sajak ditandai <br/>. Tag dibuang berulang sampai tidak ada lagi (tag yang
+  // tersusun dari potongan tag lain ikut hilang), lalu sisa tanda < > dari markup rusak dibuang.
+  let s = htmlFrag.replace(/\s+/g, ' ').replace(/<br\s*\/?>/gi, '\n');
+  let prev: string;
+  do {
+    prev = s;
+    s = s.replace(/<[^<>]*>/g, '');
+  } while (s !== prev);
+  return decodeEntities(s.replace(/[<>]/g, ''))
     .replace(/[⁠­​]/g, '')
     .replace(/[   ]/g, ' ')
     .replace(/[ \t]+/g, ' ')

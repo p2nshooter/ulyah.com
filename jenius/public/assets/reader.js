@@ -126,7 +126,6 @@
   }
 
   /* ── membaca ── */
-  function pageText() { return words.map(function (w) { return w.textContent; }).join(' '); }
   function highlight(i) {
     if (words[wordAt]) words[wordAt].classList.remove('on');
     wordAt = i;
@@ -190,7 +189,7 @@
     var last = (D.chapters || []).indexOf(D.ch) === (D.chapters || []).length - 1;
     if (last || !D.next) {
       setPlaying(false);
-      pageEl.innerHTML = '<div class="done"><p style="font-size:56px;margin:0">🎉</p><h2>' + esc(T.bookDone || 'Selesai') + '</h2><p><a class="btn btn-primary" href="' + esc(D.book) + '">←</a></p></div>';
+      donePanel('🎉', T.bookDone || '✓', D.book, '←', false);
       save('jen:pos:' + D.id, { ch: D.ch, p: 0, at: Date.now(), done: true });
       return;
     }
@@ -201,9 +200,20 @@
       return;
     }
     setPlaying(false);
-    pageEl.innerHTML = '<div class="done"><p style="font-size:56px;margin:0">✅</p><h2>' + esc(T.chapterDone || '✓') + '</h2><p><a class="btn btn-primary" href="' + esc(D.next) + '" data-r-nextch>' + esc(T.next || '→') + ' →</a></p></div>';
-    var a = pageEl.querySelector('[data-r-nextch]');
-    if (a) a.addEventListener('click', function () { save('jen:autoplay', { id: D.id, at: Date.now() }); });
+    var a = donePanel('✅', T.chapterDone || '✓', D.next, (T.next || '→') + ' →', true);
+    a.addEventListener('click', function () { save('jen:autoplay', { id: D.id, at: Date.now() }); });
+  }
+  /** Panel akhir bab/buku, dibangun dengan DOM (teks lewat textContent, tautan lewat atribut). */
+  function donePanel(icon, title, href, label, nextCh) {
+    var box = document.createElement('div'), ic = document.createElement('p'), h = document.createElement('h2'), p = document.createElement('p'), a = document.createElement('a');
+    box.className = 'done';
+    ic.style.cssText = 'font-size:56px;margin:0'; ic.textContent = icon;
+    h.textContent = title;
+    a.className = 'btn btn-primary'; a.setAttribute('href', String(href || '/')); a.textContent = label;
+    if (nextCh) a.setAttribute('data-r-nextch', '');
+    p.appendChild(a); box.appendChild(ic); box.appendChild(h); box.appendChild(p);
+    pageEl.replaceChildren(box);
+    return a;
   }
   function setPlaying(on) {
     playing = on;
@@ -245,8 +255,12 @@
 
   /* ── muat bab ── */
   function fail() {
-    pageEl.innerHTML = '<p>' + esc(T.loadErr || 'Error') + '</p><p><button class="btn btn-ghost" type="button" data-r-retry>↻</button></p>';
-    pageEl.querySelector('[data-r-retry]').addEventListener('click', start);
+    var msg = document.createElement('p'), wrap = document.createElement('p'), b = document.createElement('button');
+    msg.textContent = T.loadErr || 'Error';
+    b.className = 'btn btn-ghost'; b.type = 'button'; b.textContent = '↻';
+    b.addEventListener('click', start);
+    wrap.appendChild(b);
+    pageEl.replaceChildren(msg, wrap);
   }
   function start() {
     fetch('/api/book/' + encodeURIComponent(D.id) + '/ch/' + D.ch, { headers: { accept: 'application/json' } })

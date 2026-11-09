@@ -72,6 +72,8 @@ try {
 
   await step('beranda: animasi muncul, banner cookie bisa ditutup dan diingat', async () => {
     await page.goto(`${BASE}/`);
+    // Bagian dengan animasi muncul berada di bawah layar pertama: gulir dulu, lalu bagian itu tampil.
+    await page.mouse.wheel(0, 1200);
     await page.waitForSelector('.reveal.in');
     const ck = page.locator('[data-cookie]');
     await ck.waitFor({ state: 'visible' });
