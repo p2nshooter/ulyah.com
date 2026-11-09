@@ -26,8 +26,8 @@ walk(out);
 const pieces = (html) => {
   const body = html
     .replace(/<!--engine-content-->[\s\S]*?<!--\/engine-content-->/g, " ")
-    .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style\b[\s\S]*?<\/style>/gi, " ");
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, " ");
   const out = [];
   const head = (body.match(/<title>([\s\S]*?)<\/title>/) || [])[1];
   if (head) out.push(`<title> ${head}`);

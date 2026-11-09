@@ -55,7 +55,7 @@ const ATTRS = /\b(aria-label|aria-roledescription|title|alt|placeholder|data-lab
 /** The theme's own words in a rendered page through tr(): text between tags and a few attributes. Scripts, styles,
  * <head> tags (already translated by head()) and the article text itself stay as they are. */
 export function translateHtml(html, tr) {
-  const parts = String(html).split(/(<!--engine-content-->[\s\S]*?<!--\/engine-content-->|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>|<title>[\s\S]*?<\/title>|<!--[\s\S]*?-->|<[^>]+>)/);
+  const parts = String(html).split(/(<!--engine-content-->[\s\S]*?<!--\/engine-content-->|<script\b[\s\S]*?<\/script\b[^>]*>|<style\b[\s\S]*?<\/style\b[^>]*>|<title>[\s\S]*?<\/title>|<!--[\s\S]*?-->|<[^>]+>)/);
   let out = "";
   for (let i = 0; i < parts.length; i++) {
     const part = parts[i];
@@ -86,8 +86,8 @@ export const FOREIGN = {
 export function themeText(html) {
   return String(html)
     .replace(/<!--engine-content-->[\s\S]*?<!--\/engine-content-->/g, " ")
-    .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, " ")
     .replace(/<head\b[\s\S]*?<\/head>/i, " ")
     .replace(/<[^>]*\b(?:aria-label|title|alt|placeholder)="([^"]*)"[^>]*>/g, " $1 ")
     .replace(/<[^>]+>/g, " ")

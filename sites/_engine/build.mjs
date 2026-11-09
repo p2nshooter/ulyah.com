@@ -334,7 +334,7 @@ export async function build(domain, { quiet = false } = {}) {
   };
   // Absolute links to the site itself, except its root and #fragment ids (the Organization and WebSite of the
   // structured data are the same for both languages).
-  const selfUrl = new RegExp(`(["(])${base.replace(/[.]/g, "\\.")}(\\/[^"\\s)#]*)(?=["\\s)])`, "g");
+  const selfUrl = new RegExp(`(["(])${base.replace(/[\\^$.*+?()[\]{}|/]/g, "\\$&")}(\\/[^"\\s)#]*)(?=["\\s)])`, "g");
   const rewriteAbsolute = (text) => text.replace(selfUrl, (m, pre, p) => (p === "/" || p.startsWith("/en/") ? m : `${pre}${base}${enPath(p)}`));
   const rewriteLinks = (html) =>
     rewriteAbsolute(html.replace(/(\shref=")(\/[^"]*)"/g, (m, pre, p) => (p.startsWith("/en/") || p.startsWith("/assets/") ? m : `${pre}${enPath(p)}"`)));

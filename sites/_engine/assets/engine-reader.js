@@ -23,7 +23,11 @@
   var pageLang = (document.documentElement.lang || 'en').toLowerCase();
   var lang = pageLang.slice(0, 2);
   var want = (mark.getAttribute('data-voice-lang') || pageLang).toLowerCase().replace('_', '-');
-  var nextUrl = mark.getAttribute('data-next') || '';
+  // Only a page of this same site can be the next one (a path, never another origin or a script URL).
+  var nextUrl = (function (u) {
+    if (!/^\/(?!\/)/.test(u)) return '';
+    try { var x = new URL(u, location.href); return x.origin === location.origin ? x.pathname + x.search + x.hash : ''; } catch (e) { return ''; }
+  })(mark.getAttribute('data-next') || '');
   var nextTitle = mark.getAttribute('data-next-title') || '';
   var W = {
     de: { listen: 'Vorlesen', stop: 'Stopp', pause: 'Pause', resume: 'Weiter', scroll: 'Automatisch scrollen', slides: 'Als Folien', speed: 'Tempo', close: 'Schließen', prev: 'Zurück', next: 'Weiter', play: 'Abspielen', voice: 'Mit Stimme', bar: 'Artikel vorlesen und anzeigen', slide: 'Folie', of: 'von', settings: 'Einstellungen', voiceName: 'Stimme', auto: 'Automatisch (beste Stimme)', autoNext: 'Danach den nächsten Artikel', nextIs: 'Nächster Artikel', inSec: 'in', sec: 's', cancel: 'Abbrechen', goNow: 'Jetzt', skip: 'Nächster Artikel', cont: 'Weiter vorlesen', contScroll: 'Weiter scrollen', noVoice: 'Auf diesem Gerät ist keine Stimme für diese Sprache installiert. Die Seite scrollt stattdessen langsam mit.', done: 'Alle Artikel gelesen.' },
