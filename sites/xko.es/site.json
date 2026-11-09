@@ -36,5 +36,36 @@
     { "label": "Cookies", "href": "/politica-de-cookies/" },
     { "label": "Términos y condiciones", "href": "/terminos-y-condiciones/" },
     { "label": "Descargo de responsabilidad", "href": "/descargo-de-responsabilidad/" }
-  ]
+  ],
+  "en": {
+    "since": "2026-11-09",
+    "locale": "en-GB",
+    "ogLocale": "en_GB",
+    "expansion": "eXperts in Kilowatts and Optimisation",
+    "tagline": "Saving energy at home in Spain: understand your bill, contract only what you need and spend less",
+    "description": "XKO explains clearly how electricity and gas bills work in Spain, how to choose your contracted power and tariff, when solar self-consumption pays off and which insulation, heating, cooling and appliance upgrades really save money.",
+    "author": "XKO editorial team",
+    "paths": {"article": "/en/guides/", "category": "/en/topics/"},
+    "categories": {
+      "factura-de-la-luz": {"slug": "electricity-bill", "name": "Electricity bill", "description": "How to read the electricity bill in Spain, what each line means and where the spending you really can cut is hidden."},
+      "potencia-y-tarifas": {"slug": "power-and-tariffs", "name": "Power and tariffs", "description": "Contracted power, time-of-use periods, the regulated PVPC against the free market and the social discount, explained without small print."},
+      "autoconsumo-solar": {"slug": "solar-self-consumption", "name": "Solar self-consumption", "description": "Solar panels on houses and blocks of flats: sizing, surplus compensation, batteries, paperwork and payback."},
+      "aislamiento-y-ventanas": {"slug": "insulation-and-windows", "name": "Insulation and windows", "description": "Windows, draught strips, wall and roof insulation, thermal bridges and the energy performance certificate."},
+      "climatizacion": {"slug": "heating-and-cooling", "name": "Heating and cooling", "description": "Heat pumps, boilers, air conditioning and thermostats: what each system uses and how to run it better."},
+      "electrodomesticos-e-iluminacion": {"slug": "appliances-and-lighting", "name": "Appliances and lighting", "description": "Energy labels, what each appliance really uses, standby, LED and habits that show on the bill."}
+    },
+    "promo": {"label": "✦ Smart saving"},
+    "menu": [
+      {"label": "About XKO", "href": "/sobre-nosotros/"},
+      {"label": "How we calculate", "href": "/metodologia/"},
+      {"label": "Contact", "href": "/contacto/"}
+    ],
+    "legal": [
+      {"label": "Legal notice", "href": "/aviso-legal/"},
+      {"label": "Privacy", "href": "/politica-de-privacidad/"},
+      {"label": "Cookies", "href": "/politica-de-cookies/"},
+      {"label": "Terms and conditions", "href": "/terminos-y-condiciones/"},
+      {"label": "Disclaimer", "href": "/descargo-de-responsabilidad/"}
+    ]
+  }
 }

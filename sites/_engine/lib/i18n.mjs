@@ -30,8 +30,8 @@ export function translator(list = {}) {
   const tr = (text) => {
     let t = String(text ?? "");
     if (!t || !/\p{L}/u.test(t)) return t;
-    for (const [p, r] of patterns) t = t.replace(p, r);
     if (re) t = t.replace(re, (m) => pairs.get(m) ?? m);
+    for (const [p, r] of patterns) t = t.replace(p, r);
     return t;
   };
   return tr;
