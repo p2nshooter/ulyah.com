@@ -143,6 +143,32 @@ sama (suara, lembar membalik, sampai akhir buku).
   Indonesia), African Storybook, OpenStax CC BY, StoryWeaver/Let's Read/Bloom (CC BY, berbahasa Indonesia) — setiap judul
   diklasifikasi otomatis ke kategori & jenjang saat impor.
 
+### 0.29 Target 100 ribu → 1 juta buku, termasuk buku pelajaran pelajar WNA seluruh dunia; R2 100 GB (pemilik, 9 Nov 2026)
+
+> „Klo bisa sampe punya 100rb buku“ — „Termasuk buku pelajaran dari pelajar WNA seluruh dunia.. Target 1jt buku, R2 100GB“
+
+**Hanya sumber yang boleh tayang di situs beriklan dan dialihsuarakan** (domain publik di Indonesia, CC0, CC BY, CC BY-SA;
+NC/ND/lisensi tidak jelas ditolak, dicek per judul). Perkiraan jumlah judul yang lolos:
+
+| Fase | Sumber | Perkiraan | Lisensi / syarat | Cara serap |
+|---|---|---|---|---|
+| G1 | Project Gutenberg (60+ bahasa) | ±55–60 ribu | domain publik; di Indonesia hanya bila penulis/penerjemah wafat ≤ 1955 (tahun 2026) | katalog CSV mingguan `pg_catalog.csv` (CC0) + teks dari *mirror* resmi, jeda antarpermintaan sesuai kebijakan robot Gutenberg |
+| G2 | StoryWeaver (Pratham Books) + `github.com/global-asp/pb-source` | ±20–50 ribu (19.400 buku, 233 bahasa pada 2020; terus bertambah) | CC BY 4.0 | sumber Markdown di GitHub + API StoryWeaver |
+| G2 | African Storybook + Global-ASP, Bloom Library (Yayasan Literasi Anak Indonesia dll.), Let's Read | ±15–30 ribu | CC BY per judul | Markdown GitHub / API platform |
+| G3 | Wikisource semua bahasa, Wikibooks (buku pelajaran multibahasa, termasuk id.wikibooks) | ratusan ribu teks | domain publik / CC BY-SA | dump Wikimedia + API, gerbang mutu |
+| G4 | Buku pelajaran terbuka sedunia untuk pelajar WNA: OpenStax CC BY, BCcampus OpenEd, Open Textbook Library, LibreTexts & Pressbooks (judul CC BY saja) | ribuan | CC BY / CC BY-SA per judul | EPUB/HTML/XML resmi |
+| G5 | Internet Archive teks domain publik (lolos aturan Indonesia), BSE Indonesia (1.198, berjalan) | menuju 1 juta | domain publik / izin BSE | OCR yang lolos gerbang mutu saja |
+
+Catatan jujur: 100 ribu judul realistis dari G1–G2; 1 juta hanya tercapai dengan porsi besar G3 dan G5 (teks lebih pendek, mutu
+OCR beragam) — hitungan nyata per sumber tampil di portal super admin, bukan angka perkiraan.
+
+**Penyimpanan 100 GB:** satu objek per buku berisi semua bab, dikompres gzip (rata-rata ±100 KB per buku teks) → 1 juta buku
+≈ 100 GB; gambar buku bergambar WebP (±60 KB per halaman, buku bergambar dibatasi); sampul dibuat SVG dari judul (tanpa
+berkas). Satu tulisan R2 per buku (bukan per bab) agar biaya operasi rendah.
+**Kategori:** setiap judul diklasifikasi saat impor ke kategori perpustakaan (§0.28: Anak, Pelajar per jenjang, Mahasiswa &
+Akademik, Umum, Profesional, Bahasa Asing), bahasa, dan rak tema; indeks judul A–Z per bahasa.
+**Urutan:** G1 Gutenberg dibangun pertama (pipeline GitHub Actions seperti BSE, unggah lewat endpoint ops), lalu G2, G3, G4, G5.
+
 ### 0.3 Pengalaman baca AUTO (inti produk)
 
 - **Mode Dengar-Baca:** tekan Putar sekali → suara membaca halaman, kata disorot, halaman berganti sendiri dengan animasi
