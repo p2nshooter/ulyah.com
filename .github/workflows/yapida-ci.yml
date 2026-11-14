@@ -1,0 +1,48 @@
+name: yapida.sch.id CI
+
+# Uji untuk folder `yapida/` (situs Yayasan Al-Huda Yapida): tipe, unit (AdSense tumpuk, SEO, halaman dinamis dari R2,
+# isi awal, Markdown aman) dan ujung-ke-ujung di Chromium sungguhan (desktop + ponsel, interaksi, PWA) terhadap
+# `wrangler dev`.
+
+on:
+  pull_request:
+    paths:
+      - 'yapida/**'
+      - 'adsense-stack.json'
+      - '.github/workflows/yapida-ci.yml'
+      - '.github/workflows/deploy-yapida.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'yapida/**'
+
+concurrency:
+  group: yapida-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # Pinned like site-audit.yml: on ubuntu-latest (26.04) `playwright install --with-deps` fails.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: yapida
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Install Playwright Chromium
+        run: npm install --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
+      - name: End-to-end
+        run: bash test/run-e2e.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: yapida-e2e
+          path: yapida/e2e-out
+          retention-days: 7

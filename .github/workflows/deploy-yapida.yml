@@ -1,0 +1,167 @@
+name: Deploy yapida.sch.id (Yayasan Al-Huda Yapida)
+
+# Worker `yapida-sch-id` (folder `yapida/`): situs yayasan yang seluruh isinya dibaca dari R2 — profil yayasan, 15 lembaga,
+# halaman, PWA. Aturan tetap pemilik: SEMUA data di R2 (yapida-data; berkas unggahan di yapida-media; cadangan di
+# yapida-backups) — tidak pernah D1. KV hanya untuk penghitung batas laju.
+#
+# - Bucket R2 dan namespace KV dibuat sendiri bila belum ada.
+# - yapida.sch.id (+ www) dipasang sebagai custom domain hanya bila zonanya sudah aktif di akun Cloudflare ini (pemilik,
+#   14 Nov 2026: „blm sy input di CF“). Sebelum itu situs online di https://yapida-sch-id.<subdomain>.workers.dev (noindex).
+#   Begitu domain terpasang, CANONICAL_HOST=yapida.sch.id dan workers.dev/www dialihkan 301 ke yapida.sch.id.
+# - SESSION_SECRET dibuat acak SEKALI bila belum ada dan tidak pernah diganti oleh deploy berikutnya.
+# - Jadwal harian ikut menjalankan deploy agar yapida.sch.id langsung terpasang begitu zonanya aktif.
+# - AdSense: akun utama + tumpukan dari adsense-stack.json; uji asap menolak deploy yang ads.txt, tag meta, atau loadernya
+#   berbeda dari file itu.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'yapida/**'
+      - 'adsense-stack.json'
+      - '.github/workflows/deploy-yapida.yml'
+  schedule:
+    - cron: '41 4 * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-yapida
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  DOMAIN: yapida.sch.id
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: yapida
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Verify Cloudflare secrets are present
+        run: |
+          set -eu
+          missing=""
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name:-}" ]; then missing="$missing $name"; fi
+          done
+          if [ -n "$missing" ]; then echo "::error::Secret GitHub yang belum diisi:$missing"; exit 1; fi
+
+      # npm, bukan pnpm: proyek ini di luar pnpm workspace ulyah.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check & unit tests
+        run: |
+          npm run typecheck
+          npm test
+
+      - name: Self-provision R2 buckets & KV if missing
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          JSON="Content-Type: application/json"
+          show_err() { echo "$1" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' 2>/dev/null || true; }
+          for b in yapida-data yapida-media yapida-backups; do
+            have=$(curl -s -H "$AUTH" "$CF/r2/buckets/$b" | jq -r '.success' 2>/dev/null || echo false)
+            if [ "$have" = "true" ]; then echo "R2 $b: ada"; continue; fi
+            resp=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d "{\"name\":\"$b\"}" "$CF/r2/buckets")
+            if [ "$(echo "$resp" | jq -r '.success')" = "true" ]; then echo "R2 $b: dibuat"; else
+              show_err "$resp"; echo "::error::Tidak bisa membuat bucket R2 $b (token perlu 'Account > Workers R2 Storage : Edit')"; exit 1; fi
+          done
+          KV_RESP=$(curl -s -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100")
+          KV_ID=$(echo "$KV_RESP" | jq -r '.result[]? | select(.title=="yapida-rl") | .id' | head -n1)
+          if [ -z "$KV_ID" ]; then
+            KV_CREATE=$(curl -s -X POST -H "$AUTH" -H "$JSON" -d '{"title":"yapida-rl"}' "$CF/storage/kv/namespaces")
+            KV_ID=$(echo "$KV_CREATE" | jq -r '.result.id // empty')
+            [ -z "$KV_ID" ] && { show_err "$KV_CREATE"; echo "::error::Tidak bisa membuat KV yapida-rl"; exit 1; }
+          fi
+          echo "KV id: $KV_ID"
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" wrangler.jsonc
+
+      - name: Attach yapida.sch.id when its zone is active
+        run: |
+          set -eu
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          ZONE_RESP=$(curl -s -H "$AUTH" "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}&account.id=${CLOUDFLARE_ACCOUNT_ID}")
+          ZONE_ID=$(echo "$ZONE_RESP" | jq -r '.result[0]?.id // empty')
+          ZONE_STATUS=$(echo "$ZONE_RESP" | jq -r '.result[0]?.status // empty')
+          echo "ZONE_STATUS=${ZONE_STATUS:-belum ada}" >> "$GITHUB_ENV"
+          if [ -z "$ZONE_ID" ]; then
+            echo "::warning::Zona ${DOMAIN} belum ada di akun Cloudflare ini. Tambahkan domainnya (Websites > Add a site) lalu arahkan nameserver; sementara situs tetap online di workers.dev."
+            exit 0
+          fi
+          if [ "$ZONE_STATUS" != "active" ]; then
+            echo "::warning::Zona ${DOMAIN} berstatus '${ZONE_STATUS}', belum 'active'. Selesaikan pemindahan nameserver; deploy harian akan memasangnya otomatis."
+            exit 0
+          fi
+          printf '%s\n' '"routes": [{ "pattern": "'"${DOMAIN}"'", "custom_domain": true }, { "pattern": "www.'"${DOMAIN}"'", "custom_domain": true }],' > /tmp/routes.txt
+          sed -i "/__CUSTOM_DOMAIN_ROUTES__/r /tmp/routes.txt" wrangler.jsonc
+          sed -i "/__CUSTOM_DOMAIN_ROUTES__/d" wrangler.jsonc
+          sed -i "s/\"CANONICAL_HOST\": \"\"/\"CANONICAL_HOST\": \"${DOMAIN}\"/" wrangler.jsonc
+          echo "PUBLIC_URL=https://${DOMAIN}" >> "$GITHUB_ENV"
+          echo "Zona ${DOMAIN} aktif — dipasang sebagai custom domain + alamat kanonik."
+
+      - name: Deploy Worker
+        run: npx wrangler deploy | tee deploy.log
+
+      - name: Create SESSION_SECRET once (never rotated by deploys)
+        run: |
+          set -eu
+          have=$(npx wrangler secret list --format json 2>/dev/null | jq -r '.[].name' || true)
+          for name in SESSION_SECRET; do
+            if echo "$have" | grep -qx "$name"; then echo "$name: sudah ada (tidak diubah)"; continue; fi
+            openssl rand -base64 48 | tr -d '\n' | npx wrangler secret put "$name" >/dev/null
+            echo "$name: dibuat"
+          done
+
+      - name: Smoke test
+        run: |
+          set -eu
+          WORKERS_URL="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1 || true)"
+          URL="${PUBLIC_URL:-$WORKERS_URL}"
+          [ -n "$URL" ] || { echo "::error::URL tidak ditemukan di log deploy"; exit 1; }
+          for i in $(seq 1 20); do curl -sf "$URL/api/health" >/dev/null && break; sleep 3; done
+          curl -sf "$URL/api/health"; echo
+          ads=$(curl -sf "$URL/ads.txt")
+          # Akun utama yapida.sch.id + tumpukan (adsense-stack.json): satu baris ads.txt dan satu tag meta per akun, satu loader.
+          STACK="$GITHUB_WORKSPACE/adsense-stack.json"
+          PRIMARY=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).primary["yapida.sch.id"])' "$STACK")
+          want=$(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const a=[...new Set([s.primary["yapida.sch.id"],...s.stack])];process.stdout.write(a.map(c=>"google.com, "+c.replace(/^ca-/,"")+", DIRECT, f08c47fec0942fa0").join("\n"))' "$STACK")
+          [ "$ads" = "$want" ] || { echo "::error::ads.txt salah (harus $(echo "$want" | wc -l) baris dari adsense-stack.json)"; exit 1; }
+          echo "ads.txt: $(echo "$ads" | wc -l) baris ✅"
+          # Tidak memakai User-Agent crawler Google: Cloudflare memblokir crawler palsu dari IP non-Google.
+          home=$(curl -sfL "$URL/")
+          n=0
+          for c in $(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));console.log([...new Set([s.primary["yapida.sch.id"],...s.stack])].join(" "))' "$STACK"); do
+            echo "$home" | grep -q "name=\"google-adsense-account\" content=\"$c\"" || { echo "::error::tag meta AdSense $c hilang"; exit 1; }
+            n=$((n + 1))
+          done
+          [ "$(echo "$home" | grep -o 'adsbygoogle.js?client=' | wc -l)" = "1" ] || { echo "::error::harus tepat satu loader AdSense"; exit 1; }
+          echo "$home" | grep -q "adsbygoogle.js?client=${PRIMARY}" || { echo "::error::loader AdSense ${PRIMARY} hilang"; exit 1; }
+          echo "$home" | grep -q '<html lang="id"' || { echo "::error::beranda tidak tampil"; exit 1; }
+          # Dibaca seperti Google: robots.txt terkelola Cloudflare boleh menutup bot AI lain, tidak satu pun crawler Google.
+          node scripts/robots-check.mjs "$URL/robots.txt" || { echo "::error::robots.txt menutup crawler Google"; exit 1; }
+          curl -sf "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
+          curl -sf "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
+          for p in /profil /lembaga /lembaga/mi-al-huda /lembaga/masjid-jami-al-huda /kontak /h/kebijakan-privasi /sw.js /assets/app.css /assets/logo-512.webp; do
+            curl -sf -o /dev/null "$URL$p" || { echo "::error::$p gagal"; exit 1; }
+          done
+          {
+            echo "## yapida.sch.id online"
+            echo ""
+            echo "- Situs: $URL"
+            [ -n "$WORKERS_URL" ] && [ "$WORKERS_URL" != "$URL" ] && echo "- Alamat cadangan: $WORKERS_URL"
+            echo "- Zona ${DOMAIN}: ${ZONE_STATUS}"
+            echo "- AdSense: loader ${PRIMARY} + ${n} tag meta dan ${n} baris ads.txt dari adsense-stack.json ✅"
+          } >> "$GITHUB_STEP_SUMMARY"
