@@ -40,9 +40,10 @@ function langOf(text: string): { lang: string | null; body: string } {
   return { lang: arab(text) ? 'ar' : null, body: text };
 }
 
-function open(tag: string, lang: string | null, cls = ''): string {
+/** Tag pembuka dengan kelas, bahasa, arah tulis, dan atribut tambahan yang sudah aman (mis. id judul). */
+function open(tag: string, lang: string | null, cls = '', attr = ''): string {
   const c = lang === 'ar' ? `arab${cls ? ` ${cls}` : ''}` : cls;
-  return `<${tag}${c ? ` class="${c}"` : ''}${lang ? ` lang="${lang}"` : ''}${lang === 'ar' ? ' dir="rtl"' : ''}>`;
+  return `<${tag}${c ? ` class="${c}"` : ''}${lang ? ` lang="${lang}"` : ''}${lang === 'ar' ? ' dir="rtl"' : ''}${attr}>`;
 }
 
 function imageLine(line: string): string | null {
@@ -70,7 +71,7 @@ export function renderMarkdown(src: string): string {
       let id = slugify(body, 50) || 'bagian';
       while (used.has(id)) id += '-2';
       used.add(id);
-      out.push(`${open(`h${level}`, lang).replace('>', ` id="${id}">`)}${inline(body, lang !== 'ar')}</h${level}>`);
+      out.push(`${open(`h${level}`, lang, '', ` id="${id}"`)}${inline(body, lang !== 'ar')}</h${level}>`);
       i += 1; continue;
     }
     if (/^(-{3,}|\*{3,})$/.test(line.trim())) { out.push('<hr>'); i += 1; continue; }
