@@ -1,0 +1,23 @@
+{
+  "name": "yapida-sch-id",
+  "version": "1.0.0",
+  "private": true,
+  "description": "yapida.sch.id — situs Yayasan Al-Huda Yapida (Sukakarya, Bekasi): profil lembaga, kabar, galeri, video & siaran langsung, perpustakaan digital bersuara, bank soal, karya tulis dan portal berjenjang. Cloudflare Workers, data hanya di R2.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node --import tsx --test test/*.test.ts",
+    "e2e": "bash test/run-e2e.sh"
+  },
+  "dependencies": {
+    "hono": "4.13.16"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261102.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "wrangler": "4.156.1"
+  }
+}

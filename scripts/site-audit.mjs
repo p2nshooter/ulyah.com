@@ -157,14 +157,27 @@ function robotsBlocks(body) {
 }
 
 const browser = await chromium.launch();
+// A domain whose zone is not on Cloudflare yet is audited on its workers.dev address until the domain itself answers
+// (owner, 14 Nov 2026, yapida.sch.id: "blm sy input di CF"). The verdict says which host was read.
+const ALIAS = { "yapida.sch.id": "yapida-sch-id.axto.workers.dev" };
+async function hostFor(domain) {
+  if (!ALIAS[domain]) return domain;
+  try {
+    const r = await fetch(`https://${domain}/api/health`, { signal: AbortSignal.timeout(8000) });
+    if (r.ok) return domain;
+  } catch { /* not connected yet */ }
+  return ALIAS[domain];
+}
+
 for (const domain of domains) {
-  const out = { domain };
+  const host = await hostFor(domain);
+  const out = host === domain ? { domain } : { domain, auditedHost: host };
   const ctx = await browser.newContext({ userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36" });
   const page = await ctx.newPage();
   const adsterraHits = new Set();
   page.on("request", (r) => { if (ADSTERRA.test(r.url())) adsterraHits.add(new URL(r.url()).host); });
   try {
-    const res = await page.goto(`https://${domain}/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    const res = await page.goto(`https://${host}/`, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForTimeout(3500);
     out.status = res?.status();
     out.finalUrl = page.url();
@@ -188,7 +201,7 @@ for (const domain of domains) {
   // example next/script afterInteractive) passes the checks above but fails
   // verification, so the raw HTML is checked on its own.
   try {
-    const r = await ctx.request.get(`https://${domain}/`, { timeout: 20000 });
+    const r = await ctx.request.get(`https://${host}/`, { timeout: 20000 });
     const raw = await r.text();
     out.rawMeta = (raw.match(/<meta[^>]+name="google-adsense-account"[^>]*>/) || [null])[0];
     out.rawMetas = [...raw.matchAll(/<meta[^>]+name="google-adsense-account"[^>]*content="(ca-pub-\d+)"/g)].map((m) => m[1]);
@@ -201,7 +214,7 @@ for (const domain of domains) {
   }
   for (const path of ["/ads.txt", "/robots.txt", "/sitemap.xml"]) {
     try {
-      const r = await ctx.request.get(`https://${domain}${path}`, { timeout: 20000 });
+      const r = await ctx.request.get(`https://${host}${path}`, { timeout: 20000 });
       const body = await r.text();
       if (path === "/ads.txt") out.adsTxtLines = body.split("\n").map((l) => l.trim());
       if (path === "/robots.txt" && r.status() === 200) out.robotsBlocks = robotsBlocks(body);
@@ -228,6 +241,7 @@ for (const domain of domains) {
     if (out.manualUnits) wrong.push(`${out.manualUnits} manual ad unit(s) — Auto ads only`);
     if ((out.robotsBlocks || []).length) wrong.push(`robots.txt blocks ${out.robotsBlocks.join(", ")} from the whole site`);
     out.verdict = out.error ? `UNREACHABLE (${out.error.slice(0, 60)})` : wrong.length ? `WRONG: ${wrong.join(" · ")}` : `OK ca-pub-${pub} + ${all.length - 1} stacked`;
+    if (host !== domain) out.verdict += ` (read on ${host}; the zone is not on Cloudflare yet)`;
     verdicts.push(`${domain.padEnd(12)} ${out.verdict}`);
   }
   console.log(`\n===== ${domain}`);
