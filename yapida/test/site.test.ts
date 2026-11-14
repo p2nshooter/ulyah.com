@@ -30,7 +30,7 @@ test('AdSense: akun utama dan tumpukan persis adsense-stack.json', () => {
 
 test('setiap halaman publik: satu tag meta per akun, tepat satu loader (akun utama), tanpa unit manual', async () => {
   const e = env();
-  for (const p of ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/donasi', '/kontak', '/h/kebijakan-privasi', '/h/syarat-penggunaan']) {
+  for (const p of ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/donasi', '/kontak', '/h/kebijakan-privasi', '/h/syarat-penggunaan', '/ibadah', '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran']) {
     const r = await get(e, p);
     assert.equal(r.status, 200, p);
     const h = await r.text();
@@ -159,4 +159,23 @@ test('alat teks dan metadata indeks', () => {
   const m = metaStr({ nama: 'Masjid Jami’ الهدى' });
   assert.ok(/^[\x20-\x7e]+$/.test(m));
   assert.equal(JSON.parse(m).nama, 'Masjid Jami’ الهدى');
+});
+
+test('aplikasi ibadah: titik lokasi dari pengaturan situs, aset hitung dimuat, data surah 114 dengan 6236 ayat', async () => {
+  const e = env();
+  const store = new Store(e.DATA as never);
+  let h = await (await get(e, '/jadwal-sholat')).text();
+  assert.ok(h.includes('data-lat="-6.13"') && h.includes('data-lng="107.17"') && h.includes('Sukakarya, Kabupaten Bekasi'));
+  assert.ok(h.includes('/assets/vendor/adhan.min.js') && h.includes('/assets/ibadah.js') && h.includes('/assets/ibadah.css'));
+  await putSitus(store, (s) => ({ ...s, lokasi: { lat: -6.2, lng: 107.05, nama: 'Titik uji' } }));
+  h = await (await get(e, '/kiblat')).text();
+  assert.ok(h.includes('data-lat="-6.2"') && h.includes('Titik uji'));
+  assert.ok((await (await get(e, '/')).text()).includes('data-ramadhan'), 'beranda memuat hitung mundur Ramadhan');
+  assert.equal((await get(e, '/')).headers.get('permissions-policy'), 'camera=(), microphone=(), geolocation=(self)');
+  const surat = JSON.parse(fs.readFileSync(new URL('../public/assets/data/surat.json', import.meta.url), 'utf8')) as { n: number; ayat: number; latin: string; ar: string }[];
+  assert.equal(surat.length, 114);
+  assert.equal(surat.reduce((a, b) => a + b.ayat, 0), 6236);
+  assert.deepEqual([surat[0]!.latin, surat[0]!.ayat, surat[113]!.n, surat[113]!.ayat], ['Al-Fatihah', 7, 114, 6]);
+  const radio = await (await get(e, '/radio-quran')).text();
+  for (const q of ['ar.alafasy', 'ar.abdulbasitmurattal', 'ar.abdullahbasfar']) assert.ok(radio.includes(`value="${q}"`), q);
 });

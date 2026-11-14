@@ -42,6 +42,10 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
    yg ngelink ke masing2 lembaga... Foto2 profile ketua yayasan dan seluruh jajaranya termasuk kepala kepala dan guru2 di
    input manual, juga profile pendiri yayasan Al-Huda yapida...“
 
+7. „Masukin beberapa app kaya radio quran, arah kiblat, jadwal sholat, kalender, hitung mundur puasa, tp kembangin lg biar
+   lebih interaktif, ambil dr ulyah.com + alquran Utsmani dengan tafsirnya... Bikin semua lebih bagus lebih interaktif,
+   lebih super premium“ · „Perpustakaanya bikin seperti wordwall“
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di
@@ -128,6 +132,31 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
 - **Bank soal per lembaga**: paket soal per kelas dan mapel (pilihan ganda, isian), dikerjakan di situs dengan nilai,
   pembahasan, dan penghargaan; dibuat guru di portal.
 
+## 5a. Aplikasi ibadah (perintah 7)
+
+Diambil dari cara ulyah.com menghitungnya, lalu dibuat lebih interaktif. Semua hitungan di perangkat pembaca; server hanya
+mengirim kerangka halaman dan titik lokasi bawaan (pengaturan situs `lokasi`, bawaan Sukakarya).
+
+| Aplikasi | Alamat | Isi |
+|---|---|---|
+| Pusat aplikasi | `/ibadah` | kartu dengan nilai langsung (sholat berikutnya, sudut kiblat, tanggal hijriah, hari menuju Ramadhan) |
+| Jadwal Sholat | `/jadwal-sholat` | pustaka `adhan` (MIT, sama dengan ulyah.com): Subuh 20°, Isya 18°, Ashar Syafi'i, ihtiyat 2 menit; cincin hitung mundur ke adzan, busur matahari yang bergerak dan langit yang berganti fase, jadwal 30 hari yang bisa dicetak, lokasi perangkat atas izin pembaca |
+| Arah Kiblat | `/kiblat` | sudut lingkaran besar ke Ka'bah + jarak; kompas mengikuti sensor HP, bergetar dan menyala saat tepat menghadap kiblat |
+| Kalender Hijriah | `/kalender-hijriah` | Umm al-Qura bawaan peramban; hari besar, puasa sunnah (Senin-Kamis, Ayyamul Bidh, Tasu'a, Asyura, Arafah), daftar hari besar terdekat |
+| Hitung mundur Ramadhan | beranda, `/ibadah`, `/kalender-hijriah#ramadhan` | hari-jam-menit-detik menuju 1 Ramadhan; saat Ramadhan berganti menjadi hitung mundur Idul Fitri |
+| Radio Qur'an | `/radio-quran` | 114 surah utuh dari CDN islamic.network (tiga qari yang terukur punya berkas per surah: Al-Afasy, Abdul Basit, Basfar), lanjut otomatis, acak, pengatur tidur, kendali layar kunci, posisi tersimpan |
+| Tasbih | tombol di setiap halaman | 33/100 dengan getar, urutan wirid tasbih → tahmid → takbir |
+| Al-Qur'an Utsmani + tafsir | `/quran` | ⏳ fase berikut: teks rasm Utsmani, terjemah dan tafsir Kemenag, murottal per ayat dengan sorot dan lanjut otomatis, mode hafalan |
+
+Jadwal dan kalender adalah hisab; halaman menyatakan bahwa penetapan resmi mengikuti Kementerian Agama dan masjid setempat.
+
+## 5b. Perpustakaan ala Wordwall (perintah 7)
+
+Setiap bahan ajar bisa dimainkan dalam beberapa bentuk dari satu isi yang sama (guru mengisi sekali, murid memilih
+permainannya): kuis pilihan ganda, menjodohkan, kartu hafalan berbalik, benar-salah, susun huruf (anagram), cari kata,
+roda putar, kelompokkan, isian rumpang, buka kotak. Ada pengatur waktu, nilai, bintang, papan peringkat per paket, dan
+suara pembaca sesuai bahasa. Guru membuatnya di portal; paket contoh diberi tanda „contoh“.
+
 ## 6. Desain „Mihrab Zamrud“
 
 Zamrud tua, emas, gading, merah lambang. Pola bintang delapan (khatam), lengkung mihrab, lentera, bulan sabit. Huruf:
@@ -152,10 +181,13 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 | Fase | Isi | Status |
 |---|---|---|
 | Y0 | AdSense tumpuk + akun ke-22, TXT Search Console | ✅ 14 Nov (PR #427) |
-| Y1 | Kerangka: R2 store, isi awal dari dokumen, beranda, profil, 15 halaman lembaga, donasi, kontak, PWA, desain, deploy | 🔄 14 Nov |
-| Y2 | Portal: masuk, 6 peran, pengaturan situs, profil lembaga, SDM + foto, unggah media | ⏳ |
+| Y1 | Kerangka: R2 store, isi awal dari dokumen, beranda, profil, 15 halaman lembaga, donasi, kontak, PWA, desain, deploy | ✅ 14 Nov (PR #428) — https://yapida-sch-id.axto.workers.dev |
+| Y1b | Aplikasi ibadah: jadwal sholat, kiblat, kalender hijriah, hitung mundur Ramadhan, radio Qur'an (§5a) | 🔄 15 Nov |
+| Y2 | Portal: masuk, 6 peran, pengaturan situs, profil lembaga, SDM + foto, unggah media | 🔄 |
 | Y3 | Kabar, galeri, agenda, video + siaran langsung, dokumen, karya tulis, pesan | ⏳ |
 | Y4 | PPDB per lembaga per tahun ajaran | ⏳ |
 | Y5 | Perpustakaan: rak, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar | ⏳ |
 | Y6 | Bank soal dan buku pelajaran interaktif | ⏳ |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
+| Y8 | Al-Qur'an Utsmani + terjemah + tafsir + murottal per ayat | ⏳ |
+| Y9 | Permainan ala Wordwall untuk setiap bahan ajar (§5b) | ⏳ |

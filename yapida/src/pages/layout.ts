@@ -5,7 +5,7 @@ import { KELOMPOK, URUTAN_KELOMPOK, type Situs } from '../data/model.ts';
 import type { UnitItem } from '../data/site.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '1';
+export const ASSET_V = '2';
 
 /** Tombol Portal di kepala situs — dinyalakan bersama rute /portal (fase portal). */
 export const PORTAL_AKTIF = false;
@@ -55,6 +55,9 @@ export interface PageOpts {
   ogType?: string;
   /** Kelas tambahan di <body>. */
   kelas?: string;
+  /** Berkas CSS/JS tambahan untuk halaman ini (jalur di /assets). */
+  css?: string[];
+  js?: string[];
 }
 
 export const alamatLengkap = (s: Situs) => `${s.alamat.jalan}, Desa ${s.alamat.desa}, Kecamatan ${s.alamat.kecamatan}, ${s.alamat.kabupaten}, ${s.alamat.provinsi} ${s.alamat.kodepos}`;
@@ -93,6 +96,7 @@ export const MENU: { id: string; label: string; href: string }[] = [
   { id: 'beranda', label: 'Beranda', href: '/' },
   { id: 'profil', label: 'Profil', href: '/profil' },
   { id: 'lembaga', label: 'Lembaga', href: '/lembaga' },
+  { id: 'ibadah', label: 'Ibadah', href: '/ibadah' },
   { id: 'kontak', label: 'Kontak', href: '/kontak' },
 ];
 
@@ -135,6 +139,7 @@ ${ADSENSE_METAS}
 <link rel="preload" href="/assets/fonts/jakarta.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/app.css?v=${v}">
+${(o.css ?? []).map((f) => `<link rel="stylesheet" href="/assets/${f}?v=${v}">`).join('\n')}
 <script src="/assets/tema.js?v=${v}"></script>
 ${o.noAds ? '' : ADSENSE_LOADER}
 ${[orgJsonLd(o.origin, s), ...(o.jsonLd ?? [])].map((x) => ld(x).s).join('\n')}
@@ -197,6 +202,7 @@ ${o.body.s}
     <div class="tasbih-aksi"><button class="tbl tbl-garis tbl-kecil" type="button" data-tasbih-ulang>Ulangi</button><span data-tasbih-putaran>Putaran 0</span></div>
   </div>
 </div>
+${(o.js ?? []).map((f) => `<script src="/assets/${f}?v=${v}" defer></script>`).join('\n')}
 <script src="/assets/app.js?v=${v}" defer></script>
 </body>
 </html>`;

@@ -24,7 +24,7 @@ async function buka(vp, opts = {}) {
   return { ctx, page };
 }
 const lebar = (page) => page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-const HALAMAN = ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/lembaga/upz-al-huda', '/donasi', '/kontak', '/h/kebijakan-privasi'];
+const HALAMAN = ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/lembaga/upz-al-huda', '/donasi', '/kontak', '/h/kebijakan-privasi', '/ibadah', '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran'];
 
 /* ── desktop ── */
 {
@@ -91,6 +91,62 @@ const HALAMAN = ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/lembaga/up
   ok((await page.locator('.pasang').count()) === 0, 'spanduk hilang setelah aplikasi terpasang');
   await kirim('beforeinstallprompt');
   ok(await page.locator('.pasang').isVisible(), 'spanduk muncul lagi setelah aplikasi dihapus (ditawarkan ulang)');
+  await ctx.close();
+}
+
+/* ── aplikasi ibadah (jam perangkat diset ke WIB, tanggal tetap supaya hasil hitung bisa diperiksa) ── */
+{
+  const { ctx, page } = await buka({ width: 1366, height: 900 }, { timezoneId: 'Asia/Jakarta' });
+  await page.clock.install({ time: new Date('2026-11-16T03:00:00Z') });   // Senin 16 Nov 2026, 10.00 WIB
+  await page.goto(BASE + '/jadwal-sholat', { waitUntil: 'load' });
+  await page.waitForFunction(() => document.querySelectorAll('[data-sholat-daftar] li').length === 7);
+  const jam = await page.locator('[data-sholat-daftar] li strong').allInnerTexts();
+  const menit = (t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
+  // Sukakarya, pertengahan November: Subuh ±04.04, Dzuhur ±11.39, Ashar ±15.00, Maghrib ±17.50, Isya ±19.04 (kriteria Kemenag).
+  const dekat = (i, hhmm, tol = 6) => Math.abs(menit(jam[i]) - menit(hhmm)) <= tol;
+  ok(jam.length === 7 && dekat(1, '04.04') && dekat(3, '11.39') && dekat(4, '15.00') && dekat(5, '17.50') && dekat(6, '19.04'), 'jadwal sholat Sukakarya masuk akal untuk 16 Nov', jam.join(' '));
+  ok(menit(jam[1]) - menit(jam[0]) === 10, 'Imsak 10 menit sebelum Subuh', jam.slice(0, 2).join(' '));
+  ok((await page.locator('[data-sholat-nama]').innerText()) === 'Dzuhur', 'pukul 10.00: sholat berikutnya Dzuhur', await page.locator('[data-sholat-nama]').innerText());
+  ok(/1 jam [34]\d menit lagi/.test(await page.locator('[data-sholat-sisa]').innerText()), 'hitung mundur ke adzan berjalan', await page.locator('[data-sholat-sisa]').innerText());
+  ok((await page.locator('[data-sholat-tabel] tbody tr').count()) === 30, 'tabel 30 hari terisi');
+  ok((await page.getAttribute('[data-langit-hari]', 'data-fase')) === 'siang', 'langit: fase siang pada pukul 10.00');
+  await page.screenshot({ path: `${OUT}/jadwal-sholat.png` });
+
+  await page.goto(BASE + '/kiblat', { waitUntil: 'load' });
+  const derajat = Number((await page.locator('[data-kiblat-derajat]').innerText()).replace('°', '').replace(',', '.'));
+  ok(Math.abs(derajat - 295.1) < 0.6, 'kiblat dari Sukakarya ±295°', derajat);
+  ok(/7\.9\d\d km/.test(await page.locator('[data-kiblat-jarak]').innerText()), 'jarak ke Ka’bah ±7.9xx km', await page.locator('[data-kiblat-jarak]').innerText());
+  await page.screenshot({ path: `${OUT}/kiblat.png` });
+
+  await page.goto(BASE + '/kalender-hijriah', { waitUntil: 'load' });
+  ok((await page.locator('[data-kal-judul]').innerText()) === 'Jumadil Akhir 1448 H', 'kalender: 16 Nov 2026 jatuh di Jumadil Akhir 1448 H', await page.locator('[data-kal-judul]').innerText());
+  const sel = await page.locator('.kal-sel[data-ket]').count();
+  ok(sel === 29 || sel === 30, 'bulan hijriah 29 atau 30 hari', sel);
+  ok((await page.locator('.kal-kini b').innerText()) === '6' && (await page.locator('[data-kal-detail]').innerText()).includes('Puasa sunnah Senin'), 'hari ini 6 Jumadil Akhir, Senin = puasa sunnah', await page.locator('[data-kal-detail]').innerText());
+  await page.click('[data-kal-maju]');
+  ok((await page.locator('[data-kal-judul]').innerText()) === 'Rajab 1448 H', 'bulan berikutnya: Rajab');
+  ok(await page.locator('.kal-besar em', { hasText: 'Isra Mi’raj' }).count() === 1, 'Isra Mi’raj ditandai pada 27 Rajab');
+  await page.click('[data-kal-mundur]'); await page.click('[data-kal-mundur]');
+  ok((await page.locator('[data-kal-judul]').innerText()) === 'Jumadil Awal 1448 H', 'mundur dua kali: Jumadil Awal');
+  const hari = Number(await page.locator('[data-ramadhan-hari]').first().innerText());
+  ok(hari >= 80 && hari <= 86, 'hitung mundur Ramadhan 1448 H ±84 hari dari 16 Nov 2026', hari);
+  ok((await page.locator('[data-kal-besar] li').count()) === 6, 'enam hari besar terdekat tercantum');
+  await page.screenshot({ path: `${OUT}/kalender.png` });
+
+  await page.goto(BASE + '/radio-quran', { waitUntil: 'load' });
+  await page.waitForFunction(() => document.querySelectorAll('[data-radio-daftar] li').length === 114);
+  await page.fill('[data-radio-cari]', 'kahf');
+  ok((await page.locator('[data-radio-daftar] li:visible').count()) === 1, 'cari surah "kahf" → satu hasil');
+  await page.route(/cdn\.islamic\.network/, (r) => r.abort());
+  const permintaan = page.waitForRequest(/cdn\.islamic\.network\/quran\/audio-surah\/128\/ar\.alafasy\/18\.mp3/);
+  await page.locator('[data-radio-daftar] li:visible').click();
+  await permintaan;
+  ok((await page.locator('[data-radio-judul]').innerText()) === '18. Al-Kahf', 'memilih surah memuat murottalnya dari CDN qari', await page.locator('[data-radio-judul]').innerText());
+  await page.screenshot({ path: `${OUT}/radio.png` });
+
+  await page.goto(BASE + '/ibadah', { waitUntil: 'load' });
+  await page.waitForFunction(() => (document.querySelector('[data-hidup="sholat"]')?.textContent ?? '') !== '');
+  ok((await page.locator('[data-hidup="sholat"]').innerText()).startsWith('Dzuhur') && (await page.locator('[data-hidup="kiblat"]').innerText()).includes('295') && (await page.locator('[data-hidup="hijri"]').innerText()) === '6 Jumadil Akhir 1448 H', 'pusat aplikasi menampilkan nilai langsung', await page.locator('[data-hidup="sholat"]').innerText());
   await ctx.close();
 }
 
