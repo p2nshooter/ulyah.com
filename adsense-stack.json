@@ -6,9 +6,10 @@
     "keep: the owner's list of domains whose existing code stays ('kode adsense yg sudah ada biarkan saja, jgn di hapus, tambahin dengan kode adsense baru'); their primary is that existing code. Every other domain's old code is removed ('Domain yg lain kode adsensenya boleh di hapus ikuti dengan perintah terbaru') and its primary is one of the 16 stacked accounts.",
     "Copies: apps/web/src/lib/ad-config.ts and detektor-artikel/src/pages/ui.ts hold the same values (scripts/check-ads.ts compares them with this file); the partner repositories (axto.us, axtodev, guardian-ai, xaa, Jai, Lie, oldco.in, profity.in) carry their own copy; scripts/site-audit.mjs checks every live domain against this file.",
     "8 Nov 2026 (owner): 'skrg tambahin 1 kode adsense lg ke semuanya situsnya, jgn lupa bikin tag meta dan cuplikanya google.com, pub-8212039662308316, DIRECT, f08c47fec0942fa0' — added as the 17th stacked account; and 'Termasuk tambahan situs zufiq.de td yg belum ke input' — zufiq.de joins the stack and keeps its own code (ca-pub-9338499658056112) as the only loader. Publisher ids are public by nature (every ads.txt shows them). dawa.es is not the owner's and is never listed.",
-    "8 Nov 2026 (owner, after the 17th): 'Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan' — pub-4504974645924459, pub-6284085719914185, pub-7345352440829958 and pub-5254913739159445 join as stacked accounts 18–21 (own meta tag + ads.txt line everywhere, loader unchanged). Also: 1ft.fr in the owner's AdSense account is not the owner's domain (typo of 1fr.fr); it is removed in AdSense by the owner and never appears in this repository."
+    "8 Nov 2026 (owner, after the 17th): 'Masukin kode adsense ini juga di semua situs seperti yg sudah d kerjakan' — pub-4504974645924459, pub-6284085719914185, pub-7345352440829958 and pub-5254913739159445 join as stacked accounts 18–21 (own meta tag + ads.txt line everywhere, loader unchanged). Also: 1ft.fr in the owner's AdSense account is not the owner's domain (typo of 1fr.fr); it is removed in AdSense by the owner and never appears in this repository.",
+    "14 Nov 2026 (owner): 'Masukin kode adsense ini juga di semua website google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0' — ca-pub-6701063918838796 joins as stacked account 22 (own meta tag + ads.txt line on every domain, loader unchanged). Same day: yapida.sch.id (Yayasan Al-Huda Yapida, folder yapida/, Worker yapida-sch-id) joins the list — owner: 'kode adsense make yg tumpuk yg sudah ada'; its primary is the first stacked account that is no other domain's primary (ca-pub-8212039662308316, the 17th), and the owner can move it by changing that one line."
   ],
-  "since": "2026-11-08",
+  "since": "2026-11-14",
   "stack": [
     "ca-pub-9915280882234592",
     "ca-pub-9354298681597606",
@@ -30,7 +31,8 @@
     "ca-pub-4504974645924459",
     "ca-pub-6284085719914185",
     "ca-pub-7345352440829958",
-    "ca-pub-5254913739159445"
+    "ca-pub-5254913739159445",
+    "ca-pub-6701063918838796"
   ],
   "keep": [
     "axto.us",
@@ -88,6 +90,7 @@
     "axto.us": "ca-pub-2990015102981265",
     "odaily.xyz": "ca-pub-9221781326457936",
     "xdaily.xyz": "ca-pub-5693981744147503",
-    "zufiq.de": "ca-pub-9338499658056112"
+    "zufiq.de": "ca-pub-9338499658056112",
+    "yapida.sch.id": "ca-pub-8212039662308316"
   }
 }
