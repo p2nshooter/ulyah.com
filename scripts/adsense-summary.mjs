@@ -22,6 +22,7 @@ const REPO = {
   "axto.us": "axto.us · sites/axto.us (engine)",
   "ascan.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat",
   "jenius.es": "ulyah.com · jenius/src/lib/adsense.ts (Worker jenius-es; ads.txt dari kode)",
+  "yapida.sch.id": "ulyah.com · yapida/src/lib/adsense.ts (Worker yapida-sch-id; membaca adsense-stack.json langsung, ads.txt dari kode)",
 };
 const repoOf = (d) => REPO[d] || `ulyah.com · sites/${d} (engine)`;
 const pub = (c) => c.replace(/^ca-/, "");
@@ -49,7 +50,7 @@ L.push("                 tag kepala AdSense kedua di halaman yang sama („Only 
 L.push("                 supported per page“), jadi banyak loader hanya menambah error, bukan iklan.");
 L.push("   • Auto ads saja, tanpa slot manual. Sumber tunggal: adsense-stack.json di repo ulyah.com.");
 L.push("");
-L.push("-".repeat(69), ` A. ${S.stack.length} AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik; ke-17 ditambah 8 Nov 2026)`, "-".repeat(69), "");
+L.push("-".repeat(69), ` A. ${S.stack.length} AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik; ke-17 s.d. ke-21 ditambah 8 Nov, ke-22 ditambah 14 Nov 2026)`, "-".repeat(69), "");
 S.stack.forEach((c, i) => L.push(` ${String(i + 1).padStart(2)}. ${c}`));
 L.push("", ` Baris ads.txt ke-${S.stack.length} akun (sama di setiap domain):`);
 for (const c of S.stack) L.push(`   ${ads(c)}`);

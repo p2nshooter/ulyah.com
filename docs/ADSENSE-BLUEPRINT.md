@@ -663,6 +663,7 @@ di akun AdSense (di luar jangkauan Claude).
 | 7 Nov | „Selesaikan seluruh pekerjaan jgn sampai meninggalkan PR & Merge“ | aturan kerja: setiap PR di-merge setelah CI hijau |
 | 9 Nov | „Tolong translate seluruh website artikel yg berbahasa Jerman dan Spanyol, jgn make auto translate, jadi make 2 bahasa, dan sekaligus pakein voice biar di bacain setiap artikelnya sampai tuntas, auto pindah, auto scroll, suara mengikuti lagam bahasa masing2... Tolong setiap artikel kasih gambar animasi yg sesuai tema, jgn polosan begitu“ | 🔄 §29 — versi Inggris tulisan tangan untuk 22 situs DE/ES, suara sampai tuntas + pindah otomatis ke artikel berikutnya + aksen sesuai bahasa, gambar animasi bertema di setiap artikel |
 | 9 Nov | „Yg sudah selesai langsung selesain PR&Merge, biar langsung live, jgn nunggu semua selesai...“ · „Coba sekalian perbaikin, biar jgn sampe ketolak“ (tangkapan layar AdSense: xko.es **Perlu diperhatikan — Konten tanpa manfaat**; ascan.es dan jenius.es *Membutuhkan peninjauan*; velnixo.de dan ulyah.com *Sedang disiapkan*) · „Bukan cuma xko tpi perbaiki untuk dia web artikel“ · „Jelasin make bhs indonesia aja biar ketahuan sudah sampai mana project d kerjkan“ | 🔄 §30 — PR #425 di-merge; resep §22 (alat + sumber + tanggal revisi + klaim jujur) untuk 20 situs yang belum, satu situs per PR, langsung merge; laporan ke pemilik dalam bahasa Indonesia |
+| 14 Nov | „Masukin kode adsense ini juga di semua website google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0“ · (yapida.sch.id) „kode adsense make yg tumpuk yg sudah ada“ | Akun tumpukan ke-22 `ca-pub-6701063918838796` di **semua** domain (tag meta + baris ads.txt; loader tetap akun utama). yapida.sch.id masuk daftar dengan akun utama `ca-pub-8212039662308316`. §23.7 |
 
 ---
 
@@ -1807,6 +1808,25 @@ Kode hanya membuka pintu verifikasi; penilaian „low value“ (§22) ditentukan
   („Hapus situs“).
 - Cuplikan setiap akun baru: tag meta `<meta name="google-adsense-account" content="ca-pub-…">`, baris ads.txt
   `google.com, pub-…, DIRECT, f08c47fec0942fa0`; loader hanya dipakai bila akun itu dijadikan akun utama sebuah domain.
+
+### 23.7 Akun ke-22 dan yapida.sch.id (pemilik, 14 Nov 2026)
+
+„Masukin kode adsense ini juga di semua website google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0“
+
+- `ca-pub-6701063918838796` masuk `adsense-stack.json` sebagai akun tumpukan ke-22 → setiap domain: 22 akun (domain keep: 23),
+  satu tag meta dan satu baris ads.txt per akun, **tetap satu loader** (akun utama). Salinan di `apps/web/src/lib/ad-config.ts`,
+  `detektor-artikel/src/pages/ui.ts`, `jenius/src/lib/adsense.ts`, `sites/*/ADSENSE.txt` dan repo mitra (axto.us, axtodev,
+  guardian-ai, xaa, Jai, Lie, oldco.in, profity.in) ikut diperbarui pada hari yang sama.
+- Cuplikan akun ke-22: loader `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796" crossorigin="anonymous"></script>`
+  (hanya dipakai bila akun ini dijadikan akun utama sebuah domain), tag meta
+  `<meta name="google-adsense-account" content="ca-pub-6701063918838796">`, baris ads.txt
+  `google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0`.
+- **yapida.sch.id** (situs Yayasan Al-Huda Yapida, folder `yapida/`, Worker `yapida-sch-id`; pemilik: „kode adsense make yg
+  tumpuk yg sudah ada“) masuk daftar. Akun utamanya `ca-pub-8212039662308316` — akun tumpukan pertama yang belum menjadi akun
+  utama domain mana pun (aturan §23.1: berurutan menurut daftar pemilik). Pemilik bisa memindahkannya dengan mengubah satu
+  baris di `adsense-stack.json`; kode situs membaca file itu langsung saat build (`yapida/src/lib/adsense.ts`), tanpa salinan.
+  TXT Search Console domain ini ada di `.github/dns/google-site-verification.json` dan dipasang otomatis begitu zonanya ada di
+  Cloudflare. Selama zona belum aktif, `site-audit.yml` memeriksa alamat workers.dev-nya.
 
 ### 23.4 Verifikasi Sedo: jenius.es, xscan.es, ascan.es
 

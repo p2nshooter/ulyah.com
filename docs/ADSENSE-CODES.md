@@ -31,6 +31,13 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 > - **8 Nov 2026 (lanjutan):** akun ke-18 s.d. ke-21 — pub-4504974645924459, pub-6284085719914185, pub-7345352440829958,
 >   pub-5254913739159445 — di semua domain (tag meta + baris ads.txt, loader tidak berubah). 1ft.fr bukan domain pemilik
 >   (dihapus pemilik di AdSense). `docs/ADSENSE-BLUEPRINT.md` §23.6.
+> - **14 Nov 2026:** „Masukin kode adsense ini juga di semua website google.com, pub-6701063918838796, DIRECT,
+>   f08c47fec0942fa0“ → akun ke-22 di semua domain. Cuplikan: loader
+>   `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796" crossorigin="anonymous"></script>`
+>   (hanya dipakai bila akun ini dijadikan akun utama sebuah domain), tag meta
+>   `<meta name="google-adsense-account" content="ca-pub-6701063918838796">`, baris ads.txt
+>   `google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0`. Hari yang sama: **yapida.sch.id** masuk daftar (akun
+>   utama `ca-pub-8212039662308316`, 22 akun). `docs/ADSENSE-BLUEPRINT.md` §23.7.
 > - Bagian-bagian di bawah ini adalah **riwayat** sebelum 7 Nov 2026.
 
 > **4 Okt 2026, SATU AKUN UNTUK SEMUA.** Pemilik: "sy mau focus jadi 1 akun
