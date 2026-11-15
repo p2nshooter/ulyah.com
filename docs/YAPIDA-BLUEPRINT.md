@@ -121,6 +121,38 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     pernah di-scan (judul dll.) tanpa bisa mengunduh file unggahan — file langsung dihapus; unggahan yang 100% sama
     memakai cache (tanpa biaya di xscan); laporan hasil bisa diunduh pengunjung; hitung pemakaian mesin; profesional;
     promosikan xscan.es dan mesin-mesinnya tanpa membongkar rahasia perusahaan. §12.
+24. Upload pintar (15 Nov 2026): „walaupun urutan file master yg di upload tidak berurut, data tetep masuk secara urutan,
+    dan tetep rapih dan masuk ke lembaga nya masing2, dan nis/NISN serta tgl/bln/thn (contoh 300400 30/04/2000)
+    bisa langsung di gunakan siswa … jika singkatan bulan misal feb atau februari otomatis jadi 02“, lalu „semuanya
+    termasuk urutan judulnya, tata letak file master yg d upload jika ga rapih, tetap di kenalin dengan smart upload“ —
+    src/data/master.ts (judul kolom bebas, dua tingkat, kolom tanpa judul dari isinya, TTL/kelas gabungan, tgl/bln/thn
+    terpisah, baris pemisah kelas/lembaga, beberapa lembar/tabel), normalTanggal (semua bentuk tanggal), dibaca di
+    peramban (paket Workers gratis) dan diperiksa ulang di server.
+25. „Jika lembaga ingin download full seluruh data siswa formatnya sudah indah sesuai format nasional kemenag RI beserta
+    nama lembaga, logo dll“ — Excel berkop + logo + tanda tangan kepala (kolom file master yayasan), cetak Daftar Peserta
+    Didik per rombel.
+26. „Bikin penulisan alamatnya lebih elegan, lebih pantes baik di sertifikat maupun form lembaga“ — src/lib/alamat.ts.
+27. „Termasuk upload data guru, buatkan form formatnya + letak fotonya … langsung tampil di tampilan guru2 yayasan …
+    dan tetep tampil di masing2 lembaga, NUPTK, PEG ID, NPK dan seluruh yg privasi jgn di tampilkan, cukup nama foto,
+    nama guru dan focus mengajar nya“ — /portal/guru/impor, templat dengan kolom Foto, foto tempel di Excel atau unggah
+    banyak, bidang kepegawaian `rahasia`.
+28. „Terjemahan hadits jgn make bhs inggris, make bahasa Indonesia aja, speling / logat pembacanya make logat Indonesia jgn
+    Melayu … di hadits panjang tidak otomatis pindah ke halaman berikutnya, harus nya otomatis, wajib ada penanda setiap
+    kata yg di baca di setiap buku“ — scripts/terjemah-hadits.ts (Arba’in, Qudsi, Ad-Dihlawi), penanda kata + halaman
+    membalik sendiri di suara.js/pustaka.js.
+29. „Buatkan juga pesan antar lembaga, di arahkan ke siapa, misal ke super admin, atau ke yayasan dll secara privasi dan
+    ada chat group seluruh lembaga. buatkan notifnya … catat tgl nya permintaanya apa, untuk chat group setiap hari
+    bersih … maximal 2 minggu riwayat chat group … di bersihkan otomatis tanpa jejak chache dll … Kecuali chat pribadi,
+    chat pribadi bisa dalam bentuk tiket atau japri“ — /portal/pesan (src/data/pesan.ts). Cadangan harian (§ cadangan)
+    TIDAK boleh menyalin `o/grup/` supaya riwayat grup benar-benar hilang setelah 14 hari.
+30. Desain premium: „design sertifikat, kop, perpustakaan digital yg masih sederhana buat lebih premium, berkelas, indah
+    dan elegan, husus nya di perpustakaan digital, dan portal siswa, agar siswa betah untuk selalu latihan soal“.
+31. „Perpustakaan digital pelajaran formal untuk madrasah juga g ada“ / „full seluruh pelajaran, cari berapa pelajaran
+    setiap kelas untuk madrasah“ — rak pelajaran per kelas & mapel sesuai struktur kurikulum madrasah (KMA 450/2024).
+32. Mesin terjemah gratis tanpa kuota Claude di GitHub Actions: kitab → Indonesia (ambil dari ulyah.com dulu, perbarui
+    mesin bila usang); semua situs artikel berbahasa Jerman & Spanyol → juga Inggris, jalan otomatis 01.00, mutu bukan
+    „abal2“, hati-hati dengan kitab agama. „Jika engine website artikel sudah di buat dan sudah 100% running tinggal kan
+    karena kita focus kepada keberhasilan yapida.sch.id“. Kerjakan „secara profesional, teliti dan cepat tanpa agen“.
 
 ## 1. Aturan yang berlaku
 

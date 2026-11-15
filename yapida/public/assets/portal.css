@@ -373,3 +373,73 @@ a.g-tautan:hover .g-label{text-decoration:underline}
 .p-rahasia legend{color:#6b4a00}
 .p-rahasia-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem 1rem}
 .ks-jatuh-foto{border-color:var(--z500)}
+
+
+/* ── pesan antarlembaga ── */
+.ps-grup{display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--tinta);background:radial-gradient(120% 140% at 0% 0%,rgba(23,138,90,.12),transparent 60%),linear-gradient(135deg,var(--permukaan),var(--gading));transition:transform .25s,border-color .25s}
+.ps-grup:hover{transform:translateY(-2px);border-color:var(--e500)}
+.ps-grup-ikon{display:grid;place-items:center;flex:none;width:3.4rem;height:3.4rem;border-radius:18px;background:linear-gradient(150deg,var(--z600),var(--z900));font-size:1.5rem;box-shadow:var(--bayang)}
+.ps-grup-teks{display:flex;flex-direction:column;flex:1;min-width:0}
+.ps-grup-teks strong{font-family:var(--f-judul);font-size:1.2rem}
+.ps-grup-teks small{color:var(--redup);font-size:.82rem}
+.ps-cuplik{display:flex;flex-direction:column;margin-top:.4rem;font-size:.84rem;color:var(--redup)}
+.ps-cuplik span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-belum{min-width:1.8rem;padding:.15rem .5rem;border-radius:999px;background:var(--merah);color:#fff;font-size:.82rem;text-align:center}
+.ps-dua{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.ps-kepala{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.6rem}
+.ps-kepala h2{margin:0}
+.ps-baru{display:flex;gap:.5rem;margin-bottom:.8rem}
+.ps-baru select{flex:1;min-width:0;padding:.5rem .7rem;border-radius:10px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);font:inherit;font-size:.9rem}
+.ps-sub{margin:1rem 0 .4rem;font-size:.95rem;color:var(--redup)}
+.ps-daftar{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.ps-daftar a{position:relative;display:flex;align-items:center;gap:.7rem;padding:.6rem .7rem;border-radius:14px;text-decoration:none;color:var(--tinta);transition:background .2s}
+.ps-daftar a:hover{background:var(--gading)}
+.ps-daftar li.belum b{font-weight:800}
+.ps-isi{display:flex;flex-direction:column;flex:1;min-width:0}
+.ps-isi small{font-size:.8rem;color:var(--redup);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-daftar time{font-size:.74rem;color:var(--redup);white-space:nowrap}
+.ps-titik{width:.6rem;height:.6rem;border-radius:50%;background:var(--merah);box-shadow:0 0 0 3px rgba(200,32,43,.18)}
+.ps-av{display:grid;place-items:center;flex:none;width:2.4rem;height:2.4rem;border-radius:50%;color:#fff;font:700 .95rem var(--f-judul)}
+.av-0{background:linear-gradient(150deg,#178a5a,#0a5136)}.av-1{background:linear-gradient(150deg,#1d5fb0,#0d2f5c)}.av-2{background:linear-gradient(150deg,#b5502a,#5e2412)}
+.av-3{background:linear-gradient(150deg,#7a4bb0,#3b1f63)}.av-4{background:linear-gradient(150deg,#b08a1e,#5e4808)}.av-5{background:linear-gradient(150deg,#2a8a8a,#0f4646)}
+.ps-av-tiket{background:var(--e100);color:inherit;font-size:1.1rem}
+.ps-st{display:inline-block;padding:.12rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;white-space:nowrap;border:1px solid}
+.ps-st-baru{background:#fff6dc;border-color:#f3d27a;color:#6b4a00}.ps-st-diproses{background:#e8eefb;border-color:#a9bfe8;color:#1f3f7a}.ps-st-selesai{background:#e7f7e7;border-color:#9fd89f;color:#0a5a0a}
+[data-tema="malam"] .ps-st{background:transparent;color:var(--tinta)}
+.ps-notif{margin-top:1rem;display:flex;gap:.6rem;align-items:center}
+.ps-ruang{display:flex;flex-direction:column;padding:0;overflow:hidden;height:calc(100vh - 150px);min-height:480px}
+.ps-ruang-kepala{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid var(--garis);background:linear-gradient(135deg,var(--permukaan),var(--gading))}
+.ps-ruang-kepala h2{margin:0;font-size:1.2rem}
+.ps-ruang-kepala .p-kecil{margin:0}
+.ps-ruang-kepala>div:nth-child(2){flex:1;min-width:0}
+.ps-tiket-status{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.ps-status-form{display:flex;gap:.3rem}
+.ps-hari-pilih{display:flex;gap:.35rem;overflow-x:auto;padding:.6rem 1.2rem;border-bottom:1px solid var(--garis);scrollbar-width:thin}
+.ps-hari-pilih a{flex:none;padding:.3rem .75rem;border-radius:999px;border:1px solid var(--garis);font-size:.8rem;text-decoration:none;color:var(--tinta);background:var(--permukaan)}
+.ps-hari-pilih a[aria-current="page"]{background:var(--z600);border-color:var(--z600);color:#fff}
+.ps-tiket-info{margin:0;padding:.6rem 1.2rem;font-size:.86rem;background:var(--e100);border-bottom:1px solid var(--garis)}
+[data-tema="malam"] .ps-tiket-info{background:#2b2408}
+.ps-pesan{flex:1;list-style:none;margin:0;padding:1rem 1.2rem;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem;background:var(--pola) 0 0/120px,var(--kertas);background-blend-mode:soft-light}
+.ps-hari{align-self:center;margin:.4rem 0}
+.ps-hari span{padding:.2rem .8rem;border-radius:999px;background:var(--gading);border:1px solid var(--garis);font-size:.74rem;color:var(--redup)}
+.ps-msg{display:flex;align-items:flex-end;gap:.5rem;max-width:min(78%,640px)}
+.ps-msg.saya{align-self:flex-end;flex-direction:row-reverse}
+.ps-msg .ps-av{width:2rem;height:2rem;font-size:.8rem}
+.ps-gel{position:relative;padding:.55rem .85rem .4rem;border-radius:18px 18px 18px 6px;background:var(--permukaan);border:1px solid var(--garis);box-shadow:0 1px 2px rgba(4,40,27,.06)}
+.ps-msg.saya .ps-gel{border-radius:18px 18px 6px 18px;background:linear-gradient(150deg,#fff8dd,#f3e3a4);border-color:#e6cf7a}
+[data-tema="malam"] .ps-msg.saya .ps-gel{background:linear-gradient(150deg,#3a300c,#2b2408);border-color:#5e4d14}
+.ps-msg.sistem{align-self:center;max-width:90%}.ps-msg.sistem .ps-av{display:none}.ps-msg.sistem .ps-gel{background:transparent;border-style:dashed;text-align:center;font-size:.82rem;color:var(--redup)}
+.ps-siapa{display:flex;flex-wrap:wrap;gap:.1rem .5rem;align-items:baseline;margin:0 0 .15rem;font-size:.78rem}
+.ps-siapa span{color:var(--redup);font-size:.72rem}
+.ps-msg.saya .ps-siapa{display:none}
+.ps-teks{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.95rem;line-height:1.5}
+.ps-gel time{display:block;text-align:right;font-size:.68rem;color:var(--redup);margin-top:.15rem}
+.ps-msg.baru .ps-gel{animation:ps-masuk .35s ease}
+@keyframes ps-masuk{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.ps-kosong{align-self:center;margin:auto;color:var(--redup);text-align:center}
+.ps-tulis{display:flex;gap:.6rem;align-items:flex-end;padding:.8rem 1rem;border-top:1px solid var(--garis);background:var(--permukaan)}
+.ps-tulis textarea{flex:1;min-height:2.8rem;max-height:180px;resize:none;padding:.7rem 1rem;border-radius:20px;border:1px solid var(--garis);background:var(--kertas);color:var(--tinta);font:inherit;font-size:.95rem;line-height:1.4}
+.ps-tulis textarea:focus{outline:2px solid var(--e400);outline-offset:1px}
+.ps-arsip{margin:0;padding:.8rem 1.2rem;border-top:1px solid var(--garis);font-size:.86rem;color:var(--redup);text-align:center}
+@media (max-width:860px){.ps-dua{grid-template-columns:1fr}.ps-ruang{height:calc(100vh - 110px)}.ps-msg{max-width:92%}}
+@media (prefers-reduced-motion:reduce){.ps-msg.baru .ps-gel{animation:none}}

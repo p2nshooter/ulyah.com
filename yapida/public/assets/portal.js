@@ -318,4 +318,31 @@
       lanjut();
     });
   });
+
+  /* ── notifikasi pesan: lencana menu, judul tab, dan notifikasi perangkat bila diizinkan ── */
+  (function () {
+    var lencana = $('[data-lencana-pesan]');
+    if (!lencana || !window.fetch) return;
+    var judulAsli = d.title, terakhir = -1, izin = $('[data-notif-izin]'), ket = $('[data-notif-ket]');
+    var bisaNotif = 'Notification' in window;
+    if (izin && bisaNotif && Notification.permission === 'default') { izin.hidden = false; izin.addEventListener('click', function () { Notification.requestPermission().then(function (p) { izin.hidden = p !== 'default'; if (ket) ket.textContent = p === 'granted' ? 'Notifikasi aktif di perangkat ini.' : 'Notifikasi tidak diizinkan.'; }); }); }
+    else if (ket && bisaNotif && Notification.permission === 'granted') ket.textContent = 'Notifikasi pesan aktif di perangkat ini.';
+    var periksa = function () {
+      fetch('/portal/pesan/hitung', { headers: { accept: 'application/json' }, credentials: 'same-origin', cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          if (!j) return;
+          lencana.hidden = !j.total; lencana.textContent = j.total > 99 ? '99+' : String(j.total);
+          d.title = (j.total ? '(' + j.total + ') ' : '') + judulAsli;
+          if (terakhir >= 0 && j.total > terakhir && j.terbaru && bisaNotif && Notification.permission === 'granted' && d.hidden) {
+            try { var n = new Notification('Pesan ' + j.terbaru.jenis + ' — ' + j.terbaru.dari, { body: j.terbaru.cuplikan, icon: '/assets/icon-192.png', tag: 'yapida-pesan' }); n.onclick = function () { window.focus(); location.href = j.terbaru.href; }; } catch (e) { /* abaikan */ }
+          }
+          terakhir = j.total;
+        })
+        .catch(function () { /* coba lagi nanti */ });
+    };
+    periksa();
+    setInterval(function () { if (!d.hidden) periksa(); }, 30000);
+    d.addEventListener('visibilitychange', function () { if (!d.hidden) periksa(); });
+  })();
 })();
