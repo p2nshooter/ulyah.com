@@ -10,7 +10,9 @@
  */
 import type { Store } from '../lib/store.ts';
 import { unitRingkas, type Halaman, type Situs, type Unit, type UnitRingkas } from './model.ts';
-import { SEED_UNITS, SEED_VERSION, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
+import { SEED_SDM, SEED_UNITS, SEED_VERSION, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
+import { ambil, simpan } from './koleksi.ts';
+import { SDM } from './defs.ts';
 
 const K_SITUS = 'k/situs.json';
 const K_SEED = 'k/seed.json';
@@ -57,6 +59,10 @@ export async function ensureSeed(store: Store, now = Date.now()): Promise<boolea
     await store.createOnce(unitKey(doc.slug), doc, unitRingkas(doc) as unknown as Record<string, unknown>);
   }
   for (const h of seedHalaman(now)) await store.createOnce(halamanKey(h.slug), h, { judul: h.judul, kaki: h.kaki });
+  for (const o of SEED_SDM) {
+    if (await ambil(store, 'sdm', o.id)) continue;
+    await simpan(store, SDM, { idBaru: o.id, unit: o.unit, status: 'tayang', judul: o.nama, d: { golongan: o.golongan, jabatan: o.jabatan, urut: o.urut, ...(o.bio ? { bio: o.bio } : {}) }, penulis: 'sistem', penulisNama: 'Isi awal' }, now);
+  }
   await store.put(K_SEED, { v: SEED_VERSION, at: now });
   lupakan(store);
   return true;

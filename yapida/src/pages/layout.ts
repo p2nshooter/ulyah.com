@@ -5,10 +5,7 @@ import { KELOMPOK, URUTAN_KELOMPOK, type Situs } from '../data/model.ts';
 import type { UnitItem } from '../data/site.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '2';
-
-/** Tombol Portal di kepala situs — dinyalakan bersama rute /portal (fase portal). */
-export const PORTAL_AKTIF = false;
+export const ASSET_V = '3';
 
 const ICON: Record<string, string> = {
   kubah: '<path d="M12 2v2.2M12 4.2c-3.6 2-5.6 4.6-5.6 7.5V13h11.2v-1.3c0-2.9-2-5.5-5.6-7.5ZM4 13h16v8H4zM9.5 21v-3.5a2.5 2.5 0 0 1 5 0V21"/>',
@@ -55,6 +52,8 @@ export interface PageOpts {
   ogType?: string;
   /** Kelas tambahan di <body>. */
   kelas?: string;
+  /** Jangan disimpan di cache CDN (halaman hasil kirim formulir). */
+  noStore?: boolean;
   /** Berkas CSS/JS tambahan untuk halaman ini (jalur di /assets). */
   css?: string[];
   js?: string[];
@@ -92,13 +91,22 @@ export function crumbs(origin: string, items: [string, string][]): unknown {
 const ld = (v: unknown) => raw(`<script type="application/ld+json">${JSON.stringify(v).replace(/</g, '\\u003c')}</script>`);
 
 /** Menu utama. Modul baru menambah baris di sini begitu rutenya ada — tidak pernah menautkan halaman yang belum dibuat. */
-export const MENU: { id: string; label: string; href: string }[] = [
+export interface ButirMenu { id: string; label: string; href: string; anak?: [string, string, string][] }
+export const MENU: ButirMenu[] = [
   { id: 'beranda', label: 'Beranda', href: '/' },
-  { id: 'profil', label: 'Profil', href: '/profil' },
+  { id: 'profil', label: 'Profil', href: '/profil', anak: [['Profil & sejarah', '/profil', 'buku'], ['Struktur & guru', '/struktur', 'tangan'], ['Para pendiri', '/profil/pendiri', 'bintang'], ['Donasi', '/donasi', 'tangan']] },
   { id: 'lembaga', label: 'Lembaga', href: '/lembaga' },
-  { id: 'ibadah', label: 'Ibadah', href: '/ibadah' },
+  { id: 'kabar', label: 'Kabar', href: '/kabar', anak: [['Kabar & kegiatan', '/kabar', 'pena'], ['Galeri foto', '/galeri', 'bintang'], ['Video & siaran langsung', '/video', 'surya'], ['Agenda', '/agenda', 'bulan'], ['Dokumen publik', '/dokumen', 'buku']] },
+  { id: 'ppdb', label: 'PPDB', href: '/ppdb' },
+  { id: 'belajar', label: 'Belajar', href: '/karya', anak: [['Karya tulis', '/karya', 'pena']] },
+  { id: 'ibadah', label: 'Ibadah', href: '/ibadah', anak: [['Jadwal sholat', '/jadwal-sholat', 'surya'], ['Arah kiblat', '/kiblat', 'pin'], ['Kalender hijriah', '/kalender-hijriah', 'bulan'], ['Radio Qur’an', '/radio-quran', 'buku']] },
   { id: 'kontak', label: 'Kontak', href: '/kontak' },
 ];
+
+function menuTurun(m: ButirMenu, aktif: boolean): string {
+  return `<div class="menu-induk"><a href="${m.href}"${aktif ? ' aria-current="page"' : ''} data-mega-buka aria-haspopup="true">${m.label}${PANAH}</a><div class="mega mega-kecil" data-mega hidden><div class="mega-daftar">${(m.anak ?? []).map(([l, h, ik]) => `<a href="${h}">${icon(ik).s}<span>${esc(l)}</span></a>`).join('')}</div></div></div>`;
+}
+const PANAH = '<svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.600"/></svg>';
 
 function megaLembaga(units: UnitItem[]): Raw {
   return html`<div class="mega" data-mega hidden>
@@ -139,6 +147,7 @@ ${ADSENSE_METAS}
 <link rel="preload" href="/assets/fonts/jakarta.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/app.css?v=${v}">
+<link rel="stylesheet" href="/assets/konten.css?v=${v}">
 ${(o.css ?? []).map((f) => `<link rel="stylesheet" href="/assets/${f}?v=${v}">`).join('\n')}
 <script src="/assets/tema.js?v=${v}"></script>
 ${o.noAds ? '' : ADSENSE_LOADER}
@@ -152,20 +161,21 @@ ${[orgJsonLd(o.origin, s), ...(o.jsonLd ?? [])].map((x) => ld(x).s).join('\n')}
     <span class="pita-kanan"><span data-hijri></span><span class="titik" aria-hidden="true">·</span><span data-jam></span></span>
   </div>
 </div>
+${s.live?.aktif && s.live.url ? `<a class="pita-live" href="/video#live"><b class="lencana-live">LIVE</b><span>${esc(s.live.judul || 'Siaran langsung sedang berlangsung')}</span><em>Tonton →</em></a>` : ''}
 <header class="kepala" data-kepala>
   <div class="wadah kepala-isi">
-    <a class="merek" href="/" aria-label="${esc(s.nama)} — beranda">
+    <a class="merek" href="/" aria-label="${esc(s.nama)} — beranda" data-logo-ketuk>
       <img src="/assets/logo-192.webp" width="44" height="56" alt="">
       <span class="merek-teks"><b>${esc(s.singkatan)}</b><small>Yayasan Al-Huda</small></span>
     </a>
     <nav class="menu" aria-label="Menu utama" data-menu>
       ${MENU.map((m) => (m.id === 'lembaga'
-        ? `<div class="menu-induk"><a href="${m.href}"${o.aktif === m.id ? ' aria-current="page"' : ''} data-mega-buka aria-haspopup="true">${m.label}<svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.600"/></svg></a>${megaLembaga(o.units).s}</div>`
+        ? `<div class="menu-induk"><a href="${m.href}"${o.aktif === m.id ? ' aria-current="page"' : ''} data-mega-buka aria-haspopup="true">${m.label}${PANAH}</a>${megaLembaga(o.units).s}</div>`
+        : m.anak ? menuTurun(m, o.aktif === m.id)
         : `<a href="${m.href}"${o.aktif === m.id ? ' aria-current="page"' : ''}>${m.label}</a>`)).join('\n      ')}
     </nav>
     <div class="alat">
       <button class="tbl-ikon" type="button" data-tema-ganti aria-label="Ganti tema siang atau malam">${icon('bulan', 'ik-malam').s}${icon('surya', 'ik-siang').s}</button>
-      ${PORTAL_AKTIF ? `<a class="tbl tbl-emas tbl-kecil" href="/portal">${icon('masuk').s}<span>Portal</span></a>` : ''}
       <button class="tbl-ikon menu-tombol" type="button" data-menu-buka aria-label="Buka menu" aria-expanded="false">${icon('menu').s}</button>
     </div>
   </div>

@@ -136,7 +136,7 @@ export function kepalaHalaman(judul: string, lead: string, remah: [string, strin
 </section>`;
 }
 
-export function profilPage(s: Situs): Raw {
+export function profilPage(s: Situs, organSdm: Raw = raw('')): Raw {
   const organ = (['Pembina', 'Pengurus', 'Pengawas'] as const).map((o) => ({ o, list: s.organ.filter((x) => x.organ === o) })).filter((g) => g.list.length);
   return html`${kepalaHalaman(`Profil ${s.nama}`, s.deskripsi, [['Profil', '/profil']], 'Tentang yayasan')}
 <section class="bagian"><div class="wadah dua-kolom">
@@ -162,7 +162,7 @@ export function profilPage(s: Situs): Raw {
     ${s.pendiri.length ? html`<div class="panel muncul"><h2>Pendiri</h2><ul class="daftar-nama">${s.pendiri.map((p) => html`<li>${p}</li>`)}</ul></div>` : ''}
   </aside>
 </div></section>
-${organ.length ? html`<section class="bagian bagian-gading" id="organ"><div class="wadah">
+${organSdm.s ? organSdm : organ.length ? html`<section class="bagian bagian-gading" id="organ"><div class="wadah">
   ${kepalaBagian('Organ yayasan', 'Pembina, pengurus, dan pengawas', s.organCatatan)}
   <div class="organ">${organ.map((g) => html`<div class="organ-kol muncul"><h3>${g.o}</h3><ul>${g.list.map((x) => html`<li><strong>${x.nama}</strong><span>${x.jabatan}</span></li>`)}</ul></div>`)}</div>
 </div></section>` : ''}
@@ -179,7 +179,7 @@ ${URUTAN_KELOMPOK.filter((k) => units.some((u) => u.kelompok === k)).map((k, i) 
 
 const tautSosmed = (label: string, url?: string): Raw => (url ? html`<a class="pil" href="${url}" target="_blank" rel="noopener">${label}</a>` : raw(''));
 
-export function unitPage(u: Unit, sebidang: UnitItem[]): Raw {
+export function unitPage(u: Unit, sebidang: UnitItem[], isi: Raw = raw('')): Raw {
   const k = KELOMPOK[u.kelompok as Kelompok];
   const fakta: [string, string][] = [];
   if (u.berdiri) fakta.push(['Berdiri', u.berdiri]);
@@ -214,6 +214,7 @@ ${u.angka?.length ? html`<section class="angka angka-unit" aria-label="${u.singk
     </p></div>` : ''}
   </aside>
 </div></section>
+${isi}
 ${sebidang.length ? html`<section class="bagian bagian-gading"><div class="wadah">
   ${kepalaBagian(k.nama, `Lembaga lain di bidang ${k.nama.toLowerCase()}`)}
   <div class="kisi-unit">${sebidang.map(kartuUnit)}</div>
@@ -234,7 +235,7 @@ export function donasiPage(s: Situs): Raw {
 </div></section>`;
 }
 
-export function kontakPage(s: Situs): Raw {
+export function kontakPage(s: Situs, form: Raw = raw('')): Raw {
   const peta = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.nama}, ${s.alamat.desa}, ${s.alamat.kecamatan}, ${s.alamat.kabupaten}`)}`;
   const so = s.sosmed;
   return html`${kepalaHalaman('Kontak', `Alamat dan cara menghubungi ${s.nama}.`, [['Kontak', '/kontak']], 'Hubungi kami')}
@@ -249,6 +250,7 @@ export function kontakPage(s: Situs): Raw {
       ${tautSosmed('YouTube', so.youtube)}${tautSosmed('Facebook', so.facebook)}${tautSosmed('Instagram', so.instagram)}${tautSosmed('TikTok', so.tiktok)}
     </p>
   </div>
+  ${form}
   <div class="panel muncul"><h2>Menghubungi lembaga</h2><p>Setiap lembaga mencantumkan kontaknya sendiri di halaman profilnya. Pilih lembaganya di <a href="/lembaga">daftar lembaga</a>.</p></div>
 </div></section>`;
 }

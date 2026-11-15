@@ -120,6 +120,8 @@ export interface Situs {
   misi?: string[];
   sambutan?: { nama: string; jabatan: string; isi: string; isiHtml?: string };
   donasi: { tampil: boolean; rekening: Rekening[]; catatan?: string };
+  /** Pita siaran langsung di seluruh situs. */
+  live?: { aktif: boolean; url: string; judul: string };
   /** Titik lokasi untuk jadwal sholat dan kiblat (bawaan: Sukakarya). */
   lokasi?: { lat: number; lng: number; nama: string };
   ubah: number;

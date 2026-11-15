@@ -46,6 +46,10 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
    lebih interaktif, ambil dr ulyah.com + alquran Utsmani dengan tafsirnya... Bikin semua lebih bagus lebih interaktif,
    lebih super premium“ · „Perpustakaanya bikin seperti wordwall“
 
+8. „Untuk login ke masing2 lembaga, pake dropdown aja username nya, jd tinggal masukin password... Pasword nya di bulak balik aja
+   dari angka 0-9 cukup 5 angka, tolong bikinin dalam bentuk gambar, untuk masuk login jgn make tombol login, tp make ketuk logo
+   5x“ · „Focus ngerjain kekurangan dan menyempurnakan situs yapida.sch.id dulu, jgn ngelantur“ · „Selesaikan semuanya“
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di
@@ -93,7 +97,20 @@ di `.github/dns/google-site-verification.json` (dipasang `dns-records.yml` begit
 | Admin lembaga | lembaganya | sama dengan kepala, kecuali mengelola akun |
 | Kontributor (guru/ustadz) | lembaganya | menulis draf (karya, kabar, soal) → ditinjau admin lembaga |
 
-Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya dengan sandi sementara yang wajib diganti.
+Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya dengan PIN sementara yang wajib diganti.
+
+### 3a. Cara masuk (perintah 8)
+
+- **Tidak ada tombol Login.** Pintu portal: ketuk logo di kepala situs **5×** beruntun → `/masuk`. Sekali ketuk tetap ke beranda.
+- **Pilih akun dari daftar** (dikelompokkan: Yayasan, lalu per lembaga) — tidak perlu mengetik nama atau e-mail.
+- **PIN 5 angka** diketuk di papan angka **bergambar** (angka digambar sebagai vektor dari huruf Fraunces, tidak ada sebagai teks)
+  yang **letaknya diacak setiap kali**. Tombol hanya membawa nomor posisi; urutan acaknya disimpan di cookie HttpOnly
+  bertanda tangan 10 menit. Lima angka terketuk → langsung masuk.
+- Pengaman PIN pendek: hash PBKDF2 atas HMAC(PIN, rahasia server); **5× salah → akun terkunci 15 menit**, lalu 30, 60 … sampai
+  24 jam; batas laju per IP; PIN lemah (sama semua/berurutan) ditolak; PIN sementara wajib diganti saat pertama masuk.
+- **Pemasangan pertama:** selama belum ada akun, `/masuk` meminta *kode pemasangan* (hanya hash-nya di repo; kodenya
+  diserahkan kepada pemilik di luar repo) untuk membuat Super Admin. Setelah itu Super Admin menekan „Buat akun semua
+  lembaga“ → Ketua Yayasan, Admin Yayasan, dan satu admin per lembaga dengan PIN acak yang tampil sekali (bisa dicetak).
 
 ## 4. Modul isi (semua CRUD di portal, tayang di halaman publik)
 
@@ -182,10 +199,10 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 |---|---|---|
 | Y0 | AdSense tumpuk + akun ke-22, TXT Search Console | ✅ 14 Nov (PR #427) |
 | Y1 | Kerangka: R2 store, isi awal dari dokumen, beranda, profil, 15 halaman lembaga, donasi, kontak, PWA, desain, deploy | ✅ 14 Nov (PR #428) — https://yapida-sch-id.axto.workers.dev |
-| Y1b | Aplikasi ibadah: jadwal sholat, kiblat, kalender hijriah, hitung mundur Ramadhan, radio Qur'an (§5a) | 🔄 15 Nov |
-| Y2 | Portal: masuk, 6 peran, pengaturan situs, profil lembaga, SDM + foto, unggah media | 🔄 |
-| Y3 | Kabar, galeri, agenda, video + siaran langsung, dokumen, karya tulis, pesan | ⏳ |
-| Y4 | PPDB per lembaga per tahun ajaran | ⏳ |
+| Y1b | Aplikasi ibadah | ✅ 15 Nov (PR #429) |
+| Y2 | Portal: masuk (daftar akun + PIN acak bergambar + ketuk logo 5×), 6 peran, pengaturan situs, halaman, profil lembaga, struktur & SDM + foto, unggah media, log | 🔄 15 Nov |
+| Y3 | Kabar, galeri (+ lihat besar), agenda, video + siaran langsung (pita LIVE, kanal YouTube otomatis), dokumen, karya tulis (+ dengarkan), pesan | 🔄 15 Nov |
+| Y4 | PPDB per lembaga per tahun ajaran + formulir daring + pendaftar (CSV) | 🔄 15 Nov |
 | Y5 | Perpustakaan: rak, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar | ⏳ |
 | Y6 | Bank soal dan buku pelajaran interaktif | ⏳ |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
