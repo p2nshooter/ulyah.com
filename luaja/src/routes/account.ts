@@ -8,12 +8,13 @@ import { csrfOk, csrfToken, endSession, startSession, type Ctx, type HonoEnv } f
 import { render } from '../lib/render.ts';
 import { limit } from '../lib/ratelimit.ts';
 import { timingSafeEqual, verifyPassword, hashPassword } from '../lib/crypto.ts';
-import { rp, fmtDate } from '../lib/i18n.ts';
+import { fmtDate } from '../lib/i18n.ts';
 import { createUser, EmailTakenError, findByEmail, getSubs, isAdmin, updateUser, hasAccess } from '../data/users.ts';
 import { audit, event } from '../data/audit.ts';
 import { getPayment, getPricing } from '../data/settings.ts';
 import { cancelInvoice, createInvoice, getInvoice, listUserInvoices, proofKey, submitProof } from '../data/invoices.ts';
-import { COURSE_META, COURSES, type Course, type Invoice, type ProofFile, type Tier, type User } from '../data/model.ts';
+import { COURSE_META, COURSES, CURRENCIES, money, unitPrices, type Course, type Currency, type Invoice, type ProofFile, type Tier, type User } from '../data/model.ts';
+import { getPaypalConfig, paypalReady, PAYPAL_CURRENCIES } from '../data/paypal.ts';
 import { getProgress, listAttempts } from '../data/progress.ts';
 import { getSet, levelName } from '../practice/index.ts';
 import { getLesson } from '../course/index.ts';
@@ -173,19 +174,22 @@ account.get('/portal/paket', async (c) => {
   const [pricing, invs] = await Promise.all([getPricing(store), listUserInvoices(store, c.get('user')!.id)]);
   const tiers = (Object.keys(pricing.tiers) as Tier[]).filter((t) => pricing.tiers[t].enabled);
   const preset3 = c.req.query('jumlah') === '3';
+  const lang = c.get('lang') as string;
+  const defCur: Currency = lang === 'ja' ? 'JPY' : lang === 'en' ? 'USD' : 'IDR';
   return portal(c, '/portal/paket', 'Paket & pembayaran', html`
   <div class="page-title"><h1>Pilih paket</h1><a class="btn btn-ghost btn-sm" href="/harga">Rincian harga</a></div>
   ${c.req.query('err') ? html`<div class="alert alert-bad">${c.req.query('err')}</div>` : ''}
   <form method="post" action="/portal/paket" class="card stack" data-buy>
     <input type="hidden" name="_csrf" value="${await csrfToken(c, c.get('user')!)}">
     <div class="field"><span class="lbl">1. Bahasa</span><div class="grid g3">${COURSES.map((k) => html`<label class="check"><input type="checkbox" name="bahasa" value="${k}" ${preset3 ? raw('checked') : ''}><span><b>${COURSE_META[k].name}</b><small>${COURSE_META[k].levels[0]!.name}–${COURSE_META[k].levels[COURSE_META[k].levels.length - 1]!.name}${k === 'en' ? ' + TOEFL & IELTS' : ''}</small></span></label>`)}</div></div>
-    <div class="field"><span class="lbl">2. Kategori</span><div class="grid g3">${tiers.map((t, i) => html`<label class="check"><input type="radio" name="kategori" value="${t}" ${i === 0 ? raw('checked') : ''} data-one="${pricing.tiers[t].one}" data-three="${pricing.tiers[t].three}"><span><b>${icon(TIER_ICON[t])} ${pricing.tiers[t].label}</b><small>${rp(pricing.tiers[t].one)}/bahasa · ${rp(pricing.tiers[t].three)} tiga bahasa</small><small>${pricing.tiers[t].note}</small></span></label>`)}</div></div>
+    <div class="field"><span class="lbl">2. Mata uang</span><div class="grid g3">${CURRENCIES.map((cur) => html`<label class="check"><input type="radio" name="mata_uang" value="${cur}" ${cur === defCur ? raw('checked') : ''}><span><b>${cur === 'IDR' ? 'Rupiah (IDR)' : cur === 'USD' ? 'Dolar AS (USD)' : 'Yen (JPY)'}</b><small>${cur === 'IDR' ? 'Transfer SeaBank / BNI' : 'PayPal otomatis atau transfer bank internasional (SWIFT)'}</small></span></label>`)}</div></div>
+    <div class="field"><span class="lbl">3. Kategori</span><div class="grid g3">${tiers.map((t, i) => html`<label class="check"><input type="radio" name="kategori" value="${t}" ${i === 0 ? raw('checked') : ''} ${raw(CURRENCIES.map((cur) => { const u = unitPrices(pricing.tiers[t], cur); return `data-one-${cur}="${u.one}" data-three-${cur}="${u.three}"`; }).join(' '))}><span><b>${icon(TIER_ICON[t])} ${pricing.tiers[t].label}</b><small data-tier-price="${t}">${money(unitPrices(pricing.tiers[t], defCur).one, defCur)}/bahasa · ${money(unitPrices(pricing.tiers[t], defCur).three, defCur)} tiga bahasa</small><small>${pricing.tiers[t].note}</small></span></label>`)}</div></div>
     <div class="row between total-bar"><div><small class="muted">Total per tahun</small><div class="amount" data-total>Rp0</div></div><button class="btn btn-gold btn-lg" type="submit">Buat tagihan</button></div>
     <p class="small muted" style="margin:0">Setelah tagihan dibuat, rekening tujuan dan nominal tampil di halaman tagihan. Akses terbuka setelah bukti pembayaran terverifikasi.</p>
   </form>
-  <script>(function(){var f=document.querySelector('[data-buy]');function t(){var n=f.querySelectorAll('input[name=bahasa]:checked').length,r=f.querySelector('input[name=kategori]:checked');var one=+r.getAttribute('data-one'),three=+r.getAttribute('data-three');var v=n>=3?three:one*n;f.querySelector('[data-total]').textContent='Rp'+v.toLocaleString('id-ID')}f.addEventListener('change',t);t()})()</script>
+  <script src="/assets/bayar.js?v=1" defer></script>
   <h2 style="font-size:var(--fs-4);margin-top:28px">Tagihan saya</h2>
-  ${invs.length ? html`<div class="table-wrap"><table class="table"><tr><th>Nomor</th><th>Bahasa</th><th>Kategori</th><th>Jumlah</th><th>Status</th><th></th></tr>${invs.map((i) => html`<tr><td>${i.number}</td><td>${i.courses.map((k) => COURSE_META[k].name).join(', ')}</td><td>${pricing.tiers[i.tier]?.label ?? i.tier}</td><td>${rp(i.amount)}</td><td><span class="pill ${STATUS[i.status][1]}">${STATUS[i.status][0]}</span></td><td><a href="/portal/tagihan/${i.id}">Buka</a></td></tr>`)}</table></div>` : html`<p class="muted">Belum ada tagihan.</p>`}`);
+  ${invs.length ? html`<div class="table-wrap"><table class="table"><tr><th>Nomor</th><th>Bahasa</th><th>Kategori</th><th>Jumlah</th><th>Status</th><th></th></tr>${invs.map((i) => html`<tr><td>${i.number}</td><td>${i.courses.map((k) => COURSE_META[k].name).join(', ')}</td><td>${pricing.tiers[i.tier]?.label ?? i.tier}</td><td>${money(i.amount, i.currency ?? 'IDR')}</td><td><span class="pill ${STATUS[i.status][1]}">${STATUS[i.status][0]}</span></td><td><a href="/portal/tagihan/${i.id}">Buka</a></td></tr>`)}</table></div>` : html`<p class="muted">Belum ada tagihan.</p>`}`);
 });
 
 account.post('/portal/paket', async (c) => {
@@ -195,12 +199,13 @@ account.post('/portal/paket', async (c) => {
   const raw = f.bahasa;
   const courses = (Array.isArray(raw) ? raw : raw ? [raw] : []).map(String).filter((k): k is Course => (COURSES as readonly string[]).includes(k));
   const tier = String(f.kategori ?? 'umum') as Tier;
+  const currency = (CURRENCIES as readonly string[]).includes(String(f.mata_uang)) ? (String(f.mata_uang) as Currency) : 'IDR';
   const pricing = await getPricing(store);
   if (!courses.length) return c.redirect(`/portal/paket?err=${encodeURIComponent('Pilih minimal satu bahasa.')}`);
   if (!pricing.tiers[tier]?.enabled) return c.redirect(`/portal/paket?err=${encodeURIComponent('Kategori tidak tersedia.')}`);
   if (!(await limit(c.env, `inv:${u.id}`, 10, 3600))) return c.redirect(`/portal/paket?err=${encodeURIComponent('Terlalu banyak tagihan dibuat. Coba lagi nanti.')}`);
-  const inv = await createInvoice(store, u.id, courses, tier, pricing);
-  await event(store, 'invoice.create', { id: inv.id, amount: inv.amount });
+  const inv = await createInvoice(store, u.id, courses, tier, pricing, currency);
+  await event(store, 'invoice.create', { id: inv.id, amount: inv.amount, currency });
   return c.redirect(`/portal/tagihan/${inv.id}`);
 });
 
@@ -211,7 +216,8 @@ account.get('/portal/tagihan/:id', async (c) => {
   const u = c.get('user')!, store = c.get('store');
   const inv = await getInvoice(store, c.req.param('id'));
   if (!inv || (inv.userId !== u.id && !isAdmin(u))) return c.notFound();
-  const [pay, pricing] = await Promise.all([getPayment(store), getPricing(store)]);
+  const [pay, pricing, ppc] = await Promise.all([getPayment(store), getPricing(store), getPaypalConfig(store)]);
+  const ppOn = Boolean(c.env.MASTER_KEY) && paypalReady(ppc) && PAYPAL_CURRENCIES.includes(inv.currency);
   const t = pricing.tiers[inv.tier];
   const canUpload = inv.status === 'unpaid' || inv.status === 'rejected';
   const csrf = await csrfToken(c, u);
@@ -222,10 +228,16 @@ account.get('/portal/tagihan/:id', async (c) => {
   ${inv.status === 'rejected' && inv.reason ? html`<div class="alert alert-bad"><b>Alasan penolakan:</b> ${inv.reason}. Silakan unggah ulang.</div>` : ''}
   <div class="grid g2" style="align-items:start">
     <div class="card"><h3 style="margin-top:0">Rincian</h3><table class="table" style="min-width:0"><tr><td>Bahasa</td><td>${inv.courses.map((k) => COURSE_META[k].name).join(', ')}</td></tr><tr><td>Kategori</td><td>${t?.label ?? inv.tier}</td></tr><tr><td>Masa aktif</td><td>${pricing.days} hari sejak disetujui</td></tr><tr><td>Dibuat</td><td>${fmtDate('id', inv.createdAt, true)}</td></tr>${inv.activeUntil ? html`<tr><td>Aktif sampai</td><td>${fmtDate('id', inv.activeUntil)}</td></tr>` : ''}</table>
-      <div class="amount" style="margin-top:14px">${rp(inv.amount)}</div></div>
+      <div class="amount" style="margin-top:14px">${money(inv.amount, inv.currency)}</div>
+      <p style="margin:12px 0 0"><a class="btn btn-ghost btn-sm" href="/portal/tagihan/${inv.id}/invoice" target="_blank" rel="noopener">${inv.status === 'approved' ? 'Lihat kuitansi' : 'Lihat invoice'}</a> <a class="btn btn-ghost btn-sm" href="/portal/tagihan/${inv.id}/invoice?unduh=1">Unduh</a></p></div>
     ${inv.status === 'approved' ? html`<div class="card card-tint"><h3 style="margin-top:0">${icon('cek')} Pembayaran terverifikasi</h3><p>Langganan Anda aktif. Selamat belajar!</p><a class="btn btn-gold" href="/${COURSE_META[inv.courses[0]!].slug}">Mulai belajar</a></div>` :
       inv.status === 'cancelled' ? html`<div class="card"><p>Tagihan dibatalkan. <a href="/portal/paket">Buat tagihan baru</a>.</p></div>` :
-      html`<div class="bank"><small>Transfer ke rekening resmi LUAJA</small><b style="font-size:var(--fs-3)">${pay.bank}</b><div class="acct">${pay.account}<button class="btn btn-sm" type="button" data-copy="${pay.account}">Salin</button></div><span>a.n. <b>${pay.holder}</b></span><span>Nominal tepat: <b>${rp(inv.amount)}</b> <button class="btn btn-sm" type="button" data-copy="${String(inv.amount)}">Salin</button></span><small>${pay.note}</small></div>`}
+      html`<div class="stack" style="--stack:14px">
+        ${ppOn ? html`<div class="card card-tint" data-paypal="${inv.id}" data-client="${ppc[ppc.mode].clientId}" data-currency="${inv.currency}"><h3 style="margin:0 0 6px">Bayar otomatis dengan PayPal</h3><p class="small muted" style="margin:0 0 12px">Kartu kredit/debit atau saldo PayPal. Langganan langsung aktif begitu pembayaran berhasil.${ppc.mode === 'sandbox' ? ' (mode uji/sandbox)' : ''}</p><div data-paypal-buttons></div><p class="small" data-paypal-msg></p></div>` : ''}
+        ${inv.currency === 'IDR' ? html`<div class="bank"><small>Transfer ke rekening resmi LUAJA</small><b style="font-size:var(--fs-3)">${pay.bank}</b><div class="acct">${pay.account}<button class="btn btn-sm" type="button" data-copy="${pay.account}">Salin</button></div><span>a.n. <b>${pay.holder}</b></span><span>Atau BNI ${pay.bni.accounts.IDR} <button class="btn btn-sm" type="button" data-copy="${pay.bni.accounts.IDR}">Salin</button> a.n. ${pay.bni.holder}</span><span>Nominal tepat: <b>${money(inv.amount, inv.currency)}</b> <button class="btn btn-sm" type="button" data-copy="${String(inv.amount)}">Salin</button></span><small>${pay.note}</small></div>` :
+          html`<div class="bank"><small>Transfer bank internasional (SWIFT) ke BNI</small><b style="font-size:var(--fs-3)">${pay.bni.name}</b><div class="acct">${pay.bni.accounts[inv.currency]}<button class="btn btn-sm" type="button" data-copy="${pay.bni.accounts[inv.currency]}">Salin</button></div><span>Rekening ${inv.currency} · a.n. <b>${pay.bni.holder}</b></span><span>SWIFT/BIC <b>${pay.bni.swift}</b> <button class="btn btn-sm" type="button" data-copy="${pay.bni.swift}">Salin</button> · kode bank ${pay.bni.code} · ${pay.bni.address}</span><span>Nominal tepat: <b>${money(inv.amount, inv.currency)}</b></span>
+            <ol class="small" style="margin:6px 0 0;padding-left:18px"><li>Di aplikasi/kantor bank Anda pilih transfer internasional (SWIFT) dalam ${inv.currency}.</li><li>Isi bank penerima ${pay.bni.name}, SWIFT ${pay.bni.swift}, nomor rekening di atas, dan nama penerima ${pay.bni.holder}.</li><li>Tulis nomor tagihan <b>${inv.number}</b> pada berita/keterangan transfer. Biaya transfer ditanggung pengirim (OUR) agar nominal tiba utuh.</li><li>Unggah bukti transfer di bawah; akses aktif setelah dana diterima dan terverifikasi.</li></ol></div>`}
+      </div>`}
   </div>
   ${canUpload ? html`<form class="card stack" method="post" action="/portal/tagihan/${inv.id}/bukti" enctype="multipart/form-data" style="margin-top:20px">
     <input type="hidden" name="_csrf" value="${csrf}">

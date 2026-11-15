@@ -21,4 +21,6 @@ export interface Env {
   /** E-mail & sandi awal pemilik (secret Worker, opsional; pola yang sama dengan xscan.es). */
   OWNER_BOOTSTRAP_EMAIL?: string;
   OWNER_BOOTSTRAP_PASSWORD?: string;
+  /** Kunci induk (secret, dibuat sekali oleh deploy) untuk menyegel kredensial PayPal di R2. */
+  MASTER_KEY?: string;
 }

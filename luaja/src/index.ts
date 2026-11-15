@@ -25,6 +25,7 @@ import { getSet, nextSet, SETS } from './practice/index.ts';
 import { gradeSet, IncompleteError } from './practice/types.ts';
 import { account } from './routes/account.ts';
 import { admin } from './routes/admin.ts';
+import { pay } from './routes/pay.ts';
 
 const app = new Hono<HonoEnv>();
 
@@ -247,6 +248,7 @@ for (const slug of INFO_SLUGS) {
 
 app.route('/', account);
 app.route('/', admin);
+app.route('/', pay);
 
 app.notFound(async (c) => {
   if (c.req.path.startsWith('/api/')) return c.json({ ok: false, error: 'Tidak ditemukan' }, 404);

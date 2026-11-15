@@ -77,10 +77,14 @@ export const courseBySlug = (slug: string): CourseMeta | undefined => COURSES.ma
 /* ── harga & promo ───────────────────────────────────────────────────────── */
 
 export type Tier = 'umum' | 'pelajar' | 'juara';
+/** Mata uang pembayaran (pemilik, 15 Nov 2026: „pastikan pembayaran menggunakan idr, yen dan USD serta PayPal“). */
+export type Currency = 'IDR' | 'USD' | 'JPY';
+export const CURRENCIES: readonly Currency[] = ['IDR', 'USD', 'JPY'];
 
+export interface TierPrice { one: number; three: number; label: string; note: string; requires: string | null; enabled: boolean; usd: { one: number; three: number }; jpy: { one: number; three: number } }
 export interface Pricing {
-  /** Harga per tahun, Rupiah. */
-  tiers: Record<Tier, { one: number; three: number; label: string; note: string; requires: string | null; enabled: boolean }>;
+  /** Harga per tahun: one/three dalam Rupiah, usd/jpy dalam dolar AS dan yen (diatur pengelola). */
+  tiers: Record<Tier, TierPrice>;
   /** Masa aktif langganan, hari. */
   days: number;
   updatedAt: number;
@@ -88,30 +92,43 @@ export interface Pricing {
 
 export const DEFAULT_PRICING: Pricing = {
   tiers: {
-    umum: { one: 500_000, three: 1_300_000, label: 'Umum', note: 'Untuk semua orang.', requires: null, enabled: true },
-    pelajar: { one: 350_000, three: 1_000_000, label: 'Promo pelajar', note: 'Pelajar sampai kelas 12 / 3 SMK sederajat, dengan surat keterangan pelajar terbaru.', requires: 'Surat keterangan pelajar terbaru (foto/PDF)', enabled: true },
-    juara: { one: 200_000, three: 500_000, label: 'Promo juara kelas', note: 'Juara 1, 2 atau 3 di kelas, dengan bukti juara kelas tahun berjalan saat mendaftar.', requires: 'Bukti juara kelas tahun ini (rapor/piagam, foto/PDF)', enabled: true },
+    // USD/JPY awal ≈ kurs Nov 2026 (Rp15.800/USD, Rp105/JPY), dibulatkan; pengelola bisa mengubah di Admin → Harga.
+    umum: { one: 500_000, three: 1_300_000, usd: { one: 32, three: 82 }, jpy: { one: 4_800, three: 12_400 }, label: 'Umum', note: 'Untuk semua orang.', requires: null, enabled: true },
+    pelajar: { one: 350_000, three: 1_000_000, usd: { one: 22, three: 63 }, jpy: { one: 3_300, three: 9_500 }, label: 'Promo pelajar', note: 'Pelajar sampai kelas 12 / 3 SMK sederajat, dengan surat keterangan pelajar terbaru.', requires: 'Surat keterangan pelajar terbaru (foto/PDF)', enabled: true },
+    juara: { one: 200_000, three: 500_000, usd: { one: 13, three: 32 }, jpy: { one: 1_900, three: 4_800 }, label: 'Promo juara kelas', note: 'Juara 1, 2 atau 3 di kelas, dengan bukti juara kelas tahun berjalan saat mendaftar.', requires: 'Bukti juara kelas tahun ini (rapor/piagam, foto/PDF)', enabled: true },
   },
   days: 365,
   updatedAt: 0,
 };
 
 /** Harga paket: 1 bahasa = harga satuan; 3 bahasa = harga paket; 2 bahasa = 2 × satuan (turunan, bisa diubah admin). */
-export function priceFor(p: Pricing, tier: Tier, courses: Course[]): number {
-  const t = p.tiers[tier];
+export function unitPrices(t: TierPrice, cur: Currency): { one: number; three: number } {
+  return cur === 'USD' ? t.usd : cur === 'JPY' ? t.jpy : { one: t.one, three: t.three };
+}
+export function priceFor(p: Pricing, tier: Tier, courses: Course[], cur: Currency = 'IDR'): number {
+  const u = unitPrices(p.tiers[tier], cur);
   const n = new Set(courses).size;
-  if (n >= 3) return t.three;
-  return t.one * n;
+  if (n >= 3) return u.three;
+  return u.one * n;
+}
+/** Format uang menurut mata uangnya: Rp500.000 · US$32.00 · ¥4,800. */
+export function money(n: number, cur: Currency): string {
+  if (cur === 'USD') return `US$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  if (cur === 'JPY') return `¥${Math.round(n).toLocaleString('ja-JP')}`;
+  return `Rp${Math.round(n).toLocaleString('id-ID')}`;
 }
 
 /* ── rekening ────────────────────────────────────────────────────────────── */
 
 export interface Payment {
+  /** SeaBank (Rupiah). */
   bank: string;
   account: string;
   holder: string;
   note: string;
   whatsapp: string;
+  /** BNI wondr multimata uang — juga untuk transfer dari luar negeri (SWIFT). */
+  bni: { name: string; swift: string; code: string; holder: string; address: string; accounts: Record<Currency, string> };
 }
 
 /** Pemilik, 14 Nov 2026: rekening SeaBank a.n. Yusron Efendi. Hanya ditampilkan kepada member yang sudah masuk dan punya tagihan. */
@@ -121,6 +138,8 @@ export const DEFAULT_PAYMENT: Payment = {
   holder: 'Yusron Efendi',
   note: 'Transfer tepat sesuai nominal tagihan, lalu unggah bukti transfer di portal.',
   whatsapp: '',
+  // Sama dengan rekening donasi ulyah.com (apps/web/src/lib/donation-accounts.ts) — pemilik, 15 Nov 2026.
+  bni: { name: 'PT Bank Negara Indonesia (Persero) Tbk.', swift: 'BNINIDJA', code: '009', holder: 'YUSRON EFENDI', address: 'Jakarta, Indonesia', accounts: { IDR: '2090571484', USD: '2090571495', JPY: '2090571564' } },
 };
 
 /* ── akun & langganan ────────────────────────────────────────────────────── */
@@ -167,6 +186,12 @@ export interface Invoice {
   courses: Course[];
   tier: Tier;
   amount: number;
+  /** Mata uang tagihan (tagihan lama tanpa nilai ini = IDR). */
+  currency: Currency;
+  /** Cara bayar yang terkonfirmasi. */
+  method?: 'bank' | 'paypal';
+  paypal?: { orderId: string; captureId?: string; mode: 'live' | 'sandbox'; payer?: string };
+  paidAt?: number;
   status: InvoiceStatus;
   createdAt: number;
   /** Diisi saat bukti diunggah. */
