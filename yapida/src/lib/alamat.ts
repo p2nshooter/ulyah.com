@@ -56,7 +56,7 @@ const GELAR_DEPAN = new Set(['H', 'HJ', 'DR', 'DRS', 'DRA', 'IR', 'KH', 'USTADZ'
 
 const nol3 = (s: string) => { const d = s.replace(/\D/g, ''); return d ? d.padStart(3, '0').slice(-3) : ''; };
 
-const PROVINSI = ['Aceh', 'Sumatera Utara', 'Sumatera Barat', 'Riau', 'Kepulauan Riau', 'Jambi', 'Bengkulu', 'Sumatera Selatan', 'Kepulauan Bangka Belitung', 'Lampung', 'Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'DI Yogyakarta', 'Jawa Timur', 'Bali', 'Nusa Tenggara Barat', 'Nusa Tenggara Timur', 'Kalimantan Barat', 'Kalimantan Tengah', 'Kalimantan Selatan', 'Kalimantan Timur', 'Kalimantan Utara', 'Sulawesi Utara', 'Gorontalo', 'Sulawesi Tengah', 'Sulawesi Barat', 'Sulawesi Selatan', 'Sulawesi Tenggara', 'Maluku', 'Maluku Utara', 'Papua', 'Papua Barat', 'Papua Barat Daya', 'Papua Tengah', 'Papua Pegunungan', 'Papua Selatan'];
+export const PROVINSI = ['Aceh', 'Sumatera Utara', 'Sumatera Barat', 'Riau', 'Kepulauan Riau', 'Jambi', 'Bengkulu', 'Sumatera Selatan', 'Kepulauan Bangka Belitung', 'Lampung', 'Banten', 'DKI Jakarta', 'Jawa Barat', 'Jawa Tengah', 'DI Yogyakarta', 'Jawa Timur', 'Bali', 'Nusa Tenggara Barat', 'Nusa Tenggara Timur', 'Kalimantan Barat', 'Kalimantan Tengah', 'Kalimantan Selatan', 'Kalimantan Timur', 'Kalimantan Utara', 'Sulawesi Utara', 'Gorontalo', 'Sulawesi Tengah', 'Sulawesi Barat', 'Sulawesi Selatan', 'Sulawesi Tenggara', 'Maluku', 'Maluku Utara', 'Papua', 'Papua Barat', 'Papua Barat Daya', 'Papua Tengah', 'Papua Pegunungan', 'Papua Selatan'];
 
 /** Merapikan awalan bagian jalan/kampung: „JL“, „jln.“ → „Jl.“, „kp“, „kampung“ → „Kp.“, „gg“ → „Gg.“, „no“ → „No.“. */
 function rapikanJalan(s: string): string {
@@ -164,6 +164,12 @@ export function uraiAlamat(teks: string): AlamatRinci {
     a.desa = d; a.kecamatan = k; a.kabupaten = kb;
   }
   return a;
+}
+
+/** Alamat yayasan (pengaturan situs) sebagai rincian: jalan & kampung/RT dari isian jalan, sisanya dari isiannya. */
+export function rinciSitus(a: { jalan: string; desa: string; kecamatan: string; kabupaten: string; provinsi: string; kodepos: string }): AlamatRinci {
+  const j = uraiAlamat(a.jalan);
+  return { jalan: j.jalan, kampung: j.kampung, rt: j.rt, rw: j.rw, desa: a.desa || j.desa, kecamatan: a.kecamatan || j.kecamatan, kabupaten: a.kabupaten || j.kabupaten, kota: /^\s*kota\b/i.test(a.kabupaten), provinsi: a.provinsi || j.provinsi, kodepos: a.kodepos || j.kodepos };
 }
 
 /** Teks alamat bebas → ejaan baku. Bila tidak ada bagian wilayah yang dikenali, teksnya hanya dirapikan. */

@@ -25,6 +25,7 @@ import {
 } from '../pages/portal.ts';
 import { publikDok } from './konten.ts';
 import { hapusTerkait, simpanTerkait, statusTagihan } from '../data/kait.ts';
+import { PROVINSI, rapikanAlamat, rapikanRinci, tulisAlamat, uraiAlamat, type AlamatRinci } from '../lib/alamat.ts';
 import { posisi } from '../data/siswa.ts';
 import { ATUR_KEY, katalogBawaan, type AturPustaka } from '../data/pustaka.ts';
 import { RAK_ID } from '../data/buku.ts';
@@ -249,7 +250,7 @@ function formLembaga(c: Ctx, x: Partial<Unit>, baru: boolean): Raw {
     ${isian('Kelas / tingkat (satu per baris)', 'kelas', (x.kelas ?? []).join('\n'), { baris: 4, bantuan: 'Dipakai rak perpustakaan dan bank soal lembaga ini.' })}
     ${isian('Sarana (satu per baris)', 'fasilitas', (x.fasilitas ?? []).join('\n'), { baris: 4 })}
     <div class="p-baris">${isian('Waktu belajar / layanan', 'jadwal', x.jadwal, { maks: 120 })}${isian('Kurikulum', 'kurikulum', x.kurikulum, { maks: 160 })}</div>
-    ${isian('Alamat', 'alamat', x.alamat, { baris: 2, maks: 300 })}
+    ${formAlamat(x)}
     <div class="p-baris">${isian('NSM (12 angka)', 'nsm', x.nsm, { maks: 12, bantuan: 'Nomor Statistik Madrasah — impor file master mencocokkan siswa ke lembaga ini lewat NSM.' })}${isian('NPSN (8 angka)', 'npsn', x.npsn, { maks: 8 })}${isian('NIP/NUPTK kepala', 'nipKepala', x.nipKepala, { maks: 30 })}</div>`)}
   ${bagian('Kontak & media sosial', html`<div class="p-baris">${isian('Telepon', 'telepon', x.kontak?.telepon, { maks: 30 })}${isian('WhatsApp', 'wa', x.kontak?.wa, { maks: 30 })}${isian('E-mail', 'email', x.kontak?.email, { jenis: 'email', maks: 100 })}</div>
     <div class="p-baris">${isian('YouTube', 'youtube', x.sosmed?.youtube, { jenis: 'url' })}${isian('Facebook', 'facebook', x.sosmed?.facebook, { jenis: 'url' })}</div>
@@ -258,6 +259,23 @@ function formLembaga(c: Ctx, x: Partial<Unit>, baru: boolean): Raw {
   <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">${baru ? 'Buat lembaga' : 'Simpan profil'}</button>${baru ? '' : html`<a class="tbl-teks" href="/lembaga/${x.slug}" target="_blank" rel="noopener">Lihat di situs ↗</a>`}</div>
 </form>`;
 }
+
+/** Alamat lembaga per bagian (pemilik: „Bikin penulisan alamatnya lebih elegan, lebih pantes … form lembaga“). */
+function formAlamat(x: Partial<Unit>): Raw {
+  const r: AlamatRinci = x.alamatRinci ?? uraiAlamat(x.alamat ?? '');
+  const ditulis = x.alamatRinci ? tulisAlamat(x.alamatRinci, { singkat: false }) : rapikanAlamat(x.alamat ?? '', { singkat: false });
+  return bagian('Alamat lembaga', html`<div class="p-alamat" data-alamat>
+    <div class="p-baris">${isian('Jalan & nomor', 'a_jalan', r.jalan, { maks: 120, bantuan: 'mis. Jl. Yapida No. 3' })}${isian('Kampung / dusun / perumahan', 'a_kampung', r.kampung, { maks: 80, bantuan: 'mis. Kp. Kuda-kuda' })}</div>
+    <div class="p-baris p-baris-rapat">${isian('RT', 'a_rt', r.rt, { maks: 3 })}${isian('RW', 'a_rw', r.rw, { maks: 3 })}${isian('Desa / kelurahan', 'a_desa', r.desa, { maks: 60 })}${centang('Kelurahan (bukan desa)', 'a_kelurahan', r.kelurahan === true)}</div>
+    <div class="p-baris">${isian('Kecamatan', 'a_kecamatan', r.kecamatan, { maks: 60 })}${isian('Kabupaten / kota', 'a_kabupaten', r.kabupaten, { maks: 60 })}${centang('Kota (bukan kabupaten)', 'a_kota', r.kota === true)}</div>
+    <div class="p-baris">${pilihan('Provinsi', 'a_provinsi', r.provinsi ?? 'Jawa Barat', PROVINSI.map((p): [string, string] => [p, p]))}${isian('Kode pos', 'a_kodepos', r.kodepos, { maks: 5 })}</div>
+    <p class="p-alamat-hasil"><span>Ditulis di kop, sertifikat, dan halaman lembaga:</span><b data-alamat-hasil>${ditulis || '—'}</b></p>
+  </div>`, 'Isi per bagian — penulisan baku (Jl., Kp., RT 003/RW 002, Desa, Kecamatan, Kabupaten) dibuat otomatis.');
+}
+const rinciDariForm = (f: Record<string, unknown>): AlamatRinci => {
+  const t = (k: string, n: number) => String(f[k] ?? '').replace(/\s+/g, ' ').trim().slice(0, n);
+  return rapikanRinci({ jalan: t('a_jalan', 120) || undefined, kampung: t('a_kampung', 80) || undefined, rt: t('a_rt', 3) || undefined, rw: t('a_rw', 3) || undefined, desa: t('a_desa', 60) || undefined, kelurahan: f.a_kelurahan === '1', kecamatan: t('a_kecamatan', 60) || undefined, kabupaten: t('a_kabupaten', 60) || undefined, kota: f.a_kota === '1', provinsi: PROVINSI.includes(t('a_provinsi', 40)) ? t('a_provinsi', 40) : undefined, kodepos: t('a_kodepos', 5) || undefined });
+};
 
 const urlAman = (s: string) => (/^https?:\/\/\S+$/i.test(s) && s.length <= 300 ? s : undefined);
 
@@ -275,7 +293,8 @@ function bacaLembaga(f: Record<string, unknown>, lama: Partial<Unit>, semua: boo
     kepala: teks(f, 'kepalaNama', 100) ? { nama: teks(f, 'kepalaNama', 100), jabatan: teks(f, 'kepalaJabatan', 60) || 'Kepala' } : undefined,
     berdiri: opsional(teks(f, 'berdiri', 20)), pendiri: opsional(teks(f, 'pendiri', 120)), angka,
     program: baris(f.program).slice(0, 20), kelas: baris(f.kelas).slice(0, 40), fasilitas: baris(f.fasilitas).slice(0, 30),
-    jadwal: opsional(teks(f, 'jadwal', 120)), kurikulum: opsional(teks(f, 'kurikulum', 160)), alamat: opsional(teks(f, 'alamat', 300)),
+    jadwal: opsional(teks(f, 'jadwal', 120)), kurikulum: opsional(teks(f, 'kurikulum', 160)),
+    ...(() => { if (f.a_desa === undefined && f.a_jalan === undefined) return { alamat: opsional(teks(f, 'alamat', 300)) ?? lama.alamat, alamatRinci: lama.alamatRinci }; const r = rinciDariForm(f); const a = tulisAlamat(r, { singkat: false }); return { alamatRinci: a ? r : undefined, alamat: opsional(a) }; })(),
     kontak: { telepon: opsional(teks(f, 'telepon', 30)), wa: opsional(teks(f, 'wa', 30)), email: opsional(teks(f, 'email', 100)) },
     sosmed: { youtube: urlAman(teks(f, 'youtube')), facebook: urlAman(teks(f, 'facebook')), instagram: urlAman(teks(f, 'instagram')), tiktok: urlAman(teks(f, 'tiktok')), situs: urlAman(teks(f, 'situs')) },
     ytKanal: /^UC[\w-]{22}$/.test(teks(f, 'ytKanal', 40)) ? teks(f, 'ytKanal', 40) : undefined,

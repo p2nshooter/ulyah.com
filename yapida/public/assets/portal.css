@@ -443,3 +443,11 @@ a.g-tautan:hover .g-label{text-decoration:underline}
 .ps-arsip{margin:0;padding:.8rem 1.2rem;border-top:1px solid var(--garis);font-size:.86rem;color:var(--redup);text-align:center}
 @media (max-width:860px){.ps-dua{grid-template-columns:1fr}.ps-ruang{height:calc(100vh - 110px)}.ps-msg{max-width:92%}}
 @media (prefers-reduced-motion:reduce){.ps-msg.baru .ps-gel{animation:none}}
+
+/* alamat lembaga per bagian */
+.p-baris-rapat{grid-template-columns:5rem 5rem 1fr auto}
+.p-alamat-hasil{display:flex;flex-direction:column;gap:.2rem;margin:.4rem 0 0;padding:.8rem 1rem;border-radius:14px;background:linear-gradient(135deg,var(--e100),var(--gading));border:1px solid var(--e400)}
+.p-alamat-hasil span{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--redup)}
+.p-alamat-hasil b{font-family:var(--f-judul);font-weight:600;font-size:1.02rem}
+[data-tema="malam"] .p-alamat-hasil{background:#2b2408}
+@media (max-width:640px){.p-baris-rapat{grid-template-columns:1fr 1fr}}

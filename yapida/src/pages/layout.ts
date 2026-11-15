@@ -1,4 +1,5 @@
 /** Kerangka halaman publik: <head> (SEO, AdSense tumpuk, font), kepala situs, kaki, dan alat interaktif (tasbih, tema). */
+import { rinciSitus, tulisAlamat } from '../lib/alamat.ts';
 import { html, raw, esc, type Raw } from '../lib/html.ts';
 import { ADSENSE_LOADER, ADSENSE_METAS } from '../lib/adsense.ts';
 import { KELOMPOK, URUTAN_KELOMPOK, type Situs } from '../data/model.ts';
@@ -61,7 +62,7 @@ export interface PageOpts {
   js?: string[];
 }
 
-export const alamatLengkap = (s: Situs) => `${s.alamat.jalan}, Desa ${s.alamat.desa}, Kecamatan ${s.alamat.kecamatan}, ${s.alamat.kabupaten}, ${s.alamat.provinsi} ${s.alamat.kodepos}`;
+export const alamatLengkap = (s: Situs) => tulisAlamat(rinciSitus(s.alamat), { singkat: false });
 
 export function orgJsonLd(origin: string, s: Situs): unknown {
   const same = Object.values(s.sosmed).filter(Boolean);

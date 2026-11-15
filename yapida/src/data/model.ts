@@ -58,6 +58,8 @@ export interface Unit {
   jadwal?: string;
   kurikulum?: string;
   alamat?: string;
+  /** Alamat per bagian (formulir profil lembaga); `alamat` ditulis darinya dengan ejaan baku. */
+  alamatRinci?: import('../lib/alamat.ts').AlamatRinci;
   kontak?: Kontak;
   sosmed?: Sosmed;
   /** ID kanal YouTube (UC…) untuk menarik video kegiatan otomatis. */

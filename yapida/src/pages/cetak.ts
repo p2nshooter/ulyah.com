@@ -8,8 +8,13 @@ import { rupiah, tanggal, terbilang } from '../lib/text.ts';
 import type { Dok } from '../data/koleksi.ts';
 import { DESAIN_ID, JUDUL_PENGHARGAAN, kalimatPenghargaan, labelMetode, labelUntuk, type Kop } from '../data/dokumen.ts';
 import { ASSET_V } from './layout.ts';
+import { duaBaris, tulisAlamat, uraiAlamat } from '../lib/alamat.ts';
 
 export type Media = (f: string | undefined | null) => string;
+/** Alamat kop: dua baris (jalan sampai desa | kecamatan sampai kode pos) dengan ejaan baku. */
+const barisKop = (alamat: string) => duaBaris(uraiAlamat(alamat), { singkat: false }).filter(Boolean);
+/** Alamat di sertifikat: satu baris ringkas bersekat titik tengah. */
+const alamatSert = (alamat: string) => tulisAlamat(uraiAlamat(alamat), { singkat: true, pisah: '  ·  ' }) || alamat;
 const LOGO_YAYASAN = '/assets/logo-512.webp';
 /** Dokumen yang dicetak: tersimpan (Dok) atau pratinjau dari formulir (belum punya id/slug/html). */
 export type DokCetak = Pick<Dok, 'judul' | 'tanggal' | 'd' | 'unit'> & Partial<Pick<Dok, 'id' | 'slug' | 'html' | 'status'>>;
@@ -45,7 +50,7 @@ export function kopHtml(k: Kop, media: Media, o: { kecil?: boolean } = {}): Raw 
   const kanan = k.logoKanan || k.gaya === 'dua' ? logo(k.logoKanan, 'kop-kanan') : '';
   return html`<header class="kop g-${k.gaya} w-${k.warna}${o.kecil ? ' kop-kecil' : ''}${kanan ? ' kop-dua' : ''}">
   ${logo(k.logo, 'kop-kiri')}
-  <div class="kop-teks">${k.induk ? html`<p class="kop-induk">${k.induk}</p>` : ''}<p class="kop-nama">${k.nama}</p>${k.arab ? html`<p class="kop-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}${k.ket || k.nsm ? html`<p class="kop-ket">${[k.ket, k.nsm].filter(Boolean).join(' · ')}</p>` : ''}<p class="kop-alamat">${k.alamat}</p><p class="kop-kontak">${k.kontak}</p></div>
+  <div class="kop-teks">${k.induk ? html`<p class="kop-induk">${k.induk}</p>` : ''}<p class="kop-nama">${k.nama}</p>${k.arab ? html`<p class="kop-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}${k.ket || k.nsm ? html`<p class="kop-ket">${[k.ket, k.nsm].filter(Boolean).join(' · ')}</p>` : ''}<p class="kop-alamat">${barisKop(k.alamat).map((b, i) => html`${i ? raw('<br>') : ''}${b}`)}</p><p class="kop-kontak">${k.kontak}</p></div>
   ${kanan}
 </header><div class="kop-garis w-${k.warna}" aria-hidden="true"></div>`;
 }
@@ -99,7 +104,7 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
   <div class="sert-garis" aria-hidden="true"></div>
   <div class="sert-sudut-wadah" aria-hidden="true">${sudutP(1)}${sudutP(2)}${sudutP(3)}${sudutP(4)}</div>
   <div class="sert-isi">
-    <header class="sert-kop"><img class="sert-logo" src="${logo}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${k.alamat}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
+    <header class="sert-kop"><img class="sert-logo" src="${logo}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${alamatSert(k.alamat)}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
     <p class="sert-bismillah" lang="ar" dir="rtl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
     <h1 class="sert-judul"><span>${judul}</span></h1>
     ${t(d, 'nomor') ? html`<p class="sert-nomor">Nomor: ${t(d, 'nomor')}</p>` : ''}

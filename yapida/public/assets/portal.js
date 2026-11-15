@@ -345,4 +345,19 @@
     setInterval(function () { if (!d.hidden) periksa(); }, 30000);
     d.addEventListener('visibilitychange', function () { if (!d.hidden) periksa(); });
   })();
+
+  /* ── alamat lembaga: pratinjau penulisan baku saat mengetik (server menulis versi finalnya) ── */
+  $$('[data-alamat]').forEach(function (w) {
+    var hasil = $('[data-alamat-hasil]', w);
+    var v = function (n) { var el = $('[name="' + n + '"]', w); return el ? (el.type === 'checkbox' ? el.checked : el.value.replace(/\s+/g, ' ').trim()) : ''; };
+    var judul = function (s) { return s && s === s.toUpperCase() ? s.toLowerCase().replace(/(^|[\s-])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }) : s; };
+    var nol = function (s) { s = String(s).replace(/\D/g, ''); return s ? ('00' + s).slice(-3) : ''; };
+    var tulis = function () {
+      var rt = v('a_rt') || v('a_rw') ? [v('a_rt') && 'RT ' + nol(v('a_rt')), v('a_rw') && 'RW ' + nol(v('a_rw'))].filter(Boolean).join('/') : '';
+      var kp = v('a_kampung') ? (/^(kp|kampung|dusun|perum)/i.test(v('a_kampung')) ? judul(v('a_kampung')) : 'Kp. ' + judul(v('a_kampung'))) : '';
+      var bag = [judul(v('a_jalan')), [kp, rt].filter(Boolean).join(' '), v('a_desa') && (v('a_kelurahan') ? 'Kelurahan ' : 'Desa ') + judul(v('a_desa').replace(/^(desa|ds\.?|kelurahan|kel\.?)\s*/i, '')), v('a_kecamatan') && 'Kecamatan ' + judul(v('a_kecamatan').replace(/^(kecamatan|kec\.?)\s*/i, '')), v('a_kabupaten') && (v('a_kota') ? 'Kota ' : 'Kabupaten ') + judul(v('a_kabupaten').replace(/^(kabupaten|kab\.?|kota)\s*/i, '')), [v('a_provinsi'), v('a_kodepos')].filter(Boolean).join(' ')].filter(Boolean);
+      if (hasil) hasil.textContent = bag.join(', ') || '—';
+    };
+    w.addEventListener('input', tulis); w.addEventListener('change', tulis);
+  });
 })();
