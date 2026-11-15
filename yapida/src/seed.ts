@@ -8,7 +8,7 @@
 import type { Halaman, Situs, Unit } from './data/model.ts';
 import { renderMarkdown } from './lib/markdown.ts';
 
-export const SEED_VERSION = 2;
+export const SEED_VERSION = 3;
 
 const ALAMAT = 'Jl. Yapida No. 3, Kp. Kuda-kuda RT 003 RW 002, Desa Sukakarya, Kecamatan Sukakarya, Kabupaten Bekasi, Jawa Barat 17641';
 
@@ -38,14 +38,14 @@ export function seedSitus(now: number): Situs {
       npwp: '74.836.712.5-414.000',
       kpp: 'KPP Pratama Cikarang Utara',
     },
-    pendiri: ['Fadli Robbi, S.Ag.', 'H. Karnada', 'H. Suherman', 'Hj. Latifah', 'Yayah Hipdiyah, S.Pd.I.'],
+    pendiri: ['Fadli Robbi, S.Ag.', 'H. Karnada', 'H. Suherman', 'Hj. Latifah', 'Yayah Hifdiyah, S.Pd.I.'],
     organ: [
       { organ: 'Pembina', jabatan: 'Ketua', nama: 'Hj. Latifah' },
       { organ: 'Pembina', jabatan: 'Anggota', nama: 'H. Karnada' },
       { organ: 'Pengurus', jabatan: 'Ketua', nama: 'Fadli Robbi, S.Ag.' },
       { organ: 'Pengurus', jabatan: 'Sekretaris', nama: 'H. Suherman' },
       { organ: 'Pengurus', jabatan: 'Bendahara', nama: 'Linda Maulida ‘Aini, S.E.' },
-      { organ: 'Pengawas', jabatan: 'Ketua', nama: 'Yayah Hipdiyah, S.Pd.I.' },
+      { organ: 'Pengawas', jabatan: 'Ketua', nama: 'Yayah Hifdiyah, S.Pd.I.' },
       { organ: 'Pengawas', jabatan: 'Anggota', nama: 'Hamdani Darusalam' },
     ],
     organCatatan: 'Susunan organ menurut lampiran SK pengesahan badan hukum, 26 Desember 2015.',
@@ -106,13 +106,14 @@ export const SEED_UNITS: UnitAwal[] = [
     ringkas: 'Raudhatul Athfal — pendidikan anak usia dini bercirikan Islam, setara taman kanak-kanak, di bawah Yayasan Al-Huda Yapida.',
     profil: 'RA Al Huda adalah Raudhatul Athfal, jenjang pendidikan anak usia dini bercirikan Islam yang setara dengan taman kanak-kanak. Anak belajar sambil bermain: mengenal huruf dan angka, huruf hijaiyah, doa harian, dan pembiasaan akhlak, sebagai bekal sebelum masuk madrasah ibtidaiyah.\n\nLulusan RA Al Huda dapat melanjutkan ke MI Al Huda yang berada di lingkungan yang sama.',
     kelas: ['Kelompok A', 'Kelompok B'],
+    kepala: { nama: 'Hani Nurmawati', jabatan: 'Kepala RA' },
   }),
   awal({
     slug: 'mi-al-huda', nama: 'MIS Al Huda', singkat: 'MI Al Huda', jenis: 'Madrasah Ibtidaiyah Swasta', kelompok: 'formal', urut: 4, suara: 'anak',
     ringkas: 'Madrasah ibtidaiyah yang berdiri sejak 1970: kurikulum Dinas Pendidikan dan Kemenag, pembiasaan karakter, dan tahfidz Al-Qur’an.',
     profil: MI_PROFIL,
     sejarah: MI_SEJARAH,
-    kepala: { nama: 'Fadli Robbi', jabatan: 'Kepala Madrasah' },
+    kepala: { nama: 'Fadli Robbi, S.Ag.', jabatan: 'Kepala Madrasah' },
     berdiri: '1970',
     pendiri: 'H. Moh. Hilwani',
     angka: [{ label: 'Santri', nilai: '153' }, { label: 'Ustadz & ustadzah', nilai: '11' }, { label: 'Ruang kelas', nilai: '6' }, { label: 'Berdiri', nilai: '1970' }],
@@ -128,6 +129,7 @@ export const SEED_UNITS: UnitAwal[] = [
     ringkas: 'Madrasah Tsanawiyah — jenjang menengah pertama bercirikan Islam, kelanjutan MI di lingkungan Yapida.',
     profil: 'MTs Al Huda adalah Madrasah Tsanawiyah, jenjang pendidikan menengah pertama bercirikan Islam yang setara dengan SMP. Selain mata pelajaran umum, siswa mendalami Al-Qur’an Hadis, Akidah Akhlak, Fikih, Sejarah Kebudayaan Islam, dan Bahasa Arab.\n\nMTs Al Huda menjadi kelanjutan bagi lulusan MI Al Huda dan sekolah dasar di sekitar Sukakarya.',
     kelas: ['Kelas 7', 'Kelas 8', 'Kelas 9'],
+    kepala: { nama: 'Fahmi Yazid', jabatan: 'Kepala Madrasah' },
   }),
   awal({
     slug: 'ponpes-al-huda', nama: 'Pondok Pesantren Al Huda', singkat: 'Ponpes Al Huda', jenis: 'Pondok pesantren', kelompok: 'formal', urut: 6, suara: 'remaja',
@@ -260,13 +262,27 @@ export const SEED_SDM: SdmAwal[] = [
   { id: 'sdm_0000000000000000P003', unit: 'yayasan', nama: 'H. Karnada', golongan: 'pendiri', jabatan: AKTA, urut: 3 },
   { id: 'sdm_0000000000000000P004', unit: 'yayasan', nama: 'H. Suherman', golongan: 'pendiri', jabatan: AKTA, urut: 4 },
   { id: 'sdm_0000000000000000P005', unit: 'yayasan', nama: 'Hj. Latifah', golongan: 'pendiri', jabatan: AKTA, urut: 5 },
-  { id: 'sdm_0000000000000000P006', unit: 'yayasan', nama: 'Yayah Hipdiyah, S.Pd.I.', golongan: 'pendiri', jabatan: AKTA, urut: 6 },
+  { id: 'sdm_0000000000000000P006', unit: 'yayasan', nama: 'Yayah Hifdiyah, S.Pd.I.', golongan: 'pendiri', jabatan: AKTA, urut: 6 },
   { id: 'sdm_0000000000000000B001', unit: 'yayasan', nama: 'Hj. Latifah', golongan: 'pembina', jabatan: 'Ketua Pembina', urut: 11 },
   { id: 'sdm_0000000000000000B002', unit: 'yayasan', nama: 'H. Karnada', golongan: 'pembina', jabatan: 'Anggota Pembina', urut: 12 },
   { id: 'sdm_0000000000000000R001', unit: 'yayasan', nama: 'Fadli Robbi, S.Ag.', golongan: 'pengurus', jabatan: 'Ketua Yayasan', urut: 21 },
   { id: 'sdm_0000000000000000R002', unit: 'yayasan', nama: 'H. Suherman', golongan: 'pengurus', jabatan: 'Sekretaris', urut: 22 },
   { id: 'sdm_0000000000000000R003', unit: 'yayasan', nama: 'Linda Maulida ‘Aini, S.E.', golongan: 'pengurus', jabatan: 'Bendahara', urut: 23 },
-  { id: 'sdm_0000000000000000W001', unit: 'yayasan', nama: 'Yayah Hipdiyah, S.Pd.I.', golongan: 'pengawas', jabatan: 'Ketua Pengawas', urut: 31 },
+  { id: 'sdm_0000000000000000W001', unit: 'yayasan', nama: 'Yayah Hifdiyah, S.Pd.I.', golongan: 'pengawas', jabatan: 'Ketua Pengawas', urut: 31 },
   { id: 'sdm_0000000000000000W002', unit: 'yayasan', nama: 'Hamdani Darusalam', golongan: 'pengawas', jabatan: 'Anggota Pengawas', urut: 32 },
   { id: 'sdm_0000000000000000M001', unit: 'mi-al-huda', nama: 'Fadli Robbi, S.Ag.', golongan: 'pimpinan', jabatan: 'Kepala Madrasah', urut: 1 },
+  // Pemilik, 15 Nov 2026: „ketua yayasan dan kepala mi Ustad Fadli Robbi, S. Ag, kepala MTs Ustad Fahmi Yazid kepala RA Hani Nurmawati“.
+  { id: 'sdm_0000000000000000A001', unit: 'ra-al-huda', nama: 'Hani Nurmawati', golongan: 'pimpinan', jabatan: 'Kepala RA', urut: 1 },
+  { id: 'sdm_0000000000000000T001', unit: 'mts-al-huda', nama: 'Fahmi Yazid', golongan: 'pimpinan', jabatan: 'Kepala Madrasah', urut: 1 },
 ];
+
+/**
+ * Perbaikan isi awal yang sudah tertulis di R2 (situs live): hanya mengganti nilai yang MASIH sama dengan isi awal lama,
+ * jadi suntingan admin di portal tidak pernah ditimpa. Pemilik, 15 Nov 2026: „Ngambil namanya jgn ngarang …“.
+ */
+export const TAMBALAN_NAMA: { lama: string; baru: string }[] = [{ lama: 'Yayah Hipdiyah, S.Pd.I.', baru: 'Yayah Hifdiyah, S.Pd.I.' }];
+export const TAMBALAN_KEPALA: Record<string, { lama?: string; baru: { nama: string; jabatan: string } }> = {
+  'mi-al-huda': { lama: 'Fadli Robbi', baru: { nama: 'Fadli Robbi, S.Ag.', jabatan: 'Kepala Madrasah' } },
+  'ra-al-huda': { baru: { nama: 'Hani Nurmawati', jabatan: 'Kepala RA' } },
+  'mts-al-huda': { baru: { nama: 'Fahmi Yazid', jabatan: 'Kepala Madrasah' } },
+};

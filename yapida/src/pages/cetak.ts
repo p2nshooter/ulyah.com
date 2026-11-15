@@ -60,10 +60,30 @@ export function kopContohHtml(k: Kop, media: Media): Raw {
 
 /* ── sertifikat & piagam ────────────────────────────────────────────────── */
 
-const SUDUT = '<svg class="sert-sudut" viewBox="0 0 100 100" aria-hidden="true"><path d="M2 98V40Q2 2 40 2H98" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M11 90V46Q11 11 46 11H90" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M22 22c9-7 22-5 28 5s3 22-7 25-19-7-13-16 16-5 19 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4" fill="currentColor"/><path d="M32 9q13 2 20 15M9 32q2 13 15 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="54" cy="24" r="1.6" fill="currentColor"/><circle cx="24" cy="54" r="1.6" fill="currentColor"/></svg>';
 /** Hiasan pemisah di bawah judul: garis, belah ketupat, bunga delapan kelopak. */
 const HIAS = raw('<svg class="sert-hias" viewBox="0 0 240 16" aria-hidden="true"><path d="M8 8H96M144 8H232" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M96 8l6-4 6 4-6 4zM132 8l6-4 6 4-6 4z" fill="currentColor"/><g transform="translate(120 8)" fill="currentColor"><circle r="2.2"/><path d="M0-7.5l1.6 4.4L0-1.6-1.6-3.1zM0 7.5l1.6-4.4L0 1.6-1.6 3.1zM-7.5 0l4.4 1.6L-1.6 0-3.1-1.6zM7.5 0L3.1 1.6 1.6 0 3.1-1.6z"/><path d="M-5.3-5.3l3.6 1.9-1.3 1.3zM5.3 5.3L1.7 3.4l1.3-1.3zM5.3-5.3L3.4-1.7 2.1-3zM-5.3 5.3l1.9-3.6 1.3 1.3z" opacity=".7"/></g></svg>');
-const sudut = (n: number) => raw(SUDUT.replace('class="sert-sudut"', `class="sert-sudut s${n}"`));
+
+/* ── unsur premium: emas foil, sudut arabesque, segel bertulisan melingkar, garis hias ── */
+
+/** Gradasi emas foil — dipakai sudut, segel, dan garis hias (satu definisi per lembar). */
+const FOIL = '<svg class="sert-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><linearGradient id="yp-foil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a5a0c"/><stop offset=".2" stop-color="#e9cf7a"/><stop offset=".38" stop-color="#fff4c7"/><stop offset=".52" stop-color="#c9a227"/><stop offset=".7" stop-color="#f7e3a1"/><stop offset=".86" stop-color="#9c7414"/><stop offset="1" stop-color="#e2c063"/></linearGradient><radialGradient id="yp-foil-r" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#fff7d6"/><stop offset=".35" stop-color="#f1d27a"/><stop offset=".7" stop-color="#c9a227"/><stop offset="1" stop-color="#7a5a0c"/></radialGradient></defs></svg>';
+
+/** Sudut arabesque: garis ganda, sulur ganda, daun, bintang delapan. */
+const SUDUT_PREMIUM = '<svg class="sert-sudut" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="url(#yp-foil)" stroke-linecap="round"><path d="M4 116V30Q4 4 30 4H116" stroke-width="2.6"/><path d="M11 116V34Q11 11 34 11H116" stroke-width="1"/><path d="M17 96V40Q17 17 40 17H96" stroke-width=".7" stroke-dasharray="1.6 2.4"/><path d="M26 26c14-10 34-8 40 6s-2 28-15 27-17-14-8-20 18 0 16 9" stroke-width="2"/><path d="M26 26c-10 14-8 34 6 40s28-2 27-15-14-17-20-8 0 18 9 16" stroke-width="2"/><path d="M58 22q18-3 30 6M22 58q-3 18 6 30" stroke-width="1.2"/><path d="M70 13q10 4 16 0M13 70q4 10 0 16" stroke-width="1"/></g><g fill="url(#yp-foil)"><path d="M26 15l3.2 7.8L37 26l-7.8 3.2L26 37l-3.2-7.8L15 26l7.8-3.2z"/><path d="M26 18.5l5.3 2.2 2.2 5.3-2.2 5.3-5.3 2.2-5.3-2.2-2.2-5.3 2.2-5.3z" opacity=".55"/><ellipse cx="90" cy="27" rx="5" ry="2.2" transform="rotate(25 90 27)"/><ellipse cx="27" cy="90" rx="5" ry="2.2" transform="rotate(65 27 90)"/><circle cx="66" cy="40" r="1.8"/><circle cx="40" cy="66" r="1.8"/><circle cx="101" cy="11" r="1.6"/><circle cx="11" cy="101" r="1.6"/></g></svg>';
+const sudutP = (n: number) => raw(SUDUT_PREMIUM.replace('class="sert-sudut"', `class="sert-sudut s${n}"`));
+
+/** Watermark rosette bintang delapan di tengah lembar. */
+const ROSET = raw('<svg class="sert-roset" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="currentColor"><circle cx="100" cy="100" r="96" stroke-width=".8"/><circle cx="100" cy="100" r="88" stroke-width=".5" stroke-dasharray="2 3"/><rect x="38" y="38" width="124" height="124" stroke-width="1.2"/><rect x="38" y="38" width="124" height="124" stroke-width="1.2" transform="rotate(45 100 100)"/><rect x="58" y="58" width="84" height="84" stroke-width=".8"/><rect x="58" y="58" width="84" height="84" stroke-width=".8" transform="rotate(45 100 100)"/><circle cx="100" cy="100" r="30" stroke-width=".8"/><path d="M100 4v192M4 100h192M32 32l136 136M168 32L32 168" stroke-width=".3"/></g></svg>');
+
+/** Garis hias (swash) di bawah nama penerima. */
+const SWASH = raw('<svg class="sert-swash" viewBox="0 0 400 24" aria-hidden="true"><path d="M8 14C70 4 130 22 200 12S330 4 392 14" fill="none" stroke="url(#yp-foil)" stroke-width="1.6" stroke-linecap="round"/><path d="M60 16c30-6 60-6 90 2M250 18c30-8 60-8 90-2" fill="none" stroke="url(#yp-foil)" stroke-width=".8" stroke-linecap="round"/><path d="M200 5l4 7-4 7-4-7z" fill="url(#yp-foil)"/><circle cx="8" cy="14" r="2" fill="url(#yp-foil)"/><circle cx="392" cy="14" r="2" fill="url(#yp-foil)"/></svg>');
+
+/** Segel emas bergerigi dengan tulisan melingkar, logo di tengah, dan dua pita berwarna desain. */
+function segel(logo: string, teksMelingkar: string, idUnik: string): Raw {
+  const gerigi = Array.from({ length: 48 }, (_, i) => { const a = (i * Math.PI) / 24, r = i % 2 ? 84 : 92; return `${(100 + Math.cos(a) * r).toFixed(1)},${(100 + Math.sin(a) * r).toFixed(1)}`; }).join(' ');
+  return html`<div class="sert-segel" aria-hidden="true"><svg viewBox="0 0 200 250"><path class="pita-segel" d="M72 150 46 244l20-12 14 18 20-92Z"/><path class="pita-segel" d="M128 150l26 94-20-12-14 18-20-92Z"/><path class="pita-segel-lipat" d="M72 150 66 172l14-2 4-14Z M128 150l6 22-14-2-4-14Z"/>
+<polygon points="${gerigi}" fill="url(#yp-foil-r)" stroke="#7a5a0c" stroke-width="1"/><circle cx="100" cy="100" r="78" fill="url(#yp-foil)" stroke="#7a5a0c" stroke-width="1.2"/><circle cx="100" cy="100" r="71" fill="none" stroke="rgba(255,248,220,.75)" stroke-width="1" stroke-dasharray="1.2 2.2"/><path id="${idUnik}" d="M100 100m-60 0a60 60 0 1 1 120 0a60 60 0 1 1-120 0" fill="none"/><text class="segel-teks"><textPath href="#${idUnik}" startOffset="0" textLength="372">${teksMelingkar}</textPath></text><circle cx="100" cy="100" r="45" fill="#fffdf3" stroke="#7a5a0c" stroke-width="1"/><image href="${logo}" x="66" y="66" width="68" height="68" preserveAspectRatio="xMidYMid meet"/></svg></div>`;
+}
 
 export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikasi?: string } = {}): Raw {
   const jenis = JUDUL_PENGHARGAAN[t(d, 'jenis')] ? t(d, 'jenis') : 'lainnya';
@@ -71,14 +91,20 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
   const anak = DESAIN_ID[desain]!.kelompok === 'anak';
   const judul = t(d, 'judulSertifikat') || JUDUL_PENGHARGAAN[jenis]!;
   const foto = t(d, 'foto');
-  const ttd = (nama: string, jabatan: string) => (nama ? html`<div class="sert-ttd-blok"><p class="sert-ttd-jab">${jabatan || ' '}</p><div class="sert-ttd-ruang"></div><p class="sert-ttd-nama">${nama}</p></div>` : '');
-  return html`<article class="lembar a4l sert d-${desain} j-${jenis}${foto ? ' berfoto' : ''}" lang="id">
-  <div class="sert-latar" aria-hidden="true"></div>
-  <div class="sert-bingkai" aria-hidden="true">${sudut(1)}${sudut(2)}${sudut(3)}${sudut(4)}</div>
+  const logo = k.logo ? media(k.logo) : LOGO_YAYASAN;
+  const idSegel = `segel-${(d.id ?? d.judul).replace(/[^A-Za-z0-9]/g, '').slice(-12) || 'x'}`;
+  const melingkar = `✦ ${(k.induk || k.nama).replace(/\s+/g, ' ').trim()} ✦ ${k.kota.toUpperCase()} `;
+  const ttd = (nama: string, jabatan: string) => (nama ? html`<div class="sert-ttd-blok"><p class="sert-ttd-jab">${jabatan || ' '}</p><div class="sert-ttd-ruang"></div><p class="sert-ttd-nama">${nama}</p></div>` : html`<div class="sert-ttd-blok kosong"></div>`);
+  return html`<article class="lembar a4l sert premium d-${desain} j-${jenis}${foto ? ' berfoto' : ''}" lang="id">${raw(FOIL)}
+  <div class="sert-latar" aria-hidden="true">${ROSET}</div>
+  <div class="sert-bingkai" aria-hidden="true"></div>
+  <div class="sert-motif" aria-hidden="true"></div>
+  <div class="sert-garis" aria-hidden="true"></div>
+  <div class="sert-sudut-wadah" aria-hidden="true">${sudutP(1)}${sudutP(2)}${sudutP(3)}${sudutP(4)}</div>
   <div class="sert-isi">
-    <header class="sert-kop"><img class="sert-logo" src="${k.logo ? media(k.logo) : LOGO_YAYASAN}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${k.alamat}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
+    <header class="sert-kop"><img class="sert-logo" src="${logo}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${k.alamat}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
     <p class="sert-bismillah" lang="ar" dir="rtl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-    <h1 class="sert-judul">${judul}</h1>
+    <h1 class="sert-judul"><span>${judul}</span></h1>
     ${t(d, 'nomor') ? html`<p class="sert-nomor">Nomor: ${t(d, 'nomor')}</p>` : ''}
     ${HIAS}
     <div class="sert-tengah">
@@ -86,13 +112,14 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
       <div class="sert-teks">
         <p class="sert-diberikan">${anak ? 'dengan bangga diberikan kepada' : 'diberikan kepada'}</p>
         <p class="sert-nama">${d.judul}</p>
+        ${SWASH}
         ${t(d, 'kelas') ? html`<p class="sert-kelas">${t(d, 'kelas')}${k.induk ? html` · ${k.nama}` : ''}</p>` : ''}
         <p class="sert-kalimat">${kalimatPenghargaan(d.d)}</p>
       </div>
     </div>
     <footer class="sert-kaki">
       <p class="sert-tempat">${t(d, 'tempat') || k.kota}, ${tanggal(d.tanggal)}</p>
-      <div class="sert-ttd">${ttd(t(d, 'ttd2Nama'), t(d, 'ttd2Jabatan'))}<div class="sert-segel" aria-hidden="true"><img src="${k.logo ? media(k.logo) : LOGO_YAYASAN}" alt=""></div>${ttd(t(d, 'ttd1Nama'), t(d, 'ttd1Jabatan'))}</div>
+      <div class="sert-ttd">${ttd(t(d, 'ttd2Nama'), t(d, 'ttd2Jabatan'))}${segel(logo, melingkar, idSegel)}${ttd(t(d, 'ttd1Nama'), t(d, 'ttd1Jabatan'))}</div>
     </footer>
     ${o.verifikasi ? html`<p class="sert-verif">Verifikasi keaslian: ${o.verifikasi}</p>` : ''}
   </div>

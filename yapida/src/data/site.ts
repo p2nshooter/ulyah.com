@@ -10,7 +10,7 @@
  */
 import type { Store } from '../lib/store.ts';
 import { unitRingkas, type Halaman, type Situs, type Unit, type UnitRingkas } from './model.ts';
-import { SEED_SDM, SEED_UNITS, SEED_VERSION, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
+import { SEED_SDM, SEED_UNITS, SEED_VERSION, TAMBALAN_KEPALA, TAMBALAN_NAMA, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
 import { ambil, simpan } from './koleksi.ts';
 import { SDM } from './defs.ts';
 
@@ -63,6 +63,7 @@ export async function ensureSeed(store: Store, now = Date.now()): Promise<boolea
     if (await ambil(store, 'sdm', o.id)) continue;
     await simpan(store, SDM, { idBaru: o.id, unit: o.unit, status: 'tayang', judul: o.nama, d: { golongan: o.golongan, jabatan: o.jabatan, urut: o.urut, ...(o.bio ? { bio: o.bio } : {}) }, penulis: 'sistem', penulisNama: 'Isi awal' }, now);
   }
+  await tambalIsiAwal(store, now);
   await store.put(K_SEED, { v: SEED_VERSION, at: now });
   lupakan(store);
   return true;
@@ -126,4 +127,27 @@ export async function listHalaman(store: Store): Promise<{ slug: string; judul: 
 export async function putHalaman(store: Store, h: Halaman): Promise<void> {
   await store.put(halamanKey(h.slug), h, { judul: h.judul, kaki: h.kaki });
   lupakan(store);
+}
+
+/** Menerapkan TAMBALAN_* (src/seed.ts) ke data yang sudah ada — hanya nilai yang belum pernah diubah admin. */
+async function tambalIsiAwal(store: Store, now: number): Promise<void> {
+  const ganti = (n: string) => TAMBALAN_NAMA.find((t) => t.lama === n)?.baru ?? n;
+  await store.cas<Situs>(K_SITUS, (s) => {
+    if (!s) return null;
+    const organ = s.organ.map((o) => ({ ...o, nama: ganti(o.nama) }));
+    const pendiri = s.pendiri.map(ganti);
+    if (JSON.stringify(organ) === JSON.stringify(s.organ) && JSON.stringify(pendiri) === JSON.stringify(s.pendiri)) return null;
+    return { ...s, organ, pendiri, ubah: now };
+  }, 'Pengaturan situs');
+  for (const [slug, t] of Object.entries(TAMBALAN_KEPALA)) {
+    const u = await store.get<Unit>(unitKey(slug));
+    if (!u || (u.kepala?.nama && u.kepala.nama !== t.lama)) continue;
+    const baru: Unit = { ...u, kepala: t.baru };
+    await store.put(unitKey(slug), baru, unitRingkas(baru) as unknown as Record<string, unknown>);
+  }
+  for (const o of SEED_SDM) {
+    const d = await ambil(store, 'sdm', o.id);
+    if (!d || d.judul === o.nama || ganti(d.judul) !== o.nama) continue;
+    await simpan(store, SDM, { id: d.id, unit: d.unit, status: d.status, judul: o.nama, tanggal: d.tanggal, d: d.d, penulis: d.penulis, penulisNama: d.penulisNama }, now);
+  }
 }

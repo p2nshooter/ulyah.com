@@ -589,7 +589,7 @@ portal.post('/portal/unggah', async (c) => {
 
 /* ── sertifikat massal: ketik daftar penerima sekali, semua sertifikat terisi dan siap cetak ── */
 
-const PENERIMA_CONTOH = 'Nama Santri ; Juz 30 ; Mumtaz ; Kelas 5A ; NISN\nNama Santri ; Juz 29 dan 30 ; Jayyid Jiddan ; Kelas 6B ; NISN';
+const PENERIMA_CONTOH = 'Farhan Habib ; Juz 30 ; Mumtaz ; Kelas 5A ; NISN\nNama santri berikutnya ; Juz 29 dan 30 ; Jayyid Jiddan ; Kelas 6B ; NISN';
 
 function formMassal(o: { units: UnitItem[]; bolehYayasan: boolean; nilai: Record<string, string>; galat?: string }): Raw {
   const v = (k: string) => o.nilai[k] ?? '';
