@@ -104,7 +104,8 @@ export async function cocokPin(pin: string, stored: string, pepper: string): Pro
 /** PIN acak untuk akun baru / atur ulang. Menghindari PIN yang mudah ditebak (semua sama, berurutan). */
 export function pinAcak(): string {
   for (;;) {
-    const r = crypto.getRandomValues(new Uint32Array(1))[0]! % 100_000;
+    const r = crypto.getRandomValues(new Uint32Array(1))[0]! & 0x1ffff;
+    if (r >= 100_000) continue;
     const p = String(r).padStart(5, '0');
     if (pinLemah(p)) continue;
     return p;

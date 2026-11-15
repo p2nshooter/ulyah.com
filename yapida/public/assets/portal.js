@@ -13,7 +13,7 @@
     var k1 = $('[data-pin-k]', papan), k2 = $('[data-pin-k2]', papan), akun = form && $('[data-pin-akun]', form);
     var isi = [], tahap = 1, kirim = false, judulAsli = judul.textContent, ketAsli = ket.textContent;
     var lukis = function () { titik.forEach(function (t, i) { t.classList.toggle('isi', i < isi.length); }); };
-    var goyang = function (pesan) { papan.classList.remove('goyang'); void papan.offsetWidth; papan.classList.add('goyang'); if (pesan) ket.textContent = pesan; if (navigator.vibrate) navigator.vibrate([40, 30, 40]); };
+    var goyang = function (pesan) { papan.classList.remove('goyang'); void papan.offsetWidth; papan.classList.add('goyang'); if (pesan) ket.textContent = pesan; if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate([40, 30, 40]); };
     var siap = function () { return !akun || akun.value; };
     var mati = function () { papan.classList.toggle('mati', !siap()); };
     if (akun) { akun.addEventListener('change', function () { mati(); isi = []; lukis(); ket.textContent = ketAsli; }); mati(); }
@@ -39,7 +39,7 @@
       if (pos === null || isi.length >= 5) return;
       isi.push(pos); lukis();
       b.classList.remove('ketuk'); void b.offsetWidth; b.classList.add('ketuk');
-      if (navigator.vibrate) navigator.vibrate(10);
+      if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(10);
       if (isi.length === 5) { if (mode === 'buat' && tahap === 1) selesai(); else { kirim = true; setTimeout(function () { kirim = false; selesai(); }, 160); } }
     });
     if (form) form.addEventListener('submit', function (e) { if (!kirim) e.preventDefault(); });
@@ -103,7 +103,9 @@
 
   /* ── album foto: tambah banyak, keterangan, urutkan, hapus ── */
   $$('[data-galeri]').forEach(function (g) {
-    var inp = $('input[type="hidden"]', g), kisi = $('[data-galeri-kisi]', g), st = $('[data-unggah-status]', g), dasar = g.getAttribute('data-dasar');
+    var inp = $('input[type="hidden"]', g), kisi = $('[data-galeri-kisi]', g), st = $('[data-unggah-status]', g);
+    var BERKAS = /^\d{4}\/\d{2}\/[0-9a-z]{16,40}(_k)?\.(jpg|png|webp)$/;
+    var pratinjau = function (f) { var n = String(f || ''); return BERKAS.test(n) ? '/f/' + n.split('/').map(encodeURIComponent).join('/') : ''; };
     var foto = []; try { foto = JSON.parse(inp.value || '[]'); } catch (e) { foto = []; }
     var simpanNilai = function () { inp.value = JSON.stringify(foto); kotor = true; };
     var tarik = null;
@@ -112,7 +114,7 @@
       foto.forEach(function (p, i) {
         var el = d.createElement('div'); el.className = 'p-galeri-butir'; el.draggable = true;
         el.innerHTML = '<img alt=""><input type="text" maxlength="200" placeholder="Keterangan (opsional)"><div class="p-galeri-alat"><button type="button" data-a="kiri" aria-label="Geser ke kiri">‹</button><button type="button" data-a="kanan" aria-label="Geser ke kanan">›</button><button type="button" data-a="hapus" aria-label="Hapus foto">✕</button></div>';
-        el.querySelector('img').src = dasar + (p.k || p.f);
+        el.querySelector('img').src = pratinjau(p.k || p.f);
         var ket = el.querySelector('input'); ket.value = p.ket || '';
         ket.addEventListener('input', function () { p.ket = ket.value; simpanNilai(); });
         el.addEventListener('click', function (e) {

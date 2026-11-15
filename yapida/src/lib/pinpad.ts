@@ -18,9 +18,17 @@ const UMUR = 10 * 60_000;
 
 export function acak(): string[] {
   const a = '0123456789'.split('');
-  const r = crypto.getRandomValues(new Uint32Array(10));
+  const buf = new Uint8Array(1);
+  /** Bilangan acak seragam 0..maks: 4 bit acak, ditolak bila di luar rentang (tanpa modulo, tanpa bias). */
+  const seragam = (maks: number): number => {
+    for (;;) {
+      crypto.getRandomValues(buf);
+      const x = buf[0]! & 15;
+      if (x <= maks) return x;
+    }
+  };
   for (let i = a.length - 1; i > 0; i -= 1) {
-    const j = r[i]! % (i + 1);
+    const j = seragam(i);
     [a[i], a[j]] = [a[j]!, a[i]!];
   }
   return a;

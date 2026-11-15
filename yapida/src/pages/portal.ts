@@ -148,7 +148,7 @@ function bidangHtml(b: Bidang, v: unknown, galat: string | undefined, mediaUrl: 
     case 'berkas': kontrol = kontrolUnggah(nama, s, 'pdf', mediaUrl); break;
     case 'galeri': {
       const foto = Array.isArray(v) ? (v as FotoGaleri[]) : [];
-      kontrol = html`<div class="p-galeri" data-galeri data-dasar="${mediaUrl('')}"><input type="hidden" name="${nama}" value="${JSON.stringify(foto)}"><div class="p-galeri-kisi" data-galeri-kisi></div><div class="p-unggah-aksi"><label class="tbl tbl-garis tbl-kecil">Tambah foto<input type="file" accept="image/*" multiple hidden></label><span class="p-kecil" data-unggah-status></span></div></div>`;
+      kontrol = html`<div class="p-galeri" data-galeri><input type="hidden" name="${nama}" value="${JSON.stringify(foto)}"><div class="p-galeri-kisi" data-galeri-kisi></div><div class="p-unggah-aksi"><label class="tbl tbl-garis tbl-kecil">Tambah foto<input type="file" accept="image/*" multiple hidden></label><span class="p-kecil" data-unggah-status></span></div></div>`;
       break;
     }
     default: kontrol = html`<input type="text" name="${nama}" value="${s}"${raw(b.maks ? ` maxlength="${b.maks}"` : '')}>`;

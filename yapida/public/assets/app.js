@@ -240,7 +240,7 @@
     };
     manik.addEventListener('click', function () {
       var z = DZIKIR[st.i]; st.c += 1;
-      if (navigator.vibrate) navigator.vibrate(st.c >= z.n ? [60, 40, 120] : 12);
+      if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(st.c >= z.n ? [60, 40, 120] : 12);
       if (st.c >= z.n) {
         st.c = 0; st.p += 1;
         if (st.i < 2) st.i += 1;            /* 33× tasbih → tahmid → takbir, urutan wirid selepas shalat */
@@ -300,15 +300,25 @@
       e.preventDefault();
       n += 1; clearTimeout(waktu);
       logo.classList.remove('ketuk'); void logo.offsetWidth; logo.classList.add('ketuk');
-      if (n >= 5) { n = 0; if (navigator.vibrate) navigator.vibrate([20, 40, 20]); window.location.href = '/masuk'; return; }
+      if (n >= 5) { n = 0; if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate([20, 40, 20]); window.location.href = '/masuk'; return; }
       waktu = setTimeout(function () { var x = n; n = 0; if (x === 1) window.location.href = logo.getAttribute('href') || '/'; }, 600);
     });
   });
 
+  /* Foto galeri: hanya berkas unggahan situs sendiri (/f/tahun/bulan/nama.jpg). */
+  var FOTO_RE = /^\/f\/\d{4}\/\d{2}\/[0-9a-z]{16,40}(_k)?\.(jpg|png|webp)$/;
+  function fotoAman(h) {
+    try { var u = new URL(String(h || ''), location.href); return FOTO_RE.test(u.pathname) ? '/f/' + u.pathname.slice(3) : ''; } catch (e) { return ''; }
+  }
   /* ── pemutar video: sematan baru dimuat setelah ditekan ── */
+  /* Hanya sematan YouTube (nocookie), Facebook, dan TikTok; alamat disusun ulang dari awalan tetap. */
+  var SEMATAN = { 'www.youtube-nocookie.com': 'https://www.youtube-nocookie.com', 'www.facebook.com': 'https://www.facebook.com', 'www.tiktok.com': 'https://www.tiktok.com' };
+  function sematanAman(s) {
+    try { var u = new URL(String(s || '')); return u.protocol === 'https:' && Object.prototype.hasOwnProperty.call(SEMATAN, u.hostname) ? SEMATAN[u.hostname] + u.pathname + u.search : ''; } catch (e) { return ''; }
+  }
   $$('[data-pemutar]').forEach(function (p) {
     var mulai = function () {
-      var src = p.getAttribute('data-pemutar'); if (!src) return;
+      var src = sematanAman(p.getAttribute('data-pemutar')); if (!src) return;
       var f = d.createElement('iframe');
       f.src = src; f.title = 'Pemutar video'; f.loading = 'lazy';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write';
@@ -328,9 +338,9 @@
     var img = lb.querySelector('img'), cap = lb.querySelector('figcaption'), hit = lb.querySelector('.lb-hitung'), i = 0, asal = null;
     var tampil = function (n) {
       i = (n + butir.length) % butir.length;
-      var a = butir[i]; img.src = a.getAttribute('href'); img.alt = (a.querySelector('img') || {}).alt || '';
+      var a = butir[i]; img.src = fotoAman(a.getAttribute('href')); img.alt = (a.querySelector('img') || {}).alt || '';
       cap.textContent = a.getAttribute('data-ket') || ''; hit.textContent = (i + 1) + ' / ' + butir.length;
-      if (butir.length > 1) { var pre = new Image(); pre.src = butir[(i + 1) % butir.length].getAttribute('href'); }
+      if (butir.length > 1) { var pre = new Image(); pre.src = fotoAman(butir[(i + 1) % butir.length].getAttribute('href')); }
     };
     var tutup = function () { lb.hidden = true; d.body.style.overflow = ''; if (asal) asal.focus(); };
     butir.forEach(function (a, n) { a.addEventListener('click', function (e) { e.preventDefault(); asal = a; tampil(n); lb.hidden = false; d.body.style.overflow = 'hidden'; lb.querySelector('.lb-tutup').focus(); }); });
