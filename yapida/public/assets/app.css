@@ -415,3 +415,19 @@ html.js .kartu-unit.muncul.tampak{transform:rotateX(calc(var(--ry,0)*1deg)) rota
   html.js .muncul{opacity:1;transform:none}
 }
 @media print{.pita,.kepala,.kaki,.tasbih-tombol,.tasbih,.pasang,.hero-langit{display:none!important}body{background:#fff;color:#000}}
+/* ── pemutar mini Radio Qur'an LIVE (seluruh situs) ── */
+.rm{position:fixed;left:max(.8rem,env(safe-area-inset-left));bottom:max(1rem,env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:.55rem;max-width:min(430px,calc(100vw - 6.5rem));padding:.4rem .45rem .4rem .8rem;border-radius:999px;background:#04281b;color:#f6efd5;border:1px solid rgba(236,217,144,.45);box-shadow:0 16px 36px -14px rgba(0,0,0,.65);font-size:.82rem;line-height:1.25}
+.rm[hidden]{display:none}
+.rm-live{flex:none;padding:.15rem .45rem;border-radius:6px;background:#c8202b;color:#fff;font-weight:800;font-size:.66rem;letter-spacing:.12em}
+.rm.main .rm-live{animation:denyut-rm 1.6s ease-in-out infinite}
+@keyframes denyut-rm{50%{box-shadow:0 0 0 5px rgba(200,32,43,.28)}}
+.rm-teks{min-width:0;display:flex;flex-direction:column;color:inherit;text-decoration:none}
+.rm-teks b,.rm-teks small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm-teks small{color:#bcd2c4}
+.rm-tbl{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:0;background:var(--emas-grad);color:#241a00;font-size:.9rem;font-weight:800;cursor:pointer}
+.rm.mati{padding:.4rem;gap:0}
+.rm.mati .rm-teks,.rm.mati .rm-live{display:none}
+.rm.mati .rm-tbl{background:rgba(255,255,255,.12);color:#f6efd5}
+.rm-kabar{position:fixed;left:50%;top:5.2rem;z-index:61;max-width:min(520px,calc(100vw - 2rem));padding:.7rem 1.1rem;border-radius:14px;background:#04281b;color:#fdf8e6;border:1px solid rgba(236,217,144,.5);box-shadow:0 20px 40px -16px rgba(0,0,0,.7);font-size:.88rem;transform:translate(-50%,-14px);opacity:0;pointer-events:none;transition:opacity .4s,transform .4s}
+.rm-kabar.tampil{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.rm.main .rm-live{animation:none}.rm-kabar{transition:none}}

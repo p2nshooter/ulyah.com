@@ -19,6 +19,9 @@
   // KV hanya untuk penghitung batas laju (bukan data tahan lama).
   "kv_namespaces": [{ "binding": "RL", "id": "__KV_NAMESPACE_ID__" }],
   "triggers": { "crons": ["* * * * *", "0 19 * * *"] },
+  // Detak tiap menit untuk yapida.sch.id (radio Qur'an LIVE & notifikasi adzan): kuota 5 cron akun sudah terpakai, jadi
+  // cron menit ini sekalian memanggil entrypoint RPC `Jam` milik Worker yapida (tidak terbuka ke internet).
+  "services": [{ "binding": "YAPIDA", "service": "yapida-sch-id", "entrypoint": "Jam" }],
   "vars": { "CANONICAL_HOST": "" },
   // ascan.es — mesin yang sama, wajah lain (docs/MASTER-BLUEPRINT.md §19.6). Merek dipilih saat build lewat `define`.
   // Data terpisah total (bucket R2 sendiri) supaya setiap situs bisa berdiri dan dijual sendiri. Tetap R2, tidak pernah D1.

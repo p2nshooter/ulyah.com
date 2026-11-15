@@ -214,6 +214,7 @@ ${o.body.s}
 </div>
 ${(o.js ?? []).map((f) => `<script src="/assets/${f}?v=${v}" defer></script>`).join('\n')}
 <script src="/assets/app.js?v=${v}" defer></script>
+<script src="/assets/radio.js?v=${v}" defer></script>
 </body>
 </html>`;
 }

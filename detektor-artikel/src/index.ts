@@ -205,5 +205,9 @@ app.onError((err, c) => {
 
 export default {
   fetch: app.fetch,
-  scheduled: (event: ScheduledController, env: Env, ctx: ExecutionContext) => ctx.waitUntil(scheduled(event, env)),
+  scheduled: (event: ScheduledController, env: Env, ctx: ExecutionContext) => {
+    ctx.waitUntil(scheduled(event, env));
+    // Detak menit untuk yapida.sch.id (lihat wrangler.jsonc); gagal di sana tidak memengaruhi detektor.
+    if (event.cron === '* * * * *' && env.YAPIDA) ctx.waitUntil(env.YAPIDA.menit().catch((err: unknown) => console.error('detak yapida', err)));
+  },
 } satisfies ExportedHandler<Env>;

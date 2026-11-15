@@ -93,7 +93,7 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
 <body class="portal">
 <aside class="p-sisi" data-sisi>
   <a class="merek" href="/portal"><img src="/assets/logo-192.webp" width="38" height="48" alt=""><span class="merek-teks"><b>YAPIDA</b><small>Portal pengelola</small></span></a>
-  <div class="p-aku"><strong>${esc(o.user.nama)}</strong><span>${esc(PERAN[o.user.peran].nama)}</span></div>
+  <div class="p-aku"><strong>${esc(o.user.nama)}</strong><span>${esc(PERAN[o.user.peran].nama)}</span><form method="post" action="/keluar" class="p-aku-keluar"><button type="submit" data-keluar>${icon('tutup').s}<span>Keluar dari portal</span></button></form></div>
   <nav aria-label="Menu portal">
     <p>Utama</p>
     ${tautan('/portal', 'Dasbor', 'bintang')}
@@ -110,7 +110,7 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
   </nav>
 </aside>
 <main class="p-isi">
-  <header class="p-kepala"><button class="tbl-ikon p-buka" type="button" data-sisi-buka aria-label="Buka menu">${icon('menu').s}</button><h1>${esc(o.judul)}</h1><div class="p-aksi">${o.aksi?.s ?? ''}</div></header>
+  <header class="p-kepala"><button class="tbl-ikon p-buka" type="button" data-sisi-buka aria-label="Buka menu">${icon('menu').s}</button><h1>${esc(o.judul)}</h1><div class="p-aksi">${o.aksi?.s ?? ''}</div><form method="post" action="/keluar" class="p-kepala-keluar"><button class="tbl tbl-garis tbl-kecil" type="submit" data-keluar aria-label="Keluar dari portal">${icon('masuk').s}<span>Keluar</span></button></form></header>
   ${o.kilat?.ok ? `<p class="p-kilat p-kilat-ok" role="status">${esc(o.kilat.ok)}</p>` : ''}${o.kilat?.galat ? `<p class="p-kilat p-kilat-galat" role="alert">${esc(o.kilat.galat)}</p>` : ''}
   ${o.body.s}
 </main>

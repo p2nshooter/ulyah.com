@@ -1,4 +1,6 @@
 export interface Env {
+  /** Service binding ke entrypoint RPC `Jam` milik Worker yapida-sch-id (detak tiap menit). Hanya Worker utama. */
+  YAPIDA?: { menit(): Promise<unknown> };
   /** R2 privat: seluruh data aplikasi (detektor-data). */
   DATA: R2Bucket;
   /** R2 privat: backup harian, disimpan 35 hari (detektor-backups). */

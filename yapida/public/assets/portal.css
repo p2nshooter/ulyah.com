@@ -45,6 +45,14 @@
 .p-sisi .merek-teks small{color:#a9c4b3}
 .p-aku{display:flex;flex-direction:column;padding:.8rem .9rem;margin-bottom:.8rem;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(236,217,144,.2)}
 .p-aku strong{color:#fff9e3}.p-aku span{font-size:.78rem;color:var(--e300)}
+.p-aku-keluar{margin-top:.6rem}
+.p-aku-keluar button{display:flex;align-items:center;gap:.45rem;width:100%;padding:.45rem .65rem;border-radius:10px;border:1px solid rgba(236,217,144,.35);background:rgba(200,32,43,.18);color:#ffe3e3;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:background .2s}
+.p-aku-keluar button:hover{background:rgba(200,32,43,.4);color:#fff}
+.p-aku-keluar .ik{width:16px;height:16px}
+.p-aku-keluar span{font-size:.82rem;color:inherit}
+.p-kepala-keluar{margin-left:auto}
+.p-kepala-keluar button{display:inline-flex;align-items:center;gap:.4rem}
+.p-kepala-keluar .ik{width:16px;height:16px}
 .p-sisi nav p{margin:1rem 0 .3rem .6rem;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7f9f8b}
 .p-sisi nav a,.p-sisi nav button{display:flex;align-items:center;gap:.6rem;width:100%;padding:.55rem .7rem;border:0;border-radius:10px;background:none;color:#d6ebdd;font-size:.9rem;font-weight:600;text-decoration:none;text-align:left}
 .p-sisi nav a:hover,.p-sisi nav button:hover{background:rgba(255,255,255,.07);color:#fff9e3}
@@ -53,7 +61,7 @@
 .p-sisi nav span{flex:1}
 .p-lencana{min-width:1.4rem;padding:.05rem .4rem;border-radius:999px;background:var(--merah);color:#fff;font-size:.72rem;text-align:center}
 .p-isi{min-width:0;padding:1.4rem clamp(1rem,3vw,2.4rem) 4rem}
-.p-kepala{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.p-kepala{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin-bottom:1.2rem}
 .p-kepala h1{flex:1;margin:0;font-size:clamp(1.4rem,3vw,2rem)}
 .p-aksi{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
 .p-buka{display:none}

@@ -11,6 +11,7 @@ import { kecil, media, origin, render, tidakAda } from './lib/render.ts';
 import { konten, publikDok } from './routes/konten.ts';
 import { portal } from './routes/portal.ts';
 import { quran } from './routes/quran.ts';
+import { radio } from './routes/radio.ts';
 import { daftar, type IxItem } from './data/koleksi.ts';
 import { videoKanal } from './data/yt.ts';
 import { bagianUnit, beritaBeranda, formKontak, organYayasan } from './pages/sisipan.ts';
@@ -194,8 +195,8 @@ app.get('/kalender-hijriah', async (c) => {
 });
 
 app.get('/radio-quran', (c) => {
-  const desc = 'Radio Qur’an: murottal 114 surah tanpa henti dengan pilihan qari Al-Afasy, Abdul Basit, dan Basfar, pengatur tidur, dan putar di layar kunci.';
-  return render(c, { path: '/radio-quran', aktif: 'ibadah', title: 'Radio Qur’an: Murottal 114 Surah Tanpa Henti — Yapida', desc, body: radioPage(), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Radio Qur’an', '/radio-quran'), appLd(origin(c), 'Radio Qur’an Yapida', '/radio-quran', desc)] });
+  const desc = 'Radio Qur’an LIVE 24 jam tanpa henti: surah 1 sampai 114 berurutan dibacakan qari pilihan acak dari seluruh dunia, setiap putaran satu khatam — dengarkan gratis dari Yayasan Al-Huda Yapida.';
+  return render(c, { path: '/radio-quran', aktif: 'ibadah', title: 'Radio Qur’an LIVE 24 Jam — Murottal Qari Seluruh Dunia | Yapida', desc, body: radioPage(), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Radio Qur’an', '/radio-quran'), appLd(origin(c), 'Radio Qur’an LIVE Yapida', '/radio-quran', desc)] });
 });
 
 app.get('/donasi', async (c) => {
@@ -218,6 +219,7 @@ app.get('/h/:slug', async (c) => {
 });
 
 app.route('/', quran);
+app.route('/', radio);
 app.route('/', konten);
 app.route('/', portal);
 
