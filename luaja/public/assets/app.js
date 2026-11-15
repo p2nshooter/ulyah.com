@@ -39,22 +39,6 @@
     setInterval(function () { items[i].classList.remove('on'); i = (i + 1) % items.length; items[i].classList.add('on'); }, 3800);
   });
 
-  /* suasana hero: ganti pemandangan tanpa muat ulang */
-  $$('[data-mood-bar]').forEach(function (bar) {
-    var target = $(bar.getAttribute('data-target') || '.hero .scene'); var country = bar.getAttribute('data-country') || 'id';
-    $$('button', bar).forEach(function (b) {
-      b.addEventListener('click', function () {
-        var mood = b.getAttribute('data-mood'); if (!mood || !target) return;
-        fetch('/api/scene/' + country + '/' + mood).then(function (r) { return r.text(); }).then(function (svg) {
-          target.innerHTML = svg; root.setAttribute('data-mood', mood);
-          $$('button', bar).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-          var fig = $('[data-figure]'); if (fig) fetch('/api/figure/' + fig.getAttribute('data-figure') + '/' + mood).then(function (r) { return r.text(); }).then(function (s) { fig.innerHTML = s; });
-          store('lj_mood_' + country, mood);
-        });
-      });
-    });
-  });
-
   /* FAQ: tutup yang lain */
   $$('.faq').forEach(function (f) { $$('details', f).forEach(function (dt) { dt.addEventListener('toggle', function () { if (dt.open) $$('details', f).forEach(function (o) { if (o !== dt) o.open = false; }); }); }); });
 

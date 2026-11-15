@@ -203,12 +203,12 @@ code,kbd{font-family:var(--f-mono);font-size:.92em;background:var(--tint);paddin
 .hero.light .hero-note{color:var(--ink-2)}
 .hero.light .hero-note svg{color:var(--brand-2)}
 .hero.light .hero-copy .greeting{color:var(--brand-2)}
-.hero.light .mood-bar button{background:rgba(11,31,77,.12);border-color:rgba(11,31,77,.18);color:var(--navy-900)}
-.hero.light .mood-bar button:hover,.hero.light .mood-bar button[aria-pressed="true"]{background:rgba(11,31,77,.28);color:#fff}
+.hero.light .mood-bar a{background:rgba(11,31,77,.12);border-color:rgba(11,31,77,.18);color:var(--navy-900)}
+.hero.light .mood-bar a:hover,.hero.light .mood-bar a[aria-current="true"]{background:rgba(11,31,77,.28);color:#fff}
 .hero.light .btn-white{--bg:var(--navy-900);--fg:#fff}
 .mood-bar{position:absolute;right:var(--gutter);top:14px;z-index:2;display:flex;gap:6px}
-.mood-bar button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(6px);transition:transform var(--t) var(--spring),background var(--t)}
-.mood-bar button:hover,.mood-bar button[aria-pressed="true"]{background:rgba(255,255,255,.32);transform:scale(1.08)}
+.mood-bar a{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(6px);transition:transform var(--t) var(--spring),background var(--t);flex:none}
+.mood-bar a:hover,.mood-bar a[aria-current="true"]{background:rgba(255,255,255,.32);transform:scale(1.08)}
 .mood-bar svg{width:17px;height:17px}
 @media (max-width:860px){
   .hero-inner{grid-template-columns:1fr;align-items:start;min-height:0;padding-top:64px}

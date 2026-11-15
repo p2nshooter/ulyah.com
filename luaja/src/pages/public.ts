@@ -53,8 +53,8 @@ export const COURSE_COPY: Record<Course, { h1: string; lead: string; who: string
 
 const flagPill = (c: Course) => html`<span class="pill pill-flag"><i class="flag-${c}"></i>${COURSE_META[c].native}</span>`;
 
-function moodBar(country: Country, current: Mood): Raw {
-  return html`<div class="mood-bar" data-mood-bar data-country="${country}" role="group" aria-label="Suasana">${MOODS.map((m) => html`<button type="button" data-mood="${m}" aria-pressed="${m === current}" title="${MOOD_LABEL[m]}" aria-label="${MOOD_LABEL[m]}">${raw(MOOD_ICON[m])}</button>`)}</div>`;
+function moodBar(_country: Country, current: Mood): Raw {
+  return html`<nav class="mood-bar" aria-label="Suasana">${MOODS.map((m) => html`<a href="?mood=${m}" rel="nofollow" ${m === current ? raw('aria-current="true"') : ''} title="${MOOD_LABEL[m]}" aria-label="${MOOD_LABEL[m]}">${raw(MOOD_ICON[m])}</a>`)}</nav>`;
 }
 
 function priceCards(p: Pricing, o: { compact?: boolean } = {}): Raw {

@@ -1,28 +1,51 @@
-/* LUAJA — pengerjaan paket latihan. Kunci jawaban hanya datang dari server setelah semua soal dikumpulkan. */
+/* LUAJA — pengerjaan paket latihan. Kunci jawaban hanya datang dari server setelah semua soal dikumpulkan.
+ * Semua elemen dibangun lewat DOM (textContent), tidak pernah dari string HTML. */
 (function () {
   'use strict';
   var root = document.querySelector('[data-practice]'); if (!root) return;
   var set = JSON.parse(document.getElementById('pset').textContent);
   var meta = JSON.parse(document.getElementById('pmeta').textContent);
+  var lang = root.getAttribute('data-lang');
   var KEY = 'lj_lat_' + set.id;
   var answers = {}; try { answers = JSON.parse(sessionStorage.getItem(KEY) || '{}') || {}; } catch (e) { answers = {}; }
   var $ = function (s, c) { return (c || document).querySelector(s); };
-  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
-  var mark = function (s) { return esc(s).replace(/【(.+?)】/g, '<u class="mark">$1</u>').replace(/___/g, '<span class="blank">＿＿＿</span>').replace(/\n/g, '<br>'); };
+
+  /* pembangun DOM: h('div', {class: 'x'}, 'teks', anak, ...) — teks selalu menjadi node teks */
+  function h(tag, attrs) {
+    var el = document.createElement(tag), k;
+    if (attrs) for (k in attrs) { if (attrs[k] === null || attrs[k] === undefined || attrs[k] === false) continue; if (k === 'class') el.className = attrs[k]; else el.setAttribute(k, attrs[k] === true ? '' : String(attrs[k])); }
+    for (var i = 2; i < arguments.length; i++) add(el, arguments[i]);
+    return el;
+  }
+  function add(el, c) { if (c === null || c === undefined || c === false) return; if (Array.isArray(c)) { c.forEach(function (x) { add(el, x); }); return; } el.appendChild(typeof c === 'object' ? c : document.createTextNode(String(c))); }
+  /* 【kata】 digarisbawahi, ___ menjadi rumpang, baris baru dipertahankan */
+  function marked(text) {
+    var out = [], parts = String(text == null ? '' : text).split(/(【[^】]*】|___|\n)/);
+    parts.forEach(function (p) {
+      if (!p) return;
+      if (p === '\n') out.push(h('br'));
+      else if (p === '___') out.push(h('span', { class: 'blank' }, '＿＿＿'));
+      else if (p.charAt(0) === '【') out.push(h('u', { class: 'mark' }, p.slice(1, -1)));
+      else out.push(p);
+    });
+    return out;
+  }
+  var letter = function (k) { return String.fromCharCode(65 + k); };
+
   var listEl = $('[data-questions]'), navEl = $('[data-qnav]'), submit = $('[data-submit]'), left = $('[data-left]'), resultEl = $('[data-result]');
   var n = set.questions.length, shownPassage = {};
-  var parts = [];
   set.questions.forEach(function (q, i) {
     if (q.passage && !shownPassage[q.passage] && set.passages[q.passage]) {
-      shownPassage[q.passage] = 1; var p = set.passages[q.passage];
-      parts.push('<article class="passage card"><h3>' + esc(p.title || 'Bacaan') + '</h3><div class="passage-text" lang="' + root.getAttribute('data-lang') + '">' + mark(p.text) + '</div><button class="btn btn-ghost btn-sm" type="button" data-say="' + esc(p.text) + '" data-lang="' + root.getAttribute('data-lang') + '">▶ Dengarkan</button></article>');
+      shownPassage[q.passage] = 1;
+      var p = set.passages[q.passage];
+      listEl.appendChild(h('article', { class: 'passage card' }, h('h3', null, p.title || 'Bacaan'), h('div', { class: 'passage-text', lang: lang.slice(0, 2) }, marked(p.text)), h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': p.text, 'data-lang': lang }, '▶ Dengarkan')));
     }
-    parts.push('<div class="exercise pq" id="' + q.id + '" data-i="' + i + '"><div class="q"><small>' + esc(q.section) + (q.hint ? ' · ' + esc(q.hint) : '') + '</small><span lang="' + root.getAttribute('data-lang') + '">' + mark(q.stem) + '</span></div><div class="opts" role="radiogroup">' +
-      q.options.map(function (op, k) { return '<button type="button" class="opt" role="radio" aria-checked="false" data-q="' + q.id + '" data-k="' + k + '"><span class="k">' + String.fromCharCode(65 + k) + '</span><span>' + mark(op) + '</span></button>'; }).join('') +
-      '</div><div class="fb" data-fb></div></div>');
+    listEl.appendChild(h('div', { class: 'exercise pq', id: q.id, 'data-i': i },
+      h('div', { class: 'q' }, h('small', null, q.section + (q.hint ? ' · ' + q.hint : '')), h('span', { lang: lang.slice(0, 2) }, marked(q.stem))),
+      h('div', { class: 'opts', role: 'radiogroup' }, q.options.map(function (op, k) { return h('button', { type: 'button', class: 'opt', role: 'radio', 'aria-checked': 'false', 'data-q': q.id, 'data-k': k }, h('span', { class: 'k' }, letter(k)), h('span', null, marked(op))); })),
+      h('div', { class: 'fb', 'data-fb': true })));
+    navEl.appendChild(h('a', { href: '#' + q.id, 'data-nav': q.id }, String(i + 1)));
   });
-  listEl.innerHTML = parts.join('');
-  navEl.innerHTML = set.questions.map(function (q, i) { return '<a href="#' + q.id + '" data-nav="' + q.id + '">' + (i + 1) + '</a>'; }).join('');
 
   function paint() {
     var c = 0;
@@ -51,10 +74,10 @@
 
   submit.addEventListener('click', function () {
     submit.disabled = true; submit.textContent = 'Menilai…';
-    fetch('/api/latihan/' + set.id, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ answers: answers, seconds: Math.round((Date.now() - t0) / 1000) }) })
+    fetch('/api/latihan/' + encodeURIComponent(set.id), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ answers: answers, seconds: Math.round((Date.now() - t0) / 1000) }) })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (res) { if (!res.ok) throw new Error(res.j.error || 'Gagal menilai'); show(res.j); })
-      .catch(function (err) { submit.disabled = false; submit.textContent = 'Kumpulkan & lihat hasil'; window.ljToast && window.ljToast(err.message); });
+      .catch(function (err) { submit.disabled = false; submit.textContent = 'Kumpulkan & lihat hasil'; if (window.ljToast) window.ljToast(err.message); });
   });
 
   function show(g) {
@@ -65,40 +88,54 @@
       var box = document.getElementById(it.id); if (!box) return;
       box.classList.add(it.ok ? 'ok' : 'bad');
       box.querySelectorAll('.opt').forEach(function (b) { var k = Number(b.getAttribute('data-k')); if (k === it.answer) b.classList.add('ok'); else if (k === it.chosen) b.classList.add('bad'); b.disabled = true; });
-      box.querySelector('[data-fb]').innerHTML = (it.ok ? '<b>Benar.</b> ' : '<b>Kunci: ' + String.fromCharCode(65 + it.answer) + '.</b> ') + esc(it.why);
+      var fb = box.querySelector('[data-fb]'); fb.textContent = '';
+      add(fb, [h('b', null, it.ok ? 'Benar. ' : 'Kunci: ' + letter(it.answer) + '. '), it.why]);
       var nv = navEl.querySelector('[data-nav="' + it.id + '"]'); if (nv) nv.classList.add(it.ok ? 'right' : 'wrong');
     });
-    resultEl.hidden = false;
-    resultEl.innerHTML = '<div class="result card">' +
-      '<div class="score ' + (g.prediction.pass ? 'pass' : '') + '"><div class="ring" style="--p:' + pct + '"><span>' + pct + '%</span></div><div><p class="eyebrow" style="margin:0 0 4px">Hasil Anda</p><h2 style="margin:0">' + g.correct + ' dari ' + g.total + ' benar</h2><p style="margin:6px 0 0">' + esc(meta.course) + ' · ' + esc(meta.level) + '</p></div></div>' +
-      '<div class="predict"><div><small>Prediksi nilai sementara</small><b>' + esc(g.prediction.score) + '</b><span>' + esc(g.prediction.scale) + '</span></div>' + (g.prediction.pass === undefined ? '' : '<span class="pill ' + (g.prediction.pass ? 'pill-ok' : 'pill-warn') + '">' + (g.prediction.pass ? 'Di atas ambang' : 'Belum mencapai ambang') + '</span>') + '</div>' +
-      '<p class="small muted" style="margin:0 0 16px">' + esc(g.prediction.note) + '</p>' +
-      '<blockquote class="motivate"><b>' + esc(g.message.title) + '</b><span>' + esc(g.message.text) + '</span></blockquote>' +
-      '<h3 style="font-size:var(--fs-3);margin-top:22px">Per bagian</h3><div class="sections">' + g.sections.map(function (s) { var p = Math.round(s.correct / s.total * 100); return '<div class="sec"><div class="row between"><span>' + esc(s.section) + '</span><b>' + s.correct + '/' + s.total + '</b></div><div class="progress"><i style="--p:' + p + '%"></i></div></div>'; }).join('') + '</div>' +
-      '<div class="row" style="margin-top:22px;flex-wrap:wrap">' + (meta.next ? '<a class="btn btn-gold" href="/latihan/' + meta.next + '">Latihan berikutnya →</a>' : '') + '<button class="btn btn-ghost" type="button" data-review>Pelajari kunci & pembahasan</button><a class="btn btn-ghost" href="/latihan/' + set.id + '">Ulangi paket ini</a><button class="btn btn-ghost" type="button" data-report>Unduh laporan</button><button class="btn btn-ghost" type="button" data-print>Cetak / PDF</button></div>' +
-      (meta.loggedIn ? '<p class="small muted" style="margin:14px 0 0">Hasil ini tersimpan di <a href="/portal/latihan">riwayat latihan</a> Anda.</p>' : '<p class="small muted" style="margin:14px 0 0"><a href="/daftar">Buat akun</a> agar riwayat dan perkembangan nilai tersimpan.</p>') +
-      '</div>';
+    var actions = h('div', { class: 'row', style: 'margin-top:22px;flex-wrap:wrap' },
+      meta.next ? h('a', { class: 'btn btn-gold', href: '/latihan/' + encodeURIComponent(meta.next) }, 'Latihan berikutnya →') : null,
+      h('button', { class: 'btn btn-ghost', type: 'button', 'data-review': true }, 'Pelajari kunci & pembahasan'),
+      h('a', { class: 'btn btn-ghost', href: '/latihan/' + encodeURIComponent(set.id) }, 'Ulangi paket ini'),
+      h('button', { class: 'btn btn-ghost', type: 'button', 'data-report': true }, 'Unduh laporan'),
+      h('button', { class: 'btn btn-ghost', type: 'button', 'data-print': true }, 'Cetak / PDF'));
+    var card = h('div', { class: 'result card' },
+      h('div', { class: 'score' + (g.prediction.pass ? ' pass' : '') }, h('div', { class: 'ring', style: '--p:' + pct }, h('span', null, pct + '%')), h('div', null, h('p', { class: 'eyebrow', style: 'margin:0 0 4px' }, 'Hasil Anda'), h('h2', { style: 'margin:0' }, g.correct + ' dari ' + g.total + ' benar'), h('p', { style: 'margin:6px 0 0' }, meta.course + ' · ' + meta.level))),
+      h('div', { class: 'predict' }, h('div', null, h('small', null, 'Prediksi nilai sementara'), h('b', null, g.prediction.score), h('span', null, g.prediction.scale)), g.prediction.pass === undefined ? null : h('span', { class: 'pill ' + (g.prediction.pass ? 'pill-ok' : 'pill-warn') }, g.prediction.pass ? 'Di atas ambang' : 'Belum mencapai ambang')),
+      h('p', { class: 'small muted', style: 'margin:0 0 16px' }, g.prediction.note),
+      h('blockquote', { class: 'motivate' }, h('b', null, g.message.title), h('span', null, g.message.text)),
+      h('h3', { style: 'font-size:var(--fs-3);margin-top:22px' }, 'Per bagian'),
+      h('div', { class: 'sections' }, g.sections.map(function (s) { var p = Math.round(s.correct / s.total * 100); return h('div', { class: 'sec' }, h('div', { class: 'row between' }, h('span', null, s.section), h('b', null, s.correct + '/' + s.total)), h('div', { class: 'progress' }, h('i', { style: '--p:' + p + '%' }))); })),
+      actions,
+      meta.loggedIn ? h('p', { class: 'small muted', style: 'margin:14px 0 0' }, 'Hasil ini tersimpan di ', h('a', { href: '/portal/latihan' }, 'riwayat latihan'), ' Anda.') : h('p', { class: 'small muted', style: 'margin:14px 0 0' }, h('a', { href: '/daftar' }, 'Buat akun'), ' agar riwayat dan perkembangan nilai tersimpan.'));
+    resultEl.textContent = ''; resultEl.appendChild(card); resultEl.hidden = false;
     resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    resultEl.querySelector('[data-review]').addEventListener('click', function () { var first = document.querySelector('.pq'); if (first) first.scrollIntoView({ behavior: 'smooth' }); });
-    resultEl.querySelector('[data-print]').addEventListener('click', function () { window.print(); });
-    resultEl.querySelector('[data-report]').addEventListener('click', function () { download(g); });
+    card.querySelector('[data-review]').addEventListener('click', function () { var first = document.querySelector('.pq'); if (first) first.scrollIntoView({ behavior: 'smooth' }); });
+    card.querySelector('[data-print]').addEventListener('click', function () { window.print(); });
+    card.querySelector('[data-report]').addEventListener('click', function () { download(g); });
   }
 
+  /* Laporan: dokumen terpisah yang dibangun lewat DOM lalu diserialisasi menjadi berkas .html untuk diunduh. */
   function download(g) {
     var now = new Date(), date = now.toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' });
-    var rows = set.questions.map(function (q, i) {
+    var doc = document.implementation.createHTMLDocument('Laporan latihan — ' + set.title);
+    var D = function (tag, attrs) { var el = doc.createElement(tag), k; if (attrs) for (k in attrs) el.setAttribute(k, attrs[k]); for (var i = 2; i < arguments.length; i++) { var c = arguments[i]; if (c === null || c === undefined) continue; (Array.isArray(c) ? c : [c]).forEach(function (x) { el.appendChild(typeof x === 'object' ? x : doc.createTextNode(String(x))); }); } return el; };
+    var meta1 = doc.createElement('meta'); meta1.setAttribute('charset', 'utf-8'); doc.head.insertBefore(meta1, doc.head.firstChild);
+    doc.documentElement.setAttribute('lang', 'id');
+    doc.head.appendChild(D('style', null, 'body{font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#121a2e;max-width:980px;margin:32px auto;padding:0 20px}h1{font-family:Georgia,serif;color:#0b1f4d;margin:0}header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #f5b301;padding-bottom:12px;margin-bottom:20px}.brand{font:700 22px Georgia,serif;color:#0b1f4d}.kpi{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0}.kpi div{border:1px solid #e6e2d7;border-radius:12px;padding:12px 16px;min-width:160px}.kpi b{display:block;font:700 22px Georgia,serif;color:#0b1f4d}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #e6e2d7;padding:8px;text-align:left;vertical-align:top}th{background:#f1f5ff}.bad td.r{color:#c0392b;font-weight:700}.ok td.r{color:#1f8a5b;font-weight:700}blockquote{border-left:4px solid #f5b301;background:#fff7dc;margin:16px 0;padding:12px 16px;border-radius:8px}footer{margin-top:24px;color:#6b7390;font-size:12px}'));
+    var b = doc.body;
+    b.appendChild(D('header', null, D('div', null, D('div', { class: 'brand' }, 'LUAJA'), D('h1', null, 'Laporan latihan soal')), D('div', null, date)));
+    b.appendChild(D('p', null, D('b', null, set.title), ' · ' + set.examName + ' · ' + meta.course + ' ' + meta.level));
+    b.appendChild(D('div', { class: 'kpi' }, D('div', null, 'Benar', D('b', null, g.correct + ' / ' + g.total)), D('div', null, 'Persentase', D('b', null, Math.round(g.pct * 100) + '%')), D('div', null, 'Prediksi nilai', D('b', null, g.prediction.score), D('small', null, g.prediction.scale))));
+    b.appendChild(D('blockquote', null, D('b', null, g.message.title), D('br'), g.message.text));
+    b.appendChild(D('h2', null, 'Per bagian'));
+    b.appendChild(D('table', null, D('tr', null, D('th', null, 'Bagian'), D('th', null, 'Benar')), g.sections.map(function (s) { return D('tr', null, D('td', null, s.section), D('td', null, s.correct + ' / ' + s.total)); })));
+    b.appendChild(D('h2', null, 'Rincian jawaban'));
+    b.appendChild(D('table', null, D('tr', null, ['#', 'Bagian', 'Soal', 'Jawaban Anda', 'Kunci', '', 'Pembahasan'].map(function (t) { return D('th', null, t); })), set.questions.map(function (q, i) {
       var it = g.items[i];
-      return '<tr class="' + (it.ok ? 'ok' : 'bad') + '"><td>' + (i + 1) + '</td><td>' + esc(q.section) + '</td><td>' + mark(q.stem) + '</td><td>' + esc(q.options[it.chosen]) + '</td><td>' + esc(q.options[it.answer]) + '</td><td>' + (it.ok ? '✓' : '✗') + '</td><td>' + esc(it.why) + '</td></tr>';
-    }).join('');
-    var doc = '<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Laporan latihan — ' + esc(set.title) + '</title><style>body{font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#121a2e;max-width:980px;margin:32px auto;padding:0 20px}h1{font-family:Georgia,serif;color:#0b1f4d;margin:0}header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #f5b301;padding-bottom:12px;margin-bottom:20px}.brand{font:700 22px Georgia,serif;color:#0b1f4d}.kpi{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0}.kpi div{border:1px solid #e6e2d7;border-radius:12px;padding:12px 16px;min-width:160px}.kpi b{display:block;font:700 22px Georgia,serif;color:#0b1f4d}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #e6e2d7;padding:8px;text-align:left;vertical-align:top}th{background:#f1f5ff}tr.bad td:nth-child(6){color:#c0392b;font-weight:700}tr.ok td:nth-child(6){color:#1f8a5b;font-weight:700}blockquote{border-left:4px solid #f5b301;background:#fff7dc;margin:16px 0;padding:12px 16px;border-radius:8px}.mark{text-decoration:underline}footer{margin-top:24px;color:#6b7390;font-size:12px}</style></head><body>' +
-      '<header><div><div class="brand">LUAJA</div><h1>Laporan latihan soal</h1></div><div>' + esc(date) + '</div></header>' +
-      '<p><b>' + esc(set.title) + '</b> · ' + esc(set.examName) + ' · ' + esc(meta.course) + ' ' + esc(meta.level) + '</p>' +
-      '<div class="kpi"><div>Benar<b>' + g.correct + ' / ' + g.total + '</b></div><div>Persentase<b>' + Math.round(g.pct * 100) + '%</b></div><div>Prediksi nilai<b>' + esc(g.prediction.score) + '</b><small>' + esc(g.prediction.scale) + '</small></div></div>' +
-      '<blockquote><b>' + esc(g.message.title) + '</b><br>' + esc(g.message.text) + '</blockquote>' +
-      '<h2>Per bagian</h2><table><tr><th>Bagian</th><th>Benar</th></tr>' + g.sections.map(function (s) { return '<tr><td>' + esc(s.section) + '</td><td>' + s.correct + ' / ' + s.total + '</td></tr>'; }).join('') + '</table>' +
-      '<h2>Rincian jawaban</h2><table><tr><th>#</th><th>Bagian</th><th>Soal</th><th>Jawaban Anda</th><th>Kunci</th><th></th><th>Pembahasan</th></tr>' + rows + '</table>' +
-      '<footer>' + esc(g.prediction.note) + ' · luaja.com</footer></body></html>';
-    var blob = new Blob([doc], { type: 'text/html;charset=utf-8' });
+      return D('tr', { class: it.ok ? 'ok' : 'bad' }, D('td', null, String(i + 1)), D('td', null, q.section), D('td', null, q.stem.replace(/[【】]/g, '')), D('td', null, q.options[it.chosen]), D('td', null, q.options[it.answer]), D('td', { class: 'r' }, it.ok ? '✓' : '✗'), D('td', null, it.why));
+    })));
+    b.appendChild(D('footer', null, g.prediction.note + ' · luaja.com'));
+    var blob = new Blob(['<!doctype html>\n' + doc.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
     var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'laporan-luaja-' + set.id + '-' + now.toISOString().slice(0, 10) + '.html';
     document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
   }
