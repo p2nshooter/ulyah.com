@@ -422,7 +422,10 @@ test('gerbang Stripe/Xendit/Midtrans: tersembunyi sampai dikonfigurasi, webhook 
     state.midInv = inv.id;
     h = await (await req(e, inv.path, { cookie: m2.member })).text();
     r = await req(e, `/api/bayar/midtrans/${inv.id}`, { method: 'POST', cookie: m2.member, body: form({ _csrf: csrfIn(h) }) });
-    assert.match(r.headers.get('location') ?? '', /midtrans\.com\/snap/);
+    const snap = new URL(r.headers.get('location') ?? 'about:blank');
+    assert.equal(snap.protocol, 'https:');
+    assert.equal(snap.host, 'app.sandbox.midtrans.com');
+    assert.ok(snap.pathname.startsWith('/snap/'));
     assert.ok(state.midOrder.startsWith(`${inv.id}~`));
     const note = { order_id: state.midOrder, status_code: '200', gross_amount: '500000.00', transaction_status: 'settlement' };
     r = await req(e, '/api/bayar/midtrans/webhook', { method: 'POST', body: JSON.stringify({ ...note, signature_key: 'palsu' }) });
