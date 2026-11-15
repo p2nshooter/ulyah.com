@@ -2,7 +2,7 @@
 id: hijaiyah
 judul: Mengenal Huruf Hijaiyah
 judulAr: الْحُرُوفُ الْهِجَائِيَّةُ
-rak: ra, tpq
+rak: ra, tpq, anak-ar
 suara: balita
 mapel: Iqra’ & Al-Qur’an
 bahasa: ar
@@ -232,3 +232,25 @@ Hebat! Terus berlatih setiap hari di TPQ dan di rumah, ya. Ajak ayah dan ibu iku
 
 ::ar جَزَاكُمُ اللَّهُ خَيْرًا
 ::tr Semoga Allah membalas kalian dengan kebaikan.
+
+## Ayo Bermain! | هَيَّا نَلْعَبُ
+
+Sekarang kita bermain! Ketuk kartu untuk membaliknya, jawab tebak-tebakan, lalu pasangkan huruf dengan namanya.
+
+::kartu ب | Ba — huruf kedua
+::kartu ج | Jim — huruf kelima
+::kartu ش | Syin — huruf ketiga belas
+::kartu ق | Qof — huruf kedua puluh satu
+::kuis Huruf apakah ini? ب | *Ba | Ta | Tsa
+::kuis Huruf apakah ini? ج | *Jim | Ha | Kho
+::kuis Huruf apakah ini? س | Syin | *Sin | Shod
+::kuis Huruf apakah ini? م | *Mim | Nun | Lam
+::kuis Kata أَبٌ artinya … | *Ayah | Rumah | Kurma
+::kuis Kata كِتَابٌ artinya … | Pena | *Buku | Rumah
+::kuis بَ dibaca … | *ba | bi | bu
+::kuis بِ dibaca … | ba | *bi | bu
+::kuis بُ dibaca … | ba | bi | *bu
+::cocok ب = Ba ; ت = Ta ; ن = Nun ; ي = Ya
+::cocok بَيْتٌ = Rumah ; تَمْرٌ = Kurma ; قَلَمٌ = Pena ; مَسْجِدٌ = Masjid
+
+Hebat! Kamu sudah pandai mengenal huruf hijaiyah.

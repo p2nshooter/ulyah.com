@@ -60,6 +60,29 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     di device masing2 cuma di engine jgn pernah mati, termasuk waktu adzan pastiin hidup jika sudah d install di HP walaupun
     aplikaainya sudah d tutup, dengan notif adzan yg bisa di matiin“ (15 Nov 2026) — rencana §5c–§5e.
 
+11. „Cek lagi CSS nya, di portal super admin logut tidak muncul, bikin CSS nya situs ini dan semua aplikasi nya interaktif,
+    hususnya di perpustakaan digital, bikin buku2nya interaktif, hususnya buku2 anak, bikin animasinya seperti buku wordwall,
+    cari buki dari sumber manapun di github, kategorinya yg jelas, bank soal dll.. Buku pelajaran TK, MI, MTs dan umum dll“
+    (15 Nov 2026) — tombol Keluar §3a; perpustakaan §5, §5f.
+12. „Buku anak yg bahasa indonesia, klo itu bahasa Inggris masukan kategori buku anak berbahasa Inggris atau berbahasa
+    Arab... Situs jenius.es itu masih banyak yg salah, kebanyakan modul guru, bukan buku pelajaran dan jenius.es wajib d
+    perbaiki total, tp anda jgn sentuh itu cukup tandai saja bahwa perpusatakaan digital jenius masih bermasalah baik di
+    konten maupun kategori... Focus ke yapida saja“ — rak „Buku Anak Berbahasa Inggris“ dan „Buku Anak Berbahasa Arab“;
+    jenius.es ditandai bermasalah di `docs/JENIUS-BLUEPRINT.md` (paling atas) dan tidak lagi dipakai sebagai sumber.
+13. „Cari buku pelajaran sekolah RA, TK, MI, MTs, Ponpes, Buku Cerita, Kisah2 dll dan puluhan ribu yg lain, bikin yg rapih
+    dan interaktif.. Termasuk Bank Soalnya“ · „Buatkan jg kop surat setiap lembaga yg bisa di crud, Sertifikat Penghargaan
+    Tahfidz, Perlombaan2 yg otomatis terisi setelah di ketik manual dan Ranking Kelas Yg Siap Cetak dengan Berbagai
+    Macam2 agar bisa di pilih Lembaga.. Bikin minimal 10 Pilihan Sertifikat Yg indah2, Font Super Premium, Sertfikat2
+    Penghargaan, Beserta upload Foto yg menerima penghargaan beserta tahunya, dan di tampilkan menu husus beserta lembaga
+    dan jenis penghargaan yang agar orang tua bisa senang melihat anak2nya tampil.. Pastikan semua dynamic page yg bisa di
+    crud oleh masing2 lembaga“ — rencana §5g (penghargaan & kop surat).
+14. „Perpustakaan digital nya ga usah bisa di download dan jgn dalam bentuk PDF, ubah semuanya agar lebih interaktif,
+    indah, unik, menyenangkan pembaca, punya animasi2 yg berkaitan dengan tema dan halam yg d baca dan jika ada animasinya
+    bisa di mainkan atau di tarik di putar2 tp bisa kembali ke asalnya jika di klik tombol tertentu... contoh buku menanam
+    padi bikin kartunya, animasinya yg interaktif dan seterusnya“ — §5f: tanpa PDF, tanpa unduhan; adegan interaktif.
+15. „Yg di pdf anda copy semua text nya dan anda custom sesuai permintaan sy“ — buku sekolah BSE: teksnya disalin dari PDF
+    (hanya buku yang halaman hak ciptanya mengizinkan dialihmediakan), disusun ulang menjadi buku interaktif; §5f.
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di
@@ -150,7 +173,9 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
   halaman hak cipta buku) lewat jenius.es; katalog besar domain publik dan CC BY/CC BY-SA (Project Gutenberg, Wikibooks,
   Wikisource, StoryWeaver, DOAB) dicari langsung dari katalog sumbernya dan disalin ke R2 saat dibaca. Buku berlisensi NC
   tidak dipakai (situs beriklan). Buku Kemenag/Kemendikdasmen yang lisensi terbit-ulangnya tidak tertulis hanya ditautkan
-  ke halaman resminya. Tambah dengan modul dan buku milik lembaga sendiri (unggah PDF atau tulis di portal).
+  ke halaman resminya. Tambah dengan buku milik lembaga sendiri (ditulis di portal — **tanpa PDF**, perintah 14).
+  **Diperbarui 15 Nov (perintah 12–15)**: jenius.es dimatikan sebagai sumber (bermasalah, ditandai); tidak ada PDF dan
+  tidak ada unduhan di seluruh perpustakaan.
 - **Pembaca bersuara**: suara peramban per bahasa blok — Arab dilafalkan suara Arab, Inggris suara Inggris, Indonesia
   suara Indonesia; nada dan kecepatan menurut jenjang (RA, MI, MTs, dewasa). Putar sekali → kata disorot, gulir otomatis,
   halaman berganti sendiri, lanjut bab berikutnya sampai buku habis. Kecepatan, ukuran huruf, mode malam, posisi tersimpan.
@@ -161,6 +186,38 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
 - **Buku pelajaran interaktif**: kuis akhir bab, kartu hafalan, latihan menjodohkan, animasi langkah demi langkah.
 - **Bank soal per lembaga**: paket soal per kelas dan mapel (pilihan ganda, isian), dikerjakan di situs dengan nilai,
   pembahasan, dan penghargaan; dibuat guru di portal.
+
+## 5f. Buku interaktif tanpa PDF (perintah 11, 12, 14, 15)
+
+- **Rak** (jelas per jenjang dan bahasa): RA/TK · Buku Cerita Anak (bahasa Indonesia) · **Buku Anak Berbahasa Inggris** ·
+  **Buku Anak Berbahasa Arab** · TPQ · MI · MTs · Kitab Pesantren · Kisah · Hadits · Doa & Dzikir · Bahasa · Guru & Ustadz ·
+  Umum. Rak besar dibagi halaman (48 buku) dengan saringan kelas dan mapel.
+- **Isi bawaan** (dibuat ulang dari sumber di repo oleh `yapida/scripts/buat-pustaka.ts` saat uji dan deploy — tidak
+  disimpan di git): kitab pesantren dan doa harian (ulyah.com), kisah para nabi dan kisah anak muslim (Indonesia dan
+  Inggris), tokoh (nabi, sahabat, tabi'in, ulama), 12 kitab hadits dengan terjemah Indonesia (Bukhari, Muslim, Abu Dawud,
+  Tirmidzi, Nasa'i, Ibnu Majah, Ahmad, Malik, Darimi, Riyadhus Shalihin, Arba'in Nawawi, Qudsi), karya yayasan, dan 53
+  buku cerita bergambar Book Dash (CC BY 4.0; gambarnya disalin ke R2 media saat pertama dibuka). Saat ini 169 buku,
+  1.922 bab, ±7,4 juta kata.
+- **Tanpa PDF, tanpa unduhan**: semua buku berupa teks yang dirakit menjadi halaman bergaya buku — balik halaman 3D,
+  geser/papan ketik, dua halaman di layar lebar, dibacakan dengan suara sesuai bahasa dan jenjang.
+- **Aktivitas ala Wordwall di dalam buku** (ditulis di naskah dengan `::kuis`, `::kartu`, `::cocok`, `::adegan`): kuis
+  pilihan dengan bunyi, bintang, dan petunjuk setelah dua kali salah; kartu hafalan berbalik; pasangkan kiri-kanan.
+- **Adegan interaktif** (`yapida/public/assets/adegan.js`, SVG tanpa makhluk bernyawa): padi (seret gembor ke sawah →
+  padi tumbuh 7 tahap sampai panen), hujan, langit siang–malam, masjid, kebun/buah (petik dan hitung), laut, waktu sholat,
+  huruf hijaiyah. Benda bisa diseret, diketuk dua kali atau digulir untuk diputar, dan **↺ Kembalikan** mengembalikan
+  semuanya ke tempat asal. Bab buku anak, cerita, dan kisah yang belum punya adegan otomatis diberi adegan sesuai tema
+  katanya (sawah → padi, kapal → laut, subuh → waktu sholat, …).
+- **Buku BSE dari PDF → buku interaktif (perintah 15, berikutnya)**: alur GitHub Actions bertahap — ambil PDF dari indeks
+  BSE, periksa halaman hak cipta (hanya yang mengizinkan dialihmediakan), salin teksnya, pecah per bab, simpan di R2
+  dengan indeks katalog; Worker menyajikannya sebagai buku interaktif di rak MI/MTs per kelas dan mapel. PDF-nya tidak
+  pernah ditampilkan atau ditautkan.
+
+## 5g. Penghargaan dan kop surat (perintah 13, berikutnya)
+
+- **Kop surat** per lembaga (CRUD di portal): logo, nama, alamat, kontak, garis; dipakai di surat dan sertifikat.
+- **Sertifikat** Tahfidz, lomba, dan ranking kelas: minimal 10 desain indah dengan huruf premium, dipilih per lembaga;
+  isian (nama, kelas, juara/peringkat, juz, tahun) diketik sekali lalu terisi otomatis; foto penerima; siap cetak A4.
+- **Menu Prestasi** publik per lembaga dan jenis penghargaan, dengan foto dan tahun, agar orang tua bisa melihat anaknya.
 
 ## 5a. Aplikasi ibadah (perintah 7)
 
@@ -174,7 +231,7 @@ mengirim kerangka halaman dan titik lokasi bawaan (pengaturan situs `lokasi`, ba
 | Arah Kiblat | `/kiblat` | sudut lingkaran besar ke Ka'bah + jarak; kompas mengikuti sensor HP, bergetar dan menyala saat tepat menghadap kiblat |
 | Kalender Hijriah | `/kalender-hijriah` | Umm al-Qura bawaan peramban; hari besar, puasa sunnah (Senin-Kamis, Ayyamul Bidh, Tasu'a, Asyura, Arafah), daftar hari besar terdekat |
 | Hitung mundur Ramadhan | beranda, `/ibadah`, `/kalender-hijriah#ramadhan` | hari-jam-menit-detik menuju 1 Ramadhan; saat Ramadhan berganti menjadi hitung mundur Idul Fitri |
-| Radio Qur'an | `/radio-quran` | 114 surah utuh dari CDN islamic.network (tiga qari yang terukur punya berkas per surah: Al-Afasy, Abdul Basit, Basfar), lanjut otomatis, acak, pengatur tidur, kendali layar kunci, posisi tersimpan |
+| Radio Qur'an LIVE | `/radio-quran` + pemutar mini di setiap halaman | siaran 24 jam dari server (§5c): 114 surah berurutan, qari acak dari 150+ qari dunia, hitungan khatam; hanya nyala/mati per perangkat |
 | Tasbih | tombol di setiap halaman | 33/100 dengan getar, urutan wirid tasbih → tahmid → takbir |
 | Al-Qur'an mushaf Utsmani | `/quran`, `/quran/<surah>`, `/quran/halaman/<1–604>` | Rasm Utsmani Hafs KFGQPC v3 dengan **tata letak 604 halaman × 15 baris mushaf Madinah** (quran-text, CC BY 4.0) dan font KFGQPC HAFS Uthmanic Script v3 (disalin tanpa perubahan sesuai lisensinya); kepala surah berbingkai, basmalah, tanda waqaf & sajdah, simbol akhir ayat bernomor. Halaman dibalik tanpa memuat ulang (panah, geser, pilih surah/juz/halaman); ketuk kata → lembar ayat (terjemah, tafsir, murottal). Per surah: terjemah Indonesia & latin (quran-json, CC BY 4.0), **tafsir Kemenag RI** (equran.id, diambil sekali lalu disimpan di R2), murottal per ayat 5 qari (everyayah.com, cadangan cdn.islamic.network) dengan sorot ayat, ulangi 1–10×, lanjut otomatis; mode hafalan, penanda, salin, posisi terakhir dibaca (di perangkat) |
 
@@ -248,8 +305,11 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 | Y2 | Portal: masuk (daftar akun + PIN acak bergambar + ketuk logo 5×), 6 peran, pengaturan situs, halaman, profil lembaga, struktur & SDM + foto, unggah media, log | 🔄 15 Nov |
 | Y3 | Kabar, galeri (+ lihat besar), agenda, video + siaran langsung (pita LIVE, kanal YouTube otomatis), dokumen, karya tulis (+ dengarkan), pesan | 🔄 15 Nov |
 | Y4 | PPDB per lembaga per tahun ajaran + formulir daring + pendaftar (CSV) | 🔄 15 Nov |
-| Y5 | Perpustakaan: rak, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar | ⏳ |
+| Y5 | Perpustakaan: rak per jenjang & bahasa, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar, aktivitas ala Wordwall dan adegan interaktif di dalam buku, tanpa PDF (§5f) | ✅ 15 Nov |
+| Y5b | Buku BSE: teks PDF disalin → buku interaktif (§5f) | ⏳ |
+| Y5c | Kop surat, sertifikat penghargaan, menu Prestasi (§5g) | ⏳ |
 | Y6 | Bank soal dan buku pelajaran interaktif | ⏳ |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
-| Y8 | Al-Qur'an mushaf Utsmani 604 halaman + terjemah + tafsir Kemenag + murottal per ayat | 🔄 15 Nov |
+| Y8 | Al-Qur'an mushaf Utsmani 604 halaman + terjemah + tafsir Kemenag + murottal per ayat | ✅ 15 Nov (PR #432) |
+| Y8b | Radio Qur'an LIVE 24 jam: mesin di server, qari acak sedunia, hitung khatam (§5c) | ✅ 15 Nov (PR #433) |
 | Y9 | Permainan ala Wordwall untuk setiap bahan ajar (§5b) | ⏳ |

@@ -24,8 +24,17 @@ export interface KartuLuar {
   menit?: number;
   kelas?: string;
   mapel?: string;
+  /** Sampul bergambar (buku cerita bergambar), dilayani lewat /pustaka/m/… */
+  sampulUrl?: string;
   sumber: 'jenius' | 'gutenberg';
 }
+
+/**
+ * jenius.es DINONAKTIFKAN sebagai sumber (pemilik, 15 Nov 2026: „Situs jenius.es itu masih banyak yg salah, kebanyakan modul
+ * guru, bukan buku pelajaran … jgn sentuh itu cukup tandai saja“). Kodenya disimpan untuk dinyalakan lagi setelah jenius.es
+ * diperbaiki; sampai saat itu katalog dan buku j-… tidak diambil.
+ */
+export const JENIUS_AKTIF = false;
 
 const metaKey = (id: string) => `c/luar/${id}/meta.json`;
 const babKey = (id: string, n: number) => `c/luar/${id}/${n}.json`;
@@ -51,8 +60,8 @@ export async function salinanLuar(store: Store, limit = 500): Promise<KartuLuar[
 
 /* ── jenius.es ──────────────────────────────────────────────────────────── */
 
-interface JeniusEntri { id: string; title: string; author: string; minutes: number; shelf: string; lang: string; picture: boolean; level?: string; grade?: number; subject?: string; lanes: string[] }
-interface JeniusMeta { id: string; title: string; author: string; translator?: string; lanes: string[]; lang: string; source: string; sourceUrl: string; license: string; licenseUrl: string; attribution: string; description: string; subjects: string[]; chapters: { n: number; title: string; words: number }[]; words: number; minutes: number; picture: boolean; level?: string; grade?: number; subject?: string }
+interface JeniusEntri { id: string; title: string; author: string; minutes: number; shelf: string; lang: string; picture: boolean; cover?: string; level?: string; grade?: number; subject?: string; lanes: string[] }
+interface JeniusMeta { id: string; title: string; author: string; translator?: string; illustrator?: string; lanes: string[]; lang: string; source: string; sourceUrl: string; license: string; licenseUrl: string; attribution: string; description: string; subjects: string[]; chapters: { n: number; title: string; words: number }[]; words: number; minutes: number; picture: boolean; cover?: string; level?: string; grade?: number; subject?: string }
 type JeniusBlok = { t: 'p' | 'h' | 'verse'; text: string } | { t: 'img'; src: string; alt: string; text?: string };
 
 /** Jalur jenius.es → rak dan suara Yapida. */
@@ -87,8 +96,9 @@ async function jenius(env: Env, path: string): Promise<Response | null> {
   }
 }
 
-/** Katalog jenius.es (tanpa buku bergambar), disimpan 6 jam di R2. */
+/** Katalog jenius.es (termasuk buku cerita bergambar anak), disimpan 6 jam di R2. */
 export async function katalogJenius(env: Env, store: Store, now = Date.now()): Promise<KartuLuar[]> {
+  if (!JENIUS_AKTIF) return [];
   const key = 'k/luar/jenius-katalog.json';
   const lama = await store.get<{ at: number; buku: KartuLuar[] }>(key);
   if (lama && now - lama.at < 6 * JAM) return lama.buku;
@@ -96,11 +106,12 @@ export async function katalogJenius(env: Env, store: Store, now = Date.now()): P
   if (!r) return lama?.buku ?? [];
   try {
     const j = (await r.json()) as { buku?: JeniusEntri[] };
-    const buku = (j.buku ?? []).filter((e) => !e.picture && /^[a-z0-9-]{1,90}$/.test(e.id)).map((e): KartuLuar => {
+    const buku = (j.buku ?? []).filter((e) => /^[a-z0-9-]{1,90}$/.test(e.id)).map((e): KartuLuar => {
       const { rak, suara } = rakJenius(e);
       return {
         id: `j-${e.id}`, judul: String(e.title).slice(0, 160), penulis: String(e.author ?? '').slice(0, 120), bahasa: e.lang === 'id' ? 'id' : 'en', rak, suara,
-        menit: e.minutes, ...(e.grade ? { kelas: `Kelas ${e.grade}` } : {}), ...(e.subject ? { mapel: e.subject } : {}), sumber: 'jenius',
+        menit: e.minutes, ...(e.grade ? { kelas: `Kelas ${e.grade}` } : {}), ...(e.subject ? { mapel: e.subject } : {}),
+        ...(e.picture && e.cover && /^[\w.-]{1,120}$/.test(e.cover) ? { sampulUrl: `/pustaka/m/j-${e.id}/${e.cover}` } : {}), sumber: 'jenius',
       };
     });
     await store.put(key, { at: now, buku });
@@ -114,7 +125,7 @@ async function salinJenius(env: Env, store: Store, jid: string): Promise<BukuMet
   const r = await jenius(env, `/api/book/${jid}`);
   if (!r) return null;
   const m = (await r.json()) as JeniusMeta;
-  if (m.picture || !Array.isArray(m.chapters) || !m.chapters.length) return null;
+  if (!Array.isArray(m.chapters) || !m.chapters.length) return null;
   const en = m.lang !== 'id';
   const bab: Bab[] = [];
   for (const ch of m.chapters.slice(0, 400)) {
@@ -123,7 +134,13 @@ async function salinJenius(env: Env, store: Store, jid: string): Promise<BukuMet
     const j = (await rc.json()) as { title: string; pages: JeniusBlok[][] };
     const blok: Blok[] = [];
     for (const b of j.pages.flat()) {
-      if (b.t === 'img') { if (b.text) blok.push(...pecahPanjang({ t: en ? 'en' : 'p', x: b.text })); continue; }
+      if (b.t === 'img') {
+        // Gambar buku bergambar: /m/<buku>/<berkas> di jenius.es → disalin ke R2 Yapida lewat /pustaka/m/j-<buku>/<berkas>.
+        const berkas = decodeURIComponent(b.src.split('/').pop() ?? '');
+        if (/^[\w.-]{1,120}$/.test(berkas)) blok.push({ t: 'img', x: `/pustaka/m/j-${jid}/${berkas}`, a: (b.alt || '').slice(0, 200) });
+        if (b.text) blok.push(...pecahPanjang({ t: en ? 'en' : 'p', x: b.text }));
+        continue;
+      }
       const x = b.text.replace(/\s+/g, ' ').trim();
       if (x) blok.push(...pecahPanjang({ t: b.t === 'h' ? 'h' : en ? 'en' : 'p', x }));
     }
@@ -132,7 +149,8 @@ async function salinJenius(env: Env, store: Store, jid: string): Promise<BukuMet
   const { rak, suara } = rakJenius(m);
   const kata = bab.reduce((a, b) => a + hitungKata(b.blok), 0);
   const meta: BukuMeta = {
-    id: `j-${jid}`, judul: m.title, penulis: m.author, ...(m.translator ? { penerjemah: m.translator } : {}), rak, suara, bahasa: en ? 'en' : 'id',
+    id: `j-${jid}`, judul: m.title, penulis: [m.author, m.illustrator ? `ilustrasi ${m.illustrator}` : ''].filter(Boolean).join(' · '), ...(m.translator ? { penerjemah: m.translator } : {}), rak, suara, bahasa: en ? 'en' : 'id',
+    ...(m.picture && m.cover && /^[\w.-]{1,120}$/.test(m.cover) ? { sampulLuar: `/pustaka/m/j-${jid}/${m.cover}` } : {}),
     ...(m.grade ? { kelas: `Kelas ${m.grade}` } : {}), ...(m.subject ? { mapel: m.subject } : {}),
     ringkasan: m.description || m.attribution || '', sumber: `jenius.es · ${m.attribution || m.source}`, sumberUrl: m.sourceUrl, lisensi: m.license, lisensiUrl: m.licenseUrl,
     bab: ringkasBab(bab), kata, menit: menitBaca(kata), tag: (m.subjects ?? []).slice(0, 6),
@@ -276,7 +294,7 @@ export async function bukuLuar(env: Env, store: Store, id: string): Promise<Buku
   if (!p) {
     const jm = /^j-([a-z0-9-]{1,90})$/.exec(id);
     const gm = /^g-(\d{1,7})$/.exec(id);
-    p = (jm ? salinJenius(env, store, jm[1]!) : gm ? salinGutenberg(env, store, Number(gm[1])) : Promise.resolve(null)).catch(() => null);
+    p = (jm && JENIUS_AKTIF ? salinJenius(env, store, jm[1]!) : gm ? salinGutenberg(env, store, Number(gm[1])) : Promise.resolve(null)).catch(() => null);
     sedang.set(id, p);
     p.finally(() => sedang.delete(id)).catch(() => undefined);
   }

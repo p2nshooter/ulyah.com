@@ -1,7 +1,7 @@
 ---
 id: english-daily
 judul: My First English Book — Bahasa Inggris Sehari-hari
-rak: mi, bahasa
+rak: anak-en, bahasa, mi
 suara: anak
 kelas: Kelas 1–6
 mapel: Bahasa Inggris
@@ -117,3 +117,12 @@ tag: english, percakapan, kosakata
 ::tr Selalu ucapkan bismillah sebelum memulai.
 
 Great job! Practice these sentences every day with your friends.
+
+## Let’s Play! | Ayo Bermain!
+
+::kartu I love my family. | Aku sayang keluargaku.
+::kartu See you tomorrow! | Sampai jumpa besok!
+::kuis "Good morning" artinya … | *Selamat pagi | Selamat malam | Sampai jumpa
+::kuis Bahasa Inggris "Ayah" adalah … | Mother | *Father | Brother
+::kuis "Please open your book" artinya … | Tolong tutup pintunya | *Silakan buka bukumu | Mari membaca bersama
+::cocok Mother = Ibu ; Teacher = Guru ; Book = Buku ; Thank you = Terima kasih

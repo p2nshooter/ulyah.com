@@ -2,7 +2,7 @@
 id: tiga-bahasa
 judul: Angka, Warna, dan Salam dalam Tiga Bahasa
 judulAr: الأَرْقَامُ وَالأَلْوَانُ وَالتَّحِيَّةُ
-rak: ra, mi, bahasa
+rak: ra, bahasa, anak-ar, anak-en
 suara: anak
 mapel: Bahasa Arab & Inggris
 bahasa: id
@@ -163,3 +163,17 @@ Dan semoga keselamatan juga tercurah untukmu.
 Hari Senin dan Kamis adalah hari yang disunnahkan untuk berpuasa. Hari Jumat adalah hari raya pekanan umat Islam.
 
 Selamat! Kamu sudah belajar angka, warna, salam, dan nama hari dalam tiga bahasa.
+
+## Ayo Bermain! | هَيَّا نَلْعَبُ
+
+::kartu وَاحِدٌ | Satu · One
+::kartu خَمْسَةٌ | Lima · Five
+::kartu عَشَرَةٌ | Sepuluh · Ten
+::kuis "Tiga" dalam bahasa Arab adalah … | *ثَلَاثَةٌ | أَرْبَعَةٌ | سِتَّةٌ
+::kuis "Seven" artinya … | Enam | *Tujuh | Delapan
+::kuis Warna أَخْضَرُ adalah … | Merah | *Hijau | Biru
+::kuis "Thank you" artinya … | Sama-sama | *Terima kasih | Selamat pagi
+::cocok أَحْمَرُ = Merah ; أَزْرَقُ = Biru ; أَبْيَضُ = Putih ; أَسْوَدُ = Hitam
+::cocok Monday = Senin ; Friday = Jumat ; Sunday = Ahad ; Thursday = Kamis
+
+Masya Allah, kamu sudah bisa tiga bahasa!

@@ -9,9 +9,13 @@
 import type { Suara } from './model.ts';
 
 /** Jenis blok: h judul kecil · p paragraf Indonesia · ar Arab · tr terjemah · en Inggris · lt transliterasi (tidak
- *  dibacakan) · cat catatan/sumber · q kutipan · li butir daftar. */
-export type JenisBlok = 'h' | 'p' | 'ar' | 'tr' | 'en' | 'lt' | 'cat' | 'q' | 'li';
-export interface Blok { t: JenisBlok; x: string }
+ *  dibacakan) · cat catatan/sumber · q kutipan · li butir daftar · img gambar (x = alamat, a = keterangan) ·
+ *  aktivitas ala Wordwall: kuis „Tanya? | *benar | salah | salah“, kartu „depan | belakang“ (dibalik),
+ *  cocok „kiri = kanan ; kiri = kanan“ (pasangkan) · adegan „nama | keterangan“: gambar animasi bertema yang bisa
+ *  diseret dan diputar lalu dikembalikan (public/assets/adegan.js). */
+export type JenisBlok = 'h' | 'p' | 'ar' | 'tr' | 'en' | 'lt' | 'cat' | 'q' | 'li' | 'img' | 'kuis' | 'kartu' | 'cocok' | 'adegan';
+export interface Blok { t: JenisBlok; x: string; a?: string }
+export const AKTIVITAS: JenisBlok[] = ['kuis', 'kartu', 'cocok', 'adegan'];
 export interface Bab { n: number; judul: string; judulAr?: string; blok: Blok[] }
 export interface BabRingkas { n: number; judul: string; kata: number }
 
@@ -41,8 +45,8 @@ export interface BukuMeta {
   sampul?: string;
   /** Sampul gambar dari sumber luar (jenius.es / Gutenberg), dilayani lewat Worker. */
   sampulLuar?: string;
-  /** PDF unggahan (buku portal) — dibaca di penampil PDF, tanpa suara. */
-  pdf?: string;
+  /** Buku cerita bergambar: setiap gambar memulai halaman baru. */
+  bergambar?: boolean;
   tag?: string[];
 }
 
@@ -58,19 +62,22 @@ export interface Rak {
   unit: string[];
 }
 
-/** Rak: lembaga → jenjang → program, ditambah rak Guru & Ustadz dan katalog dunia (perintah pemilik 1 & 5). */
+/** Rak: jenjang (TK/RA, MI, MTs, SMA/MA/SMK), pesantren, buku anak per bahasa, kisah, hadits, doa, guru, umum. */
 export const RAK: Rak[] = [
-  { id: 'ra', nama: 'RA — Taman Kanak-kanak', ringkas: 'Huruf, angka, warna, dan adab — dibacakan dengan suara ceria.', suara: 'balita', warna: 4, ikon: '🌱', unit: ['ra-al-huda'] },
-  { id: 'tpq', nama: 'TPQ — Iqra’ & Hafalan', ringkas: 'Huruf hijaiyah, doa harian, dan hafalan pendek untuk santri TPQ.', suara: 'anak', warna: 5, ikon: '🕌', unit: ['tpq-al-huda', 'ra-al-huda', 'mi-al-huda'] },
-  { id: 'mi', nama: 'MI — Kelas 1–6', ringkas: 'Bacaan dan buku pelajaran madrasah ibtidaiyah per kelas.', suara: 'anak', warna: 1, ikon: '📗', unit: ['mi-al-huda'] },
-  { id: 'mts', nama: 'MTs — Kelas 7–9', ringkas: 'Bacaan dan buku pelajaran madrasah tsanawiyah per kelas.', suara: 'remaja', warna: 2, ikon: '📘', unit: ['mts-al-huda'] },
-  { id: 'kitab', nama: 'Kitab Pesantren', ringkas: 'Kitab kuning yang diajarkan di pesantren: matan Arab, terjemah, dan penjelasan.', suara: 'remaja', warna: 0, ikon: '📜', unit: ['ponpes-al-huda', 'mts-al-huda', 'majlis-talim-al-huda'] },
+  { id: 'ra', nama: 'TK / RA', ringkas: 'Huruf, angka, warna, adab, dan cerita bergambar untuk anak usia dini — dibacakan dengan suara ceria.', suara: 'balita', warna: 4, ikon: '🌱', unit: ['ra-al-huda', 'tpq-al-huda'] },
+  { id: 'cerita', nama: 'Buku Anak & Cerita', ringkas: 'Cerita anak berbahasa Indonesia yang menanamkan akhlak — dengan permainan di akhir buku.', suara: 'anak', warna: 9, ikon: '📖', unit: ['ra-al-huda', 'mi-al-huda', 'tpq-al-huda', 'lksa-al-huda'] },
+  { id: 'anak-en', nama: 'Buku Anak Berbahasa Inggris', ringkas: 'Cerita bergambar dan percakapan berbahasa Inggris, dilafalkan dengan suara Inggris.', suara: 'anak', warna: 7, ikon: '🔤', unit: ['ra-al-huda', 'mi-al-huda', 'mts-al-huda'] },
+  { id: 'anak-ar', nama: 'Buku Anak Berbahasa Arab', ringkas: 'Huruf hijaiyah, kosakata, dan nama-nama Allah — dilafalkan dengan suara Arab.', suara: 'anak', warna: 5, ikon: 'ع', unit: ['ra-al-huda', 'tpq-al-huda', 'mi-al-huda'] },
+  { id: 'tpq', nama: 'TPQ — Iqra’ & Hafalan', ringkas: 'Huruf hijaiyah, doa harian, dan hafalan pendek untuk santri TPQ.', suara: 'anak', warna: 6, ikon: '🕌', unit: ['tpq-al-huda'] },
+  { id: 'mi', nama: 'MI / SD — Kelas 1–6', ringkas: 'Buku pelajaran interaktif madrasah ibtidaiyah — dengan gambar yang bisa dimainkan, kuis, dan kartu.', suara: 'anak', warna: 1, ikon: '📗', unit: ['mi-al-huda'] },
+  { id: 'mts', nama: 'MTs / SMP — Kelas 7–9', ringkas: 'Bacaan dan buku pelajaran interaktif madrasah tsanawiyah, per kelas dan mata pelajaran.', suara: 'remaja', warna: 2, ikon: '📘', unit: ['mts-al-huda'] },
+  { id: 'kitab', nama: 'Kitab Pesantren', ringkas: 'Kitab kuning yang diajarkan di pondok pesantren: matan Arab, terjemah, dan penjelasan.', suara: 'remaja', warna: 0, ikon: '📜', unit: ['ponpes-al-huda', 'mts-al-huda', 'majlis-talim-al-huda'] },
+  { id: 'kisah', nama: 'Kisah Nabi & Teladan', ringkas: 'Kisah 25 nabi, kisah dalam Al-Qur’an, para sahabat, tabi’in, dan ulama — berdasarkan Al-Qur’an dan hadits.', suara: 'anak', warna: 10, ikon: '🌙', unit: ['ra-al-huda', 'mi-al-huda', 'mts-al-huda', 'tpq-al-huda', 'majlis-talim-al-huda', 'lksa-al-huda'] },
+  { id: 'hadits', nama: 'Hadits', ringkas: 'Kitab-kitab hadits lengkap — Bukhari, Muslim, Abu Dawud, Tirmidzi, Nasa’i, Ibnu Majah, dan lainnya — Arab dan terjemah.', suara: 'dewasa', warna: 3, ikon: '🌿', unit: ['majlis-talim-al-huda', 'ponpes-al-huda', 'masjid-jami-al-huda'] },
   { id: 'doa', nama: 'Doa & Dzikir', ringkas: 'Doa sehari-hari dan dzikir dengan teks Arab, latin, dan arti.', suara: 'anak', warna: 6, ikon: '🤲', unit: ['tpq-al-huda', 'ra-al-huda', 'mi-al-huda', 'majlis-talim-al-huda', 'masjid-jami-al-huda', 'musholla-al-huda'] },
-  { id: 'hadits', nama: 'Hadits & Akhlak', ringkas: 'Kumpulan hadits dan kitab akhlak untuk kajian dan majelis.', suara: 'dewasa', warna: 3, ikon: '🌿', unit: ['majlis-talim-al-huda', 'ponpes-al-huda', 'masjid-jami-al-huda'] },
-  { id: 'bahasa', nama: 'Bahasa Arab & Inggris', ringkas: 'Kosakata dan percakapan, dilafalkan dengan suara bahasanya masing-masing.', suara: 'anak', warna: 7, ikon: '🗣️', unit: ['mi-al-huda', 'mts-al-huda', 'ponpes-al-huda'] },
-  { id: 'guru', nama: 'Guru & Ustadz', ringkas: 'Bacaan pendidik: adab mengajar, membacakan buku, dan kitab akhlak.', suara: 'dewasa', warna: 8, ikon: '🎓', unit: [] },
-  { id: 'cerita', nama: 'Cerita & Sastra', ringkas: 'Cerita anak dan karya sastra domain publik untuk gemar membaca.', suara: 'anak', warna: 9, ikon: '📖', unit: ['mi-al-huda', 'mts-al-huda', 'lksa-al-huda'] },
-  { id: 'umum', nama: 'Bacaan Umum & Keterampilan', ringkas: 'Wawasan, keterampilan kerja, ekonomi, dan bacaan keluarga.', suara: 'dewasa', warna: 10, ikon: '🧭', unit: ['blkk-al-huda', 'bmt-al-huda', 'koperasi-al-huda', 'al-huda-mart', 'lksa-al-huda', 'santunan', 'upz-al-huda'] },
+  { id: 'bahasa', nama: 'Bahasa Arab & Inggris', ringkas: 'Kosakata, nahwu, dan percakapan — dilafalkan dengan suara bahasanya masing-masing.', suara: 'anak', warna: 7, ikon: '🗣️', unit: ['mi-al-huda', 'mts-al-huda', 'ponpes-al-huda'] },
+  { id: 'guru', nama: 'Guru & Ustadz', ringkas: 'Bacaan pendidik: adab mengajar, membacakan buku, kitab akhlak, dan hadits.', suara: 'dewasa', warna: 8, ikon: '🎓', unit: [] },
+  { id: 'umum', nama: 'Bacaan Umum & Keterampilan', ringkas: 'Wawasan, keterampilan kerja, ekonomi, dan karya klasik dunia.', suara: 'dewasa', warna: 10, ikon: '🧭', unit: ['blkk-al-huda', 'bmt-al-huda', 'koperasi-al-huda', 'al-huda-mart', 'lksa-al-huda', 'santunan', 'upz-al-huda'] },
 ];
 export const RAK_ID: Record<string, Rak> = Object.fromEntries(RAK.map((r) => [r.id, r]));
 
@@ -91,7 +98,7 @@ export const beraksaraArab = (s: string) => (s.match(AR)?.length ?? 0) * 3 >= Ma
 
 export function hitungKata(blok: Blok[]): number {
   let n = 0;
-  for (const b of blok) if (b.t !== 'lt') n += b.x.split(/\s+/).filter(Boolean).length;
+  for (const b of blok) if (b.t !== 'lt' && b.t !== 'img' && !AKTIVITAS.includes(b.t)) n += b.x.split(/\s+/).filter(Boolean).length;
   return n;
 }
 
@@ -100,7 +107,7 @@ export const menitBaca = (kata: number) => Math.max(1, Math.round(kata / 150));
 
 /** Paragraf yang sangat panjang dipecah per kalimat agar pas di halaman dan nyaman dibacakan. */
 export function pecahPanjang(b: Blok, maks = 900): Blok[] {
-  if (b.x.length <= maks || b.t === 'h') return [b];
+  if (b.x.length <= maks || b.t === 'h' || b.t === 'img' || AKTIVITAS.includes(b.t)) return [b];
   const kalimat = b.x.match(/[^.!?؟۔]+[.!?؟۔]*["”’)\]]*\s*/g) ?? [b.x];
   const out: Blok[] = [];
   let buf = '';
@@ -167,7 +174,7 @@ export function uraiNaskah(src: string, judulAwal = 'Pendahuluan'): NaskahMd {
     const lm = /^[-*]\s+(.+)$/.exec(line);
     if (lm) { tutup(); babIni().blok.push({ t: 'li', x: lm[1]!.trim() }); continue; }
     // Baris berawalan ::xx adalah satu blok sendiri; baris biasa sesudahnya memulai paragraf baru.
-    const pm = /^::(ar|en|id|tr|lt|cat)\s+(.*)$/.exec(line);
+    const pm = /^::(ar|en|id|tr|lt|cat|kuis|kartu|cocok|adegan)\s+(.*)$/.exec(line);
     if (pm) {
       tutup();
       const x = pm[2]!.replace(/\s+/g, ' ').trim();
@@ -185,3 +192,30 @@ export const ringkasBab = (bab: Bab[]): BabRingkas[] => bab.map((b) => ({ n: b.n
 
 /** Id buku yang aman sebagai bagian kunci R2 dan alamat. */
 export const ID_BUKU_RE = /^[a-z]-[A-Za-z0-9_-]{1,80}$/;
+
+/**
+ * Adegan suasana otomatis (perintah pemilik: „animasi2 yg berkaitan dengan tema dan halaman yg d baca“): bab buku anak,
+ * cerita, dan kisah yang belum punya adegan diberi satu adegan interaktif sesuai kata-kata di dalamnya.
+ */
+const SUASANA: [string, RegExp][] = [
+  ['sholat', /\b(subuh|dzuhur|zuhur|ashar|asar|maghrib|magrib|isya|waktu (sholat|salat|shalat))\b/i],
+  ['masjid', /\b(masjid|musholla|mushola|surau|adzan|azan|kiblat|ka.?bah|mosque)\b/i],
+  ['padi', /\b(padi|sawah|petani|beras|panen|bercocok tanam|rice|farm(er)?)\b/i],
+  ['hujan', /\b(hujan|awan|banjir|sungai|mata air|rain|cloud|river)\b/i],
+  ['laut', /\b(laut|lautan|samudra|kapal|perahu|bahtera|pantai|ombak|sea|ocean|boat|ship|ark)\b/i],
+  ['kebun', /\b(kebun|pohon|buah|kurma|anggur|delima|zaitun|apel|mangga|garden|tree|fruit|date palm)\b/i],
+  ['huruf', /\b(huruf|hijaiyah|iqra|alif|letter)\b/i],
+  ['langit', /\b(malam|bintang|bulan|langit|siang|matahari|pagi|night|star|moon|sky|sun)\b/i],
+];
+export function suasanaBab(bab: Bab): string | null {
+  if (bab.blok.some((b) => b.t === 'adegan')) return null;
+  const teks = `${bab.judul} ${bab.blok.slice(0, 40).map((b) => b.x).join(' ')}`;
+  for (const [nama, re] of SUASANA) if (re.test(teks)) return nama;
+  return null;
+}
+/** Bab dengan adegan suasana di awalnya — hanya untuk buku anak, cerita, dan kisah (suara balita/anak). */
+export function denganSuasana(bab: Bab, suara: string): Bab {
+  if (suara !== 'balita' && suara !== 'anak') return bab;
+  const nama = suasanaBab(bab);
+  return nama ? { ...bab, blok: [{ t: 'adegan', x: `${nama} | Mainkan gambarnya: seret, ketuk dua kali untuk memutar, lalu tekan ↺ Kembalikan` }, ...bab.blok] } : bab;
+}

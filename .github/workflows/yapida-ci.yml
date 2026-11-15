@@ -9,6 +9,8 @@ on:
     paths:
       - 'yapida/**'
       - 'adsense-stack.json'
+      - 'packages/db-schema/seed/**'
+      - 'scripts/data/**'
       - '.github/workflows/yapida-ci.yml'
       - '.github/workflows/deploy-yapida.yml'
   push:

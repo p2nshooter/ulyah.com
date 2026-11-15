@@ -6,7 +6,7 @@ import { asalSama } from '../lib/session.ts';
 import { kecil, media, origin, render, tidakAda } from '../lib/render.ts';
 import { crumbs } from '../pages/layout.ts';
 import { listUnits } from '../data/site.ts';
-import { RAK, RAK_ID, type BukuMeta } from '../data/buku.ts';
+import { denganSuasana, RAK, RAK_ID, type BukuMeta } from '../data/buku.ts';
 import { ambilBab, ambilBuku, cocok, katalog, urutkan, type KartuBuku } from '../data/pustaka.ts';
 import { cariGutenberg, katalogJenius } from '../data/luar.ts';
 import { catatBaca, peringkat, sepuluh, setelSuka, sudahSuka } from '../data/statistik.ts';
@@ -63,10 +63,18 @@ pustaka.get('/pustaka/rak/:rak', async (c) => {
   const kelas = [...new Set(buku.flatMap((b) => (b.kelas ? b.kelas.split(/,\s*/) : [])))].sort((a, b) => a.localeCompare(b, 'id', { numeric: true }));
   const pilih = c.req.query('kelas') ?? '';
   if (pilih && kelas.includes(pilih)) buku = buku.filter((b) => b.kelas?.split(/,\s*/).includes(pilih));
+  const mapel = [...new Set(buku.map((b) => b.mapel).filter((m): m is string => Boolean(m)))].sort((a, b) => a.localeCompare(b, 'id'));
+  const pilihMapel = c.req.query('mapel') ?? '';
+  if (pilihMapel && mapel.includes(pilihMapel)) buku = buku.filter((b) => b.mapel === pilihMapel);
+  const PER = 48;
+  const total = buku.length;
+  const hal = Math.max(1, Math.min(Math.ceil(total / PER) || 1, Number(c.req.query('hal') ?? 1) || 1));
+  buku = buku.slice((hal - 1) * PER, hal * PER);
   const o = origin(c);
   return render(c, {
     path: `/pustaka/rak/${r.id}`, title: `${r.nama} — Pustaka Yapida`, desc: `${r.ringkas} ${buku.length} buku di rak ${r.nama} Perpustakaan Yayasan Al-Huda Yapida, semuanya bisa dibacakan.`,
-    body: rakPage(`${r.ikon} ${r.nama}`, r.ringkas, [['Perpustakaan', '/pustaka'], [r.nama, `/pustaka/rak/${r.id}`]], buku, x, { kelas, pilihKelas: kelas.includes(pilih) ? pilih : '', dasar: `/pustaka/rak/${r.id}` }),
+    body: rakPage(`${r.ikon} ${r.nama}`, r.ringkas, [['Perpustakaan', '/pustaka'], [r.nama, `/pustaka/rak/${r.id}`]], buku, x, { kelas, pilihKelas: kelas.includes(pilih) ? pilih : '', mapel, pilihMapel: mapel.includes(pilihMapel) ? pilihMapel : '', dasar: `/pustaka/rak/${r.id}`, hal, total, perHal: PER }),
+    noindex: hal > 1 || Boolean(pilihMapel),
     aktif: 'belajar', css: ['pustaka.css'], js: ['pustaka.js'], jsonLd: [crumbs(o, [['Perpustakaan', '/pustaka'], [r.nama, `/pustaka/rak/${r.id}`]])],
   });
 });
@@ -143,7 +151,7 @@ pustaka.get('/pustaka/b/:id/:n', async (c) => {
   return render(c, {
     path: `/pustaka/b/${id}/${n}`, title: `${bab.judul} — ${m.judul} (bab ${n}) | Pustaka Yapida`,
     desc: `Baca dan dengarkan bab ${n} “${bab.judul}” dari ${m.judul} karya ${m.penulis.slice(0, 60)} di Perpustakaan Digital Yayasan Al-Huda Yapida.`,
-    body: pembacaPage(m, bab, x), aktif: 'belajar', noAds: true, kelas: 'hal-baca', css: ['pustaka.css'], js: ['suara.js', 'pustaka.js'],
+    body: pembacaPage(m, bab, x), aktif: 'belajar', noAds: true, kelas: 'hal-baca', css: ['pustaka.css'], js: ['suara.js', 'adegan.js', 'pustaka.js'],
     jsonLd: [crumbs(o, [['Perpustakaan', '/pustaka'], [m.judul.slice(0, 60), `/pustaka/b/${id}`], [`Bab ${n}`, `/pustaka/b/${id}/${n}`]])],
   });
 });
@@ -153,9 +161,9 @@ pustaka.get('/pustaka/api/b/:id/:n', async (c) => {
   const id = c.req.param('id');
   const n = Number(c.req.param('n'));
   if (!ID_RE.test(id) || !Number.isInteger(n) || n < 1) return c.json({ error: 'tidak ada' }, 404);
-  const bab = await ambilBab(c.env, c.get('store'), id, n);
-  if (!bab) return c.json({ error: 'tidak ada' }, 404);
-  return c.json(bab, 200, { 'cache-control': id.startsWith('p-') ? 'no-store' : 'public, max-age=3600' });
+  const [bab, meta] = await Promise.all([ambilBab(c.env, c.get('store'), id, n), ambilBuku(c.env, c.get('store'), id)]);
+  if (!bab || !meta) return c.json({ error: 'tidak ada' }, 404);
+  return c.json(denganSuasana(bab, meta.suara), 200, { 'cache-control': id.startsWith('p-') ? 'no-store' : 'public, max-age=3600' });
 });
 
 async function bacaJson(c: Ctx): Promise<{ id?: unknown; suka?: unknown }> {
@@ -183,7 +191,7 @@ pustaka.post('/pustaka/api/suka', async (c) => {
   let v = getCookie(c, PENGUNJUNG) ?? '';
   if (!/^[A-Za-z0-9_-]{20,40}$/.test(v)) {
     v = b64url(crypto.getRandomValues(new Uint8Array(18)));
-    setCookie(c, PENGUNJUNG, v, { path: '/', secure: true, httpOnly: true, sameSite: 'Lax', maxAge: 2 * 365 * 86_400 });
+    setCookie(c, PENGUNJUNG, v, { path: '/', secure: true, httpOnly: true, sameSite: 'Lax', maxAge: 400 * 86_400 });
   }
   const akhir = await setelSuka(store, id, v, suka);
   const pk = await peringkat(store, Date.now(), tunda(c));
@@ -196,4 +204,29 @@ pustaka.get('/pustaka/api/suka/:id', async (c) => {
   if (!ID_RE.test(id)) return c.json({ suka: false });
   const v = getCookie(c, PENGUNJUNG) ?? '';
   return c.json({ suka: v ? await sudahSuka(c.get('store'), id, v) : false }, 200, { 'cache-control': 'no-store' });
+});
+
+/**
+ * Gambar buku cerita bergambar Book Dash (github.com/bookdash/bookdash-books, CC BY 4.0): diambil sekali dari GitHub lalu
+ * disimpan di bucket media R2 Yapida; sesudahnya dilayani dari R2. Hanya gambar raster (tanpa SVG).
+ */
+pustaka.get('/pustaka/m/:id/:file', async (c) => {
+  const id = c.req.param('id');
+  const file = c.req.param('file');
+  if (!/^bd-[a-z0-9-]{1,90}$/.test(id) || !/^[\w-]{1,100}\.(jpg|jpeg|png|webp|gif)$/i.test(file)) return c.notFound();
+  const key = `pustaka/${id}/${file}`;
+  const kepala = (tipe: string) => ({ 'content-type': tipe, 'cache-control': 'public, max-age=31536000, immutable', 'x-content-type-options': 'nosniff' });
+  const ada = await c.env.MEDIA.get(key);
+  if (ada) return new Response(ada.body, { headers: kepala(ada.httpMetadata?.contentType ?? 'image/jpeg') });
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/bookdash/bookdash-books/gh-pages/${id.slice(3)}/en/images/${file}`, { headers: { 'user-agent': 'yapida.sch.id-pustaka' }, signal: AbortSignal.timeout(10000) });
+    const tipe = (r.headers.get('content-type') ?? '').split(';')[0]!.trim();
+    if (!r.ok || !/^image\/(jpeg|png|webp|gif)$/.test(tipe)) return c.notFound();
+    const isi = await r.arrayBuffer();
+    if (isi.byteLength > 6 * 1024 * 1024) return c.notFound();
+    await c.env.MEDIA.put(key, isi, { httpMetadata: { contentType: tipe } });
+    return new Response(isi, { headers: kepala(tipe) });
+  } catch {
+    return c.notFound();
+  }
 });

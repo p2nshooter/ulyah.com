@@ -15,10 +15,12 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { hitungKata, menitBaca, pecahPanjang, ringkasBab, uraiNaskah, type Bab, type Blok, type BukuMeta } from '../src/data/buku.ts';
 import type { Suara } from '../src/data/model.ts';
+import { barisInsert, type Baris } from './sql-seed.ts';
 
 const DIR = dirname(fileURLToPath(import.meta.url));
 const DATA = join(DIR, '..', '..', 'scripts', 'data');
 const KARYA = join(DIR, '..', 'pustaka');
+const SEED = join(DIR, '..', '..', 'packages', 'db-schema', 'seed');
 const OUT = join(DIR, '..', 'public', 'assets', 'pustaka');
 
 const baca = <T>(f: string): T => JSON.parse(readFileSync(join(DATA, f), 'utf8')) as T;
@@ -27,6 +29,7 @@ const blok = (t: Blok['t'], x: unknown): Blok[] => { const v = bersih(x); return
 
 const buku: { meta: BukuMeta; bab: Bab[] }[] = [];
 function tambah(m: Omit<BukuMeta, 'bab' | 'kata' | 'menit'>, bab: Bab[]): void {
+  if (!bab.length) return;
   const isi = bab.filter((b) => b.blok.length).map((b, i) => ({ ...b, n: i + 1 }));
   const kata = isi.reduce((a, b) => a + hitungKata(b.blok), 0);
   buku.push({ meta: { ...m, bab: ringkasBab(isi), kata, menit: menitBaca(kata) }, bab: isi });
@@ -160,6 +163,128 @@ for (const f of readdirSync(KARYA).filter((x) => x.endsWith('.md')).sort()) {
     lisensi: meta.lisensi ?? 'CC BY-SA 4.0', lisensiUrl: meta.lisensiUrl ?? 'https://creativecommons.org/licenses/by-sa/4.0/deed.id',
     tag: (meta.tag ?? '').split(',').map((s) => s.trim()).filter(Boolean),
   }, bab);
+}
+
+/* ── kisah milik ulyah.com (seed SQL dibaca sebagai teks) ─────────────────── */
+
+const sql = (f: string) => readFileSync(join(SEED, f), 'utf8');
+const berkasSeed = readdirSync(SEED).filter((f) => f.endsWith('.sql'));
+const judulKata = (s: string) => s.split(/[-_]/).filter(Boolean).map((w) => (w.length > 2 || /^(al|as|an)$/.test(w) ? w[0]!.toUpperCase() + w.slice(1) : w)).join(' ');
+const LISENSI_ULYAH = 'Karya ulyah.com (milik pemilik), ditulis berdasarkan Al-Qur’an dan hadits';
+
+const NABI = new Set(['adam', 'idris', 'nuh', 'hud', 'salih', 'ibrahim', 'lut', 'ismail', 'ishaq', 'yaqub', 'yusuf', 'ayyub', 'syuaib', 'musa', 'harun', 'dzulkifli', 'dawud', 'sulaiman', 'ilyas', 'ilyasa', 'yunus', 'zakariya', 'yahya', 'isa', 'muhammad']);
+// Seri kisah (tabel stories): satu buku per seri, satu bab per episode.
+const episode = new Map<string, Baris[]>();
+for (const f of berkasSeed.filter((x) => x.startsWith('kisah_'))) {
+  for (const r of barisInsert(sql(f), 'stories')) {
+    if (!r.series_key || !r.body || !r.title) continue;
+    const k = `${r.series_key}|${r.lang ?? 'id'}`;
+    episode.set(k, [...(episode.get(k) ?? []), r]);
+  }
+}
+for (const [k, eps] of [...episode.entries()].sort()) {
+  const [seri, lang] = k.split('|') as [string, string];
+  const urut = eps.sort((a, b) => Number(a.episode_number ?? 0) - Number(b.episode_number ?? 0));
+  const bab: Bab[] = urut.map((e, i) => ({ n: i + 1, judul: bersih(e.title), blok: uraiNaskah(String(e.body), bersih(e.title)).bab.flatMap((b) => b.blok).map((b) => (lang === 'en' && b.t === 'p' ? { ...b, t: 'en' as const } : b)) }));
+  const inti = seri.replace(/^kisah-(nabi-)?/, '');
+  const nabi = NABI.has(inti);
+  const namaId = `Kisah ${nabi ? 'Nabi ' : ''}${judulKata(inti)}${inti === 'muhammad' ? ' ﷺ' : ''}`;
+  const nama = lang === 'en' ? `The Story of ${nabi ? 'Prophet ' : ''}${judulKata(inti)}${inti === 'muhammad' ? ' ﷺ' : ''}` : namaId;
+  tambah({
+    id: `k-kisah-${inti}${lang === 'id' ? '' : `-${lang}`}`.slice(0, 70), judul: nama, penulis: 'Tim Editorial ULYAH', rak: lang === 'en' ? ['kisah', 'anak-en'] : ['kisah', 'cerita'], suara: 'anak',
+    mapel: 'Sejarah & kisah Islam', bahasa: lang === 'en' ? 'en' : 'id',
+    ringkasan: lang === 'en' ? `${nama}: ${urut.length} episodes grounded in the verses of the Qur’an and authentic hadith, for children and families.` : `${nama}: ${urut.length} episode yang disusun dari ayat-ayat Al-Qur’an dan hadits shahih, enak dibacakan untuk anak dan keluarga.`,
+    sumber: 'Pustaka kisah ulyah.com', sumberUrl: 'https://ulyah.com', lisensi: LISENSI_ULYAH, tag: ['kisah', 'nabi'],
+  }, bab);
+}
+
+// Kisah anak muslim (tabel kisah_anak): versi Indonesia dan Inggris.
+const anak = berkasSeed.filter((x) => x.startsWith('kisah_anak')).flatMap((f) => barisInsert(sql(f), 'kisah_anak')).sort((a, b) => Number(a.episode_order ?? 0) - Number(b.episode_order ?? 0));
+if (anak.length) {
+  for (const lang of ['id', 'en'] as const) {
+    const t: Blok['t'] = lang === 'en' ? 'en' : 'p';
+    tambah({
+      id: lang === 'id' ? 'k-kisah-anak-muslim' : 'k-muslim-kids-stories', judul: lang === 'id' ? 'Kisah Anak Muslim' : 'Muslim Kids’ Stories', penulis: 'Tim Editorial ULYAH',
+      rak: lang === 'id' ? ['cerita', 'ra', 'mi'] : ['anak-en', 'ra'], suara: 'balita', mapel: 'Akhlak', bahasa: lang,
+      ringkasan: lang === 'id' ? `${anak.length} cerita pendek berurutan — setiap cerita menanamkan satu akhlak: jujur, berbagi, sabar, dan lainnya.` : `${anak.length} short stories, each teaching one simple Islamic value.`,
+      sumber: 'Pustaka kisah ulyah.com', sumberUrl: 'https://ulyah.com', lisensi: LISENSI_ULYAH, tag: ['cerita anak', 'akhlak'],
+    }, anak.map((e, i) => ({
+      n: i + 1, judul: bersih(lang === 'id' ? e.title_id : e.title_en),
+      blok: [...String(lang === 'id' ? e.body_id : e.body_en).split(/\n\s*\n/).flatMap((x) => blok(t, x)), ...blok('cat', `${lang === 'id' ? 'Pesan' : 'Lesson'}: ${bersih(lang === 'id' ? e.moral_id : e.moral_en)}`)],
+    })));
+  }
+}
+
+// Tokoh: nabi, sahabat, tabi'in, ulama (kisah_person + kisah_person_section).
+const orang = berkasSeed.filter((x) => x.startsWith('kisah_')).flatMap((f) => barisInsert(sql(f), 'kisah_person'));
+const bagian = berkasSeed.filter((x) => x.startsWith('kisah_')).flatMap((f) => barisInsert(sql(f), 'kisah_person_section'));
+const GOL: Record<string, string> = { 'kisah-para-nabi': 'Kisah Para Nabi & Rasul', 'kisah-sahabat': 'Kisah Para Sahabat Nabi', 'kisah-tabiin': 'Kisah Para Tabi’in', 'kisah-tabiin-tabiin': 'Kisah Para Tabi’ut Tabi’in', 'kisah-ulama-dunia': 'Kisah Para Ulama Dunia' };
+const golOrang = new Map<string, Baris[]>();
+for (const o of orang) if (o.slug && o.category_slug) golOrang.set(o.category_slug, [...(golOrang.get(o.category_slug) ?? []), o]);
+for (const [gol, daftar] of golOrang) {
+  const urut = daftar.sort((a, b) => Number(a.sort_order ?? 0) - Number(b.sort_order ?? 0));
+  tambah({
+    id: `k-tokoh-${gol.replace(/^kisah-/, '')}`, judul: GOL[gol] ?? judulKata(gol), penulis: 'Tim Editorial ULYAH', rak: ['kisah', 'mts', 'guru'], suara: 'remaja', mapel: 'Sejarah Kebudayaan Islam', bahasa: 'id',
+    ringkasan: `Riwayat singkat ${urut.length} tokoh: ${urut.slice(0, 5).map((o) => bersih(o.name_id)).join(', ')}${urut.length > 5 ? ', dan lainnya' : ''}.`,
+    sumber: 'Pustaka kisah ulyah.com', sumberUrl: 'https://ulyah.com', lisensi: LISENSI_ULYAH, tag: ['tokoh', 'sejarah islam'],
+  }, urut.map((o, i) => ({
+    n: i + 1, judul: bersih(o.name_id), ...(o.name_ar ? { judulAr: bersih(o.name_ar) } : {}),
+    blok: [...blok('cat', o.title_id), ...String(o.summary_id ?? '').split(/\n\s*\n/).flatMap((x) => blok('p', x)),
+      ...bagian.filter((b) => b.person_slug === o.slug).sort((a, b) => Number(a.section_order) - Number(b.section_order))
+        .flatMap((b) => [...blok('h', b.heading_id), ...String(b.body_id ?? '').split(/\n\s*\n/).flatMap((x) => blok('p', x)), ...(b.quran_refs ? blok('cat', `Rujukan: ${b.quran_refs}`) : [])])],
+  })));
+}
+
+/* ── kitab-kitab hadits lengkap (seed ulyah.com) ─────────────────────────── */
+
+const KITAB_HADITS: Record<string, { judul: string; judulAr: string; penulis: string; rak: string[] }> = {
+  bukhari: { judul: 'Shahih Al-Bukhari', judulAr: 'صحيح البخاري', penulis: 'Imam Muhammad bin Isma’il Al-Bukhari (w. 256 H)', rak: ['hadits', 'guru'] },
+  muslim: { judul: 'Shahih Muslim', judulAr: 'صحيح مسلم', penulis: 'Imam Muslim bin Al-Hajjaj (w. 261 H)', rak: ['hadits', 'guru'] },
+  abudawud: { judul: 'Sunan Abu Dawud', judulAr: 'سنن أبي داود', penulis: 'Imam Abu Dawud As-Sijistani (w. 275 H)', rak: ['hadits'] },
+  tirmidhi: { judul: 'Sunan At-Tirmidzi', judulAr: 'سنن الترمذي', penulis: 'Imam Abu ‘Isa At-Tirmidzi (w. 279 H)', rak: ['hadits'] },
+  nasai: { judul: 'Sunan An-Nasa’i', judulAr: 'سنن النسائي', penulis: 'Imam Ahmad bin Syu’aib An-Nasa’i (w. 303 H)', rak: ['hadits'] },
+  ibnmajah: { judul: 'Sunan Ibnu Majah', judulAr: 'سنن ابن ماجه', penulis: 'Imam Muhammad bin Yazid Ibnu Majah (w. 273 H)', rak: ['hadits'] },
+  malik: { judul: 'Al-Muwaththa’', judulAr: 'الموطأ', penulis: 'Imam Malik bin Anas (w. 179 H)', rak: ['hadits', 'kitab'] },
+  ahmad: { judul: 'Musnad Imam Ahmad', judulAr: 'مسند الإمام أحمد', penulis: 'Imam Ahmad bin Hanbal (w. 241 H)', rak: ['hadits'] },
+  darimi: { judul: 'Sunan Ad-Darimi', judulAr: 'سنن الدارمي', penulis: 'Imam Abdullah bin Abdurrahman Ad-Darimi (w. 255 H)', rak: ['hadits'] },
+  nawawi: { judul: 'Hadits Arba’in An-Nawawiyah', judulAr: 'الأربعون النووية', penulis: 'Imam Yahya bin Syaraf An-Nawawi (w. 676 H)', rak: ['hadits', 'mts', 'kitab', 'guru'] },
+  qudsi: { judul: '40 Hadits Qudsi', judulAr: 'الأحاديث القدسية', penulis: 'Kumpulan hadits qudsi', rak: ['hadits', 'mts', 'guru'] },
+  dehlawi: { judul: '40 Hadits Syah Waliyullah Ad-Dihlawi', judulAr: 'الأربعون للدهلوي', penulis: 'Syah Waliyullah Ad-Dihlawi (w. 1176 H)', rak: ['hadits'] },
+};
+const PER_BAB = 40;
+for (const [kol, info] of Object.entries(KITAB_HADITS)) {
+  const f = `hadith_${kol}.sql`;
+  if (!berkasSeed.includes(f)) continue;
+  const rows = barisInsert(sql(f), 'hadits').filter((r) => r.text_ar || r.text_id).sort((a, b) => Number(a.hadith_number ?? a.id) - Number(b.hadith_number ?? b.id));
+  const bab: Bab[] = [];
+  for (let i = 0; i < rows.length; i += PER_BAB) {
+    const potong = rows.slice(i, i + PER_BAB);
+    const dari = potong[0]!.hadith_number ?? String(i + 1), sampai = potong.at(-1)!.hadith_number ?? String(i + potong.length);
+    bab.push({
+      n: bab.length + 1, judul: `Hadits no. ${dari}–${sampai}`,
+      blok: potong.flatMap((r) => [...blok('h', `Hadits no. ${r.hadith_number ?? r.id}`), ...blok('ar', r.text_ar), ...blok('tr', r.text_id),
+        ...((r.narrator || r.grade) ? blok('cat', [r.narrator ? `Perawi: ${bersih(r.narrator)}` : '', r.grade ? `Derajat: ${bersih(r.grade)}` : ''].filter(Boolean).join(' · ')) : [])]),
+    });
+  }
+  tambah({
+    id: `k-hadits-${kol}`, judul: info.judul, judulAr: info.judulAr, penulis: info.penulis, rak: info.rak, suara: 'dewasa', mapel: 'Hadits', bahasa: 'ar',
+    ringkasan: `${info.judul} lengkap: ${rows.length.toLocaleString('id-ID')} hadits dengan teks Arab dan terjemah Indonesia, dibagi per ${PER_BAB} hadits agar nyaman dibaca dan dibacakan.`,
+    sumber: 'Pustaka hadits ulyah.com (data yang sama dengan ulyah.com)', sumberUrl: 'https://ulyah.com', lisensi: 'Matan hadits domain publik · terjemah dari pustaka ulyah.com', tag: ['hadits', kol],
+  }, bab);
+}
+
+/* ── buku cerita bergambar Book Dash (GitHub, CC BY 4.0) ─────────────────── */
+
+const bd = JSON.parse(readFileSync(join(KARYA, 'bookdash.json'), 'utf8')) as { buku: { slug: string; title: string; subtitle?: string; creator?: string; description?: string; halaman: { img: string; alt: string; teks: string[] }[] }[] };
+for (const b of bd.buku) {
+  const blokBd: Blok[] = b.halaman.flatMap((h) => [
+    ...(h.img && /^[\w.-]{1,120}$/.test(h.img) ? [{ t: 'img' as const, x: `/pustaka/m/bd-${b.slug}/${h.img}`, a: bersih(h.alt).slice(0, 200) }] : []),
+    ...h.teks.flatMap((x) => blok('en', x)),
+  ]);
+  const meta = { id: `k-bd-${b.slug}`.slice(0, 70), judul: b.title + (b.subtitle ? `: ${b.subtitle}` : ''), penulis: b.creator || 'Book Dash', rak: ['anak-en', 'ra'], suara: 'anak' as Suara, bahasa: 'en', mapel: 'Bahasa Inggris',
+    ringkasan: b.description || 'Buku cerita bergambar berbahasa Inggris dari Book Dash.', sumber: 'Book Dash (bookdash.org) — github.com/bookdash/bookdash-books', sumberUrl: `https://github.com/bookdash/bookdash-books/tree/gh-pages/${b.slug}`,
+    lisensi: 'CC BY 4.0 — ditampilkan ulang dalam format web tanpa mengubah teks', lisensiUrl: 'https://creativecommons.org/licenses/by/4.0/deed.id', sampulLuar: `/pustaka/m/bd-${b.slug}/cover.jpg`, bergambar: true, tag: ['cerita bergambar', 'english'] };
+  tambah(meta, [{ n: 1, judul: b.title, blok: blokBd }]);
 }
 
 /* ── tulis ───────────────────────────────────────────────────────────────── */

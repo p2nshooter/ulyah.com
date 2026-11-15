@@ -27,6 +27,8 @@ export interface KartuBuku {
   menit?: number;
   bab?: number;
   sampul?: string;
+  /** Sampul bergambar buku luar (jalur di situs ini). */
+  sampulUrl?: string;
   asal: AsalBuku;
 }
 
@@ -55,7 +57,7 @@ async function babBawaan(env: Env, id: string, n: number): Promise<Bab | null> {
 const kartuDariMeta = (m: BukuMeta, asal: AsalBuku): KartuBuku => ({
   id: m.id, judul: m.judul, ...(m.judulAr ? { judulAr: m.judulAr } : {}), penulis: m.penulis, rak: m.rak, suara: m.suara,
   ...(m.kelas ? { kelas: m.kelas } : {}), ...(m.mapel ? { mapel: m.mapel } : {}), ...(m.unit ? { unit: m.unit } : {}),
-  bahasa: m.bahasa, menit: m.menit, bab: m.bab.length, ...(m.sampul ? { sampul: m.sampul } : {}), asal,
+  bahasa: m.bahasa, menit: m.menit, bab: m.bab.length, ...(m.sampul ? { sampul: m.sampul } : {}), ...(m.sampulLuar ? { sampulUrl: m.sampulLuar } : {}), asal,
 });
 
 /* ── buku tulisan lembaga (portal) ──────────────────────────────────────── */
@@ -90,7 +92,7 @@ export function metaDok(d: Dok): { meta: BukuMeta; bab: Bab[] } {
     ...(typeof d.d.mapel === 'string' && d.d.mapel ? { mapel: d.d.mapel } : {}), unit: d.unit, bahasa: String(d.d.bahasa ?? 'id'),
     ringkasan: String(d.d.ringkasan ?? ''), sumber: typeof d.d.sumber === 'string' && d.d.sumber ? d.d.sumber : `Ditulis oleh ${d.penulisNama}`,
     lisensi: LISENSI[lis] ?? LISENSI.milik!, bab: ringkasBab(bab), kata, menit: menitBaca(kata),
-    ...(typeof d.d.sampul === 'string' && d.d.sampul ? { sampul: d.d.sampul } : {}), ...(typeof d.d.pdf === 'string' && d.d.pdf ? { pdf: d.d.pdf } : {}),
+    ...(typeof d.d.sampul === 'string' && d.d.sampul ? { sampul: d.d.sampul } : {}),
   };
   return { meta, bab };
 }
@@ -104,7 +106,7 @@ export interface Katalog {
   jumlahBab: number;
 }
 
-const kartuLuar = (k: KartuLuar): KartuBuku => ({ id: k.id, judul: k.judul, penulis: k.penulis, rak: k.rak, suara: k.suara, bahasa: k.bahasa, ...(k.menit ? { menit: k.menit } : {}), ...(k.kelas ? { kelas: k.kelas } : {}), ...(k.mapel ? { mapel: k.mapel } : {}), asal: k.sumber });
+const kartuLuar = (k: KartuLuar): KartuBuku => ({ id: k.id, judul: k.judul, penulis: k.penulis, rak: k.rak, suara: k.suara, bahasa: k.bahasa, ...(k.menit ? { menit: k.menit } : {}), ...(k.kelas ? { kelas: k.kelas } : {}), ...(k.mapel ? { mapel: k.mapel } : {}), ...(k.sampulUrl ? { sampulUrl: k.sampulUrl } : {}), asal: k.sumber });
 
 /** Semua buku yang bisa dibaca di situs (bawaan yang tidak disembunyikan, lembaga yang tayang, jenius.es, salinan luar). */
 export async function katalog(env: Env, store: Store): Promise<Katalog> {
