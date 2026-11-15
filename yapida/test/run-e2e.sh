@@ -9,6 +9,12 @@ mkdir -p "$LOG_DIR"
 if curl -s -o /dev/null "http://127.0.0.1:${PORT}/api/health"; then
   echo "Port ${PORT} masih dipakai server lain — hentikan dulu."; exit 1
 fi
+# Rahasia khusus uji lokal: sesi, dan hash kode pemasangan uji UJI00-UJI00-UJI00-UJI00 (kode produksi berbeda, hanya pemilik
+# yang memegangnya).
+if [ ! -f .dev.vars ]; then
+  HASH="$(node --import tsx -e "import('./src/lib/crypto.ts').then(async (c) => process.stdout.write(await c.hashPassword('UJI00-UJI00-UJI00-UJI00')))")"
+  printf 'SESSION_SECRET=dev-session-secret-only-for-local-tests-0123456789\nSETUP_CODE_HASH=%s\n' "$HASH" > .dev.vars
+fi
 rm -rf .wrangler/state
 setsid npx wrangler dev --port "$PORT" --ip 127.0.0.1 > "$LOG_DIR/dev.log" 2>&1 &
 DEV=$!
@@ -17,3 +23,4 @@ trap cleanup EXIT
 for _ in $(seq 1 90); do curl -s -o /dev/null "http://127.0.0.1:${PORT}/api/health" && break; sleep 1; done
 curl -sf "http://127.0.0.1:${PORT}/api/health" > /dev/null || { echo "wrangler dev tidak menyala"; tail -50 "$LOG_DIR/dev.log"; exit 1; }
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e.mjs
+BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-portal.mjs

@@ -17,6 +17,8 @@ export interface Env {
   /** E-mail & sandi awal super admin (secret Worker, opsional). */
   OWNER_BOOTSTRAP_EMAIL?: string;
   OWNER_BOOTSTRAP_PASSWORD?: string;
+  /** Hanya uji lokal: hash kode pemasangan pengganti (kode aslinya hanya dipegang pemilik). */
+  SETUP_CODE_HASH?: string;
   /** Hanya uji lokal: pengganti alamat YouTube/TikTok. */
   YT_BASE?: string;
 }

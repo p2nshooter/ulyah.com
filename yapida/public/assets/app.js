@@ -291,4 +291,68 @@
     var ios = /iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
     if (ios && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua)) tampil(true);
   })();
+
+  /* ── pintu portal: ketuk logo 5× (pemilik, 15 Nov 2026: „untuk masuk login jgn make tombol login, tp make ketuk logo 5x“).
+     Satu ketukan tetap membuka beranda; lima ketukan beruntun (jeda < 0,6 detik) membuka halaman masuk. ── */
+  $$('[data-logo-ketuk]').forEach(function (logo) {
+    var n = 0, waktu = 0;
+    logo.addEventListener('click', function (e) {
+      e.preventDefault();
+      n += 1; clearTimeout(waktu);
+      logo.classList.remove('ketuk'); void logo.offsetWidth; logo.classList.add('ketuk');
+      if (n >= 5) { n = 0; if (navigator.vibrate) navigator.vibrate([20, 40, 20]); window.location.href = '/masuk'; return; }
+      waktu = setTimeout(function () { var x = n; n = 0; if (x === 1) window.location.href = logo.getAttribute('href') || '/'; }, 600);
+    });
+  });
+
+  /* ── pemutar video: sematan baru dimuat setelah ditekan ── */
+  $$('[data-pemutar]').forEach(function (p) {
+    var mulai = function () {
+      var src = p.getAttribute('data-pemutar'); if (!src) return;
+      var f = d.createElement('iframe');
+      f.src = src; f.title = 'Pemutar video'; f.loading = 'lazy';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write';
+      f.setAttribute('allowfullscreen', ''); f.referrerPolicy = 'strict-origin-when-cross-origin';
+      p.innerHTML = ''; p.appendChild(f); p.classList.add('main');
+    };
+    var b = p.querySelector('.pemutar-putar'); if (b) b.addEventListener('click', mulai);
+  });
+
+  /* ── galeri: lihat besar, geser, papan ketik ───────────── */
+  $$('[data-lightbox]').forEach(function (kisi) {
+    var butir = $$('a[data-indeks]', kisi);
+    if (!butir.length) return;
+    var lb = d.createElement('div'); lb.className = 'lightbox'; lb.hidden = true; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Foto');
+    lb.innerHTML = '<button class="lb-tutup" type="button" aria-label="Tutup">✕</button><button class="lb-nav lb-kiri" type="button" aria-label="Sebelumnya">‹</button><figure><img alt=""><figcaption></figcaption></figure><button class="lb-nav lb-kanan" type="button" aria-label="Berikutnya">›</button><span class="lb-hitung"></span>';
+    d.body.appendChild(lb);
+    var img = lb.querySelector('img'), cap = lb.querySelector('figcaption'), hit = lb.querySelector('.lb-hitung'), i = 0, asal = null;
+    var tampil = function (n) {
+      i = (n + butir.length) % butir.length;
+      var a = butir[i]; img.src = a.getAttribute('href'); img.alt = (a.querySelector('img') || {}).alt || '';
+      cap.textContent = a.getAttribute('data-ket') || ''; hit.textContent = (i + 1) + ' / ' + butir.length;
+      if (butir.length > 1) { var pre = new Image(); pre.src = butir[(i + 1) % butir.length].getAttribute('href'); }
+    };
+    var tutup = function () { lb.hidden = true; d.body.style.overflow = ''; if (asal) asal.focus(); };
+    butir.forEach(function (a, n) { a.addEventListener('click', function (e) { e.preventDefault(); asal = a; tampil(n); lb.hidden = false; d.body.style.overflow = 'hidden'; lb.querySelector('.lb-tutup').focus(); }); });
+    lb.querySelector('.lb-tutup').addEventListener('click', tutup);
+    lb.querySelector('.lb-kiri').addEventListener('click', function () { tampil(i - 1); });
+    lb.querySelector('.lb-kanan').addEventListener('click', function () { tampil(i + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) tutup(); });
+    d.addEventListener('keydown', function (e) { if (lb.hidden) return; if (e.key === 'Escape') tutup(); if (e.key === 'ArrowLeft') tampil(i - 1); if (e.key === 'ArrowRight') tampil(i + 1); });
+    var x0 = null;
+    lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) tampil(i + (dx < 0 ? 1 : -1)); });
+  });
+
+  /* ── hitung mundur penutupan PPDB ──────────────────────── */
+  $$('[data-mundur-sampai]').forEach(function (el) {
+    var sampai = Date.parse(el.getAttribute('data-mundur-sampai')), t = el.querySelector('[data-mundur-teks]');
+    if (!isFinite(sampai) || !t) return;
+    var jalan = function () {
+      var ms = sampai - Date.now(); if (ms <= 0) { t.textContent = 'ditutup'; return; }
+      var h = Math.floor(ms / 86400000), j = Math.floor(ms % 86400000 / 3600000), m = Math.floor(ms % 3600000 / 60000);
+      t.textContent = (h ? h + ' hari ' : '') + j + ' jam ' + m + ' menit';
+    };
+    jalan(); setInterval(jalan, 30000);
+  });
 })();

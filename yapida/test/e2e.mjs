@@ -49,9 +49,9 @@ const HALAMAN = ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/lembaga/up
   ok((await page.getAttribute('html', 'data-tema')) === 'malam', 'tema malam diingat setelah muat ulang');
   await page.screenshot({ path: `${OUT}/beranda-malam.png` });
   await page.click('[data-tema-ganti]');
-  await page.hover('.menu-induk > a');
-  ok(await page.locator('[data-mega]').isVisible(), 'menu Lembaga membuka daftar 15 lembaga');
-  await page.locator('[data-mega] a', { hasText: 'MTs Al Huda' }).click();
+  await page.hover('.menu-induk:has(> a[href="/lembaga"]) > a');
+  ok(await page.locator('.menu-induk:has(> a[href="/lembaga"]) [data-mega]').isVisible(), 'menu Lembaga membuka daftar 15 lembaga');
+  await page.locator('.menu-induk:has(> a[href="/lembaga"]) [data-mega] a', { hasText: 'MTs Al Huda' }).click();
   ok(page.url().endsWith('/lembaga/mts-al-huda'), 'tautan mega menu menuju profil lembaga');
   const sw = await page.evaluate(async () => { const r = await navigator.serviceWorker.ready; return Boolean(r.active); });
   ok(sw, 'service worker aktif (syarat pasang aplikasi)');

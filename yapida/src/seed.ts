@@ -8,7 +8,7 @@
 import type { Halaman, Situs, Unit } from './data/model.ts';
 import { renderMarkdown } from './lib/markdown.ts';
 
-export const SEED_VERSION = 1;
+export const SEED_VERSION = 2;
 
 const ALAMAT = 'Jl. Yapida No. 3, Kp. Kuda-kuda RT 003 RW 002, Desa Sukakarya, Kecamatan Sukakarya, Kabupaten Bekasi, Jawa Barat 17641';
 
@@ -244,3 +244,29 @@ export function seedHalaman(now: number): Halaman[] {
     h('syarat-penggunaan', 'Syarat Penggunaan', 'Ketentuan memakai situs, perpustakaan digital, bank soal, dan karya tulis di yapida.sch.id.', SYARAT),
   ];
 }
+
+/**
+ * Struktur awal (koleksi SDM) — dari SK pengesahan badan hukum (lampiran: pendiri, pembina, pengurus, pengawas) dan lembar
+ * profil MI Al Huda (perintis dan kepala madrasah). Foto dan riwayat lengkap diisi admin lewat portal (Struktur & SDM).
+ * Id tetap supaya penulisan ulang isi awal tidak pernah menggandakan orang.
+ */
+export interface SdmAwal { id: string; unit: string; nama: string; golongan: string; jabatan: string; urut: number; bio?: string }
+
+const AKTA = 'Pendiri Yayasan Al-Huda Yapida (Akta No. 16, 24 Desember 2015)';
+export const SEED_SDM: SdmAwal[] = [
+  { id: 'sdm_0000000000000000P001', unit: 'yayasan', nama: 'H. Moh. Hilwani', golongan: 'pendiri', jabatan: 'Perintis pengajian (1967) dan pendiri madrasah (1970)', urut: 1,
+    bio: "Pada tahun 1967 beliau membuka pengajian anak-anak di rumahnya di Kampung Kuda-kuda, Sukakarya: dari pukul 14.00 sampai waktu Ashar, lalu selepas Maghrib sampai Isya. Anak-anak belajar membaca Al-Qur'an dengan metode Baghdadi dan mengaji kitab kuning — *Safinah* (fikih), *Jurumiyyah* dan *Kailani* (nahwu-sharaf), *Tijan ad-Darari* (akidah), dan *Maraqil 'Ubudiyyah* (ibadah).\n\nKarena dukungan warga, pengajian itu tumbuh menjadi sekolah dan pada tahun 1970 diresmikan sebagai madrasah dengan nama awal MI Hidayatush Shibyan — kini MI Al Huda, cikal bakal Yayasan Al-Huda Yapida." },
+  { id: 'sdm_0000000000000000P002', unit: 'yayasan', nama: 'Fadli Robbi, S.Ag.', golongan: 'pendiri', jabatan: AKTA, urut: 2 },
+  { id: 'sdm_0000000000000000P003', unit: 'yayasan', nama: 'H. Karnada', golongan: 'pendiri', jabatan: AKTA, urut: 3 },
+  { id: 'sdm_0000000000000000P004', unit: 'yayasan', nama: 'H. Suherman', golongan: 'pendiri', jabatan: AKTA, urut: 4 },
+  { id: 'sdm_0000000000000000P005', unit: 'yayasan', nama: 'Hj. Latifah', golongan: 'pendiri', jabatan: AKTA, urut: 5 },
+  { id: 'sdm_0000000000000000P006', unit: 'yayasan', nama: 'Yayah Hipdiyah, S.Pd.I.', golongan: 'pendiri', jabatan: AKTA, urut: 6 },
+  { id: 'sdm_0000000000000000B001', unit: 'yayasan', nama: 'Hj. Latifah', golongan: 'pembina', jabatan: 'Ketua Pembina', urut: 11 },
+  { id: 'sdm_0000000000000000B002', unit: 'yayasan', nama: 'H. Karnada', golongan: 'pembina', jabatan: 'Anggota Pembina', urut: 12 },
+  { id: 'sdm_0000000000000000R001', unit: 'yayasan', nama: 'Fadli Robbi, S.Ag.', golongan: 'pengurus', jabatan: 'Ketua Yayasan', urut: 21 },
+  { id: 'sdm_0000000000000000R002', unit: 'yayasan', nama: 'H. Suherman', golongan: 'pengurus', jabatan: 'Sekretaris', urut: 22 },
+  { id: 'sdm_0000000000000000R003', unit: 'yayasan', nama: 'Linda Maulida ‘Aini, S.E.', golongan: 'pengurus', jabatan: 'Bendahara', urut: 23 },
+  { id: 'sdm_0000000000000000W001', unit: 'yayasan', nama: 'Yayah Hipdiyah, S.Pd.I.', golongan: 'pengawas', jabatan: 'Ketua Pengawas', urut: 31 },
+  { id: 'sdm_0000000000000000W002', unit: 'yayasan', nama: 'Hamdani Darusalam', golongan: 'pengawas', jabatan: 'Anggota Pengawas', urut: 32 },
+  { id: 'sdm_0000000000000000M001', unit: 'mi-al-huda', nama: 'Fadli Robbi, S.Ag.', golongan: 'pimpinan', jabatan: 'Kepala Madrasah', urut: 1 },
+];

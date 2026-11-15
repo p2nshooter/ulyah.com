@@ -2,22 +2,22 @@ import type { R2Like } from '../src/lib/store.ts';
 
 /** R2 tiruan di memori: create-once (etagDoesNotMatch '*'), CAS (etagMatches), daftar berurutan. */
 export class FakeR2 implements R2Like {
-  m = new Map<string, { v: string; etag: string; meta?: Record<string, string>; up: Date }>();
+  m = new Map<string, { v: string; etag: string; meta?: Record<string, string>; up: Date; ct?: string }>();
   n = 0;
   async get(k: string) {
     const o = this.m.get(k);
-    return o ? { etag: o.etag, text: async () => o.v, body: o.v } : null;
+    return o ? { etag: o.etag, httpEtag: `"${o.etag}"`, text: async () => o.v, body: o.v, writeHttpMetadata: (h: Headers) => { if (o.ct) h.set('content-type', o.ct); } } : null;
   }
   async head(k: string) {
     const o = this.m.get(k);
     return o ? { etag: o.etag, uploaded: o.up, customMetadata: o.meta } : null;
   }
-  async put(k: string, v: string | ArrayBuffer | ReadableStream | Uint8Array, opts?: { onlyIf?: { etagMatches?: string; etagDoesNotMatch?: string }; customMetadata?: Record<string, string> }) {
+  async put(k: string, v: string | ArrayBuffer | ReadableStream | Uint8Array, opts?: { onlyIf?: { etagMatches?: string; etagDoesNotMatch?: string }; customMetadata?: Record<string, string>; httpMetadata?: { contentType?: string } }) {
     const cur = this.m.get(k);
     if (opts?.onlyIf?.etagDoesNotMatch === '*' && cur) return null;
     if (opts?.onlyIf?.etagMatches && cur?.etag !== opts.onlyIf.etagMatches) return null;
     const etag = `e${++this.n}`;
-    this.m.set(k, { v: typeof v === 'string' ? v : '[binary]', etag, meta: opts?.customMetadata, up: new Date() });
+    this.m.set(k, { v: typeof v === 'string' ? v : '[binary]', etag, meta: opts?.customMetadata, up: new Date(), ct: opts?.httpMetadata?.contentType });
     return { etag };
   }
   async delete(keys: string | string[]) {
