@@ -1,7 +1,8 @@
 /** Definisi koleksi isi. Formulir portal, pemeriksaan isian, ringkasan indeks, dan halaman publik dibangkitkan dari sini. */
-import type { Koleksi } from './koleksi.ts';
+import type { Bidang, Koleksi } from './koleksi.ts';
 import { PERAN } from './users.ts';
 import { RAK } from './buku.ts';
+import { GAYA_KOP, JENIS_PENGHARGAAN, METODE_BAYAR, PILIHAN_DESAIN, UNTUK_KWITANSI, WARNA_KOP } from './dokumen.ts';
 
 export const GOLONGAN: [string, string][] = [
   ['pendiri', 'Pendiri'], ['pembina', 'Pembina'], ['pengurus', 'Pengurus'], ['pengawas', 'Pengawas'],
@@ -154,5 +155,88 @@ export const BUKU: Koleksi = {
   ],
 };
 
-export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN };
+/* ── dokumen lembaga (perintah 13 & 17): kop surat, sertifikat & piagam, kwitansi, surat ─────────────────── */
+
+const TTD: Bidang[] = [
+  { k: 'ttd1Nama', label: 'Penanda tangan kanan — nama', jenis: 'teks', maks: 80, bantuan: 'Biasanya kepala lembaga. Terisi otomatis dari profil lembaga.' },
+  { k: 'ttd1Jabatan', label: 'Penanda tangan kanan — jabatan', jenis: 'teks', maks: 80 },
+  { k: 'ttd2Nama', label: 'Penanda tangan kiri — nama (opsional)', jenis: 'teks', maks: 80, bantuan: 'Mis. wali kelas, pembimbing tahfidz, atau ketua panitia. Kosongkan bila hanya satu tanda tangan.' },
+  { k: 'ttd2Jabatan', label: 'Penanda tangan kiri — jabatan', jenis: 'teks', maks: 80 },
+];
+
+export const PENGHARGAAN: Koleksi = {
+  // Pemilik: „Setiap penghargaan siswa wajib di expose di publik“ — yang berstatus Tayang selalu tampil di /prestasi.
+  id: 'penghargaan', nama: 'Sertifikat & piagam', satu: 'sertifikat', labelJudul: 'Nama penerima', urut: 'baru', sampul: 'foto', ringkasDari: 'capaian',
+  tingkat: PERAN.lembaga.tingkat, cetak: 'a4l', nomorOtomatis: 'nomor', menu: 'dokumen',
+  bidang: [
+    { k: 'jenis', label: 'Jenis penghargaan', jenis: 'pilih', pilihan: JENIS_PENGHARGAAN, wajib: true, indeks: true },
+    { k: 'nisn', label: 'NISN penerima', jenis: 'teks', maks: 20, indeks: true, bantuan: 'Isi NISN (atau NIS untuk RA) siswa — penghargaan langsung muncul di portal siswanya. Tidak pernah ditampilkan di halaman publik.' },
+    { k: 'desain', label: 'Desain', jenis: 'pilih', pilihan: PILIHAN_DESAIN, wajib: true, indeks: true, bantuan: '12 desain siap cetak — lihat pratinjau di samping saat memilih.' },
+    { k: 'capaian', label: 'Capaian', jenis: 'teks', maks: 140, wajib: true, indeks: true, bantuan: 'Mis. „Juz 30 (An-Naba’ – An-Nas)“, „Lomba Adzan tingkat Kecamatan Sukakarya“, „Peringkat 1 Kelas 5“.' },
+    { k: 'predikat', label: 'Predikat / juara', jenis: 'teks', maks: 60, indeks: true, bantuan: 'Mis. „Mumtaz“, „Juara 1“, „Sangat Baik“.' },
+    { k: 'kegiatan', label: 'Kegiatan / acara', jenis: 'teks', maks: 140, bantuan: 'Mis. „Wisuda Tahfidz ke-5“, „Semester Ganjil“, „MTQ Pelajar Kab. Bekasi“.' },
+    { k: 'kelas', label: 'Kelas', jenis: 'teks', maks: 40, indeks: true },
+    { k: 'tahun', label: 'Tahun pelajaran', jenis: 'teks', maks: 20, indeks: true, bantuan: 'Mis. 2026/2027.' },
+    { k: 'foto', label: 'Foto penerima', jenis: 'gambar', bantuan: 'Foto wajah tegak, akan tampil di sertifikat dan di menu Prestasi.' },
+    ...TTD,
+    { k: 'tempat', label: 'Tempat penerbitan', jenis: 'teks', maks: 60, bantuan: 'Kosongkan untuk memakai kota pada kop.' },
+    { k: 'nomor', label: 'Nomor sertifikat', jenis: 'teks', maks: 80, indeks: true, bantuan: 'Kosongkan — nomor dibuat otomatis saat disimpan.' },
+    { k: 'judulSertifikat', label: 'Judul sertifikat (opsional)', jenis: 'teks', maks: 80, bantuan: 'Kosongkan untuk judul otomatis sesuai jenis (mis. „Sertifikat Tahfidz Al-Qur’an“).' },
+    { k: 'kalimat', label: 'Kalimat penghargaan (opsional)', jenis: 'paragraf', maks: 400, bantuan: 'Kosongkan — kalimat disusun otomatis dari jenis, capaian, predikat, kegiatan, dan tahun.' },
+  ],
+};
+
+export const KWITANSI: Koleksi = {
+  id: 'kwitansi', nama: 'Kwitansi pembayaran', satu: 'kwitansi', labelJudul: 'Diterima dari (nama pembayar)', urut: 'baru', ringkasDari: 'keterangan',
+  tingkat: PERAN.lembaga.tingkat, tanpaPublik: true, cetak: 'a4p', nomorOtomatis: 'nomor', menu: 'dokumen',
+  bidang: [
+    { k: 'untuk', label: 'Untuk pembayaran', jenis: 'pilih', pilihan: UNTUK_KWITANSI, wajib: true, indeks: true },
+    { k: 'keterangan', label: 'Keterangan / periode', jenis: 'teks', maks: 140, indeks: true, bantuan: 'Mis. „SPP bulan November 2026“ atau „Daftar ulang kelas 4“.' },
+    { k: 'jumlah', label: 'Jumlah (rupiah)', jenis: 'angka', wajib: true, indeks: true, bantuan: 'Angka saja, mis. 150000 — terbilang ditulis otomatis.' },
+    { k: 'kelas', label: 'Murid / kelas (opsional)', jenis: 'teks', maks: 80, indeks: true, bantuan: 'Mis. „Ahmad Fauzan — Kelas 3B“ bila pembayarnya wali murid.' },
+    { k: 'metode', label: 'Cara bayar', jenis: 'pilih', pilihan: METODE_BAYAR, wajib: true, indeks: true },
+    { k: 'lunas', label: 'Lunas', jenis: 'centang', indeks: true },
+    { k: 'penerima', label: 'Nama penerima', jenis: 'teks', maks: 80, bantuan: 'Bendahara atau petugas yang menerima.' },
+    { k: 'jabatanPenerima', label: 'Jabatan penerima', jenis: 'teks', maks: 60 },
+    { k: 'tempat', label: 'Tempat', jenis: 'teks', maks: 60, bantuan: 'Kosongkan untuk memakai kota pada kop.' },
+    { k: 'nomor', label: 'Nomor kwitansi', jenis: 'teks', maks: 60, indeks: true, bantuan: 'Kosongkan — nomor dibuat otomatis saat disimpan (urut per lembaga per tahun).' },
+    { k: 'catatan', label: 'Catatan (opsional)', jenis: 'paragraf', maks: 300 },
+  ],
+};
+
+export const SURAT: Koleksi = {
+  id: 'surat', nama: 'Surat berkop', satu: 'surat', labelJudul: 'Perihal', urut: 'baru', ringkasDari: 'kepada',
+  tingkat: PERAN.lembaga.tingkat, tanpaPublik: true, cetak: 'a4p', nomorOtomatis: 'nomor', menu: 'dokumen',
+  bidang: [
+    { k: 'nomor', label: 'Nomor surat', jenis: 'teks', maks: 80, indeks: true, bantuan: 'Kosongkan — nomor dibuat otomatis (urut/LEMBAGA/bulan Romawi/tahun).' },
+    { k: 'lampiran', label: 'Lampiran', jenis: 'teks', maks: 60 },
+    { k: 'kepada', label: 'Kepada', jenis: 'paragraf', maks: 400, wajib: true, bantuan: 'Mis. „Yth. Bapak/Ibu Wali Murid Kelas 6\ndi Tempat“.' },
+    { k: 'isi', label: 'Isi surat', jenis: 'markdown', wajib: true, maks: 20_000 },
+    { k: 'ttdNama', label: 'Penanda tangan — nama', jenis: 'teks', maks: 80, wajib: true },
+    { k: 'ttdJabatan', label: 'Penanda tangan — jabatan', jenis: 'teks', maks: 80 },
+    { k: 'tembusan', label: 'Tembusan (opsional)', jenis: 'daftar' },
+    { k: 'tempat', label: 'Tempat', jenis: 'teks', maks: 60, bantuan: 'Kosongkan untuk memakai kota pada kop.' },
+  ],
+};
+
+export const KOP: Koleksi = {
+  id: 'kop', nama: 'Kop surat', satu: 'kop surat', labelJudul: 'Nama lembaga pada kop', urut: 'judul', tanpaTanggal: true, sampul: 'logo', ringkasDari: 'alamat',
+  tingkat: PERAN.lembaga.tingkat, tanpaPublik: true, cetak: 'a4p', menu: 'dokumen',
+  bidang: [
+    { k: 'induk', label: 'Nama induk (baris atas)', jenis: 'teks', maks: 120, bantuan: 'Mis. „YAYASAN AL-HUDA YAPIDA“. Kosongkan untuk kop yayasan sendiri.' },
+    { k: 'arab', label: 'Nama Arab (opsional)', jenis: 'teks', maks: 120 },
+    { k: 'ket', label: 'Keterangan', jenis: 'teks', maks: 140, bantuan: 'Mis. „Terakreditasi A“ atau jenis lembaga.' },
+    { k: 'nsm', label: 'NSM / NPSN / izin operasional', jenis: 'teks', maks: 120 },
+    { k: 'alamat', label: 'Alamat', jenis: 'paragraf', maks: 240, wajib: true },
+    { k: 'kontak', label: 'Kontak', jenis: 'teks', maks: 160, bantuan: 'Telepon, WhatsApp, surel, situs — dalam satu baris.' },
+    { k: 'kota', label: 'Kota untuk tanggal surat', jenis: 'teks', maks: 40, bantuan: 'Mis. „Sukakarya“ → „Sukakarya, 15 November 2026“.' },
+    { k: 'logo', label: 'Logo kiri', jenis: 'gambar' },
+    { k: 'logoKanan', label: 'Logo kanan (opsional)', jenis: 'gambar', bantuan: 'Mis. logo Kemenag atau Tut Wuri Handayani.' },
+    { k: 'gaya', label: 'Gaya tata letak', jenis: 'pilih', pilihan: GAYA_KOP, wajib: true, indeks: true },
+    { k: 'warna', label: 'Warna', jenis: 'pilih', pilihan: WARNA_KOP, wajib: true, indeks: true },
+    { k: 'utama', label: 'Jadikan kop utama lembaga ini', jenis: 'centang', indeks: true, bantuan: 'Kop utama dipakai otomatis oleh surat, sertifikat, dan kwitansi lembaga ini.' },
+  ],
+};
+
+export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN, penghargaan: PENGHARGAAN, kwitansi: KWITANSI, surat: SURAT, kop: KOP };
 export const koleksi = (id: string): Koleksi | null => KOLEKSI[id] ?? null;

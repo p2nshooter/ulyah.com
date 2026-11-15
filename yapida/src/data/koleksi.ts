@@ -51,6 +51,14 @@ export interface Koleksi {
   ringkasDari?: string;
   /** Tanpa kolom tanggal di formulir (mis. SDM). */
   tanpaTanggal?: boolean;
+  /** Dibuat dan dikelola di portal, tetapi tidak pernah tampil di halaman publik (kwitansi, surat, kop). Tanpa pilihan status. */
+  tanpaPublik?: boolean;
+  /** Dokumen siap cetak: ukuran kertasnya (A4 mendatar / tegak) — portal menampilkan pratinjau langsung dan tombol cetak. */
+  cetak?: 'a4l' | 'a4p';
+  /** Bidang nomor yang diisi otomatis saat pertama disimpan bila dikosongkan (src/data/dokumen.ts nomorBerikut). */
+  nomorOtomatis?: string;
+  /** Kelompok menu portal (bawaan: Isi). */
+  menu?: 'isi' | 'dokumen';
 }
 
 export interface FotoGaleri { f: string; k?: string; ket?: string }
@@ -261,7 +269,7 @@ export async function simpan(store: Store, def: Koleksi, m: Masukan, now = Date.
   };
   const sort = urutKey(def, dok);
   const mt = meta(def, dok) as unknown as Record<string, unknown>;
-  dok.ix = [`i/${def.id}/a/${sort}~${id}`, ...(dok.status === 'tayang' && !def.privat ? [`i/${def.id}/t/${sort}~${id}`] : [])];
+  dok.ix = [`i/${def.id}/a/${sort}~${id}`, ...(dok.status === 'tayang' && !def.privat && !def.tanpaPublik ? [`i/${def.id}/t/${sort}~${id}`] : [])];
   await store.put(dokKey(def.id, id), dok);
   for (const k of dok.ix) await store.put(k, {}, mt);
   const usang = (lama?.ix ?? []).filter((k) => !dok.ix.includes(k));

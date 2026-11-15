@@ -156,7 +156,9 @@ for (const [nama, vp, opts] of [['desktop', { width: 1366, height: 860 }, {}], [
   const bukanPertama = urut.locator('.urut-kotak:not([data-i="0"])').first();
   await bukanPertama.click();
   ok(await bukanPertama.evaluate((el) => el.classList.contains('goyang')) && (await urut.locator('.urut-butir').count()) === 0, `${nama}: urutan salah digoyang`);
-  for (let i = 0; i < n; i += 1) { await urut.locator(`.urut-kotak[data-i="${i}"]`).click(); await page.waitForTimeout(40); }
+  // Klik dikirim langsung ke tombol: di ponsel kotak yang tersisa bergeser saat kotak benar memudar (animasi), jadi
+  // pemeriksaan „stabil“ Playwright bisa menunggu terus walau tombolnya bisa ditekan manusia.
+  for (let i = 0; i < n; i += 1) { await urut.locator(`.urut-kotak[data-i="${i}"]`).dispatchEvent('click'); await page.waitForTimeout(80); }
   await page.waitForFunction((el) => el.classList.contains('selesai'), await urut.elementHandle());
   ok((await urut.locator('.urut-butir').count()) === n, `${nama}: urutkan cerita selesai, ${n} kejadian bernomor`);
   if (nama === 'ponsel') await urut.screenshot({ path: `${OUT}/pustaka-urutkan-ponsel.png` });

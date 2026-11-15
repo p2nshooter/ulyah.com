@@ -164,3 +164,44 @@ a.p-butir:hover strong{color:var(--z600);text-decoration:underline}
 }
 @media (max-width:420px){.pin-kisi{grid-template-columns:repeat(3,68px);gap:.65rem}.pin-tbl{width:68px;height:68px}}
 @media print{.p-sisi,.p-kepala .p-buka,.p-aksi,.p-form-kaki,[data-cetak]{display:none!important}.portal{display:block}}
+
+/* ── dokumen & cetak: formulir + pratinjau langsung, pemilih desain ── */
+.p-dok-dua{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,46%);gap:1.2rem;align-items:start}
+.p-dok-form{min-width:0}
+.p-dok-cetak{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem}
+.p-dok-pratinjau{position:sticky;top:1rem;border-radius:18px;border:1px solid var(--garis);background:var(--permukaan);box-shadow:var(--bayang);padding:.8rem}
+.p-dok-pratinjau-kepala{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.4rem;margin-bottom:.6rem}
+.p-dok-bingkai{position:relative;width:100%;border-radius:10px;overflow:hidden;background:#e7e3d9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.p-dok-bingkai.a4l{aspect-ratio:297/210}
+.p-dok-bingkai.a4p{aspect-ratio:210/297;max-height:78vh;margin:0 auto}
+.p-dok-bingkai iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;transition:opacity .25s}
+.p-dok-bingkai.muat-ulang iframe{opacity:.55}
+@media (max-width:1100px){.p-dok-dua{grid-template-columns:1fr}.p-dok-pratinjau{position:relative;top:0;order:-1}}
+.p-desain{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:.6rem}
+.p-desain-butir{position:relative;display:flex;flex-direction:column;gap:.35rem;padding:.45rem;border-radius:14px;border:2px solid var(--garis);background:var(--permukaan);cursor:pointer;transition:transform .2s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .2s}
+.p-desain-butir:hover{transform:translateY(-2px)}
+.p-desain-butir input{position:absolute;opacity:0;pointer-events:none}
+.p-desain-butir:has(input:checked){border-color:var(--e500);box-shadow:0 0 0 3px rgba(220,191,98,.35)}
+.p-desain-butir:has(input:focus-visible){outline:3px solid var(--e500);outline-offset:2px}
+.p-desain-nama{font-size:.76rem;font-weight:700;line-height:1.2;text-align:center}
+.p-desain-contoh{position:relative;display:block;aspect-ratio:297/210;border-radius:8px;overflow:hidden;background:var(--sw-latar,#fffdf5);box-shadow:inset 0 0 0 3px var(--sw-bingkai,#0b5a3c),inset 0 0 0 5px var(--sw-latar,#fffdf5),inset 0 0 0 6px var(--sw-emas,#b8902a)}
+.p-desain-contoh i{position:absolute;left:22%;right:22%;top:26%;height:9%;border-radius:2px;background:var(--sw-aksen,#0b5a3c)}
+.p-desain-contoh b{position:absolute;left:30%;right:30%;top:46%;height:13%;border-bottom:2px solid var(--sw-emas,#b8902a);font:400 11px/1 "Pinyon",cursive}
+.p-desain-contoh em{position:absolute;left:18%;right:18%;top:68%;height:5%;border-radius:2px;background:color-mix(in srgb,var(--sw-tinta,#1f2a24) 35%,transparent)}
+.p-desain-butir.d-zamrud{--sw-latar:#f9f3e0;--sw-bingkai:#0b5a3c;--sw-emas:#b8902a;--sw-aksen:#0b5a3c}
+.p-desain-butir.d-safir{--sw-latar:#eef2fb;--sw-bingkai:#123a7a;--sw-emas:#c9a227;--sw-aksen:#123a7a}
+.p-desain-butir.d-marun{--sw-latar:#f8ede2;--sw-bingkai:#7a1f2b;--sw-emas:#c9a227;--sw-aksen:#7a1f2b}
+.p-desain-butir.d-perkamen{--sw-latar:#efdcb0;--sw-bingkai:#7b5228;--sw-emas:#8d5a2b;--sw-aksen:#5b3714;--sw-tinta:#3d2a12}
+.p-desain-butir.d-arabesque{--sw-latar:#f2efe0;--sw-bingkai:#0b5a3c;--sw-emas:#a8842a;--sw-aksen:#0b5a3c}
+.p-desain-butir.d-arabesque .p-desain-contoh{background:#f2efe0 repeating-conic-gradient(from 45deg,rgba(11,90,60,.12) 0 25%,transparent 0 50%) 0 0/12px 12px}
+.p-desain-butir.d-kaligrafi{--sw-latar:#f5f1e1;--sw-bingkai:#556b2f;--sw-emas:#b06b3a;--sw-aksen:#556b2f}
+.p-desain-butir.d-malam{--sw-latar:#181818;--sw-bingkai:#d4af37;--sw-emas:#d4af37;--sw-aksen:#e8c66a;--sw-tinta:#efe3bf}
+.p-desain-butir.d-minimal{--sw-latar:#fff;--sw-bingkai:#fff;--sw-emas:#b8902a;--sw-aksen:#1f1f1f}
+.p-desain-butir.d-tosca{--sw-latar:#fff;--sw-bingkai:#fff;--sw-emas:#0f7c7e;--sw-aksen:#0f7c7e}
+.p-desain-butir.d-tosca .p-desain-contoh{background:linear-gradient(135deg,#0f7c7e 0 22%,#fff 22% 78%,#f2a541 78%)}
+.p-desain-butir.d-mawar{--sw-latar:#fbecee;--sw-bingkai:#c99a6b;--sw-emas:#e8b4bf;--sw-aksen:#b5485d}
+.p-desain-butir.d-lavender{--sw-latar:#f3ecfc;--sw-bingkai:#b79be0;--sw-emas:#e0a72e;--sw-aksen:#6c4ba3}
+.p-desain-butir.d-ceria{--sw-latar:#fff;--sw-bingkai:#f3a712;--sw-emas:#29bf12;--sw-aksen:#e4572e}
+.p-desain-butir.d-ceria .p-desain-contoh{box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 7px transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(120deg,#e4572e,#f3a712,#29bf12,#00a5cf,#9d4edd) border-box;border:4px solid transparent}
+
+.p-kaki-lekat{position:sticky;bottom:0;z-index:3;padding:.8rem 0;background:linear-gradient(180deg,transparent,var(--permukaan) 35%)}

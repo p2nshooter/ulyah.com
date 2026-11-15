@@ -85,6 +85,42 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
 16. „Semua buku anak bikin lebih interaktif bukan hanya padi“ · „Jelasinya make bhs indo aja biar sy tau progresnya sampe
     dmn“ (15 Nov 2026) — §5f: setiap bab buku anak otomatis mendapat adegan dan „Ayo Bermain!“; laporan ke pemilik dalam
     Bahasa Indonesia.
+17. „Sambil jalan, cek A-Z mana yg kurang interaktif hususnya di perpustakaan digitalnya baik animasi kartun dan animasi3
+    interaktif. Jgn lupa sertifikat, Piagam, kop dll dan semua yg belum di kerjakan, segera kerjakan“ · „Cek jg error bug,
+    tambahin bikin kwitansi bayaran setiap lembaga“ (15 Nov 2026) — §5g (ditambah kwitansi dan surat berkop), audit
+    interaktivitas perpustakaan §5f, perbaikan bug tercatat di PR.
+18. „Jika sudah 100% selesai semua, bikin dalam 1 Gambar besar, seluruh fitur yg ada di website ini, dan fungsi setiap menu
+    yg ada di setiap portal, agar bisa di baca sebagai panduan, dan juga bikin panduan interaktif di setiap portal cara
+    penggunaanya“ (15 Nov 2026) — §10 Panduan: satu gambar besar peta fitur + fungsi menu per peran, dan tur interaktif di
+    dalam portal; dikerjakan terakhir setelah semua modul selesai.
+19. „Pelajaran formalnya kok g ada ra, mi, mts. Perpustakaan digital Pelajaran formal ini sangat penting, cari Dr sumber
+    manapun di google/github“ (15 Nov 2026) — §5f: buku BSE (teks PDF yang boleh dialihmediakan) di rak RA/MI/MTs per
+    kelas dan mapel.
+20. „Logat voice nya make logat bahasa indonesia bukan Melayu, klo Arab make logat Arab, Inggris ya logat inggris“ —
+    suara.js memilih suara id-ID (tidak pernah ms-MY), ar-*, en-GB/en-US.
+21. „Yapida.sch.id sudah sy koneksikan ke CF, jgn lupa bikin SEO nya yg super lengkap agar mampu di index di awal google
+    dan mendapatkan ratusan ribu pengunjung generik per hari Dr fitur yg ada“ — §7 SEO, domain dipasang oleh deploy.
+22. Data siswa, portal siswa, bank soal, tagihan & kwitansi, penghargaan ber-NISN (15 Nov 2026), ringkas: siswa tidak
+    mendaftar — masuk dengan NISN dan kata sandi tanggal lahir (tgl/bln/thn), langsung ke kelasnya, naik kelas otomatis
+    tiap tahun, yang sudah lulus tidak bisa masuk; NIK, nama orang tua, dll. dari file master; kekurangan diedit manual,
+    super admin akses penuh. Bank soal puluhan–ratusan per pelajaran sesuai kelas, kunci jawaban terlihat setelah satu
+    sesi selesai, hasil bisa diunduh siswa, tertaut ke lembaga dan kelasnya. Piagam/sertifikat tampil di beranda;
+    „Setiap penghargaan siswa wajib di expose di publik“; siswa melihat penghargaannya lewat NISN. Guru diunggah manual
+    + foto per lembaga dan tetap tampil di jajaran yayasan. Kwitansi/invoice bayaran siswa diinput manual, bisa dilacak,
+    siswa tahu di portalnya sudah bayar atau belum. Siswa baru diinput manual atau diunggah dari file master dan langsung
+    bisa masuk. Format master (urutan kolom): No, NSM Lembaga, Jenjang, Tingkat/Kelompok, Nama Rombel, NIS Lokal, NISN,
+    NIK Siswa, Nama Lengkap, L/P, Tempat Lahir, Tanggal Lahir, Nama Ayah, Nama Ibu, No. KK, Alamat Siswa, Status Siswa
+    (+ sheet Master Lembaga: No, Jenjang, NSM, NPSN, Nama Lembaga, Status, Alamat, Kecamatan, Kabupaten/Kota, Provinsi,
+    Nama Kepala, NIP/NUPTK Kepala, Tahun Pelajaran). „Jgn di input contoh nama siswanya … Jgn di input satu datapun,
+    jika sudah hapus filenya“ — tidak ada data contoh yang dimasukkan; file contoh sudah dihapus. Data siswa bisa dicari
+    di masing-masing lembaga, diunduh per siswa atau seluruhnya; yayasan melihat semua, super admin melihat dan mengedit
+    semua; laporan indah, elegan, interaktif dengan grafik. §11.
+23. Detektor artikel tanpa login di beranda memakai mesin xscan.es (15 Nov 2026): gratis 10 halaman per minggu per
+    perangkat, maksimal 5 halaman sekali scan, teknologi gratis dan kunci AI milik xscan (tersambung ke xscan, pemakaian
+    dihitung di xscan beserta situs asalnya), judul otomatis, pilih halaman yang di-scan, riwayat setiap artikel yang
+    pernah di-scan (judul dll.) tanpa bisa mengunduh file unggahan — file langsung dihapus; unggahan yang 100% sama
+    memakai cache (tanpa biaya di xscan); laporan hasil bisa diunduh pengunjung; hitung pemakaian mesin; profesional;
+    promosikan xscan.es dan mesin-mesinnya tanpa membongkar rahasia perusahaan. §12.
 
 ## 1. Aturan yang berlaku
 
@@ -224,12 +260,28 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
   dengan indeks katalog; Worker menyajikannya sebagai buku interaktif di rak MI/MTs per kelas dan mapel. PDF-nya tidak
   pernah ditampilkan atau ditautkan.
 
-## 5g. Penghargaan dan kop surat (perintah 13, berikutnya)
+## 5g. Dokumen lembaga: kop surat, sertifikat & piagam, kwitansi, surat (perintah 13, 17)
 
-- **Kop surat** per lembaga (CRUD di portal): logo, nama, alamat, kontak, garis; dipakai di surat dan sertifikat.
-- **Sertifikat** Tahfidz, lomba, dan ranking kelas: minimal 10 desain indah dengan huruf premium, dipilih per lembaga;
-  isian (nama, kelas, juara/peringkat, juz, tahun) diketik sekali lalu terisi otomatis; foto penerima; siap cetak A4.
-- **Menu Prestasi** publik per lembaga dan jenis penghargaan, dengan foto dan tahun, agar orang tua bisa melihat anaknya.
+Semua di portal (menu **Dokumen & cetak**), CRUD per lembaga (admin lembaga ke atas; super admin semua lembaga), data di
+R2 lewat mesin koleksi yang sama (`c/<kol>/…`). Setiap formulir punya **pratinjau langsung** (terisi otomatis saat
+diketik) dan tombol **Cetak / simpan PDF** (dialog cetak peramban, ukuran kertas sudah diatur).
+- **Kop surat** (`kop`): logo kiri (dan kanan, opsional), nama induk (yayasan), nama lembaga (+ nama Arab), keterangan
+  (jenis/akreditasi), NSM/NPSN, alamat, kontak, 5 gaya tata letak × 4 warna; satu kop ditandai **utama** dan dipakai
+  otomatis oleh surat, sertifikat, dan kwitansi lembaga itu. Tanpa kop tersimpan, kop dibangun dari profil lembaga.
+- **Sertifikat & piagam** (`penghargaan`): jenis tahfidz, lomba, ranking kelas, kelulusan, siswa teladan, kehadiran,
+  peserta, lainnya; **12 desain** (klasik zamrud–emas, safir, marun, arabesque, kaligrafi, minimal, hitam-emas, lavender,
+  ceria, tosca, perkamen, mawar) dengan huruf premium Cinzel, Cormorant Garamond, Pinyon Script, Amiri (OFL, dihos
+  sendiri); foto penerima, kelas, tahun pelajaran, capaian, predikat, kegiatan, dua penanda tangan, nomor otomatis
+  (`<urut>/<JENIS>/<LEMBAGA>/<bulan Romawi>/<tahun>`), kalimat penghargaan terisi otomatis dari jenis (bisa diubah);
+  A4 mendatar siap cetak; tautan verifikasi `/prestasi/<slug>`.
+- **Kwitansi pembayaran** (`kwitansi`): nomor otomatis per lembaga per tahun (`KW/<LEMBAGA>/<tahun>/<urut>`), diterima
+  dari, untuk pembayaran (SPP, pendaftaran, daftar ulang, seragam, buku, kegiatan, infaq, zakat, wakaf, lainnya),
+  keterangan/periode, jumlah + **terbilang otomatis**, metode (tunai/transfer/QRIS), penerima; dicetak dua rangkap (asli
+  untuk pembayar, arsip lembaga) di satu lembar A4 dengan garis potong. Tidak pernah tampil publik.
+- **Surat berkop** (`surat`): nomor, lampiran, perihal, kepada, isi (Markdown), penanda tangan, tembusan; A4 tegak.
+- **Menu Prestasi publik** `/prestasi` (+ `/prestasi/<slug>`): saringan lembaga, jenis, dan tahun; kartu berfoto;
+  halaman detail menampilkan sertifikatnya; juga tampil di halaman lembaga dan pita beranda. Hanya penghargaan berstatus
+  tayang dan dicentang „tampilkan di Prestasi“.
 
 ## 5a. Aplikasi ibadah (perintah 7)
 

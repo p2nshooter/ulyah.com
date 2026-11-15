@@ -133,8 +133,10 @@ export interface Halaman {
   ringkas: string;
   isi: string;
   isiHtml: string;
-  /** Tampil di kaki situs. */
+  /** Tampil di kaki situs (hanya halaman yayasan). */
   kaki: boolean;
+  /** Pemilik: slug lembaga, atau "yayasan" (bawaan untuk halaman lama). Lembaga hanya mengelola halamannya sendiri. */
+  unit?: string;
   ubah: number;
 }
 

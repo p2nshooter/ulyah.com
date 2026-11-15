@@ -22,6 +22,7 @@ export function publikDok(kol: string, slug: string): string {
   switch (kol) {
     case 'kabar': case 'galeri': case 'karya': case 'ppdb': return `/${kol}/${slug}`;
     case 'sdm': return `/sdm/${slug}`;
+    case 'penghargaan': return `/prestasi/${slug}`;
     case 'video': return '/video';
     case 'agenda': return `/agenda#${slug}`;
     case 'dokumen': return `/dokumen#${slug}`;

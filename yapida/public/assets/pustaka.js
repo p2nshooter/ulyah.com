@@ -50,7 +50,7 @@
       speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(teks), lang = AR.test(teks) ? 'ar' : bahasa || 'id';
       var v = window.YapidaSuara ? window.YapidaSuara.pilihSuara(lang, 'anak', simpan.get('yp-suara-pilih', {})) : null;
-      u.lang = v ? v.lang : lang === 'ar' ? 'ar-SA' : lang === 'en' ? 'en-US' : 'id-ID'; if (v) u.voice = v;
+      u.lang = v ? v.lang : lang === 'ar' ? 'ar-SA' : lang === 'en' ? 'en-GB' : 'id-ID'; if (v) u.voice = v;
       u.rate = lang === 'ar' ? 0.8 : 0.92; speechSynthesis.speak(u);
     } catch (e) { /* abaikan */ }
   };
@@ -401,9 +401,9 @@
   function isiPanel() {
     var semua = S && S.daftar ? S.daftar() : [], pilihan = simpan.get('yp-suara-pilih', {});
     $$('[data-suara-bhs]', panel).forEach(function (s) {
-      var b = s.getAttribute('data-suara-bhs'), kode = b === 'id' ? ['id', 'ms'] : [b];
+      var YS = window.YapidaSuara, b = s.getAttribute('data-suara-bhs'), kode = (YS && YS.kodeBahasa && YS.kodeBahasa[b]) || [b];
       s.textContent = ''; s.appendChild(el('option', '', 'Otomatis')).value = '';
-      semua.filter(function (v) { return kode.some(function (k) { return (v.lang || '').toLowerCase().indexOf(k) === 0; }); }).forEach(function (v) { var o = el('option', '', v.name + ' (' + v.lang + ')'); o.value = v.voiceURI; if (pilihan[b] === v.voiceURI) o.selected = true; s.appendChild(o); });
+      semua.filter(function (v) { return kode.some(function (k) { return YS && YS.cocokKode ? YS.cocokKode(v, k) : (v.lang || '').toLowerCase().indexOf(k) === 0; }); }).forEach(function (v) { var o = el('option', '', v.name + ' (' + v.lang + ')'); o.value = v.voiceURI; if (pilihan[b] === v.voiceURI) o.selected = true; s.appendChild(o); });
       s.onchange = function () { var p = simpan.get('yp-suara-pilih', {}); p[b] = s.value; simpan.set('yp-suara-pilih', p); };
     });
     var ket = $('[data-suara-ket]', panel);

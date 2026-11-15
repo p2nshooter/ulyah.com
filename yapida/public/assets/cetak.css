@@ -1,0 +1,322 @@
+/* yapida.sch.id — dokumen siap cetak: sertifikat & piagam (12 desain, A4 mendatar), kop surat (5 gaya × 4 warna),
+   kwitansi dua rangkap, surat berkop. Huruf premium dihos sendiri (OFL): Cinzel, Cinzel Decorative, Cormorant Garamond,
+   Pinyon Script, Amiri, Plus Jakarta Sans. Semua ukuran dalam milimeter agar cetakan sama persis dengan layar. */
+@font-face{font-family:"Cinzel";src:url("/assets/fonts/cinzel.woff2") format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Cinzel Decorative";src:url("/assets/fonts/cinzel-decorative.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Cormorant";src:url("/assets/fonts/cormorant.woff2") format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"Cormorant";src:url("/assets/fonts/cormorant-italic.woff2") format("woff2");font-weight:300 700;font-style:italic;font-display:swap}
+@font-face{font-family:"Pinyon";src:url("/assets/fonts/pinyon.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Amiri";src:url("/assets/fonts/amiri-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Amiri";src:url("/assets/fonts/amiri-700.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Jakarta";src:url("/assets/fonts/jakarta.woff2") format("woff2");font-weight:200 800;font-display:swap}
+
+:root{--f-hias:"Cinzel Decorative","Cinzel",Georgia,serif;--f-cap:"Cinzel",Georgia,serif;--f-serif:"Cormorant","Cormorant Garamond",Georgia,serif;--f-tulis:"Pinyon","Great Vibes",cursive;--f-arab:"Amiri","Traditional Arabic",serif;--f-isi:"Jakarta",system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0}
+body.cetak{background:#e7e3d9;color:#1d1d1b;font-family:var(--f-isi);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body.cetak.muat{background:transparent;overflow:hidden}
+.alat{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;padding:.7rem 1rem;background:rgba(10,40,28,.94);color:#f4ecd2;box-shadow:0 6px 18px -10px rgba(0,0,0,.5);font-size:.85rem}
+.alat-tbl{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1rem;border-radius:999px;border:1px solid rgba(244,236,210,.35);background:transparent;color:inherit;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}
+.alat-tbl.utama{background:linear-gradient(140deg,#f3d27a,#c9a227);color:#241a00;border-color:transparent}
+.alat-ket{opacity:.8;flex:1 1 280px}
+.panggung{display:flex;flex-direction:column;align-items:center;padding:24px 16px 40px}
+.muat .panggung{padding:0;align-items:flex-start}
+.lembar{position:relative;flex:none;margin:0 auto 24px;background:#fff;box-shadow:0 18px 40px -18px rgba(0,0,0,.45);overflow:hidden;transform-origin:top center}
+.muat .lembar{margin:0;box-shadow:none;transform-origin:top left}
+.lembar.a4l{width:297mm;height:210mm}
+.lembar.a4p{width:210mm;height:297mm}
+.pita-pratinjau{position:fixed;z-index:9;top:14px;right:-38px;transform:rotate(45deg);padding:3px 46px;background:#c8202b;color:#fff;font:800 10px/1.4 var(--f-isi);letter-spacing:.18em;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+@media print{
+  body.cetak{background:none}
+  .alat,.pita-pratinjau{display:none!important}
+  .panggung{padding:0;display:block}
+  .lembar{margin:0!important;box-shadow:none!important;transform:none!important;break-after:page;page-break-after:always}
+  .lembar:last-child{break-after:auto;page-break-after:auto}
+}
+
+/* ── kop surat ─────────────────────────────────────────────────────────── */
+.kop{--w:#0b5a3c;--w2:#b8902a;display:flex;align-items:center;gap:5mm;padding:0 0 2.5mm;color:#1b1b1b}
+.kop.w-safir,.kop-garis.w-safir,.w-safir .kop{--w:#123a7a;--w2:#c9a227}
+.kop.w-marun,.kop-garis.w-marun,.w-marun .kop{--w:#7a1f2b;--w2:#c9a227}
+.kop.w-arang,.kop-garis.w-arang,.w-arang .kop{--w:#1f1f1f;--w2:#8a8a8a}
+.kop-garis{--w:#0b5a3c;--w2:#b8902a;height:3.2mm;border-top:1.1mm solid var(--w);border-bottom:.35mm solid var(--w2);margin-bottom:5mm}
+.kop-logo{width:23mm;height:23mm;object-fit:contain;flex:none}
+.kop-teks{flex:1;text-align:center;line-height:1.25}
+.kop-teks p{margin:0}
+.kop-induk{font:600 10.5pt var(--f-cap);letter-spacing:.08em;color:var(--w)}
+.kop-nama{font:800 17pt var(--f-cap);letter-spacing:.04em;color:var(--w);margin:.3mm 0!important}
+.kop-arab{font:700 14pt/1.4 var(--f-arab);color:var(--w2)}
+.kop-ket{font:600 8.5pt var(--f-isi);color:#333;letter-spacing:.02em}
+.kop-alamat,.kop-kontak{font:400 8.3pt var(--f-isi);color:#333}
+.kop.g-kiri .kop-teks{text-align:left}
+.kop.g-pita{padding:4mm 6mm;border-radius:2.5mm;background:linear-gradient(120deg,var(--w),color-mix(in srgb,var(--w) 70%,#000));color:#fff}
+.kop.g-pita .kop-induk,.kop.g-pita .kop-nama{color:#fff}
+.kop.g-pita .kop-arab{color:#f3d27a}
+.kop.g-pita .kop-ket,.kop.g-pita .kop-alamat,.kop.g-pita .kop-kontak{color:rgba(255,255,255,.88)}
+.kop.g-pita .kop-logo{background:#fff;border-radius:50%;padding:1.5mm}
+.kop.g-pita+.kop-garis{border-top-width:.5mm;margin-top:1.5mm}
+.kop.g-islami{position:relative;padding:4mm 6mm 3mm;border:.5mm solid var(--w2);border-radius:14mm 14mm 2mm 2mm;background:linear-gradient(180deg,color-mix(in srgb,var(--w2) 12%,#fff),#fff)}
+.kop.g-islami::before{content:"";position:absolute;left:50%;top:-.25mm;width:30mm;height:3mm;transform:translateX(-50%);background:radial-gradient(circle at 50% 0,var(--w2) 0 1.4mm,transparent 1.5mm)}
+.kop.g-islami .kop-arab{font-size:17pt;order:-1}
+.kop-kecil{gap:3.5mm}
+.kop-kecil .kop-logo{width:15mm;height:15mm}
+.kop-kecil .kop-nama{font-size:12.5pt}
+.kop-kecil .kop-induk{font-size:8.5pt}
+.kop-kecil .kop-arab{font-size:11pt}
+.kop-kecil .kop-alamat,.kop-kecil .kop-kontak,.kop-kecil .kop-ket{font-size:7.4pt}
+.kop-kecil+.kop-garis{height:2.4mm;margin-bottom:3mm}
+
+/* ── surat berkop & contoh kop ─────────────────────────────────────────── */
+.surat{padding:14mm 20mm 16mm;font:400 10.8pt/1.62 var(--f-isi)}
+.surat-tanggal{text-align:right;margin:0 0 4mm}
+.surat-meta{border-collapse:collapse;margin-bottom:5mm}
+.surat-meta td{padding:.4mm 2mm .4mm 0;vertical-align:top}
+.surat-meta td:first-child{width:22mm}
+.surat-kepada{margin-bottom:5mm;white-space:normal}
+.surat-isi p{margin:0 0 3mm;text-align:justify}
+.surat-isi ul,.surat-isi ol{margin:0 0 3mm;padding-left:7mm}
+.surat-isi h2,.surat-isi h3{font:700 11.5pt var(--f-isi);margin:4mm 0 2mm}
+.surat-isi [lang="ar"]{font:400 15pt/1.9 var(--f-arab);text-align:right}
+.surat-ttd{width:72mm;margin:8mm 0 0 auto;text-align:center}
+.surat-ttd p{margin:0}
+.surat-ttd-ruang{height:22mm}
+.surat-ttd-nama{font-weight:700;text-decoration:underline;text-underline-offset:1mm}
+.surat-tembusan{margin-top:8mm;font-size:9.5pt}
+.surat-tembusan p{margin:0}
+.surat-tembusan ol{margin:1mm 0 0;padding-left:6mm}
+.contoh-isi{display:grid;gap:3.2mm;margin-top:8mm}
+.contoh-isi p{height:2.6mm;margin:0;border-radius:2mm;background:#ecebe6}
+.contoh-isi p[style*="width:0"]{height:4mm;background:none}
+.contoh-ket{position:absolute;left:20mm;right:20mm;bottom:16mm;margin:0;padding:3mm 4mm;border-radius:2mm;background:#f6f3e7;color:#5a5130;font-size:8.5pt;text-align:center}
+@media print{.contoh-ket{display:none}}
+
+/* ── kwitansi (dua rangkap) ────────────────────────────────────────────── */
+.kwitansi{display:flex;flex-direction:column;padding:9mm 12mm}
+.kw{--w:#0b5a3c;--w2:#b8902a;position:relative;flex:1;display:flex;flex-direction:column;padding:6mm 7mm 5mm;border:.4mm solid color-mix(in srgb,var(--w) 55%,#fff);border-radius:3mm;background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--w2) 6%,#fff));font:400 10pt/1.5 var(--f-isi)}
+.kw.w-safir{--w:#123a7a;--w2:#c9a227}.kw.w-marun{--w:#7a1f2b;--w2:#c9a227}.kw.w-arang{--w:#1f1f1f;--w2:#8a8a8a}
+.kw-judul{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2.5mm}
+.kw-judul h1{margin:0;font:800 19pt var(--f-cap);letter-spacing:.32em;color:var(--w)}
+.kw-judul p{margin:0;font-size:9.5pt}
+.kw-isi{display:grid;grid-template-columns:38mm 1fr;gap:2mm 3mm;margin:0}
+.kw-isi dt{font-weight:600;color:#444}
+.kw-isi dt::after{content:" :"}
+.kw-isi dd{margin:0;padding-bottom:.6mm;border-bottom:.25mm dotted #999}
+.kw-isi dd small{color:#555}
+.kw-terbilang{font:italic 600 12.5pt/1.35 var(--f-serif);padding:1mm 2.5mm!important;border-radius:1.5mm;background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--w2) 16%,#fff) 0 2mm,color-mix(in srgb,var(--w2) 8%,#fff) 2mm 4mm);border-bottom:0!important}
+.kw-terbilang::first-letter{text-transform:uppercase}
+.kw-bawah{display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;margin-top:auto;padding-top:3mm}
+.kw-jumlah{display:flex;align-items:center;gap:2mm;margin:0;padding:2mm 6mm 2mm 4mm;border:.5mm solid var(--w);border-radius:1.5mm;background:color-mix(in srgb,var(--w) 8%,#fff);transform:skewX(-8deg)}
+.kw-jumlah span{font:700 11pt var(--f-isi);color:var(--w)}
+.kw-jumlah b{font:800 17pt var(--f-isi);letter-spacing:.02em;color:var(--w)}
+.kw-lunas{margin:0 0 3mm;padding:1mm 4mm;border:.7mm double #178a5a;border-radius:1.5mm;color:#178a5a;font:800 13pt var(--f-cap);letter-spacing:.2em;transform:rotate(-9deg);opacity:.85}
+.kw-lunas.kw-belum{border-color:#c8202b;color:#c8202b;font-size:10pt}
+.kw-ttd{width:56mm;text-align:center;font-size:9.5pt}
+.kw-ttd p{margin:0}
+.kw-ttd-ruang{height:15mm}
+.kw-ttd-nama{font-weight:700;text-decoration:underline}
+.kw-ttd-jab{font-size:8.5pt;color:#555}
+.kw-catatan{margin:2mm 0 0;font-size:8.5pt;color:#555}
+.kw-label{position:absolute;top:2mm;right:4mm;margin:0;font:700 6.8pt var(--f-isi);letter-spacing:.14em;text-transform:uppercase;color:#999}
+.potong{display:flex;align-items:center;height:9mm;color:#999;font-size:7.5pt}
+.potong::before,.potong::after{content:"";flex:1;border-top:.3mm dashed #aaa}
+.potong span{padding:0 3mm}
+
+/* ── sertifikat & piagam ───────────────────────────────────────────────── */
+.sert{--latar:#fffdf6;--tinta:#1f2a24;--aksen:#0b5a3c;--emas:#b8902a;--bingkai:#0b5a3c;color:var(--tinta)}
+.sert-latar{position:absolute;inset:0;background:var(--latar)}
+.sert-bingkai{position:absolute;inset:8mm;border:2.4mm solid var(--bingkai);box-shadow:inset 0 0 0 1.4mm var(--latar),inset 0 0 0 1.8mm var(--emas)}
+.sert-sudut{position:absolute;width:30mm;height:30mm;color:var(--emas)}
+.sert-sudut.s1{left:2.5mm;top:2.5mm}
+.sert-sudut.s2{right:2.5mm;top:2.5mm;transform:scaleX(-1)}
+.sert-sudut.s3{right:2.5mm;bottom:2.5mm;transform:scale(-1,-1)}
+.sert-sudut.s4{left:2.5mm;bottom:2.5mm;transform:scaleY(-1)}
+.sert-isi{position:absolute;inset:15mm 24mm 13mm;display:flex;flex-direction:column;align-items:center;text-align:center}
+.sert-kop{display:flex;align-items:center;justify-content:center;gap:4mm;width:100%}
+.sert-kop div{line-height:1.2}
+.sert-kop p{margin:0}
+.sert-logo{width:15mm;height:15mm;object-fit:contain}
+.sert-induk{font:700 10pt var(--f-cap);letter-spacing:.12em;color:var(--aksen)}
+.sert-lembaga{font:600 9pt var(--f-cap);letter-spacing:.08em}
+.sert-alamat{font:400 7pt var(--f-isi);opacity:.75}
+.sert-bismillah{margin:2.5mm 0 0;font:400 15pt/1.4 var(--f-arab);color:var(--emas)}
+.sert-judul{margin:1mm 0 0;font:700 27pt/1.1 var(--f-hias);letter-spacing:.05em;color:var(--aksen)}
+.sert-nomor{margin:1mm 0 0;font:500 8pt var(--f-isi);letter-spacing:.06em;opacity:.7}
+.sert-tengah{display:flex;align-items:center;justify-content:center;gap:9mm;width:100%;margin:3mm 0 0;flex:1;min-height:0}
+.sert-foto{flex:none;width:33mm;height:42mm;margin:0;padding:1.2mm;border:.6mm solid var(--emas);border-radius:2mm;background:#fff;box-shadow:0 2mm 4mm -2mm rgba(0,0,0,.35)}
+.sert-foto img{width:100%;height:100%;object-fit:cover;border-radius:1mm}
+.sert-teks{flex:0 1 190mm}
+.berfoto .sert-teks{text-align:left}
+.sert-diberikan{margin:0;font:italic 500 13pt var(--f-serif);opacity:.85}
+.sert-nama{margin:0;font:400 38pt/1.25 var(--f-tulis);color:var(--aksen);padding:0 6mm .5mm;border-bottom:.35mm solid var(--emas);display:inline-block;max-width:100%;overflow-wrap:anywhere}
+.sert-kelas{margin:1.2mm 0 0;font:600 9pt var(--f-cap);letter-spacing:.14em}
+.sert-kalimat{margin:2.5mm 0 0;font:500 13.5pt/1.45 var(--f-serif)}
+.sert-kaki{width:100%;margin-top:auto}
+.sert-tempat{margin:0 0 1mm;text-align:right;padding-right:10mm;font:italic 500 11pt var(--f-serif)}
+.sert-ttd{display:flex;justify-content:space-between;gap:12mm;padding:0 6mm}
+.sert-ttd:has(.sert-ttd-blok:only-child){justify-content:flex-end}
+.sert-ttd-blok{width:68mm;text-align:center;font-size:9.5pt}
+.sert-ttd-blok p{margin:0}
+.sert-ttd-jab{font:600 9.5pt var(--f-isi)}
+.sert-ttd-ruang{height:16mm}
+.sert-ttd-nama{font:700 10.5pt var(--f-isi);border-top:.3mm solid currentColor;padding-top:1mm}
+.sert-verif{position:absolute;left:0;right:0;bottom:-6.5mm;margin:0;font:500 6.5pt var(--f-isi);letter-spacing:.04em;opacity:.6}
+
+/* 1. Zamrud & Emas (bawaan) */
+.d-zamrud{--latar:radial-gradient(120% 90% at 50% 40%,#fffdf5 0,#f6eed6 100%);--aksen:#0b5a3c;--emas:#b8902a;--bingkai:#0b5a3c}
+/* 2. Biru Safir */
+.d-safir{--latar:radial-gradient(120% 90% at 50% 40%,#fbfcff 0,#e6ecf8 100%);--aksen:#123a7a;--emas:#c9a227;--bingkai:#123a7a}
+/* 3. Marun Kerajaan */
+.d-marun{--latar:radial-gradient(120% 90% at 50% 40%,#fffaf3 0,#f4e6d8 100%);--aksen:#7a1f2b;--emas:#c9a227;--bingkai:#7a1f2b}
+.d-marun .sert-bingkai{border-width:4mm;box-shadow:inset 0 0 0 1.4mm var(--latar),inset 0 0 0 2mm var(--emas),inset 0 0 0 3.4mm var(--latar),inset 0 0 0 3.7mm var(--emas)}
+/* 4. Krem Perkamen */
+.d-perkamen{--latar:radial-gradient(110% 100% at 50% 45%,#f8ecd0 0,#ecd6a6 70%,#d9b97b 100%);--tinta:#3d2a12;--aksen:#5b3714;--emas:#8d5a2b;--bingkai:#7b5228}
+.d-perkamen .sert-bingkai{border:1.2mm solid var(--bingkai);box-shadow:inset 0 0 0 2mm transparent,inset 0 0 0 2.4mm var(--emas)}
+.d-perkamen .sert-judul{font-family:var(--f-cap);font-weight:800;letter-spacing:.12em}
+/* 5. Arabesque Hijau */
+.d-arabesque{--latar:#f8f6ec url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%230b5a3c' stroke-opacity='.11' stroke-width='1.2'%3E%3Cpath d='M30 4l7.5 18.5L56 30l-18.5 7.5L30 56l-7.5-18.5L4 30l18.5-7.5z'/%3E%3Crect x='17' y='17' width='26' height='26' transform='rotate(45 30 30)'/%3E%3Ccircle cx='30' cy='30' r='6'/%3E%3C/g%3E%3C/svg%3E");--aksen:#0b5a3c;--emas:#a8842a;--bingkai:#0b5a3c}
+.d-arabesque .sert-isi{inset:17mm 28mm 14mm;padding:2mm 6mm;background:radial-gradient(closest-side,rgba(248,246,236,.96) 70%,rgba(248,246,236,0))}
+/* 6. Zaitun Kaligrafi */
+.d-kaligrafi{--latar:linear-gradient(180deg,#fbf8ee,#f1ecd9);--tinta:#2f3318;--aksen:#556b2f;--emas:#b06b3a;--bingkai:#556b2f}
+.d-kaligrafi .sert-bismillah{font-size:24pt;margin-top:1mm}
+.d-kaligrafi .sert-bingkai{border-width:1.4mm;border-radius:6mm;box-shadow:inset 0 0 0 2mm var(--latar),inset 0 0 0 2.5mm var(--emas)}
+/* 7. Hitam Emas */
+.d-malam{--latar:radial-gradient(120% 100% at 50% 30%,#2a2a2a 0,#121212 70%);--tinta:#efe3bf;--aksen:#e8c66a;--emas:#d4af37;--bingkai:#d4af37}
+.d-malam .sert-bingkai{border-width:.8mm;box-shadow:inset 0 0 0 2mm #121212,inset 0 0 0 2.4mm #d4af37}
+.d-malam .sert-nama,.d-malam .sert-judul{background:linear-gradient(180deg,#fff1c2,#d4af37 55%,#a67c1a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.d-malam .sert-foto{background:#1a1a1a}
+.d-malam .sert-ttd-nama{border-color:#d4af37}
+/* 8. Putih Minimal */
+.d-minimal{--latar:#fff;--tinta:#222;--aksen:#1f1f1f;--emas:#b8902a;--bingkai:transparent}
+.d-minimal .sert-bingkai{border:0;box-shadow:inset 0 0 0 .4mm var(--emas)}
+.d-minimal .sert-sudut{display:none}
+.d-minimal .sert-judul{font:600 25pt var(--f-cap);letter-spacing:.32em}
+.d-minimal .sert-nama{font:500 34pt/1.2 var(--f-serif);letter-spacing:.02em}
+/* 9. Tosca Geometris */
+.d-tosca{--latar:#fff;--aksen:#0f7c7e;--emas:#f2a541;--bingkai:transparent}
+.d-tosca .sert-latar::before,.d-tosca .sert-latar::after{content:"";position:absolute;width:95mm;height:95mm;background:linear-gradient(135deg,#0f7c7e,#2bb3a8)}
+.d-tosca .sert-latar::before{left:0;top:0;clip-path:polygon(0 0,100% 0,0 100%)}
+.d-tosca .sert-latar::after{right:0;bottom:0;clip-path:polygon(100% 0,100% 100%,0 100%);background:linear-gradient(135deg,#f2a541,#0f7c7e)}
+.d-tosca .sert-bingkai{inset:12mm;border:.5mm solid #0f7c7e;box-shadow:none;background:rgba(255,255,255,.92)}
+.d-tosca .sert-sudut{display:none}
+.d-tosca .sert-judul{font:800 26pt var(--f-cap);letter-spacing:.1em}
+/* 10. Mawar Emas */
+.d-mawar{--latar:radial-gradient(120% 90% at 50% 40%,#fffafa 0,#f8e3e6 100%);--aksen:#b5485d;--emas:#c99a6b;--bingkai:#c99a6b}
+.d-mawar .sert-bingkai{border-width:1mm;border-radius:3mm;box-shadow:inset 0 0 0 2.2mm var(--latar),inset 0 0 0 2.6mm #e8b4bf}
+/* 11. Ungu Lavender (anak) */
+.d-lavender{--latar:radial-gradient(110% 100% at 50% 40%,#fdfbff 0,#efe6fb 100%);--aksen:#6c4ba3;--emas:#e0a72e;--bingkai:#b79be0}
+.d-lavender .sert-bingkai{border:2.5mm dashed var(--bingkai);border-radius:10mm;box-shadow:none}
+.d-lavender .sert-sudut{color:#e0a72e;width:22mm;height:22mm}
+.d-lavender .sert-judul{font:800 27pt var(--f-isi);letter-spacing:.02em}
+.d-lavender .sert-nama{font:800 30pt/1.25 var(--f-isi);border-bottom-style:dashed}
+/* 12. Pelangi Ceria (anak) */
+.d-ceria{--latar:#fff;--aksen:#e4572e;--emas:#f3a712;--bingkai:transparent;--tinta:#203040}
+.d-ceria .sert-bingkai{border:3.5mm solid transparent;border-radius:9mm;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(120deg,#e4572e,#f3a712,#29bf12,#00a5cf,#9d4edd,#e4572e) border-box;box-shadow:none}
+.d-ceria .sert-sudut{display:none}
+.d-ceria .sert-latar::before{content:"★ ✦ ★ ✧ ★ ✦ ★";position:absolute;left:0;right:0;top:15mm;text-align:center;font-size:12pt;letter-spacing:12mm;color:#f3a712;opacity:.8}
+.d-ceria .sert-latar::after{content:"✦ ★ ✧ ★ ✦";position:absolute;left:0;right:0;bottom:15mm;text-align:center;font-size:11pt;letter-spacing:16mm;color:#00a5cf;opacity:.7}
+.d-ceria .sert-judul{font:800 28pt var(--f-isi);background:linear-gradient(90deg,#e4572e,#f3a712,#29bf12,#00a5cf,#9d4edd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.d-ceria .sert-nama{font:800 30pt/1.25 var(--f-isi);color:#203040;border-bottom:1mm solid #f3a712}
+.d-ceria .sert-bismillah{color:#29bf12}
+.d-ceria .sert-foto{border-radius:50%;width:38mm;height:38mm;border-color:#f3a712}
+.d-ceria .sert-foto img{border-radius:50%}
+
+/* hiasan & segel emas */
+.sert-hias{display:block;width:62mm;height:4mm;margin:1.5mm auto 0;color:var(--emas)}
+.d-minimal .sert-hias,.d-tosca .sert-hias{width:48mm}
+.sert-ttd{align-items:flex-end}
+.sert-segel{flex:none;display:grid;place-items:center;width:27mm;height:27mm;margin-bottom:1mm;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7d6 0,#f3d27a 28%,#c9a227 58%,#8a6a12 100%);box-shadow:0 1.2mm 2.5mm -1mm rgba(0,0,0,.45),inset 0 0 0 1.2mm rgba(255,247,214,.55),inset 0 0 0 1.9mm rgba(138,106,18,.6);position:relative}
+.sert-segel::before{content:"";position:absolute;inset:-2.2mm;border-radius:50%;background:repeating-conic-gradient(from 0deg,#c9a227 0 6deg,transparent 6deg 12deg);-webkit-mask:radial-gradient(circle,transparent 13.4mm,#000 13.5mm);mask:radial-gradient(circle,transparent 13.4mm,#000 13.5mm);opacity:.85}
+.sert-segel img{width:15mm;height:15mm;object-fit:contain;border-radius:50%;background:rgba(255,255,255,.88);padding:1.2mm}
+.d-malam .sert-segel{box-shadow:0 0 4mm rgba(212,175,55,.45),inset 0 0 0 1.2mm rgba(255,247,214,.55)}
+.d-lavender .sert-segel,.d-ceria .sert-segel{background:radial-gradient(circle at 35% 30%,#fff 0,#ffe08a 35%,#f3a712 75%,#c77d00 100%)}
+.d-kaligrafi .sert-bismillah{line-height:1.15;margin:0 0 3.5mm}
+.sert-arab{margin:.3mm 0 0!important;font:700 10pt/1.3 var(--f-arab);color:var(--emas)}
+
+/* ══ SERTIFIKAT PREMIUM (pemilik: „Piagamnya terlalu sederhana, bikin lebih mewah dan super premium“) ══
+   Lapisan dari luar ke dalam: bingkai warna desain → pita bermotif bintang delapan (khatam) → garis emas foil ganda →
+   sudut arabesque emas → isi. Latar: kertas bertekstur + rosette watermark. Segel emas bertulisan melingkar berpita. */
+.sert-defs{position:absolute;width:0;height:0;overflow:hidden}
+.sert.premium{--foil:linear-gradient(135deg,#7a5a0c 0%,#e9cf7a 18%,#fff4c7 32%,#c9a227 48%,#f7e3a1 64%,#9c7414 82%,#e2c063 100%);--pita:var(--aksen);--motif:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23e2c063' stroke-width='.9'%3E%3Crect x='6' y='6' width='12' height='12'/%3E%3Crect x='6' y='6' width='12' height='12' transform='rotate(45 12 12)'/%3E%3Ccircle cx='12' cy='12' r='2.2'/%3E%3Cpath d='M0 0l3 3M24 0l-3 3M0 24l3-3M24 24l-3-3'/%3E%3C/g%3E%3C/svg%3E")}
+.sert.premium .sert-latar{overflow:hidden}
+.sert.premium .sert-latar::after{content:"";position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .25 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.sert-roset{position:absolute;left:50%;top:53%;width:150mm;height:150mm;transform:translate(-50%,-50%);color:var(--aksen);opacity:.07}
+.sert.premium .sert-bingkai{inset:6mm;border:3.4mm solid var(--bingkai);box-shadow:inset 0 0 0 .5mm rgba(255,255,255,.18),0 0 0 .35mm rgba(0,0,0,.15)}
+.sert-motif{position:absolute;inset:9.4mm;padding:4.4mm;background:var(--motif) 0 0/5.6mm 5.6mm,linear-gradient(180deg,color-mix(in srgb,var(--bingkai) 92%,#fff),var(--bingkai));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.sert-garis{position:absolute;inset:14.6mm;border:.6mm solid transparent;border-image:var(--foil) 1}
+.sert-garis::after{content:"";position:absolute;inset:1.3mm;border:.25mm solid transparent;border-image:var(--foil) 1}
+.sert-sudut-wadah .sert-sudut{position:absolute;width:44mm;height:44mm;color:inherit;filter:drop-shadow(0 .3mm .3mm rgba(60,40,0,.35))}
+.sert-sudut-wadah .s1{left:11.5mm;top:11.5mm}
+.sert-sudut-wadah .s2{right:11.5mm;top:11.5mm;transform:scaleX(-1)}
+.sert-sudut-wadah .s3{right:11.5mm;bottom:11.5mm;transform:scale(-1,-1)}
+.sert-sudut-wadah .s4{left:11.5mm;bottom:11.5mm;transform:scaleY(-1)}
+.sert.premium .sert-isi{inset:19mm 33mm 16mm}
+.sert.premium .sert-kop{gap:3.5mm}
+.sert.premium .sert-logo{width:17mm;height:17mm;filter:drop-shadow(0 .4mm .6mm rgba(0,0,0,.25))}
+.sert.premium .sert-bismillah{margin-top:1.5mm;font-size:16pt;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sert.premium .sert-judul{margin-top:.5mm;font-size:30pt;letter-spacing:.06em}
+.sert.premium .sert-judul span{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 .32mm 0 rgba(60,40,0,.42)) drop-shadow(0 0 .6mm rgba(255,240,190,.5))}
+.sert.premium .sert-nomor{font-size:7.5pt;letter-spacing:.12em}
+.sert.premium .sert-hias{width:72mm;height:4.6mm;color:#b8902a}
+.sert.premium .sert-tengah{margin-top:1mm}
+.sert.premium .sert-diberikan{font-size:13.5pt;letter-spacing:.04em}
+.sert.premium .sert-nama{border-bottom:0;padding-bottom:0;font-size:44pt;line-height:1.15;color:var(--aksen);text-shadow:0 .25mm 0 rgba(255,255,255,.6),0 .5mm 1mm rgba(0,0,0,.08)}
+.sert-swash{display:block;width:120mm;height:7mm;margin:-1.5mm auto 0}
+.berfoto .sert-swash{margin-left:0}
+.sert.premium .sert-kelas{margin-top:1mm;font-size:9.5pt;letter-spacing:.16em}
+.sert.premium .sert-kalimat{font-size:14pt;line-height:1.45}
+.sert.premium .sert-foto{width:36mm;height:46mm;padding:1.4mm;border:0;border-radius:18mm 18mm 2.5mm 2.5mm;background:var(--foil);box-shadow:0 1.5mm 3mm -1mm rgba(0,0,0,.4)}
+.sert.premium .sert-foto img{border-radius:16.6mm 16.6mm 1.6mm 1.6mm;border:.6mm solid #fffdf3}
+.sert.premium .sert-ttd{align-items:flex-end;padding:0 2mm}
+.sert.premium .sert-ttd-blok{width:66mm}
+.sert.premium .sert-ttd-blok.kosong{visibility:hidden}
+.sert.premium .sert-ttd-ruang{height:15mm}
+.sert.premium .sert-ttd-nama{border-top:0;padding-top:1.2mm;background:linear-gradient(90deg,transparent,currentColor 12%,currentColor 88%,transparent) top/100% .3mm no-repeat}
+.sert.premium .sert-segel{width:33mm;height:41mm;margin:0 0 -6mm;flex:none;background:none;border-radius:0;box-shadow:none;filter:drop-shadow(0 1.2mm 1.4mm rgba(0,0,0,.35))}
+.sert.premium .sert-segel::before{display:none}
+.sert.premium .sert-segel svg{display:block;width:100%;height:100%}
+.pita-segel{fill:var(--pita)}
+.pita-segel-lipat{fill:rgba(0,0,0,.28)}
+.segel-teks{font:700 13.5px var(--f-cap);letter-spacing:.06em;fill:#5a420a}
+.sert.premium .sert-tempat{font-size:11.5pt}
+.sert.premium .sert-verif{bottom:-5mm}
+/* penyesuaian per desain */
+.d-malam.premium{--pita:#8a6a12}
+.d-malam.premium .sert-nama{color:#f3d27a;text-shadow:0 0 2mm rgba(212,175,55,.35)}
+.d-malam.premium .sert-roset{color:#d4af37;opacity:.08}
+.d-malam.premium .sert-latar::after{mix-blend-mode:screen;opacity:.25}
+.d-malam.premium .segel-teks{fill:#3d2c06}
+.d-minimal.premium .sert-bingkai,.d-tosca.premium .sert-bingkai,.d-ceria.premium .sert-bingkai{border-color:transparent}
+.d-minimal.premium .sert-motif{display:none}
+.d-minimal.premium .sert-garis{inset:11mm}
+.d-minimal.premium .sert-sudut-wadah .sert-sudut{width:30mm;height:30mm}
+.d-minimal.premium .sert-judul span{letter-spacing:.3em}
+.d-tosca.premium .sert-motif{inset:12mm;padding:3mm;--bingkai:#0f7c7e}
+.d-tosca.premium .sert-latar::before{z-index:0}
+.d-ceria.premium{--pita:#e4572e}
+.d-ceria.premium .sert-motif{--bingkai:#00a5cf;background:var(--motif) 0 0/5.6mm 5.6mm,linear-gradient(90deg,#e4572e,#f3a712,#29bf12,#00a5cf,#9d4edd)}
+.d-ceria.premium .sert-judul span,.d-lavender.premium .sert-judul span{filter:none}
+.d-ceria.premium .sert-judul span{background:linear-gradient(90deg,#e4572e,#f3a712,#29bf12,#00a5cf,#9d4edd);-webkit-background-clip:text;background-clip:text}
+.d-lavender.premium .sert-bingkai{border-style:solid;border-radius:0}
+.d-lavender.premium{--pita:#6c4ba3}
+.d-perkamen.premium .sert-motif{opacity:.9}
+.d-kaligrafi.premium .sert-bismillah{font-size:22pt;line-height:1.2;margin-bottom:2mm}
+@media print{.sert.premium .sert-sudut-wadah .sert-sudut,.sert.premium .sert-segel{filter:none}}
+/* penghalusan: watermark lebih tipis, tanda tangan menjauh dari ornamen sudut */
+.sert-roset{opacity:.045}
+.sert-sudut-wadah .sert-sudut{width:40mm;height:40mm}
+.sert.premium .sert-ttd{padding:0 10mm}
+.sert.premium .sert-ttd-blok{width:62mm}
+.sert.premium .sert-tempat{padding-right:16mm}
+
+/* Latar: potongan besar logo yayasan/lembaga, timbul dan berbayang (pemilik: „ambil aja sebagian dr logo trus di
+   shadow, jgn asal2an“). Logo dibesarkan melewati bingkai dalam sehingga hanya bagian tengahnya yang tampak. */
+.sert-roset{display:none}
+.sert-tanda{position:absolute;inset:15.5mm;overflow:hidden}
+.sert-tanda img{position:absolute;left:50%;top:50%;width:196mm;height:196mm;object-fit:contain;transform:translate(-50%,-49%);pointer-events:none}
+.tanda-bayang{filter:brightness(0) blur(1.6mm);opacity:.06;margin:1.1mm 0 0 1.1mm}
+.tanda-terang{filter:brightness(0) invert(1) blur(.4mm);opacity:.5;margin:-.5mm 0 0 -.5mm;mix-blend-mode:screen}
+.tanda-logo{filter:grayscale(1) sepia(.35) contrast(1.15);opacity:.065;mix-blend-mode:multiply}
+.d-malam .tanda-logo{filter:grayscale(1) sepia(.6) brightness(1.5);opacity:.09;mix-blend-mode:screen}
+.d-malam .tanda-terang{opacity:0}
+.d-malam .tanda-bayang{opacity:.35}
+.d-tosca .sert-tanda,.d-ceria .sert-tanda{inset:14mm}

@@ -150,7 +150,9 @@ export function hidupkanBab(bab: Bab, m: Pick<BukuMeta, 'id' | 'suara' | 'bahasa
   if (!ANAK.has(m.suara)) return bab;
   const blok = [...bab.blok];
   if (!blok.some((b) => b.t === 'adegan')) {
-    blok.unshift({ t: 'adegan', x: `${adeganBab(bab, m)} | Mainkan gambarnya: seret, ketuk dua kali untuk memutar, lalu tekan ↺ Kembalikan` });
+    // Buku pelajaran (BSE, s-…): adegan hanya bila tema babnya cocok; buku cerita: selalu (dengan adegan cadangan).
+    const nama = m.id.startsWith('s-') ? suasanaBab(bab) : adeganBab(bab, m);
+    if (nama) blok.unshift({ t: 'adegan', x: `${nama} | Mainkan gambarnya: seret, ketuk dua kali untuk memutar, lalu tekan ↺ Kembalikan` });
   }
   if (!blok.some((b) => b.t !== 'adegan' && AKTIVITAS.includes(b.t))) {
     const inggris = m.bahasa === 'en';
@@ -164,4 +166,19 @@ export function hidupkanBab(bab: Bab, m: Pick<BukuMeta, 'id' | 'suara' | 'bahasa
     if (main.length) blok.push({ t: 'h', x: inggris ? '🎮 Ayo Bermain! · Let’s Play!' : '🎮 Ayo Bermain!' }, ...main);
   }
   return { ...bab, blok };
+}
+
+/**
+ * „Uji Pemahaman“ untuk bab buku pelajaran (BSE): kuis isian dari kalimat bab dan kartu istilah dari glosarium buku.
+ * Dipanggil sekali saat buku dibuat (scripts/bse-ubah.ts), jadi hasilnya tersimpan bersama babnya.
+ */
+export function permainanPelajaran(bab: Bab, m: Pick<BukuMeta, 'id' | 'bahasa'>, istilah: [string, string][] = []): Blok[] {
+  const inggris = m.bahasa === 'en';
+  const acak = benih(`${m.id}#${bab.n}#pelajaran`);
+  const { semua } = kalimatBab(bab, inggris);
+  const main: Blok[] = [
+    ...kuisIsian(semua, kataPenting(semua, inggris), acak, 3),
+    ...istilah.slice(0, 4).map(([t, arti]): Blok => ({ t: 'kartu', x: `${bersih(t)} | ${bersih(arti).slice(0, 160)}` })),
+  ];
+  return main.length ? [{ t: 'h', x: inggris ? '🧠 Uji Pemahaman · Check Your Understanding' : '🧠 Uji Pemahaman' }, ...main] : [];
 }

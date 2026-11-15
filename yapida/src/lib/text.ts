@@ -57,3 +57,39 @@ export function arab(s: string): boolean {
   const lat = (s.match(/[A-Za-z]/g) ?? []).length;
   return ar > 0 && lat * 4 <= ar;
 }
+
+/* ── angka untuk dokumen (kwitansi, nomor surat) ─────────────────────────── */
+
+const SATUAN = ['', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas'];
+/** Angka → kata bahasa Indonesia: 1.250.000 → "satu juta dua ratus lima puluh ribu". Pecahan dibulatkan ke bawah. */
+export function terbilang(n: number): string {
+  const x = Math.floor(Math.abs(Number(n) || 0));
+  if (x === 0) return 'nol';
+  const t = (v: number): string => {
+    if (v < 12) return SATUAN[v]!;
+    if (v < 20) return `${SATUAN[v - 10]} belas`;
+    if (v < 100) return `${SATUAN[Math.floor(v / 10)]} puluh${v % 10 ? ` ${SATUAN[v % 10]}` : ''}`;
+    if (v < 200) return `seratus${v % 100 ? ` ${t(v % 100)}` : ''}`;
+    if (v < 1000) return `${SATUAN[Math.floor(v / 100)]} ratus${v % 100 ? ` ${t(v % 100)}` : ''}`;
+    if (v < 2000) return `seribu${v % 1000 ? ` ${t(v % 1000)}` : ''}`;
+    if (v < 1e6) return `${t(Math.floor(v / 1000))} ribu${v % 1000 ? ` ${t(v % 1000)}` : ''}`;
+    if (v < 1e9) return `${t(Math.floor(v / 1e6))} juta${v % 1e6 ? ` ${t(v % 1e6)}` : ''}`;
+    if (v < 1e12) return `${t(Math.floor(v / 1e9))} miliar${v % 1e9 ? ` ${t(v % 1e9)}` : ''}`;
+    return `${t(Math.floor(v / 1e12))} triliun${v % 1e12 ? ` ${t(v % 1e12)}` : ''}`;
+  };
+  return t(x);
+}
+
+/** 1250000 → "Rp 1.250.000" (tanpa bergantung pada data lokal mesin). */
+export const rupiah = (n: number): string => `Rp ${String(Math.round(Math.abs(Number(n) || 0))).replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+
+const ROMAWI_BULAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+/** Bulan (0–11) → angka Romawi untuk nomor surat. */
+export const bulanRomawi = (bulan0: number): string => ROMAWI_BULAN[Math.max(0, Math.min(11, bulan0))]!;
+
+/** Tahun pelajaran yang sedang berjalan (ganti tiap Juli, WIB): "2026/2027". */
+export function tahunPelajaran(ms = Date.now()): string {
+  const d = new Date(ms + WIB);
+  const th = d.getUTCMonth() >= 6 ? d.getUTCFullYear() : d.getUTCFullYear() - 1;
+  return `${th}/${th + 1}`;
+}
