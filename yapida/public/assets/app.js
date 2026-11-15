@@ -311,19 +311,12 @@
     try { var u = new URL(String(h || ''), location.href); return FOTO_RE.test(u.pathname) ? '/f/' + u.pathname.slice(3) : ''; } catch (e) { return ''; }
   }
   /* ── pemutar video: sematan baru dimuat setelah ditekan ── */
-  /* Hanya sematan YouTube (nocookie), Facebook, dan TikTok; alamat disusun ulang dari awalan tetap. */
-  var SEMATAN = { 'www.youtube-nocookie.com': 'https://www.youtube-nocookie.com', 'www.facebook.com': 'https://www.facebook.com', 'www.tiktok.com': 'https://www.tiktok.com' };
-  function sematanAman(s) {
-    try { var u = new URL(String(s || '')); return u.protocol === 'https:' && Object.prototype.hasOwnProperty.call(SEMATAN, u.hostname) ? SEMATAN[u.hostname] + u.pathname + u.search : ''; } catch (e) { return ''; }
-  }
+  /* Iframe sematan sudah disiapkan server di <template>; di sini hanya disalin simpulnya (tanpa menyusun alamat). */
   $$('[data-pemutar]').forEach(function (p) {
     var mulai = function () {
-      var src = sematanAman(p.getAttribute('data-pemutar')); if (!src) return;
-      var f = d.createElement('iframe');
-      f.src = src; f.title = 'Pemutar video'; f.loading = 'lazy';
-      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write';
-      f.setAttribute('allowfullscreen', ''); f.referrerPolicy = 'strict-origin-when-cross-origin';
-      p.innerHTML = ''; p.appendChild(f); p.classList.add('main');
+      var t = p.querySelector('template'); if (!t || !t.content) return;
+      var isi = t.content.cloneNode(true);
+      p.innerHTML = ''; p.appendChild(isi); p.classList.add('main');
     };
     var b = p.querySelector('.pemutar-putar'); if (b) b.addEventListener('click', mulai);
   });

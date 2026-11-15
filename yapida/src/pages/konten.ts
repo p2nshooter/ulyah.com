@@ -91,7 +91,9 @@ export function pemutar(url: string, judul: string, gambar?: string): Raw {
   if (!v) return html`<a class="pemutar pemutar-taut" href="${url}" target="_blank" rel="noopener"><span>${judul}</span><b>Buka video ↗</b></a>`;
   if (!v.embed) return html`<a class="pemutar pemutar-taut" href="${v.asli}" target="_blank" rel="noopener"><span>${judul}</span><b>Tonton di ${NAMA_LAYANAN[v.layanan]} ↗</b></a>`;
   const g = gambar ?? v.gambar;
-  return html`<div class="pemutar${v.tegak ? ' pemutar-tegak' : ''}" data-pemutar="${v.embed}" data-layanan="${v.layanan}">
+  // Iframe disiapkan server di <template>; skrip hanya menyalin simpulnya saat tombol putar ditekan.
+  return html`<div class="pemutar${v.tegak ? ' pemutar-tegak' : ''}" data-pemutar data-layanan="${v.layanan}">
+    <template><iframe src="${v.embed}" title="Pemutar video: ${judul}" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></template>
     ${g ? html`<img src="${g}" alt="" loading="lazy" decoding="async">` : html`<span class="pemutar-pola" aria-hidden="true"></span>`}
     <button class="pemutar-putar" type="button" aria-label="Putar: ${judul}"><span aria-hidden="true">▶</span></button>
     <span class="pemutar-layanan">${NAMA_LAYANAN[v.layanan]}</span>
