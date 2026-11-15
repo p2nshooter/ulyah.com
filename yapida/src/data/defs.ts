@@ -1,6 +1,7 @@
 /** Definisi koleksi isi. Formulir portal, pemeriksaan isian, ringkasan indeks, dan halaman publik dibangkitkan dari sini. */
 import type { Koleksi } from './koleksi.ts';
 import { PERAN } from './users.ts';
+import { RAK } from './buku.ts';
 
 export const GOLONGAN: [string, string][] = [
   ['pendiri', 'Pendiri'], ['pembina', 'Pembina'], ['pengurus', 'Pengurus'], ['pengawas', 'Pengawas'],
@@ -128,5 +129,31 @@ export const PESAN: Koleksi = {
   ],
 };
 
-export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN };
+const PILIH_RAK: [string, string][] = RAK.map((r) => [r.id, r.nama]);
+
+/** Buku perpustakaan tulisan lembaga (§5). Isi ditulis dengan naskah sederhana sehingga bisa dibacakan per bahasa. */
+export const BUKU: Koleksi = {
+  id: 'buku', nama: 'Perpustakaan', satu: 'buku', labelJudul: 'Judul buku', urut: 'judul', tanpaTanggal: true, sampul: 'sampul', ringkasDari: 'ringkasan',
+  bidang: [
+    { k: 'penulis', label: 'Penulis / penyusun', jenis: 'teks', wajib: true, maks: 120, indeks: true },
+    { k: 'rak', label: 'Rak', jenis: 'pilih', pilihan: PILIH_RAK, wajib: true, indeks: true, bantuan: 'Rak utama tempat buku ini dipajang di perpustakaan.' },
+    { k: 'rak2', label: 'Rak tambahan (opsional)', jenis: 'pilih', pilihan: [['', '— tidak ada —'], ...PILIH_RAK], indeks: true },
+    { k: 'kelas', label: 'Kelas', jenis: 'kelas', indeks: true, bantuan: 'Kosongkan bila untuk semua kelas.' },
+    { k: 'mapel', label: 'Mata pelajaran / program', jenis: 'teks', maks: 80, indeks: true, bantuan: 'Mis. Fikih, Bahasa Arab, Tahfidz, Literasi.' },
+    { k: 'suara', label: 'Suara pembaca', jenis: 'pilih', wajib: true, indeks: true, pilihan: [['balita', 'Ceria — RA / TK'], ['anak', 'Anak — MI / TPQ'], ['remaja', 'Remaja — MTs / pesantren'], ['dewasa', 'Dewasa — guru, kajian, umum']] },
+    { k: 'bahasa', label: 'Bahasa utama', jenis: 'pilih', indeks: true, pilihan: [['id', 'Indonesia'], ['ar', 'Arab'], ['en', 'Inggris']] },
+    { k: 'judulAr', label: 'Judul Arab (opsional)', jenis: 'teks', maks: 120 },
+    { k: 'sampul', label: 'Sampul (opsional)', jenis: 'gambar', bantuan: 'Tanpa gambar, sampul berornamen dibuat otomatis dari judulnya.' },
+    { k: 'ringkasan', label: 'Ringkasan', jenis: 'paragraf', wajib: true, maks: 400 },
+    {
+      k: 'naskah', label: 'Isi buku', jenis: 'markdown', maks: 400_000,
+      bantuan: '„## Judul bab“ memulai bab baru · „### Judul“ judul kecil · paragraf beraksara Arab otomatis dibacakan dengan suara Arab · awali baris dengan „::en “ untuk bahasa Inggris, „::tr “ untuk terjemah, „::lt “ untuk tulisan latin (tidak dibacakan), „::cat “ untuk catatan/sumber.',
+    },
+    { k: 'pdf', label: 'Atau unggah PDF', jenis: 'berkas', bantuan: 'Buku PDF dibaca di penampil PDF (tanpa suara). Isi buku di atas tetap diutamakan bila ada.' },
+    { k: 'sumber', label: 'Sumber', jenis: 'teks', maks: 200, bantuan: 'Mis. „Disusun guru MI Al Huda“ atau alamat sumber terbuka.' },
+    { k: 'lisensi', label: 'Hak cipta', jenis: 'pilih', pilihan: [['milik', 'Karya lembaga sendiri'], ['cc-by-sa', 'CC BY-SA 4.0'], ['cc-by', 'CC BY 4.0'], ['pd', 'Domain publik']] },
+  ],
+};
+
+export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN };
 export const koleksi = (id: string): Koleksi | null => KOLEKSI[id] ?? null;

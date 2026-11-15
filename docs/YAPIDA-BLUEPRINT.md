@@ -108,9 +108,12 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
   bertanda tangan 10 menit. Lima angka terketuk → langsung masuk.
 - Pengaman PIN pendek: hash PBKDF2 atas HMAC(PIN, rahasia server); **5× salah → akun terkunci 15 menit**, lalu 30, 60 … sampai
   24 jam; batas laju per IP; PIN lemah (sama semua/berurutan) ditolak; PIN sementara wajib diganti saat pertama masuk.
-- **Pemasangan pertama:** selama belum ada akun, `/masuk` meminta *kode pemasangan* (hanya hash-nya di repo; kodenya
-  diserahkan kepada pemilik di luar repo) untuk membuat Super Admin. Setelah itu Super Admin menekan „Buat akun semua
-  lembaga“ → Ketua Yayasan, Admin Yayasan, dan satu admin per lembaga dengan PIN acak yang tampil sekali (bisa dicetak).
+- **Pemasangan pertama** (pemilik, 15 Nov: „Username nya make dropdown, misal ketua yayasan dan seterusnya, jd g perlu
+  ngisi“): selama belum ada akun, `/masuk` hanya meminta *kode pemasangan* (hanya hash-nya di repo; kodenya diserahkan
+  kepada pemilik di luar repo) dan PIN Super Admin — tanpa isian nama. Saat itu juga semua akun bernama jabatan dibuat:
+  Super Admin, Ketua Yayasan, Admin Yayasan, dan „Admin <lembaga>“ untuk ke-15 lembaga, PIN acaknya tampil sekali (bisa
+  dicetak). Halaman masuk lalu cukup memilih nama jabatan dari daftar. Lembaga baru: tombol „Buat akun semua lembaga“
+  membuat akun yang belum ada.
 
 ## 4. Modul isi (semua CRUD di portal, tayang di halaman publik)
 

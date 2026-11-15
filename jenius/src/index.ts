@@ -15,7 +15,7 @@ import { toolsIndex, toolPage, toolBySlug } from './pages/tools.ts';
 import { infoDoc } from './pages/info.ts';
 import { ARTICLES, articleBySlug, CLUSTERS, type ClusterId } from './content/articles.ts';
 import { LANES, LEVELS, laneById, isLevel, type LaneId } from './catalog/lanes.ts';
-import { getBook, getChapter, laneBooks, allBookIds, mediaKey, type BookMeta } from './catalog/books.ts';
+import { getBook, getChapter, laneBooks, allBookIds, mediaKey, type BookMeta, type LaneEntry } from './catalog/books.ts';
 import { paginate } from './catalog/parse.ts';
 import { tick, lazyTick, opsKeyValid, opsName } from './ops.ts';
 import { validateUpload, storeUpload } from './catalog/upload.ts';
@@ -179,6 +179,23 @@ app.post('/api/ops/state', async (c) => {
     cursor = r.cursor;
   } while (cursor);
   return c.json({ done, skipped });
+});
+
+/**
+ * Katalog ringkas untuk perpustakaan mitra (yapida.sch.id memanggilnya lewat service binding): semua buku yang tayang,
+ * dengan jalur, jenjang, kelas, bahasa, dan menit baca. Isi buku tetap diambil per buku lewat /api/book/:id.
+ */
+app.get('/api/katalog', async (c) => {
+  const store = c.get('store');
+  const peta = new Map<string, LaneEntry & { id: string; lanes: LaneId[] }>();
+  for (const l of LANES) {
+    for (const b of await laneBooks(store, l.id, 5000)) {
+      const cur = peta.get(b.id);
+      if (cur) cur.lanes.push(l.id);
+      else peta.set(b.id, { id: b.id, ...b.meta, lanes: [l.id] });
+    }
+  }
+  return c.json({ v: 1, buku: [...peta.values()] }, 200, { 'cache-control': 'public, max-age=1800' });
 });
 
 app.get('/api/book/:id', async (c) => {

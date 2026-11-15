@@ -30,9 +30,9 @@ ${ekstra}
 
 export function masukPage(o: { akun: UserItem[]; units: UnitItem[]; papan: Raw; pilih?: string; galat?: string; pesan?: string }): string {
   const namaUnit = (s: string) => o.units.find((u) => u.slug === s)?.singkat ?? s;
-  const yayasan = o.akun.filter((a) => PERAN[a.peran].lingkup === 'semua');
+  const yayasan = o.akun.filter((a) => PERAN[a.peran].lingkup === 'semua').sort((a, b) => PERAN[b.peran].tingkat - PERAN[a.peran].tingkat || a.nama.localeCompare(b.nama, 'id'));
   const perUnit = new Map<string, UserItem[]>();
-  for (const a of o.akun.filter((x) => PERAN[x.peran].lingkup === 'lembaga')) {
+  for (const a of o.akun.filter((x) => PERAN[x.peran].lingkup === 'lembaga').sort((a, b) => PERAN[b.peran].tingkat - PERAN[a.peran].tingkat || a.nama.localeCompare(b.nama, 'id'))) {
     const k = a.units[0] ?? '';
     perUnit.set(k, [...(perUnit.get(k) ?? []), a]);
   }
@@ -62,18 +62,17 @@ export function masukPage(o: { akun: UserItem[]; units: UnitItem[]; papan: Raw; 
 </html>`;
 }
 
-export function pasangPage(o: { papan: Raw; galat?: string; nama?: string }): string {
+export function pasangPage(o: { papan: Raw; galat?: string }): string {
   return `${kepalaDok('Pemasangan pertama')}
 <body class="p-masuk">
 <div class="pola-bintang" aria-hidden="true"></div>
 <main class="p-masuk-kartu">
   <a href="/" class="p-masuk-logo" aria-label="Kembali ke beranda"><img src="/assets/logo-512.webp" width="80" height="102" alt=""></a>
   <h1>Pemasangan pertama</h1>
-  <p class="lead">Buat akun Super Admin. Halaman ini hanya muncul sekali, sebelum akun pertama ada.</p>
+  <p class="lead">Halaman ini hanya muncul sekali. Setelah kode pemasangan dan PIN Super Admin diisi, semua akun langsung dibuat dengan nama jabatannya — <strong>Super Admin, Ketua Yayasan, Admin Yayasan, dan Admin setiap lembaga</strong> — sehingga saat masuk cukup dipilih dari daftar, tanpa mengetik nama.</p>
   ${o.galat ? `<p class="p-kilat p-kilat-galat" role="alert">${esc(o.galat)}</p>` : ''}
   <form method="post" action="/masuk/pasang" class="p-masuk-form" data-pin-form>
     <label class="p-bidang"><span>Kode pemasangan</span><input type="text" name="kode" autocomplete="off" autocapitalize="characters" spellcheck="false" required placeholder="XXXXX-XXXXX-XXXXX-XXXXX"></label>
-    <label class="p-bidang"><span>Nama akun</span><input type="text" name="nama" value="${esc(o.nama ?? 'Super Admin')}" maxlength="60" required></label>
     ${o.papan}
   </form>
 </main>
@@ -84,7 +83,7 @@ export function pasangPage(o: { papan: Raw; galat?: string; nama?: string }): st
 
 /* ── kerangka portal ───────────────────────────────────────────────────── */
 
-const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'ppdb', 'pendaftar', 'pesan'];
+const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'buku', 'ppdb', 'pendaftar', 'pesan'];
 
 export function portalPage(o: { user: User; judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; hitung?: Record<string, number> }): string {
   const t = tingkat(o.user);

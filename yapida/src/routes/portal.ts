@@ -105,7 +105,6 @@ portal.post('/masuk/pasang', async (c) => {
   if (!(await limit(c.env, `pasang:${ipDari(c)}`, 10, 3600))) return halamanMasuk(c, { galat: 'Terlalu banyak percobaan. Coba lagi satu jam lagi.', status: 429 });
   const f = await c.req.parseBody();
   const kode = String(f.kode ?? '').toUpperCase().replace(/\s+/g, '');
-  const nama = String(f.nama ?? '').trim() || 'Super Admin';
   const perm = await bacaTantangan(c, rahasia(c));
   const pin = perm ? dariPosisi(perm, String(f.k ?? '')) : null;
   const pin2 = perm ? dariPosisi(perm, String(f.k2 ?? '')) : null;
@@ -113,12 +112,36 @@ portal.post('/masuk/pasang', async (c) => {
   if (!pin || pin !== pin2) return halamanMasuk(c, { galat: 'Kedua PIN tidak sama. Ulangi.', status: 400 });
   if (pinLemah(pin)) return halamanMasuk(c, { galat: 'PIN terlalu mudah ditebak (angka sama atau berurutan). Pilih PIN lain.', status: 400 });
   if (!(await store.createOnce(AKUN_PERTAMA, { at: Date.now() }))) return c.redirect('/masuk');
-  const user = await createUser(store, { nama, peran: 'super', pin, pepper: await pepper(c), wajibGanti: false });
+  const user = await createUser(store, { nama: 'Super Admin', peran: 'super', pin, pepper: await pepper(c), wajibGanti: false });
   await startSession(c, user);
   c.set('user', user);
   await catat(c, 'pasang', `Super admin pertama: ${user.nama}`);
-  return c.redirect('/portal');
+  // Pemilik: „Username nya make dropdown, misal ketua yayasan dan seterusnya, jd g perlu ngisi“ — semua akun jabatan
+  // dibuat sekarang juga, PIN acaknya tampil sekali di halaman berikut untuk dicetak dan dibagikan.
+  const dibuat = await buatAkunJabatan(c, user);
+  await catat(c, 'akun.massal', `${dibuat.length} akun`);
+  return tampil(c, {
+    judul: 'Semua akun siap', aktif: '/portal/pengguna',
+    body: html`<div class="p-kartu"><p><strong>Alhamdulillah, portal siap.</strong> Akun berikut sudah dibuat dan muncul di daftar pilihan halaman masuk — tidak ada nama yang perlu diketik. Cetak atau catat PIN-nya sekarang, lalu serahkan kepada masing-masing pengelola.</p></div>${kartuPin(dibuat)}<p><a class="tbl tbl-emas" href="/portal">Lanjut ke dasbor</a> <a class="tbl tbl-garis" href="/portal/pengguna">Daftar akun</a></p>`,
+  });
 });
+
+/** Akun bernama jabatan yang belum ada: Ketua Yayasan, Admin Yayasan, dan „Admin <lembaga>“ untuk setiap lembaga. */
+async function buatAkunJabatan(c: Ctx, u: User): Promise<{ nama: string; peran: string; pin: string }[]> {
+  const store = c.get('store');
+  const [akun, units] = await Promise.all([listUsers(store), listUnits(store, true)]);
+  const pep = await pepper(c);
+  const dibuat: { nama: string; peran: string; pin: string }[] = [];
+  const buat = async (nama: string, peran: Peran, unitsX: string[]) => {
+    if (!peranYangBolehDiberi(u).includes(peran)) return;
+    const pin = pinAcak();
+    try { await createUser(store, { nama, peran, units: unitsX, pin, pepper: pep, wajibGanti: true }); dibuat.push({ nama, peran: PERAN[peran].nama, pin }); } catch (err) { if (!(err instanceof NamaTerpakai)) throw err; }
+  };
+  if (!akun.some((a) => a.peran === 'ketua')) await buat('Ketua Yayasan', 'ketua', []);
+  if (!akun.some((a) => a.peran === 'yayasan')) await buat('Admin Yayasan', 'yayasan', []);
+  for (const x of units) if (!akun.some((a) => a.units.includes(x.slug) && (a.peran === 'lembaga' || a.peran === 'kepala'))) await buat(`Admin ${x.singkat}`, 'lembaga', [x.slug]);
+  return dibuat;
+}
 
 portal.post('/keluar', async (c) => {
   endSession(c);
@@ -625,18 +648,7 @@ portal.post('/portal/pengguna/baru', async (c) => {
 portal.post('/portal/pengguna/semua', async (c) => {
   const u = c.get('user')!;
   if (!lingkupSemua(u)) return tolak(c);
-  const store = c.get('store');
-  const [akun, units] = await Promise.all([listUsers(store), listUnits(store, true)]);
-  const pep = await pepper(c);
-  const dibuat: { nama: string; peran: string; pin: string }[] = [];
-  const buat = async (nama: string, peran: Peran, unitsX: string[]) => {
-    if (!peranYangBolehDiberi(u).includes(peran)) return;
-    const pin = pinAcak();
-    try { await createUser(store, { nama, peran, units: unitsX, pin, pepper: pep, wajibGanti: true }); dibuat.push({ nama, peran: PERAN[peran].nama, pin }); } catch (err) { if (!(err instanceof NamaTerpakai)) throw err; }
-  };
-  if (!akun.some((a) => a.peran === 'ketua')) await buat('Ketua Yayasan', 'ketua', []);
-  if (!akun.some((a) => a.peran === 'yayasan')) await buat('Admin Yayasan', 'yayasan', []);
-  for (const x of units) if (!akun.some((a) => a.units.includes(x.slug) && (a.peran === 'lembaga' || a.peran === 'kepala'))) await buat(`Admin ${x.singkat}`, 'lembaga', [x.slug]);
+  const dibuat = await buatAkunJabatan(c, u);
   await catat(c, 'akun.massal', `${dibuat.length} akun`);
   return tampil(c, { judul: 'Akun lembaga', aktif: '/portal/pengguna', body: dibuat.length ? html`${kartuPin(dibuat)}<p><a class="tbl tbl-garis" href="/portal/pengguna">Ke daftar akun</a></p>` : html`<div class="p-kartu"><p>Setiap lembaga sudah punya akun.</p><a class="tbl tbl-garis" href="/portal/pengguna">Kembali</a></div>` });
 });

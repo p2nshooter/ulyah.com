@@ -137,6 +137,16 @@ test('buku: halaman buku + atribusi lisensi; pembaca tanpa iklan; API bab dibagi
   assert.equal((await page(bookPath('id', 'tidak-ada'))).status, 404);
 });
 
+test('katalog mitra: /api/katalog memuat setiap buku sekali beserta jalur-jalurnya', async () => {
+  const r = await get('/api/katalog');
+  assert.equal(r.status, 200);
+  const j = (await r.json()) as { v: number; buku: { id: string; title: string; lanes: string[] }[] };
+  assert.equal(j.v, 1);
+  const alice = j.buku.find((b) => b.id === sourceId(ALICE));
+  assert.ok(alice && alice.title.includes('Alice') && alice.lanes.length >= 1);
+  assert.equal(new Set(j.buku.map((b) => b.id)).size, j.buku.length, 'tanpa duplikat');
+});
+
 test('buku bergambar: gambar disajikan dari R2 lewat /m/, halaman anak tanpa iklan, mode slide', async () => {
   const id = sourceId(SLOTH);
   const b = await page(bookPath('en', id));

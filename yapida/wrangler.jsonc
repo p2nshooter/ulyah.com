@@ -17,6 +17,8 @@
     { "binding": "MEDIA", "bucket_name": "yapida-media" },
     { "binding": "BACKUPS", "bucket_name": "yapida-backups" }
   ],
+  // Katalog dunia: buku jenius.es (Worker mitra di akun yang sama) — Worker ke Worker lewat service binding.
+  "services": [{ "binding": "JENIUS", "service": "jenius-es" }],
   // KV hanya untuk penghitung batas laju (id disisipkan saat deploy); data tahan lama tidak pernah di KV.
   "kv_namespaces": [{ "binding": "RL", "id": "__KV_NAMESPACE_ID__" }],
   // Tanpa cron Cloudflare: batas 5 cron per akun (paket Workers gratis) sudah terpakai situs lain.
