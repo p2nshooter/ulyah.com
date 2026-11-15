@@ -85,6 +85,14 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
 16. „Semua buku anak bikin lebih interaktif bukan hanya padi“ · „Jelasinya make bhs indo aja biar sy tau progresnya sampe
     dmn“ (15 Nov 2026) — §5f: setiap bab buku anak otomatis mendapat adegan dan „Ayo Bermain!“; laporan ke pemilik dalam
     Bahasa Indonesia.
+17. „Sambil jalan, cek A-Z mana yg kurang interaktif hususnya di perpustakaan digitalnya baik animasi kartun dan animasi3
+    interaktif. Jgn lupa sertifikat, Piagam, kop dll dan semua yg belum di kerjakan, segera kerjakan“ · „Cek jg error bug,
+    tambahin bikin kwitansi bayaran setiap lembaga“ (15 Nov 2026) — §5g (ditambah kwitansi dan surat berkop), audit
+    interaktivitas perpustakaan §5f, perbaikan bug tercatat di PR.
+18. „Jika sudah 100% selesai semua, bikin dalam 1 Gambar besar, seluruh fitur yg ada di website ini, dan fungsi setiap menu
+    yg ada di setiap portal, agar bisa di baca sebagai panduan, dan juga bikin panduan interaktif di setiap portal cara
+    penggunaanya“ (15 Nov 2026) — §10 Panduan: satu gambar besar peta fitur + fungsi menu per peran, dan tur interaktif di
+    dalam portal; dikerjakan terakhir setelah semua modul selesai.
 
 ## 1. Aturan yang berlaku
 
@@ -224,12 +232,28 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
   dengan indeks katalog; Worker menyajikannya sebagai buku interaktif di rak MI/MTs per kelas dan mapel. PDF-nya tidak
   pernah ditampilkan atau ditautkan.
 
-## 5g. Penghargaan dan kop surat (perintah 13, berikutnya)
+## 5g. Dokumen lembaga: kop surat, sertifikat & piagam, kwitansi, surat (perintah 13, 17)
 
-- **Kop surat** per lembaga (CRUD di portal): logo, nama, alamat, kontak, garis; dipakai di surat dan sertifikat.
-- **Sertifikat** Tahfidz, lomba, dan ranking kelas: minimal 10 desain indah dengan huruf premium, dipilih per lembaga;
-  isian (nama, kelas, juara/peringkat, juz, tahun) diketik sekali lalu terisi otomatis; foto penerima; siap cetak A4.
-- **Menu Prestasi** publik per lembaga dan jenis penghargaan, dengan foto dan tahun, agar orang tua bisa melihat anaknya.
+Semua di portal (menu **Dokumen & cetak**), CRUD per lembaga (admin lembaga ke atas; super admin semua lembaga), data di
+R2 lewat mesin koleksi yang sama (`c/<kol>/…`). Setiap formulir punya **pratinjau langsung** (terisi otomatis saat
+diketik) dan tombol **Cetak / simpan PDF** (dialog cetak peramban, ukuran kertas sudah diatur).
+- **Kop surat** (`kop`): logo kiri (dan kanan, opsional), nama induk (yayasan), nama lembaga (+ nama Arab), keterangan
+  (jenis/akreditasi), NSM/NPSN, alamat, kontak, 5 gaya tata letak × 4 warna; satu kop ditandai **utama** dan dipakai
+  otomatis oleh surat, sertifikat, dan kwitansi lembaga itu. Tanpa kop tersimpan, kop dibangun dari profil lembaga.
+- **Sertifikat & piagam** (`penghargaan`): jenis tahfidz, lomba, ranking kelas, kelulusan, siswa teladan, kehadiran,
+  peserta, lainnya; **12 desain** (klasik zamrud–emas, safir, marun, arabesque, kaligrafi, minimal, hitam-emas, lavender,
+  ceria, tosca, perkamen, mawar) dengan huruf premium Cinzel, Cormorant Garamond, Pinyon Script, Amiri (OFL, dihos
+  sendiri); foto penerima, kelas, tahun pelajaran, capaian, predikat, kegiatan, dua penanda tangan, nomor otomatis
+  (`<urut>/<JENIS>/<LEMBAGA>/<bulan Romawi>/<tahun>`), kalimat penghargaan terisi otomatis dari jenis (bisa diubah);
+  A4 mendatar siap cetak; tautan verifikasi `/prestasi/<slug>`.
+- **Kwitansi pembayaran** (`kwitansi`): nomor otomatis per lembaga per tahun (`KW/<LEMBAGA>/<tahun>/<urut>`), diterima
+  dari, untuk pembayaran (SPP, pendaftaran, daftar ulang, seragam, buku, kegiatan, infaq, zakat, wakaf, lainnya),
+  keterangan/periode, jumlah + **terbilang otomatis**, metode (tunai/transfer/QRIS), penerima; dicetak dua rangkap (asli
+  untuk pembayar, arsip lembaga) di satu lembar A4 dengan garis potong. Tidak pernah tampil publik.
+- **Surat berkop** (`surat`): nomor, lampiran, perihal, kepada, isi (Markdown), penanda tangan, tembusan; A4 tegak.
+- **Menu Prestasi publik** `/prestasi` (+ `/prestasi/<slug>`): saringan lembaga, jenis, dan tahun; kartu berfoto;
+  halaman detail menampilkan sertifikatnya; juga tampil di halaman lembaga dan pita beranda. Hanya penghargaan berstatus
+  tayang dan dicentang „tampilkan di Prestasi“.
 
 ## 5a. Aplikasi ibadah (perintah 7)
 

@@ -8,7 +8,7 @@ import { html, raw, type Raw } from '../lib/html.ts';
 import { hmac, verifyPassword } from '../lib/crypto.ts';
 import { limit } from '../lib/ratelimit.ts';
 import { renderMarkdown } from '../lib/markdown.ts';
-import { slugify, tanggal, jamWib } from '../lib/text.ts';
+import { hariIni, jamWib, slugify, tahunPelajaran, tanggal } from '../lib/text.ts';
 import { asalSama, endSession, readSession, startSession, type Ctx, type HonoEnv } from '../lib/session.ts';
 import { bacaTantangan, dariPosisi, papanPin, pasangTantangan } from '../lib/pinpad.ts';
 import {
@@ -24,6 +24,7 @@ import {
   bagian, centang, daftarDok, formDok, isian, kartuPin, masukPage, pasangPage, pilihan, portalPage, tabelAkun, unggahTunggal, type Kilat,
 } from '../pages/portal.ts';
 import { publikDok } from './konten.ts';
+import { JENIS_PENGHARGAAN, PILIHAN_DESAIN, nomorBerikut } from '../data/dokumen.ts';
 
 /** Hash PBKDF2 kode pemasangan pertama. Kodenya sendiri diserahkan kepada pemilik di luar repo; berlaku sampai akun pertama ada. */
 const KODE_PASANG = 'pbkdf2$100000$B7x_sC9Sre2rAXgNJK1ZsQ$cZwWLl0YbxuvtZijAscs20iSaGZ8ToBV1ym1v16bj_8';
@@ -150,7 +151,7 @@ portal.post('/keluar', async (c) => {
 
 /* ── penjaga portal ─────────────────────────────────────────────────────── */
 
-const jaga = async (c: Ctx, next: () => Promise<void>) => {
+export const jaga = async (c: Ctx, next: () => Promise<void>) => {
   const user = await readSession(c, c.get('store'));
   if (!user) return c.redirect('/masuk');
   if (c.req.method !== 'GET' && c.req.method !== 'HEAD' && !asalSama(c)) return c.text('Asal permintaan tidak sah.', 403);
@@ -194,7 +195,7 @@ portal.get('/portal', async (c) => {
   const nama = (s: string) => (s === 'yayasan' ? 'Yayasan' : units.find((x) => x.slug === s)?.singkat ?? s);
   const body = html`
   <section class="p-sambut p-kartu"><div><p class="kicker">Assalamu’alaikum</p><h2>${u.nama}</h2><p>${PERAN[u.peran].ket}</p></div>
-    <div class="p-sambut-aksi"><a class="tbl tbl-emas" href="/portal/k/kabar/baru">Tulis kabar</a><a class="tbl tbl-garis" href="/portal/k/galeri/baru">Unggah foto kegiatan</a></div></section>
+    <div class="p-sambut-aksi"><a class="tbl tbl-emas" href="/portal/k/kabar/baru">Tulis kabar</a><a class="tbl tbl-garis" href="/portal/k/galeri/baru">Unggah foto kegiatan</a>${tingkat(u) >= PERAN.lembaga.tingkat ? html`<a class="tbl tbl-garis" href="/portal/k/penghargaan/baru">Buat sertifikat</a><a class="tbl tbl-garis" href="/portal/k/kwitansi/baru">Buat kwitansi</a>` : ''}</div></section>
   ${hitung.pendaftar ? html`<a class="p-sorot" href="/portal/k/pendaftar">${hitung.pendaftar} pendaftar PPDB baru menunggu diperiksa →</a>` : ''}
   ${hitung.pesan ? html`<a class="p-sorot" href="/portal/k/pesan">${hitung.pesan} pesan masuk belum dibaca →</a>` : ''}
   ${tinjau.length && bolehTayang(u) ? html`<div class="p-kartu"><h2>Menunggu tinjauan</h2><ul class="p-daftar">${tinjau.slice(0, 12).map(({ d, it }) => html`<li><a href="/portal/k/${d.id}/${it.id}"><strong>${it.j}</strong><span>${d.satu} · ${nama(it.u)}</span></a></li>`)}</ul></div>` : ''}
@@ -481,8 +482,9 @@ portal.get('/portal/k/:kol/baru', async (c) => {
   const units = await unitsBoleh(c);
   const minta = c.req.query('unit') ?? '';
   const unit = minta && bolehUnit(u, minta) ? minta : lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
-  const d: Record<string, unknown> = def.id === 'video' ? { jenis: 'video' } : def.id === 'kabar' ? { kategori: 'kegiatan' } : def.id === 'ppdb' ? { formulir: true } : {};
-  return halamanForm(c, def, { unit, status: bolehTayang(u) ? 'tayang' : 'tinjau', d }, units);
+  const d: Record<string, unknown> = def.id === 'video' ? { jenis: 'video' } : def.id === 'kabar' ? { kategori: 'kegiatan' } : def.id === 'ppdb' ? { formulir: true } : await awalDokumen(c, def.id, unit);
+  const judulAwal = def.id === 'kop' ? await judulKop(c, unit) : undefined;
+  return halamanForm(c, def, { unit, status: bolehTayang(u) ? 'tayang' : 'tinjau', d, ...(judulAwal ? { judul: judulAwal } : {}) }, units);
 });
 
 portal.get('/portal/k/:kol/:id', async (c) => {
@@ -493,6 +495,31 @@ portal.get('/portal/k/:kol/:id', async (c) => {
   if (!(await bolehDok(c, def, d))) return tolak(c);
   return halamanForm(c, def, d, await unitsBoleh(c));
 });
+
+/** Nilai awal dokumen cetak: penanda tangan dari profil lembaga, tahun pelajaran berjalan, penerima kwitansi = pengguna. */
+async function awalDokumen(c: Ctx, kol: string, unit: string): Promise<Record<string, unknown>> {
+  const u = c.get('user')!;
+  const store = c.get('store');
+  const lembaga = unit && unit !== 'yayasan' ? await getUnit(store, unit) : null;
+  const s = await getSitus(store);
+  const ketua = s.organ.find((o) => /ketua/i.test(o.jabatan));
+  const ttd = lembaga?.kepala ? { ttd1Nama: lembaga.kepala.nama, ttd1Jabatan: lembaga.kepala.jabatan } : ketua ? { ttd1Nama: ketua.nama, ttd1Jabatan: ketua.jabatan } : {};
+  switch (kol) {
+    case 'penghargaan': return { jenis: 'tahfidz', desain: 'zamrud', tahun: tahunPelajaran(), tampil: true, ...ttd };
+    case 'kwitansi': return { untuk: 'spp', metode: 'tunai', lunas: true, penerima: u.nama, jabatanPenerima: 'Bendahara' };
+    case 'surat': return { ttdNama: ttd.ttd1Nama ?? '', ttdJabatan: ttd.ttd1Jabatan ?? '' };
+    case 'kop': return {
+      gaya: 'tengah', warna: 'zamrud', utama: true, induk: lembaga ? s.nama.toUpperCase() : '', ket: lembaga?.jenis ?? '',
+      alamat: lembaga?.alamat || [s.alamat.jalan, s.alamat.desa, s.alamat.kecamatan, s.alamat.kabupaten, s.alamat.provinsi, s.alamat.kodepos].filter(Boolean).join(', '),
+      kontak: [s.kontak.telepon && `Telp. ${s.kontak.telepon}`, s.kontak.email, 'yapida.sch.id'].filter(Boolean).join(' · '), kota: s.alamat.kecamatan || 'Sukakarya',
+    };
+    default: return {};
+  }
+}
+async function judulKop(c: Ctx, unit: string): Promise<string> {
+  if (unit && unit !== 'yayasan') return ((await getUnit(c.get('store'), unit))?.nama ?? '').toUpperCase();
+  return (await getSitus(c.get('store'))).nama.toUpperCase();
+}
 
 async function simpanDok(c: Ctx) {
   const u = c.get('user')!;
@@ -512,12 +539,17 @@ async function simpanDok(c: Ctx) {
   const unit = def.privat ? lama!.unit : String(f.unit ?? '');
   const judul = String(f.judul ?? '').trim();
   const stMinta = String(f.status ?? '') as Status;
-  const status: Status = def.privat ? (lama?.status ?? 'tinjau') : statusBoleh(u).includes(stMinta) ? stMinta : statusBoleh(u)[0]!;
+  const status: Status = def.privat ? (lama?.status ?? 'tinjau') : def.tanpaPublik ? 'tayang' : statusBoleh(u).includes(stMinta) ? stMinta : statusBoleh(u)[0]!;
   const { d, galat } = bacaBidang(def, form);
   if (!judul) galat.judul = 'Wajib diisi.';
   if (!def.privat && !bolehUnit(u, unit)) galat.unit = 'Anda tidak mengelola lembaga ini.';
   if (unit !== 'yayasan' && !units.some((x) => x.slug === unit) && !def.privat) galat.unit = 'Lembaga tidak dikenal.';
   if (Object.keys(galat).length) return halamanForm(c, def, { id: lama?.id, slug: lama?.slug, unit, status, judul, tanggal: String(f.tanggal ?? ''), d: { ...form, ...d } }, units, galat, 400);
+  // Nomor otomatis (sertifikat, kwitansi, surat): dibuat sekali saat pertama disimpan bila dikosongkan; nomor lama dipertahankan.
+  if (def.nomorOtomatis && typeof d[def.nomorOtomatis] !== 'string') {
+    const lamaNo = lama?.d[def.nomorOtomatis];
+    d[def.nomorOtomatis] = typeof lamaNo === 'string' && lamaNo ? lamaNo : await nomorBerikut(store, def.id, unit, d);
+  }
   const dok = await simpan(store, def, { id: lama?.id, unit, status, judul, tanggal: String(f.tanggal ?? '') || undefined, d, penulis: u.id, penulisNama: u.nama });
   await catat(c, `${def.id}.${lama ? 'ubah' : 'buat'}`, `${dok.judul} (${dok.unit}, ${STATUS[dok.status]})`);
   return c.redirect(`/portal/k/${def.id}/${dok.id}?ok=simpan`);
@@ -553,6 +585,76 @@ portal.post('/portal/unggah', async (c) => {
     if (err instanceof BerkasDitolak) return c.json({ error: err.message }, 400);
     throw err;
   }
+});
+
+/* ── sertifikat massal: ketik daftar penerima sekali, semua sertifikat terisi dan siap cetak ── */
+
+const PENERIMA_CONTOH = 'Ahmad Fauzan ; Juz 30 ; Mumtaz ; Kelas 5A\nSiti Aisyah ; Juz 29 dan 30 ; Jayyid Jiddan ; Kelas 6B';
+
+function formMassal(o: { units: UnitItem[]; bolehYayasan: boolean; nilai: Record<string, string>; galat?: string }): Raw {
+  const v = (k: string) => o.nilai[k] ?? '';
+  return html`<form method="post" class="p-form p-kartu" data-form-jaga>
+  <p class="p-kecil">Untuk wisuda tahfidz, juara lomba, atau peringkat kelas: isi bagian yang sama untuk semua sekali saja, lalu tulis satu penerima per baris. Setiap baris menjadi satu sertifikat bernomor otomatis — lalu semuanya bisa dicetak sekaligus.</p>
+  ${o.galat ? html`<p class="p-kilat p-kilat-galat" role="alert">${o.galat}</p>` : ''}
+  <div class="p-baris">
+    <label class="p-bidang"><span>Lembaga *</span><select name="unit" required>${o.bolehYayasan ? html`<option value="yayasan">Yayasan Al-Huda Yapida</option>` : ''}${o.units.map((u) => html`<option value="${u.slug}"${raw(v('unit') === u.slug ? ' selected' : '')}>${u.singkat}</option>`)}</select></label>
+    <label class="p-bidang"><span>Jenis *</span><select name="jenis">${JENIS_PENGHARGAAN.map(([k, l]) => html`<option value="${k}"${raw((v('jenis') || 'tahfidz') === k ? ' selected' : '')}>${l}</option>`)}</select></label>
+    <label class="p-bidang"><span>Tanggal</span><input type="date" name="tanggal" value="${v('tanggal') || hariIni()}"></label>
+  </div>
+  <div class="p-bidang"><span>Desain</span><div class="p-desain" role="radiogroup" aria-label="Desain">${PILIHAN_DESAIN.map(([k, l]) => html`<label class="p-desain-butir d-${k}"><input type="radio" name="desain" value="${k}"${raw((v('desain') || 'zamrud') === k ? ' checked' : '')}><span class="p-desain-contoh" aria-hidden="true"><i></i><b></b><em></em></span><span class="p-desain-nama">${l}</span></label>`)}</div></div>
+  <div class="p-baris">
+    ${isian('Kegiatan / acara', 'kegiatan', v('kegiatan'), { bantuan: 'Mis. „Wisuda Tahfidz ke-5“ atau „Semester Ganjil“.', maks: 140 })}
+    ${isian('Tahun pelajaran', 'tahun', v('tahun') || tahunPelajaran(), { maks: 20 })}
+  </div>
+  <div class="p-baris">
+    ${isian('Penanda tangan kanan — nama', 'ttd1Nama', v('ttd1Nama'), { maks: 80 })}${isian('Jabatan', 'ttd1Jabatan', v('ttd1Jabatan'), { maks: 80 })}
+  </div>
+  <div class="p-baris">
+    ${isian('Penanda tangan kiri — nama (opsional)', 'ttd2Nama', v('ttd2Nama'), { maks: 80 })}${isian('Jabatan', 'ttd2Jabatan', v('ttd2Jabatan'), { maks: 80 })}
+  </div>
+  ${isian('Daftar penerima', 'daftar', v('daftar'), { baris: 10, wajib: true, bantuan: `Satu penerima per baris: Nama ; capaian ; predikat ; kelas (predikat dan kelas boleh dikosongkan). Contoh:\n${PENERIMA_CONTOH}` })}
+  ${centang('Tampilkan semuanya di menu Prestasi (publik)', 'tampil', v('tampil') !== '0')}
+  <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Buat semua sertifikat</button><a class="tbl tbl-garis" href="/portal/k/penghargaan">Kembali</a></div>
+</form>`;
+}
+
+portal.get('/portal/penghargaan/massal', async (c) => {
+  const u = c.get('user')!;
+  if (!bolehDef(u, KOLEKSI.penghargaan!)) return tolak(c);
+  const units = await unitsBoleh(c);
+  const unit = lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
+  const awal = await awalDokumen(c, 'penghargaan', unit);
+  return tampil(c, { judul: 'Sertifikat massal', aktif: '/portal/penghargaan/massal', body: formMassal({ units, bolehYayasan: lingkupSemua(u), nilai: { unit, ttd1Nama: String(awal.ttd1Nama ?? ''), ttd1Jabatan: String(awal.ttd1Jabatan ?? '') } }) });
+});
+
+portal.post('/portal/penghargaan/massal', async (c) => {
+  const u = c.get('user')!;
+  const def = KOLEKSI.penghargaan!;
+  if (!bolehDef(u, def)) return tolak(c);
+  const units = await unitsBoleh(c);
+  const f = (await c.req.parseBody()) as Record<string, unknown>;
+  const nilai = Object.fromEntries(['unit', 'jenis', 'tanggal', 'desain', 'kegiatan', 'tahun', 'ttd1Nama', 'ttd1Jabatan', 'ttd2Nama', 'ttd2Jabatan', 'daftar'].map((k) => [k, teks(f, k, k === 'daftar' ? 20_000 : 300)]));
+  nilai.tampil = f.tampil === '1' ? '1' : '0';
+  const unit = nilai.unit!;
+  const ulang = (galat: string) => tampil(c, { judul: 'Sertifikat massal', aktif: '/portal/penghargaan/massal', status: 400, body: formMassal({ units, bolehYayasan: lingkupSemua(u), nilai, galat }) });
+  if (!bolehUnit(u, unit) || (unit !== 'yayasan' && !units.some((x) => x.slug === unit))) return ulang('Pilih lembaga yang Anda kelola.');
+  const penerima = baris(nilai.daftar).map((l) => l.split(/\s*[;|]\s*/)).filter((p) => p[0]);
+  if (!penerima.length) return ulang('Tulis minimal satu penerima.');
+  if (penerima.length > 120) return ulang('Paling banyak 120 penerima sekali buat.');
+  const tanpaCapaian = penerima.filter((p) => !p[1]).map((p) => p[0]);
+  if (tanpaCapaian.length) return ulang(`Capaian belum diisi untuk: ${tanpaCapaian.slice(0, 5).join(', ')}. Format: Nama ; capaian ; predikat ; kelas.`);
+  const store = c.get('store');
+  const ids: string[] = [];
+  for (const [nama, capaian, predikat, kelas] of penerima) {
+    const form: Record<string, unknown> = { jenis: nilai.jenis, desain: nilai.desain, kegiatan: nilai.kegiatan, tahun: nilai.tahun, ttd1Nama: nilai.ttd1Nama, ttd1Jabatan: nilai.ttd1Jabatan, ttd2Nama: nilai.ttd2Nama, ttd2Jabatan: nilai.ttd2Jabatan, capaian: capaian ?? '', predikat: predikat ?? '', kelas: kelas ?? '', tampil: nilai.tampil };
+    const { d, galat } = bacaBidang(def, form);
+    if (Object.keys(galat).length) return ulang(`Baris „${nama}“: ${Object.entries(galat).map(([k, g]) => `${def.bidang.find((b) => b.k === k)?.label ?? k} — ${g}`).join('; ')}`);
+    d.nomor = await nomorBerikut(store, def.id, unit, d);
+    const dok = await simpan(store, def, { unit, status: 'tayang', judul: nama!.slice(0, 160), tanggal: nilai.tanggal || undefined, d, penulis: u.id, penulisNama: u.nama });
+    ids.push(dok.id);
+  }
+  await catat(c, 'penghargaan.massal', `${ids.length} sertifikat (${unit}, ${nilai.jenis})`);
+  return c.redirect(`/portal/cetak-banyak/penghargaan?${ids.map((id) => `id=${id}`).join('&')}`);
 });
 
 /* ── akun & PIN ─────────────────────────────────────────────────────────── */

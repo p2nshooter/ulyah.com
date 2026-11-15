@@ -158,3 +158,34 @@ html.js .kartu-isi.muncul.tampak,html.js .kartu-album.muncul.tampak,html.js .kar
 
 @media (max-width:860px){.sdm-profil{grid-template-columns:1fr}.sdm-foto{max-width:280px}.lightbox{grid-template-columns:1fr;padding:3.5rem .5rem 1rem}.lb-nav{position:absolute;bottom:1rem}.lb-kiri{left:1rem}.lb-kanan{right:1rem}.lightbox figure{grid-column:1}}
 @media (max-width:1020px){.mega-kecil{width:auto}}
+
+/* ── Prestasi & Penghargaan ── */
+.kisi-prestasi{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.3rem}
+.kartu-prestasi{position:relative;display:flex;flex-direction:column;border-radius:var(--r);border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none;box-shadow:var(--bayang);overflow:hidden;transform:rotateX(calc(var(--ry,0)*1deg)) rotateY(calc(var(--rx,0)*1deg));transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
+.kartu-prestasi:hover{border-color:var(--e500);box-shadow:var(--bayang-besar)}
+.kp-foto{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:radial-gradient(120% 90% at 50% 20%,#fff8e1,#f1e2b4)}
+.kp-foto img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.kartu-prestasi:hover .kp-foto img{transform:scale(1.05)}
+.kp-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(4,30,20,.55));pointer-events:none}
+.kp-inisial{display:grid;place-items:center;width:100%;height:100%;font:700 4.2rem var(--f-judul);color:var(--z700)}
+.kp-inisial.besar{font-size:6rem;aspect-ratio:1;border-radius:24px;background:radial-gradient(120% 90% at 50% 20%,#fff8e1,#f1e2b4)}
+.kp-pita{position:absolute;z-index:1;left:.7rem;bottom:.7rem;padding:.3rem .7rem;border-radius:999px;background:linear-gradient(140deg,#f3d27a,#c9a227);color:#241a00;font-size:.72rem;font-weight:800;letter-spacing:.04em;box-shadow:0 6px 14px -6px rgba(0,0,0,.4)}
+.kartu-prestasi.j-tahfidz .kp-pita{background:linear-gradient(140deg,#7ee0b0,#178a5a);color:#fff}
+.kartu-prestasi.j-lomba .kp-pita::before{content:"🏆 "}
+.kartu-prestasi.j-tahfidz .kp-pita::before{content:"📖 "}
+.kartu-prestasi.j-ranking .kp-pita::before{content:"⭐ "}
+.kp-teks{display:flex;flex-direction:column;gap:.25rem;padding:.9rem 1rem 1.1rem}
+.kp-teks strong{font:650 1.12rem/1.25 var(--f-judul)}
+.kp-capaian{font-size:.9rem;color:var(--tinta)}
+.kp-meta{font-size:.78rem;color:var(--redup)}
+.prestasi-jumlah{margin:-.6rem 0 1rem;text-align:center}
+.prestasi-bingkai{position:relative;max-width:980px;margin:0 auto 1.2rem;aspect-ratio:297/210;border-radius:14px;overflow:hidden;box-shadow:var(--bayang-besar);background:#e7e3d9}
+.prestasi-sert{position:absolute;inset:0;width:100%;height:100%;border:0}
+.prestasi-aksi{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin-bottom:2rem}
+.prestasi-dua{display:grid;grid-template-columns:minmax(160px,260px) 1fr;gap:1.6rem;align-items:start;max-width:820px;margin:0 auto 1rem}
+.prestasi-foto img{width:100%;border-radius:20px;box-shadow:var(--bayang)}
+.prestasi-rinci{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.2rem;margin:0}
+.prestasi-rinci dt{font-weight:700;color:var(--redup);font-size:.9rem}
+.prestasi-rinci dd{margin:0}
+.pita-prestasi .tengah{text-align:center;margin-top:1.6rem}
+@media (max-width:640px){.prestasi-dua{grid-template-columns:1fr}.kisi-prestasi{grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.kp-teks strong{font-size:1rem}}

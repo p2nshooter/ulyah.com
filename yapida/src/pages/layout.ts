@@ -96,7 +96,7 @@ export const MENU: ButirMenu[] = [
   { id: 'beranda', label: 'Beranda', href: '/' },
   { id: 'profil', label: 'Profil', href: '/profil', anak: [['Profil & sejarah', '/profil', 'buku'], ['Struktur & guru', '/struktur', 'tangan'], ['Para pendiri', '/profil/pendiri', 'bintang'], ['Donasi', '/donasi', 'tangan']] },
   { id: 'lembaga', label: 'Lembaga', href: '/lembaga' },
-  { id: 'kabar', label: 'Kabar', href: '/kabar', anak: [['Kabar & kegiatan', '/kabar', 'pena'], ['Galeri foto', '/galeri', 'bintang'], ['Video & siaran langsung', '/video', 'surya'], ['Agenda', '/agenda', 'bulan'], ['Dokumen publik', '/dokumen', 'buku']] },
+  { id: 'kabar', label: 'Kabar', href: '/kabar', anak: [['Kabar & kegiatan', '/kabar', 'pena'], ['Galeri foto', '/galeri', 'bintang'], ['Video & siaran langsung', '/video', 'surya'], ['Agenda', '/agenda', 'bulan'], ['Prestasi & penghargaan', '/prestasi', 'bintang'], ['Dokumen publik', '/dokumen', 'buku']] },
   { id: 'ppdb', label: 'PPDB', href: '/ppdb' },
   { id: 'belajar', label: 'Belajar', href: '/pustaka', anak: [['Perpustakaan digital', '/pustaka', 'buku'], ['Rak TK / RA', '/pustaka/rak/ra', 'bintang'], ['Rak MI kelas 1–6', '/pustaka/rak/mi', 'buku'], ['Rak MTs kelas 7–9', '/pustaka/rak/mts', 'buku'], ['Kitab pesantren', '/pustaka/rak/kitab', 'pena'], ['Bacaan guru & ustadz', '/pustaka/rak/guru', 'tangan'], ['Katalog dunia', '/pustaka/dunia', 'surya'], ['Karya tulis', '/karya', 'pena']] },
   { id: 'ibadah', label: 'Ibadah', href: '/ibadah', anak: [['Al-Qur’an mushaf Utsmani', '/quran', 'buku'], ['Jadwal sholat', '/jadwal-sholat', 'surya'], ['Arah kiblat', '/kiblat', 'pin'], ['Kalender hijriah', '/kalender-hijriah', 'bulan'], ['Radio Qur’an', '/radio-quran', 'buku']] },
