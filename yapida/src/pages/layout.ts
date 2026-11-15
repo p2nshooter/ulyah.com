@@ -41,6 +41,8 @@ export interface PageOpts {
   desc: string;
   situs: Situs;
   units: UnitItem[];
+  /** Halaman yayasan yang ditautkan di kaki situs (pilihan „Tautkan di kaki situs“ di portal). */
+  kakiHalaman?: { slug: string; judul: string }[];
   body: Raw;
   /** Menu yang sedang aktif. */
   aktif?: string;
@@ -120,7 +122,7 @@ export function page(o: PageOpts): string {
   const url = `${o.origin}${o.path}`;
   const og = o.ogImage ?? `${o.origin}/assets/og.png`;
   const v = ASSET_V;
-  const kaki = [['Kebijakan Privasi', '/h/kebijakan-privasi'], ['Syarat Penggunaan', '/h/syarat-penggunaan']];
+  const kaki = o.kakiHalaman ? o.kakiHalaman.map((h) => [h.judul, `/h/${h.slug}`]) : [['Kebijakan Privasi', '/h/kebijakan-privasi'], ['Syarat Penggunaan', '/h/syarat-penggunaan']];
   return `<!doctype html>
 <html lang="id" data-tema="siang">
 <head>

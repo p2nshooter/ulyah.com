@@ -116,16 +116,21 @@ export async function getHalaman(store: Store, slug: string): Promise<Halaman | 
   return store.get<Halaman>(halamanKey(slug));
 }
 
-export async function listHalaman(store: Store): Promise<{ slug: string; judul: string; kaki: boolean }[]> {
+export async function listHalaman(store: Store): Promise<{ slug: string; judul: string; kaki: boolean; unit: string }[]> {
   await siap(store);
   return memo(store, 'halaman', async () => {
-    const r = await store.list<{ judul: string; kaki: boolean }>('c/halaman/', { limit: 200 });
-    return r.items.map((x) => ({ slug: x.id, judul: x.meta.judul ?? x.id, kaki: Boolean(x.meta.kaki) }));
+    const r = await store.list<{ judul: string; kaki: boolean; u?: string }>('c/halaman/', { limit: 1000 });
+    return r.items.map((x) => ({ slug: x.id, judul: x.meta.judul ?? x.id, kaki: Boolean(x.meta.kaki), unit: x.meta.u || 'yayasan' }));
   });
 }
 
+export async function hapusHalaman(store: Store, slug: string): Promise<void> {
+  await store.del(halamanKey(slug));
+  lupakan(store);
+}
+
 export async function putHalaman(store: Store, h: Halaman): Promise<void> {
-  await store.put(halamanKey(h.slug), h, { judul: h.judul, kaki: h.kaki });
+  await store.put(halamanKey(h.slug), h, { judul: h.judul, kaki: h.kaki, u: h.unit ?? 'yayasan' });
   lupakan(store);
 }
 

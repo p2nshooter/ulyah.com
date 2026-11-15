@@ -25,7 +25,7 @@ import { bagianUnit, beritaBeranda, formKontak, organYayasan } from './pages/sis
 import { ADS_TXT } from './lib/adsense.ts';
 import { ensureSeed, getHalaman, getSitus, getUnit, listHalaman, listUnits } from './data/site.ts';
 import { ASSET_V, crumbs } from './pages/layout.ts';
-import { berandaPage, donasiPage, halamanPage, kontakPage, lembagaIndexPage, profilPage, unitPage } from './pages/public.ts';
+import { berandaPage, donasiPage, halamanLembaga, halamanPage, kontakPage, lembagaIndexPage, profilPage, unitPage } from './pages/public.ts';
 import type { Unit } from './data/model.ts';
 import { ibadahPage, jadwalPage, kalenderPage, kiblatPage, pitaAplikasi, radioPage } from './pages/ibadah.ts';
 import { raw } from './lib/html.ts';
@@ -162,13 +162,13 @@ app.get('/lembaga/:slug', async (c) => {
     daftar(store, 'dokumen', { tayang: true, unit: u.slug, limit: 12 }), daftar(store, 'karya', { tayang: true, unit: u.slug, limit: 3 }),
     daftar(store, 'agenda', { tayang: true, unit: u.slug, limit: 40 }),
   ]);
-  const prestasiU = await daftar(store, 'penghargaan', { tayang: true, unit: u.slug, limit: 8, saring: tampilDiPrestasi });
+  const [prestasiU, halamanU] = await Promise.all([daftar(store, 'penghargaan', { tayang: true, unit: u.slug, limit: 8, saring: tampilDiPrestasi }), listHalaman(store)]);
   const o = origin(c);
   const kat = await katalog(c.env, store);
   const rakU = rakUntukUnit(u.slug).map((r) => r.id);
   const bukuU = urutkan(kat.semua.filter((b) => b.unit === u.slug || b.rak.some((r) => rakU.includes(r))), kat.atur, u.slug).slice(0, 16);
   const uItem = units.find((x) => x.slug === u.slug);
-  const isi = raw(bagianUnit({ media: media(c), kecil, units }, u.slug, u.singkat, { sdm, kabar, galeri, video, kanal: kanal.slice(0, 6), ppdb, dokumen, karya, agenda }).s + (uItem ? bagianPrestasiUnit({ media: media(c), kecil, units }, uItem, prestasiU).s + rakSisipUnit(uItem, bukuU, { media: media(c), kecil, units }).s : ''));
+  const isi = raw(bagianUnit({ media: media(c), kecil, units }, u.slug, u.singkat, { sdm, kabar, galeri, video, kanal: kanal.slice(0, 6), ppdb, dokumen, karya, agenda }).s + (uItem ? halamanLembaga(u.singkat, halamanU.filter((h) => h.unit === u.slug)).s + bagianPrestasiUnit({ media: media(c), kecil, units }, uItem, prestasiU).s + rakSisipUnit(uItem, bukuU, { media: media(c), kecil, units }).s : ''));
   return render(c, {
     path: `/lembaga/${u.slug}`, aktif: 'lembaga',
     title: `${u.nama} — ${u.jenis} di Sukakarya, Bekasi | ${s.singkatan}`,
@@ -226,10 +226,15 @@ app.get('/kontak', async (c) => {
 });
 
 app.get('/h/:slug', async (c) => {
-  const h = await getHalaman(c.get('store'), c.req.param('slug'));
+  const store = c.get('store');
+  const h = await getHalaman(store, c.req.param('slug'));
   if (!h) return tidakAda(c);
-  const s = await getSitus(c.get('store'));
-  return render(c, { path: `/h/${h.slug}`, title: `${h.judul} — ${s.nama}`, desc: h.ringkas, body: halamanPage(h), jsonLd: [crumbs(origin(c), [[h.judul, `/h/${h.slug}`]])] });
+  const [s, units, semua] = await Promise.all([getSitus(store), listUnits(store), listHalaman(store)]);
+  const unit = h.unit && h.unit !== 'yayasan' ? units.find((x) => x.slug === h.unit) : undefined;
+  if (h.unit && h.unit !== 'yayasan' && !unit) return tidakAda(c);
+  const remah: [string, string][] = unit ? [['Lembaga', '/lembaga'], [unit.singkat, `/lembaga/${unit.slug}`]] : [];
+  const lain = semua.filter((x) => x.unit === (h.unit || 'yayasan') && x.slug !== h.slug).slice(0, 12);
+  return render(c, { path: `/h/${h.slug}`, aktif: unit ? 'lembaga' : undefined, title: `${h.judul} — ${unit ? unit.nama : s.nama}`.slice(0, 90), desc: h.ringkas, body: halamanPage(h, remah, lain), jsonLd: [crumbs(origin(c), [...remah, [h.judul, `/h/${h.slug}`]])] });
 });
 
 app.route('/', quran);

@@ -189,3 +189,13 @@ html.js .kartu-isi.muncul.tampak,html.js .kartu-album.muncul.tampak,html.js .kar
 .prestasi-rinci dd{margin:0}
 .pita-prestasi .tengah{text-align:center;margin-top:1.6rem}
 @media (max-width:640px){.prestasi-dua{grid-template-columns:1fr}.kisi-prestasi{grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.kp-teks strong{font-size:1rem}}
+
+/* ── halaman bebas lembaga ── */
+.kisi-halaman{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.kartu-halaman{position:relative;display:flex;align-items:center;gap:1rem;padding:1.15rem 1.3rem;border-radius:var(--r);border:1px solid var(--garis);background:linear-gradient(160deg,var(--permukaan),color-mix(in srgb,var(--e400) 8%,var(--permukaan)));color:var(--tinta);text-decoration:none;box-shadow:var(--bayang);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s;animation-delay:calc(var(--i,0)*60ms)}
+.kartu-halaman:hover{transform:translateY(-4px);border-color:var(--e500);box-shadow:var(--bayang-besar)}
+.kh-nomor{display:grid;place-items:center;flex:none;width:2.8rem;height:2.8rem;border-radius:14px;background:linear-gradient(160deg,var(--z600),var(--z800));color:#f7e3a1;font:700 1rem var(--f-judul)}
+.kartu-halaman strong{flex:1;font:650 1.08rem/1.3 var(--f-judul)}
+.kh-panah{color:var(--e600);font-weight:800;transition:transform .3s}
+.kartu-halaman:hover .kh-panah{transform:translateX(4px)}
+.halaman-lain{margin:1.4rem auto 0;max-width:72rem;padding:0 1rem;align-items:center}

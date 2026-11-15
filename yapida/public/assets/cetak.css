@@ -301,3 +301,9 @@ body.cetak.muat{background:transparent;overflow:hidden}
 .d-perkamen.premium .sert-motif{opacity:.9}
 .d-kaligrafi.premium .sert-bismillah{font-size:22pt;line-height:1.2;margin-bottom:2mm}
 @media print{.sert.premium .sert-sudut-wadah .sert-sudut,.sert.premium .sert-segel{filter:none}}
+/* penghalusan: watermark lebih tipis, tanda tangan menjauh dari ornamen sudut */
+.sert-roset{opacity:.045}
+.sert-sudut-wadah .sert-sudut{width:40mm;height:40mm}
+.sert.premium .sert-ttd{padding:0 10mm}
+.sert.premium .sert-ttd-blok{width:62mm}
+.sert.premium .sert-tempat{padding-right:16mm}

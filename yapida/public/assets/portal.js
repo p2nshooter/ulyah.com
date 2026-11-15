@@ -180,8 +180,11 @@
   'use strict';
   var d = document;
   Array.prototype.slice.call(d.querySelectorAll('form[data-pratinjau]')).forEach(function (form) {
-    var url = form.getAttribute('data-pratinjau');
-    if (!/^\/portal\/cetak\/[a-z]+\/pratinjau$/.test(url)) return;
+    // Alamat tujuan dipilih dari daftar tetap (atribut halaman hanya menyebut jenis dokumennya).
+    var TUJUAN = { penghargaan: '/portal/cetak/penghargaan/pratinjau', kwitansi: '/portal/cetak/kwitansi/pratinjau', surat: '/portal/cetak/surat/pratinjau', kop: '/portal/cetak/kop/pratinjau' };
+    var jenisDok = (/^\/portal\/cetak\/([a-z]+)\/pratinjau$/.exec(form.getAttribute('data-pratinjau') || '') || [])[1];
+    var url = Object.prototype.hasOwnProperty.call(TUJUAN, jenisDok) ? TUJUAN[jenisDok] : '';
+    if (!url) return;
     var bingkai = d.querySelector('[data-pratinjau-bingkai]'), wadah = bingkai && bingkai.parentNode, st = d.querySelector('[data-pratinjau-status]');
     if (!bingkai) return;
     var tunda = null;
@@ -207,5 +210,19 @@
     var jejak = '';
     setInterval(function () { var v = Array.prototype.slice.call(form.querySelectorAll('input[type="hidden"]')).map(function (x) { return x.value; }).join('|'); if (v !== jejak) { if (jejak) jadwal(); jejak = v; } }, 1200);
     kirim();
+  });
+})();
+
+/* ── saring baris tabel (rak perpustakaan, daftar panjang) ── */
+(function () {
+  'use strict';
+  Array.prototype.slice.call(document.querySelectorAll('input[data-saring-baris]')).forEach(function (inp) {
+    var tabel = document.querySelector(inp.getAttribute('data-saring-baris'));
+    if (!tabel) return;
+    var baris = Array.prototype.slice.call(tabel.querySelectorAll('tbody tr'));
+    inp.addEventListener('input', function () {
+      var kata = inp.value.toLowerCase().split(/\s+/).filter(Boolean);
+      baris.forEach(function (tr) { var t = tr.getAttribute('data-cari') || ''; tr.hidden = !kata.every(function (k) { return t.indexOf(k) >= 0; }); });
+    });
   });
 })();

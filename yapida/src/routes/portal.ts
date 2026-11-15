@@ -15,7 +15,7 @@ import {
   PERAN, URUTAN_PERAN, bolehKelolaAkun, bolehTayang, bolehUnit, createUser, getUser, isPeran, lingkupSemua, listUsers, masuk, NamaTerpakai,
   peranYangBolehDiberi, pinAcak, pinLemah, tingkat, updateUser, hashPin, type Peran, type User, type UserItem,
 } from '../data/users.ts';
-import { getHalaman, getSitus, getUnit, listHalaman, listUnits, lupakan, putHalaman, putSitus, putUnit, unitKey, type UnitItem } from '../data/site.ts';
+import { getHalaman, getSitus, getUnit, hapusHalaman, listHalaman, listUnits, lupakan, putHalaman, putSitus, putUnit, unitKey, type UnitItem } from '../data/site.ts';
 import { KELOMPOK, URUTAN_KELOMPOK, type Halaman, type Kelompok, type Situs, type Suara, type Unit, unitRingkas } from '../data/model.ts';
 import { ambil, bacaBidang, daftar, hapus, simpan, STATUS, type Dok, type Koleksi, type Status } from '../data/koleksi.ts';
 import { KOLEKSI, koleksi } from '../data/defs.ts';
@@ -24,6 +24,8 @@ import {
   bagian, centang, daftarDok, formDok, isian, kartuPin, masukPage, pasangPage, pilihan, portalPage, tabelAkun, unggahTunggal, type Kilat,
 } from '../pages/portal.ts';
 import { publikDok } from './konten.ts';
+import { ATUR_KEY, katalogBawaan, type AturPustaka } from '../data/pustaka.ts';
+import { RAK_ID } from '../data/buku.ts';
 import { JENIS_PENGHARGAAN, PILIHAN_DESAIN, nomorBerikut } from '../data/dokumen.ts';
 
 /** Hash PBKDF2 kode pemasangan pertama. Kodenya sendiri diserahkan kepada pemilik di luar repo; berlaku sampai akun pertama ada. */
@@ -385,38 +387,126 @@ portal.post('/portal/situs', async (c) => {
 });
 
 /* ── halaman bebas ──────────────────────────────────────────────────────── */
+/* Pemilik: „Semua wajib bisa CRUD atau dynamic page di masing2 lembaga dan pastikan full akses di super admin“.
+   Kepala & admin lembaga membuat, mengubah, dan menghapus halaman lembaganya (tampil di halaman lembaga); halaman
+   yayasan dan tautan kaki situs dikelola tingkat yayasan; super admin semuanya. */
+
+const unitHalaman = (h: { unit?: string }) => h.unit || 'yayasan';
+const bolehHalaman = (u: User, unit: string) => tingkat(u) >= PERAN.lembaga.tingkat && (unit === 'yayasan' ? tingkat(u) >= PERAN.yayasan.tingkat : bolehUnit(u, unit));
 
 portal.get('/portal/halaman', async (c) => {
-  if (tingkat(c.get('user')!) < PERAN.yayasan.tingkat) return tolak(c);
-  const hs = await listHalaman(c.get('store'));
-  return tampil(c, { judul: 'Halaman', aktif: '/portal/halaman', aksi: html`<a class="tbl tbl-emas tbl-kecil" href="/portal/halaman/baru">Halaman baru</a>`, body: html`<div class="p-kartu"><ul class="p-daftar">${hs.map((h) => html`<li><a href="/portal/halaman/${h.slug}"><strong>${h.judul}</strong><span>/h/${h.slug}${h.kaki ? ' · di kaki situs' : ''}</span></a></li>`)}</ul></div>` });
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.lembaga.tingkat) return tolak(c);
+  const [semua, units] = await Promise.all([listHalaman(c.get('store')), unitsBoleh(c)]);
+  const nama = (s: string) => (s === 'yayasan' ? 'Yayasan' : units.find((x) => x.slug === s)?.singkat ?? s);
+  const hs = semua.filter((h) => bolehHalaman(u, h.unit));
+  return tampil(c, {
+    judul: 'Halaman', aktif: '/portal/halaman', aksi: html`<a class="tbl tbl-emas tbl-kecil" href="/portal/halaman/baru">Halaman baru</a>`,
+    body: html`<p class="p-kecil">Halaman bebas, mis. Kurikulum, Ekstrakurikuler, Tata tertib, Biaya pendidikan, Seragam. Halaman lembaga tampil di halaman lembaganya.</p>
+    ${hs.length ? html`<div class="p-kartu"><ul class="p-daftar">${hs.map((h) => html`<li><a href="/portal/halaman/${h.slug}"><strong>${h.judul}</strong><span>${nama(h.unit)} · /h/${h.slug}${h.kaki ? ' · di kaki situs' : ''}</span></a></li>`)}</ul></div>` : html`<div class="p-kosong"><p>Belum ada halaman.</p><a class="tbl tbl-emas" href="/portal/halaman/baru">Buat halaman pertama</a></div>`}`,
+  });
 });
 
-function formHalaman(h: Partial<Halaman>, baru: boolean): Raw {
-  return html`<form method="post" class="p-form p-kartu" data-form-jaga>${isian('Judul', 'judul', h.judul, { wajib: true, maks: 120 })}
-  ${baru ? isian('Alamat (slug)', 'slug', '', { bantuan: 'Kosongkan untuk dibuat dari judul.' }) : ''}
-  ${isian('Ringkasan (mesin pencari)', 'ringkas', h.ringkas, { baris: 2, maks: 220, wajib: true })}${isian('Isi', 'isi', h.isi, { baris: 18, md: true })}${centang('Tautkan di kaki situs', 'kaki', h.kaki !== false)}
-  <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Simpan</button><a class="tbl tbl-garis" href="/portal/halaman">Kembali</a>${baru ? '' : html`<a class="tbl-teks" href="/h/${h.slug}" target="_blank" rel="noopener">Lihat ↗</a>`}</div></form>`;
+function formHalaman(h: Partial<Halaman>, baru: boolean, units: UnitItem[], bolehYayasan: boolean): Raw {
+  const unit = unitHalaman(h);
+  return html`<form method="post" class="p-form p-kartu" data-form-jaga>
+  <label class="p-bidang"><span>Lembaga pemilik</span><select name="unit">${bolehYayasan ? html`<option value="yayasan"${raw(unit === 'yayasan' ? ' selected' : '')}>Yayasan Al-Huda Yapida</option>` : ''}${units.map((x) => html`<option value="${x.slug}"${raw(unit === x.slug ? ' selected' : '')}>${x.singkat}</option>`)}</select></label>
+  ${isian('Judul', 'judul', h.judul, { wajib: true, maks: 120 })}
+  ${baru ? isian('Alamat (slug)', 'slug', '', { bantuan: 'Kosongkan untuk dibuat dari judul. Alamat tidak bisa diubah setelah disimpan.' }) : ''}
+  ${isian('Ringkasan (mesin pencari)', 'ringkas', h.ringkas, { baris: 2, maks: 220, wajib: true })}${isian('Isi', 'isi', h.isi, { baris: 18, md: true })}
+  ${bolehYayasan ? centang('Tautkan di kaki situs (halaman yayasan)', 'kaki', h.kaki === true) : ''}
+  <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Simpan</button><a class="tbl tbl-garis" href="/portal/halaman">Kembali</a>${baru ? '' : html`<a class="tbl-teks" href="/h/${h.slug}" target="_blank" rel="noopener">Lihat ↗</a>`}</div></form>
+  ${baru ? '' : html`<form method="post" action="/portal/halaman/${h.slug}/hapus" class="p-hapus" data-yakin="Hapus halaman ini selamanya? Tindakan ini tidak bisa dibatalkan."><button class="tbl-teks p-bahaya" type="submit">Hapus halaman ini</button></form>`}`;
 }
 
-portal.get('/portal/halaman/baru', (c) => (tingkat(c.get('user')!) < PERAN.yayasan.tingkat ? tolak(c) : tampil(c, { judul: 'Halaman baru', aktif: '/portal/halaman', body: formHalaman({ kaki: true }, true) })));
-portal.get('/portal/halaman/:slug', async (c) => {
-  if (tingkat(c.get('user')!) < PERAN.yayasan.tingkat) return tolak(c);
-  const h = await getHalaman(c.get('store'), c.req.param('slug'));
-  return h ? tampil(c, { judul: h.judul, aktif: '/portal/halaman', body: formHalaman(h, false) }) : c.notFound();
+portal.get('/portal/halaman/baru', async (c) => {
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.lembaga.tingkat) return tolak(c);
+  const units = await unitsBoleh(c);
+  const unit = lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
+  return tampil(c, { judul: 'Halaman baru', aktif: '/portal/halaman', body: formHalaman({ unit, kaki: false }, true, units, tingkat(u) >= PERAN.yayasan.tingkat) });
 });
+
+portal.get('/portal/halaman/:slug', async (c) => {
+  const u = c.get('user')!;
+  const h = await getHalaman(c.get('store'), c.req.param('slug'));
+  if (!h) return c.notFound();
+  if (!bolehHalaman(u, unitHalaman(h))) return tolak(c);
+  return tampil(c, { judul: h.judul, aktif: '/portal/halaman', body: formHalaman(h, false, await unitsBoleh(c), tingkat(u) >= PERAN.yayasan.tingkat) });
+});
+
 portal.post('/portal/halaman/:slug', async (c) => {
-  if (tingkat(c.get('user')!) < PERAN.yayasan.tingkat) return tolak(c);
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.lembaga.tingkat) return tolak(c);
   const f = await c.req.parseBody();
   const store = c.get('store');
+  const units = await unitsBoleh(c);
+  const bolehYayasan = tingkat(u) >= PERAN.yayasan.tingkat;
   const baru = c.req.param('slug') === 'baru';
-  const slug = baru ? slugify(teks(f, 'slug', 60) || teks(f, 'judul', 120), 60) : c.req.param('slug');
-  if (!slug || !teks(f, 'judul', 120) || !teks(f, 'ringkas', 220)) return tampil(c, { judul: 'Halaman', aktif: '/portal/halaman', body: formHalaman({ judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi: teks(f, 'isi', 60_000) }, baru), kilat: { galat: 'Judul dan ringkasan wajib diisi.' }, status: 400 });
-  if (baru && (await getHalaman(store, slug))) return tampil(c, { judul: 'Halaman baru', aktif: '/portal/halaman', body: formHalaman({ judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi: teks(f, 'isi', 60_000) }, true), kilat: { galat: `Alamat /h/${slug} sudah dipakai.` }, status: 400 });
+  const lama = baru ? null : await getHalaman(store, c.req.param('slug'));
+  if (!baru && !lama) return c.notFound();
+  if (lama && !bolehHalaman(u, unitHalaman(lama))) return tolak(c);
+  const unit = teks(f, 'unit', 60) || 'yayasan';
   const isi = teks(f, 'isi', 60_000);
-  await putHalaman(store, { slug, judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi, isiHtml: renderMarkdown(isi), kaki: f.kaki === '1', ubah: Date.now() });
-  await catat(c, 'halaman.simpan', slug);
+  const draf: Partial<Halaman> = { slug: lama?.slug, unit, judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi, kaki: bolehYayasan && unit === 'yayasan' && f.kaki === '1' };
+  const ulang = (galat: string) => tampil(c, { judul: baru ? 'Halaman baru' : lama!.judul, aktif: '/portal/halaman', body: formHalaman(draf, baru, units, bolehYayasan), kilat: { galat }, status: 400 });
+  if (!bolehHalaman(u, unit) || (unit !== 'yayasan' && !units.some((x) => x.slug === unit))) return ulang('Pilih lembaga yang Anda kelola.');
+  const slug = baru ? slugify(teks(f, 'slug', 60) || draf.judul!, 60) : lama!.slug;
+  if (!slug || !draf.judul || !draf.ringkas) return ulang('Judul dan ringkasan wajib diisi.');
+  if (baru && (await getHalaman(store, slug))) return ulang(`Alamat /h/${slug} sudah dipakai — ganti judul atau alamatnya.`);
+  await putHalaman(store, { slug, unit, judul: draf.judul, ringkas: draf.ringkas, isi, isiHtml: renderMarkdown(isi), kaki: Boolean(draf.kaki), ubah: Date.now() });
+  await catat(c, 'halaman.simpan', `${slug} (${unit})`);
   return c.redirect(`/portal/halaman/${slug}?ok=simpan`);
+});
+
+portal.post('/portal/halaman/:slug/hapus', async (c) => {
+  const u = c.get('user')!;
+  const h = await getHalaman(c.get('store'), c.req.param('slug'));
+  if (!h) return c.notFound();
+  if (!bolehHalaman(u, unitHalaman(h))) return tolak(c);
+  await hapusHalaman(c.get('store'), h.slug);
+  await catat(c, 'halaman.hapus', `${h.slug} (${unitHalaman(h)})`);
+  return c.redirect('/portal/halaman?ok=hapus');
+});
+
+/* ── rak perpustakaan: sembunyikan buku bawaan, pilih unggulan (tingkat yayasan; super admin penuh) ── */
+
+portal.get('/portal/pustaka', async (c) => {
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.yayasan.tingkat) return tolak(c);
+  const store = c.get('store');
+  const [bawaan, lembaga, atur] = await Promise.all([katalogBawaan(c.env), daftar(store, 'buku', { tayang: true, limit: 3000 }), store.get<AturPustaka>(ATUR_KEY)]);
+  const sembunyi = new Set(atur?.sembunyi ?? []);
+  const unggulan = new Set(atur?.unggulan ?? []);
+  const baris = [
+    ...lembaga.map((b) => ({ id: `p-${b.id}`, judul: b.j, rak: String(b.x?.rak ?? ''), ket: 'Buku lembaga', bisaSembunyi: false })),
+    ...bawaan.map((b) => ({ id: b.id, judul: b.judul, rak: b.rak.map((r) => RAK_ID[r]?.nama ?? r).join(', '), ket: `${b.bab.length} bab · ${b.penulis}`, bisaSembunyi: true })),
+  ];
+  return tampil(c, {
+    judul: 'Rak perpustakaan', aktif: '/portal/pustaka',
+    body: html`<form method="post" class="p-form p-kartu" data-form-jaga>
+      <p class="p-kecil">${bawaan.length} buku bawaan dan ${lembaga.length} buku lembaga. <b>Unggulan</b> tampil paling depan di setiap raknya dan di beranda; <b>Sembunyikan</b> menurunkan buku bawaan dari seluruh perpustakaan (bisa dimunculkan lagi kapan saja). Buku lembaga diturunkan lewat statusnya di menu Perpustakaan.</p>
+      <div class="p-baris"><label class="p-bidang"><span>Cari judul, rak, atau penulis</span><input type="search" data-saring-baris="#tabel-pustaka" placeholder="mis. hadits, kisah, kelas 5…"></label></div>
+      <div class="p-tabel"><table id="tabel-pustaka"><thead><tr><th>Buku</th><th>Rak</th><th>Unggulan</th><th>Sembunyikan</th></tr></thead><tbody>
+      ${baris.map((b) => html`<tr data-cari="${`${b.judul} ${b.rak} ${b.ket}`.toLowerCase()}"><td><span class="p-butir"><span><strong>${b.judul}</strong><small>${b.ket}</small></span></span></td><td>${b.rak}</td><td><label class="p-centang"><input type="checkbox" name="unggulan" value="${b.id}"${raw(unggulan.has(b.id) ? ' checked' : '')}><span>Unggulan</span></label></td><td>${b.bisaSembunyi ? html`<label class="p-centang"><input type="checkbox" name="sembunyi" value="${b.id}"${raw(sembunyi.has(b.id) ? ' checked' : '')}><span>Sembunyikan</span></label>` : html`<span class="p-kecil">—</span>`}</td></tr>`)}
+      </tbody></table></div>
+      <div class="p-form-kaki p-kaki-lekat"><button class="tbl tbl-emas" type="submit">Simpan pengaturan rak</button><a class="tbl-teks" href="/pustaka" target="_blank" rel="noopener">Lihat perpustakaan ↗</a></div>
+    </form>`,
+  });
+});
+
+portal.post('/portal/pustaka', async (c) => {
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.yayasan.tingkat) return tolak(c);
+  const store = c.get('store');
+  const f = (await c.req.parseBody({ all: true })) as Record<string, unknown>;
+  const daftarId = (v: unknown) => (Array.isArray(v) ? v : v === undefined ? [] : [v]).map(String).filter((x) => /^[kp]-[A-Za-z0-9_-]{1,80}$/.test(x));
+  const ada = new Set((await katalogBawaan(c.env)).map((b) => b.id));
+  const sembunyi = [...new Set(daftarId(f.sembunyi).filter((x) => ada.has(x)))];
+  const unggulan = [...new Set(daftarId(f.unggulan))].slice(0, 200);
+  await store.cas<AturPustaka>(ATUR_KEY, () => ({ sembunyi, unggulan, ubah: Date.now() }), 'Pengaturan rak');
+  await catat(c, 'pustaka.atur', `${unggulan.length} unggulan, ${sembunyi.length} disembunyikan`);
+  return c.redirect('/portal/pustaka?ok=simpan');
 });
 
 /* ── isi (koleksi) ──────────────────────────────────────────────────────── */

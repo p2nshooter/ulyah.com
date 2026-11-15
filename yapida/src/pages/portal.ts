@@ -105,7 +105,8 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     <p>Isi</p>
     ${isi.map((k) => tautan(`/portal/k/${k.id}`, k.nama, k.privat ? 'surat' : 'pena', o.hitung?.[k.id])).join('')}
     ${dok.length ? `<p>Dokumen &amp; cetak</p>${dok.map((k) => tautan(`/portal/k/${k.id}`, k.nama, IKON_DOK[k.id] ?? 'pena')).join('')}${t >= PERAN.lembaga.tingkat ? tautan('/portal/penghargaan/massal', 'Sertifikat massal', 'bintang') : ''}` : ''}
-    ${t >= PERAN.yayasan.tingkat ? `<p>Yayasan</p>${tautan('/portal/situs', 'Pengaturan situs', 'buku')}${tautan('/portal/halaman', 'Halaman', 'buku')}` : ''}
+    ${t >= PERAN.lembaga.tingkat ? tautan('/portal/halaman', 'Halaman', 'buku') : ''}
+    ${t >= PERAN.yayasan.tingkat ? `<p>Yayasan</p>${tautan('/portal/situs', 'Pengaturan situs', 'buku')}${tautan('/portal/pustaka', 'Rak perpustakaan', 'buku')}` : ''}
     ${t >= PERAN.kepala.tingkat ? `<p>Akses</p>${tautan('/portal/pengguna', 'Akun & PIN', 'tangan')}` : ''}
     ${t >= PERAN.ketua.tingkat ? tautan('/portal/log', 'Log aktivitas', 'tasbih') : ''}
     <p>Akun</p>

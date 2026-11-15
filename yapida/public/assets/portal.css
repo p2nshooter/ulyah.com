@@ -203,3 +203,5 @@ a.p-butir:hover strong{color:var(--z600);text-decoration:underline}
 .p-desain-butir.d-lavender{--sw-latar:#f3ecfc;--sw-bingkai:#b79be0;--sw-emas:#e0a72e;--sw-aksen:#6c4ba3}
 .p-desain-butir.d-ceria{--sw-latar:#fff;--sw-bingkai:#f3a712;--sw-emas:#29bf12;--sw-aksen:#e4572e}
 .p-desain-butir.d-ceria .p-desain-contoh{box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 7px transparent;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(120deg,#e4572e,#f3a712,#29bf12,#00a5cf,#9d4edd) border-box;border:4px solid transparent}
+
+.p-kaki-lekat{position:sticky;bottom:0;z-index:3;padding:.8rem 0;background:linear-gradient(180deg,transparent,var(--permukaan) 35%)}
