@@ -17,13 +17,15 @@ import {
 } from '../data/users.ts';
 import { getHalaman, getSitus, getUnit, hapusHalaman, listHalaman, listUnits, lupakan, putHalaman, putSitus, putUnit, unitKey, type UnitItem } from '../data/site.ts';
 import { KELOMPOK, URUTAN_KELOMPOK, type Halaman, type Kelompok, type Situs, type Suara, type Unit, unitRingkas } from '../data/model.ts';
-import { ambil, bacaBidang, daftar, hapus, simpan, STATUS, type Dok, type Koleksi, type Status } from '../data/koleksi.ts';
+import { ambil, bacaBidang, daftar, STATUS, type Dok, type Koleksi, type Status } from '../data/koleksi.ts';
 import { KOLEKSI, koleksi } from '../data/defs.ts';
 import { BerkasDitolak, unggah, urlBerkas } from '../data/media.ts';
 import {
   bagian, centang, daftarDok, formDok, isian, kartuPin, masukPage, pasangPage, pilihan, portalPage, tabelAkun, unggahTunggal, type Kilat,
 } from '../pages/portal.ts';
 import { publikDok } from './konten.ts';
+import { hapusTerkait, simpanTerkait, statusTagihan } from '../data/kait.ts';
+import { posisi } from '../data/siswa.ts';
 import { ATUR_KEY, katalogBawaan, type AturPustaka } from '../data/pustaka.ts';
 import { RAK_ID } from '../data/buku.ts';
 import { JENIS_PENGHARGAAN, PILIHAN_DESAIN, nomorBerikut } from '../data/dokumen.ts';
@@ -41,10 +43,10 @@ function rahasia(c: Ctx): string {
 }
 const pepper = (c: Ctx) => hmac(rahasia(c), 'yapida-pin-pepper-v1');
 const ipDari = (c: Ctx) => c.req.header('cf-connecting-ip') ?? 'lokal';
-const mediaUrl = (c: Ctx) => (f: string) => urlBerkas(c.env, f);
-const tanpaCache = { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' };
+export const mediaUrl = (c: Ctx) => (f: string) => urlBerkas(c.env, f);
+export const tanpaCache = { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' };
 
-async function catat(c: Ctx, aksi: string, rinci: string): Promise<void> {
+export async function catat(c: Ctx, aksi: string, rinci: string): Promise<void> {
   const u = c.get('user');
   await c.get('store').append('audit', { at: Date.now(), u: u?.id ?? '-', n: u?.nama ?? '-', aksi, rinci }, { n: u?.nama ?? '-', a: aksi, r: rinci.slice(0, 160) });
 }
@@ -57,10 +59,10 @@ const kilatDari = (c: Ctx): Kilat => {
   return ok && PESAN[ok] ? { ok: PESAN[ok] } : {};
 };
 
-function tampil(c: Ctx, o: { judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; status?: 200 | 400 | 403 | 404 | 429 }, hitung?: Record<string, number>) {
+export function tampil(c: Ctx, o: { judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; status?: 200 | 400 | 403 | 404 | 429 }, hitung?: Record<string, number>) {
   return c.html(portalPage({ user: c.get('user')!, judul: o.judul, aktif: o.aktif, body: o.body, kilat: o.kilat ?? kilatDari(c), aksi: o.aksi, hitung }), o.status ?? 200, tanpaCache);
 }
-const tolak = (c: Ctx, pesan = 'Anda tidak berhak membuka halaman ini.') => tampil(c, { judul: 'Tidak diizinkan', aktif: '', body: html`<div class="p-kartu"><p>${pesan}</p><a class="tbl tbl-garis" href="/portal">Ke dasbor</a></div>`, status: 403 });
+export const tolak = (c: Ctx, pesan = 'Anda tidak berhak membuka halaman ini.') => tampil(c, { judul: 'Tidak diizinkan', aktif: '', body: html`<div class="p-kartu"><p>${pesan}</p><a class="tbl tbl-garis" href="/portal">Ke dasbor</a></div>`, status: 403 });
 
 /* ── masuk & pemasangan pertama ─────────────────────────────────────────── */
 
@@ -164,7 +166,7 @@ export const jaga = async (c: Ctx, next: () => Promise<void>) => {
 portal.use('/portal', jaga);
 portal.use('/portal/*', jaga);
 
-const unitsBoleh = async (c: Ctx): Promise<UnitItem[]> => {
+export const unitsBoleh = async (c: Ctx): Promise<UnitItem[]> => {
   const u = c.get('user')!;
   const semua = await listUnits(c.get('store'), true);
   return lingkupSemua(u) ? semua : semua.filter((x) => u.units.includes(x.slug));
@@ -247,7 +249,8 @@ function formLembaga(c: Ctx, x: Partial<Unit>, baru: boolean): Raw {
     ${isian('Kelas / tingkat (satu per baris)', 'kelas', (x.kelas ?? []).join('\n'), { baris: 4, bantuan: 'Dipakai rak perpustakaan dan bank soal lembaga ini.' })}
     ${isian('Sarana (satu per baris)', 'fasilitas', (x.fasilitas ?? []).join('\n'), { baris: 4 })}
     <div class="p-baris">${isian('Waktu belajar / layanan', 'jadwal', x.jadwal, { maks: 120 })}${isian('Kurikulum', 'kurikulum', x.kurikulum, { maks: 160 })}</div>
-    ${isian('Alamat', 'alamat', x.alamat, { baris: 2, maks: 300 })}`)}
+    ${isian('Alamat', 'alamat', x.alamat, { baris: 2, maks: 300 })}
+    <div class="p-baris">${isian('NSM (12 angka)', 'nsm', x.nsm, { maks: 12, bantuan: 'Nomor Statistik Madrasah — impor file master mencocokkan siswa ke lembaga ini lewat NSM.' })}${isian('NPSN (8 angka)', 'npsn', x.npsn, { maks: 8 })}${isian('NIP/NUPTK kepala', 'nipKepala', x.nipKepala, { maks: 30 })}</div>`)}
   ${bagian('Kontak & media sosial', html`<div class="p-baris">${isian('Telepon', 'telepon', x.kontak?.telepon, { maks: 30 })}${isian('WhatsApp', 'wa', x.kontak?.wa, { maks: 30 })}${isian('E-mail', 'email', x.kontak?.email, { jenis: 'email', maks: 100 })}</div>
     <div class="p-baris">${isian('YouTube', 'youtube', x.sosmed?.youtube, { jenis: 'url' })}${isian('Facebook', 'facebook', x.sosmed?.facebook, { jenis: 'url' })}</div>
     <div class="p-baris">${isian('Instagram', 'instagram', x.sosmed?.instagram, { jenis: 'url' })}${isian('TikTok', 'tiktok', x.sosmed?.tiktok, { jenis: 'url' })}${isian('Situs web', 'situs', x.sosmed?.situs, { jenis: 'url' })}</div>
@@ -276,6 +279,7 @@ function bacaLembaga(f: Record<string, unknown>, lama: Partial<Unit>, semua: boo
     kontak: { telepon: opsional(teks(f, 'telepon', 30)), wa: opsional(teks(f, 'wa', 30)), email: opsional(teks(f, 'email', 100)) },
     sosmed: { youtube: urlAman(teks(f, 'youtube')), facebook: urlAman(teks(f, 'facebook')), instagram: urlAman(teks(f, 'instagram')), tiktok: urlAman(teks(f, 'tiktok')), situs: urlAman(teks(f, 'situs')) },
     ytKanal: /^UC[\w-]{22}$/.test(teks(f, 'ytKanal', 40)) ? teks(f, 'ytKanal', 40) : undefined,
+    nsm: opsional(teks(f, 'nsm', 12).replace(/\D/g, '')), npsn: opsional(teks(f, 'npsn', 8).replace(/\D/g, '')), nipKepala: opsional(teks(f, 'nipKepala', 30)),
   };
 }
 
@@ -572,9 +576,31 @@ portal.get('/portal/k/:kol/baru', async (c) => {
   const units = await unitsBoleh(c);
   const minta = c.req.query('unit') ?? '';
   const unit = minta && bolehUnit(u, minta) ? minta : lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
+  let unitPakai = unit;
   const d: Record<string, unknown> = def.id === 'video' ? { jenis: 'video' } : def.id === 'kabar' ? { kategori: 'kegiatan' } : def.id === 'ppdb' ? { formulir: true } : await awalDokumen(c, def.id, unit);
-  const judulAwal = def.id === 'kop' ? await judulKop(c, unit) : undefined;
-  return halamanForm(c, def, { unit, status: bolehTayang(u) ? 'tayang' : 'tinjau', d, ...(judulAwal ? { judul: judulAwal } : {}) }, units);
+  let judulAwal = def.id === 'kop' ? await judulKop(c, unit) : undefined;
+  // Dari profil siswa (?siswa=) atau tombol „Bayar“ tagihan (?tagihan=): nama, NISN, kelas, dan jumlah terisi otomatis.
+  const store = c.get('store');
+  const sid = c.req.query('siswa'), tid = c.req.query('tagihan');
+  if (sid && ['penghargaan', 'kwitansi', 'tagihan'].includes(def.id)) {
+    const sw = await ambil(store, 'siswa', sid);
+    if (sw && bolehUnit(u, sw.unit)) {
+      const p = posisi(sw.d, sw.unit);
+      unitPakai = sw.unit;
+      Object.assign(d, def.id === 'penghargaan' ? await awalDokumen(c, def.id, sw.unit) : {}, { nisn: String(sw.d.nisn || sw.d.nis || ''), kelas: `${p.tingkat}${p.rombel ? ` ${p.rombel}` : ''}` });
+      judulAwal = sw.judul;
+    }
+  }
+  if (tid && def.id === 'kwitansi') {
+    const tg = await ambil(store, 'tagihan', tid);
+    if (tg && bolehUnit(u, tg.unit)) {
+      const st = statusTagihan(tg.d, hariIni());
+      unitPakai = tg.unit;
+      Object.assign(d, { nisn: tg.d.nisn, tagihan: tg.id, untuk: tg.d.untuk, keterangan: String(tg.d.periode ?? ''), jumlah: st.sisa || Number(tg.d.jumlah) || 0, kelas: String(tg.d.kelas ?? ''), lunas: true });
+      judulAwal = tg.judul;
+    }
+  }
+  return halamanForm(c, def, { unit: unitPakai, status: bolehTayang(u) ? 'tayang' : 'tinjau', d, ...(judulAwal ? { judul: judulAwal } : {}) }, units);
 });
 
 portal.get('/portal/k/:kol/:id', async (c) => {
@@ -635,13 +661,19 @@ async function simpanDok(c: Ctx) {
   if (!def.privat && !bolehUnit(u, unit)) galat.unit = 'Anda tidak mengelola lembaga ini.';
   if (unit !== 'yayasan' && !units.some((x) => x.slug === unit) && !def.privat) galat.unit = 'Lembaga tidak dikenal.';
   if (Object.keys(galat).length) return halamanForm(c, def, { id: lama?.id, slug: lama?.slug, unit, status, judul, tanggal: String(f.tanggal ?? ''), d: { ...form, ...d } }, units, galat, 400);
-  // Nomor otomatis (sertifikat, kwitansi, surat): dibuat sekali saat pertama disimpan bila dikosongkan; nomor lama dipertahankan.
-  if (def.nomorOtomatis && typeof d[def.nomorOtomatis] !== 'string') {
-    const lamaNo = lama?.d[def.nomorOtomatis];
-    d[def.nomorOtomatis] = typeof lamaNo === 'string' && lamaNo ? lamaNo : await nomorBerikut(store, def.id, unit, d);
-  }
-  const dok = await simpan(store, def, { id: lama?.id, unit, status, judul, tanggal: String(f.tanggal ?? '') || undefined, d, penulis: u.id, penulisNama: u.nama });
-  await catat(c, `${def.id}.${lama ? 'ubah' : 'buat'}`, `${dok.judul} (${dok.unit}, ${STATUS[dok.status]})`);
+  // Kait (NISN unik, indeks portal siswa, pembayaran tagihan) + nomor otomatis sesudah lolos pemeriksaan: nomor dibuat
+  // sekali saat pertama disimpan bila dikosongkan; nomor lama dipertahankan.
+  const hasil = await simpanTerkait(store, def, {
+    id: lama?.id, lama, unit, status, judul, tanggal: String(f.tanggal ?? '') || undefined, d, penulis: u.id, penulisNama: u.nama,
+    sebelumTulis: async (x) => {
+      if (!def.nomorOtomatis || typeof x[def.nomorOtomatis] === 'string') return;
+      const lamaNo = lama?.d[def.nomorOtomatis];
+      x[def.nomorOtomatis] = typeof lamaNo === 'string' && lamaNo ? lamaNo : await nomorBerikut(store, def.id, unit, x);
+    },
+  }, KOLEKSI);
+  if (hasil.galat) return halamanForm(c, def, { id: lama?.id, slug: lama?.slug, unit, status, judul, tanggal: String(f.tanggal ?? ''), d: { ...form, ...d } }, units, hasil.galat, 400);
+  const dok = hasil.dok!;
+  await catat(c, `${def.id}.${lama ? 'ubah' : 'buat'}`, `${dok.judul} (${dok.unit}${def.tanpaPublik ? '' : `, ${STATUS[dok.status]}`})`);
   return c.redirect(`/portal/k/${def.id}/${dok.id}?ok=simpan`);
 }
 portal.post('/portal/k/:kol/baru', simpanDok);
@@ -654,7 +686,7 @@ portal.post('/portal/k/:kol/:id/hapus', async (c) => {
   const d = await ambil(store, def.id, c.req.param('id'));
   if (!d) return c.notFound();
   if (!(await bolehDok(c, def, d))) return tolak(c);
-  await hapus(store, def, d.id);
+  await hapusTerkait(store, def, d.id, KOLEKSI);
   await catat(c, `${def.id}.hapus`, d.judul);
   return c.redirect(`/portal/k/${def.id}?ok=hapus`);
 });
@@ -738,9 +770,9 @@ portal.post('/portal/penghargaan/massal', async (c) => {
     const form: Record<string, unknown> = { jenis: nilai.jenis, desain: nilai.desain, kegiatan: nilai.kegiatan, tahun: nilai.tahun, ttd1Nama: nilai.ttd1Nama, ttd1Jabatan: nilai.ttd1Jabatan, ttd2Nama: nilai.ttd2Nama, ttd2Jabatan: nilai.ttd2Jabatan, capaian: capaian ?? '', predikat: predikat ?? '', kelas: kelas ?? '', nisn: (nisn ?? '').replace(/\D/g, '') };
     const { d, galat } = bacaBidang(def, form);
     if (Object.keys(galat).length) return ulang(`Baris „${nama}“: ${Object.entries(galat).map(([k, g]) => `${def.bidang.find((b) => b.k === k)?.label ?? k} — ${g}`).join('; ')}`);
-    d.nomor = await nomorBerikut(store, def.id, unit, d);
-    const dok = await simpan(store, def, { unit, status: 'tayang', judul: nama!.slice(0, 160), tanggal: nilai.tanggal || undefined, d, penulis: u.id, penulisNama: u.nama });
-    ids.push(dok.id);
+    const h = await simpanTerkait(store, def, { unit, status: 'tayang', judul: nama!.slice(0, 160), tanggal: nilai.tanggal || undefined, d, penulis: u.id, penulisNama: u.nama, sebelumTulis: async (x) => { x.nomor = await nomorBerikut(store, def.id, unit, x); } }, KOLEKSI);
+    if (h.galat) return ulang(`Baris „${nama}“: ${Object.values(h.galat).join('; ')}`);
+    ids.push(h.dok!.id);
   }
   await catat(c, 'penghargaan.massal', `${ids.length} sertifikat (${unit}, ${nilai.jenis})`);
   return c.redirect(`/portal/cetak-banyak/penghargaan?${ids.map((id) => `id=${id}`).join('&')}`);

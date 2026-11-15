@@ -57,6 +57,7 @@ export function masukPage(o: { akun: UserItem[]; units: UnitItem[]; papan: Raw; 
     ${o.papan}
   </form>
   <p class="p-kecil">PIN 5 angka. Letak angka diacak setiap kali papan muncul. Lima kali salah, akun dikunci sementara.</p>
+  <p class="p-kecil"><a href="/siswa">Siswa? Masuk ke Portal Siswa dengan NISN &amp; tanggal lahir →</a></p>
 </main>
 <script src="/assets/portal.js?v=${ASSET_V}" defer></script>
 </body>
@@ -104,6 +105,7 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/lembaga', 'Profil lembaga', 'kubah') : ''}
     <p>Isi</p>
     ${isi.map((k) => tautan(`/portal/k/${k.id}`, k.nama, k.privat ? 'surat' : 'pena', o.hitung?.[k.id])).join('')}
+    ${t >= PERAN.lembaga.tingkat ? `<p>Kesiswaan</p>${tautan('/portal/siswa', 'Data siswa', 'tangan')}${tautan('/portal/siswa/impor', 'Impor file master', 'buku')}${tautan('/portal/tagihan', 'Tagihan & pembayaran', 'niaga')}${tautan('/portal/laporan', 'Laporan & grafik', 'bintang')}` : ''}
     ${dok.length ? `<p>Dokumen &amp; cetak</p>${dok.map((k) => tautan(`/portal/k/${k.id}`, k.nama, IKON_DOK[k.id] ?? 'pena')).join('')}${t >= PERAN.lembaga.tingkat ? tautan('/portal/penghargaan/massal', 'Sertifikat massal', 'bintang') : ''}` : ''}
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/halaman', 'Halaman', 'buku') : ''}
     ${t >= PERAN.yayasan.tingkat ? `<p>Yayasan</p>${tautan('/portal/situs', 'Pengaturan situs', 'buku')}${tautan('/portal/pustaka', 'Rak perpustakaan', 'buku')}` : ''}
@@ -137,6 +139,7 @@ function kontrolUnggah(nama: string, nilai: string, jenis: 'gambar' | 'pdf', med
 function bidangHtml(b: Bidang, v: unknown, galat: string | undefined, mediaUrl: (f: string) => string, kelasUnit: string[]): Raw {
   const nama = `d_${b.k}`;
   const s = typeof v === 'string' || typeof v === 'number' ? String(v) : '';
+  if (b.sembunyi) return html`<input type="hidden" name="${nama}" value="${s}">`;
   let kontrol: Raw;
   switch (b.jenis) {
     case 'paragraf': kontrol = html`<textarea name="${nama}" rows="3"${raw(b.maks ? ` maxlength="${b.maks}"` : '')}>${s}</textarea>`; break;

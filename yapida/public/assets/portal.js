@@ -225,4 +225,70 @@
       baris.forEach(function (tr) { var t = tr.getAttribute('data-cari') || ''; tr.hidden = !kata.every(function (k) { return t.indexOf(k) >= 0; }); });
     });
   });
+
+  /* ── kesiswaan: saringan langsung, unggah seret-lepas, pekerjaan bertahap, cetak ── */
+  $$('form[data-saring-otomatis]').forEach(function (f) {
+    $$('select', f).forEach(function (s) { s.addEventListener('change', function () { if (f.requestSubmit) f.requestSubmit(); else f.submit(); }); });
+  });
+  $$('[data-jatuh]').forEach(function (z) {
+    var inp = $('input[type=file]', z), nama = $('[data-jatuh-nama]', z);
+    var tampil = function () {
+      var b = inp.files && inp.files[0];
+      if (nama) nama.textContent = b ? (inp.files.length > 1 ? '✓ ' + inp.files.length + ' berkas dipilih' : '✓ ' + b.name + ' (' + Math.ceil(b.size / 1024) + ' KB)') : '';
+      z.classList.toggle('terisi', !!b);
+    };
+    inp.addEventListener('change', tampil);
+    ['dragenter', 'dragover'].forEach(function (e) { z.addEventListener(e, function (ev) { ev.preventDefault(); z.classList.add('seret'); }); });
+    ['dragleave', 'drop'].forEach(function (e) { z.addEventListener(e, function () { z.classList.remove('seret'); }); });
+    z.addEventListener('drop', function (ev) { ev.preventDefault(); if (ev.dataTransfer && ev.dataTransfer.files.length) { inp.files = ev.dataTransfer.files; tampil(); } });
+  });
+  $$('form[data-impor]').forEach(function (f) {
+    f.addEventListener('submit', function () { var b = $('button[type=submit]', f); if (b) { b.disabled = true; b.textContent = 'Membaca file…'; } });
+  });
+  $$('[data-kerja]').forEach(function (kotak) {
+    if (kotak.getAttribute('data-selesai') === '1') return;
+    var id = kotak.getAttribute('data-kerja'), bar = $('.ks-progres span', kotak), teks = $('[data-kerja-teks]', kotak), lanjut = $('.ks-kerja-lanjut', kotak);
+    if (lanjut) lanjut.hidden = true;
+    var ubin = $$('.g-ubin-nilai', kotak), gagal = 0;
+    var angka = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+    var langkah = function () {
+      fetch('/portal/kerja/' + encodeURIComponent(id) + '/lanjut', { method: 'POST', headers: { accept: 'application/json' }, credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (j) {
+          gagal = 0;
+          var persen = j.total ? Math.round(j.pos / j.total * 100) : 100;
+          if (bar) bar.style.width = persen + '%';
+          var pb = $('.ks-progres', kotak); if (pb) pb.setAttribute('aria-valuenow', j.pos);
+          if (j.hasil && ubin.length >= 4) { ubin[0].textContent = angka(j.hasil.baru); ubin[1].textContent = angka(j.hasil.ubah); ubin[2].textContent = angka(j.hasil.lewat); ubin[3].textContent = angka(j.hasil.gagalN); }
+          if (j.selesai) { if (teks) teks.textContent = 'Selesai — ' + angka(j.total) + ' baris diproses. Memuat hasil…'; setTimeout(function () { location.reload(); }, 600); return; }
+          if (teks) teks.textContent = 'Memproses ' + angka(j.pos) + ' dari ' + angka(j.total) + ' baris… jangan tutup halaman ini.';
+          langkah();
+        })
+        .catch(function () {
+          gagal += 1;
+          if (gagal > 4) { if (teks) teks.textContent = 'Koneksi terputus. Tekan Lanjutkan untuk meneruskan.'; if (lanjut) lanjut.hidden = false; return; }
+          setTimeout(langkah, 1500 * gagal);
+        });
+    };
+    langkah();
+  });
+  $$('[data-cetak-halaman]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
+
+  /* ── grafik: keterangan saat disorot / difokus (teks lewat textContent) ── */
+  var tip = null;
+  var tunjuk = function (el, x, y) {
+    if (!tip) { tip = d.createElement('div'); tip.className = 'g-tip'; tip.setAttribute('role', 'status'); d.body.appendChild(tip); }
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x - w / 2)) + 'px';
+    tip.style.top = Math.max(8, y - h - 12) + 'px';
+  };
+  var sembunyi = function () { if (tip) tip.hidden = true; };
+  $$('[data-tip]').forEach(function (el) {
+    el.addEventListener('pointermove', function (e) { tunjuk(el, e.clientX, e.clientY); });
+    el.addEventListener('pointerleave', sembunyi);
+    el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); tunjuk(el, r.left + r.width / 2, r.top); });
+    el.addEventListener('blur', sembunyi);
+  });
 })();

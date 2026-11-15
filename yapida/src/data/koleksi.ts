@@ -29,6 +29,8 @@ export interface Bidang {
   bantuan?: string;
   /** Ikut disalin ke ringkasan indeks (nilai pendek saja). */
   indeks?: boolean;
+  /** Tidak tampil di formulir (nilai dibawa sebagai input tersembunyi), mis. tautan tagihan pada kwitansi. */
+  sembunyi?: boolean;
 }
 
 export interface Koleksi {
@@ -58,7 +60,7 @@ export interface Koleksi {
   /** Bidang nomor yang diisi otomatis saat pertama disimpan bila dikosongkan (src/data/dokumen.ts nomorBerikut). */
   nomorOtomatis?: string;
   /** Kelompok menu portal (bawaan: Isi). */
-  menu?: 'isi' | 'dokumen';
+  menu?: 'isi' | 'dokumen' | 'siswa';
 }
 
 export interface FotoGaleri { f: string; k?: string; ket?: string }

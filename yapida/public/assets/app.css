@@ -431,3 +431,10 @@ html.js .kartu-unit.muncul.tampak{transform:rotateX(calc(var(--ry,0)*1deg)) rota
 .rm-kabar{position:fixed;left:50%;top:5.2rem;z-index:61;max-width:min(520px,calc(100vw - 2rem));padding:.7rem 1.1rem;border-radius:14px;background:#04281b;color:#fdf8e6;border:1px solid rgba(236,217,144,.5);box-shadow:0 20px 40px -16px rgba(0,0,0,.7);font-size:.88rem;transform:translate(-50%,-14px);opacity:0;pointer-events:none;transition:opacity .4s,transform .4s}
 .rm-kabar.tampil{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){.rm.main .rm-live{animation:none}.rm-kabar{transition:none}}
+
+/* tombol Portal Siswa di kepala situs */
+.tbl-siswa{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .9rem;border-radius:999px;border:1px solid var(--e400);background:linear-gradient(135deg,rgba(220,191,98,.18),rgba(220,191,98,.04));color:var(--z700);font-weight:700;font-size:.86rem;text-decoration:none;white-space:nowrap;transition:transform .2s,background .2s}
+.tbl-siswa:hover{transform:translateY(-1px);background:var(--emas-grad);color:#241a00}
+.tbl-siswa .ik{width:16px;height:16px}
+[data-tema="malam"] .tbl-siswa{color:var(--e300)}
+@media (max-width:520px){.tbl-siswa span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.tbl-siswa{padding:.6rem}}
