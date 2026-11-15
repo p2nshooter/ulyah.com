@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // luaja.com — LUAJA, belajar bahasa Jerman · Inggris · Jepang (docs/LUAJA-BLUEPRINT.md). Alamat cadangan:
+  // https://luaja-com.<subdomain>.workers.dev
+  "name": "luaja-com",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  // workers.dev tetap menyala walau domain sendiri sudah terpasang (alamat cadangan, noindex).
+  "workers_dev": true,
+  // Domain sendiri disisipkan saat deploy, hanya bila zonanya sudah aktif — lihat .github/workflows/deploy-luaja.yml.
+  // __CUSTOM_DOMAIN_ROUTES__
+  "assets": { "directory": "./public", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none" },
+  "observability": { "enabled": true },
+  // Aturan tetap pemilik: SEMUA data di R2, tidak pernah D1.
+  "r2_buckets": [
+    { "binding": "DATA", "bucket_name": "luaja-data" },
+    { "binding": "MEDIA", "bucket_name": "luaja-media" },
+    { "binding": "BACKUPS", "bucket_name": "luaja-backups" }
+  ],
+  // KV hanya untuk penghitung batas laju (id disisipkan saat deploy); data tahan lama tidak pernah di KV.
+  "kv_namespaces": [{ "binding": "RL", "id": "__KV_NAMESPACE_ID__" }],
+  // Tanpa cron Cloudflare: batas 5 cron per akun (paket Workers gratis) sudah terpakai situs lain. Cadangan harian dan
+  // langkah latar berjalan lewat POST /api/ops/tick (workflow) dan saat ada kunjungan.
+  "triggers": { "crons": [] },
+  "vars": { "CANONICAL_HOST": "", "MEDIA_BASE": "" }
+}

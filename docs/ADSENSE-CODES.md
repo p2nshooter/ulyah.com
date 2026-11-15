@@ -38,6 +38,11 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >   `<meta name="google-adsense-account" content="ca-pub-6701063918838796">`, baris ads.txt
 >   `google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0`. Hari yang sama: **yapida.sch.id** masuk daftar (akun
 >   utama `ca-pub-8212039662308316`, 22 akun). `docs/ADSENSE-BLUEPRINT.md` §23.7.
+> - **14 Nov 2026 (luaja.com):** „Gunakan website luaja.com … untuk pendaftaran adsense“ → **luaja.com** masuk daftar dengan
+>   akun utama `ca-pub-6701063918838796` (22 akun, Worker `luaja-com`, folder `luaja/`). Loader
+>   `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796" crossorigin="anonymous"></script>`,
+>   tag meta `<meta name="google-adsense-account" content="ca-pub-6701063918838796">` (+ 21 tag meta akun tumpukan), baris
+>   ads.txt `google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0` (+ 21 baris tumpukan). `docs/LUAJA-BLUEPRINT.md`.
 > - Bagian-bagian di bawah ini adalah **riwayat** sebelum 7 Nov 2026.
 
 > **4 Okt 2026, SATU AKUN UNTUK SEMUA.** Pemilik: "sy mau focus jadi 1 akun

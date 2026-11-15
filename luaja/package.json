@@ -1,0 +1,23 @@
+{
+  "name": "luaja-com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "luaja.com — LUAJA: Learning Universal for Achievement, Journey & Advancement. Belajar bahasa Jerman, Inggris dan Jepang (+ TOEFL/IELTS) untuk penutur Indonesia: pelajaran interaktif berurutan, pustaka buku bebas yang dibacakan dan diterjemahkan, video dengan transkrip jadi kosakata, portal member berbayar, portal admin. Cloudflare Workers, data hanya di R2.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node --import tsx --test test/*.test.ts",
+    "e2e": "bash test/run-e2e.sh"
+  },
+  "dependencies": {
+    "hono": "4.13.16"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261102.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "wrangler": "4.156.1"
+  }
+}
