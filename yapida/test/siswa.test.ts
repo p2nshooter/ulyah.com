@@ -174,6 +174,22 @@ test('impor bertahap → daftar siswa → portal siswa (NISN/NIS + tanggal lahir
   assert.doesNotMatch(await (await minta(e, '/portal/siswa', { headers: { cookie: kueMts } })).text(), /Anak Uji Satu/);
 });
 
+test('impor lewat hasil baca peramban (paket Workers gratis): data dari klien diperiksa ulang di server', async () => {
+  const e = env();
+  const kue = await masukSebagai(e, 'lembaga', ['mi-al-huda']);
+  const hasil = bacaMaster([{ nama: 'Kelas 4', baris: [['Nama', 'NISN', 'Tgl Lahir', 'JK', 'Kelas'], ['ANAK UJI KLIEN', '0161111111', '5 Jan 2016', 'L', '4B'], ['<script>alert(1)</script>', '1', '', '', '']] }]);
+  (hasil.siswa[0] as unknown as Record<string, unknown>).berbahaya = { x: 1 }; // bidang asing dibuang
+  const fd = new FormData();
+  fd.set('hasil_json', JSON.stringify(hasil)); fd.set('nama_berkas', 'kelas4.xlsx'); fd.set('mode', 'perbarui');
+  const r = await minta(e, '/portal/siswa/impor', { method: 'POST', headers: { cookie: kue, 'sec-fetch-site': 'same-origin' }, body: fd });
+  const t = await r.text();
+  assert.equal(r.status, 200);
+  assert.match(t, /Anak Uji Klien/);
+  assert.doesNotMatch(t, /<script>alert/);
+  const rusak = new FormData(); rusak.set('hasil_json', '{rusak'); 
+  assert.equal((await minta(e, '/portal/siswa/impor', { method: 'POST', headers: { cookie: kue, 'sec-fetch-site': 'same-origin' }, body: rusak })).status, 400);
+});
+
 test('portal siswa: lulus tidak bisa masuk, salah sandi berulang dikunci, data privat disamarkan', async () => {
   const e = env();
   const kue = await masukSebagai(e, 'super');

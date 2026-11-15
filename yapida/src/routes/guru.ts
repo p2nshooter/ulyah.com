@@ -14,7 +14,7 @@ import { ambil, BERKAS_RE, type Dok } from '../data/koleksi.ts';
 import { NAMA_GOLONGAN } from '../data/defs.ts';
 import { unggah, urlBerkas, BerkasDitolak } from '../data/media.ts';
 import { buatKerja, semuaIndeks } from '../data/kesiswaan.ts';
-import { bacaGuru, cocokFoto, KOLOM_GURU, LABEL_GURU, LEBAR_GURU, periksaGuru, type BarisGuruSimpan } from '../data/guru.ts';
+import { bacaGuru, guruDariJson, cocokFoto, KOLOM_GURU, LABEL_GURU, LEBAR_GURU, periksaGuru, type BarisGuruSimpan } from '../data/guru.ts';
 import { ubin, angka } from '../pages/grafik.ts';
 import { catat, jaga, tampil, tanpaCache, tolak, unitsBoleh } from './portal.ts';
 
@@ -26,7 +26,7 @@ const XLSX_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.s
 
 function formImpor(galat?: string) {
   return html`${galat ? html`<p class="p-kilat p-kilat-galat" role="alert">${galat}</p>` : ''}
-  <form method="post" action="/portal/guru/impor" enctype="multipart/form-data" class="p-kartu ks-impor" data-impor data-impor-guru>
+  <form method="post" action="/portal/guru/impor" enctype="multipart/form-data" class="p-kartu ks-impor" data-impor data-impor-guru data-impor-klien="guru">
     <div class="ks-jatuh" data-jatuh>
       <span class="ks-jatuh-ikon" aria-hidden="true">⇪</span>
       <strong>1. File data guru (Excel/CSV)</strong>
@@ -56,7 +56,7 @@ function formImpor(galat?: string) {
       <li>Judul kolom boleh berbeda dan urutannya bebas — sistem mengenalinya (mis. „Nama PTK“, „Mapel“, „Tugas Tambahan“, „No HP“).</li>
     </ol>
     <p class="p-kecil">Di situs hanya tampil <b>foto, nama, jabatan, dan fokus mengajar</b> — di halaman <a href="/struktur" target="_blank" rel="noopener">Struktur &amp; Guru</a> yayasan dan di halaman lembaganya masing-masing.</p>
-  </section>`;
+  </section><script src="/assets/impor.js" defer></script>`;
 }
 
 guru.get('/portal/guru/impor', (c) => {
@@ -105,23 +105,34 @@ guru.post('/portal/guru/impor', async (c) => {
   const ulang = (g: string, status: 400 | 429 = 400) => tampil(c, { judul: 'Impor data guru & pegawai', aktif: '/portal/guru/impor', body: formImpor(g), status });
   if (!(await limit(c.env, `impor-guru:${u.id}`, 30, 3600))) return ulang('Terlalu banyak unggahan dalam satu jam. Coba lagi nanti.', 429);
   const f = await c.req.parseBody({ all: true });
-  const berkas = f.berkas;
-  if (!(berkas instanceof File) || !berkas.size) return ulang('Pilih file data guru (.xlsx atau .csv) dulu.');
-  if (berkas.size > 25 * 1024 * 1024) return ulang('File lebih dari 25 MB — perkecil foto di dalam Excel atau unggah foto terpisah.');
-  const buf = new Uint8Array(await berkas.arrayBuffer());
-  let lembar, gambar: GambarSel[] = [];
-  try {
-    const csv = /\.csv$/i.test(berkas.name) || buf[0] !== 0x50;
-    lembar = csv ? [{ nama: berkas.name.replace(/\.[^.]+$/, '') || 'CSV', baris: bacaCsv(new TextDecoder().decode(buf)) }] : await bacaXlsx(buf);
-    if (!csv) gambar = await gambarXlsx(buf);
-  } catch (err) {
-    if (err instanceof BukanXlsx) return ulang('File tidak terbaca sebagai Excel (.xlsx). Simpan ulang sebagai .xlsx atau CSV.');
-    throw err;
+  let gambar: GambarSel[] = [];
+  let baca: { guru: ReturnType<typeof bacaGuru>['guru']; laporan: ReturnType<typeof bacaGuru>['laporan'] };
+  let jumlahGambar = 0;
+  let namaBerkas = String(f.nama_berkas ?? '').slice(0, 120) || 'file data guru';
+  if (typeof f.hasil_json === 'string' && f.hasil_json.length > 2) {
+    // Dibaca di peramban (src/klien/impor.ts); foto dari Excel sudah dikecilkan & diunggah, tinggal kuncinya.
+    if (f.hasil_json.length > 3_000_000) return ulang('Data terlalu besar — pisahkan file per lembaga.');
+    try { const j = guruDariJson(JSON.parse(f.hasil_json), BERKAS_RE); baca = j; jumlahGambar = j.gambar; } catch { return ulang('Hasil baca file rusak. Muat ulang halaman lalu coba lagi.'); }
+  } else {
+    const berkas = f.berkas;
+    if (!(berkas instanceof File) || !berkas.size) return ulang('Pilih file data guru (.xlsx atau .csv) dulu.');
+    if (berkas.size > 25 * 1024 * 1024) return ulang('File lebih dari 25 MB — perkecil foto di dalam Excel atau unggah foto terpisah.');
+    namaBerkas = berkas.name;
+    const buf = new Uint8Array(await berkas.arrayBuffer());
+    try {
+      const csv = /\.csv$/i.test(berkas.name) || buf[0] !== 0x50;
+      const lembar = csv ? [{ nama: berkas.name.replace(/\.[^.]+$/, '') || 'CSV', baris: bacaCsv(new TextDecoder().decode(buf)) }] : await bacaXlsx(buf);
+      if (!csv) gambar = await gambarXlsx(buf);
+      baca = bacaGuru(lembar, gambar);
+      jumlahGambar = gambar.length;
+    } catch (err) {
+      if (err instanceof BukanXlsx) return ulang('File tidak terbaca sebagai Excel (.xlsx). Simpan ulang sebagai .xlsx atau CSV.');
+      throw err;
+    }
   }
   const store = c.get('store');
   const units = await listUnits(store, true);
   const dikelola = lingkupSemua(u) ? null : u.units;
-  const baca = bacaGuru(lembar, gambar);
   const rows = periksaGuru(baca.guru, units, dikelola, (slug) => bolehUnit(u, slug));
   // Foto: (1) ditempel di Excel, (2) sudah diunggah peramban (peta nama file → kunci media), (3) dikirim mentah tanpa JS.
   let peta: Record<string, string> = {};
@@ -131,6 +142,7 @@ guru.post('/portal/guru/impor', async (c) => {
   let foto = 0;
   for (const r of rows) {
     if (r.galat.length) continue;
+    if (r.foto) { foto += 1; continue; } // sudah diunggah peramban
     if (r.gambar !== undefined && gambar[r.gambar] && gambar[r.gambar]!.jenis !== 'lain') {
       const k = await simpanFoto(c, gambar[r.gambar]!.data, r.unit!);
       if (k) { r.foto = k; foto += 1; continue; }
@@ -147,8 +159,8 @@ guru.post('/portal/guru/impor', async (c) => {
   const sah = rows.filter((r) => !r.galat.length);
   const status = bolehTayang(u) ? 'tayang' : 'tinjau';
   const baris: BarisGuruSimpan[] = sah.map(({ galat: _g, peringatan: _p, ...r }) => ({ r, unit: r.unit!, status }));
-  const kerja = sah.length ? await buatKerja(store, { jenis: 'guru', judul: `Menyimpan ${sah.length} guru & pegawai dari ${berkas.name}`.slice(0, 160), oleh: u.id, olehNama: u.nama, lingkup: dikelola, kembali: '/portal/k/sdm', opsi: { mode: f.mode === 'lewati' ? 'lewati' : 'perbarui' } }, baris) : null;
-  await catat(c, 'guru.impor.periksa', `${berkas.name}: ${rows.length} baris, ${sah.length} sah, ${foto} foto`);
+  const kerja = sah.length ? await buatKerja(store, { jenis: 'guru', judul: `Menyimpan ${sah.length} guru & pegawai dari ${namaBerkas}`.slice(0, 160), oleh: u.id, olehNama: u.nama, lingkup: dikelola, kembali: '/portal/k/sdm', opsi: { mode: f.mode === 'lewati' ? 'lewati' : 'perbarui' } }, baris) : null;
+  await catat(c, 'guru.impor.periksa', `${namaBerkas}: ${rows.length} baris, ${sah.length} sah, ${foto} foto`);
   const nama = (slug?: string) => units.find((x) => x.slug === slug)?.singkat ?? slug ?? '—';
   const salah = rows.filter((r) => r.galat.length);
   const tanpaFoto = sah.filter((r) => !r.foto).length;
@@ -159,7 +171,7 @@ guru.post('/portal/guru/impor', async (c) => {
     ${sah.length ? html`<section class="p-kartu"><h2>Tampilan di situs</h2><p class="p-kecil">Hanya foto, nama, jabatan, dan fokus mengajar yang tampil. Data kepegawaian tetap privat.</p>
       <div class="gr-kisi">${sah.slice(0, 120).map((r) => html`<figure class="gr-kartu"><span class="gr-foto">${r.foto ? html`<img src="${urlBerkas(c.env, r.foto)}" alt="" loading="lazy">` : html`<span aria-hidden="true">${r.nama.charAt(0)}</span>`}</span><figcaption><b>${r.nama}</b><span>${r.jabatan || 'Guru'}</span>${r.fokus ? html`<small>${r.fokus}</small>` : ''}<em>${nama(r.unit)} · ${NAMA_GOLONGAN[['pimpinan', 'guru', 'staf'].includes(r.golongan.toLowerCase()) ? r.golongan.toLowerCase() : 'guru'] ?? 'Guru'}</em>${r.peringatan.length ? html`<small class="gr-awas">${r.peringatan.join(' ')}</small>` : ''}</figcaption></figure>`)}</div></section>` : ''}
     <section class="p-kartu"><h2>Cara file Anda dibaca</h2>${baca.laporan.map((l) => html`<details class="ks-lembar" open><summary><b>Lembar „${l.nama}“</b> — ${l.guru ? html`${angka(l.guru)} guru, judul kolom di baris ${l.barisJudul}` : 'tidak ada tabel guru'}</summary>${l.kolom.length ? html`<ul class="ks-peta">${l.kolom.map((k) => html`<li><b>${LABEL_GURU[k.kunci]}</b><span>← ${k.dari}</span></li>`)}</ul>` : ''}</details>`)}
-      ${gambar.length ? html`<p class="p-kecil">${angka(gambar.length)} foto ditemukan di dalam file Excel.</p>` : ''}</section>
+      ${jumlahGambar ? html`<p class="p-kecil">${angka(jumlahGambar)} foto ditemukan di dalam file Excel.</p>` : ''}</section>
     ${salah.length ? html`<section class="p-kartu"><h2>Perlu diperbaiki (${angka(salah.length)})</h2><div class="p-tabel"><table><thead><tr><th>Lembar · baris</th><th>Nama</th><th>Masalah</th></tr></thead><tbody>${salah.map((r) => html`<tr><td>${r.sumber} · ${r.baris}</td><td>${r.nama}</td><td>${r.galat.join(' ')}</td></tr>`)}</tbody></table></div></section>` : ''}`,
   });
 });

@@ -252,6 +252,36 @@ function bacaLembagaLembar(l: Lembar, i: number): BarisLembaga[] {
   return out;
 }
 
+const str = (v: unknown, n = 300) => (typeof v === 'string' ? v.slice(0, n) : typeof v === 'number' ? String(v).slice(0, n) : '');
+const KUNCI_TEKS = ['nsm', 'jenjang', 'tingkat', 'rombel', 'nis', 'nisn', 'nik', 'nama', 'jk', 'tempatLahir', 'tanggalLahir', 'ayah', 'ibu', 'kk', 'alamat', 'statusSiswa', 'lembagaTeks', 'sumber'] as const;
+
+/**
+ * Hasil baca dari peramban (src/klien/impor.ts) — data tidak tepercaya: hanya bidang yang dikenal, bertipe teks,
+ * dipotong panjangnya; pemeriksaan sesungguhnya tetap periksaBaris di server.
+ */
+export function masterDariJson(x: unknown): ReturnType<typeof bacaMaster> {
+  const o = (x && typeof x === 'object' ? x : {}) as Record<string, unknown>;
+  const siswa = (Array.isArray(o.siswa) ? o.siswa : []).slice(0, 6000).map((r0, i): BarisSiswa => {
+    const r = (r0 && typeof r0 === 'object' ? r0 : {}) as Record<string, unknown>;
+    const p = (r.petunjuk && typeof r.petunjuk === 'object' ? r.petunjuk : {}) as Record<string, unknown>;
+    const out = { baris: Number(r.baris) > 0 ? Math.floor(Number(r.baris)) : i + 1, petunjuk: { jenjang: str(p.jenjang, 10) || undefined, tp: /^\d{4}\/\d{4}$/.test(str(p.tp, 9)) ? str(p.tp, 9) : undefined, lembaga: str(p.lembaga, 120) || undefined, tingkat: str(p.tingkat, 20) || undefined, rombel: str(p.rombel, 20) || undefined }, galat: [], peringatan: [] } as unknown as BarisSiswa;
+    for (const k of KUNCI_TEKS) (out as unknown as Record<string, string>)[k] = str(r[k], k === 'alamat' ? 300 : 120);
+    return out;
+  }).filter((r) => r.nama);
+  const lembaga = (Array.isArray(o.lembaga) ? o.lembaga : []).slice(0, 50).map((l0): BarisLembaga => {
+    const l = (l0 && typeof l0 === 'object' ? l0 : {}) as Record<string, unknown>;
+    return { jenjang: str(l.jenjang, 30), nsm: digit(str(l.nsm, 20)), npsn: digit(str(l.npsn, 20)), nama: str(l.nama, 120), kepala: str(l.kepala, 120), nipKepala: str(l.nipKepala, 30), tp: /^\d{4}\/\d{4}$/.test(str(l.tp, 9)) ? str(l.tp, 9) : '' };
+  });
+  const laporan = (Array.isArray(o.laporan) ? o.laporan : []).slice(0, 40).map((l0): LaporanLembar => {
+    const l = (l0 && typeof l0 === 'object' ? l0 : {}) as Record<string, unknown>;
+    const jenis = l.jenis === 'lembaga' || l.jenis === 'lewat' ? l.jenis : 'siswa';
+    const kolom = (Array.isArray(l.kolom) ? l.kolom : []).slice(0, 40).map((k0) => { const k = (k0 && typeof k0 === 'object' ? k0 : {}) as Record<string, unknown>; return { kunci: (str(k.kunci, 20) in LABEL_KOLOM ? str(k.kunci, 20) : 'abaikan') as KunciKolom, dari: str(k.dari, 120) }; });
+    return { nama: str(l.nama, 60), jenis, barisJudul: Number(l.barisJudul) || undefined, tabel: Number(l.tabel) || undefined, siswa: Number(l.siswa) || 0, kolom, alasan: str(l.alasan, 200) || undefined };
+  });
+  const pesan = siswa.length ? [] : ['Tidak ada data siswa yang terbaca. Pastikan file memuat kolom nama siswa beserta NISN, NIS, atau tanggal lahir.'];
+  return { siswa, lembaga, laporan, pesan };
+}
+
 /** Membaca seluruh lembar file master: siswa, master lembaga, dan laporan pengenalan kolom per lembar. */
 export function bacaMaster(lembar: Lembar[]): { siswa: BarisSiswa[]; lembaga: BarisLembaga[]; laporan: LaporanLembar[]; pesan: string[] } {
   const siswa: BarisSiswa[] = [], lembaga: BarisLembaga[] = [], laporan: LaporanLembar[] = [];

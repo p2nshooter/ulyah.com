@@ -18,7 +18,7 @@ import { KOLEKSI } from '../data/defs.ts';
 import { kopUntuk, labelJenis, labelUntuk, type Kop } from '../data/dokumen.ts';
 import { milikSiswa, statusTagihan } from '../data/kait.ts';
 import { JENJANG, KOLOM_LEMBAGA, KOLOM_SISWA, cariSiswa, jenjangDari, kunciGagal, jenjangUnit, labelStatus, levelTingkat, normalTanggal, periksaBaris, posisi, samarkan, type Jenjang } from '../data/siswa.ts';
-import { bacaMaster, type BarisSiswa } from '../data/master.ts';
+import { bacaMaster, masterDariJson, type BarisSiswa } from '../data/master.ts';
 import { simpanBarisGuru, type BarisGuruSimpan } from '../data/guru.ts';
 import {
   ambilKerja, buatKerja, daftarSiswa, langkahKerja, rekapKosong, riwayatKelas, saringSiswa, semuaIndeks, simpanBarisImpor, simpanBarisTagihan, tambahRekap,
@@ -247,22 +247,29 @@ kesiswaan.post('/portal/siswa/impor', async (c) => {
   if (!bolehKesiswaan(u)) return tolak(c);
   if (!(await limit(c.env, `impor:${u.id}`, 30, 3600))) return tampil(c, { judul: 'Impor file master siswa', aktif: '/portal/siswa/impor', body: halamanImpor({ galat: 'Terlalu banyak unggahan dalam satu jam. Coba lagi nanti.' }), status: 429 });
   const f = await c.req.parseBody();
-  const berkas = f.berkas;
   const ulang = (galat: string) => tampil(c, { judul: 'Impor file master siswa', aktif: '/portal/siswa/impor', body: halamanImpor({ galat }), status: 400 });
-  if (!(berkas instanceof File) || !berkas.size) return ulang('Pilih file master (.xlsx atau .csv) dulu.');
-  if (berkas.size > 8 * 1024 * 1024) return ulang('File lebih dari 8 MB. Pisahkan per lembaga atau hapus lembar yang tidak perlu.');
-  const buf = new Uint8Array(await berkas.arrayBuffer());
-  let lembar;
-  try {
-    lembar = /\.csv$/i.test(berkas.name) || (buf[0] !== 0x50 && buf[1] !== 0x4b) ? [{ nama: berkas.name.replace(/\.[^.]+$/, '') || 'CSV', baris: bacaCsv(new TextDecoder().decode(buf)) }] : await bacaXlsx(buf);
-  } catch (err) {
-    if (err instanceof BukanXlsx) return ulang('File tidak terbaca sebagai Excel (.xlsx). Bila masih .xls lama, simpan ulang sebagai .xlsx atau CSV.');
-    throw err;
+  // Peramban sudah membaca file (src/klien/impor.ts) → cukup hasilnya; tanpa JavaScript → server membaca file.
+  let baca: ReturnType<typeof bacaMaster>;
+  let namaBerkas = String(f.nama_berkas ?? '').slice(0, 120) || 'file master';
+  if (typeof f.hasil_json === 'string' && f.hasil_json.length > 2) {
+    if (f.hasil_json.length > 6_000_000) return ulang('Data terlalu besar — pisahkan file per lembaga.');
+    try { baca = masterDariJson(JSON.parse(f.hasil_json)); } catch { return ulang('Hasil baca file rusak. Muat ulang halaman lalu coba lagi.'); }
+  } else {
+    const berkas = f.berkas;
+    if (!(berkas instanceof File) || !berkas.size) return ulang('Pilih file master (.xlsx atau .csv) dulu.');
+    if (berkas.size > 8 * 1024 * 1024) return ulang('File lebih dari 8 MB. Pisahkan per lembaga atau hapus lembar yang tidak perlu.');
+    namaBerkas = berkas.name;
+    const buf = new Uint8Array(await berkas.arrayBuffer());
+    try {
+      baca = bacaMaster(/\.csv$/i.test(berkas.name) || (buf[0] !== 0x50 && buf[1] !== 0x4b) ? [{ nama: berkas.name.replace(/\.[^.]+$/, '') || 'CSV', baris: bacaCsv(new TextDecoder().decode(buf)) }] : await bacaXlsx(buf));
+    } catch (err) {
+      if (err instanceof BukanXlsx) return ulang('File tidak terbaca sebagai Excel (.xlsx). Bila masih .xls lama, simpan ulang sebagai .xlsx atau CSV.');
+      throw err;
+    }
   }
   const store = c.get('store');
   const units = await listUnits(store, true);
   const lengkap = await Promise.all(units.map(async (x) => ({ ...x, nsm: (await getUnit(store, x.slug))?.nsm ?? x.nsm })));
-  const baca = bacaMaster(lembar);
   const rows = periksaBaris(baca.siswa, baca.lembaga, lengkap, (slug) => bolehUnit(u, slug));
   // Lengkapi NSM/NPSN/NIP kepala lembaga dari lembar Master Lembaga (hanya yang masih kosong, hanya lembaga yang dikelola).
   const lembagaDiisi: string[] = [];
@@ -288,8 +295,8 @@ kesiswaan.post('/portal/siswa/impor', async (c) => {
   const sah = rows.filter((r) => !r.galat.length).sort((a, b) => (a.unit ?? '').localeCompare(b.unit ?? '') || (levelTingkat(a.tingkat) ?? 99) - (levelTingkat(b.tingkat) ?? 99) || a.rombel.localeCompare(b.rombel, 'id', { numeric: true }) || a.nama.localeCompare(b.nama, 'id'));
   const mode = f.mode === 'lewati' ? 'lewati' : 'perbarui';
   const baris: BarisImpor[] = sah.map(({ galat: _g, peringatan: _p, petunjuk: _t, sumber: _s, lembagaTeks: _l, ...r }) => ({ ...r, unit: r.unit! }));
-  const kerja = sah.length ? await buatKerja(store, { jenis: 'impor', judul: `Menyimpan ${sah.length} siswa dari ${berkas.name}`.slice(0, 160), oleh: u.id, olehNama: u.nama, lingkup: lingkupSemua(u) ? null : u.units, kembali: '/portal/siswa?status=semua', opsi: { mode } }, baris) : null;
-  await catat(c, 'siswa.impor.periksa', `${berkas.name}: ${rows.length} baris, ${sah.length} sah`);
+  const kerja = sah.length ? await buatKerja(store, { jenis: 'impor', judul: `Menyimpan ${sah.length} siswa dari ${namaBerkas}`.slice(0, 160), oleh: u.id, olehNama: u.nama, lingkup: lingkupSemua(u) ? null : u.units, kembali: '/portal/siswa?status=semua', opsi: { mode } }, baris) : null;
+  await catat(c, 'siswa.impor.periksa', `${namaBerkas}: ${rows.length} baris, ${sah.length} sah`);
   const namaUnit = pemberiNama(units);
   return tampil(c, { judul: 'Pratinjau impor', aktif: '/portal/siswa/impor', body: halamanPratinjau({ kerjaId: kerja?.id ?? null, rows: [...sah, ...rows.filter((r) => r.galat.length)], laporan: baca.laporan, pesan: baca.pesan, namaUnit, ada, mode, lembagaDiisi }) });
 });

@@ -133,6 +133,26 @@ export function bacaGuru(lembar: Lembar[], gambar: { lembar: string; baris: numb
   return { guru, laporan };
 }
 
+const str = (v: unknown, n = 120) => (typeof v === 'string' ? v.slice(0, n) : typeof v === 'number' ? String(v).slice(0, n) : '');
+const TEKS_GURU = ['sumber', 'nama', 'jk', 'lembagaTeks', 'jabatan', 'fokus', 'golongan', 'nuptk', 'pegId', 'npk', 'nip', 'nik', 'tempatLahir', 'tanggalLahir', 'pendidikan', 'statusPegawai', 'tmt', 'hp', 'email', 'alamat', 'namaFoto', 'petunjukLembaga'] as const;
+
+/** Hasil baca guru dari peramban (tidak tepercaya): bidang dikenal saja, foto hanya kunci media yang sah. */
+export function guruDariJson(x: unknown, polaFoto: RegExp): { guru: BarisGuru[]; laporan: ReturnType<typeof bacaGuru>['laporan']; gambar: number } {
+  const o = (x && typeof x === 'object' ? x : {}) as Record<string, unknown>;
+  const guru = (Array.isArray(o.guru) ? o.guru : []).slice(0, 1500).map((r0, i): BarisGuru => {
+    const r = (r0 && typeof r0 === 'object' ? r0 : {}) as Record<string, unknown>;
+    const out = { baris: Number(r.baris) > 0 ? Math.floor(Number(r.baris)) : i + 1, urut: Number(r.urut) > 0 ? Math.floor(Number(r.urut)) : null, galat: [], peringatan: [] } as unknown as BarisGuru;
+    for (const k of TEKS_GURU) (out as unknown as Record<string, string>)[k] = str(r[k], k === 'alamat' ? 300 : 120);
+    if (typeof r.foto === 'string' && polaFoto.test(r.foto)) out.foto = r.foto;
+    return out;
+  }).filter((g) => g.nama);
+  const laporan = (Array.isArray(o.laporan) ? o.laporan : []).slice(0, 40).map((l0) => {
+    const l = (l0 && typeof l0 === 'object' ? l0 : {}) as Record<string, unknown>;
+    return { nama: str(l.nama, 60), barisJudul: Number(l.barisJudul) || undefined, guru: Number(l.guru) || 0, kolom: (Array.isArray(l.kolom) ? l.kolom : []).slice(0, 40).map((k0) => { const k = (k0 && typeof k0 === 'object' ? k0 : {}) as Record<string, unknown>; return { kunci: (str(k.kunci, 20) in LABEL_GURU ? str(k.kunci, 20) : 'abaikan') as KunciGuru, dari: str(k.dari, 120) }; }) };
+  });
+  return { guru, laporan, gambar: Number(o.gambar) || 0 };
+}
+
 /** Lembaga baris guru: nama/singkatan lembaga → jenjang di teks → petunjuk lembar → satu-satunya lembaga pengimpor. */
 export function lembagaGuru(r: BarisGuru, units: UnitItem[], dikelola: string[] | null): string | undefined {
   const cari = (teks: string) => {

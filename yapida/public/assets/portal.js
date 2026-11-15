@@ -86,6 +86,7 @@
       return fetch('/portal/unggah', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Unggahan gagal.'); return j; }); });
     });
   }
+  window.YapidaUnggah = { kirimBerkas: kirimBerkas };
   $$('[data-unggah]').forEach(function (w) {
     var jenis = w.getAttribute('data-unggah'), inp = $('input[type="hidden"]', w), pra = $('[data-pratinjau]', w), st = $('[data-unggah-status]', w), hapus = $('[data-unggah-hapus]', w);
     $('input[type="file"]', w).addEventListener('change', function () {

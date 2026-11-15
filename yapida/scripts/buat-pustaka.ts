@@ -252,10 +252,20 @@ const KITAB_HADITS: Record<string, { judul: string; judulAr: string; penulis: st
   dehlawi: { judul: '40 Hadits Syah Waliyullah Ad-Dihlawi', judulAr: 'الأربعون للدهلوي', penulis: 'Syah Waliyullah Ad-Dihlawi (w. 1176 H)', rak: ['hadits'] },
 };
 const PER_BAB = 40;
+/* Terjemah Indonesia untuk kitab yang di sumbernya baru berbahasa Inggris (Arba’in, Qudsi, Ad-Dihlawi) —
+   scripts/terjemah-hadits.ts (pemilik: „Terjemahan hadits jgn make bhs inggris, make bahasa Indonesia aja“). */
+const TERJEMAH_ID = (() => { try { return JSON.parse(readFileSync(join(DIR, 'data', 'hadits-terjemah-id.json'), 'utf8')) as Record<string, Record<string, string>>; } catch { return {}; } })();
+const INGGRIS = (s: string) => (s.match(/\b(the|and|of|that|he|said|to|was|his|with|from|they|which|who|is)\b/gi) ?? []).length > (s.match(/\b(dan|yang|dari|kepada|bahwa|beliau|telah|dengan|tidak|kami|mereka|itu|ini|adalah)\b/gi) ?? []).length;
 for (const [kol, info] of Object.entries(KITAB_HADITS)) {
   const f = `hadith_${kol}.sql`;
   if (!berkasSeed.includes(f)) continue;
   const rows = barisInsert(sql(f), 'hadits').filter((r) => r.text_ar || r.text_id).sort((a, b) => Number(a.hadith_number ?? a.id) - Number(b.hadith_number ?? b.id));
+  let diterjemahkan = 0;
+  for (const r of rows) {
+    const id = TERJEMAH_ID[kol]?.[String(r.hadith_number ?? r.id)];
+    if (id && (!r.text_id || INGGRIS(String(r.text_id)))) { r.text_id = id; diterjemahkan += 1; }
+    else if (r.text_id && INGGRIS(String(r.text_id))) r.text_id = null; // jangan pernah menampilkan terjemah Inggris
+  }
   const bab: Bab[] = [];
   for (let i = 0; i < rows.length; i += PER_BAB) {
     const potong = rows.slice(i, i + PER_BAB);
@@ -269,7 +279,7 @@ for (const [kol, info] of Object.entries(KITAB_HADITS)) {
   tambah({
     id: `k-hadits-${kol}`, judul: info.judul, judulAr: info.judulAr, penulis: info.penulis, rak: info.rak, suara: 'dewasa', mapel: 'Hadits', bahasa: 'ar',
     ringkasan: `${info.judul} lengkap: ${rows.length.toLocaleString('id-ID')} hadits dengan teks Arab dan terjemah Indonesia, dibagi per ${PER_BAB} hadits agar nyaman dibaca dan dibacakan.`,
-    sumber: 'Pustaka hadits ulyah.com (data yang sama dengan ulyah.com)', sumberUrl: 'https://ulyah.com', lisensi: 'Matan hadits domain publik · terjemah dari pustaka ulyah.com', tag: ['hadits', kol],
+    sumber: 'Pustaka hadits ulyah.com (data yang sama dengan ulyah.com)', sumberUrl: 'https://ulyah.com', lisensi: diterjemahkan ? 'Matan hadits domain publik · terjemah Indonesia disusun pustaka Yapida dari terjemah Inggris hadith-api (domain publik) dengan glosarium istilah syariat' : 'Matan hadits domain publik · terjemah dari pustaka ulyah.com', tag: ['hadits', kol],
   }, bab);
 }
 

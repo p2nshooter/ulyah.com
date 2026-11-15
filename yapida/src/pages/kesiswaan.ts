@@ -144,7 +144,7 @@ export function halamanProfilSiswa(o: {
 export function halamanImpor(o: { galat?: string }): Raw {
   return html`
   ${o.galat ? html`<p class="p-kilat p-kilat-galat" role="alert">${o.galat}</p>` : ''}
-  <form method="post" action="/portal/siswa/impor" enctype="multipart/form-data" class="p-kartu ks-impor" data-impor>
+  <form method="post" action="/portal/siswa/impor" enctype="multipart/form-data" class="p-kartu ks-impor" data-impor data-impor-klien="siswa">
     <div class="ks-jatuh" data-jatuh>
       <span class="ks-jatuh-ikon" aria-hidden="true">⇪</span>
       <strong>Pilih atau seret file master ke sini</strong>
@@ -170,7 +170,7 @@ export function halamanImpor(o: { galat?: string }): Raw {
       <li><b>Langsung bisa masuk portal siswa</b>: NISN atau NIS + tanggal lahir (mis. 30/04/2015 atau 300415).</li>
     </ul>
     <p class="p-kecil">Butuh contoh susunan? <a href="/portal/siswa/templat.xlsx">Unduh templat kosong</a> (kolom sesuai file master yayasan, tanpa data contoh).</p>
-  </section>`;
+  </section><script src="/assets/impor.js" defer></script>`;
 }
 
 export function halamanPratinjau(o: {
