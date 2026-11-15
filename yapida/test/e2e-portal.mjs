@@ -61,24 +61,27 @@ let papanAcak = [];
   await page.waitForLoadState('load');
   ok((await page.locator('.p-kilat-galat').innerText()).includes('Kode pemasangan salah'), 'kode pemasangan salah ditolak');
   papanAcak.push((await petaTombol(page)).map((x) => x[1]).join(''));
+  ok((await page.locator('[name="nama"]').count()) === 0, 'pemasangan pertama tanpa isian nama akun');
   await page.fill('[name="kode"]', 'uji00-uji00-uji00-uji00');
-  await page.fill('[name="nama"]', 'Super Admin');
   await ketukPin(page, '24680');
   ok((await page.locator('[data-pin-judul]').innerText()) === 'Ulangi PIN', 'setelah 5 angka: diminta mengulang PIN');
   await ketukPin(page, '24680');
-  await page.waitForURL(/\/portal$/);
-  ok(await page.locator('h1', { hasText: 'Dasbor' }).isVisible(), 'super admin dibuat dan langsung masuk ke dasbor');
+  await page.waitForURL(/\/masuk\/pasang$/, { timeout: 20000 });
+  await page.waitForSelector('.p-pin-baru', { timeout: 20000 }).catch(() => null);
+  // akun semua jabatan langsung dibuat saat pemasangan, PIN acak tampil sekali
+  ok(await page.locator('h1', { hasText: 'Semua akun siap' }).isVisible(), 'pemasangan langsung membuat semua akun jabatan');
+  const baris = await page.$$eval('.p-pin-baru tbody tr', (rs) => rs.map((r) => [r.cells[0].innerText.trim(), r.cells[2].innerText.trim()]));
+  ok(baris.length === 17 && baris.every(([, p]) => /^\d{5}$/.test(p)) && baris[0][0] === 'Ketua Yayasan' && baris[1][0] === 'Admin Yayasan', 'akun Ketua, Admin Yayasan, dan 15 admin lembaga dibuat dengan PIN 5 angka', baris.length);
+  fs.writeFileSync(`${OUT}/pin-uji.json`, JSON.stringify(baris));
+  await page.screenshot({ path: `${OUT}/portal-pin-baru.png` });
+  await page.goto(BASE + '/portal');
+  ok(await page.locator('h1', { hasText: 'Dasbor' }).isVisible(), 'super admin langsung masuk ke dasbor');
   await page.screenshot({ path: `${OUT}/portal-dasbor.png` });
-
-  // akun semua lembaga, PIN acak tampil sekali
   await page.goto(BASE + '/portal/pengguna');
   page.once('dialog', (dl) => dl.accept());
   await page.click('text=Buat akun semua lembaga');
   await page.waitForLoadState('load');
-  const baris = await page.$$eval('.p-pin-baru tbody tr', (rs) => rs.map((r) => [r.cells[0].innerText.trim(), r.cells[2].innerText.trim()]));
-  ok(baris.length === 17 && baris.every(([, p]) => /^\d{5}$/.test(p)), 'akun Ketua, Admin Yayasan, dan 15 admin lembaga dibuat dengan PIN 5 angka', baris.length);
-  fs.writeFileSync(`${OUT}/pin-uji.json`, JSON.stringify(baris));
-  await page.screenshot({ path: `${OUT}/portal-pin-baru.png` });
+  ok((await page.locator('.p-kartu', { hasText: 'Setiap lembaga sudah punya akun' }).count()) === 1, 'tombol massal tidak menggandakan akun');
 
   // super admin: tambah kabar yayasan + album galeri dengan foto
   const foto = new URL('../public/assets/og.png', import.meta.url).pathname;
@@ -117,6 +120,9 @@ ok(papanAcak.length === 2 && papanAcak[0] !== papanAcak[1], 'letak angka berubah
   await page.goto(BASE + '/masuk');
   const opsi = await page.$$eval('[data-pin-akun] option', (os) => os.map((o) => o.textContent));
   ok(opsi.includes('Admin MI Al Huda') && opsi.includes('Super Admin'), 'daftar akun berisi akun yayasan dan per lembaga');
+  const yay = await page.$$eval('[data-pin-akun] optgroup[label="Yayasan"] option', (os) => os.map((o) => o.textContent));
+  ok(yay.join('|') === 'Super Admin|Ketua Yayasan|Admin Yayasan', 'akun yayasan berurutan menurut jabatan', yay.join('|'));
+  ok((await page.locator('input[type="text"]').count()) === 0, 'halaman masuk tanpa kolom ketik (akun dipilih dari daftar)');
   await page.selectOption('[data-pin-akun]', { label: 'Admin MI Al Huda' });
   const salah = pins['Admin MI Al Huda'] === '13579' ? '97531' : '13579';
   await ketukPin(page, salah);
