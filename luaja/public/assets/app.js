@@ -43,6 +43,8 @@
   $$('.faq').forEach(function (f) { $$('details', f).forEach(function (dt) { dt.addEventListener('toggle', function () { if (dt.open) $$('details', f).forEach(function (o) { if (o !== dt) o.open = false; }); }); }); });
 
   /* salin ke papan klip */
+  /* konfirmasi sebelum tindakan yang menghapus (panel pengelola) */
+  $$('form[data-confirm]').forEach(function (f) { f.addEventListener('submit', function (e) { if (!window.confirm(f.getAttribute('data-confirm'))) e.preventDefault(); }); });
   $$('[data-copy]').forEach(function (b) { b.addEventListener('click', function () { var v = b.getAttribute('data-copy'); if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { window.ljToast('Disalin: ' + v); }); }); });
 
   /* suara: tombol [data-say] membacakan teks dengan locale */

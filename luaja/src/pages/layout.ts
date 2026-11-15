@@ -10,7 +10,7 @@ import { tr } from '../lib/i18n.ts';
 import type { Country, Mood } from './scene.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '1';
+export const ASSET_V = '2';
 
 const ICON: Record<string, string> = {
   tangga: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
@@ -167,7 +167,7 @@ ${o.headExtra ?? ''}
 <nav class="nav" id="nav" aria-label="Utama">
 ${menu.map((m) => `<a href="${m.href}"${o.active === m.id ? ' aria-current="page"' : ''}>${esc(m.label)}</a>`).join('')}
 <span class="lang-switch" aria-label="Bahasa antarmuka"><a href="?lang=id"${L === 'id' ? ' aria-current="true"' : ''}>ID</a><a href="?lang=en"${L === 'en' ? ' aria-current="true"' : ''}>EN</a></span>
-${o.user ? `<a class="btn btn-ghost btn-sm" href="${o.user.admin ? '/admin' : '/portal'}">${icon('masuk').s}${esc(o.user.name.split(' ')[0] ?? '')}</a>` : `<a class="btn btn-ghost btn-sm" href="/masuk">${tr(L, 'Masuk', 'Sign in')}</a><a class="btn btn-gold btn-sm" href="/daftar">${tr(L, 'Mulai', 'Start')}</a>`}
+${o.user ? `<a class="btn btn-ghost btn-sm" href="/portal">${icon('masuk').s}${esc(o.user.name.split(' ')[0] ?? '')}</a>${o.user.admin ? `<a class="btn btn-ghost btn-sm" href="/admin">${tr(L, 'Panel', 'Admin')}</a>` : ''}` : `<a class="btn btn-ghost btn-sm" href="/masuk">${tr(L, 'Masuk', 'Sign in')}</a><a class="btn btn-gold btn-sm" href="/daftar">${tr(L, 'Mulai', 'Start')}</a>`}
 </nav>
 </div>
 </header>`;

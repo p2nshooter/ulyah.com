@@ -100,14 +100,17 @@ export async function listAllInvoices(store: Store, limit = 200): Promise<{ id: 
 }
 
 /**
- * Pembayaran otomatis (PayPal) terkonfirmasi: unpaid/review/rejected → approved, idempoten. Mengembalikan tagihan
+ * Pembayaran otomatis (PayPal / Stripe) terkonfirmasi: unpaid/review/rejected → approved, idempoten. Mengembalikan tagihan
  * (sudah approved) atau null bila tidak ditemukan / dibatalkan. Pemanggil lalu memberi langganan (grantSubs, idempoten).
  */
-export async function markPaid(store: Store, id: string, days: number, info: { method: 'paypal'; paypal: NonNullable<Invoice['paypal']> }): Promise<Invoice | null> {
+export type PaidInfo = { method: 'paypal'; paypal: NonNullable<Invoice['paypal']> } | { method: NonNullable<Invoice['gateway']>['id']; gateway: NonNullable<Invoice['gateway']> };
+
+export async function markPaid(store: Store, id: string, days: number, info: PaidInfo): Promise<Invoice | null> {
   const now = Date.now();
   const next = await store.cas<Invoice>(invKey(id), (cur) => {
     if (!cur || cur.status === 'approved' || cur.status === 'cancelled') return null;
-    return { ...cur, currency: cur.currency ?? 'IDR', status: 'approved', method: info.method, paypal: info.paypal, paidAt: now, decidedAt: now, decidedBy: 'paypal', activeFrom: now, activeUntil: now + days * 86_400_000, reason: undefined };
+    const detail = info.method === 'paypal' ? { paypal: info.paypal } : { gateway: info.gateway };
+    return { ...cur, ...detail, currency: cur.currency ?? 'IDR', status: 'approved', method: info.method, paidAt: now, decidedAt: now, decidedBy: info.method, activeFrom: now, activeUntil: now + days * 86_400_000, reason: undefined };
   }, 'Tagihan');
   if (!next || next.status !== 'approved') return next ?? null;
   const { items } = await store.list('i/inv-open/', { limit: 1000 });
@@ -119,4 +122,9 @@ export async function markPaid(store: Store, id: string, days: number, info: { m
 /** Simpan id order PayPal pada tagihan (sebelum pembeli menyetujui). */
 export async function attachPaypalOrder(store: Store, id: string, orderId: string, mode: 'live' | 'sandbox'): Promise<void> {
   await store.cas<Invoice>(invKey(id), (cur) => (cur && cur.status !== 'approved' ? { ...cur, paypal: { orderId, mode } } : null), 'Tagihan');
+}
+
+/** Simpan referensi pembayaran gerbang (Stripe/Xendit/Midtrans) pada tagihan sebelum pembeli membayar. */
+export async function attachGateway(store: Store, id: string, gateway: NonNullable<Invoice['gateway']>): Promise<void> {
+  await store.cas<Invoice>(invKey(id), (cur) => (cur && cur.status !== 'approved' ? { ...cur, gateway } : null), 'Tagihan');
 }

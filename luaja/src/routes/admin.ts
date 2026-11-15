@@ -11,9 +11,10 @@ import { hashPassword, newId } from '../lib/crypto.ts';
 import { audit } from '../data/audit.ts';
 import { getInvoice, listOpenInvoices, decideInvoice, listAllInvoices } from '../data/invoices.ts';
 import { getUser, grantSubs, isAdmin, updateUser, getSubs } from '../data/users.ts';
-import { getPayment, getPricing, getSite, saveDoc, PAYMENT_DOC, PRICING_DOC, SITE_DOC } from '../data/settings.ts';
-import { COURSE_META, COURSES, CURRENCIES, money, type Currency, type Pricing, type Tier, type User } from '../data/model.ts';
-import { getPaypalConfig, savePaypalConfig, registerWebhook, testConnection, paypalReady, PaypalError, type PaypalMode } from '../data/paypal.ts';
+import { getPayment, getPricing, getSite, saveDoc, updatePayment, PRICING_DOC, SITE_DOC } from '../data/settings.ts';
+import { COURSE_META, COURSES, CURRENCIES, METHOD_KINDS, methodLive, money, type Currency, type MethodKind, type PayMethod, type Pricing, type Tier, type User } from '../data/model.ts';
+import { clearPaypalMode, getPaypalConfig, savePaypalConfig, registerWebhook, testConnection, paypalReady, PaypalError, type PaypalMode } from '../data/paypal.ts';
+import { GATEWAYS, GW_META, getAllGw, getGw, gwReady, gwTest, saveGw, stripeRegisterHook, GwError, STRIPE_EVENTS, type GwId, type GwMode } from '../data/gw.ts';
 import { origin } from '../lib/render.ts';
 import { icon } from '../pages/layout.ts';
 
@@ -29,11 +30,11 @@ admin.use('/admin', async (c, next) => {
   await next();
 });
 
-const TABS: [string, string][] = [['/admin', 'Ringkasan'], ['/admin/pembayaran', 'Pembayaran'], ['/admin/member', 'Member'], ['/admin/harga', 'Harga & promo'], ['/admin/rekening', 'Rekening'], ['/admin/paypal', 'PayPal'], ['/admin/konten', 'Konten situs'], ['/admin/audit', 'Audit']];
+const TABS: [string, string][] = [['/admin', 'Ringkasan'], ['/admin/pembayaran', 'Pembayaran'], ['/admin/member', 'Member'], ['/admin/harga', 'Harga & promo'], ['/admin/rekening', 'Metode bayar'], ['/admin/paypal', 'PayPal'], ['/admin/gerbang', 'Gerbang otomatis'], ['/admin/konten', 'Konten situs'], ['/admin/audit', 'Audit']];
 async function shell(c: Ctx, active: string, title: string, body: Raw): Promise<Response> {
   return render(c, {
     path: active, title: `${title} — Pengelola LUAJA`, desc: 'Panel pengelola.', noindex: true, noAds: true,
-    body: html`<div class="admin-bar"><div class="wrap"><b>Panel pengelola</b><span>${c.get('user')!.email}</span><a href="/">Lihat situs</a><a href="/portal">Portal</a></div></div>
+    body: html`<div class="admin-bar"><div class="wrap"><b>Panel pengelola</b><span>${c.get('user')!.email}</span><a href="/">Lihat situs</a><a href="/portal">Portal member (akses penuh)</a></div></div>
     <section class="section-tight"><div class="wrap"><nav class="tabs">${TABS.map(([h, l]) => html`<a href="${h}" ${h === active ? raw('aria-current="page"') : ''}>${l}</a>`)}</nav>
     ${c.req.query('ok') ? html`<div class="alert alert-ok">${c.req.query('ok')}</div>` : ''}${c.req.query('err') ? html`<div class="alert alert-bad">${c.req.query('err')}</div>` : ''}
     ${body}</div></section>`,
@@ -157,27 +158,111 @@ admin.post('/admin/harga', async (c) => {
   return back(c, '/admin/harga', 'Harga tersimpan dan langsung berlaku.');
 });
 
+/* ── Metode bayar: tambah / ubah / hapus rekening dan layanan internasional ───────────────────────── */
+const KINDS = Object.keys(METHOD_KINDS) as MethodKind[];
+/** Alasan sebuah metode tidak tampil kepada member (kosong = tayang). */
+function hiddenWhy(m: PayMethod): string {
+  if (!m.enabled) return 'nonaktif';
+  if (!m.account.trim()) return 'akun belum diisi';
+  if (!m.currencies.length) return 'tanpa mata uang';
+  if (METHOD_KINDS[m.kind].holderRequired && !m.holder.trim()) return 'atas nama belum diisi';
+  if (m.kind === 'swift' && !m.swift.trim()) return 'SWIFT belum diisi';
+  return '';
+}
+
 admin.get('/admin/rekening', async (c) => {
-  const p = await getPayment(c.get('store'));
+  const [p, pp, gws] = await Promise.all([getPayment(c.get('store')), getPaypalConfig(c.get('store')), getAllGw(c.get('store'))]);
   const csrf = await csrfToken(c, c.get('user')!);
-  return shell(c, '/admin/rekening', 'Rekening', html`
-  <h1 style="font-size:var(--fs-5)">Rekening pembayaran</h1><p class="muted">Ditampilkan hanya kepada member yang membuka tagihannya.</p>
-  <form method="post" class="card stack" style="max-width:640px"><input type="hidden" name="_csrf" value="${csrf}">
-    <h3 style="margin:0">Rekening Rupiah utama</h3><div class="field"><label>Bank</label><input name="bank" value="${p.bank}" required></div><div class="field"><label>Nomor rekening</label><input name="account" value="${p.account}" required></div><div class="field"><label>Atas nama</label><input name="holder" value="${p.holder}" required></div>
-    <h3 style="margin:12px 0 0">BNI multimata uang (juga untuk transfer luar negeri)</h3><div class="field"><label>Nama bank</label><input name="bni_name" value="${p.bni.name}"></div><div class="grid g3"><div class="field"><label>SWIFT/BIC</label><input name="bni_swift" value="${p.bni.swift}"></div><div class="field"><label>Kode bank</label><input name="bni_code" value="${p.bni.code}"></div><div class="field"><label>Atas nama</label><input name="bni_holder" value="${p.bni.holder}"></div></div><div class="field"><label>Alamat bank</label><input name="bni_address" value="${p.bni.address}"></div><div class="grid g3">${CURRENCIES.map((cur) => html`<div class="field"><label>Rekening ${cur}</label><input name="bni_${cur}" value="${p.bni.accounts[cur]}"></div>`)}</div><div class="field"><label>Catatan transfer</label><input name="note" value="${p.note}"></div><div class="field"><label>WhatsApp layanan (opsional)</label><input name="whatsapp" value="${p.whatsapp}" placeholder="62812…"></div>
-    <button class="btn btn-gold" type="submit">Simpan rekening</button></form>`);
+  return shell(c, '/admin/rekening', 'Metode bayar', html`
+  <div class="page-title"><h1 style="font-size:var(--fs-5)">Metode pembayaran</h1><a class="btn btn-gold btn-sm" href="/admin/rekening/baru">+ Tambah metode</a></div>
+  <p class="muted">Semua rekening dan layanan pembayaran dapat ditambah, diubah dan dihapus di sini — tanpa mengubah kode. Sebuah metode hanya tampil kepada member yang membuka tagihan dengan mata uang yang sama, dan <b>hanya bila aktif serta datanya lengkap</b>; templat yang belum diisi tetap tersembunyi.</p>
+  <div class="kpi" style="margin:14px 0 18px"><div class="card"><b>${paypalReady(pp) && c.env.MASTER_KEY ? `Tayang (${pp.mode})` : 'Tersembunyi'}</b><span><a href="/admin/paypal">PayPal otomatis</a></span></div>${GATEWAYS.map((g) => html`<div class="card"><b>${gwReady(gws[g]) && c.env.MASTER_KEY ? `Tayang (${gws[g].mode})` : 'Tersembunyi'}</b><span><a href="/admin/gerbang/${g}">${GW_META[g].name} otomatis</a></span></div>`)}<div class="card"><b>${p.methods.filter(methodLive).length} / ${p.methods.length}</b><span>metode manual tayang</span></div></div>
+  <div class="table-wrap"><table class="table"><tr><th>Urutan</th><th>Nama</th><th>Jenis</th><th>Mata uang</th><th>Akun</th><th>Status</th><th></th></tr>
+  ${p.methods.map((m, i) => { const why = hiddenWhy(m); return html`<tr><td><form method="post" action="/admin/rekening/${m.id}/naik" style="display:inline"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm" ${i === 0 ? raw('disabled') : ''} aria-label="Naikkan">↑</button></form></td><td><b>${m.name}</b></td><td>${METHOD_KINDS[m.kind]?.label ?? m.kind}</td><td>${m.currencies.join(', ') || '—'}</td><td>${m.account || html`<span class="muted">—</span>`}</td><td>${why ? html`<span class="pill pill-line">Tersembunyi · ${why}</span>` : html`<span class="pill pill-ok">Tayang</span>`}</td><td class="row" style="gap:6px;flex-wrap:nowrap"><a class="btn btn-ghost btn-sm" href="/admin/rekening/${m.id}">Ubah</a><form method="post" action="/admin/rekening/${m.id}/hapus" data-confirm="Hapus metode ${m.name}?"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Hapus</button></form></td></tr>`; })}
+  </table></div>
+  <form method="post" action="/admin/rekening/umum" class="card stack" style="max-width:640px;margin-top:22px"><input type="hidden" name="_csrf" value="${csrf}"><h3 style="margin:0">Pengaturan umum</h3>
+    <div class="field"><label>Catatan di bawah rekening bank</label><input name="note" value="${p.note}" maxlength="240"></div>
+    <div class="field"><label>WhatsApp layanan (opsional)</label><input name="whatsapp" value="${p.whatsapp}" placeholder="62812…"></div>
+    <button class="btn btn-gold" type="submit">Simpan</button></form>`);
 });
-admin.post('/admin/rekening', async (c) => {
+
+function methodForm(c: Ctx, csrf: string, m: PayMethod, isNew: boolean): Promise<Response> {
+  const k = METHOD_KINDS[m.kind];
+  return shell(c, '/admin/rekening', isNew ? 'Tambah metode' : `Ubah ${m.name}`, html`
+  <p><a href="/admin/rekening">← Semua metode</a></p><h1 style="font-size:var(--fs-5)">${isNew ? 'Tambah metode pembayaran' : `Ubah: ${m.name}`}</h1>
+  ${isNew ? html`<nav class="tabs" aria-label="Jenis">${KINDS.map((x) => html`<a href="/admin/rekening/baru?jenis=${x}" ${x === m.kind ? raw('aria-current="page"') : ''}>${METHOD_KINDS[x].label}</a>`)}</nav>` : ''}
+  <form method="post" action="/admin/rekening/simpan" class="card stack" style="max-width:720px"><input type="hidden" name="_csrf" value="${csrf}"><input type="hidden" name="id" value="${isNew ? '' : m.id}">
+    <div class="grid g2"><div class="field"><label>Jenis</label><select name="kind">${KINDS.map((x) => html`<option value="${x}" ${x === m.kind ? raw('selected') : ''}>${METHOD_KINDS[x].label}</option>`)}</select><span class="hint">${k.hint}</span></div>
+    <div class="field"><label>Nama yang dilihat pembeli</label><input name="name" value="${m.name}" required maxlength="60" placeholder="mis. BCA, BNI (USD), Wise"></div></div>
+    <div class="field"><span class="lbl">Mata uang tagihan yang dilayani</span><div class="row">${CURRENCIES.map((cur) => html`<label class="check" style="padding:8px 12px"><input type="checkbox" name="cur_${cur}" ${m.currencies.includes(cur) ? raw('checked') : ''}><span><b>${cur}</b></span></label>`)}</div></div>
+    <div class="grid g2"><div class="field"><label>${k.account}</label><input name="account" value="${m.account}" maxlength="80" autocomplete="off"></div>
+    <div class="field"><label>Atas nama ${k.holderRequired ? '' : html`<span class="muted">(opsional)</span>`}</label><input name="holder" value="${m.holder}" maxlength="80"></div></div>
+    <fieldset class="card" style="box-shadow:none"><legend>Data bank (untuk transfer bank / SWIFT)</legend>
+      <div class="field"><label>Nama resmi bank</label><input name="bankName" value="${m.bankName}" maxlength="120"></div>
+      <div class="grid g3"><div class="field"><label>SWIFT/BIC</label><input name="swift" value="${m.swift}" maxlength="11"></div><div class="field"><label>Kode bank</label><input name="code" value="${m.code}" maxlength="10"></div><div class="field"><label>Alamat bank</label><input name="address" value="${m.address}" maxlength="160"></div></div></fieldset>
+    <div class="field"><label>Petunjuk tambahan <span class="muted">(satu langkah per baris, opsional)</span></label><textarea name="instructions" maxlength="1200">${m.instructions}</textarea></div>
+    <label class="check"><input type="checkbox" name="enabled" ${m.enabled ? raw('checked') : ''}><span><b>Aktif</b><small>Tampil kepada member hanya bila aktif dan data wajib lengkap.</small></span></label>
+    <button class="btn btn-gold" type="submit">Simpan metode</button></form>`);
+}
+
+admin.get('/admin/rekening/baru', async (c) => {
+  const kind = (KINDS as string[]).includes(c.req.query('jenis') ?? '') ? (c.req.query('jenis') as MethodKind) : 'bank';
+  const blank: PayMethod = { id: '', kind, name: kind === 'bank' || kind === 'swift' || kind === 'other' ? '' : METHOD_KINDS[kind].label, currencies: kind === 'bank' ? ['IDR'] : ['USD'], account: '', holder: '', bankName: '', swift: '', code: '', address: '', instructions: '', enabled: true };
+  return methodForm(c, await csrfToken(c, c.get('user')!), blank, true);
+});
+admin.get('/admin/rekening/:id', async (c) => {
+  const m = (await getPayment(c.get('store'))).methods.find((x) => x.id === c.req.param('id'));
+  if (!m) return back(c, '/admin/rekening', 'Metode tidak ditemukan.', true);
+  return methodForm(c, await csrfToken(c, c.get('user')!), m, false);
+});
+
+admin.post('/admin/rekening/simpan', async (c) => {
   const f = await guard(c);
   if (!f) return back(c, '/admin/rekening', 'Sesi formulir kedaluwarsa.', true);
-  const cur = await getPayment(c.get('store'));
-  const clean = (k: string, d: string, max = 80) => (f[k] === undefined ? d : String(f[k]).trim().slice(0, max));
-  const bni = { name: clean('bni_name', cur.bni.name, 120), swift: clean('bni_swift', cur.bni.swift, 11).toUpperCase(), code: clean('bni_code', cur.bni.code, 6), holder: clean('bni_holder', cur.bni.holder), address: clean('bni_address', cur.bni.address, 160), accounts: Object.fromEntries(CURRENCIES.map((x) => [x, clean(`bni_${x}`, cur.bni.accounts[x], 30).replace(/[^\d -]/g, '')])) as Record<Currency, string> };
-  const v = { bni, bank: String(f.bank ?? '').trim().slice(0, 60), account: String(f.account ?? '').replace(/[^\d -]/g, '').trim().slice(0, 40), holder: String(f.holder ?? '').trim().slice(0, 80), note: String(f.note ?? '').trim().slice(0, 240), whatsapp: String(f.whatsapp ?? '').replace(/[^\d]/g, '').slice(0, 16) };
-  if (!v.bank || !v.account || !v.holder) return back(c, '/admin/rekening', 'Bank, nomor dan atas nama wajib diisi.', true);
-  await saveDoc(c.get('store'), PAYMENT_DOC, v);
-  await audit(c.get('store'), c.get('user')!.id, 'payment.save', { bank: v.bank });
-  return back(c, '/admin/rekening', 'Rekening tersimpan.');
+  const str = (k: string, max: number) => String(f[k] ?? '').trim().slice(0, max);
+  const kind = (KINDS as string[]).includes(String(f.kind)) ? (String(f.kind) as MethodKind) : 'other';
+  const name = str('name', 60);
+  if (!name) return back(c, '/admin/rekening', 'Nama metode wajib diisi.', true);
+  const id = str('id', 60) || `${name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30) || 'metode'}-${newId('m').slice(-6).toLowerCase()}`;
+  const v: PayMethod = { id, kind, name, currencies: CURRENCIES.filter((cur) => Boolean(f[`cur_${cur}`])), account: str('account', 80), holder: str('holder', 80), bankName: str('bankName', 120), swift: str('swift', 11).toUpperCase().replace(/[^A-Z0-9]/g, ''), code: str('code', 10), address: str('address', 160), instructions: String(f.instructions ?? '').replace(/\r/g, '').trim().slice(0, 1200), enabled: Boolean(f.enabled) };
+  let created = false;
+  await updatePayment(c.get('store'), (p) => {
+    const i = p.methods.findIndex((x) => x.id === id);
+    if (i >= 0) p.methods[i] = v;
+    else { p.methods.push(v); created = true; }
+    return p;
+  });
+  await audit(c.get('store'), c.get('user')!.id, created ? 'payment.method.create' : 'payment.method.update', { id, kind, name, enabled: v.enabled, live: methodLive(v) });
+  return back(c, '/admin/rekening', `${name} ${created ? 'ditambahkan' : 'tersimpan'}${methodLive(v) ? ' dan tayang' : ` — tersembunyi (${hiddenWhy(v)})`}.`);
+});
+
+admin.post('/admin/rekening/:id/hapus', async (c) => {
+  if (!(await guard(c))) return back(c, '/admin/rekening', 'Sesi formulir kedaluwarsa.', true);
+  const id = c.req.param('id');
+  let gone = '';
+  await updatePayment(c.get('store'), (p) => ({ ...p, methods: p.methods.filter((m) => (m.id === id ? ((gone = m.name), false) : true)) }));
+  if (!gone) return back(c, '/admin/rekening', 'Metode tidak ditemukan.', true);
+  await audit(c.get('store'), c.get('user')!.id, 'payment.method.delete', { id, name: gone });
+  return back(c, '/admin/rekening', `${gone} dihapus.`);
+});
+
+admin.post('/admin/rekening/:id/naik', async (c) => {
+  if (!(await guard(c))) return back(c, '/admin/rekening', 'Sesi formulir kedaluwarsa.', true);
+  const id = c.req.param('id');
+  await updatePayment(c.get('store'), (p) => {
+    const i = p.methods.findIndex((m) => m.id === id);
+    if (i > 0) [p.methods[i - 1], p.methods[i]] = [p.methods[i]!, p.methods[i - 1]!];
+    return p;
+  });
+  return c.redirect('/admin/rekening');
+});
+
+admin.post('/admin/rekening/umum', async (c) => {
+  const f = await guard(c);
+  if (!f) return back(c, '/admin/rekening', 'Sesi formulir kedaluwarsa.', true);
+  await updatePayment(c.get('store'), (p) => ({ ...p, note: String(f.note ?? '').trim().slice(0, 240), whatsapp: String(f.whatsapp ?? '').replace(/[^\d]/g, '').slice(0, 16) }));
+  await audit(c.get('store'), c.get('user')!.id, 'payment.general', {});
+  return back(c, '/admin/rekening', 'Pengaturan pembayaran tersimpan.');
 });
 
 admin.get('/admin/konten', async (c) => {
@@ -234,7 +319,9 @@ admin.get('/admin/paypal', async (c) => {
     <button class="btn btn-gold" type="submit">Simpan PayPal</button>
   </form>
   <div class="card" style="margin-top:18px"><h3 style="margin-top:0">Webhook</h3><p>URL webhook: <code>${hook}</code></p><p class="small muted">Peristiwa: PAYMENT.CAPTURE.COMPLETED, CHECKOUT.ORDER.APPROVED, PAYMENT.CAPTURE.DENIED, PAYMENT.CAPTURE.REFUNDED.</p>
-    <div class="row"><form method="post" action="/admin/paypal/uji"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Uji koneksi (mode aktif)</button></form><form method="post" action="/admin/paypal/webhook"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Daftarkan webhook (mode aktif)</button></form></div></div>`);
+    <div class="row"><form method="post" action="/admin/paypal/uji"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Uji koneksi (mode aktif)</button></form><form method="post" action="/admin/paypal/webhook"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Daftarkan webhook (mode aktif)</button></form></div></div>
+  <div class="card" style="margin-top:18px"><h3 style="margin-top:0">Hapus kredensial</h3><p class="small muted">Menghapus client ID, secret dan webhook ID satu mode (mis. saat akun PayPal berganti pemilik). Bila mode itu sedang aktif, PayPal langsung disembunyikan dari halaman tagihan.</p>
+    <div class="row">${(['live', 'sandbox'] as const).map((m) => html`<form method="post" action="/admin/paypal/hapus/${m}" data-confirm="Hapus seluruh kredensial PayPal ${m}?"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm" ${cfg[m].clientId || cfg[m].secret ? '' : raw('disabled')}>Hapus kredensial ${m === 'live' ? 'LIVE' : 'sandbox'}</button></form>`)}</div></div>`);
 });
 
 admin.post('/admin/paypal', async (c) => {
@@ -284,4 +371,130 @@ admin.post('/admin/paypal/webhook', async (c) => {
   } catch (err) {
     return back(c, '/admin/paypal', err instanceof PaypalError ? err.message : 'Webhook gagal didaftarkan.', true);
   }
+});
+
+admin.post('/admin/paypal/hapus/:mode', async (c) => {
+  if (!(await guard(c))) return back(c, '/admin/paypal', 'Sesi formulir kedaluwarsa.', true);
+  const mode: PaypalMode = c.req.param('mode') === 'live' ? 'live' : 'sandbox';
+  const out = await clearPaypalMode(c.get('store'), mode);
+  await audit(c.get('store'), c.get('user')!.id, 'paypal.clear', { mode, enabled: out.enabled });
+  return back(c, '/admin/paypal', `Kredensial PayPal ${mode} dihapus${out.enabled ? '' : '; PayPal kini tersembunyi'}.`);
+});
+
+/* ── Gerbang otomatis: Stripe, Xendit, Midtrans (tersembunyi sampai kunci diisi dan diaktifkan) ─────── */
+const gwOf = (c: Ctx): GwId | null => ((GATEWAYS as string[]).includes(c.req.param('gw') ?? '') ? (c.req.param('gw') as GwId) : null);
+
+admin.get('/admin/gerbang', async (c) => {
+  const gws = await getAllGw(c.get('store'));
+  return shell(c, '/admin/gerbang', 'Gerbang otomatis', html`
+  <h1 style="font-size:var(--fs-5)">Gerbang pembayaran otomatis</h1>
+  <p class="muted">Setiap gerbang <b>tersembunyi</b> dari member sampai kuncinya diisi dan diaktifkan. Begitu pembayaran dikonfirmasi gerbang, tagihan lunas dan langganan aktif tanpa verifikasi manual. PayPal diatur di tab PayPal.</p>
+  <div class="grid g3" style="margin-top:18px">${GATEWAYS.map((g) => { const k = gws[g], on = gwReady(k) && Boolean(c.env.MASTER_KEY); return html`<a class="card lift" href="/admin/gerbang/${g}" style="text-decoration:none;color:inherit"><h3 style="margin:0 0 6px">${GW_META[g].name}</h3><p class="small muted" style="margin:0 0 10px">${GW_META[g].buyer}</p><span class="pill ${on ? 'pill-ok' : 'pill-line'}">${on ? `Tayang · ${k.mode === 'live' ? 'LIVE' : 'uji'} · ${k.currencies.join(', ')}` : 'Tersembunyi'}</span></a>`; })}</div>`);
+});
+
+admin.get('/admin/gerbang/:gw', async (c) => {
+  const g = gwOf(c);
+  if (!g) return back(c, '/admin/gerbang', 'Gerbang tidak dikenal.', true);
+  const meta = GW_META[g];
+  const cfg = await getGw(c.get('store'), g);
+  const csrf = await csrfToken(c, c.get('user')!);
+  const hook = `${origin(c)}/api/bayar/${g}/webhook`;
+  const row = (m: GwMode) => html`<fieldset class="card" style="box-shadow:none"><legend><b>${m === 'live' ? 'LIVE' : 'Mode uji (sandbox/test)'}</b></legend>
+    <div class="field"><label>${meta.pub.label}</label><input name="${m}_pub" value="${cfg[m].pub}" autocomplete="off" spellcheck="false" placeholder="${meta.pub.example[m]}"></div>
+    <div class="field"><label>${meta.secret.label} ${cfg[m].secret ? html`<span class="pill pill-ok">tersimpan terenkripsi</span>` : html`<span class="pill pill-line">belum ada</span>`}</label><input name="${m}_secret" type="password" autocomplete="new-password" placeholder="${cfg[m].secret ? 'Kosongkan bila tidak diganti' : meta.secret.example[m]}"></div>
+    ${meta.hook ? html`<div class="field"><label>${meta.hook.label} ${cfg[m].hook ? html`<span class="pill pill-ok">tersimpan terenkripsi</span>` : html`<span class="pill pill-line">belum ada</span>`}</label><input name="${m}_hook" type="password" autocomplete="new-password" placeholder="${cfg[m].hook ? 'Kosongkan bila tidak diganti' : ''}"><span class="hint">${meta.hook.hint}</span></div>` : ''}</fieldset>`;
+  return shell(c, '/admin/gerbang', meta.name, html`
+  <p><a href="/admin/gerbang">← Semua gerbang</a></p>
+  <h1 style="font-size:var(--fs-5)">${meta.name}</h1>
+  <p class="muted">${meta.buyer} ${meta.setup}</p>
+  ${c.env.MASTER_KEY ? '' : html`<div class="alert alert-bad">Kunci induk (MASTER_KEY) belum terpasang di server — kunci belum bisa disimpan.</div>`}
+  <div class="kpi" style="margin-bottom:18px"><div class="card"><b>${cfg.mode === 'live' ? 'LIVE' : 'Uji'}</b><span>mode aktif</span></div><div class="card"><b>${gwReady(cfg) && c.env.MASTER_KEY ? 'Tayang' : 'Tersembunyi'}</b><span>status di halaman tagihan</span></div>${meta.hook ? html`<div class="card"><b>${cfg[cfg.mode].hook ? 'Terpasang' : 'Belum'}</b><span>webhook ${cfg.mode}</span></div>` : ''}</div>
+  <form method="post" class="stack"><input type="hidden" name="_csrf" value="${csrf}">
+    <label class="check"><input type="checkbox" name="enabled" ${cfg.enabled ? raw('checked') : ''}><span><b>Aktifkan ${meta.name} di halaman tagihan</b><small>Tombol pembayaran tampil untuk mata uang yang dipilih.</small></span></label>
+    <div class="grid g2"><div class="field"><label>Mode</label><select name="mode"><option value="test" ${cfg.mode === 'test' ? raw('selected') : ''}>Uji (sandbox/test)</option><option value="live" ${cfg.mode === 'live' ? raw('selected') : ''}>LIVE (uang sungguhan)</option></select><span class="hint">LIVE hanya bisa disimpan bila uji koneksi live berhasil.</span></div>
+    <div class="field"><span class="lbl">Mata uang</span><div class="row">${meta.supports.map((cur) => html`<label class="check" style="padding:8px 12px"><input type="checkbox" name="cur_${cur}" ${cfg.currencies.includes(cur) ? raw('checked') : ''}><span><b>${cur}</b></span></label>`)}</div></div></div>
+    <div class="grid g2">${row('live')}${row('test')}</div>
+    <button class="btn btn-gold" type="submit">Simpan ${meta.name}</button>
+  </form>
+  <div class="card" style="margin-top:18px"><h3 style="margin-top:0">Webhook / notifikasi</h3><p>URL: <code>${hook}</code></p>${g === 'stripe' ? html`<p class="small muted">Peristiwa: ${STRIPE_EVENTS.join(', ')}.</p>` : ''}
+    <div class="row"><form method="post" action="/admin/gerbang/${g}/uji"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Uji koneksi (mode aktif)</button></form>${meta.autoHook ? html`<form method="post" action="/admin/gerbang/${g}/webhook"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Daftarkan webhook (mode aktif)</button></form>` : ''}</div></div>
+  <div class="card" style="margin-top:18px"><h3 style="margin-top:0">Hapus kunci</h3><p class="small muted">Menghapus semua kunci satu mode (mis. saat akun berganti pemilik). Bila mode itu aktif, ${meta.name} langsung disembunyikan.</p>
+    <div class="row">${(['live', 'test'] as const).map((m) => html`<form method="post" action="/admin/gerbang/${g}/hapus/${m}" data-confirm="Hapus seluruh kunci ${meta.name} ${m}?"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm" ${cfg[m].pub || cfg[m].secret ? '' : raw('disabled')}>Hapus kunci ${m === 'live' ? 'LIVE' : 'uji'}</button></form>`)}</div></div>`);
+});
+
+admin.post('/admin/gerbang/:gw', async (c) => {
+  const g = gwOf(c);
+  if (!g) return back(c, '/admin/gerbang', 'Gerbang tidak dikenal.', true);
+  const path = `/admin/gerbang/${g}`;
+  const f = await guard(c);
+  if (!f) return back(c, path, 'Sesi formulir kedaluwarsa.', true);
+  if (!c.env.MASTER_KEY) return back(c, path, 'MASTER_KEY belum terpasang di server.', true);
+  const store = c.get('store');
+  const mode: GwMode = f.mode === 'live' ? 'live' : 'test';
+  const take = (m: GwMode) => ({ pub: String(f[`${m}_pub`] ?? ''), secret: String(f[`${m}_secret`] ?? ''), hook: String(f[`${m}_hook`] ?? '') });
+  const currencies = CURRENCIES.filter((cur) => Boolean(f[`cur_${cur}`]));
+  let saved;
+  try {
+    saved = await saveGw(store, c.env.MASTER_KEY, g, { enabled: Boolean(f.enabled), mode, currencies, live: take('live'), test: take('test') });
+  } catch (err) {
+    return back(c, path, err instanceof GwError ? err.message : 'Kunci tidak dapat disimpan.', true);
+  }
+  // LIVE hanya aktif bila kunci live diterima gerbang; bila gagal, kembali ke mode uji.
+  if (saved.mode === 'live' && saved.enabled) {
+    try {
+      await gwTest(g, saved, c.env.MASTER_KEY);
+    } catch (err) {
+      const keep = (m: GwMode) => ({ pub: saved[m].pub, secret: '', hook: '' });
+      await saveGw(store, c.env.MASTER_KEY, g, { enabled: saved.enabled, mode: 'test', currencies: saved.currencies, live: keep('live'), test: keep('test') });
+      return back(c, path, `LIVE belum diaktifkan: ${(err as Error).message} Mode dikembalikan ke uji.`, true);
+    }
+  }
+  await audit(store, c.get('user')!.id, `${g}.save`, { mode: saved.mode, enabled: saved.enabled, currencies: saved.currencies, live: Boolean(saved.live.secret), test: Boolean(saved.test.secret) });
+  return back(c, path, `${GW_META[g].name} tersimpan (mode ${saved.mode === 'live' ? 'LIVE' : 'uji'}${saved.enabled ? ', aktif' : ', nonaktif'}).`);
+});
+
+admin.post('/admin/gerbang/:gw/uji', async (c) => {
+  const g = gwOf(c);
+  if (!g) return back(c, '/admin/gerbang', 'Gerbang tidak dikenal.', true);
+  const path = `/admin/gerbang/${g}`;
+  if (!(await guard(c))) return back(c, path, 'Sesi formulir kedaluwarsa.', true);
+  if (!c.env.MASTER_KEY) return back(c, path, 'MASTER_KEY belum terpasang.', true);
+  const cfg = await getGw(c.get('store'), g);
+  try {
+    await gwTest(g, cfg, c.env.MASTER_KEY);
+    return back(c, path, `Koneksi ${GW_META[g].name} ${cfg.mode} berhasil.`);
+  } catch (err) {
+    return back(c, path, err instanceof GwError ? err.message : `${GW_META[g].name} tidak dapat dihubungi.`, true);
+  }
+});
+
+admin.post('/admin/gerbang/:gw/webhook', async (c) => {
+  const g = gwOf(c);
+  if (g !== 'stripe') return back(c, '/admin/gerbang', 'Pendaftaran webhook otomatis hanya untuk Stripe.', true);
+  const path = '/admin/gerbang/stripe';
+  if (!(await guard(c))) return back(c, path, 'Sesi formulir kedaluwarsa.', true);
+  if (!c.env.MASTER_KEY) return back(c, path, 'MASTER_KEY belum terpasang.', true);
+  const store = c.get('store');
+  const cfg = await getGw(store, g);
+  try {
+    await stripeRegisterHook(store, cfg, c.env.MASTER_KEY, `${origin(c)}/api/bayar/stripe/webhook`);
+    await audit(store, c.get('user')!.id, 'stripe.webhook', { mode: cfg.mode });
+    return back(c, path, `Webhook Stripe ${cfg.mode} terdaftar dan rahasianya tersimpan.`);
+  } catch (err) {
+    return back(c, path, err instanceof GwError ? err.message : 'Webhook gagal didaftarkan.', true);
+  }
+});
+
+admin.post('/admin/gerbang/:gw/hapus/:mode', async (c) => {
+  const g = gwOf(c);
+  if (!g) return back(c, '/admin/gerbang', 'Gerbang tidak dikenal.', true);
+  const path = `/admin/gerbang/${g}`;
+  if (!(await guard(c))) return back(c, path, 'Sesi formulir kedaluwarsa.', true);
+  if (!c.env.MASTER_KEY) return back(c, path, 'MASTER_KEY belum terpasang.', true);
+  const mode: GwMode = c.req.param('mode') === 'live' ? 'live' : 'test';
+  const cfg = await getGw(c.get('store'), g);
+  const keep = (m: GwMode) => ({ pub: cfg[m].pub, secret: '', hook: '' });
+  const out = await saveGw(c.get('store'), c.env.MASTER_KEY, g, { enabled: cfg.mode === mode ? false : cfg.enabled, mode: cfg.mode, currencies: cfg.currencies, live: keep('live'), test: keep('test') }, mode);
+  await audit(c.get('store'), c.get('user')!.id, `${g}.clear`, { mode, enabled: out.enabled });
+  return back(c, path, `Kunci ${GW_META[g].name} ${mode} dihapus${out.enabled ? '' : `; ${GW_META[g].name} kini tersembunyi`}.`);
 });
