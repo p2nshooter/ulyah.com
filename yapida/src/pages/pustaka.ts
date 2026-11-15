@@ -310,7 +310,7 @@ export function pembacaPage(m: BukuMeta, bab: Bab, x: PCtx): Raw {
     <button class="baca-panah kanan" type="button" data-hal="1" aria-label="Halaman berikutnya">›</button>
   </div>
   <footer class="baca-bawah">
-    <button class="baca-dengar" type="button" data-dengar aria-pressed="false"><span class="bd-ikon" aria-hidden="true">▶</span><span data-dengar-label>Dengarkan</span></button>
+    <button class="baca-dengar" type="button" data-baca-dengar aria-pressed="false"><span class="bd-ikon" aria-hidden="true">▶</span><span data-dengar-label>Dengarkan</span></button>
     <label class="baca-sel"><span>Pencerita</span><select data-pencerita>${(Object.keys(PENCERITA) as Suara[]).map((k) => html`<option value="${k}"${k === m.suara ? raw(' selected') : ''}>${PENCERITA[k].nama} — ${PENCERITA[k].gaya}</option>`)}</select></label>
     <label class="baca-sel"><span>Kecepatan</span><select data-kecepatan><option value="0.75">0,75×</option><option value="1" selected>1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option></select></label>
     <button class="baca-ikon" type="button" data-suara-atur title="Pilih suara tiap bahasa" aria-expanded="false">🗣️<span class="sr">Pilih suara</span></button>

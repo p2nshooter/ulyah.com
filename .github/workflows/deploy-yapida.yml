@@ -154,9 +154,18 @@ jobs:
           node scripts/robots-check.mjs "$URL/robots.txt" || { echo "::error::robots.txt menutup crawler Google"; exit 1; }
           curl -sf "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
           curl -sf "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
-          for p in /profil /lembaga /lembaga/mi-al-huda /lembaga/masjid-jami-al-huda /kontak /h/kebijakan-privasi /sw.js /assets/app.css /assets/logo-512.webp; do
+          for p in /profil /lembaga /lembaga/mi-al-huda /lembaga/masjid-jami-al-huda /kontak /h/kebijakan-privasi /sw.js /assets/app.css /assets/logo-512.webp /quran /quran/36 /quran/halaman/1 /quran/halaman/604 /assets/quran/uthmani-hafs.ttf; do
             curl -sf -o /dev/null "$URL$p" || { echo "::error::$p gagal"; exit 1; }
           done
+          # Al-Qur'an: tafsir Kemenag lewat Worker (diambil sekali dari equran.id lalu disimpan di R2) dan murottal per ayat.
+          tafsir=$(curl -s -o /dev/null -w '%{http_code}' "$URL/quran/api/tafsir/1")
+          [ "$tafsir" = "200" ] && echo "tafsir Kemenag: OK ✅" || echo "::warning::tafsir Kemenag belum bisa diambil (HTTP $tafsir)"
+          for q in Alafasy_128kbps Husary_128kbps Abdul_Basit_Murattal_192kbps Minshawy_Murattal_128kbps Abdullah_Basfar_192kbps; do
+            kode=$(curl -s -o /dev/null -I -w '%{http_code}' "https://everyayah.com/data/$q/001001.mp3")
+            [ "$kode" = "200" ] && echo "murottal $q: OK" || echo "::warning::murottal $q HTTP $kode"
+          done
+          kode=$(curl -s -o /dev/null -I -w '%{http_code}' "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3")
+          [ "$kode" = "200" ] && echo "murottal cadangan: OK" || echo "::warning::murottal cadangan HTTP $kode"
           {
             echo "## yapida.sch.id online"
             echo ""

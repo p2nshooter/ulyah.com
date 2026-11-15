@@ -26,4 +26,6 @@ export interface Env {
   /** Hanya uji lokal: pengganti alamat Gutendex dan Gutenberg. */
   GUTENDEX_BASE?: string;
   GUTENBERG_BASE?: string;
+  /** Hanya uji lokal: pengganti alamat equran.id (tafsir Kemenag). */
+  EQURAN_BASE?: string;
 }

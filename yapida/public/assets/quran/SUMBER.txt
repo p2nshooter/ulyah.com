@@ -1,0 +1,4 @@
+Teks & tata letak mushaf: quran-text (@quran.ws/text 0.1.0, https://quran.ws), CC BY 4.0 — KFGQPC Uthmanic Hafs v3 (Kompleks Percetakan Al-Qur’an Raja Fahd).
+Font: KFGQPC HAFS Uthmanic Script v3 © King Fahd Glorious Quran Printing Complex — disalin tanpa perubahan sesuai lisensinya (boleh dipakai, disalin, disebarkan gratis; tidak boleh diubah atau dijual).
+Terjemah Indonesia & transliterasi: quran-json 3.1.2 (https://github.com/risan/quran-json), CC BY 4.0.
+Simbol akhir ayat: U+06DD + angka Arab, mis. ۝٢٥٥.

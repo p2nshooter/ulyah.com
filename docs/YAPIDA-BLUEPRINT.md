@@ -50,6 +50,10 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
    dari angka 0-9 cukup 5 angka, tolong bikinin dalam bentuk gambar, untuk masuk login jgn make tombol login, tp make ketuk logo
    5x“ · „Focus ngerjain kekurangan dan menyempurnakan situs yapida.sch.id dulu, jgn ngelantur“ · „Selesaikan semuanya“
 
+9. „Username nya make dropdown, misal ketua yayasan dan seterusnya, jd g perlu ngisi“ · „Passwordnya langsung bikinin
+   aja, kirim username passwordnya dalam bentuk gambar“ · „Quran mushaf ustmani nya kok g ada“ (15 Nov 2026) — akun jabatan
+   dibuat sekaligus saat pemasangan (situs live, 18 akun, diserahkan sebagai gambar di luar repo); Al-Qur'an §5a.
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di
@@ -166,7 +170,7 @@ mengirim kerangka halaman dan titik lokasi bawaan (pengaturan situs `lokasi`, ba
 | Hitung mundur Ramadhan | beranda, `/ibadah`, `/kalender-hijriah#ramadhan` | hari-jam-menit-detik menuju 1 Ramadhan; saat Ramadhan berganti menjadi hitung mundur Idul Fitri |
 | Radio Qur'an | `/radio-quran` | 114 surah utuh dari CDN islamic.network (tiga qari yang terukur punya berkas per surah: Al-Afasy, Abdul Basit, Basfar), lanjut otomatis, acak, pengatur tidur, kendali layar kunci, posisi tersimpan |
 | Tasbih | tombol di setiap halaman | 33/100 dengan getar, urutan wirid tasbih → tahmid → takbir |
-| Al-Qur'an Utsmani + tafsir | `/quran` | ⏳ fase berikut: teks rasm Utsmani, terjemah dan tafsir Kemenag, murottal per ayat dengan sorot dan lanjut otomatis, mode hafalan |
+| Al-Qur'an mushaf Utsmani | `/quran`, `/quran/<surah>`, `/quran/halaman/<1–604>` | Rasm Utsmani Hafs KFGQPC v3 dengan **tata letak 604 halaman × 15 baris mushaf Madinah** (quran-text, CC BY 4.0) dan font KFGQPC HAFS Uthmanic Script v3 (disalin tanpa perubahan sesuai lisensinya); kepala surah berbingkai, basmalah, tanda waqaf & sajdah, simbol akhir ayat bernomor. Halaman dibalik tanpa memuat ulang (panah, geser, pilih surah/juz/halaman); ketuk kata → lembar ayat (terjemah, tafsir, murottal). Per surah: terjemah Indonesia & latin (quran-json, CC BY 4.0), **tafsir Kemenag RI** (equran.id, diambil sekali lalu disimpan di R2), murottal per ayat 5 qari (everyayah.com, cadangan cdn.islamic.network) dengan sorot ayat, ulangi 1–10×, lanjut otomatis; mode hafalan, penanda, salin, posisi terakhir dibaca (di perangkat) |
 
 Jadwal dan kalender adalah hisab; halaman menyatakan bahwa penetapan resmi mengikuti Kementerian Agama dan masjid setempat.
 
@@ -209,5 +213,5 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 | Y5 | Perpustakaan: rak, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar | ⏳ |
 | Y6 | Bank soal dan buku pelajaran interaktif | ⏳ |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
-| Y8 | Al-Qur'an Utsmani + terjemah + tafsir + murottal per ayat | ⏳ |
+| Y8 | Al-Qur'an mushaf Utsmani 604 halaman + terjemah + tafsir Kemenag + murottal per ayat | 🔄 15 Nov |
 | Y9 | Permainan ala Wordwall untuk setiap bahan ajar (§5b) | ⏳ |

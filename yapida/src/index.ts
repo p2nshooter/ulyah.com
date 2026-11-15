@@ -10,6 +10,7 @@ import type { Ctx, HonoEnv } from './lib/session.ts';
 import { kecil, media, origin, render, tidakAda } from './lib/render.ts';
 import { konten, publikDok } from './routes/konten.ts';
 import { portal } from './routes/portal.ts';
+import { quran } from './routes/quran.ts';
 import { daftar, type IxItem } from './data/koleksi.ts';
 import { videoKanal } from './data/yt.ts';
 import { bagianUnit, beritaBeranda, formKontak, organYayasan } from './pages/sisipan.ts';
@@ -63,7 +64,7 @@ app.get('/sitemap.xml', async (c) => {
   const o = origin(c);
   const store2 = c.get('store');
   const isi = await Promise.all(['kabar', 'galeri', 'karya', 'ppdb', 'sdm'].map(async (k) => (await daftar(store2, k, { tayang: true, limit: 900 })).filter((it) => it.u === 'yayasan' || units.some((u) => u.slug === it.u)).map((it) => publikDok(k, it.sl))));
-  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/ibadah', '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
+  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${o}${u}</loc></url>`).join('\n')}\n</urlset>`;
   return c.body(xml, 200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=3600' });
 });
@@ -74,7 +75,7 @@ app.get('/manifest.webmanifest', async (c) => {
     id: '/', name: s.nama, short_name: s.singkatan.charAt(0) + s.singkatan.slice(1).toLowerCase(), lang: 'id', dir: 'ltr', start_url: '/?pwa=1', scope: '/', display: 'standalone', orientation: 'portrait',
     background_color: '#03241a', theme_color: '#053727', description: s.deskripsi, categories: ['education', 'books'],
     icons: [{ src: '/assets/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png' }, { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }],
-    shortcuts: [{ name: 'Jadwal Sholat', url: '/jadwal-sholat' }, { name: 'Radio Qur’an', url: '/radio-quran' }, { name: 'Arah Kiblat', url: '/kiblat' }, { name: 'Lembaga', url: '/lembaga' }],
+    shortcuts: [{ name: 'Al-Qur’an', url: '/quran' }, { name: 'Jadwal Sholat', url: '/jadwal-sholat' }, { name: 'Radio Qur’an', url: '/radio-quran' }, { name: 'Arah Kiblat', url: '/kiblat' }, { name: 'Lembaga', url: '/lembaga' }],
   }, 200, { 'content-type': 'application/manifest+json', 'cache-control': 'public, max-age=3600' });
 });
 
@@ -216,6 +217,7 @@ app.get('/h/:slug', async (c) => {
   return render(c, { path: `/h/${h.slug}`, title: `${h.judul} — ${s.nama}`, desc: h.ringkas, body: halamanPage(h), jsonLd: [crumbs(origin(c), [[h.judul, `/h/${h.slug}`]])] });
 });
 
+app.route('/', quran);
 app.route('/', konten);
 app.route('/', portal);
 
