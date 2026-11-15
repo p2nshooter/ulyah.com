@@ -25,3 +25,4 @@ curl -sf "http://127.0.0.1:${PORT}/api/health" > /dev/null || { echo "wrangler d
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e.mjs
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-portal.mjs
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-quran.mjs
+BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-pustaka.mjs

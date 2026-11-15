@@ -2,6 +2,13 @@
 
 **E-Book with Voice — perpustakaan baca bersuara untuk semua jenjang, gratis untuk umum, dengan portal guru dan kelas**
 
+> ⚠️ **TANDA: PERPUSTAKAAN DIGITAL JENIUS.ES MASIH BERMASALAH — konten dan kategori** (pemilik, 15 Nov 2026: „Situs jenius.es
+> itu masih banyak yg salah, kebanyakan modul guru, bukan buku pelajaran dan jenius.es wajib d perbaiki total, tp anda jgn
+> sentuh itu cukup tandai saja bahwa perpusatakaan digital jenius masih bermasalah baik di konten maupun kategori").
+> Yang salah: sebagian besar isi rak „buku pelajaran" ternyata modul ajar guru, dan kategori/jenjangnya tidak tepat.
+> Wajib diperbaiki total di kemudian hari — **belum dikerjakan, menunggu perintah pemilik**. Sampai itu, yapida.sch.id tidak
+> mengambil katalog dari jenius.es (`yapida/src/data/luar.ts`: `JENIUS_AKTIF = false`).
+
 ## 0. Perintah pemilik terbaru (8 Nov 2026) — MENGGANTIKAN keputusan lama yang bertentangan
 
 Dicatat dulu sebelum dibangun (pemilik: „Jgn sampe lupa blueprint untuk jenius.es agar tidak ketinggalan catat dulu perintah

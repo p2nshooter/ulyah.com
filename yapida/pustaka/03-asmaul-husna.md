@@ -2,7 +2,7 @@
 id: asmaul-husna
 judul: Asmaul Husna — 99 Nama Allah yang Indah
 judulAr: الأَسْمَاءُ الْحُسْنَى
-rak: mi, mts, doa, tpq
+rak: anak-ar, doa, tpq, mi
 suara: anak
 mapel: Akidah Akhlak
 bahasa: ar
@@ -439,3 +439,14 @@ Masya Allah, kita sudah mengenal sembilan puluh sembilan nama Allah. Semoga kita
 ::ar سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ
 
 ::tr Mahasuci Allah, segala puji bagi Allah, tiada Tuhan selain Allah, dan Allah Mahabesar.
+
+## Ayo Bermain! | هَيَّا نَلْعَبُ
+
+::kartu الرَّحْمَنُ | Ar-Rahman — Yang Maha Pengasih
+::kartu الْمَلِكُ | Al-Malik — Yang Maha Merajai
+::kartu السَّمِيعُ | As-Sami’ — Yang Maha Mendengar
+::kartu الْبَصِيرُ | Al-Bashir — Yang Maha Melihat
+::kuis Al-Khaliq artinya … | *Yang Maha Pencipta | Yang Maha Pemberi Rezeki | Yang Maha Mengetahui
+::kuis Ar-Razzaq artinya … | Yang Maha Pengampun | *Yang Maha Pemberi Rezeki | Yang Maha Agung
+::kuis Menurut hadits riwayat Bukhari dan Muslim, Allah memiliki berapa nama? | 33 | *99 | 100
+::cocok Al-‘Alim = Yang Maha Mengetahui ; Al-Ghafur = Yang Maha Memberi Pengampunan ; Al-Wadud = Yang Maha Mengasihi ; Ash-Shabur = Yang Maha Sabar

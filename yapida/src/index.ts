@@ -12,6 +12,11 @@ import { konten, publikDok } from './routes/konten.ts';
 import { portal } from './routes/portal.ts';
 import { quran } from './routes/quran.ts';
 import { radio } from './routes/radio.ts';
+import { pustaka } from './routes/pustaka.ts';
+import { katalog, urutkan } from './data/pustaka.ts';
+import { peringkat, sepuluh } from './data/statistik.ts';
+import { RAK } from './data/buku.ts';
+import { pitaPustaka, rakSisipUnit, rakUntukUnit } from './pages/pustaka.ts';
 import { daftar, type IxItem } from './data/koleksi.ts';
 import { videoKanal } from './data/yt.ts';
 import { bagianUnit, beritaBeranda, formKontak, organYayasan } from './pages/sisipan.ts';
@@ -65,7 +70,7 @@ app.get('/sitemap.xml', async (c) => {
   const o = origin(c);
   const store2 = c.get('store');
   const isi = await Promise.all(['kabar', 'galeri', 'karya', 'ppdb', 'sdm'].map(async (k) => (await daftar(store2, k, { tayang: true, limit: 900 })).filter((it) => it.u === 'yayasan' || units.some((u) => u.slug === it.u)).map((it) => publikDok(k, it.sl))));
-  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
+  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${o}${u}</loc></url>`).join('\n')}\n</urlset>`;
   return c.body(xml, 200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=3600' });
 });
@@ -96,14 +101,16 @@ if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{if(r.ok)
 
 app.get('/', async (c) => {
   const store = c.get('store');
-  const [s, units, kabar, galeri, ppdb] = await Promise.all([getSitus(store), listUnits(store), daftar(store, 'kabar', { tayang: true, limit: 6 }), daftar(store, 'galeri', { tayang: true, limit: 4 }), daftar(store, 'ppdb', { tayang: true, limit: 20 })]);
+  const [s, units, kabar, galeri, ppdb, kat, pk] = await Promise.all([getSitus(store), listUnits(store), daftar(store, 'kabar', { tayang: true, limit: 6 }), daftar(store, 'galeri', { tayang: true, limit: 4 }), daftar(store, 'ppdb', { tayang: true, limit: 20 }), katalog(c.env, store), peringkat(store)]);
+  const topBaca = sepuluh(pk.baca, (id) => kat.peta.has(id)).map(({ id, n }) => ({ b: kat.peta.get(id)!, n }));
+  const pilihanPustaka = urutkan(kat.semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga' || b.sampulUrl), kat.atur).slice(0, 14);
   const x = { media: media(c), kecil, units };
   const aktif = (it: IxItem) => it.u === 'yayasan' || units.some((u) => u.slug === it.u);
   return render(c, {
     path: '/', aktif: 'beranda',
     title: `${s.nama} — Pendidikan Islam Terpadu di Sukakarya, Bekasi`,
     desc: s.deskripsi,
-    body: berandaPage(s, units, raw(beritaBeranda(x, kabar.filter(aktif).slice(0, 3), galeri.filter(aktif).slice(0, 4), ppdb.filter(aktif)).s + pitaAplikasi(s).s)), css: IBADAH_CSS, js: IBADAH_JS,
+    body: berandaPage(s, units, raw(beritaBeranda(x, kabar.filter(aktif).slice(0, 3), galeri.filter(aktif).slice(0, 4), ppdb.filter(aktif)).s + pitaPustaka(pilihanPustaka, topBaca, x).s + pitaAplikasi(s).s)), css: [...IBADAH_CSS, 'pustaka.css'], js: [...IBADAH_JS, 'pustaka.js'],
     jsonLd: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: s.nama, alternateName: s.singkatan, url: `${origin(c)}/`, inLanguage: 'id' }],
   });
 });
@@ -154,12 +161,16 @@ app.get('/lembaga/:slug', async (c) => {
     daftar(store, 'agenda', { tayang: true, unit: u.slug, limit: 40 }),
   ]);
   const o = origin(c);
-  const isi = bagianUnit({ media: media(c), kecil, units }, u.slug, u.singkat, { sdm, kabar, galeri, video, kanal: kanal.slice(0, 6), ppdb, dokumen, karya, agenda });
+  const kat = await katalog(c.env, store);
+  const rakU = rakUntukUnit(u.slug).map((r) => r.id);
+  const bukuU = urutkan(kat.semua.filter((b) => b.unit === u.slug || b.rak.some((r) => rakU.includes(r))), kat.atur, u.slug).slice(0, 16);
+  const uItem = units.find((x) => x.slug === u.slug);
+  const isi = raw(bagianUnit({ media: media(c), kecil, units }, u.slug, u.singkat, { sdm, kabar, galeri, video, kanal: kanal.slice(0, 6), ppdb, dokumen, karya, agenda }).s + (uItem ? rakSisipUnit(uItem, bukuU, { media: media(c), kecil, units }).s : ''));
   return render(c, {
     path: `/lembaga/${u.slug}`, aktif: 'lembaga',
     title: `${u.nama} — ${u.jenis} di Sukakarya, Bekasi | ${s.singkatan}`,
     desc: u.ringkas,
-    body: unitPage(u, units.filter((x) => x.kelompok === u.kelompok && x.slug !== u.slug), isi), js: ['suara.js'],
+    body: unitPage(u, units.filter((x) => x.kelompok === u.kelompok && x.slug !== u.slug), isi), css: ['pustaka.css'], js: ['suara.js', 'pustaka.js'],
     jsonLd: [crumbs(o, [['Lembaga', '/lembaga'], [u.singkat, `/lembaga/${u.slug}`]]), unitLd(o, u, s.nama)],
   });
 });
@@ -220,6 +231,7 @@ app.get('/h/:slug', async (c) => {
 
 app.route('/', quran);
 app.route('/', radio);
+app.route('/', pustaka);
 app.route('/', konten);
 app.route('/', portal);
 

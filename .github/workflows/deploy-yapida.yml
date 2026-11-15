@@ -19,6 +19,8 @@ on:
     paths:
       - 'yapida/**'
       - 'adsense-stack.json'
+      - 'packages/db-schema/seed/**'
+      - 'scripts/data/**'
       - '.github/workflows/deploy-yapida.yml'
   schedule:
     - cron: '41 4 * * *'
@@ -112,8 +114,12 @@ jobs:
           echo "PUBLIC_URL=https://${DOMAIN}" >> "$GITHUB_ENV"
           echo "Zona ${DOMAIN} aktif — dipasang sebagai custom domain + alamat kanonik."
 
+      # Buku bawaan perpustakaan (kitab, hadits, kisah, karya, Book Dash) dibuat dari sumber di repo — tidak disimpan di git.
       - name: Deploy Worker
-        run: npx wrangler deploy | tee deploy.log
+        run: |
+          set -o pipefail
+          npm run pustaka
+          npx wrangler deploy | tee deploy.log
 
       - name: Create SESSION_SECRET once (never rotated by deploys)
         run: |
@@ -154,9 +160,13 @@ jobs:
           node scripts/robots-check.mjs "$URL/robots.txt" || { echo "::error::robots.txt menutup crawler Google"; exit 1; }
           curl -sf "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
           curl -sf "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
-          for p in /profil /lembaga /lembaga/mi-al-huda /lembaga/masjid-jami-al-huda /kontak /h/kebijakan-privasi /sw.js /assets/app.css /assets/logo-512.webp /quran /quran/36 /quran/halaman/1 /quran/halaman/604 /assets/quran/uthmani-hafs.ttf; do
+          for p in /profil /lembaga /lembaga/mi-al-huda /lembaga/masjid-jami-al-huda /kontak /h/kebijakan-privasi /sw.js /assets/app.css /assets/logo-512.webp /quran /quran/36 /quran/halaman/1 /quran/halaman/604 /assets/quran/uthmani-hafs.ttf /pustaka /pustaka/rak/ra /pustaka/rak/anak-en /pustaka/b/k-menanam-padi/1 /pustaka/api/b/k-hadits-bukhari/1 /assets/adegan.js; do
             curl -sf -o /dev/null "$URL$p" || { echo "::error::$p gagal"; exit 1; }
           done
+          # Perpustakaan: katalog bawaan ikut terpasang (dibuat saat deploy), tanpa PDF.
+          jumlah=$(curl -sf "$URL/assets/pustaka/katalog.json" | jq '.buku | length')
+          [ "${jumlah:-0}" -ge 150 ] && echo "perpustakaan: $jumlah buku ✅" || { echo "::error::katalog perpustakaan kosong ($jumlah)"; exit 1; }
+          if curl -sf "$URL/pustaka/b/k-menanam-padi" | grep -qiE '\.pdf"|download='; then echo "::error::perpustakaan memuat PDF/unduhan"; exit 1; fi
           # Al-Qur'an: tafsir Kemenag lewat Worker (diambil sekali dari equran.id lalu disimpan di R2) dan murottal per ayat.
           tafsir=$(curl -s -o /dev/null -w '%{http_code}' "$URL/quran/api/tafsir/1")
           [ "$tafsir" = "200" ] && echo "tafsir Kemenag: OK ✅" || echo "::warning::tafsir Kemenag belum bisa diambil (HTTP $tafsir)"

@@ -2,3 +2,6 @@ node_modules/
 .wrangler/
 .dev.vars
 e2e-out/
+# Katalog & bab perpustakaan bawaan: dibuat ulang dari sumber di repo (npm run pustaka) saat uji, dev, dan deploy.
+public/assets/pustaka/b/
+public/assets/pustaka/katalog.json

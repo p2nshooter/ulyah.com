@@ -2,7 +2,7 @@
 id: adab-harian
 judul: Adab Harian Anak Muslim
 judulAr: آدَابُ الطِّفْلِ الْمُسْلِمِ
-rak: ra, mi, doa
+rak: cerita, ra, doa
 suara: balita
 mapel: Akidah Akhlak
 bahasa: id
@@ -107,3 +107,13 @@ Bacalah doa sebelum tidur:
 ::tr Dengan nama-Mu, ya Allah, aku hidup dan aku mati. (HR. Bukhari)
 
 Selamat tidur. Semoga Allah menjagamu sampai pagi.
+
+## Ayo Bermain! | هَيَّا نَلْعَبُ
+
+::kuis Sebelum makan kita membaca … | *بِسْمِ اللَّهِ | السَّلَامُ عَلَيْكُمْ | رَبِّ زِدْنِي عِلْمًا
+::kuis Kita makan dengan tangan … | *Kanan | Kiri
+::kuis Masuk masjid dengan kaki … | *Kanan | Kiri
+::kuis Doa masuk masjid artinya … | *Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu | Ya Allah, sesungguhnya aku memohon karunia-Mu | Dengan nama-Mu ya Allah, aku hidup dan aku mati
+::kartu بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ | Doa sebelum tidur
+::kartu اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ | Doa masuk masjid
+::cocok Masuk rumah = Mengucapkan salam ; Sebelum makan = Membaca basmalah ; Masuk masjid = Kaki kanan ; Keluar masjid = Kaki kiri

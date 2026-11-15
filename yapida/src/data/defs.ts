@@ -147,9 +147,8 @@ export const BUKU: Koleksi = {
     { k: 'ringkasan', label: 'Ringkasan', jenis: 'paragraf', wajib: true, maks: 400 },
     {
       k: 'naskah', label: 'Isi buku', jenis: 'markdown', maks: 400_000,
-      bantuan: '„## Judul bab“ memulai bab baru · „### Judul“ judul kecil · paragraf beraksara Arab otomatis dibacakan dengan suara Arab · awali baris dengan „::en “ untuk bahasa Inggris, „::tr “ untuk terjemah, „::lt “ untuk tulisan latin (tidak dibacakan), „::cat “ untuk catatan/sumber.',
+      bantuan: '„## Judul bab“ memulai bab baru · „### Judul“ judul kecil · paragraf beraksara Arab otomatis dibacakan dengan suara Arab · awali baris dengan „::en “ untuk bahasa Inggris, „::tr “ untuk terjemah, „::lt “ untuk tulisan latin (tidak dibacakan), „::cat “ untuk catatan/sumber · aktivitas: „::kuis Tanya? | *benar | salah“, „::kartu depan | belakang“, „::cocok a = b ; c = d“, „::urut Perintah | kejadian 1 ;; kejadian 2 ;; kejadian 3“, „::adegan padi | keterangan“ (gambar interaktif: padi, hujan, langit, masjid, kebun, buah, laut, gurun, gunung, rumah, sholat, huruf). Buku anak yang belum diberi permainan otomatis mendapat adegan dan „Ayo Bermain!“ dari isi babnya.',
     },
-    { k: 'pdf', label: 'Atau unggah PDF', jenis: 'berkas', bantuan: 'Buku PDF dibaca di penampil PDF (tanpa suara). Isi buku di atas tetap diutamakan bila ada.' },
     { k: 'sumber', label: 'Sumber', jenis: 'teks', maks: 200, bantuan: 'Mis. „Disusun guru MI Al Huda“ atau alamat sumber terbuka.' },
     { k: 'lisensi', label: 'Hak cipta', jenis: 'pilih', pilihan: [['milik', 'Karya lembaga sendiri'], ['cc-by-sa', 'CC BY-SA 4.0'], ['cc-by', 'CC BY 4.0'], ['pd', 'Domain publik']] },
   ],

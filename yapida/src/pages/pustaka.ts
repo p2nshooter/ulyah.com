@@ -1,6 +1,7 @@
 /** Halaman perpustakaan digital: beranda pustaka, rak, rak lembaga, katalog dunia, detail buku, dan pembaca bersuara. */
 import { esc, html, jsonScript, raw, type Raw } from '../lib/html.ts';
 import { PALET, RAK, RAK_ID, type Bab, type Blok, type BukuMeta, type Rak } from '../data/buku.ts';
+import { hidupkanBab } from '../data/aktif.ts';
 import type { KartuBuku } from '../data/pustaka.ts';
 import type { UnitItem } from '../data/site.ts';
 import type { Suara } from '../data/model.ts';
@@ -35,10 +36,10 @@ function gaya(b: { id: string; rak: string[] }): { w: [string, string, string]; 
 const tautBuku = (id: string) => `/pustaka/b/${encodeURIComponent(id)}`;
 
 /** Buku 3D: sampul tipografi berornamen (atau sampul unggahan), punggung, dan tepi halaman. Miring mengikuti kursor. */
-export function sampul3d(b: Pick<KartuBuku, 'id' | 'judul' | 'judulAr' | 'penulis' | 'rak' | 'sampul'>, x: PCtx, o: { besar?: boolean; href?: string | null } = {}): Raw {
+export function sampul3d(b: Pick<KartuBuku, 'id' | 'judul' | 'judulAr' | 'penulis' | 'rak' | 'sampul' | 'sampulUrl'>, x: PCtx, o: { besar?: boolean; href?: string | null } = {}): Raw {
   const g = gaya(b);
   const rak = RAK_ID[b.rak[0] ?? ''];
-  const gambar = b.sampul ? x.media(o.besar ? b.sampul : x.kecil(b.sampul)) : '';
+  const gambar = b.sampul ? x.media(o.besar ? b.sampul : x.kecil(b.sampul)) : b.sampulUrl && (b.sampulUrl.startsWith('/pustaka/m/')) ? b.sampulUrl : '';
   const isi = html`<span class="b3-badan">
     <span class="b3-depan motif-${g.motif}${gambar ? ' b3-bergambar' : ''}">
       ${gambar ? html`<img src="${gambar}" alt="" loading="lazy" decoding="async">` : html`<span class="b3-bingkai" aria-hidden="true"></span>
@@ -171,12 +172,17 @@ export function pustakaBeranda(d: DataBeranda, x: PCtx): Raw {
 </div></section>`;
 }
 
-export function rakPage(judul: string, lead: string, remah: [string, string][], buku: KartuBuku[], x: PCtx, o: { kelas?: string[]; pilihKelas?: string; dasar?: string; q?: string } = {}): Raw {
+export function rakPage(judul: string, lead: string, remah: [string, string][], buku: KartuBuku[], x: PCtx, o: { kelas?: string[]; pilihKelas?: string; mapel?: string[]; pilihMapel?: string; dasar?: string; q?: string; hal?: number; total?: number; perHal?: number } = {}): Raw {
+  const qs = (h: number) => { const p = new URLSearchParams(); if (o.pilihKelas) p.set('kelas', o.pilihKelas); if (o.pilihMapel) p.set('mapel', o.pilihMapel); if (h > 1) p.set('hal', String(h)); const t = p.toString(); return `${o.dasar ?? ''}${t ? `?${t}` : ''}`; };
+  const jumlahHal = o.total && o.perHal ? Math.ceil(o.total / o.perHal) : 1;
   return html`${kepalaHalaman(judul, lead, remah, 'Perpustakaan')}
 <section class="bagian"><div class="wadah">
   ${formCari(o.q ?? '')}
   ${o.kelas && o.kelas.length > 1 ? html`<nav class="saring saring-taut muncul" aria-label="Saring kelas"><a class="saring-tbl" href="${o.dasar}"${!o.pilihKelas ? raw(' aria-current="true"') : ''}>Semua</a>${o.kelas.map((k) => html`<a class="saring-tbl" href="${o.dasar}?kelas=${encodeURIComponent(k)}"${o.pilihKelas === k ? raw(' aria-current="true"') : ''}>${k}</a>`)}</nav>` : ''}
+  ${o.mapel && o.mapel.length > 1 ? html`<form class="saring-mapel muncul" method="get" action="${o.dasar}">${o.pilihKelas ? html`<input type="hidden" name="kelas" value="${o.pilihKelas}">` : ''}<label>Mata pelajaran <select name="mapel" data-kirim-otomatis><option value="">Semua mata pelajaran</option>${o.mapel.map((m) => html`<option value="${m}"${o.pilihMapel === m ? raw(' selected') : ''}>${m}</option>`)}</select></label><noscript><button class="tbl tbl-garis tbl-kecil" type="submit">Saring</button></noscript></form>` : ''}
+  ${o.total !== undefined ? html`<p class="kecil-abu">${o.total.toLocaleString('id-ID')} buku${jumlahHal > 1 ? html` · halaman ${o.hal ?? 1} dari ${jumlahHal}` : ''}</p>` : ''}
   ${buku.length ? html`<div class="kisi-buku">${buku.map((b) => kartuBuku(b, x))}</div>` : html`<p class="kosong-teks muncul">Belum ada buku di sini. Admin lembaga bisa menambah buku melalui portal.</p>`}
+  ${jumlahHal > 1 ? html`<p class="halaman-nav">${(o.hal ?? 1) > 1 ? html`<a class="tbl tbl-garis tbl-kecil" href="${qs((o.hal ?? 1) - 1)}">‹ Sebelumnya</a>` : ''}${(o.hal ?? 1) < jumlahHal ? html`<a class="tbl tbl-garis tbl-kecil" href="${qs((o.hal ?? 1) + 1)}">Berikutnya ›</a>` : ''}</p>` : ''}
 </div></section>`;
 }
 
@@ -221,7 +227,6 @@ export function bukuDetail(m: BukuMeta, asal: KartuBuku['asal'], x: PCtx, o: { b
       <div class="buku-aksi">
         ${m.bab.length ? html`<a class="tbl tbl-emas" href="${tautBuku(m.id)}/1" data-mulai-baca="${m.id}">${icon('buku')}<span>Baca</span></a>
         <a class="tbl tbl-garis-terang" href="${tautBuku(m.id)}/1?dengar=1">▶ <span>Dengarkan</span></a>` : ''}
-        ${m.pdf ? html`<a class="tbl tbl-garis-terang" href="${x.media(m.pdf)}" target="_blank" rel="noopener">${icon('buku')}<span>Buka PDF</span></a>` : ''}
         <button class="tbl tbl-suka" type="button" data-suka="${m.id}" aria-pressed="${o.disukai ? 'true' : 'false'}"><span aria-hidden="true">♥</span> <span data-suka-n>${o.suka}</span><span class="sr"> suka</span></button>
       </div>
       <ul class="buku-fakta">
@@ -236,7 +241,7 @@ export function bukuDetail(m: BukuMeta, asal: KartuBuku['asal'], x: PCtx, o: { b
 <section class="bagian"><div class="wadah buku-dua">
   <div>
     <h2 class="judul-kecil">Daftar isi</h2>
-    ${m.bab.length ? html`<ol class="daftar-isi">${m.bab.map((b) => html`<li><a href="${tautBuku(m.id)}/${b.n}"><span class="di-n">${b.n}</span><span class="di-j">${b.judul}</span><span class="di-m">${Math.max(1, Math.round(b.kata / 150))} mnt</span></a></li>`)}</ol>` : html`<p class="kosong-teks">Buku ini berupa PDF.</p>`}
+    ${m.bab.length ? html`<ol class="daftar-isi">${m.bab.map((b) => html`<li><a href="${tautBuku(m.id)}/${b.n}"><span class="di-n">${b.n}</span><span class="di-j">${b.judul}</span><span class="di-m">${Math.max(1, Math.round(b.kata / 150))} mnt</span></a></li>`)}</ol>` : ''}
   </div>
   <aside class="buku-info">
     <h2 class="judul-kecil">Tentang buku</h2>
@@ -263,8 +268,32 @@ export function sebaris(x: string, bungkusArab = true): string {
   return t;
 }
 
+/** Isi aktivitas ala Wordwall dikirim sebagai data (atribut), dirakit jadi permainan oleh pustaka.js. */
+const attr = (s: string) => esc(s);
 export function blokHtml(b: Blok): string {
   switch (b.t) {
+    case 'adegan': {
+      const [nama, ket] = b.x.split('|').map((v) => v.trim());
+      return `<figure class="akt adegan" data-akt="adegan" data-adegan="${attr(nama ?? '')}" data-ket="${attr(ket ?? '')}"><div class="adegan-panggung" data-adegan-isi role="img" aria-label="${attr(ket || 'Gambar interaktif')}"></div><figcaption><span>${sebaris(ket ?? '')}</span><button type="button" class="adegan-reset" data-adegan-reset>↺ Kembalikan</button></figcaption></figure>`;
+    }
+    case 'img': return b.x.startsWith('/pustaka/m/') ? `<figure class="b-img"><img src="${attr(b.x)}" alt="${attr(b.a ?? '')}" loading="lazy" decoding="async"></figure>` : '';
+    case 'kuis': {
+      const [tanya, ...pil] = b.x.split('|').map((s) => s.trim());
+      return `<div class="akt akt-kuis" data-akt="kuis" data-pilihan="${attr(JSON.stringify(pil))}"><p class="akt-label">❓ Tebak!</p><p class="akt-tanya" data-b>${sebaris(tanya ?? '')}</p><div class="akt-pilihan" data-akt-isi></div></div>`;
+    }
+    case 'kartu': {
+      const [depan, belakang] = b.x.split('|').map((s) => s.trim());
+      return `<button type="button" class="akt akt-kartu" data-akt="kartu" aria-pressed="false"><span class="kartu-muka depan">${sebaris(depan ?? '')}</span><span class="kartu-muka belakang">${sebaris(belakang ?? '')}</span><span class="kartu-ketuk" aria-hidden="true">ketuk untuk membalik ↻</span></button>`;
+    }
+    case 'cocok': {
+      const pasang = b.x.split(';').map((p) => p.split('=').map((s) => s.trim())).filter((p) => p.length === 2 && p[0] && p[1]);
+      return `<div class="akt akt-cocok" data-akt="cocok" data-pasang="${attr(JSON.stringify(pasang))}"><p class="akt-label">🧩 Pasangkan!</p><p class="akt-tanya">Ketuk satu kotak di kiri, lalu pasangannya di kanan.</p><div class="cocok-papan" data-akt-isi></div></div>`;
+    }
+    case 'urut': {
+      const [tanya, isi] = b.x.split('|').map((s) => s.trim());
+      const butir = (isi ?? '').split(';;').map((s) => s.trim()).filter(Boolean);
+      return `<div class="akt akt-urut" data-akt="urut" data-urut="${attr(JSON.stringify(butir))}"><p class="akt-label">🔢 Urutkan!</p><p class="akt-tanya" data-b>${sebaris(tanya ?? '')}</p><ol class="urut-hasil" data-urut-hasil></ol><div class="urut-pilihan" data-akt-isi></div></div>`;
+    }
     case 'h': return `<h3 class="b-h" data-b>${sebaris(b.x)}</h3>`;
     case 'ar': return `<p class="b-ar" lang="ar" dir="rtl" data-b>${sebaris(b.x, false)}</p>`;
     case 'tr': return `<p class="b-tr" data-b data-tr>${sebaris(b.x)}</p>`;
@@ -277,7 +306,8 @@ export function blokHtml(b: Blok): string {
   }
 }
 
-export function pembacaPage(m: BukuMeta, bab: Bab, x: PCtx): Raw {
+export function pembacaPage(m: BukuMeta, babAsli: Bab, x: PCtx): Raw {
+  const bab = hidupkanBab(babAsli, m);
   const sebelum = m.bab.find((b) => b.n === bab.n - 1);
   const sesudah = m.bab.find((b) => b.n === bab.n + 1);
   const adaTr = bab.blok.some((b) => b.t === 'tr' || b.t === 'lt');
@@ -335,3 +365,20 @@ ${jsonScript('data-baca', { id: m.id, judul: m.judul, n: bab.n, bab: m.bab.map((
 }
 
 export const rakUntukUnit = (slug: string): Rak[] => RAK.filter((r) => r.unit.includes(slug));
+
+/** Pita perpustakaan di beranda: buku pilihan + peringkat singkat. */
+export function pitaPustaka(buku: KartuBuku[], top: { b: KartuBuku; n: number }[], x: PCtx): Raw {
+  if (!buku.length) return raw('');
+  return html`<section class="bagian bagian-rak pita-pustaka"><div class="wadah">
+    <header class="bagian-kepala muncul"><p class="kicker">Perpustakaan digital bersuara</p><h2>Pustaka Yapida</h2><p class="lead">Kitab, doa, cerita bergambar, dan buku pelajaran TK–MI–MTs — semua bisa dibacakan, banyak yang bisa dimainkan.</p>${hiasan}</header>
+    ${rakBuku({ judul: top.length ? 'Paling sering dibaca' : 'Pilihan pustaka', ikon: top.length ? '📚' : '✨', href: '/pustaka' }, top.length ? top.map((t) => t.b) : buku, x)}
+    <p class="tengah muncul"><a class="tbl tbl-emas" href="/pustaka">${icon('buku')}<span>Masuk perpustakaan</span></a></p>
+  </div></section>`;
+}
+
+/** Rak buku di halaman profil lembaga. */
+export function rakSisipUnit(u: UnitItem, buku: KartuBuku[], x: PCtx): Raw {
+  if (!buku.length) return raw('');
+  return html`<section class="bagian bagian-rak"><div class="wadah">${rakBuku({ judul: `Rak pustaka ${u.singkat}`, ringkas: 'Buku bacaan, kitab, dan buku pelajaran pilihan — bisa dibaca dan dibacakan.', ikon: '📚', href: `/pustaka/lembaga/${u.slug}` }, buku, x)}</div></section>`;
+}
+
