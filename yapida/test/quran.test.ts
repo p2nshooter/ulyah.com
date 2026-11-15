@@ -15,7 +15,8 @@ const baca = <T>(p: string): T => JSON.parse(fs.readFileSync(path.join(PUB, 'ass
 const ASSETS = {
   fetch: async (req: Request) => {
     const f = path.join(PUB, new URL(req.url).pathname);
-    return f.startsWith(PUB) && fs.existsSync(f) && fs.statSync(f).isFile() ? new Response(fs.readFileSync(f)) : new Response('tidak ada', { status: 404 });
+    if (!f.startsWith(PUB)) return new Response('tidak ada', { status: 404 });
+    try { return new Response(fs.readFileSync(f)); } catch { return new Response('tidak ada', { status: 404 }); }
   },
 } as unknown as Fetcher;
 const env = (extra: Partial<Env> = {}): Env => ({ DATA: new FakeR2() as unknown as R2Bucket, MEDIA: new FakeR2() as unknown as R2Bucket, ASSETS, CANONICAL_HOST: 'yapida.sch.id', SESSION_SECRET: 'rahasia-uji-0123456789abcdef', ...extra });

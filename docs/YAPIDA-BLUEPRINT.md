@@ -54,6 +54,12 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
    aja, kirim username passwordnya dalam bentuk gambar“ · „Quran mushaf ustmani nya kok g ada“ (15 Nov 2026) — akun jabatan
    dibuat sekaligus saat pemasangan (situs live, 18 akun, diserahkan sebagai gambar di luar repo); Al-Qur'an §5a.
 
+10. „Tolong bikinin game muslim interkatif anak sampai dewasa, iqro onvensional seperti yg ada d buku iqro.. Bikin yg
+    interaktif“ · „Perpustakaan digitalnya jg ini belum ada“ · „Radio quran pastiin hidup 24 jam, dengan auto random selurum
+    imam seluruh dunia, tanpa bisa di klik, haha notif siapa yg baca, dan hitung sudah berapa kali hatam, tp bisa di matikan
+    di device masing2 cuma di engine jgn pernah mati, termasuk waktu adzan pastiin hidup jika sudah d install di HP walaupun
+    aplikaainya sudah d tutup, dengan notif adzan yg bisa di matiin“ (15 Nov 2026) — rencana §5c–§5e.
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di
@@ -180,6 +186,38 @@ Setiap bahan ajar bisa dimainkan dalam beberapa bentuk dari satu isi yang sama (
 permainannya): kuis pilihan ganda, menjodohkan, kartu hafalan berbalik, benar-salah, susun huruf (anagram), cari kata,
 roda putar, kelompokkan, isian rumpang, buka kotak. Ada pengatur waktu, nilai, bintang, papan peringkat per paket, dan
 suara pembaca sesuai bahasa. Guru membuatnya di portal; paket contoh diberi tanda „contoh“.
+
+## 5c. Radio Qur'an LIVE 24 jam (perintah 10)
+
+- **Mesin di server, tidak pernah mati**: jadwal siaran ditentukan dari waktu, bukan dari pendengar. Satu putaran = surah
+  1 sampai 114 berurutan = **satu khatam**; setiap surah dibacakan qari yang dipilih acak (deterministik per putaran) dari
+  daftar qari seluruh dunia (mp3quran.net, riwayat Hafs, berkas 114 surah lengkap). Durasi tiap berkas dibaca dari kepala
+  MP3 dan disimpan di R2, sehingga semua pendengar mendengar posisi yang sama seperti radio sungguhan.
+- **Tanpa klik**: pendengar tidak memilih surah atau qari; hanya **nyala/mati di perangkatnya sendiri** (tersimpan di
+  perangkat). Pemberitahuan „Kini dibacakan oleh …“ (layar kunci lewat Media Session + pita di halaman) dan **hitungan
+  khatam** sejak radio pertama mengudara. Pemutar mini di seluruh situs.
+- Batas peramban: di tab biasa suara baru boleh berbunyi setelah satu ketukan pertama; aplikasi yang dipasang di HP
+  memutar langsung.
+
+## 5d. Notifikasi adzan (perintah 10)
+
+- **Web Push** (VAPID + enkripsi aes128gcm, ditulis sendiri di Worker) sehingga notifikasi adzan tetap datang walau
+  aplikasi/peramban ditutup — Android (Chrome) dan iPhone (iOS 16.4+, aplikasi terpasang). Suara = suara notifikasi
+  ponsel; ketuk notifikasi membuka halaman adzan.
+- Langganan di R2 (satu objek per perangkat; lokasi dibulatkan ±1 km; waktu sholat dihitung server dengan `adhan`, metode
+  sama dengan jadwal). Indeks per menit `i/adzan/<menit>/<langganan>` — setiap menit hanya satu daftar R2.
+- Detak tiap menit: cron `* * * * *` milik Worker detektor-artikel di akun yang sama memanggil entrypoint RPC bernama di
+  Worker yapida lewat service binding (tidak terbuka ke internet; kuota 5 cron akun sudah terpakai).
+- Bisa dimatikan per perangkat dan per waktu sholat di halaman Jadwal Sholat; ada tombol uji notifikasi.
+
+## 5e. Iqro interaktif & game muslim (perintah 10)
+
+- **Iqro**: latihan buatan sendiri yang mengikuti urutan metode Iqro konvensional (bukan salinan buku Iqro): jilid 1 huruf
+  berharakat fathah, 2 huruf sambung & mad, 3 kasrah, 4 dhammah/tanwin/sukun/qalqalah, 5 tasydid/waqaf/lam syamsiyah, 6
+  tajwid ringan & ayat pendek. Setiap halaman: baris bacaan besar, ketuk untuk mendengar, mode guru-murid, uji per halaman,
+  bintang, dan kemajuan tersimpan di perangkat.
+- **Game** (anak sampai dewasa): tebak huruf, cocokkan Asmaul Husna, susun ayat, lanjutkan ayat, tebak surah, kuis Islami
+  berjenjang — isi dari data yang sudah ada (Al-Qur'an, Asmaul Husna, doa) dan bank soal yang ditulis teliti.
 
 ## 6. Desain „Mihrab Zamrud“
 

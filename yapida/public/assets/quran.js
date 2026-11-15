@@ -32,6 +32,7 @@
       var it = antre;
       audio.src = alamat(it.s, it.a);
       audio.dataset.cadangan = String(it.g);
+      audio.dataset.sumber = 'utama';
       audio.play().catch(function () { /* menunggu ketukan pengguna */ });
       jalan = true;
       if (o.mulai) o.mulai(it);
@@ -40,7 +41,7 @@
     };
     audio.addEventListener('error', function () {
       var g = audio.dataset.cadangan;
-      if (g && audio.src.indexOf('everyayah.com') >= 0) { audio.src = cadangan(Number(g)); audio.play().catch(function () {}); }
+      if (g && audio.dataset.sumber === 'utama') { audio.dataset.sumber = 'cadangan'; audio.src = cadangan(Number(g)); audio.play().catch(function () {}); }
     });
     audio.addEventListener('ended', function () {
       ke += 1;

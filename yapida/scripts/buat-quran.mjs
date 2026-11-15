@@ -48,7 +48,6 @@ for (const s of d.surahs) {
 const halamanKata = new Int32Array(N), juzKata = new Int32Array(N);
 for (let p = 0; p < d.page_starts.length; p += 1) for (let i = d.page_starts[p]; i < akhir(d.page_starts, p); i += 1) halamanKata[i] = p + 1;
 for (let j = 0; j < d.juz_starts.length; j += 1) for (let i = d.juz_starts[j]; i < akhir(d.juz_starts, j); i += 1) juzKata[i] = j + 1;
-const awalAyat = new Set(d.ayah_starts);
 const akhirAyat = new Set(d.ayah_starts.map((_, a) => akhir(d.ayah_starts, a) - 1));
 const awalSurah = new Map(d.surah_starts.map((w, i) => [w, i + 1]));
 

@@ -28,7 +28,8 @@ const PUB = new URL('../public/', import.meta.url).pathname;
 const ASSETS = {
   fetch: async (req: Request) => {
     const f = PUB + new URL(req.url).pathname.replace(/^\/+/, '');
-    return !f.includes('..') && fs.existsSync(f) && fs.statSync(f).isFile() ? new Response(fs.readFileSync(f)) : new Response('tidak ada', { status: 404 });
+    if (f.includes('..')) return new Response('tidak ada', { status: 404 });
+    try { return new Response(fs.readFileSync(f)); } catch { return new Response('tidak ada', { status: 404 }); }
   },
 } as unknown as Fetcher;
 
