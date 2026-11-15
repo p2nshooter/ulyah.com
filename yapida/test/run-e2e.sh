@@ -24,5 +24,6 @@ for _ in $(seq 1 90); do curl -s -o /dev/null "http://127.0.0.1:${PORT}/api/heal
 curl -sf "http://127.0.0.1:${PORT}/api/health" > /dev/null || { echo "wrangler dev tidak menyala"; tail -50 "$LOG_DIR/dev.log"; exit 1; }
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e.mjs
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-portal.mjs
+BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-dokumen.mjs
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-quran.mjs
 BASE="http://127.0.0.1:${PORT}" OUT="$LOG_DIR" node test/e2e-pustaka.mjs

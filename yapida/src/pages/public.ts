@@ -255,8 +255,9 @@ export function kontakPage(s: Situs, form: Raw = raw('')): Raw {
 </div></section>`;
 }
 
-export function halamanPage(h: Halaman): Raw {
-  return html`${kepalaHalaman(h.judul, h.ringkas, [[h.judul, `/h/${h.slug}`]])}
+export function halamanPage(h: Halaman, remah: [string, string][] = [], lain: { slug: string; judul: string }[] = []): Raw {
+  return html`${kepalaHalaman(h.judul, h.ringkas, [...remah, [h.judul, `/h/${h.slug}`]])}
+${lain.length ? html`<nav class="saring saring-taut halaman-lain" aria-label="Halaman lain"><span class="kecil-abu">Halaman lain:</span>${lain.map((x) => html`<a class="saring-tbl" href="/h/${x.slug}">${x.judul}</a>`)}</nav>` : ''}
 <section class="bagian"><div class="wadah sempit"><article class="prosa muncul">${raw(h.isiHtml)}<p class="diperbarui">Diperbarui ${tanggal(h.ubah)}</p></article></div></section>`;
 }
 
@@ -267,4 +268,13 @@ export function tidakAdaPage(): Raw {
     <p class="lead">Alamat yang Anda buka tidak ada atau sudah dipindahkan.</p>
     <p class="hero-aksi tengah"><a class="tbl tbl-emas" href="/">Ke beranda</a><a class="tbl tbl-kaca" href="/lembaga">Daftar lembaga</a></p>
   </div></section>`;
+}
+
+/** Halaman bebas milik sebuah lembaga — kartu tautan di halaman lembaga (dibuat admin lembaga di portal). */
+export function halamanLembaga(nama: string, hs: { slug: string; judul: string }[]): Raw {
+  if (!hs.length) return html``;
+  return html`<section class="bagian" id="informasi"><div class="wadah">
+  <header class="bagian-kepala muncul"><p class="kicker">Informasi</p><h2>Seputar ${nama}</h2></header>
+  <div class="kisi-halaman">${hs.map((h, i) => html`<a class="kartu-halaman muncul" href="/h/${h.slug}" style="--i:${i}"><span class="kh-nomor" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><strong>${h.judul}</strong><span class="kh-panah" aria-hidden="true">→</span></a>`)}</div>
+</div></section>`;
 }

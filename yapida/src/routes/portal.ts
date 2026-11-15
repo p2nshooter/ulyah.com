@@ -8,14 +8,14 @@ import { html, raw, type Raw } from '../lib/html.ts';
 import { hmac, verifyPassword } from '../lib/crypto.ts';
 import { limit } from '../lib/ratelimit.ts';
 import { renderMarkdown } from '../lib/markdown.ts';
-import { slugify, tanggal, jamWib } from '../lib/text.ts';
+import { hariIni, jamWib, slugify, tahunPelajaran, tanggal } from '../lib/text.ts';
 import { asalSama, endSession, readSession, startSession, type Ctx, type HonoEnv } from '../lib/session.ts';
 import { bacaTantangan, dariPosisi, papanPin, pasangTantangan } from '../lib/pinpad.ts';
 import {
   PERAN, URUTAN_PERAN, bolehKelolaAkun, bolehTayang, bolehUnit, createUser, getUser, isPeran, lingkupSemua, listUsers, masuk, NamaTerpakai,
   peranYangBolehDiberi, pinAcak, pinLemah, tingkat, updateUser, hashPin, type Peran, type User, type UserItem,
 } from '../data/users.ts';
-import { getHalaman, getSitus, getUnit, listHalaman, listUnits, lupakan, putHalaman, putSitus, putUnit, unitKey, type UnitItem } from '../data/site.ts';
+import { getHalaman, getSitus, getUnit, hapusHalaman, listHalaman, listUnits, lupakan, putHalaman, putSitus, putUnit, unitKey, type UnitItem } from '../data/site.ts';
 import { KELOMPOK, URUTAN_KELOMPOK, type Halaman, type Kelompok, type Situs, type Suara, type Unit, unitRingkas } from '../data/model.ts';
 import { ambil, bacaBidang, daftar, hapus, simpan, STATUS, type Dok, type Koleksi, type Status } from '../data/koleksi.ts';
 import { KOLEKSI, koleksi } from '../data/defs.ts';
@@ -24,6 +24,9 @@ import {
   bagian, centang, daftarDok, formDok, isian, kartuPin, masukPage, pasangPage, pilihan, portalPage, tabelAkun, unggahTunggal, type Kilat,
 } from '../pages/portal.ts';
 import { publikDok } from './konten.ts';
+import { ATUR_KEY, katalogBawaan, type AturPustaka } from '../data/pustaka.ts';
+import { RAK_ID } from '../data/buku.ts';
+import { JENIS_PENGHARGAAN, PILIHAN_DESAIN, nomorBerikut } from '../data/dokumen.ts';
 
 /** Hash PBKDF2 kode pemasangan pertama. Kodenya sendiri diserahkan kepada pemilik di luar repo; berlaku sampai akun pertama ada. */
 const KODE_PASANG = 'pbkdf2$100000$B7x_sC9Sre2rAXgNJK1ZsQ$cZwWLl0YbxuvtZijAscs20iSaGZ8ToBV1ym1v16bj_8';
@@ -150,7 +153,7 @@ portal.post('/keluar', async (c) => {
 
 /* ── penjaga portal ─────────────────────────────────────────────────────── */
 
-const jaga = async (c: Ctx, next: () => Promise<void>) => {
+export const jaga = async (c: Ctx, next: () => Promise<void>) => {
   const user = await readSession(c, c.get('store'));
   if (!user) return c.redirect('/masuk');
   if (c.req.method !== 'GET' && c.req.method !== 'HEAD' && !asalSama(c)) return c.text('Asal permintaan tidak sah.', 403);
@@ -194,7 +197,7 @@ portal.get('/portal', async (c) => {
   const nama = (s: string) => (s === 'yayasan' ? 'Yayasan' : units.find((x) => x.slug === s)?.singkat ?? s);
   const body = html`
   <section class="p-sambut p-kartu"><div><p class="kicker">Assalamu’alaikum</p><h2>${u.nama}</h2><p>${PERAN[u.peran].ket}</p></div>
-    <div class="p-sambut-aksi"><a class="tbl tbl-emas" href="/portal/k/kabar/baru">Tulis kabar</a><a class="tbl tbl-garis" href="/portal/k/galeri/baru">Unggah foto kegiatan</a></div></section>
+    <div class="p-sambut-aksi"><a class="tbl tbl-emas" href="/portal/k/kabar/baru">Tulis kabar</a><a class="tbl tbl-garis" href="/portal/k/galeri/baru">Unggah foto kegiatan</a>${tingkat(u) >= PERAN.lembaga.tingkat ? html`<a class="tbl tbl-garis" href="/portal/k/penghargaan/baru">Buat sertifikat</a><a class="tbl tbl-garis" href="/portal/k/kwitansi/baru">Buat kwitansi</a>` : ''}</div></section>
   ${hitung.pendaftar ? html`<a class="p-sorot" href="/portal/k/pendaftar">${hitung.pendaftar} pendaftar PPDB baru menunggu diperiksa →</a>` : ''}
   ${hitung.pesan ? html`<a class="p-sorot" href="/portal/k/pesan">${hitung.pesan} pesan masuk belum dibaca →</a>` : ''}
   ${tinjau.length && bolehTayang(u) ? html`<div class="p-kartu"><h2>Menunggu tinjauan</h2><ul class="p-daftar">${tinjau.slice(0, 12).map(({ d, it }) => html`<li><a href="/portal/k/${d.id}/${it.id}"><strong>${it.j}</strong><span>${d.satu} · ${nama(it.u)}</span></a></li>`)}</ul></div>` : ''}
@@ -384,38 +387,126 @@ portal.post('/portal/situs', async (c) => {
 });
 
 /* ── halaman bebas ──────────────────────────────────────────────────────── */
+/* Pemilik: „Semua wajib bisa CRUD atau dynamic page di masing2 lembaga dan pastikan full akses di super admin“.
+   Kepala & admin lembaga membuat, mengubah, dan menghapus halaman lembaganya (tampil di halaman lembaga); halaman
+   yayasan dan tautan kaki situs dikelola tingkat yayasan; super admin semuanya. */
+
+const unitHalaman = (h: { unit?: string }) => h.unit || 'yayasan';
+const bolehHalaman = (u: User, unit: string) => tingkat(u) >= PERAN.lembaga.tingkat && (unit === 'yayasan' ? tingkat(u) >= PERAN.yayasan.tingkat : bolehUnit(u, unit));
 
 portal.get('/portal/halaman', async (c) => {
-  if (tingkat(c.get('user')!) < PERAN.yayasan.tingkat) return tolak(c);
-  const hs = await listHalaman(c.get('store'));
-  return tampil(c, { judul: 'Halaman', aktif: '/portal/halaman', aksi: html`<a class="tbl tbl-emas tbl-kecil" href="/portal/halaman/baru">Halaman baru</a>`, body: html`<div class="p-kartu"><ul class="p-daftar">${hs.map((h) => html`<li><a href="/portal/halaman/${h.slug}"><strong>${h.judul}</strong><span>/h/${h.slug}${h.kaki ? ' · di kaki situs' : ''}</span></a></li>`)}</ul></div>` });
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.lembaga.tingkat) return tolak(c);
+  const [semua, units] = await Promise.all([listHalaman(c.get('store')), unitsBoleh(c)]);
+  const nama = (s: string) => (s === 'yayasan' ? 'Yayasan' : units.find((x) => x.slug === s)?.singkat ?? s);
+  const hs = semua.filter((h) => bolehHalaman(u, h.unit));
+  return tampil(c, {
+    judul: 'Halaman', aktif: '/portal/halaman', aksi: html`<a class="tbl tbl-emas tbl-kecil" href="/portal/halaman/baru">Halaman baru</a>`,
+    body: html`<p class="p-kecil">Halaman bebas, mis. Kurikulum, Ekstrakurikuler, Tata tertib, Biaya pendidikan, Seragam. Halaman lembaga tampil di halaman lembaganya.</p>
+    ${hs.length ? html`<div class="p-kartu"><ul class="p-daftar">${hs.map((h) => html`<li><a href="/portal/halaman/${h.slug}"><strong>${h.judul}</strong><span>${nama(h.unit)} · /h/${h.slug}${h.kaki ? ' · di kaki situs' : ''}</span></a></li>`)}</ul></div>` : html`<div class="p-kosong"><p>Belum ada halaman.</p><a class="tbl tbl-emas" href="/portal/halaman/baru">Buat halaman pertama</a></div>`}`,
+  });
 });
 
-function formHalaman(h: Partial<Halaman>, baru: boolean): Raw {
-  return html`<form method="post" class="p-form p-kartu" data-form-jaga>${isian('Judul', 'judul', h.judul, { wajib: true, maks: 120 })}
-  ${baru ? isian('Alamat (slug)', 'slug', '', { bantuan: 'Kosongkan untuk dibuat dari judul.' }) : ''}
-  ${isian('Ringkasan (mesin pencari)', 'ringkas', h.ringkas, { baris: 2, maks: 220, wajib: true })}${isian('Isi', 'isi', h.isi, { baris: 18, md: true })}${centang('Tautkan di kaki situs', 'kaki', h.kaki !== false)}
-  <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Simpan</button><a class="tbl tbl-garis" href="/portal/halaman">Kembali</a>${baru ? '' : html`<a class="tbl-teks" href="/h/${h.slug}" target="_blank" rel="noopener">Lihat ↗</a>`}</div></form>`;
+function formHalaman(h: Partial<Halaman>, baru: boolean, units: UnitItem[], bolehYayasan: boolean): Raw {
+  const unit = unitHalaman(h);
+  return html`<form method="post" class="p-form p-kartu" data-form-jaga>
+  <label class="p-bidang"><span>Lembaga pemilik</span><select name="unit">${bolehYayasan ? html`<option value="yayasan"${raw(unit === 'yayasan' ? ' selected' : '')}>Yayasan Al-Huda Yapida</option>` : ''}${units.map((x) => html`<option value="${x.slug}"${raw(unit === x.slug ? ' selected' : '')}>${x.singkat}</option>`)}</select></label>
+  ${isian('Judul', 'judul', h.judul, { wajib: true, maks: 120 })}
+  ${baru ? isian('Alamat (slug)', 'slug', '', { bantuan: 'Kosongkan untuk dibuat dari judul. Alamat tidak bisa diubah setelah disimpan.' }) : ''}
+  ${isian('Ringkasan (mesin pencari)', 'ringkas', h.ringkas, { baris: 2, maks: 220, wajib: true })}${isian('Isi', 'isi', h.isi, { baris: 18, md: true })}
+  ${bolehYayasan ? centang('Tautkan di kaki situs (halaman yayasan)', 'kaki', h.kaki === true) : ''}
+  <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Simpan</button><a class="tbl tbl-garis" href="/portal/halaman">Kembali</a>${baru ? '' : html`<a class="tbl-teks" href="/h/${h.slug}" target="_blank" rel="noopener">Lihat ↗</a>`}</div></form>
+  ${baru ? '' : html`<form method="post" action="/portal/halaman/${h.slug}/hapus" class="p-hapus" data-yakin="Hapus halaman ini selamanya? Tindakan ini tidak bisa dibatalkan."><button class="tbl-teks p-bahaya" type="submit">Hapus halaman ini</button></form>`}`;
 }
 
-portal.get('/portal/halaman/baru', (c) => (tingkat(c.get('user')!) < PERAN.yayasan.tingkat ? tolak(c) : tampil(c, { judul: 'Halaman baru', aktif: '/portal/halaman', body: formHalaman({ kaki: true }, true) })));
-portal.get('/portal/halaman/:slug', async (c) => {
-  if (tingkat(c.get('user')!) < PERAN.yayasan.tingkat) return tolak(c);
-  const h = await getHalaman(c.get('store'), c.req.param('slug'));
-  return h ? tampil(c, { judul: h.judul, aktif: '/portal/halaman', body: formHalaman(h, false) }) : c.notFound();
+portal.get('/portal/halaman/baru', async (c) => {
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.lembaga.tingkat) return tolak(c);
+  const units = await unitsBoleh(c);
+  const unit = lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
+  return tampil(c, { judul: 'Halaman baru', aktif: '/portal/halaman', body: formHalaman({ unit, kaki: false }, true, units, tingkat(u) >= PERAN.yayasan.tingkat) });
 });
+
+portal.get('/portal/halaman/:slug', async (c) => {
+  const u = c.get('user')!;
+  const h = await getHalaman(c.get('store'), c.req.param('slug'));
+  if (!h) return c.notFound();
+  if (!bolehHalaman(u, unitHalaman(h))) return tolak(c);
+  return tampil(c, { judul: h.judul, aktif: '/portal/halaman', body: formHalaman(h, false, await unitsBoleh(c), tingkat(u) >= PERAN.yayasan.tingkat) });
+});
+
 portal.post('/portal/halaman/:slug', async (c) => {
-  if (tingkat(c.get('user')!) < PERAN.yayasan.tingkat) return tolak(c);
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.lembaga.tingkat) return tolak(c);
   const f = await c.req.parseBody();
   const store = c.get('store');
+  const units = await unitsBoleh(c);
+  const bolehYayasan = tingkat(u) >= PERAN.yayasan.tingkat;
   const baru = c.req.param('slug') === 'baru';
-  const slug = baru ? slugify(teks(f, 'slug', 60) || teks(f, 'judul', 120), 60) : c.req.param('slug');
-  if (!slug || !teks(f, 'judul', 120) || !teks(f, 'ringkas', 220)) return tampil(c, { judul: 'Halaman', aktif: '/portal/halaman', body: formHalaman({ judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi: teks(f, 'isi', 60_000) }, baru), kilat: { galat: 'Judul dan ringkasan wajib diisi.' }, status: 400 });
-  if (baru && (await getHalaman(store, slug))) return tampil(c, { judul: 'Halaman baru', aktif: '/portal/halaman', body: formHalaman({ judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi: teks(f, 'isi', 60_000) }, true), kilat: { galat: `Alamat /h/${slug} sudah dipakai.` }, status: 400 });
+  const lama = baru ? null : await getHalaman(store, c.req.param('slug'));
+  if (!baru && !lama) return c.notFound();
+  if (lama && !bolehHalaman(u, unitHalaman(lama))) return tolak(c);
+  const unit = teks(f, 'unit', 60) || 'yayasan';
   const isi = teks(f, 'isi', 60_000);
-  await putHalaman(store, { slug, judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi, isiHtml: renderMarkdown(isi), kaki: f.kaki === '1', ubah: Date.now() });
-  await catat(c, 'halaman.simpan', slug);
+  const draf: Partial<Halaman> = { slug: lama?.slug, unit, judul: teks(f, 'judul', 120), ringkas: teks(f, 'ringkas', 220), isi, kaki: bolehYayasan && unit === 'yayasan' && f.kaki === '1' };
+  const ulang = (galat: string) => tampil(c, { judul: baru ? 'Halaman baru' : lama!.judul, aktif: '/portal/halaman', body: formHalaman(draf, baru, units, bolehYayasan), kilat: { galat }, status: 400 });
+  if (!bolehHalaman(u, unit) || (unit !== 'yayasan' && !units.some((x) => x.slug === unit))) return ulang('Pilih lembaga yang Anda kelola.');
+  const slug = baru ? slugify(teks(f, 'slug', 60) || draf.judul!, 60) : lama!.slug;
+  if (!slug || !draf.judul || !draf.ringkas) return ulang('Judul dan ringkasan wajib diisi.');
+  if (baru && (await getHalaman(store, slug))) return ulang(`Alamat /h/${slug} sudah dipakai — ganti judul atau alamatnya.`);
+  await putHalaman(store, { slug, unit, judul: draf.judul, ringkas: draf.ringkas, isi, isiHtml: renderMarkdown(isi), kaki: Boolean(draf.kaki), ubah: Date.now() });
+  await catat(c, 'halaman.simpan', `${slug} (${unit})`);
   return c.redirect(`/portal/halaman/${slug}?ok=simpan`);
+});
+
+portal.post('/portal/halaman/:slug/hapus', async (c) => {
+  const u = c.get('user')!;
+  const h = await getHalaman(c.get('store'), c.req.param('slug'));
+  if (!h) return c.notFound();
+  if (!bolehHalaman(u, unitHalaman(h))) return tolak(c);
+  await hapusHalaman(c.get('store'), h.slug);
+  await catat(c, 'halaman.hapus', `${h.slug} (${unitHalaman(h)})`);
+  return c.redirect('/portal/halaman?ok=hapus');
+});
+
+/* ── rak perpustakaan: sembunyikan buku bawaan, pilih unggulan (tingkat yayasan; super admin penuh) ── */
+
+portal.get('/portal/pustaka', async (c) => {
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.yayasan.tingkat) return tolak(c);
+  const store = c.get('store');
+  const [bawaan, lembaga, atur] = await Promise.all([katalogBawaan(c.env), daftar(store, 'buku', { tayang: true, limit: 3000 }), store.get<AturPustaka>(ATUR_KEY)]);
+  const sembunyi = new Set(atur?.sembunyi ?? []);
+  const unggulan = new Set(atur?.unggulan ?? []);
+  const baris = [
+    ...lembaga.map((b) => ({ id: `p-${b.id}`, judul: b.j, rak: String(b.x?.rak ?? ''), ket: 'Buku lembaga', bisaSembunyi: false })),
+    ...bawaan.map((b) => ({ id: b.id, judul: b.judul, rak: b.rak.map((r) => RAK_ID[r]?.nama ?? r).join(', '), ket: `${b.bab.length} bab · ${b.penulis}`, bisaSembunyi: true })),
+  ];
+  return tampil(c, {
+    judul: 'Rak perpustakaan', aktif: '/portal/pustaka',
+    body: html`<form method="post" class="p-form p-kartu" data-form-jaga>
+      <p class="p-kecil">${bawaan.length} buku bawaan dan ${lembaga.length} buku lembaga. <b>Unggulan</b> tampil paling depan di setiap raknya dan di beranda; <b>Sembunyikan</b> menurunkan buku bawaan dari seluruh perpustakaan (bisa dimunculkan lagi kapan saja). Buku lembaga diturunkan lewat statusnya di menu Perpustakaan.</p>
+      <div class="p-baris"><label class="p-bidang"><span>Cari judul, rak, atau penulis</span><input type="search" data-saring-baris="#tabel-pustaka" placeholder="mis. hadits, kisah, kelas 5…"></label></div>
+      <div class="p-tabel"><table id="tabel-pustaka"><thead><tr><th>Buku</th><th>Rak</th><th>Unggulan</th><th>Sembunyikan</th></tr></thead><tbody>
+      ${baris.map((b) => html`<tr data-cari="${`${b.judul} ${b.rak} ${b.ket}`.toLowerCase()}"><td><span class="p-butir"><span><strong>${b.judul}</strong><small>${b.ket}</small></span></span></td><td>${b.rak}</td><td><label class="p-centang"><input type="checkbox" name="unggulan" value="${b.id}"${raw(unggulan.has(b.id) ? ' checked' : '')}><span>Unggulan</span></label></td><td>${b.bisaSembunyi ? html`<label class="p-centang"><input type="checkbox" name="sembunyi" value="${b.id}"${raw(sembunyi.has(b.id) ? ' checked' : '')}><span>Sembunyikan</span></label>` : html`<span class="p-kecil">—</span>`}</td></tr>`)}
+      </tbody></table></div>
+      <div class="p-form-kaki p-kaki-lekat"><button class="tbl tbl-emas" type="submit">Simpan pengaturan rak</button><a class="tbl-teks" href="/pustaka" target="_blank" rel="noopener">Lihat perpustakaan ↗</a></div>
+    </form>`,
+  });
+});
+
+portal.post('/portal/pustaka', async (c) => {
+  const u = c.get('user')!;
+  if (tingkat(u) < PERAN.yayasan.tingkat) return tolak(c);
+  const store = c.get('store');
+  const f = (await c.req.parseBody({ all: true })) as Record<string, unknown>;
+  const daftarId = (v: unknown) => (Array.isArray(v) ? v : v === undefined ? [] : [v]).map(String).filter((x) => /^[kp]-[A-Za-z0-9_-]{1,80}$/.test(x));
+  const ada = new Set((await katalogBawaan(c.env)).map((b) => b.id));
+  const sembunyi = [...new Set(daftarId(f.sembunyi).filter((x) => ada.has(x)))];
+  const unggulan = [...new Set(daftarId(f.unggulan))].slice(0, 200);
+  await store.cas<AturPustaka>(ATUR_KEY, () => ({ sembunyi, unggulan, ubah: Date.now() }), 'Pengaturan rak');
+  await catat(c, 'pustaka.atur', `${unggulan.length} unggulan, ${sembunyi.length} disembunyikan`);
+  return c.redirect('/portal/pustaka?ok=simpan');
 });
 
 /* ── isi (koleksi) ──────────────────────────────────────────────────────── */
@@ -481,8 +572,9 @@ portal.get('/portal/k/:kol/baru', async (c) => {
   const units = await unitsBoleh(c);
   const minta = c.req.query('unit') ?? '';
   const unit = minta && bolehUnit(u, minta) ? minta : lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
-  const d: Record<string, unknown> = def.id === 'video' ? { jenis: 'video' } : def.id === 'kabar' ? { kategori: 'kegiatan' } : def.id === 'ppdb' ? { formulir: true } : {};
-  return halamanForm(c, def, { unit, status: bolehTayang(u) ? 'tayang' : 'tinjau', d }, units);
+  const d: Record<string, unknown> = def.id === 'video' ? { jenis: 'video' } : def.id === 'kabar' ? { kategori: 'kegiatan' } : def.id === 'ppdb' ? { formulir: true } : await awalDokumen(c, def.id, unit);
+  const judulAwal = def.id === 'kop' ? await judulKop(c, unit) : undefined;
+  return halamanForm(c, def, { unit, status: bolehTayang(u) ? 'tayang' : 'tinjau', d, ...(judulAwal ? { judul: judulAwal } : {}) }, units);
 });
 
 portal.get('/portal/k/:kol/:id', async (c) => {
@@ -493,6 +585,31 @@ portal.get('/portal/k/:kol/:id', async (c) => {
   if (!(await bolehDok(c, def, d))) return tolak(c);
   return halamanForm(c, def, d, await unitsBoleh(c));
 });
+
+/** Nilai awal dokumen cetak: penanda tangan dari profil lembaga, tahun pelajaran berjalan, penerima kwitansi = pengguna. */
+async function awalDokumen(c: Ctx, kol: string, unit: string): Promise<Record<string, unknown>> {
+  const u = c.get('user')!;
+  const store = c.get('store');
+  const lembaga = unit && unit !== 'yayasan' ? await getUnit(store, unit) : null;
+  const s = await getSitus(store);
+  const ketua = s.organ.find((o) => /ketua/i.test(o.jabatan));
+  const ttd = lembaga?.kepala ? { ttd1Nama: lembaga.kepala.nama, ttd1Jabatan: lembaga.kepala.jabatan } : ketua ? { ttd1Nama: ketua.nama, ttd1Jabatan: ketua.jabatan } : {};
+  switch (kol) {
+    case 'penghargaan': return { jenis: 'tahfidz', desain: 'zamrud', tahun: tahunPelajaran(), ...ttd };
+    case 'kwitansi': return { untuk: 'spp', metode: 'tunai', lunas: true, penerima: u.nama, jabatanPenerima: 'Bendahara' };
+    case 'surat': return { ttdNama: ttd.ttd1Nama ?? '', ttdJabatan: ttd.ttd1Jabatan ?? '' };
+    case 'kop': return {
+      gaya: 'tengah', warna: 'zamrud', utama: true, induk: lembaga ? s.nama.toUpperCase() : '', ket: lembaga?.jenis ?? '',
+      alamat: lembaga?.alamat || [s.alamat.jalan, s.alamat.desa, s.alamat.kecamatan, s.alamat.kabupaten, s.alamat.provinsi, s.alamat.kodepos].filter(Boolean).join(', '),
+      kontak: [s.kontak.telepon && `Telp. ${s.kontak.telepon}`, s.kontak.email, 'yapida.sch.id'].filter(Boolean).join(' · '), kota: s.alamat.kecamatan || 'Sukakarya',
+    };
+    default: return {};
+  }
+}
+async function judulKop(c: Ctx, unit: string): Promise<string> {
+  if (unit && unit !== 'yayasan') return ((await getUnit(c.get('store'), unit))?.nama ?? '').toUpperCase();
+  return (await getSitus(c.get('store'))).nama.toUpperCase();
+}
 
 async function simpanDok(c: Ctx) {
   const u = c.get('user')!;
@@ -512,12 +629,17 @@ async function simpanDok(c: Ctx) {
   const unit = def.privat ? lama!.unit : String(f.unit ?? '');
   const judul = String(f.judul ?? '').trim();
   const stMinta = String(f.status ?? '') as Status;
-  const status: Status = def.privat ? (lama?.status ?? 'tinjau') : statusBoleh(u).includes(stMinta) ? stMinta : statusBoleh(u)[0]!;
+  const status: Status = def.privat ? (lama?.status ?? 'tinjau') : def.tanpaPublik ? 'tayang' : statusBoleh(u).includes(stMinta) ? stMinta : statusBoleh(u)[0]!;
   const { d, galat } = bacaBidang(def, form);
   if (!judul) galat.judul = 'Wajib diisi.';
   if (!def.privat && !bolehUnit(u, unit)) galat.unit = 'Anda tidak mengelola lembaga ini.';
   if (unit !== 'yayasan' && !units.some((x) => x.slug === unit) && !def.privat) galat.unit = 'Lembaga tidak dikenal.';
   if (Object.keys(galat).length) return halamanForm(c, def, { id: lama?.id, slug: lama?.slug, unit, status, judul, tanggal: String(f.tanggal ?? ''), d: { ...form, ...d } }, units, galat, 400);
+  // Nomor otomatis (sertifikat, kwitansi, surat): dibuat sekali saat pertama disimpan bila dikosongkan; nomor lama dipertahankan.
+  if (def.nomorOtomatis && typeof d[def.nomorOtomatis] !== 'string') {
+    const lamaNo = lama?.d[def.nomorOtomatis];
+    d[def.nomorOtomatis] = typeof lamaNo === 'string' && lamaNo ? lamaNo : await nomorBerikut(store, def.id, unit, d);
+  }
   const dok = await simpan(store, def, { id: lama?.id, unit, status, judul, tanggal: String(f.tanggal ?? '') || undefined, d, penulis: u.id, penulisNama: u.nama });
   await catat(c, `${def.id}.${lama ? 'ubah' : 'buat'}`, `${dok.judul} (${dok.unit}, ${STATUS[dok.status]})`);
   return c.redirect(`/portal/k/${def.id}/${dok.id}?ok=simpan`);
@@ -553,6 +675,75 @@ portal.post('/portal/unggah', async (c) => {
     if (err instanceof BerkasDitolak) return c.json({ error: err.message }, 400);
     throw err;
   }
+});
+
+/* ── sertifikat massal: ketik daftar penerima sekali, semua sertifikat terisi dan siap cetak ── */
+
+const PENERIMA_CONTOH = 'Farhan Habib ; Juz 30 ; Mumtaz ; Kelas 5A ; NISN\nNama santri berikutnya ; Juz 29 dan 30 ; Jayyid Jiddan ; Kelas 6B ; NISN';
+
+function formMassal(o: { units: UnitItem[]; bolehYayasan: boolean; nilai: Record<string, string>; galat?: string }): Raw {
+  const v = (k: string) => o.nilai[k] ?? '';
+  return html`<form method="post" class="p-form p-kartu" data-form-jaga>
+  <p class="p-kecil">Untuk wisuda tahfidz, juara lomba, atau peringkat kelas: isi bagian yang sama untuk semua sekali saja, lalu tulis satu penerima per baris. Setiap baris menjadi satu sertifikat bernomor otomatis — lalu semuanya bisa dicetak sekaligus.</p>
+  ${o.galat ? html`<p class="p-kilat p-kilat-galat" role="alert">${o.galat}</p>` : ''}
+  <div class="p-baris">
+    <label class="p-bidang"><span>Lembaga *</span><select name="unit" required>${o.bolehYayasan ? html`<option value="yayasan">Yayasan Al-Huda Yapida</option>` : ''}${o.units.map((u) => html`<option value="${u.slug}"${raw(v('unit') === u.slug ? ' selected' : '')}>${u.singkat}</option>`)}</select></label>
+    <label class="p-bidang"><span>Jenis *</span><select name="jenis">${JENIS_PENGHARGAAN.map(([k, l]) => html`<option value="${k}"${raw((v('jenis') || 'tahfidz') === k ? ' selected' : '')}>${l}</option>`)}</select></label>
+    <label class="p-bidang"><span>Tanggal</span><input type="date" name="tanggal" value="${v('tanggal') || hariIni()}"></label>
+  </div>
+  <div class="p-bidang"><span>Desain</span><div class="p-desain" role="radiogroup" aria-label="Desain">${PILIHAN_DESAIN.map(([k, l]) => html`<label class="p-desain-butir d-${k}"><input type="radio" name="desain" value="${k}"${raw((v('desain') || 'zamrud') === k ? ' checked' : '')}><span class="p-desain-contoh" aria-hidden="true"><i></i><b></b><em></em></span><span class="p-desain-nama">${l}</span></label>`)}</div></div>
+  <div class="p-baris">
+    ${isian('Kegiatan / acara', 'kegiatan', v('kegiatan'), { bantuan: 'Mis. „Wisuda Tahfidz ke-5“ atau „Semester Ganjil“.', maks: 140 })}
+    ${isian('Tahun pelajaran', 'tahun', v('tahun') || tahunPelajaran(), { maks: 20 })}
+  </div>
+  <div class="p-baris">
+    ${isian('Penanda tangan kanan — nama', 'ttd1Nama', v('ttd1Nama'), { maks: 80 })}${isian('Jabatan', 'ttd1Jabatan', v('ttd1Jabatan'), { maks: 80 })}
+  </div>
+  <div class="p-baris">
+    ${isian('Penanda tangan kiri — nama (opsional)', 'ttd2Nama', v('ttd2Nama'), { maks: 80 })}${isian('Jabatan', 'ttd2Jabatan', v('ttd2Jabatan'), { maks: 80 })}
+  </div>
+  ${isian('Daftar penerima', 'daftar', v('daftar'), { baris: 10, wajib: true, bantuan: `Satu penerima per baris: Nama ; capaian ; predikat ; kelas ; NISN (predikat, kelas, dan NISN boleh dikosongkan). Contoh:\n${PENERIMA_CONTOH}` })}
+  <p class="p-kecil">Semua sertifikat yang dibuat di sini langsung tampil di menu Prestasi (publik) dan di portal siswanya bila NISN diisi.</p>
+  <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Buat semua sertifikat</button><a class="tbl tbl-garis" href="/portal/k/penghargaan">Kembali</a></div>
+</form>`;
+}
+
+portal.get('/portal/penghargaan/massal', async (c) => {
+  const u = c.get('user')!;
+  if (!bolehDef(u, KOLEKSI.penghargaan!)) return tolak(c);
+  const units = await unitsBoleh(c);
+  const unit = lingkupSemua(u) ? 'yayasan' : units[0]?.slug ?? '';
+  const awal = await awalDokumen(c, 'penghargaan', unit);
+  return tampil(c, { judul: 'Sertifikat massal', aktif: '/portal/penghargaan/massal', body: formMassal({ units, bolehYayasan: lingkupSemua(u), nilai: { unit, ttd1Nama: String(awal.ttd1Nama ?? ''), ttd1Jabatan: String(awal.ttd1Jabatan ?? '') } }) });
+});
+
+portal.post('/portal/penghargaan/massal', async (c) => {
+  const u = c.get('user')!;
+  const def = KOLEKSI.penghargaan!;
+  if (!bolehDef(u, def)) return tolak(c);
+  const units = await unitsBoleh(c);
+  const f = (await c.req.parseBody()) as Record<string, unknown>;
+  const nilai = Object.fromEntries(['unit', 'jenis', 'tanggal', 'desain', 'kegiatan', 'tahun', 'ttd1Nama', 'ttd1Jabatan', 'ttd2Nama', 'ttd2Jabatan', 'daftar'].map((k) => [k, teks(f, k, k === 'daftar' ? 20_000 : 300)]));
+  const unit = nilai.unit!;
+  const ulang = (galat: string) => tampil(c, { judul: 'Sertifikat massal', aktif: '/portal/penghargaan/massal', status: 400, body: formMassal({ units, bolehYayasan: lingkupSemua(u), nilai, galat }) });
+  if (!bolehUnit(u, unit) || (unit !== 'yayasan' && !units.some((x) => x.slug === unit))) return ulang('Pilih lembaga yang Anda kelola.');
+  const penerima = baris(nilai.daftar).map((l) => l.split(/\s*[;|]\s*/)).filter((p) => p[0]);
+  if (!penerima.length) return ulang('Tulis minimal satu penerima.');
+  if (penerima.length > 120) return ulang('Paling banyak 120 penerima sekali buat.');
+  const tanpaCapaian = penerima.filter((p) => !p[1]).map((p) => p[0]);
+  if (tanpaCapaian.length) return ulang(`Capaian belum diisi untuk: ${tanpaCapaian.slice(0, 5).join(', ')}. Format: Nama ; capaian ; predikat ; kelas.`);
+  const store = c.get('store');
+  const ids: string[] = [];
+  for (const [nama, capaian, predikat, kelas, nisn] of penerima) {
+    const form: Record<string, unknown> = { jenis: nilai.jenis, desain: nilai.desain, kegiatan: nilai.kegiatan, tahun: nilai.tahun, ttd1Nama: nilai.ttd1Nama, ttd1Jabatan: nilai.ttd1Jabatan, ttd2Nama: nilai.ttd2Nama, ttd2Jabatan: nilai.ttd2Jabatan, capaian: capaian ?? '', predikat: predikat ?? '', kelas: kelas ?? '', nisn: (nisn ?? '').replace(/\D/g, '') };
+    const { d, galat } = bacaBidang(def, form);
+    if (Object.keys(galat).length) return ulang(`Baris „${nama}“: ${Object.entries(galat).map(([k, g]) => `${def.bidang.find((b) => b.k === k)?.label ?? k} — ${g}`).join('; ')}`);
+    d.nomor = await nomorBerikut(store, def.id, unit, d);
+    const dok = await simpan(store, def, { unit, status: 'tayang', judul: nama!.slice(0, 160), tanggal: nilai.tanggal || undefined, d, penulis: u.id, penulisNama: u.nama });
+    ids.push(dok.id);
+  }
+  await catat(c, 'penghargaan.massal', `${ids.length} sertifikat (${unit}, ${nilai.jenis})`);
+  return c.redirect(`/portal/cetak-banyak/penghargaan?${ids.map((id) => `id=${id}`).join('&')}`);
 });
 
 /* ── akun & PIN ─────────────────────────────────────────────────────────── */

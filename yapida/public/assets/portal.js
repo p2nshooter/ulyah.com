@@ -174,3 +174,55 @@
     });
   });
 })();
+
+/* ── dokumen cetak: pratinjau langsung (sertifikat, kwitansi, surat, kop) ── */
+(function () {
+  'use strict';
+  var d = document;
+  Array.prototype.slice.call(d.querySelectorAll('form[data-pratinjau]')).forEach(function (form) {
+    // Alamat tujuan dipilih dari daftar tetap (atribut halaman hanya menyebut jenis dokumennya).
+    var TUJUAN = { penghargaan: '/portal/cetak/penghargaan/pratinjau', kwitansi: '/portal/cetak/kwitansi/pratinjau', surat: '/portal/cetak/surat/pratinjau', kop: '/portal/cetak/kop/pratinjau' };
+    var jenisDok = (/^\/portal\/cetak\/([a-z]+)\/pratinjau$/.exec(form.getAttribute('data-pratinjau') || '') || [])[1];
+    var url = Object.prototype.hasOwnProperty.call(TUJUAN, jenisDok) ? TUJUAN[jenisDok] : '';
+    if (!url) return;
+    var bingkai = d.querySelector('[data-pratinjau-bingkai]'), wadah = bingkai && bingkai.parentNode, st = d.querySelector('[data-pratinjau-status]');
+    if (!bingkai) return;
+    var tunda = null;
+    bingkai.addEventListener('load', function () { if (wadah) wadah.classList.remove('muat-ulang'); if (st) st.textContent = 'Berubah otomatis saat Anda mengetik.'; });
+    function kirim() {
+      // Salinan isian dikirim lewat formulir tersembunyi ke bingkai pratinjau (tanpa menyusun HTML di peramban).
+      var f = d.createElement('form'); f.method = 'post'; f.action = url; f.target = 'pratinjau-dok'; f.hidden = true;
+      Array.prototype.slice.call(form.elements).forEach(function (el) {
+        if (!el.name || el.disabled || el.type === 'file' || el.type === 'submit' || el.type === 'button') return;
+        if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
+        var x = d.createElement('input'); x.type = 'hidden'; x.name = el.name; x.value = el.value; f.appendChild(x);
+      });
+      d.body.appendChild(f);
+      if (wadah) wadah.classList.add('muat-ulang');
+      if (st) st.textContent = 'Memperbarui…';
+      f.submit();
+      d.body.removeChild(f);
+    }
+    var jadwal = function () { clearTimeout(tunda); tunda = setTimeout(kirim, 450); };
+    form.addEventListener('input', jadwal);
+    form.addEventListener('change', jadwal);
+    // Foto yang baru diunggah mengubah input tersembunyi tanpa memicu „input“: periksa berkala dengan murah.
+    var jejak = '';
+    setInterval(function () { var v = Array.prototype.slice.call(form.querySelectorAll('input[type="hidden"]')).map(function (x) { return x.value; }).join('|'); if (v !== jejak) { if (jejak) jadwal(); jejak = v; } }, 1200);
+    kirim();
+  });
+})();
+
+/* ── saring baris tabel (rak perpustakaan, daftar panjang) ── */
+(function () {
+  'use strict';
+  Array.prototype.slice.call(document.querySelectorAll('input[data-saring-baris]')).forEach(function (inp) {
+    var tabel = document.querySelector(inp.getAttribute('data-saring-baris'));
+    if (!tabel) return;
+    var baris = Array.prototype.slice.call(tabel.querySelectorAll('tbody tr'));
+    inp.addEventListener('input', function () {
+      var kata = inp.value.toLowerCase().split(/\s+/).filter(Boolean);
+      baris.forEach(function (tr) { var t = tr.getAttribute('data-cari') || ''; tr.hidden = !kata.every(function (k) { return t.indexOf(k) >= 0; }); });
+    });
+  });
+})();

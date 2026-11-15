@@ -5,7 +5,8 @@ import { PERAN, tingkat, type Peran, type User, type UserItem } from '../data/us
 import { STATUS, type Bidang, type Dok, type FotoGaleri, type IxItem, type Koleksi, type Status } from '../data/koleksi.ts';
 import { KOLEKSI } from '../data/defs.ts';
 import type { UnitItem } from '../data/site.ts';
-import { tanggal } from '../lib/text.ts';
+import { rupiah, tanggal } from '../lib/text.ts';
+import { labelJenis, labelUntuk } from '../data/dokumen.ts';
 
 export interface Kilat { ok?: string; galat?: string }
 
@@ -84,11 +85,14 @@ export function pasangPage(o: { papan: Raw; galat?: string }): string {
 /* ── kerangka portal ───────────────────────────────────────────────────── */
 
 const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'buku', 'ppdb', 'pendaftar', 'pesan'];
+const NAV_DOK = ['penghargaan', 'kwitansi', 'surat', 'kop'];
+const IKON_DOK: Record<string, string> = { penghargaan: 'bintang', kwitansi: 'niaga', surat: 'surat', kop: 'kubah' };
 
 export function portalPage(o: { user: User; judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; hitung?: Record<string, number> }): string {
   const t = tingkat(o.user);
   const tautan = (href: string, label: string, ik: string, badge?: number) => `<a href="${href}"${o.aktif === href ? ' aria-current="page"' : ''}>${icon(ik).s}<span>${esc(label)}</span>${badge ? `<b class="p-lencana">${badge}</b>` : ''}</a>`;
   const isi = NAV_ISI.map((k) => KOLEKSI[k]!).filter((k) => t >= (k.tingkat ?? 0));
+  const dok = NAV_DOK.map((k) => KOLEKSI[k]!).filter((k) => t >= (k.tingkat ?? 0));
   return `${kepalaDok(o.judul)}
 <body class="portal">
 <aside class="p-sisi" data-sisi>
@@ -100,7 +104,9 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/lembaga', 'Profil lembaga', 'kubah') : ''}
     <p>Isi</p>
     ${isi.map((k) => tautan(`/portal/k/${k.id}`, k.nama, k.privat ? 'surat' : 'pena', o.hitung?.[k.id])).join('')}
-    ${t >= PERAN.yayasan.tingkat ? `<p>Yayasan</p>${tautan('/portal/situs', 'Pengaturan situs', 'buku')}${tautan('/portal/halaman', 'Halaman', 'buku')}` : ''}
+    ${dok.length ? `<p>Dokumen &amp; cetak</p>${dok.map((k) => tautan(`/portal/k/${k.id}`, k.nama, IKON_DOK[k.id] ?? 'pena')).join('')}${t >= PERAN.lembaga.tingkat ? tautan('/portal/penghargaan/massal', 'Sertifikat massal', 'bintang') : ''}` : ''}
+    ${t >= PERAN.lembaga.tingkat ? tautan('/portal/halaman', 'Halaman', 'buku') : ''}
+    ${t >= PERAN.yayasan.tingkat ? `<p>Yayasan</p>${tautan('/portal/situs', 'Pengaturan situs', 'buku')}${tautan('/portal/pustaka', 'Rak perpustakaan', 'buku')}` : ''}
     ${t >= PERAN.kepala.tingkat ? `<p>Akses</p>${tautan('/portal/pengguna', 'Akun & PIN', 'tangan')}` : ''}
     ${t >= PERAN.ketua.tingkat ? tautan('/portal/log', 'Log aktivitas', 'tasbih') : ''}
     <p>Akun</p>
@@ -139,7 +145,11 @@ function bidangHtml(b: Bidang, v: unknown, galat: string | undefined, mediaUrl: 
     case 'waktu': kontrol = html`<input type="datetime-local" name="${nama}" value="${s}">`; break;
     case 'angka': kontrol = html`<input type="number" name="${nama}" value="${s}" step="any" inputmode="decimal">`; break;
     case 'url': kontrol = html`<input type="url" name="${nama}" value="${s}" placeholder="https://">`; break;
-    case 'pilih': kontrol = html`<select name="${nama}"><option value="">— pilih —</option>${(b.pilihan ?? []).map(([k, l]) => html`<option value="${k}"${raw(k === s ? ' selected' : '')}>${l}</option>`)}</select>`; break;
+    case 'pilih':
+      kontrol = b.k === 'desain'
+        ? html`<div class="p-desain" role="radiogroup" aria-label="${b.label}">${(b.pilihan ?? []).map(([k, l]) => html`<label class="p-desain-butir d-${k}"><input type="radio" name="${nama}" value="${k}"${raw(k === (s || 'zamrud') ? ' checked' : '')}><span class="p-desain-contoh" aria-hidden="true"><i></i><b></b><em></em></span><span class="p-desain-nama">${l}</span></label>`)}</div>`
+        : html`<select name="${nama}"><option value="">— pilih —</option>${(b.pilihan ?? []).map(([k, l]) => html`<option value="${k}"${raw(k === s ? ' selected' : '')}>${l}</option>`)}</select>`;
+      break;
     case 'centang': kontrol = html`<label class="p-centang"><input type="checkbox" name="${nama}" value="1"${raw(v === true ? ' checked' : '')}><span>Ya</span></label>`; break;
     case 'daftar': kontrol = html`<textarea name="${nama}" rows="5" placeholder="Satu butir per baris">${Array.isArray(v) ? (v as string[]).join('\n') : ''}</textarea>`; break;
     case 'kelas': kontrol = kelasUnit.length ? html`<div class="p-pilihan">${kelasUnit.map((k) => html`<label class="p-centang"><input type="checkbox" name="${nama}" value="${k}"${raw(Array.isArray(v) && (v as string[]).includes(k) ? ' checked' : '')}><span>${k}</span></label>`)}</div>` : html`<p class="p-kecil">Lembaga ini belum punya daftar kelas — isi dulu di Profil lembaga.</p>`; break;
@@ -170,12 +180,23 @@ export interface FormDok {
 export function formDok(o: FormDok): Raw {
   const d = o.dok;
   const baru = !d.id;
-  return html`<form method="post" class="p-form p-kartu" data-form-jaga>
+  const form = formIsi(o);
+  if (!o.def.cetak) return form;
+  return html`<div class="p-dok-dua">
+  <div class="p-dok-form">${!baru ? html`<div class="p-dok-cetak p-kartu"><a class="tbl tbl-emas" href="/portal/cetak/${o.def.id}/${d.id}" target="_blank" rel="noopener" data-cetak-dok>🖨️ Cetak ${o.def.satu} ini</a><span class="p-kecil">Terbuka di tab baru, siap dicetak atau disimpan sebagai PDF.</span></div>` : ''}${form}</div>
+  <aside class="p-dok-pratinjau" aria-label="Pratinjau ${o.def.satu}"><div class="p-dok-pratinjau-kepala"><b>Pratinjau langsung</b><span class="p-kecil" data-pratinjau-status>Berubah otomatis saat Anda mengetik.</span></div><div class="p-dok-bingkai ${o.def.cetak}"><iframe name="pratinjau-dok" title="Pratinjau ${o.def.satu}" data-pratinjau-bingkai></iframe></div></aside>
+</div>`;
+}
+
+function formIsi(o: FormDok): Raw {
+  const d = o.dok;
+  const baru = !d.id;
+  return html`<form method="post" class="p-form p-kartu" data-form-jaga${o.def.cetak ? raw(` data-pratinjau="/portal/cetak/${o.def.id}/pratinjau"`) : ''}>
   <div class="p-bidang${o.galat.judul ? ' p-bidang-galat' : ''}"><span>${o.def.labelJudul} <i aria-hidden="true">*</i></span><input type="text" name="judul" value="${d.judul ?? ''}" maxlength="160" required>${o.galat.judul ? html`<small class="p-galat">${o.galat.judul}</small>` : ''}</div>
   <div class="p-baris">
     ${o.def.hanyaYayasan ? '' : html`<label class="p-bidang${o.galat.unit ? ' p-bidang-galat' : ''}"><span>Lembaga <i aria-hidden="true">*</i></span><select name="unit" required>${o.bolehYayasan ? html`<option value="yayasan"${raw(d.unit === 'yayasan' ? ' selected' : '')}>Yayasan Al-Huda Yapida</option>` : ''}${o.units.map((u) => html`<option value="${u.slug}"${raw(d.unit === u.slug ? ' selected' : '')}>${u.singkat}</option>`)}</select>${o.galat.unit ? html`<small class="p-galat">${o.galat.unit}</small>` : ''}</label>`}
     ${o.def.tanpaTanggal ? '' : html`<label class="p-bidang"><span>Tanggal</span><input type="date" name="tanggal" value="${d.tanggal ?? ''}"></label>`}
-    ${o.def.privat ? '' : html`<label class="p-bidang"><span>Status</span><select name="status">${o.statusBoleh.map((s) => html`<option value="${s}"${raw((d.status ?? o.statusBoleh[0]) === s ? ' selected' : '')}>${STATUS[s]}</option>`)}</select></label>`}
+    ${o.def.tanpaPublik ? html`<input type="hidden" name="status" value="tayang">` : o.def.privat ? '' : html`<label class="p-bidang"><span>Status</span><select name="status">${o.statusBoleh.map((s) => html`<option value="${s}"${raw((d.status ?? o.statusBoleh[0]) === s ? ' selected' : '')}>${STATUS[s]}</option>`)}</select></label>`}
   </div>
   ${o.def.bidang.map((b) => bidangHtml(b, d.d[b.k], o.galat[b.k], o.mediaUrl, o.kelasUnit))}
   <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">${baru ? 'Simpan' : 'Simpan perubahan'}</button><a class="tbl tbl-garis" href="/portal/k/${o.def.id}">Kembali</a>${o.tautPublik ? html`<a class="tbl-teks" href="${o.tautPublik}" target="_blank" rel="noopener">Lihat di situs ↗</a>` : ''}</div>
@@ -192,17 +213,21 @@ export function daftarDok(o: { def: Koleksi; items: IxItem[]; units: UnitItem[];
     if (o.def.id === 'sdm') return [x.jabatan, x.bidang].filter(Boolean).join(' · ');
     if (o.def.id === 'pendaftar') return `${x.ppdb ?? ''}${x.wali ? ` · wali ${x.wali}` : ''}`;
     if (o.def.id === 'pesan') return String(x.kontak ?? '');
+    if (o.def.id === 'penghargaan') return [labelJenis(x.jenis), x.capaian, x.predikat, x.kelas].filter(Boolean).join(' · ');
+    if (o.def.id === 'kwitansi') return [x.nomor, rupiah(Number(x.jumlah) || 0), labelUntuk(x.untuk), x.lunas === false ? 'BELUM LUNAS' : ''].filter(Boolean).join(' · ');
+    if (o.def.id === 'surat') return [x.nomor, it.r].filter(Boolean).join(' · ');
+    if (o.def.id === 'kop') return `${x.utama === true ? '★ Kop utama · ' : ''}${it.r ?? ''}`;
     return it.r ?? '';
   };
-  const tahap = (it: IxItem) => (o.def.id === 'pendaftar' ? html`<span class="p-status p-tahap-${String(it.x?.tahap ?? 'baru')}">${String(it.x?.tahap ?? 'baru')}</span>` : o.def.privat ? '' : lencana(it.s));
+  const tahap = (it: IxItem) => (o.def.id === 'pendaftar' ? html`<span class="p-status p-tahap-${String(it.x?.tahap ?? 'baru')}">${String(it.x?.tahap ?? 'baru')}</span>` : o.def.cetak && o.boleh(it) ? html`<a class="tbl tbl-garis tbl-kecil" href="/portal/cetak/${o.def.id}/${it.id}" target="_blank" rel="noopener">🖨️ Cetak</a>` : o.def.privat || o.def.tanpaPublik ? '' : lencana(it.s));
   return html`<form method="get" class="p-saring">
     <select name="unit" aria-label="Lembaga"><option value="">Semua lembaga</option>${o.bolehYayasan ? html`<option value="yayasan"${raw(o.unit === 'yayasan' ? ' selected' : '')}>Yayasan</option>` : ''}${o.units.map((u) => html`<option value="${u.slug}"${raw(o.unit === u.slug ? ' selected' : '')}>${u.singkat}</option>`)}</select>
-    ${o.def.privat ? '' : html`<select name="status" aria-label="Status"><option value="">Semua status</option>${(Object.keys(STATUS) as Status[]).map((s) => html`<option value="${s}"${raw(o.status === s ? ' selected' : '')}>${STATUS[s]}</option>`)}</select>`}
+    ${o.def.privat || o.def.tanpaPublik ? '' : html`<select name="status" aria-label="Status"><option value="">Semua status</option>${(Object.keys(STATUS) as Status[]).map((s) => html`<option value="${s}"${raw(o.status === s ? ' selected' : '')}>${STATUS[s]}</option>`)}</select>`}
     <button class="tbl tbl-garis tbl-kecil" type="submit">Saring</button>
     ${o.def.id === 'pendaftar' ? html`<a class="tbl tbl-garis tbl-kecil" href="/portal/k/pendaftar/csv${o.unit ? `?unit=${o.unit}` : ''}">Unduh CSV</a>` : ''}
   </form>
   ${o.items.length ? html`<div class="p-tabel"><table>
-    <thead><tr><th>${o.def.labelJudul.replace(/\s*\(.*\)$/, '')}</th><th>Lembaga</th>${o.def.tanpaTanggal ? '' : raw('<th>Tanggal</th>')}<th>${o.def.id === 'pendaftar' ? 'Tahap' : o.def.privat ? '' : 'Status'}</th></tr></thead>
+    <thead><tr><th>${o.def.labelJudul.replace(/\s*\(.*\)$/, '')}</th><th>Lembaga</th>${o.def.tanpaTanggal ? '' : raw('<th>Tanggal</th>')}<th>${o.def.id === 'pendaftar' ? 'Tahap' : o.def.cetak ? 'Cetak' : o.def.privat ? '' : 'Status'}</th></tr></thead>
     <tbody>${o.items.map((it) => html`<tr>
       <td>${o.boleh(it) ? html`<a class="p-butir" href="/portal/k/${o.def.id}/${it.id}">` : raw('<span class="p-butir">')}${it.g ? html`<img src="${o.mediaUrl(it.g)}" alt="" loading="lazy">` : html`<span class="p-inisial" aria-hidden="true">${it.j.replace(/^(H\.|Hj\.|Dr\.|Drs\.|Ust\.|Ustadz|Ustadzah|K\.H\.|KH\.)\s+/i, '').charAt(0).toUpperCase()}</span>`}<span><strong>${it.j}</strong>${ket(it) ? html`<small>${ket(it)}</small>` : ''}</span>${raw(o.boleh(it) ? '</a>' : '</span>')}</td>
       <td>${nama(it.u)}</td>${o.def.tanpaTanggal ? '' : html`<td>${tanggal(it.t)}</td>`}<td>${tahap(it)}</td>
