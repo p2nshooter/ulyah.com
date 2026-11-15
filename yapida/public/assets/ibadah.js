@@ -13,8 +13,10 @@
 
   /* ── lokasi ───────────────────────────────────────────── */
   var BAWAAN = { lat: Number(akar.getAttribute('data-lat')) || -6.13, lng: Number(akar.getAttribute('data-lng')) || 107.17, nama: akar.getAttribute('data-tempat') || 'Sukakarya' };
-  var lok = simpan.get('yp-lokasi');
-  if (!lok || typeof lok.lat !== 'number' || typeof lok.lng !== 'number') lok = null;
+  /* Koordinat hanya disimpan di memori halaman, tidak pernah di penyimpanan peramban. Yang diingat hanyalah pilihan
+     "pakai lokasi saya"; pada kunjungan berikutnya lokasi diminta lagi dari perangkat (tanpa dialog bila izinnya sudah ada). */
+  var lok = null;
+  simpan.del('yp-lokasi');
   var titik = function () { return lok || BAWAAN; };
   var zona = function () { return lok ? undefined : 'Asia/Jakarta'; };
   var pendengar = [];
@@ -28,12 +30,18 @@
       if (!navigator.geolocation) { b.textContent = 'Perangkat tidak mendukung lokasi'; return; }
       var asli = b.textContent; b.textContent = 'Mencari lokasi…'; b.disabled = true;
       navigator.geolocation.getCurrentPosition(function (p) {
-        lok = { lat: p.coords.latitude, lng: p.coords.longitude }; simpan.set('yp-lokasi', lok);
+        lok = { lat: p.coords.latitude, lng: p.coords.longitude }; simpan.set('yp-pakai-lokasi', true);
         b.textContent = asli; b.disabled = false; gantiLokasi();
       }, function () { b.textContent = 'Izin lokasi ditolak'; b.disabled = false; setTimeout(function () { b.textContent = asli; }, 2500); }, { enableHighAccuracy: false, timeout: 12000, maximumAge: 600000 });
     });
   });
-  $$('[data-lokasi-bawaan]').forEach(function (b) { b.addEventListener('click', function () { lok = null; simpan.del('yp-lokasi'); gantiLokasi(); }); });
+  $$('[data-lokasi-bawaan]').forEach(function (b) { b.addEventListener('click', function () { lok = null; simpan.del('yp-pakai-lokasi'); gantiLokasi(); }); });
+  if (simpan.get('yp-pakai-lokasi') === true && navigator.geolocation && navigator.permissions && navigator.permissions.query) {
+    navigator.permissions.query({ name: 'geolocation' }).then(function (izin) {
+      if (izin.state !== 'granted') return;
+      navigator.geolocation.getCurrentPosition(function (p) { lok = { lat: p.coords.latitude, lng: p.coords.longitude }; gantiLokasi(); }, function () {}, { timeout: 12000, maximumAge: 600000 });
+    }, function () {});
+  }
 
   /* ── waktu sholat ─────────────────────────────────────── */
   var URUT = [['imsak', 'Imsak'], ['subuh', 'Subuh'], ['terbit', 'Terbit'], ['dzuhur', 'Dzuhur'], ['ashar', 'Ashar'], ['maghrib', 'Maghrib'], ['isya', 'Isya']];
