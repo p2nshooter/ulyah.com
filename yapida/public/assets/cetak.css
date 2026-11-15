@@ -307,3 +307,16 @@ body.cetak.muat{background:transparent;overflow:hidden}
 .sert.premium .sert-ttd{padding:0 10mm}
 .sert.premium .sert-ttd-blok{width:62mm}
 .sert.premium .sert-tempat{padding-right:16mm}
+
+/* Latar: potongan besar logo yayasan/lembaga, timbul dan berbayang (pemilik: „ambil aja sebagian dr logo trus di
+   shadow, jgn asal2an“). Logo dibesarkan melewati bingkai dalam sehingga hanya bagian tengahnya yang tampak. */
+.sert-roset{display:none}
+.sert-tanda{position:absolute;inset:15.5mm;overflow:hidden}
+.sert-tanda img{position:absolute;left:50%;top:50%;width:196mm;height:196mm;object-fit:contain;transform:translate(-50%,-49%);pointer-events:none}
+.tanda-bayang{filter:brightness(0) blur(1.6mm);opacity:.06;margin:1.1mm 0 0 1.1mm}
+.tanda-terang{filter:brightness(0) invert(1) blur(.4mm);opacity:.5;margin:-.5mm 0 0 -.5mm;mix-blend-mode:screen}
+.tanda-logo{filter:grayscale(1) sepia(.35) contrast(1.15);opacity:.065;mix-blend-mode:multiply}
+.d-malam .tanda-logo{filter:grayscale(1) sepia(.6) brightness(1.5);opacity:.09;mix-blend-mode:screen}
+.d-malam .tanda-terang{opacity:0}
+.d-malam .tanda-bayang{opacity:.35}
+.d-tosca .sert-tanda,.d-ceria .sert-tanda{inset:14mm}

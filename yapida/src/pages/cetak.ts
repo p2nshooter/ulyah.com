@@ -72,9 +72,6 @@ const FOIL = '<svg class="sert-defs" width="0" height="0" aria-hidden="true" foc
 const SUDUT_PREMIUM = '<svg class="sert-sudut" viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="url(#yp-foil)" stroke-linecap="round"><path d="M4 116V30Q4 4 30 4H116" stroke-width="2.6"/><path d="M11 116V34Q11 11 34 11H116" stroke-width="1"/><path d="M17 96V40Q17 17 40 17H96" stroke-width=".7" stroke-dasharray="1.6 2.4"/><path d="M26 26c14-10 34-8 40 6s-2 28-15 27-17-14-8-20 18 0 16 9" stroke-width="2"/><path d="M26 26c-10 14-8 34 6 40s28-2 27-15-14-17-20-8 0 18 9 16" stroke-width="2"/><path d="M58 22q18-3 30 6M22 58q-3 18 6 30" stroke-width="1.2"/><path d="M70 13q10 4 16 0M13 70q4 10 0 16" stroke-width="1"/></g><g fill="url(#yp-foil)"><path d="M26 15l3.2 7.8L37 26l-7.8 3.2L26 37l-3.2-7.8L15 26l7.8-3.2z"/><path d="M26 18.5l5.3 2.2 2.2 5.3-2.2 5.3-5.3 2.2-5.3-2.2-2.2-5.3 2.2-5.3z" opacity=".55"/><ellipse cx="90" cy="27" rx="5" ry="2.2" transform="rotate(25 90 27)"/><ellipse cx="27" cy="90" rx="5" ry="2.2" transform="rotate(65 27 90)"/><circle cx="66" cy="40" r="1.8"/><circle cx="40" cy="66" r="1.8"/><circle cx="101" cy="11" r="1.6"/><circle cx="11" cy="101" r="1.6"/></g></svg>';
 const sudutP = (n: number) => raw(SUDUT_PREMIUM.replace('class="sert-sudut"', `class="sert-sudut s${n}"`));
 
-/** Watermark rosette bintang delapan di tengah lembar. */
-const ROSET = raw('<svg class="sert-roset" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="currentColor"><circle cx="100" cy="100" r="96" stroke-width=".8"/><circle cx="100" cy="100" r="88" stroke-width=".5" stroke-dasharray="2 3"/><rect x="38" y="38" width="124" height="124" stroke-width="1.2"/><rect x="38" y="38" width="124" height="124" stroke-width="1.2" transform="rotate(45 100 100)"/><rect x="58" y="58" width="84" height="84" stroke-width=".8"/><rect x="58" y="58" width="84" height="84" stroke-width=".8" transform="rotate(45 100 100)"/><circle cx="100" cy="100" r="30" stroke-width=".8"/><path d="M100 4v192M4 100h192M32 32l136 136M168 32L32 168" stroke-width=".3"/></g></svg>');
-
 /** Garis hias (swash) di bawah nama penerima. */
 const SWASH = raw('<svg class="sert-swash" viewBox="0 0 400 24" aria-hidden="true"><path d="M8 14C70 4 130 22 200 12S330 4 392 14" fill="none" stroke="url(#yp-foil)" stroke-width="1.6" stroke-linecap="round"/><path d="M60 16c30-6 60-6 90 2M250 18c30-8 60-8 90-2" fill="none" stroke="url(#yp-foil)" stroke-width=".8" stroke-linecap="round"/><path d="M200 5l4 7-4 7-4-7z" fill="url(#yp-foil)"/><circle cx="8" cy="14" r="2" fill="url(#yp-foil)"/><circle cx="392" cy="14" r="2" fill="url(#yp-foil)"/></svg>');
 
@@ -96,7 +93,7 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
   const melingkar = `✦ ${(k.induk || k.nama).replace(/\s+/g, ' ').trim()} ✦ ${k.kota.toUpperCase()} `;
   const ttd = (nama: string, jabatan: string) => (nama ? html`<div class="sert-ttd-blok"><p class="sert-ttd-jab">${jabatan || ' '}</p><div class="sert-ttd-ruang"></div><p class="sert-ttd-nama">${nama}</p></div>` : html`<div class="sert-ttd-blok kosong"></div>`);
   return html`<article class="lembar a4l sert premium d-${desain} j-${jenis}${foto ? ' berfoto' : ''}" lang="id">${raw(FOIL)}
-  <div class="sert-latar" aria-hidden="true">${ROSET}</div>
+  <div class="sert-latar" aria-hidden="true"><div class="sert-tanda"><img class="tanda-bayang" src="${logo}" alt=""><img class="tanda-terang" src="${logo}" alt=""><img class="tanda-logo" src="${logo}" alt=""></div></div>
   <div class="sert-bingkai" aria-hidden="true"></div>
   <div class="sert-motif" aria-hidden="true"></div>
   <div class="sert-garis" aria-hidden="true"></div>
