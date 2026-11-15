@@ -105,7 +105,7 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/lembaga', 'Profil lembaga', 'kubah') : ''}
     <p>Isi</p>
     ${isi.map((k) => tautan(`/portal/k/${k.id}`, k.nama, k.privat ? 'surat' : 'pena', o.hitung?.[k.id])).join('')}
-    ${t >= PERAN.lembaga.tingkat ? `<p>Kesiswaan</p>${tautan('/portal/siswa', 'Data siswa', 'tangan')}${tautan('/portal/siswa/impor', 'Impor file master', 'buku')}${tautan('/portal/tagihan', 'Tagihan & pembayaran', 'niaga')}${tautan('/portal/laporan', 'Laporan & grafik', 'bintang')}` : ''}
+    ${t >= PERAN.lembaga.tingkat ? `<p>Kesiswaan</p>${tautan('/portal/siswa', 'Data siswa', 'tangan')}${tautan('/portal/siswa/impor', 'Impor file master', 'buku')}${tautan('/portal/tagihan', 'Tagihan & pembayaran', 'niaga')}${tautan('/portal/laporan', 'Laporan & grafik', 'bintang')}${tautan('/portal/guru/impor', 'Impor data guru', 'tangan')}` : ''}
     ${dok.length ? `<p>Dokumen &amp; cetak</p>${dok.map((k) => tautan(`/portal/k/${k.id}`, k.nama, IKON_DOK[k.id] ?? 'pena')).join('')}${t >= PERAN.lembaga.tingkat ? tautan('/portal/penghargaan/massal', 'Sertifikat massal', 'bintang') : ''}` : ''}
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/halaman', 'Halaman', 'buku') : ''}
     ${t >= PERAN.yayasan.tingkat ? `<p>Yayasan</p>${tautan('/portal/situs', 'Pengaturan situs', 'buku')}${tautan('/portal/pustaka', 'Rak perpustakaan', 'buku')}` : ''}
@@ -201,7 +201,8 @@ function formIsi(o: FormDok): Raw {
     ${o.def.tanpaTanggal ? '' : html`<label class="p-bidang"><span>Tanggal</span><input type="date" name="tanggal" value="${d.tanggal ?? ''}"></label>`}
     ${o.def.tanpaPublik ? html`<input type="hidden" name="status" value="tayang">` : o.def.privat ? '' : html`<label class="p-bidang"><span>Status</span><select name="status">${o.statusBoleh.map((s) => html`<option value="${s}"${raw((d.status ?? o.statusBoleh[0]) === s ? ' selected' : '')}>${STATUS[s]}</option>`)}</select></label>`}
   </div>
-  ${o.def.bidang.map((b) => bidangHtml(b, d.d[b.k], o.galat[b.k], o.mediaUrl, o.kelasUnit))}
+  ${o.def.bidang.filter((b) => !b.rahasia).map((b) => bidangHtml(b, d.d[b.k], o.galat[b.k], o.mediaUrl, o.kelasUnit))}
+  ${o.def.bidang.some((b) => b.rahasia) ? html`<fieldset class="p-bagian p-rahasia"><legend>🔒 Data kepegawaian — privat</legend><p class="p-kecil">Hanya terlihat di portal oleh pengelola lembaga ini, yayasan, dan super admin. Tidak pernah tampil di situs.</p><div class="p-rahasia-kisi">${o.def.bidang.filter((b) => b.rahasia).map((b) => bidangHtml(b, d.d[b.k], o.galat[b.k], o.mediaUrl, o.kelasUnit))}</div></fieldset>` : ''}
   <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">${baru ? 'Simpan' : 'Simpan perubahan'}</button><a class="tbl tbl-garis" href="/portal/k/${o.def.id}">Kembali</a>${o.tautPublik ? html`<a class="tbl-teks" href="${o.tautPublik}" target="_blank" rel="noopener">Lihat di situs ↗</a>` : ''}</div>
 </form>
 ${baru ? '' : html`<form method="post" action="/portal/k/${o.def.id}/${d.id}/hapus" class="p-hapus" data-yakin="Hapus ${o.def.satu} ini selamanya? Tindakan ini tidak bisa dibatalkan."><button class="tbl-teks p-bahaya" type="submit">Hapus ${o.def.satu} ini</button></form>`}`;
@@ -228,6 +229,7 @@ export function daftarDok(o: { def: Koleksi; items: IxItem[]; units: UnitItem[];
     ${o.def.privat || o.def.tanpaPublik ? '' : html`<select name="status" aria-label="Status"><option value="">Semua status</option>${(Object.keys(STATUS) as Status[]).map((s) => html`<option value="${s}"${raw(o.status === s ? ' selected' : '')}>${STATUS[s]}</option>`)}</select>`}
     <button class="tbl tbl-garis tbl-kecil" type="submit">Saring</button>
     ${o.def.id === 'pendaftar' ? html`<a class="tbl tbl-garis tbl-kecil" href="/portal/k/pendaftar/csv${o.unit ? `?unit=${o.unit}` : ''}">Unduh CSV</a>` : ''}
+    ${o.def.id === 'sdm' ? html`<a class="tbl tbl-emas tbl-kecil" href="/portal/guru/impor">⇪ Impor data guru (Excel + foto)</a><a class="tbl tbl-garis tbl-kecil" href="/portal/guru/templat.xlsx">Templat</a><a class="tbl-teks" href="/portal/guru/unduh.xlsx${o.unit ? `?unit=${o.unit}` : ''}">⬇ Unduh data guru (privat)</a>` : ''}
   </form>
   ${o.items.length ? html`<div class="p-tabel"><table>
     <thead><tr><th>${o.def.labelJudul.replace(/\s*\(.*\)$/, '')}</th><th>Lembaga</th>${o.def.tanpaTanggal ? '' : raw('<th>Tanggal</th>')}<th>${o.def.id === 'pendaftar' ? 'Tahap' : o.def.cetak ? 'Cetak' : o.def.privat ? '' : 'Status'}</th></tr></thead>

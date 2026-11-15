@@ -33,8 +33,15 @@ export function judulKata(s: string, o: { nama?: boolean } = {}): string {
   if (!t) return '';
   const huruf = t.replace(/[^A-Za-z]/g, '');
   if (huruf && huruf !== huruf.toUpperCase() && huruf !== huruf.toLowerCase()) return t;
+  let gelar = false; // sesudah koma pertama pada nama orang: gelar akademik (S.Pd., M.Ag., KH., MA)
   return t.split(' ').map((w, i) => {
     const up = w.toUpperCase().replace(/[.,]/g, '');
+    if (o.nama && (gelar || /\./.test(w.replace(/[.,]$/, '')) || GELAR_DEPAN.has(up))) {
+      if (w.endsWith(',')) gelar = true;
+      if (GELAR_KAPITAL.has(up)) return w.toUpperCase();
+      if (/\./.test(w) || gelar) return w.toLowerCase().replace(/(^|\.)([a-z])/g, (_m, a: string, b: string) => a + b.toUpperCase());
+    }
+    if (o.nama && w.endsWith(',')) gelar = true;
     if (!o.nama && SINGKATAN_TETAP.has(up) && up !== 'NO') return w.toUpperCase().replace('MTS', 'MTs');
     if (i > 0 && KECIL.has(w.toLowerCase())) return w.toLowerCase();
     return w.toLowerCase().replace(/(^|[-(/])([a-zà-ÿ])/g, (_m, a: string, b: string) => a + b.toUpperCase())
@@ -42,6 +49,10 @@ export function judulKata(s: string, o: { nama?: boolean } = {}): string {
       .replace(/^([A-Z][a-z]+)-([A-Z])([a-z]*)$/, (m, a: string, b: string, c: string) => ((b + c).toLowerCase() === a.toLowerCase() ? `${a}-${b.toLowerCase()}${c}` : m));
   }).join(' ');
 }
+
+/** Gelar yang ditulis kapital semua (KH., MA, MM …) dan gelar depan (H., Hj., Dr., Drs.). */
+const GELAR_KAPITAL = new Set(['KH', 'MA', 'MM', 'MH', 'MSI', 'MPD', 'SE', 'ST', 'SH', 'SKM', 'MT']);
+const GELAR_DEPAN = new Set(['H', 'HJ', 'DR', 'DRS', 'DRA', 'IR', 'KH', 'USTADZ', 'UST', 'USTADZAH', 'USTH', 'PROF']);
 
 const nol3 = (s: string) => { const d = s.replace(/\D/g, ''); return d ? d.padStart(3, '0').slice(-3) : ''; };
 

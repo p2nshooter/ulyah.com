@@ -19,6 +19,7 @@ import { kopUntuk, labelJenis, labelUntuk, type Kop } from '../data/dokumen.ts';
 import { milikSiswa, statusTagihan } from '../data/kait.ts';
 import { JENJANG, KOLOM_LEMBAGA, KOLOM_SISWA, cariSiswa, jenjangDari, kunciGagal, jenjangUnit, labelStatus, levelTingkat, normalTanggal, periksaBaris, posisi, samarkan, type Jenjang } from '../data/siswa.ts';
 import { bacaMaster, type BarisSiswa } from '../data/master.ts';
+import { simpanBarisGuru, type BarisGuruSimpan } from '../data/guru.ts';
 import {
   ambilKerja, buatKerja, daftarSiswa, langkahKerja, rekapKosong, riwayatKelas, saringSiswa, semuaIndeks, simpanBarisImpor, simpanBarisTagihan, tambahRekap,
   urutSiswa, type BarisImpor, type BarisTagihan, type Kerja, type SiswaRingkas,
@@ -117,7 +118,7 @@ async function kopLembaga(c: Ctx, slug: string): Promise<KopLembaga> {
 async function logoExcel(c: Ctx, k: Kop): Promise<{ data: Uint8Array; jenis: 'png' | 'jpeg' } | undefined> {
   try {
     if (k.logo && /\.(png|jpe?g)$/i.test(k.logo)) {
-      const o = await c.env.MEDIA.get(k.logo);
+      const o = await c.env.MEDIA.get(`f/${k.logo}`);
       if (o) return { data: new Uint8Array(await o.arrayBuffer()), jenis: /\.png$/i.test(k.logo) ? 'png' : 'jpeg' };
     }
     const r = await c.env.ASSETS.fetch(new Request(new URL('/assets/logo-dok.png', c.req.url)));
@@ -304,15 +305,15 @@ async function kerjaMilik(c: Ctx): Promise<Kerja | null> {
 kesiswaan.get('/portal/kerja/:id', async (c) => {
   const k = await kerjaMilik(c);
   if (!k) return c.notFound();
-  return tampil(c, { judul: k.jenis === 'impor' ? 'Menyimpan data siswa' : 'Membuat tagihan', aktif: k.jenis === 'impor' ? '/portal/siswa/impor' : '/portal/tagihan', body: halamanKerja(k) });
+  return tampil(c, { judul: k.jenis === 'impor' ? 'Menyimpan data siswa' : k.jenis === 'guru' ? 'Menyimpan data guru' : 'Membuat tagihan', aktif: k.jenis === 'impor' ? '/portal/siswa/impor' : k.jenis === 'guru' ? '/portal/guru/impor' : '/portal/tagihan', body: halamanKerja(k) });
 });
 
 kesiswaan.post('/portal/kerja/:id/lanjut', async (c) => {
   const k0 = await kerjaMilik(c);
   if (!k0) return c.json({ galat: 'Pekerjaan tidak ditemukan.' }, 404);
   const store = c.get('store');
-  const def = k0.jenis === 'impor' ? KOLEKSI.siswa! : KOLEKSI.tagihan!;
-  const k = await langkahKerja(store, k0.id, (b, _i, kerja) => (kerja.jenis === 'impor' ? simpanBarisImpor(store, def, KOLEKSI, b as BarisImpor, kerja) : simpanBarisTagihan(store, def, KOLEKSI, b as BarisTagihan, kerja)));
+  const def = k0.jenis === 'impor' ? KOLEKSI.siswa! : k0.jenis === 'guru' ? KOLEKSI.sdm! : KOLEKSI.tagihan!;
+  const k = await langkahKerja(store, k0.id, (b, _i, kerja) => (kerja.jenis === 'impor' ? simpanBarisImpor(store, def, KOLEKSI, b as BarisImpor, kerja) : kerja.jenis === 'guru' ? simpanBarisGuru(store, def, KOLEKSI, b as BarisGuruSimpan, kerja) : simpanBarisTagihan(store, def, KOLEKSI, b as BarisTagihan, kerja)));
   if (k?.selesai && !k0.selesai) await catat(c, `${k.jenis}.selesai`, `${k.judul}: ${k.hasil.baru} baru, ${k.hasil.ubah} diperbarui, ${k.hasil.lewat} dilewati, ${k.hasil.gagalN} gagal`);
   if ((c.req.header('accept') ?? '').includes('application/json')) return c.json({ pos: k?.pos ?? 0, total: k?.total ?? 0, selesai: k?.selesai ?? true, hasil: k?.hasil, kembali: k?.kembali }, 200, tanpaCache);
   return c.redirect(`/portal/kerja/${k0.id}`);

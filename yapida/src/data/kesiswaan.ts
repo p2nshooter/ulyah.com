@@ -92,7 +92,7 @@ export function riwayatKelas(d: Record<string, unknown>, unit: string, now = Dat
 export interface HasilKerja { baru: number; ubah: number; lewat: number; gagalN: number; gagal: { baris: number; nama: string; alasan: string }[] }
 export interface Kerja {
   id: string;
-  jenis: 'impor' | 'tagihan';
+  jenis: 'impor' | 'tagihan' | 'guru';
   judul: string;
   oleh: string;
   olehNama: string;

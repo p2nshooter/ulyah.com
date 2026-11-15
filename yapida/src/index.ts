@@ -16,6 +16,7 @@ import { pustaka } from './routes/pustaka.ts';
 import { dokumen, tampilDiPrestasi } from './routes/dokumen.ts';
 import { kesiswaan } from './routes/kesiswaan.ts';
 import { siswa } from './routes/siswa.ts';
+import { guru } from './routes/guru.ts';
 import { bagianPrestasiUnit, pitaPrestasi } from './pages/prestasi.ts';
 import { katalog, urutkan } from './data/pustaka.ts';
 import { peringkat, sepuluh } from './data/statistik.ts';
@@ -247,6 +248,7 @@ app.route('/', portal);
 app.route('/', dokumen);
 app.route('/', kesiswaan);
 app.route('/', siswa);
+app.route('/', guru);
 
 app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({ error: 'not found' }, 404) : tidakAda(c as Ctx)));
 

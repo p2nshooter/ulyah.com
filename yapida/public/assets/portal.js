@@ -291,4 +291,30 @@
     el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); tunjuk(el, r.left + r.width / 2, r.top); });
     el.addEventListener('blur', sembunyi);
   });
+
+  /* ── impor data guru: foto banyak dikecilkan & diunggah dulu, lalu peta nama file → kunci foto dikirim ── */
+  $$('form[data-impor-guru]').forEach(function (f) {
+    var inp = $('input[data-foto-banyak]', f), peta = $('input[name="peta_foto"]', f), st = $('[data-foto-status]', f), siap = false;
+    if (!inp || !peta) return;
+    f.addEventListener('submit', function (ev) {
+      if (siap || !inp.files || !inp.files.length) return;
+      ev.preventDefault();
+      var berkas = Array.prototype.slice.call(inp.files, 0, 300), hasil = {}, i = 0, tombol = $('button[type=submit]', f);
+      if (tombol) { tombol.disabled = true; }
+      var lanjut = function () {
+        if (i >= berkas.length) {
+          peta.value = JSON.stringify(hasil);
+          inp.value = '';
+          siap = true;
+          if (st) st.textContent = 'Foto siap — membaca file Excel…';
+          f.submit();
+          return;
+        }
+        var b = berkas[i];
+        if (st) st.textContent = 'Mengecilkan & mengunggah foto ' + (i + 1) + ' dari ' + berkas.length + '…';
+        kirimBerkas(b, 'gambar', '').then(function (j) { hasil[b.name] = j.f; }).catch(function () { /* foto rusak dilewati */ }).then(function () { i += 1; lanjut(); });
+      };
+      lanjut();
+    });
+  });
 })();

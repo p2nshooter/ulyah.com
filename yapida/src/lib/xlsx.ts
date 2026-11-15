@@ -130,6 +130,88 @@ export async function bacaXlsx(data: ArrayBuffer | Uint8Array): Promise<Lembar[]
   return out;
 }
 
+/** Gambar yang ditempel di lembar kerja, dengan sel tempatnya (baris & kolom mulai 0). */
+export interface GambarSel { lembar: string; baris: number; kolom: number; data: Uint8Array; jenis: 'png' | 'jpg' | 'webp' | 'lain' }
+
+const jenisGambar = (b: Uint8Array): GambarSel['jenis'] => (b[0] === 0xff && b[1] === 0xd8 ? 'jpg' : b[0] === 0x89 && b[1] === 0x50 ? 'png' : b[0] === 0x52 && b[8] === 0x57 ? 'webp' : 'lain');
+
+/** Menggabungkan jalur relatif sebuah relasi: („xl/worksheets/sheet1.xml“, „../drawings/drawing1.xml“) → „xl/drawings/drawing1.xml“. */
+function jalur(dari: string, target: string): string {
+  if (target.startsWith('/')) return target.slice(1);
+  const bagian = dari.split('/').slice(0, -1);
+  for (const t of target.split('/')) { if (t === '..') bagian.pop(); else if (t !== '.') bagian.push(t); }
+  return bagian.join('/');
+}
+const relasi = (xml: string) => new Map([...xml.matchAll(/<Relationship\b([^>]*)\/?>/g)].map((m) => [atribut(m[1]!, 'Id') ?? '', { target: atribut(m[1]!, 'Target') ?? '', jenis: atribut(m[1]!, 'Type') ?? '' }]));
+const relsDari = (p: string) => `${p.split('/').slice(0, -1).join('/')}/_rels/${p.split('/').pop()}.rels`;
+
+/**
+ * Foto yang ditempel di file Excel: gambar „mengambang“ (drawing, ditaruh di atas sel) dan gambar „di dalam sel“
+ * (Excel 365 → Sisipkan Gambar → Tempatkan di Sel). Dipakai impor data guru: foto di baris guru = foto guru itu.
+ */
+export async function gambarXlsx(data: ArrayBuffer | Uint8Array): Promise<GambarSel[]> {
+  const buf = data instanceof Uint8Array ? data : new Uint8Array(data);
+  const zip = await bukaZip(buf, (n) => n.endsWith('.xml') || n.endsWith('.rels') || n.startsWith('xl/media/'));
+  const wb = zip.get('xl/workbook.xml');
+  if (!wb) throw new BukanXlsx('Berkas ini bukan Excel .xlsx (workbook tidak ada).');
+  const teks = (n: string) => dec.decode(zip.get(n) ?? new Uint8Array());
+  const relWb = relasi(teks('xl/_rels/workbook.xml.rels'));
+  const out: GambarSel[] = [];
+  // Gambar di dalam sel: vm → metadata → nilai kaya → relasi → xl/media/…
+  const rvRel = [...teks('xl/richData/richValueRel.xml').matchAll(/<rel\b([^>]*)\/?>/g)].map((m) => atribut(m[1]!, 'r:id') ?? '');
+  const rvRelMap = relasi(teks('xl/richData/_rels/richValueRel.xml.rels'));
+  const rv = [...teks('xl/richData/rdrichvalue.xml').matchAll(/<rv\b[^>]*>([\s\S]*?)<\/rv>/g)].map((m) => Number(/<v>(\d+)<\/v>/.exec(m[1]!)?.[1] ?? NaN));
+  const meta = teks('xl/metadata.xml');
+  const rvb = [...meta.matchAll(/<xlrd:rvb\b([^>]*)\/?>/g)].map((m) => Number(atribut(m[1]!, 'i') ?? NaN));
+  const vmBk = [...(/<valueMetadata\b[^>]*>([\s\S]*?)<\/valueMetadata>/.exec(meta)?.[1] ?? '').matchAll(/<bk>[\s\S]*?<rc\b([^>]*)\/?>[\s\S]*?<\/bk>/g)].map((m) => Number(atribut(m[1]!, 'v') ?? NaN));
+  const gambarVm = (vm: number): Uint8Array | null => {
+    const fm = vmBk[vm - 1];
+    const iRv = Number.isFinite(fm) && Number.isFinite(rvb[fm!]) ? rvb[fm!]! : vm - 1;
+    const iRel = rv[iRv];
+    if (iRel === undefined || !Number.isFinite(iRel)) return null;
+    const r = rvRelMap.get(rvRel[iRel] ?? '');
+    return r ? zip.get(jalur('xl/richData/richValueRel.xml', r.target)) ?? null : null;
+  };
+  for (const m of dec.decode(wb).matchAll(/<sheet\b([^>]*)\/?>/g)) {
+    const nama = urai(atribut(m[1]!, 'name') ?? '');
+    const t = relWb.get(atribut(m[1]!, 'r:id') ?? '');
+    if (!t) continue;
+    const pLembar = jalur('xl/workbook.xml', t.target);
+    const xmlLembar = teks(pLembar);
+    if (rv.length) {
+      for (const c of xmlLembar.matchAll(/<c\b([^>]*?\bvm="(\d+)"[^>]*?)(?:\/>|>)/g)) {
+        const ref = atribut(c[1]!, 'r') ?? '';
+        const g = gambarVm(Number(c[2]));
+        const rr = /^([A-Z]+)(\d+)$/i.exec(ref);
+        if (g && rr) out.push({ lembar: nama, baris: Number(rr[2]) - 1, kolom: kolomKe(rr[1]!), data: g, jenis: jenisGambar(g) });
+      }
+    }
+    // Gambar mengambang (drawing) yang jangkarnya di sel
+    const relLembar = relasi(teks(relsDari(pLembar)));
+    for (const r of relLembar.values()) {
+      if (!/\/drawing$/.test(r.jenis)) continue;
+      const pGambar = jalur(pLembar, r.target);
+      const relGambar = relasi(teks(relsDari(pGambar)));
+      // Awalan namespace bebas (xdr:, tanpa awalan, dll.) — tiap aplikasi lembar kerja menulisnya berbeda.
+      for (const a of teks(pGambar).matchAll(/<(?:\w+:)?(twoCellAnchor|oneCellAnchor)\b[\s\S]*?<\/(?:\w+:)?\1>/g)) {
+        const dari = /<(?:\w+:)?from>([\s\S]*?)<\/(?:\w+:)?from>/.exec(a[0])?.[1] ?? '';
+        const ke = /<(?:\w+:)?to>([\s\S]*?)<\/(?:\w+:)?to>/.exec(a[0])?.[1] ?? '';
+        const angka = (x: string, k: string) => Number(new RegExp(`<(?:\\w+:)?${k}>(\\d+)</(?:\\w+:)?${k}>`).exec(x)?.[1] ?? NaN);
+        const b0 = angka(dari, 'row'), k0 = angka(dari, 'col');
+        const b1 = ke ? angka(ke, 'row') : b0;
+        const emb = /<(?:\w+:)?blip\b[^>]*\b(?:\w+:)?embed="([^"]+)"/.exec(a[0])?.[1];
+        const rel = emb ? relGambar.get(emb) : undefined;
+        const isi = rel ? zip.get(jalur(pGambar, rel.target)) : undefined;
+        if (!isi || !Number.isFinite(b0)) continue;
+        // Gambar yang melewati garis sel: dipakai baris tengahnya
+        const baris = Number.isFinite(b1) && b1 - b0 <= 2 ? Math.floor((b0 + b1) / 2) : b0;
+        out.push({ lembar: nama, baris, kolom: Number.isFinite(k0) ? k0 : 0, data: isi, jenis: jenisGambar(isi) });
+      }
+    }
+  }
+  return out;
+}
+
 /** CSV (koma atau titik koma — dipilih dari baris pertama), tanda kutip ganda, BOM dibuang. */
 export function bacaCsv(teks: string): string[][] {
   const t = teks.replace(/^﻿/, '');
@@ -170,6 +252,9 @@ export interface LembarTulis {
   kaki?: string[];
   /** Cetak mendatar (bawaan) atau tegak. */
   tegak?: boolean;
+  /** Baris isian kosong bergaris sesudah data (templat), dengan tinggi baris (pt) — mis. ruang tempel foto. */
+  kosong?: number;
+  tinggiBaris?: number;
 }
 
 const STYLES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -211,8 +296,10 @@ function lembarXml(l: LembarTulis, adaGambar: boolean): string {
   if (l.judul) { rows.push(`<row r="${r}" ht="22" customHeight="1">${sel(r, 0, l.judul, 3)}</row>`); r += 2; }
   const awal = r;
   rows.push(`<row r="${awal}" ht="32" customHeight="1">${l.kepala.map((h, k) => sel(awal, k, h, 1)).join('')}</row>`);
-  l.baris.forEach((b, i) => { const rr = awal + 1 + i; rows.push(`<row r="${rr}">${l.kepala.map((_, k) => sel(rr, k, b[k], i % 2 ? 4 : 2)).join('')}</row>`); });
-  let akhir = awal + l.baris.length;
+  const ht = l.tinggiBaris ? ` ht="${l.tinggiBaris}" customHeight="1"` : '';
+  l.baris.forEach((b, i) => { const rr = awal + 1 + i; rows.push(`<row r="${rr}"${ht}>${l.kepala.map((_, k) => sel(rr, k, b[k], i % 2 ? 4 : 2)).join('')}</row>`); });
+  for (let i = 0; i < (l.kosong ?? 0); i += 1) { const rr = awal + 1 + l.baris.length + i; rows.push(`<row r="${rr}"${ht}>${l.kepala.map((_, k) => sel(rr, k, '', 2)).join('')}</row>`); }
+  let akhir = awal + l.baris.length + (l.kosong ?? 0);
   if (l.kaki?.length) {
     const kol = Math.max(0, l.kepala.length - 3);
     akhir += 2;

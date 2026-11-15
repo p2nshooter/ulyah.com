@@ -354,3 +354,22 @@ a.g-tautan:hover .g-label{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){.ks-progres span{animation:none}.g-ubin,a.g-ubin:hover{transition:none;transform:none}}
 @media print{.ks-saring-laporan,.g-tabel summary,.ks-alat{display:none!important}.g-tabel[open] .p-tabel,.g-tabel .p-tabel{display:block}.g-kartu,.g-ubin{box-shadow:none;break-inside:avoid}}
+
+
+/* ── data guru: pratinjau kartu & bidang privat ── */
+.gr-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}
+.gr-kartu{margin:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:1rem .8rem;border-radius:20px;border:1px solid var(--garis);background:linear-gradient(170deg,var(--permukaan),var(--gading));box-shadow:var(--bayang)}
+.gr-foto{display:block;width:104px;height:128px;margin-bottom:.7rem;border-radius:52px 52px 16px 16px;overflow:hidden;box-shadow:0 0 0 3px var(--permukaan),0 0 0 5px var(--e400)}
+.gr-foto img{width:100%;height:100%;object-fit:cover}
+.gr-foto>span{display:grid;place-items:center;width:100%;height:100%;background:linear-gradient(150deg,var(--z600),var(--z900));color:var(--e300);font:700 2.2rem var(--f-judul)}
+.gr-kartu figcaption{display:flex;flex-direction:column;gap:.1rem}
+.gr-kartu b{font-family:var(--f-judul);font-size:1rem;line-height:1.25}
+.gr-kartu span{font-size:.84rem;font-weight:700;color:var(--z600)}
+[data-tema="malam"] .gr-kartu span{color:var(--e300)}
+.gr-kartu small{font-size:.8rem;color:var(--redup)}
+.gr-kartu em{font-style:normal;font-size:.74rem;color:var(--redup);margin-top:.2rem}
+.gr-awas{color:#8c4a00!important}
+.p-rahasia{border-color:var(--e400);background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(220,191,98,.05) 14px 15px)}
+.p-rahasia legend{color:#6b4a00}
+.p-rahasia-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem 1rem}
+.ks-jatuh-foto{border-color:var(--z500)}
