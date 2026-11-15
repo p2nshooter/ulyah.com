@@ -11,6 +11,7 @@ import { ensureSeed, getHalaman, getSitus, getUnit, listHalaman, listUnits } fro
 import { ASSET_V, crumbs, page, type PageOpts } from './pages/layout.ts';
 import { berandaPage, donasiPage, halamanPage, kontakPage, lembagaIndexPage, profilPage, tidakAdaPage, unitPage } from './pages/public.ts';
 import type { Unit } from './data/model.ts';
+import { ibadahPage, jadwalPage, kalenderPage, kiblatPage, pitaAplikasi, radioPage } from './pages/ibadah.ts';
 
 type HonoEnv = { Bindings: Env; Variables: { store: Store } };
 type Ctx = Context<HonoEnv>;
@@ -29,7 +30,8 @@ app.use('*', async (c, next) => {
   const hd = c.res.headers;
   hd.set('X-Content-Type-Options', 'nosniff');
   hd.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  hd.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  // Lokasi hanya untuk halaman kita sendiri (jadwal sholat dan kiblat memintanya atas tombol pembaca).
+  hd.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self)');
   hd.set('X-Frame-Options', 'SAMEORIGIN');
   if (!canonical && (hd.get('content-type') ?? '').includes('text/html')) hd.set('X-Robots-Tag', 'noindex');
 });
@@ -61,7 +63,7 @@ app.get('/sitemap.xml', async (c) => {
   const store = c.get('store');
   const [situs, units, halaman] = await Promise.all([getSitus(store), listUnits(store), listHalaman(store)]);
   const o = origin(c);
-  const urls = ['/', '/profil', '/lembaga', '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`)];
+  const urls = ['/', '/profil', '/lembaga', '/ibadah', '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`)];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${o}${u}</loc></url>`).join('\n')}\n</urlset>`;
   return c.body(xml, 200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=3600' });
 });
@@ -72,14 +74,14 @@ app.get('/manifest.webmanifest', async (c) => {
     id: '/', name: s.nama, short_name: s.singkatan.charAt(0) + s.singkatan.slice(1).toLowerCase(), lang: 'id', dir: 'ltr', start_url: '/?pwa=1', scope: '/', display: 'standalone', orientation: 'portrait',
     background_color: '#03241a', theme_color: '#053727', description: s.deskripsi, categories: ['education', 'books'],
     icons: [{ src: '/assets/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png' }, { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }],
-    shortcuts: [{ name: 'Lembaga', url: '/lembaga' }, { name: 'Profil yayasan', url: '/profil' }],
+    shortcuts: [{ name: 'Jadwal Sholat', url: '/jadwal-sholat' }, { name: 'Radio Qur’an', url: '/radio-quran' }, { name: 'Arah Kiblat', url: '/kiblat' }, { name: 'Lembaga', url: '/lembaga' }],
   }, 200, { 'content-type': 'application/manifest+json', 'cache-control': 'public, max-age=3600' });
 });
 
 // Service worker: aset statis dari cache (berganti bersama ASSET_V); halaman selalu dari jaringan dulu, cache sebagai
 // cadangan saat luring. Portal dan API tidak pernah disimpan.
 app.get('/sw.js', (c) => c.body(`// yapida.sch.id service worker ${ASSET_V}
-const V='yp-${ASSET_V}';const SHELL=['/assets/app.css?v=${ASSET_V}','/assets/app.js?v=${ASSET_V}','/assets/tema.js?v=${ASSET_V}','/assets/logo-192.webp','/assets/logo-512.webp','/assets/icon-192.png','/assets/fonts/jakarta.woff2','/assets/fonts/fraunces.woff2'];
+const V='yp-${ASSET_V}';const SHELL=['/assets/app.css?v=${ASSET_V}','/assets/app.js?v=${ASSET_V}','/assets/tema.js?v=${ASSET_V}','/assets/ibadah.css?v=${ASSET_V}','/assets/ibadah.js?v=${ASSET_V}','/assets/vendor/adhan.min.js?v=${ASSET_V}','/assets/data/surat.json','/assets/logo-192.webp','/assets/logo-512.webp','/assets/icon-192.png','/assets/fonts/jakarta.woff2','/assets/fonts/fraunces.woff2'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==location.origin)return;
@@ -97,7 +99,7 @@ app.get('/', async (c) => {
     path: '/', aktif: 'beranda',
     title: `${s.nama} — Pendidikan Islam Terpadu di Sukakarya, Bekasi`,
     desc: s.deskripsi,
-    body: berandaPage(s, units),
+    body: berandaPage(s, units, pitaAplikasi(s)), css: IBADAH_CSS, js: IBADAH_JS,
     jsonLd: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: s.nama, alternateName: s.singkatan, url: `${origin(c)}/`, inLanguage: 'id' }],
   });
 });
@@ -147,6 +149,41 @@ app.get('/lembaga/:slug', async (c) => {
     body: unitPage(u, units.filter((x) => x.kelompok === u.kelompok && x.slug !== u.slug)),
     jsonLd: [crumbs(o, [['Lembaga', '/lembaga'], [u.singkat, `/lembaga/${u.slug}`]]), unitLd(o, u, s.nama)],
   });
+});
+
+/* ── aplikasi ibadah ────────────────────────────────────────────────────── */
+
+const IBADAH_CSS = ['ibadah.css'];
+const IBADAH_JS = ['vendor/adhan.min.js', 'ibadah.js'];
+const remahIbadah = (o: string, nama: string, path: string) => crumbs(o, [['Aplikasi Ibadah', '/ibadah'], [nama, path]]);
+const appLd = (o: string, nama: string, path: string, desc: string) => ({ '@context': 'https://schema.org', '@type': 'WebApplication', name: nama, url: `${o}${path}`, description: desc, applicationCategory: 'LifestyleApplication', operatingSystem: 'Any', inLanguage: 'id', isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'IDR' } });
+
+app.get('/ibadah', async (c) => {
+  const s = await getSitus(c.get('store'));
+  return render(c, { path: '/ibadah', aktif: 'ibadah', title: 'Aplikasi Ibadah: Jadwal Sholat, Kiblat, Kalender Hijriah, Radio Qur’an', desc: 'Jadwal sholat Sukakarya Bekasi, kompas arah kiblat, kalender hijriah, hitung mundur Ramadhan, radio Qur’an 114 surah, dan tasbih digital — gratis.', body: ibadahPage(s), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [crumbs(origin(c), [['Aplikasi Ibadah', '/ibadah']])] });
+});
+
+app.get('/jadwal-sholat', async (c) => {
+  const s = await getSitus(c.get('store'));
+  const desc = 'Jadwal sholat hari ini untuk Sukakarya, Kabupaten Bekasi: Imsak, Subuh, Dzuhur, Ashar, Maghrib, Isya, hitung mundur adzan, dan jadwal 30 hari.';
+  return render(c, { path: '/jadwal-sholat', aktif: 'ibadah', title: 'Jadwal Sholat Sukakarya Bekasi Hari Ini — Yapida', desc, body: jadwalPage(s), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Jadwal Sholat', '/jadwal-sholat'), appLd(origin(c), 'Jadwal Sholat Yapida', '/jadwal-sholat', desc)] });
+});
+
+app.get('/kiblat', async (c) => {
+  const s = await getSitus(c.get('store'));
+  const desc = 'Kompas arah kiblat daring: sudut kiblat dari Sukakarya Bekasi atau dari lokasi Anda, jarak ke Ka’bah, dan cara memakainya di HP.';
+  return render(c, { path: '/kiblat', aktif: 'ibadah', title: 'Arah Kiblat: Kompas Kiblat Online dari Lokasi Anda — Yapida', desc, body: kiblatPage(s), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Arah Kiblat', '/kiblat'), appLd(origin(c), 'Kompas Kiblat Yapida', '/kiblat', desc)] });
+});
+
+app.get('/kalender-hijriah', async (c) => {
+  const s = await getSitus(c.get('store'));
+  const desc = 'Kalender hijriah hari ini dengan padanan Masehi, hari besar Islam, puasa sunnah Senin-Kamis dan Ayyamul Bidh, serta hitung mundur Ramadhan.';
+  return render(c, { path: '/kalender-hijriah', aktif: 'ibadah', title: 'Kalender Hijriah, Hari Besar Islam & Hitung Mundur Ramadhan', desc, body: kalenderPage(s), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Kalender Hijriah', '/kalender-hijriah'), appLd(origin(c), 'Kalender Hijriah Yapida', '/kalender-hijriah', desc)] });
+});
+
+app.get('/radio-quran', (c) => {
+  const desc = 'Radio Qur’an: murottal 114 surah tanpa henti dengan pilihan qari Al-Afasy, Abdul Basit, dan Basfar, pengatur tidur, dan putar di layar kunci.';
+  return render(c, { path: '/radio-quran', aktif: 'ibadah', title: 'Radio Qur’an: Murottal 114 Surah Tanpa Henti — Yapida', desc, body: radioPage(), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Radio Qur’an', '/radio-quran'), appLd(origin(c), 'Radio Qur’an Yapida', '/radio-quran', desc)] });
 });
 
 app.get('/donasi', async (c) => {

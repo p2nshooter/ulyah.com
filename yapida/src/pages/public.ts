@@ -118,8 +118,8 @@ function ajakan(s: Situs): Raw {
   </div></section>`;
 }
 
-export function berandaPage(s: Situs, units: UnitItem[]): Raw {
-  return html`${heroBeranda(s, units)}${angkaBeranda(s, units)}${jelajahLembaga(units)}${jalurBelajar(units)}${linimasa(s)}${ajakan(s)}`;
+export function berandaPage(s: Situs, units: UnitItem[], sisip: Raw = raw('')): Raw {
+  return html`${heroBeranda(s, units)}${angkaBeranda(s, units)}${jelajahLembaga(units)}${sisip}${jalurBelajar(units)}${linimasa(s)}${ajakan(s)}`;
 }
 
 /** Kepala halaman dalam (bukan beranda): remah roti + judul di atas pola bintang. */
