@@ -505,7 +505,7 @@ async function awalDokumen(c: Ctx, kol: string, unit: string): Promise<Record<st
   const ketua = s.organ.find((o) => /ketua/i.test(o.jabatan));
   const ttd = lembaga?.kepala ? { ttd1Nama: lembaga.kepala.nama, ttd1Jabatan: lembaga.kepala.jabatan } : ketua ? { ttd1Nama: ketua.nama, ttd1Jabatan: ketua.jabatan } : {};
   switch (kol) {
-    case 'penghargaan': return { jenis: 'tahfidz', desain: 'zamrud', tahun: tahunPelajaran(), tampil: true, ...ttd };
+    case 'penghargaan': return { jenis: 'tahfidz', desain: 'zamrud', tahun: tahunPelajaran(), ...ttd };
     case 'kwitansi': return { untuk: 'spp', metode: 'tunai', lunas: true, penerima: u.nama, jabatanPenerima: 'Bendahara' };
     case 'surat': return { ttdNama: ttd.ttd1Nama ?? '', ttdJabatan: ttd.ttd1Jabatan ?? '' };
     case 'kop': return {
@@ -589,7 +589,7 @@ portal.post('/portal/unggah', async (c) => {
 
 /* ── sertifikat massal: ketik daftar penerima sekali, semua sertifikat terisi dan siap cetak ── */
 
-const PENERIMA_CONTOH = 'Ahmad Fauzan ; Juz 30 ; Mumtaz ; Kelas 5A\nSiti Aisyah ; Juz 29 dan 30 ; Jayyid Jiddan ; Kelas 6B';
+const PENERIMA_CONTOH = 'Nama Santri ; Juz 30 ; Mumtaz ; Kelas 5A ; NISN\nNama Santri ; Juz 29 dan 30 ; Jayyid Jiddan ; Kelas 6B ; NISN';
 
 function formMassal(o: { units: UnitItem[]; bolehYayasan: boolean; nilai: Record<string, string>; galat?: string }): Raw {
   const v = (k: string) => o.nilai[k] ?? '';
@@ -612,8 +612,8 @@ function formMassal(o: { units: UnitItem[]; bolehYayasan: boolean; nilai: Record
   <div class="p-baris">
     ${isian('Penanda tangan kiri — nama (opsional)', 'ttd2Nama', v('ttd2Nama'), { maks: 80 })}${isian('Jabatan', 'ttd2Jabatan', v('ttd2Jabatan'), { maks: 80 })}
   </div>
-  ${isian('Daftar penerima', 'daftar', v('daftar'), { baris: 10, wajib: true, bantuan: `Satu penerima per baris: Nama ; capaian ; predikat ; kelas (predikat dan kelas boleh dikosongkan). Contoh:\n${PENERIMA_CONTOH}` })}
-  ${centang('Tampilkan semuanya di menu Prestasi (publik)', 'tampil', v('tampil') !== '0')}
+  ${isian('Daftar penerima', 'daftar', v('daftar'), { baris: 10, wajib: true, bantuan: `Satu penerima per baris: Nama ; capaian ; predikat ; kelas ; NISN (predikat, kelas, dan NISN boleh dikosongkan). Contoh:\n${PENERIMA_CONTOH}` })}
+  <p class="p-kecil">Semua sertifikat yang dibuat di sini langsung tampil di menu Prestasi (publik) dan di portal siswanya bila NISN diisi.</p>
   <div class="p-form-kaki"><button class="tbl tbl-emas" type="submit">Buat semua sertifikat</button><a class="tbl tbl-garis" href="/portal/k/penghargaan">Kembali</a></div>
 </form>`;
 }
@@ -634,7 +634,6 @@ portal.post('/portal/penghargaan/massal', async (c) => {
   const units = await unitsBoleh(c);
   const f = (await c.req.parseBody()) as Record<string, unknown>;
   const nilai = Object.fromEntries(['unit', 'jenis', 'tanggal', 'desain', 'kegiatan', 'tahun', 'ttd1Nama', 'ttd1Jabatan', 'ttd2Nama', 'ttd2Jabatan', 'daftar'].map((k) => [k, teks(f, k, k === 'daftar' ? 20_000 : 300)]));
-  nilai.tampil = f.tampil === '1' ? '1' : '0';
   const unit = nilai.unit!;
   const ulang = (galat: string) => tampil(c, { judul: 'Sertifikat massal', aktif: '/portal/penghargaan/massal', status: 400, body: formMassal({ units, bolehYayasan: lingkupSemua(u), nilai, galat }) });
   if (!bolehUnit(u, unit) || (unit !== 'yayasan' && !units.some((x) => x.slug === unit))) return ulang('Pilih lembaga yang Anda kelola.');
@@ -645,8 +644,8 @@ portal.post('/portal/penghargaan/massal', async (c) => {
   if (tanpaCapaian.length) return ulang(`Capaian belum diisi untuk: ${tanpaCapaian.slice(0, 5).join(', ')}. Format: Nama ; capaian ; predikat ; kelas.`);
   const store = c.get('store');
   const ids: string[] = [];
-  for (const [nama, capaian, predikat, kelas] of penerima) {
-    const form: Record<string, unknown> = { jenis: nilai.jenis, desain: nilai.desain, kegiatan: nilai.kegiatan, tahun: nilai.tahun, ttd1Nama: nilai.ttd1Nama, ttd1Jabatan: nilai.ttd1Jabatan, ttd2Nama: nilai.ttd2Nama, ttd2Jabatan: nilai.ttd2Jabatan, capaian: capaian ?? '', predikat: predikat ?? '', kelas: kelas ?? '', tampil: nilai.tampil };
+  for (const [nama, capaian, predikat, kelas, nisn] of penerima) {
+    const form: Record<string, unknown> = { jenis: nilai.jenis, desain: nilai.desain, kegiatan: nilai.kegiatan, tahun: nilai.tahun, ttd1Nama: nilai.ttd1Nama, ttd1Jabatan: nilai.ttd1Jabatan, ttd2Nama: nilai.ttd2Nama, ttd2Jabatan: nilai.ttd2Jabatan, capaian: capaian ?? '', predikat: predikat ?? '', kelas: kelas ?? '', nisn: (nisn ?? '').replace(/\D/g, '') };
     const { d, galat } = bacaBidang(def, form);
     if (Object.keys(galat).length) return ulang(`Baris „${nama}“: ${Object.entries(galat).map(([k, g]) => `${def.bidang.find((b) => b.k === k)?.label ?? k} — ${g}`).join('; ')}`);
     d.nomor = await nomorBerikut(store, def.id, unit, d);

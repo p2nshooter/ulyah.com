@@ -165,10 +165,12 @@ const TTD: Bidang[] = [
 ];
 
 export const PENGHARGAAN: Koleksi = {
+  // Pemilik: „Setiap penghargaan siswa wajib di expose di publik“ — yang berstatus Tayang selalu tampil di /prestasi.
   id: 'penghargaan', nama: 'Sertifikat & piagam', satu: 'sertifikat', labelJudul: 'Nama penerima', urut: 'baru', sampul: 'foto', ringkasDari: 'capaian',
   tingkat: PERAN.lembaga.tingkat, cetak: 'a4l', nomorOtomatis: 'nomor', menu: 'dokumen',
   bidang: [
     { k: 'jenis', label: 'Jenis penghargaan', jenis: 'pilih', pilihan: JENIS_PENGHARGAAN, wajib: true, indeks: true },
+    { k: 'nisn', label: 'NISN penerima', jenis: 'teks', maks: 20, indeks: true, bantuan: 'Isi NISN (atau NIS untuk RA) siswa — penghargaan langsung muncul di portal siswanya. Tidak pernah ditampilkan di halaman publik.' },
     { k: 'desain', label: 'Desain', jenis: 'pilih', pilihan: PILIHAN_DESAIN, wajib: true, indeks: true, bantuan: '12 desain siap cetak — lihat pratinjau di samping saat memilih.' },
     { k: 'capaian', label: 'Capaian', jenis: 'teks', maks: 140, wajib: true, indeks: true, bantuan: 'Mis. „Juz 30 (An-Naba’ – An-Nas)“, „Lomba Adzan tingkat Kecamatan Sukakarya“, „Peringkat 1 Kelas 5“.' },
     { k: 'predikat', label: 'Predikat / juara', jenis: 'teks', maks: 60, indeks: true, bantuan: 'Mis. „Mumtaz“, „Juara 1“, „Sangat Baik“.' },
@@ -181,7 +183,6 @@ export const PENGHARGAAN: Koleksi = {
     { k: 'nomor', label: 'Nomor sertifikat', jenis: 'teks', maks: 80, indeks: true, bantuan: 'Kosongkan — nomor dibuat otomatis saat disimpan.' },
     { k: 'judulSertifikat', label: 'Judul sertifikat (opsional)', jenis: 'teks', maks: 80, bantuan: 'Kosongkan untuk judul otomatis sesuai jenis (mis. „Sertifikat Tahfidz Al-Qur’an“).' },
     { k: 'kalimat', label: 'Kalimat penghargaan (opsional)', jenis: 'paragraf', maks: 400, bantuan: 'Kosongkan — kalimat disusun otomatis dari jenis, capaian, predikat, kegiatan, dan tahun.' },
-    { k: 'tampil', label: 'Tampilkan di menu Prestasi (publik)', jenis: 'centang', indeks: true, bantuan: 'Orang tua dan masyarakat bisa melihat dan membagikannya. Hanya bila status „Tayang“.' },
   ],
 };
 

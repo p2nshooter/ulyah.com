@@ -61,6 +61,8 @@ export function kopContohHtml(k: Kop, media: Media): Raw {
 /* ── sertifikat & piagam ────────────────────────────────────────────────── */
 
 const SUDUT = '<svg class="sert-sudut" viewBox="0 0 100 100" aria-hidden="true"><path d="M2 98V40Q2 2 40 2H98" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M11 90V46Q11 11 46 11H90" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M22 22c9-7 22-5 28 5s3 22-7 25-19-7-13-16 16-5 19 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4" fill="currentColor"/><path d="M32 9q13 2 20 15M9 32q2 13 15 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="54" cy="24" r="1.6" fill="currentColor"/><circle cx="24" cy="54" r="1.6" fill="currentColor"/></svg>';
+/** Hiasan pemisah di bawah judul: garis, belah ketupat, bunga delapan kelopak. */
+const HIAS = raw('<svg class="sert-hias" viewBox="0 0 240 16" aria-hidden="true"><path d="M8 8H96M144 8H232" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="M96 8l6-4 6 4-6 4zM132 8l6-4 6 4-6 4z" fill="currentColor"/><g transform="translate(120 8)" fill="currentColor"><circle r="2.2"/><path d="M0-7.5l1.6 4.4L0-1.6-1.6-3.1zM0 7.5l1.6-4.4L0 1.6-1.6 3.1zM-7.5 0l4.4 1.6L-1.6 0-3.1-1.6zM7.5 0L3.1 1.6 1.6 0 3.1-1.6z"/><path d="M-5.3-5.3l3.6 1.9-1.3 1.3zM5.3 5.3L1.7 3.4l1.3-1.3zM5.3-5.3L3.4-1.7 2.1-3zM-5.3 5.3l1.9-3.6 1.3 1.3z" opacity=".7"/></g></svg>');
 const sudut = (n: number) => raw(SUDUT.replace('class="sert-sudut"', `class="sert-sudut s${n}"`));
 
 export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikasi?: string } = {}): Raw {
@@ -74,10 +76,11 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
   <div class="sert-latar" aria-hidden="true"></div>
   <div class="sert-bingkai" aria-hidden="true">${sudut(1)}${sudut(2)}${sudut(3)}${sudut(4)}</div>
   <div class="sert-isi">
-    <header class="sert-kop"><img class="sert-logo" src="${k.logo ? media(k.logo) : LOGO_YAYASAN}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}<p class="sert-alamat">${k.alamat}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
+    <header class="sert-kop"><img class="sert-logo" src="${k.logo ? media(k.logo) : LOGO_YAYASAN}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${k.alamat}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
     <p class="sert-bismillah" lang="ar" dir="rtl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
     <h1 class="sert-judul">${judul}</h1>
     ${t(d, 'nomor') ? html`<p class="sert-nomor">Nomor: ${t(d, 'nomor')}</p>` : ''}
+    ${HIAS}
     <div class="sert-tengah">
       ${foto ? html`<figure class="sert-foto"><img src="${media(foto)}" alt=""></figure>` : ''}
       <div class="sert-teks">
@@ -89,7 +92,7 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
     </div>
     <footer class="sert-kaki">
       <p class="sert-tempat">${t(d, 'tempat') || k.kota}, ${tanggal(d.tanggal)}</p>
-      <div class="sert-ttd">${ttd(t(d, 'ttd2Nama'), t(d, 'ttd2Jabatan'))}${ttd(t(d, 'ttd1Nama'), t(d, 'ttd1Jabatan'))}</div>
+      <div class="sert-ttd">${ttd(t(d, 'ttd2Nama'), t(d, 'ttd2Jabatan'))}<div class="sert-segel" aria-hidden="true"><img src="${k.logo ? media(k.logo) : LOGO_YAYASAN}" alt=""></div>${ttd(t(d, 'ttd1Nama'), t(d, 'ttd1Jabatan'))}</div>
     </footer>
     ${o.verifikasi ? html`<p class="sert-verif">Verifikasi keaslian: ${o.verifikasi}</p>` : ''}
   </div>

@@ -219,3 +219,15 @@ body.cetak.muat{background:transparent;overflow:hidden}
 .d-ceria .sert-bismillah{color:#29bf12}
 .d-ceria .sert-foto{border-radius:50%;width:38mm;height:38mm;border-color:#f3a712}
 .d-ceria .sert-foto img{border-radius:50%}
+
+/* hiasan & segel emas */
+.sert-hias{display:block;width:62mm;height:4mm;margin:1.5mm auto 0;color:var(--emas)}
+.d-minimal .sert-hias,.d-tosca .sert-hias{width:48mm}
+.sert-ttd{align-items:flex-end}
+.sert-segel{flex:none;display:grid;place-items:center;width:27mm;height:27mm;margin-bottom:1mm;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7d6 0,#f3d27a 28%,#c9a227 58%,#8a6a12 100%);box-shadow:0 1.2mm 2.5mm -1mm rgba(0,0,0,.45),inset 0 0 0 1.2mm rgba(255,247,214,.55),inset 0 0 0 1.9mm rgba(138,106,18,.6);position:relative}
+.sert-segel::before{content:"";position:absolute;inset:-2.2mm;border-radius:50%;background:repeating-conic-gradient(from 0deg,#c9a227 0 6deg,transparent 6deg 12deg);-webkit-mask:radial-gradient(circle,transparent 13.4mm,#000 13.5mm);mask:radial-gradient(circle,transparent 13.4mm,#000 13.5mm);opacity:.85}
+.sert-segel img{width:15mm;height:15mm;object-fit:contain;border-radius:50%;background:rgba(255,255,255,.88);padding:1.2mm}
+.d-malam .sert-segel{box-shadow:0 0 4mm rgba(212,175,55,.45),inset 0 0 0 1.2mm rgba(255,247,214,.55)}
+.d-lavender .sert-segel,.d-ceria .sert-segel{background:radial-gradient(circle at 35% 30%,#fff 0,#ffe08a 35%,#f3a712 75%,#c77d00 100%)}
+.d-kaligrafi .sert-bismillah{line-height:1.15;margin:0 0 3.5mm}
+.sert-arab{margin:.3mm 0 0!important;font:700 10pt/1.3 var(--f-arab);color:var(--emas)}

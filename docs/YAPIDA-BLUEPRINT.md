@@ -93,6 +93,34 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     yg ada di setiap portal, agar bisa di baca sebagai panduan, dan juga bikin panduan interaktif di setiap portal cara
     penggunaanya“ (15 Nov 2026) — §10 Panduan: satu gambar besar peta fitur + fungsi menu per peran, dan tur interaktif di
     dalam portal; dikerjakan terakhir setelah semua modul selesai.
+19. „Pelajaran formalnya kok g ada ra, mi, mts. Perpustakaan digital Pelajaran formal ini sangat penting, cari Dr sumber
+    manapun di google/github“ (15 Nov 2026) — §5f: buku BSE (teks PDF yang boleh dialihmediakan) di rak RA/MI/MTs per
+    kelas dan mapel.
+20. „Logat voice nya make logat bahasa indonesia bukan Melayu, klo Arab make logat Arab, Inggris ya logat inggris“ —
+    suara.js memilih suara id-ID (tidak pernah ms-MY), ar-*, en-GB/en-US.
+21. „Yapida.sch.id sudah sy koneksikan ke CF, jgn lupa bikin SEO nya yg super lengkap agar mampu di index di awal google
+    dan mendapatkan ratusan ribu pengunjung generik per hari Dr fitur yg ada“ — §7 SEO, domain dipasang oleh deploy.
+22. Data siswa, portal siswa, bank soal, tagihan & kwitansi, penghargaan ber-NISN (15 Nov 2026), ringkas: siswa tidak
+    mendaftar — masuk dengan NISN dan kata sandi tanggal lahir (tgl/bln/thn), langsung ke kelasnya, naik kelas otomatis
+    tiap tahun, yang sudah lulus tidak bisa masuk; NIK, nama orang tua, dll. dari file master; kekurangan diedit manual,
+    super admin akses penuh. Bank soal puluhan–ratusan per pelajaran sesuai kelas, kunci jawaban terlihat setelah satu
+    sesi selesai, hasil bisa diunduh siswa, tertaut ke lembaga dan kelasnya. Piagam/sertifikat tampil di beranda;
+    „Setiap penghargaan siswa wajib di expose di publik“; siswa melihat penghargaannya lewat NISN. Guru diunggah manual
+    + foto per lembaga dan tetap tampil di jajaran yayasan. Kwitansi/invoice bayaran siswa diinput manual, bisa dilacak,
+    siswa tahu di portalnya sudah bayar atau belum. Siswa baru diinput manual atau diunggah dari file master dan langsung
+    bisa masuk. Format master (urutan kolom): No, NSM Lembaga, Jenjang, Tingkat/Kelompok, Nama Rombel, NIS Lokal, NISN,
+    NIK Siswa, Nama Lengkap, L/P, Tempat Lahir, Tanggal Lahir, Nama Ayah, Nama Ibu, No. KK, Alamat Siswa, Status Siswa
+    (+ sheet Master Lembaga: No, Jenjang, NSM, NPSN, Nama Lembaga, Status, Alamat, Kecamatan, Kabupaten/Kota, Provinsi,
+    Nama Kepala, NIP/NUPTK Kepala, Tahun Pelajaran). „Jgn di input contoh nama siswanya … Jgn di input satu datapun,
+    jika sudah hapus filenya“ — tidak ada data contoh yang dimasukkan; file contoh sudah dihapus. Data siswa bisa dicari
+    di masing-masing lembaga, diunduh per siswa atau seluruhnya; yayasan melihat semua, super admin melihat dan mengedit
+    semua; laporan indah, elegan, interaktif dengan grafik. §11.
+23. Detektor artikel tanpa login di beranda memakai mesin xscan.es (15 Nov 2026): gratis 10 halaman per minggu per
+    perangkat, maksimal 5 halaman sekali scan, teknologi gratis dan kunci AI milik xscan (tersambung ke xscan, pemakaian
+    dihitung di xscan beserta situs asalnya), judul otomatis, pilih halaman yang di-scan, riwayat setiap artikel yang
+    pernah di-scan (judul dll.) tanpa bisa mengunduh file unggahan — file langsung dihapus; unggahan yang 100% sama
+    memakai cache (tanpa biaya di xscan); laporan hasil bisa diunduh pengunjung; hitung pemakaian mesin; profesional;
+    promosikan xscan.es dan mesin-mesinnya tanpa membongkar rahasia perusahaan. §12.
 
 ## 1. Aturan yang berlaku
 

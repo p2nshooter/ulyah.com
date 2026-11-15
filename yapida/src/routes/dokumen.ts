@@ -23,7 +23,8 @@ dokumen.use('/portal/cetak/*', jaga);
 dokumen.use('/portal/cetak-banyak/*', jaga);
 const tanpaCache = { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' };
 const bolehDef = (u: User, def: Koleksi) => tingkat(u) >= (def.tingkat ?? 0);
-export const tampilDiPrestasi = (it: IxItem) => it.x?.tampil === true;
+/** Semua penghargaan yang tayang tampil di publik (perintah pemilik). Disimpan sebagai fungsi agar satu tempat. */
+export const tampilDiPrestasi = (_it: IxItem) => true;
 
 async function renderDok(c: Ctx, def: Koleksi, d: DokCetak, o: { pratinjau?: boolean; bingkai?: boolean; verifikasi?: string; kembali?: string } = {}): Promise<string> {
   const store = c.get('store');
@@ -34,7 +35,7 @@ async function renderDok(c: Ctx, def: Koleksi, d: DokCetak, o: { pratinjau?: boo
   return halamanCetak({ judul: `${d.judul} — ${def.satu}`, isi, ukuran: def.cetak ?? 'a4p', pratinjau: o.pratinjau, bingkai: o.bingkai, kembali: o.kembali });
 }
 
-const verifikasi = (c: Ctx, d: DokCetak) => (d.status === 'tayang' && d.d.tampil === true && d.slug ? `${new URL(origin(c)).host}/prestasi/${d.slug}` : undefined);
+const verifikasi = (c: Ctx, d: DokCetak) => (d.status === 'tayang' && d.slug ? `${new URL(origin(c)).host}/prestasi/${d.slug}` : undefined);
 
 /* ── portal: cetak & pratinjau ──────────────────────────────────────────── */
 
@@ -122,7 +123,7 @@ dokumen.get('/prestasi', async (c) => {
 async function penghargaanPublik(c: Ctx) {
   const store = c.get('store');
   const d = await ambilSlug(store, 'penghargaan', c.req.param('slug') ?? '');
-  if (!d || d.status !== 'tayang' || d.d.tampil !== true) return null;
+  if (!d || d.status !== 'tayang') return null;
   if (d.unit !== 'yayasan' && !(await listUnits(store)).some((u) => u.slug === d.unit)) return null;
   return d;
 }
