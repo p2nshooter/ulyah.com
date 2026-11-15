@@ -133,16 +133,23 @@ const HALAMAN = ['/', '/profil', '/lembaga', '/lembaga/mi-al-huda', '/lembaga/up
   ok((await page.locator('[data-kal-besar] li').count()) === 6, 'enam hari besar terdekat tercantum');
   await page.screenshot({ path: `${OUT}/kalender.png` });
 
+  // Radio LIVE: posisi siaran dari server; berkas murottal diganti tiruan (yang diuji kode kita, bukan CDN qari).
+  await page.route(/cdn\.islamic\.network|mp3quran\.net/, (r) => r.fulfill({ status: 204, body: '' }));
   await page.goto(BASE + '/radio-quran', { waitUntil: 'load' });
-  await page.waitForFunction(() => document.querySelectorAll('[data-radio-daftar] li').length === 114);
-  await page.fill('[data-radio-cari]', 'kahf');
-  ok((await page.locator('[data-radio-daftar] li:visible').count()) === 1, 'cari surah "kahf" → satu hasil');
-  await page.route(/cdn\.islamic\.network/, (r) => r.abort());
-  const permintaan = page.waitForRequest(/cdn\.islamic\.network\/quran\/audio-surah\/128\/ar\.alafasy\/18\.mp3/);
-  await page.locator('[data-radio-daftar] li:visible').click();
-  await permintaan;
-  ok((await page.locator('[data-radio-judul]').innerText()) === '18. Al-Kahf', 'memilih surah memuat murottalnya dari CDN qari', await page.locator('[data-radio-judul]').innerText());
+  await page.waitForFunction(() => (document.querySelector('[data-rl-qari]')?.textContent ?? '—') !== '—', null, { timeout: 30000 });
+  ok((await page.locator('[data-rl-surah]').innerText()).startsWith('Surah ') && (await page.locator('[data-rl-qari]').innerText()).length > 3, 'radio LIVE: surah dan qari dari siaran server', await page.locator('[data-rl-surah]').innerText());
+  ok((await page.locator('[data-radio-live] select, [data-radio-live] input').count()) === 0, 'radio LIVE tanpa pilihan surah/qari');
+  ok(Number(await page.locator('[data-rl-surah-ke]').innerText()) >= 1 && /^\d+$/.test(await page.locator('[data-rl-khatam]').innerText()), 'hitungan khatam dan surah ke- tampil');
+  await page.click('[data-rl-nyala]');
+  ok((await page.evaluate(() => localStorage.getItem('yp-radio-nyala'))) === '1', 'tombol radio menyimpan pilihan nyala di perangkat');
   await page.screenshot({ path: `${OUT}/radio.png` });
+  await page.goto(BASE + '/kontak', { waitUntil: 'load' });
+  await page.waitForSelector('.rm:not([hidden])', { timeout: 30000 });
+  ok((await page.locator('.rm .rm-teks b').innerText()).includes('·'), 'pemutar mini radio LIVE tampil di halaman lain');
+  await page.evaluate(() => localStorage.setItem('yp-radio-nyala', '0'));
+  await page.reload({ waitUntil: 'load' });
+  await page.waitForSelector('.rm:not([hidden])', { timeout: 30000 });
+  ok(await page.locator('.rm.mati').count() === 1, 'radio dimatikan di perangkat ini → pemutar mini mengecil, siaran tetap berjalan');
 
   await page.goto(BASE + '/ibadah', { waitUntil: 'load' });
   await page.waitForFunction(() => (document.querySelector('[data-hidup="sholat"]')?.textContent ?? '') !== '');

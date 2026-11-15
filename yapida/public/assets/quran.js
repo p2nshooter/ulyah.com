@@ -33,6 +33,7 @@
       audio.src = alamat(it.s, it.a);
       audio.dataset.cadangan = String(it.g);
       audio.dataset.sumber = 'utama';
+      window.dispatchEvent(new Event('yp:audio-lain'));
       audio.play().catch(function () { /* menunggu ketukan pengguna */ });
       jalan = true;
       if (o.mulai) o.mulai(it);

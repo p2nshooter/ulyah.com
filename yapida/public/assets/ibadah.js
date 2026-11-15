@@ -256,60 +256,7 @@
     $('[data-kal-besar]').innerHTML = daftar;
   } else if (hKal) $('[data-kal-detail]').textContent = 'Peramban ini tidak menyediakan kalender hijriah.';
 
-  /* ── radio Qur'an ─────────────────────────────────────── */
-  var hRadio = $('[data-radio]');
-  if (hRadio) {
-    var audio = new Audio(); audio.preload = 'none';
-    var surat = [], st = simpan.get('yp-radio') || { s: 1, q: 'ar.alafasy', t: 0 }, tidur = 0, tidurAkhir = false, idTidur = 0, mauPutar = false;
-    var el = { judul: $('[data-radio-judul]'), arab: $('[data-radio-arab]'), qari: $('[data-radio-qari]'), status: $('[data-radio-status]'), putar: $('[data-radio-putar]'), geser: $('[data-radio-geser]'), kini: $('[data-radio-kini]'), lama: $('[data-radio-lama]'), daftar: $('[data-radio-daftar]'), pilih: $('[data-radio-pilih-qari]'), piring: $('[data-radio-piring]'), acak: $('[data-radio-acak]') };
-    var mmss = function (x) { if (!isFinite(x)) return '0.00'; var j = Math.floor(x / 3600), m = Math.floor(x % 3600 / 60); return (j ? j + '.' + dua(m) : String(m)) + '.' + dua(Math.floor(x % 60)); };
-    var alamat = function () { return 'https://cdn.islamic.network/quran/audio-surah/128/' + st.q + '/' + st.s + '.mp3'; };
-    var info = function () { return surat[st.s - 1] || { n: st.s, latin: 'Surah ' + st.s, ar: '', ayat: 0 }; };
-    var tampilkan = function () {
-      var s = info();
-      el.judul.textContent = s.n + '. ' + s.latin; el.arab.textContent = s.ar ? 'سورة ' + s.ar : '';
-      el.qari.textContent = el.pilih.options[el.pilih.selectedIndex].text + (s.ayat ? ' · ' + s.ayat + ' ayat' : '');
-      $$('li', el.daftar).forEach(function (li) { li.classList.toggle('aktif', Number(li.getAttribute('data-s')) === st.s); });
-      if ('mediaSession' in navigator && window.MediaMetadata) navigator.mediaSession.metadata = new MediaMetadata({ title: s.n + '. ' + s.latin, artist: el.pilih.options[el.pilih.selectedIndex].text, album: 'Radio Qur’an — Yapida', artwork: [{ src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png' }] });
-    };
-    var muat = function (mulai) { audio.src = alamat(); if (mulai) audio.currentTime = 0; tampilkan(); simpan.set('yp-radio', st); };
-    var putar = function () { mauPutar = true; if (!audio.src) { audio.src = alamat(); if (st.t > 5) audio.addEventListener('loadedmetadata', function sekali() { audio.removeEventListener('loadedmetadata', sekali); try { audio.currentTime = st.t; } catch (e) { /* abaikan */ } }); } el.status.textContent = 'Memuat…'; audio.play().catch(function () { el.status.textContent = 'Tekan putar untuk memulai'; }); };
-    var pindah = function (n, olehOrang) {
-      if (el.acak.checked && !olehOrang) n = 1 + Math.floor(Math.random() * 114);
-      st.s = ((n - 1 + 114) % 114) + 1; st.t = 0; muat(true);
-      if (mauPutar) putar();
-    };
-    audio.addEventListener('playing', function () { el.status.textContent = 'Sedang diputar'; el.putar.textContent = '⏸'; el.putar.setAttribute('aria-label', 'Jeda'); el.piring.classList.add('putar'); });
-    audio.addEventListener('pause', function () { if (!audio.ended) el.status.textContent = 'Dijeda'; el.putar.textContent = '▶'; el.putar.setAttribute('aria-label', 'Putar'); el.piring.classList.remove('putar'); });
-    audio.addEventListener('waiting', function () { el.status.textContent = 'Memuat…'; });
-    audio.addEventListener('error', function () { if (!audio.src) return; el.status.textContent = 'Surah ini belum bisa dimuat — coba qari lain atau periksa sambungan.'; el.piring.classList.remove('putar'); });
-    audio.addEventListener('ended', function () { if (tidurAkhir) { tidurAkhir = false; mauPutar = false; $('[data-radio-tidur]').value = '0'; el.status.textContent = 'Selesai — radio berhenti di akhir surah.'; return; } pindah(st.s + 1, false); });
-    audio.addEventListener('timeupdate', function () {
-      el.kini.textContent = mmss(audio.currentTime); el.lama.textContent = mmss(audio.duration);
-      if (audio.duration && !el.geser.matches(':active')) el.geser.value = String(Math.round(audio.currentTime / audio.duration * 1000));
-      if (Math.abs(audio.currentTime - st.t) > 5) { st.t = audio.currentTime; simpan.set('yp-radio', st); }
-    });
-    el.geser.addEventListener('input', function () { if (audio.duration) audio.currentTime = audio.duration * Number(el.geser.value) / 1000; });
-    el.putar.addEventListener('click', function () { if (audio.paused) putar(); else { mauPutar = false; audio.pause(); } });
-    $('[data-radio-berikut]').addEventListener('click', function () { pindah(st.s + 1, true); });
-    $('[data-radio-sebelum]').addEventListener('click', function () { pindah(st.s - 1, true); });
-    el.pilih.value = st.q; if (el.pilih.selectedIndex < 0) { el.pilih.selectedIndex = 0; st.q = el.pilih.value; }
-    el.pilih.addEventListener('change', function () { var t = audio.currentTime || 0, main = !audio.paused; st.q = el.pilih.value; muat(false); if (main || mauPutar) { audio.addEventListener('loadedmetadata', function sekali() { audio.removeEventListener('loadedmetadata', sekali); try { audio.currentTime = Math.min(t, (audio.duration || t) - 1); } catch (e) { /* abaikan */ } }); putar(); } });
-    $('[data-radio-tidur]').addEventListener('change', function () {
-      clearTimeout(idTidur); tidurAkhir = false; tidur = Number(this.value);
-      if (tidur === -1) tidurAkhir = true;
-      else if (tidur > 0) idTidur = setTimeout(function () { mauPutar = false; audio.pause(); el.status.textContent = 'Pengatur tidur: radio berhenti.'; $('[data-radio-tidur]').value = '0'; }, tidur * 60000);
-    });
-    if ('mediaSession' in navigator) { try { navigator.mediaSession.setActionHandler('play', putar); navigator.mediaSession.setActionHandler('pause', function () { mauPutar = false; audio.pause(); }); navigator.mediaSession.setActionHandler('nexttrack', function () { pindah(st.s + 1, true); }); navigator.mediaSession.setActionHandler('previoustrack', function () { pindah(st.s - 1, true); }); } catch (e) { /* abaikan */ } }
-    el.daftar.addEventListener('click', function (e) { var li = e.target.closest('li[data-s]'); if (!li) return; mauPutar = true; pindah(Number(li.getAttribute('data-s')), true); window.scrollTo({ top: hRadio.offsetTop - 80, behavior: tenang ? 'auto' : 'smooth' }); });
-    $('[data-radio-cari]').addEventListener('input', function () { var q = this.value.toLowerCase().replace(/[^a-z0-9]/g, ''); $$('li', el.daftar).forEach(function (li) { li.hidden = q !== '' && li.getAttribute('data-cari').indexOf(q) < 0; }); });
-    fetch('/assets/data/surat.json').then(function (r) { return r.json(); }).then(function (data) {
-      surat = data;
-      el.daftar.innerHTML = data.map(function (s) { return '<li data-s="' + s.n + '" data-cari="' + (s.n + s.latin).toLowerCase().replace(/[^a-z0-9]/g, '') + '" tabindex="0" role="button"><b>' + s.n + '</b><span><strong>' + s.latin + '</strong><small>' + s.ayat + ' ayat</small></span><i lang="ar" dir="rtl">' + s.ar + '</i></li>'; }).join('');
-      tampilkan();
-    }).catch(function () { el.status.textContent = 'Daftar surah belum bisa dimuat.'; });
-    el.daftar.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('li[data-s]')) { e.preventDefault(); e.target.click(); } });
-  }
+  /* Radio Qur'an LIVE ada di radio.js (dipakai di seluruh situs). */
 
   /* ── jalan ────────────────────────────────────────────── */
   pendengar.push(function () { lukisJadwal(); lukisBulan(); lukisKiblat(); });

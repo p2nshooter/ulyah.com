@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   // yapida.sch.id — situs Yayasan Al-Huda Yapida (docs/YAPIDA-BLUEPRINT.md). Alamat cadangan: https://yapida-sch-id.<subdomain>.workers.dev
   "name": "yapida-sch-id",
-  "main": "src/index.ts",
+  "main": "src/worker.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
   // workers.dev tetap menyala walau domain sendiri sudah terpasang (alamat cadangan, noindex).

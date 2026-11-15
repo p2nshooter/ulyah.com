@@ -109,6 +109,12 @@ let papanAcak = [];
   await page.click('button:has-text("Simpan pengaturan")');
   await page.waitForURL(/ok=simpan/);
   ok(true, 'pengaturan situs: siaran langsung dinyalakan');
+  // Tombol Keluar selalu terlihat di kepala portal (menu samping Super Admin panjang).
+  ok(await page.locator('.p-kepala-keluar button').isVisible(), 'tombol Keluar terlihat di kepala portal');
+  await Promise.all([page.waitForURL(/\/masuk\?ok=keluar/), page.click('.p-kepala-keluar button')]);
+  ok((await page.locator('.p-kilat-ok').count()) === 1, 'keluar dari portal → kembali ke halaman masuk');
+  await page.goto(BASE + '/portal');
+  ok(/\/masuk/.test(page.url()), 'setelah keluar, portal meminta masuk lagi');
   await ctx.close();
 }
 ok(papanAcak.length === 2 && papanAcak[0] !== papanAcak[1], 'letak angka berubah setiap kali papan muncul', papanAcak.join(' vs '));

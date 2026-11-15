@@ -28,4 +28,6 @@ export interface Env {
   GUTENBERG_BASE?: string;
   /** Hanya uji lokal: pengganti alamat equran.id (tafsir Kemenag). */
   EQURAN_BASE?: string;
+  /** Hanya uji lokal: pengganti alamat mp3quran.net (daftar qari radio). */
+  MP3QURAN_BASE?: string;
 }

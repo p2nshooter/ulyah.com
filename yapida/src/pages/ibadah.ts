@@ -122,30 +122,28 @@ export function kalenderPage(s: Situs): Raw {
 </div></section>`;
 }
 
-export const QARI: { id: string; nama: string; ket: string }[] = [
-  { id: 'ar.alafasy', nama: 'Mishary Rashid Al-Afasy', ket: 'Kuwait · murattal tartil' },
-  { id: 'ar.abdulbasitmurattal', nama: 'Abdul Basit Abdus Samad', ket: 'Mesir · murattal' },
-  { id: 'ar.abdullahbasfar', nama: 'Abdullah Basfar', ket: 'Arab Saudi · murattal' },
-];
-
+/** Radio Qur'an LIVE 24 jam (§5c): tanpa pilihan surah/qari — hanya nyala/mati di perangkat masing-masing. */
 export function radioPage(): Raw {
-  return html`${kepalaHalaman('Radio Qur’an', 'Murottal 114 surah yang berputar tanpa henti. Pilih qari, pilih surah, lalu biarkan menemani.', [['Aplikasi Ibadah', '/ibadah'], ['Radio Qur’an', '/radio-quran']], 'Aplikasi ibadah')}
-<section class="bagian" data-ibadah data-radio><div class="wadah">
-  <div class="radio muncul">
+  return html`${kepalaHalaman('Radio Qur’an LIVE 24 Jam', 'Murottal yang tidak pernah berhenti: surah 1 sampai 114 berurutan, setiap surah dibacakan qari pilihan acak dari seluruh dunia — dan setiap putaran adalah satu khatam.', [['Aplikasi Ibadah', '/ibadah'], ['Radio Qur’an', '/radio-quran']], 'Aplikasi ibadah')}
+<section class="bagian" data-radio-live><div class="wadah">
+  <div class="radio-live muncul">
     <div class="radio-piring" data-radio-piring aria-hidden="true"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" class="piring-tepi"/><g class="piring-bintang"><path d="M100 14l22 30 37-6-6 37 30 22-30 22 6 37-37-6-22 30-22-30-37 6 6-37-30-22 30-22-6-37 37 6z"/></g><circle cx="100" cy="100" r="34" class="piring-tengah"/></svg><div class="radio-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="radio-kendali">
-      <p class="kicker kicker-emas" data-radio-status>Siap diputar</p>
-      <p class="radio-arab arab" lang="ar" dir="rtl" data-radio-arab></p>
-      <h2 data-radio-judul>Pilih surah</h2>
-      <p class="radio-qari" data-radio-qari></p>
-      <div class="radio-maju"><span data-radio-kini>0.00</span><input type="range" min="0" max="1000" value="0" data-radio-geser aria-label="Posisi putar"><span data-radio-lama>0.00</span></div>
-      <div class="radio-tombol"><button class="tbl-ikon" type="button" data-radio-sebelum aria-label="Surah sebelumnya">⏮</button><button class="radio-putar" type="button" data-radio-putar aria-label="Putar">▶</button><button class="tbl-ikon" type="button" data-radio-berikut aria-label="Surah berikutnya">⏭</button></div>
-      <div class="radio-opsi"><label>Qari <select data-radio-pilih-qari>${QARI.map((q) => html`<option value="${q.id}">${q.nama}</option>`)}</select></label><label>Tidur <select data-radio-tidur><option value="0">Tidak</option><option value="15">15 menit</option><option value="30">30 menit</option><option value="60">60 menit</option><option value="-1">Akhir surah</option></select></label><label class="p-centang"><input type="checkbox" data-radio-acak><span>Acak</span></label></div>
+    <div class="radio-live-isi">
+      <p class="radio-lencana"><b>LIVE</b> <span data-rl-status>Menyambung ke siaran…</span></p>
+      <p class="radio-arab" lang="ar" dir="rtl" data-rl-surah-ar></p>
+      <h2 data-rl-surah>Radio Qur’an</h2>
+      <p class="radio-qari"><span>Dibacakan oleh</span> <strong data-rl-qari>—</strong> <span class="radio-qari-ar" lang="ar" dir="rtl" data-rl-qari-ar></span></p>
+      <div class="radio-maju" aria-hidden="true"><span data-rl-kini>0.00</span><span class="radio-bilah"><i data-rl-bilah></i></span><span data-rl-lama>0.00</span></div>
+      <button class="radio-nyala" type="button" data-rl-nyala aria-pressed="false"><span aria-hidden="true">▶</span> <span data-rl-nyala-label>Dengarkan LIVE</span></button>
+      <p class="radio-ket">Siaran berjalan di server tanpa henti — yang bisa diatur hanyalah menyalakan atau mematikannya di perangkat ini.</p>
     </div>
   </div>
-  <div class="radio-daftar-kepala muncul"><h2>114 surah</h2><input type="search" placeholder="Cari surah…" data-radio-cari aria-label="Cari surah"></div>
-  <ol class="radio-daftar" data-radio-daftar></ol>
-  <noscript><p class="catatan">Radio membutuhkan JavaScript untuk memutar murottal.</p></noscript>
-  <div class="prosa sempit-tengah muncul"><h2>Tentang radio ini</h2><p>Setiap surah diputar utuh dari awal sampai akhir, lalu berlanjut ke surah berikutnya tanpa perlu ditekan lagi. Suara berasal dari rekaman murattal para qari yang dipublikasikan untuk umum di jaringan islamic.network; situs ini tidak menyimpan salinannya.</p><p>Radio terus berjalan saat layar HP terkunci, dan bisa dikendalikan dari layar kunci atau earphone.</p></div>
+  <div class="radio-angka muncul">
+    <div><b data-rl-khatam>0</b><span>kali khatam sejak radio mengudara</span></div>
+    <div><b data-rl-putaran>1</b><span>putaran sekarang</span></div>
+    <div><b data-rl-surah-ke>1</b><span>surah ke- dari 114</span></div>
+    <div><b data-rl-berikut>—</b><span>surah berikutnya</span></div>
+  </div>
+  <div class="prosa sempit-tengah muncul"><h2>Tentang radio ini</h2><p>Radio ini seperti siaran radio sungguhan: semua pendengar mendengar bacaan yang sama pada saat yang sama. Setiap surah dibacakan oleh qari yang dipilih acak dari puluhan qari dunia (riwayat Hafs ‘an ‘Ashim, rekaman murattal yang dipublikasikan untuk umum oleh mp3quran.net); setelah An-Nas, siaran kembali ke Al-Fatihah dan hitungan khatam bertambah satu.</p><p>Nama qari tampil di layar kunci HP saat radio menyala. Di tab peramban biasa, suara baru berbunyi setelah satu ketukan pertama (aturan peramban); aplikasi Yapida yang sudah dipasang di HP langsung bersuara.</p></div>
 </div></section>`;
 }

@@ -196,7 +196,9 @@ test('aplikasi ibadah: titik lokasi dari pengaturan situs, aset hitung dimuat, d
   assert.equal(surat.reduce((a, b) => a + b.ayat, 0), 6236);
   assert.deepEqual([surat[0]!.latin, surat[0]!.ayat, surat[113]!.n, surat[113]!.ayat], ['Al-Fatihah', 7, 114, 6]);
   const radio = await (await get(e, '/radio-quran')).text();
-  for (const q of ['ar.alafasy', 'ar.abdulbasitmurattal', 'ar.abdullahbasfar']) assert.ok(radio.includes(`value="${q}"`), q);
+  // Radio LIVE (§5c): tanpa pilihan surah/qari — hanya nyala/mati per perangkat; posisi siaran dari /api/radio.
+  assert.ok(radio.includes('data-radio-live') && radio.includes('data-rl-nyala') && radio.includes('data-rl-khatam'));
+  assert.ok(!radio.includes('<select'), 'tanpa pilihan qari/surah');
 });
 
 test('PIN: hash ber-pepper, PIN acak tidak lemah, kunci setelah 5 kali salah, lalu bertahap', async () => {
