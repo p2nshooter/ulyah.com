@@ -84,7 +84,7 @@ export function pasangPage(o: { papan: Raw; galat?: string; nama?: string }): st
 
 /* ── kerangka portal ───────────────────────────────────────────────────── */
 
-const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'ppdb', 'pendaftar', 'pesan'];
+const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'buku', 'ppdb', 'pendaftar', 'pesan'];
 
 export function portalPage(o: { user: User; judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; hitung?: Record<string, number> }): string {
   const t = tingkat(o.user);
