@@ -159,7 +159,7 @@ function robotsBlocks(body) {
 const browser = await chromium.launch();
 // A domain whose zone is not on Cloudflare yet is audited on its workers.dev address until the domain itself answers
 // (owner, 14 Nov 2026, yapida.sch.id: "blm sy input di CF"). The verdict says which host was read.
-const ALIAS = { "yapida.sch.id": "yapida-sch-id.axto.workers.dev" };
+const ALIAS = { "yapida.sch.id": "yapida-sch-id.axto.workers.dev", "luaja.com": "luaja-com.axto.workers.dev" };
 async function hostFor(domain) {
   if (!ALIAS[domain]) return domain;
   try {

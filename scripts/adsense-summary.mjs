@@ -23,6 +23,7 @@ const REPO = {
   "ascan.es": "belum ada situs — kode siap, dipasang saat situsnya dibuat",
   "jenius.es": "ulyah.com · jenius/src/lib/adsense.ts (Worker jenius-es; ads.txt dari kode)",
   "yapida.sch.id": "ulyah.com · yapida/src/lib/adsense.ts (Worker yapida-sch-id; membaca adsense-stack.json langsung, ads.txt dari kode)",
+  "luaja.com": "ulyah.com · luaja/src/lib/adsense.ts (Worker luaja-com; membaca adsense-stack.json langsung, ads.txt dari kode)",
 };
 const repoOf = (d) => REPO[d] || `ulyah.com · sites/${d} (engine)`;
 const pub = (c) => c.replace(/^ca-/, "");

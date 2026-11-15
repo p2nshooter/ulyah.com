@@ -2,7 +2,7 @@
  KODE ADSENSE SEMUA DOMAIN — ditumpuk, data per 2026-11-14
 =====================================================================
 
- Domain dalam daftar pemilik : 43
+ Domain dalam daftar pemilik : 44
  Akun yang ditumpuk         : 22 (di setiap domain)
  Domain yang kodenya lama tetap dipakai (keep) : 12
 
@@ -353,6 +353,12 @@
 [yapida.sch.id]   22 akun   (ulyah.com · yapida/src/lib/adsense.ts (Worker yapida-sch-id; membaca adsense-stack.json langsung, ads.txt dari kode))
     akun utama : ca-pub-8212039662308316   ← salah satu akun tumpukan
     loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8212039662308316" crossorigin="anonymous"></script>
+    ads.txt    : 22 baris di bagian A (akun utama di baris pertama)
+    meta       : 22 tag di bagian A (akun utama lebih dulu)
+
+[luaja.com]   22 akun   (ulyah.com · luaja/src/lib/adsense.ts (Worker luaja-com; membaca adsense-stack.json langsung, ads.txt dari kode))
+    akun utama : ca-pub-6701063918838796   ← salah satu akun tumpukan
+    loader     : <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796" crossorigin="anonymous"></script>
     ads.txt    : 22 baris di bagian A (akun utama di baris pertama)
     meta       : 22 tag di bagian A (akun utama lebih dulu)
 
