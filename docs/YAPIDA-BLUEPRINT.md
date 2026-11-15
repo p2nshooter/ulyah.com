@@ -50,6 +50,16 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
    dari angka 0-9 cukup 5 angka, tolong bikinin dalam bentuk gambar, untuk masuk login jgn make tombol login, tp make ketuk logo
    5x“ · „Focus ngerjain kekurangan dan menyempurnakan situs yapida.sch.id dulu, jgn ngelantur“ · „Selesaikan semuanya“
 
+9. „Username nya make dropdown, misal ketua yayasan dan seterusnya, jd g perlu ngisi“ · „Passwordnya langsung bikinin
+   aja, kirim username passwordnya dalam bentuk gambar“ · „Quran mushaf ustmani nya kok g ada“ (15 Nov 2026) — akun jabatan
+   dibuat sekaligus saat pemasangan (situs live, 18 akun, diserahkan sebagai gambar di luar repo); Al-Qur'an §5a.
+
+10. „Tolong bikinin game muslim interkatif anak sampai dewasa, iqro onvensional seperti yg ada d buku iqro.. Bikin yg
+    interaktif“ · „Perpustakaan digitalnya jg ini belum ada“ · „Radio quran pastiin hidup 24 jam, dengan auto random selurum
+    imam seluruh dunia, tanpa bisa di klik, haha notif siapa yg baca, dan hitung sudah berapa kali hatam, tp bisa di matikan
+    di device masing2 cuma di engine jgn pernah mati, termasuk waktu adzan pastiin hidup jika sudah d install di HP walaupun
+    aplikaainya sudah d tutup, dengan notif adzan yg bisa di matiin“ (15 Nov 2026) — rencana §5c–§5e.
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di
@@ -166,7 +176,7 @@ mengirim kerangka halaman dan titik lokasi bawaan (pengaturan situs `lokasi`, ba
 | Hitung mundur Ramadhan | beranda, `/ibadah`, `/kalender-hijriah#ramadhan` | hari-jam-menit-detik menuju 1 Ramadhan; saat Ramadhan berganti menjadi hitung mundur Idul Fitri |
 | Radio Qur'an | `/radio-quran` | 114 surah utuh dari CDN islamic.network (tiga qari yang terukur punya berkas per surah: Al-Afasy, Abdul Basit, Basfar), lanjut otomatis, acak, pengatur tidur, kendali layar kunci, posisi tersimpan |
 | Tasbih | tombol di setiap halaman | 33/100 dengan getar, urutan wirid tasbih → tahmid → takbir |
-| Al-Qur'an Utsmani + tafsir | `/quran` | ⏳ fase berikut: teks rasm Utsmani, terjemah dan tafsir Kemenag, murottal per ayat dengan sorot dan lanjut otomatis, mode hafalan |
+| Al-Qur'an mushaf Utsmani | `/quran`, `/quran/<surah>`, `/quran/halaman/<1–604>` | Rasm Utsmani Hafs KFGQPC v3 dengan **tata letak 604 halaman × 15 baris mushaf Madinah** (quran-text, CC BY 4.0) dan font KFGQPC HAFS Uthmanic Script v3 (disalin tanpa perubahan sesuai lisensinya); kepala surah berbingkai, basmalah, tanda waqaf & sajdah, simbol akhir ayat bernomor. Halaman dibalik tanpa memuat ulang (panah, geser, pilih surah/juz/halaman); ketuk kata → lembar ayat (terjemah, tafsir, murottal). Per surah: terjemah Indonesia & latin (quran-json, CC BY 4.0), **tafsir Kemenag RI** (equran.id, diambil sekali lalu disimpan di R2), murottal per ayat 5 qari (everyayah.com, cadangan cdn.islamic.network) dengan sorot ayat, ulangi 1–10×, lanjut otomatis; mode hafalan, penanda, salin, posisi terakhir dibaca (di perangkat) |
 
 Jadwal dan kalender adalah hisab; halaman menyatakan bahwa penetapan resmi mengikuti Kementerian Agama dan masjid setempat.
 
@@ -176,6 +186,38 @@ Setiap bahan ajar bisa dimainkan dalam beberapa bentuk dari satu isi yang sama (
 permainannya): kuis pilihan ganda, menjodohkan, kartu hafalan berbalik, benar-salah, susun huruf (anagram), cari kata,
 roda putar, kelompokkan, isian rumpang, buka kotak. Ada pengatur waktu, nilai, bintang, papan peringkat per paket, dan
 suara pembaca sesuai bahasa. Guru membuatnya di portal; paket contoh diberi tanda „contoh“.
+
+## 5c. Radio Qur'an LIVE 24 jam (perintah 10)
+
+- **Mesin di server, tidak pernah mati**: jadwal siaran ditentukan dari waktu, bukan dari pendengar. Satu putaran = surah
+  1 sampai 114 berurutan = **satu khatam**; setiap surah dibacakan qari yang dipilih acak (deterministik per putaran) dari
+  daftar qari seluruh dunia (mp3quran.net, riwayat Hafs, berkas 114 surah lengkap). Durasi tiap berkas dibaca dari kepala
+  MP3 dan disimpan di R2, sehingga semua pendengar mendengar posisi yang sama seperti radio sungguhan.
+- **Tanpa klik**: pendengar tidak memilih surah atau qari; hanya **nyala/mati di perangkatnya sendiri** (tersimpan di
+  perangkat). Pemberitahuan „Kini dibacakan oleh …“ (layar kunci lewat Media Session + pita di halaman) dan **hitungan
+  khatam** sejak radio pertama mengudara. Pemutar mini di seluruh situs.
+- Batas peramban: di tab biasa suara baru boleh berbunyi setelah satu ketukan pertama; aplikasi yang dipasang di HP
+  memutar langsung.
+
+## 5d. Notifikasi adzan (perintah 10)
+
+- **Web Push** (VAPID + enkripsi aes128gcm, ditulis sendiri di Worker) sehingga notifikasi adzan tetap datang walau
+  aplikasi/peramban ditutup — Android (Chrome) dan iPhone (iOS 16.4+, aplikasi terpasang). Suara = suara notifikasi
+  ponsel; ketuk notifikasi membuka halaman adzan.
+- Langganan di R2 (satu objek per perangkat; lokasi dibulatkan ±1 km; waktu sholat dihitung server dengan `adhan`, metode
+  sama dengan jadwal). Indeks per menit `i/adzan/<menit>/<langganan>` — setiap menit hanya satu daftar R2.
+- Detak tiap menit: cron `* * * * *` milik Worker detektor-artikel di akun yang sama memanggil entrypoint RPC bernama di
+  Worker yapida lewat service binding (tidak terbuka ke internet; kuota 5 cron akun sudah terpakai).
+- Bisa dimatikan per perangkat dan per waktu sholat di halaman Jadwal Sholat; ada tombol uji notifikasi.
+
+## 5e. Iqro interaktif & game muslim (perintah 10)
+
+- **Iqro**: latihan buatan sendiri yang mengikuti urutan metode Iqro konvensional (bukan salinan buku Iqro): jilid 1 huruf
+  berharakat fathah, 2 huruf sambung & mad, 3 kasrah, 4 dhammah/tanwin/sukun/qalqalah, 5 tasydid/waqaf/lam syamsiyah, 6
+  tajwid ringan & ayat pendek. Setiap halaman: baris bacaan besar, ketuk untuk mendengar, mode guru-murid, uji per halaman,
+  bintang, dan kemajuan tersimpan di perangkat.
+- **Game** (anak sampai dewasa): tebak huruf, cocokkan Asmaul Husna, susun ayat, lanjutkan ayat, tebak surah, kuis Islami
+  berjenjang — isi dari data yang sudah ada (Al-Qur'an, Asmaul Husna, doa) dan bank soal yang ditulis teliti.
 
 ## 6. Desain „Mihrab Zamrud“
 
@@ -209,5 +251,5 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 | Y5 | Perpustakaan: rak, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar | ⏳ |
 | Y6 | Bank soal dan buku pelajaran interaktif | ⏳ |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
-| Y8 | Al-Qur'an Utsmani + terjemah + tafsir + murottal per ayat | ⏳ |
+| Y8 | Al-Qur'an mushaf Utsmani 604 halaman + terjemah + tafsir Kemenag + murottal per ayat | 🔄 15 Nov |
 | Y9 | Permainan ala Wordwall untuk setiap bahan ajar (§5b) | ⏳ |

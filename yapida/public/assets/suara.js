@@ -12,7 +12,8 @@
   var muatSuara = function () { suara = ss ? ss.getVoices() : []; };
   if (ss) { muatSuara(); if (typeof ss.addEventListener === 'function') ss.addEventListener('voiceschanged', muatSuara); else ss.onvoiceschanged = muatSuara; }
 
-  function pilihSuara(bhs, profil) {
+  function pilihSuara(bhs, profil, pilihan) {
+    if (pilihan && pilihan[bhs]) { var tetap = suara.filter(function (v) { return v.voiceURI === pilihan[bhs]; })[0]; if (tetap) return tetap; }
     var calon = KODE[bhs] || KODE.id;
     for (var i = 0; i < calon.length; i++) {
       var cocok = suara.filter(function (v) { return v.lang && v.lang.toLowerCase().replace('_', '-').indexOf(calon[i].toLowerCase()) === 0; });
@@ -52,7 +53,8 @@
 
   /**
    * Membacakan daftar blok berurutan. o.profil, o.kecepatan (pengali), o.mulai (indeks), o.saatBlok(i, el),
-   * o.saatSelesai(), o.saatKata(el, charIndex). Mengembalikan pengendali { jeda, lanjut, henti, sedang }.
+   * o.saatSelesai(), o.saatKata(el, charIndex, potongan), o.pilihan ({ id|ar|en: voiceURI } pilihan pembaca).
+   * Mengembalikan pengendali { jeda, lanjut, henti, sedang, indeks }.
    */
   function bacakan(blok, wadah, o) {
     o = o || {};
@@ -63,7 +65,7 @@
       if (i >= blok.length) { if (o.saatSelesai) o.saatSelesai(); return; }
       if (!bagian) { bagian = potongan(blok[i], wadah); j = 0; if (o.saatBlok) o.saatBlok(i, blok[i]); }
       if (j >= bagian.length) { i++; bagian = null; setTimeout(lanjutBlok, 220); return; }
-      var p = bagian[j], u = new SpeechSynthesisUtterance(p.teks), v = pilihSuara(p.lang, o.profil);
+      var p = bagian[j], u = new SpeechSynthesisUtterance(p.teks), v = pilihSuara(p.lang, o.profil, o.pilihan);
       u.lang = v ? v.lang : (KODE[p.lang] || KODE.id)[0];
       if (v) u.voice = v;
       u.rate = Math.max(0.5, Math.min(2, profil.rate * (o.kecepatan || 1) * (p.lang === 'ar' ? 0.9 : 1)));
@@ -93,7 +95,7 @@
     });
   }
 
-  window.YapidaSuara = { tersedia: Boolean(ss && window.SpeechSynthesisUtterance), bacakan: bacakan, blokDari: blokDari, potongan: potongan, pilihSuara: pilihSuara };
+  window.YapidaSuara = { tersedia: Boolean(ss && window.SpeechSynthesisUtterance), bacakan: bacakan, blokDari: blokDari, potongan: potongan, pilihSuara: pilihSuara, daftar: function () { if (ss) muatSuara(); return suara.slice(); }, kode: KODE };
 
   /* ── tombol „Dengarkan“ pada kabar dan karya tulis ─────── */
   var tenang = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;

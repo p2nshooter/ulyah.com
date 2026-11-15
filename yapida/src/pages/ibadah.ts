@@ -17,6 +17,7 @@ const dataLokasi = (s: Situs): Raw => raw(` data-lat="${lokasi(s).lat}" data-lng
 
 export interface Aplikasi { href: string; nama: string; ringkas: string; ikon: string; hidup?: string }
 export const APLIKASI: Aplikasi[] = [
+  { href: '/quran', nama: 'Al-Qur’an Mushaf Utsmani', ringkas: '604 halaman persis mushaf Madinah, terjemah, tafsir Kemenag, dan murottal per ayat.', ikon: 'buku' },
   { href: '/jadwal-sholat', nama: 'Jadwal Sholat', ringkas: 'Waktu sholat hari ini, hitung mundur ke adzan berikutnya, dan jadwal sebulan.', ikon: 'surya', hidup: 'sholat' },
   { href: '/kiblat', nama: 'Arah Kiblat', ringkas: 'Kompas kiblat dari tempat Anda berdiri, lengkap dengan jarak ke Ka’bah.', ikon: 'pin', hidup: 'kiblat' },
   { href: '/kalender-hijriah', nama: 'Kalender Hijriah', ringkas: 'Tanggal hijriah, hari besar Islam, dan hari-hari puasa sunnah.', ikon: 'bulan', hidup: 'hijri' },

@@ -23,8 +23,18 @@ import { unggah, kenali } from '../src/data/media.ts';
 
 const stack = JSON.parse(fs.readFileSync(new URL('../../adsense-stack.json', import.meta.url), 'utf8')) as { stack: string[]; primary: Record<string, string> };
 
+/** Aset statis dibaca langsung dari folder public/ (seperti binding ASSETS di Worker). */
+const PUB = new URL('../public/', import.meta.url).pathname;
+const ASSETS = {
+  fetch: async (req: Request) => {
+    const f = PUB + new URL(req.url).pathname.replace(/^\/+/, '');
+    if (f.includes('..')) return new Response('tidak ada', { status: 404 });
+    try { return new Response(fs.readFileSync(f)); } catch { return new Response('tidak ada', { status: 404 }); }
+  },
+} as unknown as Fetcher;
+
 function env(extra: Partial<Env> = {}): Env {
-  return { DATA: new FakeR2() as unknown as R2Bucket, MEDIA: new FakeR2() as unknown as R2Bucket, ASSETS: {} as Fetcher, CANONICAL_HOST: 'yapida.sch.id', SESSION_SECRET: 'rahasia-uji-0123456789abcdef', ...extra };
+  return { DATA: new FakeR2() as unknown as R2Bucket, MEDIA: new FakeR2() as unknown as R2Bucket, ASSETS, CANONICAL_HOST: 'yapida.sch.id', SESSION_SECRET: 'rahasia-uji-0123456789abcdef', ...extra };
 }
 const get = (e: Env, path: string, host = 'yapida.sch.id') => worker.fetch(new Request(`https://${host}${path}`) as never, e, {} as ExecutionContext);
 
