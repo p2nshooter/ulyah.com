@@ -11,10 +11,11 @@ import { timingSafeEqual, verifyPassword, hashPassword } from '../lib/crypto.ts'
 import { fmtDate } from '../lib/i18n.ts';
 import { createUser, EmailTakenError, findByEmail, getSubs, isAdmin, updateUser, hasAccess } from '../data/users.ts';
 import { audit, event } from '../data/audit.ts';
-import { getPayment, getPricing } from '../data/settings.ts';
+import { getPayment, getPricing, getSite } from '../data/settings.ts';
 import { cancelInvoice, createInvoice, getInvoice, listUserInvoices, proofKey, submitProof } from '../data/invoices.ts';
-import { COURSE_META, COURSES, CURRENCIES, money, unitPrices, type Course, type Currency, type Invoice, type ProofFile, type Tier, type User } from '../data/model.ts';
-import { getPaypalConfig, paypalReady, PAYPAL_CURRENCIES } from '../data/paypal.ts';
+import { COURSE_META, COURSES, CURRENCIES, METHOD_KINDS, money, unitPrices, type Course, type Currency, type Invoice, type PayMethod, type ProofFile, type Tier, type User } from '../data/model.ts';
+import { hasAnyWay, payOptions, waysLabel } from '../data/gateways.ts';
+import { GW_META } from '../data/gw.ts';
 import { getProgress, listAttempts } from '../data/progress.ts';
 import { getSet, levelName } from '../practice/index.ts';
 import { getLesson } from '../course/index.ts';
@@ -121,8 +122,9 @@ account.post('/daftar', async (c) => {
   }
 });
 account.get('/lupa-sandi', async (c) => {
-  const pay = await getPayment(c.get('store'));
-  return render(c, { path: '/lupa-sandi', title: 'Lupa kata sandi — LUAJA', desc: 'Bantuan kata sandi.', noindex: true, noAds: true, body: authShell('Bantuan akun', html`<p class="eyebrow">Bantuan akun</p><h1 style="font-size:var(--fs-5)">Lupa kata sandi</h1><p>Demi keamanan, penyetelan ulang kata sandi dilakukan tim kami setelah verifikasi pemilik akun. Hubungi kami dari e-mail yang terdaftar:</p><p><a class="btn btn-ghost" href="mailto:halo@luaja.com?subject=Setel%20ulang%20kata%20sandi">${icon('surat')} halo@luaja.com</a>${pay.whatsapp ? html` <a class="btn btn-ghost" href="https://wa.me/${pay.whatsapp.replace(/\D/g, '')}">${icon('wa')} WhatsApp</a>` : ''}</p><p class="small muted">Sertakan nama lengkap dan e-mail akun. Kata sandi sementara dikirim ke e-mail tersebut.</p>`) });
+  const [pay, site] = await Promise.all([getPayment(c.get('store')), getSite(c.get('store'))]);
+  const mail = site.contact.email;
+  return render(c, { path: '/lupa-sandi', title: `Lupa kata sandi — ${site.name}`, desc: 'Bantuan kata sandi.', noindex: true, noAds: true, site, body: authShell('Bantuan akun', html`<p class="eyebrow">Bantuan akun</p><h1 style="font-size:var(--fs-5)">Lupa kata sandi</h1><p>Demi keamanan, penyetelan ulang kata sandi dilakukan tim kami setelah verifikasi pemilik akun. Hubungi kami dari e-mail yang terdaftar:</p><p><a class="btn btn-ghost" href="mailto:${mail}?subject=Setel%20ulang%20kata%20sandi">${icon('surat')} ${mail}</a>${pay.whatsapp ? html` <a class="btn btn-ghost" href="https://wa.me/${pay.whatsapp.replace(/\D/g, '')}">${icon('wa')} WhatsApp</a>` : ''}</p><p class="small muted">Sertakan nama lengkap dan e-mail akun. Kata sandi sementara dikirim ke e-mail tersebut.</p>`) });
 });
 account.post('/keluar', async (c) => {
   endSession(c);
@@ -161,6 +163,7 @@ account.get('/portal', async (c) => {
   return portal(c, '/portal', 'Beranda', html`
   ${c.req.query('baru') ? html`<div class="alert alert-ok">Selamat datang di LUAJA, ${u.name.split(' ')[0]}! Mulailah dari pelajaran gratis atau pilih paket untuk membuka seluruh materi.</div>` : ''}
   <div class="page-title"><h1>Halo, ${u.name.split(' ')[0]}</h1>${last ? html`<a class="btn btn-gold" href="/belajar/${last.code}">${icon('main')} Lanjutkan: ${last.title}</a>` : html`<a class="btn btn-gold" href="/coba">${icon('main')} Mulai pelajaran gratis</a>`}</div>
+  ${isAdmin(u) ? html`<div class="notice" style="margin-bottom:18px">${icon('bintang')} Mode pengelola: seluruh bahasa, jenjang, pelajaran dan paket latihan terbuka penuh untuk Anda — tanpa tagihan. <a href="/admin">Kembali ke panel pengelola</a></div>` : ''}
   ${pending ? html`<div class="notice" style="margin-bottom:18px">Tagihan <b>${pending.number}</b> — ${STATUS[pending.status][0]}. <a href="/portal/tagihan/${pending.id}">Buka tagihan</a></div>` : ''}
   <div class="kpi"><div class="card"><b>${passed}</b><span>pelajaran lulus</span></div><div class="card"><b>${atts.length}</b><span>latihan terakhir</span></div><div class="card"><b>${COURSES.filter((k) => hasAccess(subs, k, u)).length}</b><span>bahasa aktif</span></div></div>
   <h2 style="font-size:var(--fs-4);margin-top:28px">Langganan</h2>
@@ -171,18 +174,21 @@ account.get('/portal', async (c) => {
 
 account.get('/portal/paket', async (c) => {
   const store = c.get('store');
-  const [pricing, invs] = await Promise.all([getPricing(store), listUserInvoices(store, c.get('user')!.id)]);
+  const [pricing, invs, ways] = await Promise.all([getPricing(store), listUserInvoices(store, c.get('user')!.id), payOptions(store, c.env)]);
   const tiers = (Object.keys(pricing.tiers) as Tier[]).filter((t) => pricing.tiers[t].enabled);
   const preset3 = c.req.query('jumlah') === '3';
   const lang = c.get('lang') as string;
-  const defCur: Currency = lang === 'ja' ? 'JPY' : lang === 'en' ? 'USD' : 'IDR';
+  // Mata uang tanpa satu pun cara bayar yang tayang tidak ditawarkan.
+  const curs = CURRENCIES.filter((cur) => hasAnyWay(ways, cur));
+  const want: Currency = lang === 'ja' ? 'JPY' : lang === 'en' ? 'USD' : 'IDR';
+  const defCur: Currency = curs.includes(want) ? want : curs[0] ?? 'IDR';
   return portal(c, '/portal/paket', 'Paket & pembayaran', html`
   <div class="page-title"><h1>Pilih paket</h1><a class="btn btn-ghost btn-sm" href="/harga">Rincian harga</a></div>
   ${c.req.query('err') ? html`<div class="alert alert-bad">${c.req.query('err')}</div>` : ''}
   <form method="post" action="/portal/paket" class="card stack" data-buy>
     <input type="hidden" name="_csrf" value="${await csrfToken(c, c.get('user')!)}">
     <div class="field"><span class="lbl">1. Bahasa</span><div class="grid g3">${COURSES.map((k) => html`<label class="check"><input type="checkbox" name="bahasa" value="${k}" ${preset3 ? raw('checked') : ''}><span><b>${COURSE_META[k].name}</b><small>${COURSE_META[k].levels[0]!.name}–${COURSE_META[k].levels[COURSE_META[k].levels.length - 1]!.name}${k === 'en' ? ' + TOEFL & IELTS' : ''}</small></span></label>`)}</div></div>
-    <div class="field"><span class="lbl">2. Mata uang</span><div class="grid g3">${CURRENCIES.map((cur) => html`<label class="check"><input type="radio" name="mata_uang" value="${cur}" ${cur === defCur ? raw('checked') : ''}><span><b>${cur === 'IDR' ? 'Rupiah (IDR)' : cur === 'USD' ? 'Dolar AS (USD)' : 'Yen (JPY)'}</b><small>${cur === 'IDR' ? 'Transfer SeaBank / BNI' : 'PayPal otomatis atau transfer bank internasional (SWIFT)'}</small></span></label>`)}</div></div>
+    <div class="field"><span class="lbl">2. Mata uang</span><div class="grid g3">${curs.map((cur) => html`<label class="check"><input type="radio" name="mata_uang" value="${cur}" ${cur === defCur ? raw('checked') : ''}><span><b>${cur === 'IDR' ? 'Rupiah (IDR)' : cur === 'USD' ? 'Dolar AS (USD)' : 'Yen (JPY)'}</b><small>${waysLabel(ways, cur)}</small></span></label>`)}</div></div>
     <div class="field"><span class="lbl">3. Kategori</span><div class="grid g3">${tiers.map((t, i) => html`<label class="check"><input type="radio" name="kategori" value="${t}" ${i === 0 ? raw('checked') : ''} ${raw(CURRENCIES.map((cur) => { const u = unitPrices(pricing.tiers[t], cur); return `data-one-${cur}="${u.one}" data-three-${cur}="${u.three}"`; }).join(' '))}><span><b>${icon(TIER_ICON[t])} ${pricing.tiers[t].label}</b><small data-tier-price="${t}">${money(unitPrices(pricing.tiers[t], defCur).one, defCur)}/bahasa · ${money(unitPrices(pricing.tiers[t], defCur).three, defCur)} tiga bahasa</small><small>${pricing.tiers[t].note}</small></span></label>`)}</div></div>
     <div class="row between total-bar"><div><small class="muted">Total per tahun</small><div class="amount" data-total>Rp0</div></div><button class="btn btn-gold btn-lg" type="submit">Buat tagihan</button></div>
     <p class="small muted" style="margin:0">Setelah tagihan dibuat, rekening tujuan dan nominal tampil di halaman tagihan. Akses terbuka setelah bukti pembayaran terverifikasi.</p>
@@ -200,8 +206,9 @@ account.post('/portal/paket', async (c) => {
   const courses = (Array.isArray(raw) ? raw : raw ? [raw] : []).map(String).filter((k): k is Course => (COURSES as readonly string[]).includes(k));
   const tier = String(f.kategori ?? 'umum') as Tier;
   const currency = (CURRENCIES as readonly string[]).includes(String(f.mata_uang)) ? (String(f.mata_uang) as Currency) : 'IDR';
-  const pricing = await getPricing(store);
+  const [pricing, ways] = await Promise.all([getPricing(store), payOptions(store, c.env)]);
   if (!courses.length) return c.redirect(`/portal/paket?err=${encodeURIComponent('Pilih minimal satu bahasa.')}`);
+  if (!hasAnyWay(ways, currency)) return c.redirect(`/portal/paket?err=${encodeURIComponent('Mata uang ini belum dapat dipakai. Pilih mata uang lain.')}`);
   if (!pricing.tiers[tier]?.enabled) return c.redirect(`/portal/paket?err=${encodeURIComponent('Kategori tidak tersedia.')}`);
   if (!(await limit(c.env, `inv:${u.id}`, 10, 3600))) return c.redirect(`/portal/paket?err=${encodeURIComponent('Terlalu banyak tagihan dibuat. Coba lagi nanti.')}`);
   const inv = await createInvoice(store, u.id, courses, tier, pricing, currency);
@@ -212,18 +219,35 @@ account.post('/portal/paket', async (c) => {
 const ACCEPT: Record<string, string> = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'application/pdf': 'pdf' };
 const MAX = 5 * 1024 * 1024;
 
+/** Kotak satu metode manual: nomor yang bisa disalin, data bank, nominal tepat, dan langkah transfer. */
+function methodBox(m: PayMethod, inv: Invoice, note: string): Raw {
+  const steps: string[] = m.kind === 'swift'
+    ? [`Di aplikasi/kantor bank Anda pilih transfer internasional (SWIFT) dalam ${inv.currency}.`, `Isi bank penerima ${m.bankName || m.name}, SWIFT ${m.swift}, nomor rekening di atas, dan nama penerima ${m.holder}.`, `Tulis nomor tagihan ${inv.number} pada berita/keterangan transfer. Biaya transfer ditanggung pengirim (OUR) agar nominal tiba utuh.`]
+    : m.kind === 'bank' ? [] : [`Kirim tepat ${money(inv.amount, inv.currency)} ke akun ${m.name} di atas.`, `Tulis nomor tagihan ${inv.number} pada catatan pengiriman.`];
+  const extra = m.instructions.split('\n').map((x) => x.trim()).filter(Boolean);
+  const all = [...steps, ...extra, ...(steps.length || extra.length ? ['Unggah bukti pembayaran di bawah; akses aktif setelah dana diterima dan terverifikasi.'] : [])];
+  return html`<div class="bank" data-method="${m.id}"><small>${m.kind === 'bank' ? 'Transfer ke rekening resmi' : METHOD_KINDS[m.kind].label}</small><b style="font-size:var(--fs-3)">${m.name}</b>
+    <div class="acct">${m.account}<button class="btn btn-sm" type="button" data-copy="${m.account}">Salin</button></div>
+    ${m.holder ? html`<span>a.n. <b>${m.holder}</b></span>` : ''}
+    ${m.kind === 'swift' ? html`<span>${m.bankName ? html`${m.bankName} · ` : ''}SWIFT/BIC <b>${m.swift}</b> <button class="btn btn-sm" type="button" data-copy="${m.swift}">Salin</button>${m.code ? html` · kode bank ${m.code}` : ''}${m.address ? html` · ${m.address}` : ''}</span>` : ''}
+    <span>Nominal tepat: <b>${money(inv.amount, inv.currency)}</b> <button class="btn btn-sm" type="button" data-copy="${String(inv.amount)}">Salin</button></span>
+    ${all.length ? html`<ol class="small" style="margin:6px 0 0;padding-left:18px">${all.map((x) => html`<li>${x}</li>`)}</ol>` : ''}
+    ${m.kind === 'bank' && note ? html`<small>${note}</small>` : ''}</div>`;
+}
+
 account.get('/portal/tagihan/:id', async (c) => {
   const u = c.get('user')!, store = c.get('store');
   const inv = await getInvoice(store, c.req.param('id'));
   if (!inv || (inv.userId !== u.id && !isAdmin(u))) return c.notFound();
-  const [pay, pricing, ppc] = await Promise.all([getPayment(store), getPricing(store), getPaypalConfig(store)]);
-  const ppOn = Boolean(c.env.MASTER_KEY) && paypalReady(ppc) && PAYPAL_CURRENCIES.includes(inv.currency);
+  const [ways, pricing] = await Promise.all([payOptions(store, c.env), getPricing(store)]);
+  const opt = ways.by[inv.currency], ppc = ways.paypal;
   const t = pricing.tiers[inv.tier];
   const canUpload = inv.status === 'unpaid' || inv.status === 'rejected';
   const csrf = await csrfToken(c, u);
   return portal(c, '/portal/paket', `Tagihan ${inv.number}`, html`
   <div class="page-title"><h1>Tagihan ${inv.number}</h1><span class="pill ${STATUS[inv.status][1]}">${STATUS[inv.status][0]}</span></div>
   ${c.req.query('ok') ? html`<div class="alert alert-ok">Bukti pembayaran terkirim. Tim kami memverifikasinya; akses terbuka otomatis setelah disetujui.</div>` : ''}
+  ${c.req.query('lunas') ? html`<div class="alert alert-ok">Pembayaran berhasil — langganan Anda sudah aktif.</div>` : ''}
   ${c.req.query('err') ? html`<div class="alert alert-bad">${c.req.query('err')}</div>` : ''}
   ${inv.status === 'rejected' && inv.reason ? html`<div class="alert alert-bad"><b>Alasan penolakan:</b> ${inv.reason}. Silakan unggah ulang.</div>` : ''}
   <div class="grid g2" style="align-items:start">
@@ -233,10 +257,10 @@ account.get('/portal/tagihan/:id', async (c) => {
     ${inv.status === 'approved' ? html`<div class="card card-tint"><h3 style="margin-top:0">${icon('cek')} Pembayaran terverifikasi</h3><p>Langganan Anda aktif. Selamat belajar!</p><a class="btn btn-gold" href="/${COURSE_META[inv.courses[0]!].slug}">Mulai belajar</a></div>` :
       inv.status === 'cancelled' ? html`<div class="card"><p>Tagihan dibatalkan. <a href="/portal/paket">Buat tagihan baru</a>.</p></div>` :
       html`<div class="stack" style="--stack:14px">
-        ${ppOn ? html`<div class="card card-tint" data-paypal="${inv.id}" data-client="${ppc[ppc.mode].clientId}" data-currency="${inv.currency}"><h3 style="margin:0 0 6px">Bayar otomatis dengan PayPal</h3><p class="small muted" style="margin:0 0 12px">Kartu kredit/debit atau saldo PayPal. Langganan langsung aktif begitu pembayaran berhasil.${ppc.mode === 'sandbox' ? ' (mode uji/sandbox)' : ''}</p><div data-paypal-buttons></div><p class="small" data-paypal-msg></p></div>` : ''}
-        ${inv.currency === 'IDR' ? html`<div class="bank"><small>Transfer ke rekening resmi LUAJA</small><b style="font-size:var(--fs-3)">${pay.bank}</b><div class="acct">${pay.account}<button class="btn btn-sm" type="button" data-copy="${pay.account}">Salin</button></div><span>a.n. <b>${pay.holder}</b></span><span>Atau BNI ${pay.bni.accounts.IDR} <button class="btn btn-sm" type="button" data-copy="${pay.bni.accounts.IDR}">Salin</button> a.n. ${pay.bni.holder}</span><span>Nominal tepat: <b>${money(inv.amount, inv.currency)}</b> <button class="btn btn-sm" type="button" data-copy="${String(inv.amount)}">Salin</button></span><small>${pay.note}</small></div>` :
-          html`<div class="bank"><small>Transfer bank internasional (SWIFT) ke BNI</small><b style="font-size:var(--fs-3)">${pay.bni.name}</b><div class="acct">${pay.bni.accounts[inv.currency]}<button class="btn btn-sm" type="button" data-copy="${pay.bni.accounts[inv.currency]}">Salin</button></div><span>Rekening ${inv.currency} · a.n. <b>${pay.bni.holder}</b></span><span>SWIFT/BIC <b>${pay.bni.swift}</b> <button class="btn btn-sm" type="button" data-copy="${pay.bni.swift}">Salin</button> · kode bank ${pay.bni.code} · ${pay.bni.address}</span><span>Nominal tepat: <b>${money(inv.amount, inv.currency)}</b></span>
-            <ol class="small" style="margin:6px 0 0;padding-left:18px"><li>Di aplikasi/kantor bank Anda pilih transfer internasional (SWIFT) dalam ${inv.currency}.</li><li>Isi bank penerima ${pay.bni.name}, SWIFT ${pay.bni.swift}, nomor rekening di atas, dan nama penerima ${pay.bni.holder}.</li><li>Tulis nomor tagihan <b>${inv.number}</b> pada berita/keterangan transfer. Biaya transfer ditanggung pengirim (OUR) agar nominal tiba utuh.</li><li>Unggah bukti transfer di bawah; akses aktif setelah dana diterima dan terverifikasi.</li></ol></div>`}
+        ${opt.paypal ? html`<div class="card card-tint" data-paypal="${inv.id}" data-client="${ppc[ppc.mode].clientId}" data-currency="${inv.currency}"><h3 style="margin:0 0 6px">Bayar otomatis dengan PayPal</h3><p class="small muted" style="margin:0 0 12px">Kartu kredit/debit atau saldo PayPal. Langganan langsung aktif begitu pembayaran berhasil.${ppc.mode === 'sandbox' ? ' (mode uji/sandbox)' : ''}</p><div data-paypal-buttons></div><p class="small" data-paypal-msg></p></div>` : ''}
+        ${opt.gw.map((g) => html`<form class="card card-tint" method="post" action="/api/bayar/${g}/${inv.id}" data-gw="${g}"><input type="hidden" name="_csrf" value="${csrf}"><h3 style="margin:0 0 6px">Bayar otomatis — ${GW_META[g].name}</h3><p class="small muted" style="margin:0 0 12px">${GW_META[g].buyer} Langganan langsung aktif begitu pembayaran berhasil.${ways.gw[g].mode === 'test' ? ' (mode uji)' : ''}</p><button class="btn btn-gold" type="submit">${GW_META[g].button} · ${money(inv.amount, inv.currency)}</button></form>`)}
+        ${opt.manual.map((m) => methodBox(m, inv, ways.payment.note))}
+        ${!opt.paypal && !opt.gw.length && !opt.manual.length ? html`<div class="card"><p>Cara pembayaran untuk ${inv.currency} sedang tidak tersedia. Batalkan tagihan ini lalu buat tagihan baru dengan mata uang lain, atau hubungi kami.</p></div>` : ''}
       </div>`}
   </div>
   ${canUpload ? html`<form class="card stack" method="post" action="/portal/tagihan/${inv.id}/bukti" enctype="multipart/form-data" style="margin-top:20px">

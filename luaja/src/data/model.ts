@@ -120,27 +120,82 @@ export function money(n: number, cur: Currency): string {
 
 /* ── rekening ────────────────────────────────────────────────────────────── */
 
-export interface Payment {
-  /** SeaBank (Rupiah). */
-  bank: string;
+/**
+ * Metode pembayaran manual (transfer bank domestik, SWIFT, dan layanan internasional seperti Wise/Payoneer/Revolut/Skrill).
+ * Semuanya dikelola dari Admin → Metode bayar (tambah, ubah, hapus). Sebuah metode **hanya tampil** kepada member bila aktif
+ * dan datanya lengkap — templat internasional yang belum diisi tetap tersembunyi. Bisnis ini bisa berpindah tangan tanpa
+ * mengubah kode: semua rekening dan kredensial ada di R2, bukan di sini (nilai di bawah hanya bawaan awal).
+ */
+export type MethodKind = 'bank' | 'swift' | 'wise' | 'payoneer' | 'revolut' | 'skrill' | 'other';
+export const METHOD_KINDS: Record<MethodKind, { label: string; account: string; holderRequired: boolean; hint: string }> = {
+  bank: { label: 'Bank domestik', account: 'Nomor rekening', holderRequired: true, hint: 'Transfer antarbank di dalam negeri.' },
+  swift: { label: 'Bank internasional (SWIFT)', account: 'Nomor rekening / IBAN', holderRequired: true, hint: 'Transfer internasional; isi SWIFT/BIC dan alamat bank.' },
+  wise: { label: 'Wise', account: 'E-mail akun Wise atau detail rekening Wise', holderRequired: false, hint: 'Pembeli mengirim dari aplikasi Wise.' },
+  payoneer: { label: 'Payoneer', account: 'E-mail akun Payoneer', holderRequired: false, hint: 'Permintaan/kiriman pembayaran Payoneer.' },
+  revolut: { label: 'Revolut', account: 'Revtag (@nama) atau nomor telepon', holderRequired: false, hint: 'Kiriman antarpengguna Revolut.' },
+  skrill: { label: 'Skrill', account: 'E-mail akun Skrill', holderRequired: false, hint: 'Kiriman dompet Skrill.' },
+  other: { label: 'Lainnya', account: 'Nomor / alamat akun', holderRequired: false, hint: 'Metode lain dengan petunjuk sendiri.' },
+};
+
+export interface PayMethod {
+  id: string;
+  kind: MethodKind;
+  /** Nama yang dilihat pembeli, mis. „SeaBank“, „BNI (USD)“, „Wise“. */
+  name: string;
+  /** Mata uang tagihan yang dilayani. */
+  currencies: Currency[];
+  /** Nomor rekening / IBAN / e-mail akun. */
   account: string;
   holder: string;
-  note: string;
-  whatsapp: string;
-  /** BNI wondr multimata uang — juga untuk transfer dari luar negeri (SWIFT). */
-  bni: { name: string; swift: string; code: string; holder: string; address: string; accounts: Record<Currency, string> };
+  /** Nama resmi bank (untuk SWIFT). */
+  bankName: string;
+  swift: string;
+  code: string;
+  address: string;
+  /** Petunjuk tambahan (satu langkah per baris). */
+  instructions: string;
+  enabled: boolean;
 }
 
-/** Pemilik, 14 Nov 2026: rekening SeaBank a.n. Yusron Efendi. Hanya ditampilkan kepada member yang sudah masuk dan punya tagihan. */
+export interface Payment {
+  methods: PayMethod[];
+  /** Catatan umum di bawah rekening. */
+  note: string;
+  whatsapp: string;
+}
+
+const pm = (o: Partial<PayMethod> & Pick<PayMethod, 'id' | 'kind' | 'name' | 'currencies'>): PayMethod => ({ account: '', holder: '', bankName: '', swift: '', code: '', address: '', instructions: '', enabled: false, ...o });
+const BNI = { bankName: 'PT Bank Negara Indonesia (Persero) Tbk.', swift: 'BNINIDJA', code: '009', holder: 'YUSRON EFENDI', address: 'Jakarta, Indonesia' };
+
+/** Templat layanan internasional: tersembunyi sampai pemilik mengisi akun dan menyalakannya. */
+export const METHOD_TEMPLATES: PayMethod[] = [
+  pm({ id: 'wise', kind: 'wise', name: 'Wise', currencies: ['USD', 'JPY', 'IDR'] }),
+  pm({ id: 'payoneer', kind: 'payoneer', name: 'Payoneer', currencies: ['USD'] }),
+  pm({ id: 'revolut', kind: 'revolut', name: 'Revolut', currencies: ['USD', 'JPY'] }),
+  pm({ id: 'skrill', kind: 'skrill', name: 'Skrill', currencies: ['USD'] }),
+];
+
+/** Pemilik, 14–15 Nov 2026: SeaBank a.n. Yusron Efendi + BNI multimata uang (sama dengan ulyah.com). */
 export const DEFAULT_PAYMENT: Payment = {
-  bank: 'SeaBank',
-  account: '901592737762',
-  holder: 'Yusron Efendi',
+  methods: [
+    pm({ id: 'seabank', kind: 'bank', name: 'SeaBank', currencies: ['IDR'], account: '901592737762', holder: 'Yusron Efendi', enabled: true }),
+    pm({ id: 'bni-idr', kind: 'bank', name: 'BNI', currencies: ['IDR'], account: '2090571484', ...BNI, enabled: true }),
+    pm({ id: 'bni-usd', kind: 'swift', name: 'BNI (USD)', currencies: ['USD'], account: '2090571495', ...BNI, enabled: true }),
+    pm({ id: 'bni-jpy', kind: 'swift', name: 'BNI (JPY)', currencies: ['JPY'], account: '2090571564', ...BNI, enabled: true }),
+    ...METHOD_TEMPLATES,
+  ],
   note: 'Transfer tepat sesuai nominal tagihan, lalu unggah bukti transfer di portal.',
   whatsapp: '',
-  // Sama dengan rekening donasi ulyah.com (apps/web/src/lib/donation-accounts.ts) — pemilik, 15 Nov 2026.
-  bni: { name: 'PT Bank Negara Indonesia (Persero) Tbk.', swift: 'BNINIDJA', code: '009', holder: 'YUSRON EFENDI', address: 'Jakarta, Indonesia', accounts: { IDR: '2090571484', USD: '2090571495', JPY: '2090571564' } },
 };
+
+/** Tampil kepada member? Aktif + akun terisi (+ atas nama untuk bank/SWIFT, + SWIFT untuk transfer internasional). */
+export function methodLive(m: PayMethod): boolean {
+  if (!m.enabled || !m.account.trim() || !m.currencies.length) return false;
+  if (METHOD_KINDS[m.kind]?.holderRequired && !m.holder.trim()) return false;
+  if (m.kind === 'swift' && !m.swift.trim()) return false;
+  return true;
+}
+export const methodsFor = (p: Payment, cur: Currency): PayMethod[] => p.methods.filter((m) => methodLive(m) && m.currencies.includes(cur));
 
 /* ── akun & langganan ────────────────────────────────────────────────────── */
 
@@ -189,8 +244,10 @@ export interface Invoice {
   /** Mata uang tagihan (tagihan lama tanpa nilai ini = IDR). */
   currency: Currency;
   /** Cara bayar yang terkonfirmasi. */
-  method?: 'bank' | 'paypal';
+  method?: 'bank' | 'paypal' | 'stripe' | 'xendit' | 'midtrans';
   paypal?: { orderId: string; captureId?: string; mode: 'live' | 'sandbox'; payer?: string };
+  /** Gerbang redirect (Stripe/Xendit/Midtrans): referensi pembayaran terakhir dan modenya. */
+  gateway?: { id: 'stripe' | 'xendit' | 'midtrans'; ref: string; mode: 'live' | 'test'; payer?: string };
   paidAt?: number;
   status: InvoiceStatus;
   createdAt: number;

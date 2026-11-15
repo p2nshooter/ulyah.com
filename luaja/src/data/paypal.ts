@@ -139,3 +139,11 @@ export async function registerWebhook(c: PaypalConfig, master: string, url: stri
 export async function testConnection(c: PaypalConfig, master: string): Promise<void> {
   await token(c, master);
 }
+
+/** Hapus seluruh kredensial satu mode (client ID, secret, webhook). Bila mode itu yang aktif, PayPal dinonaktifkan. */
+export async function clearPaypalMode(store: Store, mode: PaypalMode): Promise<PaypalConfig> {
+  const cur = await getPaypalConfig(store);
+  const out: PaypalConfig = { ...cur, [mode]: { clientId: '', webhookId: '' }, enabled: cur.mode === mode ? false : cur.enabled, updatedAt: Date.now() };
+  await store.put(PAYPAL_DOC, out);
+  return out;
+}

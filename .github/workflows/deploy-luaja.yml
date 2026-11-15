@@ -5,9 +5,10 @@ name: Deploy luaja.com (LUAJA)
 # KV hanya untuk penghitung batas laju.
 #
 # - Bucket R2 dan namespace KV dibuat sendiri bila belum ada.
-# - luaja.com (+ www) dipasang sebagai custom domain lewat API begitu zonanya aktif; record A/AAAA/CNAME lama yang
-#   menghalangi dicatat di ringkasan run untuk dihapus pemilik. Alamat kanonik baru dipasang setelah domain menjawab; sebelum itu
-#   situs online di https://luaja-com.<subdomain>.workers.dev (noindex).
+# - luaja.com (+ www) dipasang sebagai custom domain lewat API begitu zonanya aktif. Bila record A/AAAA/CNAME lama
+#   menghalangi, Worker route `luaja.com/*` dipasang di record lama itu (tanpa menghapus DNS) dan record-nya dicatat di
+#   ringkasan run. Alamat kanonik baru dipasang setelah domain menjawab; sebelum itu situs online di
+#   https://luaja-com.<subdomain>.workers.dev (noindex).
 # - SESSION_SECRET dibuat acak SEKALI bila belum ada dan tidak pernah diganti oleh deploy berikutnya.
 # - Jadwal harian ikut menjalankan deploy agar luaja.com langsung terpasang begitu zonanya aktif.
 # - AdSense: akun utama + tumpukan dari adsense-stack.json; uji asap menolak deploy yang ads.txt, tag meta, atau loadernya
@@ -91,58 +92,19 @@ jobs:
       - name: Deploy Worker
         run: npx wrangler deploy | tee deploy.log
 
-      # Domain dipasang lewat API (bukan routes wrangler) agar penyebab kegagalan terbaca. Bila apex/www masih punya record
-      # A/AAAA/CNAME lama (Cloudflare 100117), record itu dicatat di ringkasan run — tidak dihapus otomatis; pemilik
-      # menghapusnya sekali di dasbor Cloudflare. Alamat kanonik baru dipasang setelah apex benar-benar tersambung,
-      # sehingga workers.dev tidak pernah dialihkan ke domain yang belum menjawab.
-      - name: Attach luaja.com (+ www) when its zone is active
-        run: |
-          set -eu
-          CF="https://api.cloudflare.com/client/v4"
-          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
-          JSON="Content-Type: application/json"
-          ZONE_RESP=$(curl -s --max-time 20 -H "$AUTH" "$CF/zones?name=${DOMAIN}")
-          if [ "$(echo "$ZONE_RESP" | jq -r '.success')" != "true" ]; then
-            echo "$ZONE_RESP" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' || true
-            echo "::warning::Token tidak bisa membaca zona ${DOMAIN}. Situs tetap online di workers.dev."
-            echo "ZONE_STATUS=token tanpa akses zona" >> "$GITHUB_ENV"; exit 0
-          fi
-          ZONE_ID=$(echo "$ZONE_RESP" | jq -r '.result[0]?.id // empty')
-          ZONE_STATUS=$(echo "$ZONE_RESP" | jq -r '.result[0]?.status // empty')
-          echo "ZONE_STATUS=${ZONE_STATUS:-belum ada}" >> "$GITHUB_ENV"
-          if [ -z "$ZONE_ID" ]; then echo "::warning::Zona ${DOMAIN} belum ada di akun ini. Situs tetap online di workers.dev."; exit 0; fi
-          if [ "$ZONE_STATUS" != "active" ]; then
-            NS=$(echo "$ZONE_RESP" | jq -r '.result[0].name_servers // [] | join(", ")')
-            echo "::warning::Zona ${DOMAIN} berstatus '${ZONE_STATUS}'. Arahkan nameserver ke: ${NS}."; exit 0
-          fi
-          attach() { curl -s --max-time 30 -X PUT -H "$AUTH" -H "$JSON" -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$1\",\"service\":\"luaja-com\",\"environment\":\"production\"}" "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains"; }
-          apex_ok=no; blocked=""
-          for host in "${DOMAIN}" "www.${DOMAIN}"; do
-            resp=$(attach "$host"); ok=$(echo "$resp" | jq -r '.success'); code=$(echo "$resp" | jq -r '.errors[0].code // 0')
-            if [ "$ok" != "true" ] && [ "$code" = "100117" ]; then
-              # Record A/AAAA/CNAME lama menghalangi. Tidak dihapus otomatis (perubahan DNS = keputusan pemilik): dicatat saja.
-              recs=$(curl -s --max-time 20 -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host&per_page=50" | jq -r '.result[]? | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "- \(.type) \(.name) → \(.content)"')
-              { echo "### Record DNS lama yang menghalangi \`$host\`"; echo "$recs"; } >> "$GITHUB_STEP_SUMMARY"
-            fi
-            echo "$host -> luaja-com: success=$ok $(echo "$resp" | jq -c '.errors')"
-            if [ "$ok" = "true" ]; then [ "$host" = "${DOMAIN}" ] && apex_ok=yes; else blocked="$blocked $host"; fi
-          done
-          if [ -n "$blocked" ]; then
-            {
-              echo "## ⚠️ Belum tersambung:$blocked"
-              echo ""
-              echo "Hapus sekali record A/AAAA/CNAME lama untuk host tersebut di Cloudflare → ${DOMAIN} → DNS (MX/TXT biarkan), lalu jalankan ulang workflow ini — atau beri token izin **Zone → DNS → Edit** agar workflow membersihkannya sendiri."
-            } >> "$GITHUB_STEP_SUMMARY"
-            echo "::warning::Belum tersambung:$blocked — lihat ringkasan run."
-          fi
-          if [ "$apex_ok" = "yes" ]; then
-            echo "PUBLIC_URL=https://${DOMAIN}" >> "$GITHUB_ENV"
-            echo "ATTACHED=yes" >> "$GITHUB_ENV"
-          fi
+      # Domain dipasang lewat API (custom domain); bila record A/AAAA/CNAME lama menghalangi (Cloudflare 100117), dipasang
+      # Worker route di record lama itu sebagai jalur cadangan — DNS tidak pernah dihapus otomatis. Alamat kanonik baru
+      # dipasang setelah https://luaja.com/api/health benar-benar dijawab Worker ini (scripts/cf-attach.sh).
+      - name: Attach luaja.com (+ www) — custom domain, or a Worker route on the existing records
+        run: bash scripts/cf-attach.sh
 
       - name: Set canonical host after the domain answers
         if: env.ATTACHED == 'yes'
-        run: npx wrangler deploy --var "CANONICAL_HOST:${DOMAIN}" | tee -a deploy.log
+        run: |
+          set -eu
+          npx wrangler deploy --var "CANONICAL_HOST:${DOMAIN}" | tee -a deploy.log
+          # Pastikan route cadangan tetap mengarah ke Worker ini setelah deploy ulang.
+          if [ "${ROUTED:-}" = "yes" ]; then bash scripts/cf-attach.sh routes; fi
 
       - name: Create SESSION_SECRET and MASTER_KEY once (never rotated by deploys)
         run: |

@@ -118,6 +118,36 @@ try {
     ok('daftar → tagihan → bukti → admin setujui → pelajaran berbayar terbuka');
     await c.close();
   }
+  // 4b. Pengelola: tambah metode bayar Wise, buka gerbang otomatis (desktop + ponsel), hapus dengan konfirmasi
+  {
+    const a = await ctx();
+    await a.p.goto(BASE + '/admin/masuk');
+    await a.p.fill('#email', process.env.OWNER); await a.p.fill('#pw', process.env.OWNER_PASS); await a.p.click('button[type=submit]');
+    await a.p.waitForURL(/\/admin$/);
+    await a.p.goto(BASE + '/admin/rekening/baru?jenis=wise');
+    await a.p.check('input[name=cur_USD]');
+    await a.p.fill('input[name=account]', 'bayar@wise.test');
+    await a.p.click('form[action$="/simpan"] button[type=submit]');
+    await a.p.waitForURL(/\/admin\/rekening\?ok=/);
+    if (!(await a.p.content()).includes('bayar@wise.test')) fail('metode Wise tidak tersimpan');
+    for (const g of ['stripe', 'xendit', 'midtrans']) {
+      await a.p.goto(BASE + `/admin/gerbang/${g}`);
+      if (!(await a.p.locator('input[name=test_secret]').count())) fail(`halaman gerbang ${g} tidak lengkap`);
+    }
+    await a.p.setViewportSize({ width: 360, height: 780 });
+    await a.p.goto(BASE + '/admin/rekening');
+    if (await a.p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) fail('admin metode bayar bergeser ke samping di ponsel');
+    await a.p.screenshot({ path: `${OUT}/admin-metode-bayar-ponsel.png`, fullPage: true });
+    a.p.once('dialog', (d) => d.accept());
+    const row = a.p.locator('tr', { hasText: 'bayar@wise.test' });
+    await row.locator('form[data-confirm] button').click();
+    await a.p.waitForURL(/ok=/);
+    if ((await a.p.content()).includes('bayar@wise.test')) fail('metode tidak terhapus');
+    await a.p.goto(BASE + '/portal');
+    if (!(await a.p.content()).includes('Mode pengelola')) fail('portal pengelola tanpa akses penuh');
+    ok('pengelola: tambah/hapus metode bayar, halaman Stripe/Xendit/Midtrans, portal member akses penuh');
+    await a.c.close();
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();

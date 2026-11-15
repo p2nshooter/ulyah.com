@@ -29,6 +29,9 @@ Folder kode: `luaja/` (Cloudflare Worker `luaja-com`). Aturan tetap pemilik berl
 | 15 Nov 2026 | „Website ini menggunakan 3 bahasa, jika ip mendeteksi berasal dr indonesia, gunakan bhs Indonesia, jika … Jepang gunakan bahasa Jepang defolt nya, di luar itu gunakan bahasa Inggris, dan bisa d rubah manual dengan konsisten, jgn gunakan autotranslate, wajib di translate manual“ | ⏳ PR berikutnya: /en & /ja + hreflang, IP → bahasa awal, pilihan manual tersimpan, terjemahan manual |
 | 15 Nov 2026 | „pastikan pembayaran menggunakan idr, yen dan USD serta PayPal untuk otomatis, buatkan invoice setiap pembayaran, dan untk PayPal buatkan webhook nya, jika sudah melakukan pembayaran langsung otomatis terbuka layananya, lihat rekening dari situs ulyah.com BNI dan panduanya jika TF dr luar negeri selain bisa menggunakan seabank. untuk PayPal admin input manual di portal admin, pastikan bisa live dan sanbox“ | ✅ harga & tagihan IDR/USD/JPY, PayPal Orders v2 + webhook terverifikasi (langganan aktif otomatis), invoice/kuitansi setiap tagihan, BNI multimata uang + panduan SWIFT, Admin → PayPal (live & sandbox, secret disegel MASTER_KEY di R2) |
 | 15 Nov 2026 | Pemilik mengirim kredensial PayPal live & sandbox: „masukan ke R2 dan di encryption … Aktifkan LIVE jika sudah 100% siap“ | 🔄 kredensial tidak pernah ditulis ke repo/log; diisi lewat Admin → PayPal (disegel di R2). LIVE hanya bisa disimpan bila uji koneksi live berhasil |
+| 15 Nov 2026 | „Jika selesai focus pada penyempurnaan dan kelengkapan belajar, baca ulang blueprint nya, agar betul2 kumplit setiap bahasa dan jenjang“ | ⏳ §2, §6, §11: setiap jenjang ketiga bahasa diisi modul, pelajaran dan paket latihan sampai lengkap (dikerjakan bertahap per jenjang setelah pembayaran & tiga bahasa) |
+| 15 Nov 2026 | „Rekening termasuk PayPal wajib bisa di crud dr portal admin, dan masukan pembayaran international lainya tp di hide, hanya jika di input baru live.. Karena suatu saat bisa jadi bisnis ini sy jual“ · „Seperti stripe dll“ · „Xendit, midtrans dll“ | ✅ Admin → **Metode bayar** (tambah/ubah/hapus/urutkan rekening & layanan: bank, SWIFT, Wise, Payoneer, Revolut, Skrill, lainnya), Admin → **PayPal** (+ hapus kredensial), Admin → **Gerbang otomatis**: **Stripe, Xendit, Midtrans** — semuanya tersembunyi sampai data/kunci diisi dan diaktifkan; kunci disegel di R2; tidak ada rekening atau kunci yang wajib ada di kode (§3.1) |
+| 15 Nov 2026 | „Lu baca panduan blueprint klo sudah hampir hilang ingatan untuk nyempurnain pembelajaran member, baik dr buku, voice, audio, KAMus dll, cari sumber dr github atau situs manapun, klo yg lu dpt PDF urai text nya dan jadikan lebih interaktif di portal member, pastikan admin punya link portal member full akses untuk admin sendiri menikmati layanan member... Jgn lupa film2 dr youtube dan situs manapun dll untuk menunjang pembelajaran member“ | ✅ admin: tautan „Portal member (akses penuh)“ di panel & kepala situs, semua materi terbuka untuk pengelola · ⏳ §4, §6.2–§6.4: pustaka interaktif (PDF/teks diurai jadi bacaan interaktif, tanpa unduhan), suara/audio, kamus, film/video (sematan resmi + kosakata) dari sumber berlisensi sah |
 
 Kode AdSense `pub-6701063918838796` (akun ke-22) sudah masuk `adsense-stack.json` pada 14 Nov 2026 (PR #427), sehingga
 luaja.com membawanya sejak deploy pertama bersama 21 akun lainnya.
@@ -83,11 +86,28 @@ lama tanpa mengubah progres).
 - TOEFL dan IELTS **termasuk** paket Bahasa Inggris. Harga 2 bahasa tidak disebut pemilik; dipakai 2 × harga satuan dan bisa
   diubah di Admin → Harga & promo.
 - **Pembayaran:** transfer ke rekening **SeaBank a.n. Yusron Efendi**. Nomor rekening hanya tampil kepada member yang
-  sudah masuk, di halaman tagihannya (tidak di halaman publik), dan bisa diubah di Admin → Rekening.
+  sudah masuk, di halaman tagihannya (tidak di halaman publik), dan bisa diubah di Admin → Metode bayar.
 - **Alur:** daftar → pilih bahasa + kategori harga → tagihan dibuat (nomor `LJ-…`) → transfer → **unggah bukti bayar**
   (dan surat keterangan pelajar / bukti juara bila memakai promo) → admin memeriksa → *disetujui* (masa aktif 365 hari
   dimulai) atau *ditolak dengan alasan* (member bisa mengunggah ulang). Manfaat member **tidak terbuka** sebelum disetujui.
 - Bukti bayar dan dokumen promo disimpan **privat** di R2; hanya member pemilik dan admin yang bisa membukanya.
+
+### 3.1 Metode pembayaran (semua dikelola dari admin — siap berpindah pemilik)
+
+| Jenis | Isi | Kapan tampil kepada member |
+|---|---|---|
+| Transfer manual | Daftar **Metode bayar** di admin: bank domestik, bank internasional (SWIFT), Wise, Payoneer, Revolut, Skrill, lainnya — masing-masing dengan mata uang yang dilayani, nomor/akun, atas nama, data SWIFT, petunjuk sendiri; bisa ditambah, diubah, diurutkan dan dihapus | Aktif **dan** data wajib lengkap **dan** mata uang tagihan cocok. Templat Wise/Payoneer/Revolut/Skrill tersedia tetapi tersembunyi sampai diisi |
+| PayPal (otomatis) | Live & sandbox, secret disegel MASTER_KEY, webhook terverifikasi; kredensial bisa dihapus | Diaktifkan + kredensial mode aktif ada; USD/JPY |
+| Stripe (otomatis) | Checkout Session; webhook `Stripe-Signature` (HMAC, toleransi 5 menit) atau didaftarkan otomatis dari admin | Diaktifkan + kunci mode aktif; mata uang pilihan (IDR/USD/JPY) |
+| Xendit (otomatis) | Invoice API (VA, QRIS, e-wallet, kartu); callback diverifikasi `x-callback-token`, status dibaca ulang dari API | Diaktifkan + kunci; IDR (USD opsional) |
+| Midtrans (otomatis) | Snap (GoPay, QRIS, VA, kartu); notifikasi diverifikasi `signature_key` SHA-512, status dibaca ulang dari API | Diaktifkan + server key; IDR |
+
+- Semua kunci rahasia disegel (AES-GCM, MASTER_KEY) di R2 dan tidak pernah ditampilkan ulang. Mode LIVE hanya tersimpan bila
+  uji koneksi live berhasil; bila gagal, kembali ke mode uji.
+- Pelunasan otomatis hanya bila status lunas **dan** id tagihan, mata uang serta nominal cocok; idempoten (kembali-dari-gerbang
+  dan webhook boleh datang bersamaan). Mata uang tanpa satu pun cara bayar yang tayang tidak ditawarkan di halaman paket.
+- Rekening dan nomor di kode hanya **nilai awal**; begitu disimpan dari admin, dokumen R2 yang berlaku. Dokumen versi pertama
+  (SeaBank + BNI) diubah otomatis ke daftar metode.
 - Promo diperiksa manusia (admin), berlaku satu tahun; perpanjangan tahun berikutnya memerlukan bukti baru.
 
 ---
@@ -176,7 +196,9 @@ pemilik sama dengan ulyah.com / axto.io (hanya *hash* sandi di kode, pola yang s
 | Pembayaran | Antrean bukti bayar + dokumen promo; setujui / tolak dengan alasan | Persetujuan idempoten (dua klik tidak menggandakan masa aktif); tercatat di audit |
 | Member | Cari, lihat langganan, perpanjang/bekukan, setel ulang sandi | Setiap tindakan tercatat |
 | Harga & promo | Harga per kategori, masa aktif, nyalakan/matikan promo | Halaman `/harga` dan tagihan baru langsung ikut |
-| Rekening | Bank, nomor, atas nama, catatan transfer | Hanya tampil kepada member yang punya tagihan |
+| Metode bayar | Tambah/ubah/hapus/urutkan rekening & layanan internasional; catatan transfer; WhatsApp | Hanya tampil kepada member yang punya tagihan; yang belum lengkap tersembunyi |
+| PayPal · Gerbang otomatis | PayPal, Stripe, Xendit, Midtrans: kunci live & uji, mata uang, uji koneksi, webhook, hapus kunci | Tersembunyi sampai dikonfigurasi; LIVE hanya setelah uji koneksi berhasil |
+| Portal member (akses penuh) | Tautan dari panel & kepala situs | Pengelola menikmati seluruh layanan member tanpa tagihan |
 | Konten situs | Semua teks beranda, FAQ, halaman wajib, menu, SEO per halaman | **Seluruh konten dinamis dari admin**; perubahan langsung tayang |
 | Kurikulum | Modul dan pelajaran (JSON berskema), terbit/tarik | Validasi skema sebelum simpan |
 | Pustaka | Sumber, impor, rak, terbit/tarik per buku, lisensi | Buku tanpa lisensi sah tidak bisa diterbitkan |
