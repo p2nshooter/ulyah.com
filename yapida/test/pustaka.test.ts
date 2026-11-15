@@ -9,7 +9,7 @@ import { Store } from '../src/lib/store.ts';
 import type { Env } from '../src/env.ts';
 import { AKTIVITAS, RAK, RAK_ID, denganSuasana, suasanaBab, uraiNaskah, type Bab, type BukuMeta } from '../src/data/buku.ts';
 import { catatBaca, lupakanPeringkat, peringkat, rekapkan, sepuluh, setelSuka, sudahSuka } from '../src/data/statistik.ts';
-import { JENIUS_AKTIF } from '../src/data/luar.ts';
+import { jeniusAktif } from '../src/data/luar.ts';
 import { barisInsert } from '../scripts/sql-seed.ts';
 
 const PUB = new URL('../public/', import.meta.url).pathname;
@@ -73,7 +73,8 @@ test('seed SQL ulyah.com: VALUES bertingkat, kutip ganda, sambungan ||, NULL, da
 });
 
 test('katalog bawaan: tanpa PDF/unduhan, rak buku anak per bahasa, jenius dimatikan', () => {
-  assert.equal(JENIUS_AKTIF, false);
+  assert.equal(jeniusAktif(env()), false);
+  assert.equal(jeniusAktif({ JENIUS_AKTIF: '1' }), true);
   assert.ok(katalog.buku.length >= 150, `jumlah buku ${katalog.buku.length}`);
   assert.ok(!RAK.some((r) => r.id === 'sma'));
   for (const id of ['ra', 'cerita', 'anak-en', 'anak-ar', 'mi', 'mts', 'kitab', 'kisah', 'hadits']) assert.ok(RAK_ID[id], id);
@@ -172,4 +173,65 @@ test('gambar Book Dash: hanya id bd- dan berkas gambar; selebihnya 404 tanpa men
   assert.equal(r.status, 200);
   assert.equal(r.headers.get('content-type'), 'image/jpeg');
   assert.equal(r.headers.get('x-content-type-options'), 'nosniff');
+});
+
+test('semua buku anak interaktif: adegan + „Ayo Bermain!“ (kuis isian, urutkan, kartu) dari isi bab, tetap dan sopan', async () => {
+  const { hidupkanBab } = await import('../src/data/aktif.ts');
+  const { blokHtml } = await import('../src/pages/pustaka.ts');
+  const meta = { id: 'k-uji-anak', suara: 'anak' as const, bahasa: 'id', rak: ['cerita'] };
+  const bab: Bab = { n: 1, judul: 'Zahra Bersepeda', blok: [
+    { t: 'p', x: 'Sore itu Zahra sudah tidak sabar ingin bersepeda di halaman rumah. Ia menunggu giliran dengan hati yang sabar dan gembira.' },
+    { t: 'p', x: 'Zahra membantu ibunya menyiram bunga di taman sambil menunggu sepeda. Kakaknya pulang membawa sepeda baru berwarna merah.' },
+    { t: 'p', x: 'Zahra pun bersepeda dengan riang mengelilingi halaman rumah. Allah menyayangi anak yang sabar dan suka menolong ibunya.' },
+    { t: 'ar', x: 'بِسْمِ اللّٰهِ' }, { t: 'tr', x: 'Dengan nama Allah.' },
+  ] };
+  const h = hidupkanBab(bab, meta);
+  assert.equal(h.blok[0]!.t, 'adegan', 'adegan di awal bab');
+  assert.ok(['rumah', 'kebun', 'langit', 'gunung'].includes(h.blok[0]!.x.split('|')[0]!.trim()));
+  assert.ok(h.blok.some((b) => b.t === 'h' && b.x.includes('Ayo Bermain')));
+  const kuis = h.blok.filter((b) => b.t === 'kuis');
+  assert.ok(kuis.length >= 1);
+  for (const k of kuis) {
+    const [tanya, ...pil] = k.x.split('|').map((s) => s.trim());
+    const benar = pil.filter((p) => p.startsWith('*'));
+    assert.equal(benar.length, 1, 'tepat satu jawaban benar');
+    assert.equal(pil.length, 3);
+    const jawab = benar[0]!.slice(1);
+    assert.ok(tanya!.includes('……'));
+    assert.ok(bab.blok.some((b) => b.x.includes(tanya!.replace('……', jawab))), 'kalimat asli utuh setelah diisi');
+    for (const p of pil) assert.ok(!/^\*?(allah|nabi|rasul)/i.test(p), 'sebutan mulia tidak jadi pilihan');
+  }
+  const urut = h.blok.find((b) => b.t === 'urut');
+  assert.ok(urut, 'urutkan cerita');
+  const butir = urut!.x.split('|')[1]!.split(';;').map((s) => s.trim());
+  assert.equal(butir.length, 4);
+  const teks = bab.blok.map((b) => b.x).join(' ');
+  for (let i = 1; i < butir.length; i += 1) assert.ok(teks.indexOf(butir[i - 1]!) < teks.indexOf(butir[i]!), 'urutan sesuai cerita');
+  assert.ok(h.blok.some((b) => b.t === 'kartu' && b.x === 'بِسْمِ اللّٰهِ | Dengan nama Allah.'), 'kartu Arab ↔ arti');
+  assert.deepEqual(hidupkanBab(bab, meta), h, 'hasil tetap untuk buku dan bab yang sama');
+  // Buku dewasa tidak diubah; bab yang sudah punya permainan tidak ditambah permainan otomatis.
+  assert.equal(hidupkanBab(bab, { ...meta, suara: 'dewasa' as const }), bab);
+  const punya: Bab = { ...bab, blok: [...bab.blok, { t: 'kuis', x: 'Tanya? | *ya | tidak' }] };
+  assert.equal(hidupkanBab(punya, meta).blok.filter((b) => b.t === 'kuis').length, 1);
+  // Naskah portal bisa menulis ::urut; HTML-nya membawa butir sebagai data (di-escape).
+  const naskah = uraiNaskah('## Bab\n\n::urut Urutkan! | Bangun tidur ;; Wudhu ;; Sholat <b>Subuh</b>');
+  assert.equal(naskah.bab[0]!.blok[0]!.t, 'urut');
+  const html = blokHtml(naskah.bab[0]!.blok[0]!);
+  assert.ok(html.includes('data-akt="urut"') && html.includes('&lt;b&gt;') && !html.includes('<b>Subuh'));
+});
+
+test('semua bab buku anak bawaan mendapat adegan, dan hampir semua mendapat permainan', async () => {
+  const { hidupkanBab } = await import('../src/data/aktif.ts');
+  let bab = 0, adegan = 0, main = 0;
+  for (const m of katalog.buku.filter((b) => b.suara === 'anak' || b.suara === 'balita')) {
+    for (const r of m.bab) {
+      const h = hidupkanBab(JSON.parse(fs.readFileSync(`${PUB}assets/pustaka/b/${m.id}/${r.n}.json`, 'utf8')) as Bab, m);
+      bab += 1;
+      if (h.blok.some((b) => b.t === 'adegan')) adegan += 1;
+      if (h.blok.some((b) => b.t === 'kuis' || b.t === 'urut' || b.t === 'kartu' || b.t === 'cocok')) main += 1;
+    }
+  }
+  assert.ok(bab > 300, `bab anak ${bab}`);
+  assert.equal(adegan, bab, 'setiap bab anak punya adegan');
+  assert.ok(main / bab >= 0.9, `bab dengan permainan ${main}/${bab}`);
 });

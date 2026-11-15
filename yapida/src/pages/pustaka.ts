@@ -1,6 +1,7 @@
 /** Halaman perpustakaan digital: beranda pustaka, rak, rak lembaga, katalog dunia, detail buku, dan pembaca bersuara. */
 import { esc, html, jsonScript, raw, type Raw } from '../lib/html.ts';
-import { denganSuasana, PALET, RAK, RAK_ID, type Bab, type Blok, type BukuMeta, type Rak } from '../data/buku.ts';
+import { PALET, RAK, RAK_ID, type Bab, type Blok, type BukuMeta, type Rak } from '../data/buku.ts';
+import { hidupkanBab } from '../data/aktif.ts';
 import type { KartuBuku } from '../data/pustaka.ts';
 import type { UnitItem } from '../data/site.ts';
 import type { Suara } from '../data/model.ts';
@@ -288,6 +289,11 @@ export function blokHtml(b: Blok): string {
       const pasang = b.x.split(';').map((p) => p.split('=').map((s) => s.trim())).filter((p) => p.length === 2 && p[0] && p[1]);
       return `<div class="akt akt-cocok" data-akt="cocok" data-pasang="${attr(JSON.stringify(pasang))}"><p class="akt-label">🧩 Pasangkan!</p><p class="akt-tanya">Ketuk satu kotak di kiri, lalu pasangannya di kanan.</p><div class="cocok-papan" data-akt-isi></div></div>`;
     }
+    case 'urut': {
+      const [tanya, isi] = b.x.split('|').map((s) => s.trim());
+      const butir = (isi ?? '').split(';;').map((s) => s.trim()).filter(Boolean);
+      return `<div class="akt akt-urut" data-akt="urut" data-urut="${attr(JSON.stringify(butir))}"><p class="akt-label">🔢 Urutkan!</p><p class="akt-tanya" data-b>${sebaris(tanya ?? '')}</p><ol class="urut-hasil" data-urut-hasil></ol><div class="urut-pilihan" data-akt-isi></div></div>`;
+    }
     case 'h': return `<h3 class="b-h" data-b>${sebaris(b.x)}</h3>`;
     case 'ar': return `<p class="b-ar" lang="ar" dir="rtl" data-b>${sebaris(b.x, false)}</p>`;
     case 'tr': return `<p class="b-tr" data-b data-tr>${sebaris(b.x)}</p>`;
@@ -301,7 +307,7 @@ export function blokHtml(b: Blok): string {
 }
 
 export function pembacaPage(m: BukuMeta, babAsli: Bab, x: PCtx): Raw {
-  const bab = denganSuasana(babAsli, m.suara);
+  const bab = hidupkanBab(babAsli, m);
   const sebelum = m.bab.find((b) => b.n === bab.n - 1);
   const sesudah = m.bab.find((b) => b.n === bab.n + 1);
   const adaTr = bab.blok.some((b) => b.t === 'tr' || b.t === 'lt');

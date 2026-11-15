@@ -82,6 +82,9 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     padi bikin kartunya, animasinya yg interaktif dan seterusnya“ — §5f: tanpa PDF, tanpa unduhan; adegan interaktif.
 15. „Yg di pdf anda copy semua text nya dan anda custom sesuai permintaan sy“ — buku sekolah BSE: teksnya disalin dari PDF
     (hanya buku yang halaman hak ciptanya mengizinkan dialihmediakan), disusun ulang menjadi buku interaktif; §5f.
+16. „Semua buku anak bikin lebih interaktif bukan hanya padi“ · „Jelasinya make bhs indo aja biar sy tau progresnya sampe
+    dmn“ (15 Nov 2026) — §5f: setiap bab buku anak otomatis mendapat adegan dan „Ayo Bermain!“; laporan ke pemilik dalam
+    Bahasa Indonesia.
 
 ## 1. Aturan yang berlaku
 
@@ -207,6 +210,15 @@ Alur isi: draf → tinjau → tayang → arsip. Akun dibuat admin di atasnya den
   huruf hijaiyah. Benda bisa diseret, diketuk dua kali atau digulir untuk diputar, dan **↺ Kembalikan** mengembalikan
   semuanya ke tempat asal. Bab buku anak, cerita, dan kisah yang belum punya adegan otomatis diberi adegan sesuai tema
   katanya (sawah → padi, kapal → laut, subuh → waktu sholat, …).
+- **Semua buku anak interaktif (perintah 16)** — `yapida/src/data/aktif.ts`: setiap bab buku anak (RA, cerita, kisah,
+  buku anak berbahasa Inggris/Arab, TPQ) yang belum punya permainan tertulis otomatis diberi adegan di awal (sesuai tema,
+  atau adegan cadangan gurun/gunung/rumah/kebun/langit) dan „🎮 Ayo Bermain!“ di akhir, dari isi bab itu sendiri:
+  **kuis isian** (satu kata penting dihilangkan, pengecohnya kata lain dari bab yang sama), **Urutkan Cerita** (empat
+  kejadian diacak, anak menyusunnya kembali), dan **kartu balik** Arab ↔ arti. Hasilnya tetap per bab. Nama Allah, nabi,
+  dan sebutan mulia tidak pernah jadi jawaban/pengecoh; terjemah ayat dan kalimat berkutip tidak dijadikan permainan.
+  Cakupan: 487 bab buku anak — semua ber-adegan, ±94% dengan permainan (±870 kuis, ±170 urutkan, ±125 kartu).
+- **Adegan** kini 12: padi, hujan, langit, masjid, kebun, buah, laut, gurun (petik kurma, timba sumur), gunung (bendera
+  ke puncak, gua bercahaya), rumah (pintu bersalam, jendela, siang/malam), waktu sholat, huruf.
 - **Buku BSE dari PDF → buku interaktif (perintah 15, berikutnya)**: alur GitHub Actions bertahap — ambil PDF dari indeks
   BSE, periksa halaman hak cipta (hanya yang mengizinkan dialihmediakan), salin teksnya, pecah per bab, simpan di R2
   dengan indeks katalog; Worker menyajikannya sebagai buku interaktif di rak MI/MTs per kelas dan mapel. PDF-nya tidak

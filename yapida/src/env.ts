@@ -23,6 +23,8 @@ export interface Env {
   YT_BASE?: string;
   /** Service binding ke Worker jenius.es (katalog buku bersuara mitra). */
   JENIUS?: Fetcher;
+  /** "1" menyalakan lagi jenius.es sebagai sumber perpustakaan (bawaan mati: ditandai bermasalah oleh pemilik). */
+  JENIUS_AKTIF?: string;
   /** Hanya uji lokal: pengganti alamat Gutendex dan Gutenberg. */
   GUTENDEX_BASE?: string;
   GUTENBERG_BASE?: string;

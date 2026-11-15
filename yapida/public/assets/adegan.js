@@ -2,7 +2,7 @@
    yg d baca … bisa di mainkan atau di tarik di putar2 tp bisa kembali ke asalnya jika di klik tombol tertentu“).
    Setiap adegan adalah SVG yang dirakit di sini (tanpa berkas gambar, tanpa makhluk bernyawa): benda bisa diseret, diketuk
    dua kali untuk diputar, dan tombol „↺ Kembalikan“ mengembalikan semuanya ke tempat asal dengan animasi.
-   Adegan: padi, hujan, langit, masjid, kebun, buah, laut, sholat, huruf. */
+   Adegan: padi, hujan, langit, masjid, kebun, buah, laut, gurun, gunung, rumah, sholat, huruf. */
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
@@ -71,7 +71,7 @@
       geser(svg, matahari(svg, 345, 42));
       geser(svg, awan(svg, 60, 38)); geser(svg, awan(svg, 180, 28, 0.8));
       s('path', { d: 'M0 150 Q100 135 200 150 T400 148 V240 H0Z', fill: '#7cc576' }, svg);
-      var sawah = s('rect', { x: 20, y: 160, width: 300, height: 70, rx: 10, fill: '#8d6e4a', class: 'ad-sasaran' }, svg);
+      s('rect', { x: 20, y: 160, width: 300, height: 70, rx: 10, fill: '#8d6e4a', class: 'ad-sasaran' }, svg);
       s('rect', { x: 20, y: 160, width: 300, height: 14, rx: 6, fill: '#6fb3d9', opacity: 0.55 }, svg);
       var tanaman = s('g', {}, svg), tahap = 0;
       var label = teks(svg, 170, 152, TAHAP[0], { class: 'ad-label' });
@@ -180,12 +180,61 @@
       for (var i = 0; i < 3; i += 1) s('path', { d: 'M0 ' + (185 + i * 16) + ' Q50 ' + (175 + i * 16) + ' 100 ' + (185 + i * 16) + ' T200 ' + (185 + i * 16) + ' T300 ' + (185 + i * 16) + ' T400 ' + (185 + i * 16) + ' V240 H0Z', fill: ['#4aa3df', '#2f86c5', '#1f6fa8'][i], opacity: 0.9, class: 'ad-ombak', style: 'animation-delay:' + i * 0.4 + 's' }, svg);
       ui.status('Seret perahu dan awan, ketuk dua kali untuk memutar');
     },
+    gurun: function (svg, ui) {
+      langit(svg, '#ffd9a0', '#fff4dc'); geser(svg, matahari(svg, 330, 45));
+      s('path', { d: 'M0 175 Q80 140 170 170 T330 160 T400 168 V240 H0Z', fill: '#e9b872' }, svg);
+      s('path', { d: 'M0 200 Q110 178 220 198 T400 192 V240 H0Z', fill: '#d9a35b' }, svg);
+      var tenda = s('g', {}, svg); s('path', { d: 'M250 196 L290 140 L330 196Z', fill: '#f8f3e6', stroke: '#8d5a2b', 'stroke-width': 3 }, tenda); s('path', { d: 'M282 196 L290 160 L298 196Z', fill: '#8d5a2b' }, tenda); geser(svg, tenda);
+      s('rect', { x: 66, y: 110, width: 12, height: 90, fill: '#8d6e4a' }, svg);
+      [[-40, -14], [40, -14], [-34, 8], [34, 8], [0, -30]].forEach(function (d) { s('path', { d: 'M72 108 q' + d[0] / 2 + ' ' + (d[1] - 20) + ' ' + d[0] + ' ' + d[1], stroke: '#2f7d32', 'stroke-width': 9, fill: 'none', 'stroke-linecap': 'round' }, svg); });
+      var sumur = s('g', {}, svg); s('rect', { x: 160, y: 178, width: 44, height: 26, rx: 4, fill: '#a1887f', stroke: '#6d4c41', 'stroke-width': 3 }, sumur); s('path', { d: 'M164 178 v-28 M200 178 v-28 M160 150 h44', stroke: '#6d4c41', 'stroke-width': 3, fill: 'none' }, sumur);
+      var timba = s('rect', { x: 176, y: 154, width: 12, height: 10, fill: '#8d6e4a' }, sumur); teks(sumur, 182, 218, 'sumur', { class: 'ad-mini' });
+      var keranjang = s('g', {}, svg); s('path', { d: 'M110 205 h60 l-8 24 h-44z', fill: '#c48a46', stroke: '#8d5a2b', 'stroke-width': 3 }, keranjang);
+      var hitung = 0, lab = teks(svg, 140, 236, '0', { class: 'ad-angka' });
+      [[58, 116], [86, 116], [66, 124], [80, 126], [72, 112]].forEach(function (p) {
+        var k = s('ellipse', { cx: p[0], cy: p[1], rx: 4, ry: 6, fill: '#7b3f00' }, svg);
+        geser(svg, k, { saatLepas: function (el, t) { var di = t.x > 105 && t.x < 175 && t.y > 195 && t.y < 235; if (di && !el.__masuk) { el.__masuk = true; hitung += 1; bunyi(600 + hitung * 60); ucap(ANGKA_ID[hitung] + ' kurma'); } else if (!di && el.__masuk) { el.__masuk = false; hitung -= 1; } lab.textContent = String(hitung); } });
+      });
+      sumur.addEventListener('click', function () { timba.setAttribute('fill', '#4aa3df'); bunyi(520); ucap('Air dari sumur, alhamdulillah'); ui.status('Air ditimba dari sumur — air adalah nikmat Allah di padang pasir'); });
+      ui.status('Petik kurma ke keranjang, ketuk sumur, seret tendanya');
+      ui.reset(function () { hitung = 0; lab.textContent = '0'; timba.setAttribute('fill', '#8d6e4a'); svg.querySelectorAll('.ad-seret').forEach(function (e) { e.__masuk = false; }); ui.status('Petik kurma ke keranjang, ketuk sumur, seret tendanya'); });
+    },
+    gunung: function (svg, ui) {
+      langit(svg, '#b8e1ff', '#eef8ff'); geser(svg, matahari(svg, 60, 45)); geser(svg, awan(svg, 230, 50)); geser(svg, awan(svg, 300, 90, 0.7));
+      s('path', { d: 'M40 220 L170 60 L300 220Z', fill: '#7d8a6a' }, svg);
+      s('path', { d: 'M150 85 L170 60 L190 85 L178 80 L170 90 L162 80Z', fill: '#ffffff' }, svg);
+      s('path', { d: 'M220 220 L320 100 L400 200 V220Z', fill: '#6b7a58' }, svg);
+      var gua = s('path', { d: 'M148 190 q22 -36 44 0z', fill: '#2b2b2b', class: 'ad-kubah' }, svg);
+      s('rect', { x: 0, y: 215, width: 400, height: 25, fill: '#5b8c3a' }, svg);
+      var bendera = s('g', {}, svg); s('line', { x1: 360, y1: 230, x2: 360, y2: 196, stroke: '#5d4037', 'stroke-width': 3 }, bendera); s('path', { d: 'M360 196 l22 7 l-22 7z', fill: '#2f9e44' }, bendera);
+      geser(svg, bendera, { saatLepas: function (el, t) { if (Math.hypot(t.x - 170, t.y - 75) < 34) { bunyi(990); ucap('Sampai di puncak! Allahu akbar'); ui.status('Sampai di puncak gunung — Allah Maha Besar!'); } } });
+      gua.addEventListener('click', function () { gua.classList.toggle('ad-bercahaya'); gua.setAttribute('fill', gua.classList.contains('ad-bercahaya') ? '#fbbf24' : '#2b2b2b'); bunyi(700); ucap('Gua di gunung'); });
+      ui.status('Seret bendera ke puncak gunung, ketuk guanya');
+      ui.reset(function () { gua.classList.remove('ad-bercahaya'); gua.setAttribute('fill', '#2b2b2b'); ui.status('Seret bendera ke puncak gunung, ketuk guanya'); });
+    },
+    rumah: function (svg, ui) {
+      var bg = s('rect', { x: 0, y: 0, width: 400, height: 240, fill: '#bfe7ff' }, svg);
+      geser(svg, matahari(svg, 340, 42)); geser(svg, awan(svg, 50, 40, 0.9));
+      s('path', { d: 'M0 205 Q120 195 220 205 T400 200 V240 H0Z', fill: '#76b852' }, svg);
+      s('rect', { x: 110, y: 110, width: 180, height: 100, fill: '#fff3d6', stroke: '#8d5a2b', 'stroke-width': 3 }, svg);
+      s('path', { d: 'M96 112 L200 50 L304 112Z', fill: '#c0392b', stroke: '#7b241c', 'stroke-width': 3 }, svg);
+      var pintu = s('rect', { x: 182, y: 150, width: 36, height: 60, rx: 4, fill: '#8d5a2b', style: 'transform-box:fill-box;transform-origin:left center;transition:transform .5s' }, svg);
+      var jendela = [130, 238].map(function (x) { var j = s('rect', { x: x, y: 128, width: 34, height: 30, rx: 3, fill: '#9ad0ec', stroke: '#8d5a2b', 'stroke-width': 3 }, svg); j.addEventListener('click', function () { var nyala = j.getAttribute('fill') !== '#fde68a'; j.setAttribute('fill', nyala ? '#fde68a' : '#9ad0ec'); bunyi(nyala ? 880 : 440); }); return j; });
+      var terbuka = false;
+      pintu.addEventListener('click', function () { terbuka = !terbuka; pintu.style.transform = terbuka ? 'scaleX(.25)' : ''; bunyi(660); if (terbuka) { ucap('Assalamu alaikum'); ui.status('Masuk rumah mengucap salam: Assalamu‘alaikum'); } });
+      var malam = false;
+      ui.tombol('🌙 Siang / Malam', function () { malam = !malam; bg.setAttribute('fill', malam ? '#0b1d3a' : '#bfe7ff'); jendela.forEach(function (j) { j.setAttribute('fill', malam ? '#fde68a' : '#9ad0ec'); }); ucap(malam ? 'Malam hari, waktunya istirahat' : 'Pagi hari, bismillah'); });
+      ui.status('Ketuk pintu dan jendela, lalu tekan Siang / Malam');
+      ui.reset(function () { malam = false; terbuka = false; bg.setAttribute('fill', '#bfe7ff'); pintu.style.transform = ''; jendela.forEach(function (j) { j.setAttribute('fill', '#9ad0ec'); }); ui.status('Ketuk pintu dan jendela, lalu tekan Siang / Malam'); });
+    },
     sholat: function (svg, ui) {
       var bg = s('rect', { x: 0, y: 0, width: 400, height: 240, fill: '#87ceeb' }, svg);
       s('path', { d: 'M30 200 Q200 -40 370 200', fill: 'none', stroke: 'rgba(255,255,255,.6)', 'stroke-width': 2, 'stroke-dasharray': '6 6' }, svg);
       var WAKTU = [['Subuh', 30, 200, '#24345a'], ['Dzuhur', 200, 80, '#87ceeb'], ['Ashar', 300, 120, '#9ecbe8'], ['Maghrib', 370, 200, '#f4a261'], ['Isya', 370, 230, '#0b1d3a']];
       WAKTU.forEach(function (w) { s('circle', { cx: w[1], cy: Math.min(w[2], 205), r: 4, fill: '#fff' }, svg); teks(svg, w[1], Math.min(w[2], 205) - 10, w[0], { class: 'ad-mini ad-terang' }); });
       s('path', { d: 'M0 205 Q100 195 200 205 T400 200 V240 H0Z', fill: '#2f6b3f' }, svg);
+      geser(svg, awan(svg, 70, 60, 0.7)); geser(svg, awan(svg, 250, 40, 0.6));
+      var sajadah = s('g', {}, svg); s('rect', { x: 300, y: 208, width: 56, height: 26, rx: 4, fill: '#9b2226', stroke: '#c9a227', 'stroke-width': 2 }, sajadah); s('path', { d: 'M310 228 v-10 q18 -12 36 0 v10', fill: 'none', stroke: '#c9a227', 'stroke-width': 2 }, sajadah); geser(svg, sajadah);
       var mth = matahari(svg, 0, 0), lab = teks(svg, 200, 228, '', { class: 'ad-label ad-terang' });
       function ke(i) { var w = WAKTU[i]; mth.style.transition = 'transform .8s cubic-bezier(.2,.8,.2,1)'; mth.style.transform = 'translate(' + w[1] + 'px,' + Math.min(w[2], 205) + 'px)'; mth.style.opacity = i === 4 ? 0 : 1; bg.setAttribute('fill', w[3]); lab.textContent = 'Waktu ' + w[0]; ucap('Waktu ' + w[0]); }
       var setel = ui.slider('Waktu', 0, 4, 1, ke, function (v) { return WAKTU[v][0]; });

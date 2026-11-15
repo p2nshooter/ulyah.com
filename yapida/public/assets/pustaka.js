@@ -15,7 +15,10 @@
   var halusPointer = window.matchMedia && matchMedia('(pointer: fine)').matches;
   var AR = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
   var el = function (tag, kelas, teks) { var x = d.createElement(tag); if (kelas) x.className = kelas; if (teks !== undefined) x.textContent = teks; return x; };
-  var tautBuku = function (id) { return '/pustaka/b/' + encodeURIComponent(id); };
+  // Alamat buku hanya dirakit dari id yang lolos pola ketat (id datang dari halaman/penyimpanan, bukan tepercaya).
+  var ID_BUKU = /^[a-z]-[A-Za-z0-9_-]{1,80}$/;
+  var tautBuku = function (id) { var s = String(id || ''); return ID_BUKU.test(s) ? '/pustaka/b/' + s : '/pustaka'; };
+  var tautBab = function (id, n) { var s = String(id || ''), k = Math.floor(Number(n)); return ID_BUKU.test(s) && k > 0 && k < 5000 ? '/pustaka/b/' + s + '/' + k : '/pustaka'; };
 
   /* ── bunyi kecil (dibangkitkan, tanpa berkas) ── */
   var ac = null;
@@ -97,7 +100,7 @@
       var wadah = $('[data-lanjut-daftar]', lanjut);
       daftar.forEach(function (id) {
         var p = progres[id], n = Math.max(1, Math.floor(Number(p.n) || 1));
-        var a = el('a', 'lanjut-butir'); a.href = tautBuku(id) + '/' + n;
+        var a = el('a', 'lanjut-butir'); a.href = tautBab(id, n);
         a.appendChild(el('span', 'lanjut-ikon', '📖'));
         var teks = el('span'); teks.appendChild(el('b', '', String(p.judul).slice(0, 80))); teks.appendChild(el('small', '', 'Bab ' + n + (p.total ? ' dari ' + p.total : '')));
         var pr = el('progress'); pr.max = 1; pr.value = Math.min(1, Number(p.k) || 0); teks.appendChild(pr);
@@ -108,7 +111,7 @@
   }
   $$('[data-mulai-baca]').forEach(function (a) {
     var id = a.getAttribute('data-mulai-baca'), p = progres[id];
-    if (p && p.n > 1 && /\/1$/.test(a.getAttribute('href'))) { a.href = tautBuku(id) + '/' + Math.floor(Number(p.n)); var s = $('span', a); if (s) s.textContent = 'Lanjutkan bab ' + Math.floor(Number(p.n)); }
+    if (p && p.n > 1 && /\/1$/.test(a.getAttribute('href'))) { a.href = tautBab(id, p.n); var s = $('span', a); if (s) s.textContent = 'Lanjutkan bab ' + Math.floor(Number(p.n)); }
   });
 
   /* ── aktivitas ala Wordwall ── */
@@ -136,6 +139,37 @@
         });
         isi.appendChild(b);
       });
+    });
+    $$('[data-akt="urut"]', akar).forEach(function (k) {
+      if (k.__hidup) return; k.__hidup = true;
+      var butir = []; try { butir = JSON.parse(k.getAttribute('data-urut') || '[]'); } catch (e) { butir = []; }
+      var isi = $('[data-akt-isi]', k), hasil = $('[data-urut-hasil]', k);
+      if (!isi || !hasil || butir.length < 2) return;
+      var ulang = el('button', 'urut-ulang', '↺ Ulangi'); ulang.type = 'button'; ulang.hidden = true; k.appendChild(ulang);
+      var berikut = 0;
+      function susun() {
+        berikut = 0; isi.textContent = ''; hasil.textContent = ''; k.classList.remove('selesai'); ulang.hidden = true;
+        var urutan = butir.map(function (t, i) { return i; });
+        do { acak(urutan); } while (urutan.every(function (v, i) { return v === i; }));
+        urutan.forEach(function (i) {
+          var b = el('button', 'urut-kotak'); b.type = 'button'; teksBahasa(b, butir[i]); b.setAttribute('data-i', String(i));
+          b.addEventListener('click', function (e) {
+            if (b.disabled) return;
+            ucap(butir[i], bahasaBuku);
+            if (i === berikut) {
+              berikut += 1; b.disabled = true; b.classList.add('benar'); bunyi('benar'); percik(e.clientX, e.clientY, 8);
+              var li = el('li', 'urut-butir'); teksBahasa(li, butir[i]); hasil.appendChild(li);
+              setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, tenang ? 0 : 260);
+              if (berikut === butir.length) { k.classList.add('selesai'); bunyi('menang'); ulang.hidden = false; var r = k.getBoundingClientRect(); percik(r.left + r.width / 2, r.top + r.height / 2, 26); k.dispatchEvent(new CustomEvent('yp:skor', { bubbles: true, detail: { benar: true } })); }
+            } else {
+              b.classList.add('goyang'); bunyi('salah'); setTimeout(function () { b.classList.remove('goyang'); }, 450);
+            }
+          });
+          isi.appendChild(b);
+        });
+      }
+      ulang.addEventListener('click', susun);
+      susun();
     });
     $$('[data-akt="kartu"]', akar).forEach(function (k) {
       if (k.__hidup) return; k.__hidup = true;
@@ -283,6 +317,13 @@
       var dp = el('span', 'kartu-muka depan'); sebaris(dp, kb[0] || '', true); var bl = el('span', 'kartu-muka belakang'); sebaris(bl, kb[1] || '', true);
       x.appendChild(dp); x.appendChild(bl); x.appendChild(el('span', 'kartu-ketuk', 'ketuk untuk membalik ↻')); return x;
     }
+    if (b.t === 'urut') {
+      var ub = b.x.split('|'), uisi = (ub[1] || '').split(';;').map(function (s) { return s.trim(); }).filter(Boolean);
+      x = el('div', 'akt akt-urut'); x.setAttribute('data-akt', 'urut'); x.setAttribute('data-urut', JSON.stringify(uisi));
+      x.appendChild(el('p', 'akt-label', '🔢 Urutkan!')); var ut = el('p', 'akt-tanya'); ut.setAttribute('data-b', ''); sebaris(ut, (ub[0] || '').trim(), true); x.appendChild(ut);
+      var uh = el('ol', 'urut-hasil'); uh.setAttribute('data-urut-hasil', ''); x.appendChild(uh);
+      var up = el('div', 'urut-pilihan'); up.setAttribute('data-akt-isi', ''); x.appendChild(up); return x;
+    }
     if (b.t === 'cocok') {
       var ps = b.x.split(';').map(function (p) { return p.split('=').map(function (s) { return s.trim(); }); }).filter(function (p) { return p.length === 2 && p[0] && p[1]; });
       x = el('div', 'akt akt-cocok'); x.setAttribute('data-akt', 'cocok'); x.setAttribute('data-pasang', JSON.stringify(ps));
@@ -307,14 +348,14 @@
     hidupkanAktivitas(isi);
     babKini = bab.n;
     var sel = $('[data-baca-bab]', baca); if (sel) sel.value = String(bab.n);
-    history.replaceState(null, '', tautBuku(data.id) + '/' + bab.n);
+    history.replaceState(null, '', tautBab(data.id, bab.n));
     d.title = bab.judul + ' — ' + data.judul + ' | Pustaka Yapida';
     var nav = $('.baca-babnav', baca);
     if (nav) {
       nav.textContent = '';
       var sb = data.bab[bab.n - 2], ss = data.bab[bab.n];
-      var a1 = sb ? el('a', '', '‹ ' + sb.j.slice(0, 50)) : el('span'); if (sb) a1.href = tautBuku(data.id) + '/' + sb.n;
-      var a2 = el('a', '', ss ? ss.j.slice(0, 50) + ' ›' : 'Selesai — kembali ke buku ›'); a2.href = ss ? tautBuku(data.id) + '/' + ss.n : tautBuku(data.id);
+      var a1 = sb ? el('a', '', '‹ ' + sb.j.slice(0, 50)) : el('span'); if (sb) a1.href = tautBab(data.id, sb.n);
+      var a2 = el('a', '', ss ? ss.j.slice(0, 50) + ' ›' : 'Selesai — kembali ke buku ›'); a2.href = ss ? tautBab(data.id, ss.n) : tautBuku(data.id);
       nav.appendChild(a1); nav.appendChild(a2);
     }
   }
@@ -330,7 +371,7 @@
       window.scrollTo({ top: baca.offsetTop - 10, behavior: 'auto' });
       if (n < data.bab.length) ambilBab(n + 1).catch(function () {});
       if (lanjutBaca) dengar(0);
-    }).catch(function () { location.href = tautBuku(data.id) + '/' + n; });
+    }).catch(function () { location.href = tautBab(data.id, n); });
   }
 
   /* ── pengaturan ── */

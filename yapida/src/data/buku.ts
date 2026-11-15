@@ -13,9 +13,9 @@ import type { Suara } from './model.ts';
  *  aktivitas ala Wordwall: kuis „Tanya? | *benar | salah | salah“, kartu „depan | belakang“ (dibalik),
  *  cocok „kiri = kanan ; kiri = kanan“ (pasangkan) · adegan „nama | keterangan“: gambar animasi bertema yang bisa
  *  diseret dan diputar lalu dikembalikan (public/assets/adegan.js). */
-export type JenisBlok = 'h' | 'p' | 'ar' | 'tr' | 'en' | 'lt' | 'cat' | 'q' | 'li' | 'img' | 'kuis' | 'kartu' | 'cocok' | 'adegan';
+export type JenisBlok = 'h' | 'p' | 'ar' | 'tr' | 'en' | 'lt' | 'cat' | 'q' | 'li' | 'img' | 'kuis' | 'kartu' | 'cocok' | 'urut' | 'adegan';
 export interface Blok { t: JenisBlok; x: string; a?: string }
-export const AKTIVITAS: JenisBlok[] = ['kuis', 'kartu', 'cocok', 'adegan'];
+export const AKTIVITAS: JenisBlok[] = ['kuis', 'kartu', 'cocok', 'urut', 'adegan'];
 export interface Bab { n: number; judul: string; judulAr?: string; blok: Blok[] }
 export interface BabRingkas { n: number; judul: string; kata: number }
 
@@ -174,7 +174,7 @@ export function uraiNaskah(src: string, judulAwal = 'Pendahuluan'): NaskahMd {
     const lm = /^[-*]\s+(.+)$/.exec(line);
     if (lm) { tutup(); babIni().blok.push({ t: 'li', x: lm[1]!.trim() }); continue; }
     // Baris berawalan ::xx adalah satu blok sendiri; baris biasa sesudahnya memulai paragraf baru.
-    const pm = /^::(ar|en|id|tr|lt|cat|kuis|kartu|cocok|adegan)\s+(.*)$/.exec(line);
+    const pm = /^::(ar|en|id|tr|lt|cat|kuis|kartu|cocok|urut|adegan)\s+(.*)$/.exec(line);
     if (pm) {
       tutup();
       const x = pm[2]!.replace(/\s+/g, ' ').trim();
@@ -204,7 +204,10 @@ const SUASANA: [string, RegExp][] = [
   ['hujan', /\b(hujan|awan|banjir|sungai|mata air|rain|cloud|river)\b/i],
   ['laut', /\b(laut|lautan|samudra|kapal|perahu|bahtera|pantai|ombak|sea|ocean|boat|ship|ark)\b/i],
   ['kebun', /\b(kebun|pohon|buah|kurma|anggur|delima|zaitun|apel|mangga|garden|tree|fruit|date palm)\b/i],
+  ['gurun', /\b(gurun|padang pasir|pasir|unta|kafilah|tenda|desert|sand|camel)\b/i],
+  ['gunung', /\b(gunung|bukit|gua|goa|lembah|mountain|hill|cave)\b/i],
   ['huruf', /\b(huruf|hijaiyah|iqra|alif|letter)\b/i],
+  ['rumah', /\b(rumah|kamar|dapur|keluarga|ibu|ayah|nenek|kakek|home|house|mother|father|family|granny|grandpa)\b/i],
   ['langit', /\b(malam|bintang|bulan|langit|siang|matahari|pagi|night|star|moon|sky|sun)\b/i],
 ];
 export function suasanaBab(bab: Bab): string | null {

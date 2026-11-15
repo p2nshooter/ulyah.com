@@ -6,7 +6,8 @@ import { asalSama } from '../lib/session.ts';
 import { kecil, media, origin, render, tidakAda } from '../lib/render.ts';
 import { crumbs } from '../pages/layout.ts';
 import { listUnits } from '../data/site.ts';
-import { denganSuasana, RAK, RAK_ID, type BukuMeta } from '../data/buku.ts';
+import { RAK, RAK_ID, type BukuMeta } from '../data/buku.ts';
+import { hidupkanBab } from '../data/aktif.ts';
 import { ambilBab, ambilBuku, cocok, katalog, urutkan, type KartuBuku } from '../data/pustaka.ts';
 import { cariGutenberg, katalogJenius } from '../data/luar.ts';
 import { catatBaca, peringkat, sepuluh, setelSuka, sudahSuka } from '../data/statistik.ts';
@@ -163,7 +164,7 @@ pustaka.get('/pustaka/api/b/:id/:n', async (c) => {
   if (!ID_RE.test(id) || !Number.isInteger(n) || n < 1) return c.json({ error: 'tidak ada' }, 404);
   const [bab, meta] = await Promise.all([ambilBab(c.env, c.get('store'), id, n), ambilBuku(c.env, c.get('store'), id)]);
   if (!bab || !meta) return c.json({ error: 'tidak ada' }, 404);
-  return c.json(denganSuasana(bab, meta.suara), 200, { 'cache-control': id.startsWith('p-') ? 'no-store' : 'public, max-age=3600' });
+  return c.json(hidupkanBab(bab, meta), 200, { 'cache-control': id.startsWith('p-') ? 'no-store' : 'public, max-age=3600' });
 });
 
 async function bacaJson(c: Ctx): Promise<{ id?: unknown; suka?: unknown }> {

@@ -32,9 +32,9 @@ export interface KartuLuar {
 /**
  * jenius.es DINONAKTIFKAN sebagai sumber (pemilik, 15 Nov 2026: „Situs jenius.es itu masih banyak yg salah, kebanyakan modul
  * guru, bukan buku pelajaran … jgn sentuh itu cukup tandai saja“). Kodenya disimpan untuk dinyalakan lagi setelah jenius.es
- * diperbaiki; sampai saat itu katalog dan buku j-… tidak diambil.
+ * diperbaiki; sampai saat itu katalog dan buku j-… tidak diambil. Menyalakannya lagi: variabel Worker JENIUS_AKTIF = "1".
  */
-export const JENIUS_AKTIF = false;
+export const jeniusAktif = (env: Pick<Env, 'JENIUS_AKTIF'>): boolean => env.JENIUS_AKTIF === '1';
 
 const metaKey = (id: string) => `c/luar/${id}/meta.json`;
 const babKey = (id: string, n: number) => `c/luar/${id}/${n}.json`;
@@ -98,7 +98,7 @@ async function jenius(env: Env, path: string): Promise<Response | null> {
 
 /** Katalog jenius.es (termasuk buku cerita bergambar anak), disimpan 6 jam di R2. */
 export async function katalogJenius(env: Env, store: Store, now = Date.now()): Promise<KartuLuar[]> {
-  if (!JENIUS_AKTIF) return [];
+  if (!jeniusAktif(env)) return [];
   const key = 'k/luar/jenius-katalog.json';
   const lama = await store.get<{ at: number; buku: KartuLuar[] }>(key);
   if (lama && now - lama.at < 6 * JAM) return lama.buku;
@@ -294,7 +294,7 @@ export async function bukuLuar(env: Env, store: Store, id: string): Promise<Buku
   if (!p) {
     const jm = /^j-([a-z0-9-]{1,90})$/.exec(id);
     const gm = /^g-(\d{1,7})$/.exec(id);
-    p = (jm && JENIUS_AKTIF ? salinJenius(env, store, jm[1]!) : gm ? salinGutenberg(env, store, Number(gm[1])) : Promise.resolve(null)).catch(() => null);
+    p = (jm && jeniusAktif(env) ? salinJenius(env, store, jm[1]!) : gm ? salinGutenberg(env, store, Number(gm[1])) : Promise.resolve(null)).catch(() => null);
     sedang.set(id, p);
     p.finally(() => sedang.delete(id)).catch(() => undefined);
   }

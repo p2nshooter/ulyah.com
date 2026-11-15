@@ -141,6 +141,57 @@ for (const [nama, vp, opts] of [['desktop', { width: 1366, height: 860 }, {}], [
   await ctx.close();
 }
 
+// Semua buku anak interaktif: bab kisah anak mendapat adegan + „Ayo Bermain!“ (urutkan cerita, kuis isian).
+for (const [nama, vp, opts] of [['desktop', { width: 1366, height: 860 }, {}], ['ponsel', { width: 390, height: 844 }, { isMobile: true, hasTouch: true }]]) {
+  const { ctx, page } = await buka(vp, opts, { mode: 'gulir' });
+  await page.goto(BASE + '/pustaka/b/k-kisah-anak-muslim/8', { waitUntil: 'load' });
+  ok(await page.locator('[data-akt="adegan"] svg.ad-svg').first().isVisible(), `${nama}: kisah anak dibuka dengan adegan`);
+  ok((await page.locator('h3.b-h', { hasText: 'Ayo Bermain' }).count()) === 1, `${nama}: ada „Ayo Bermain!“ otomatis`);
+  const urut = page.locator('[data-akt="urut"]').first();
+  await urut.locator('.urut-kotak').first().waitFor();
+  await urut.scrollIntoViewIfNeeded();
+  const n = await urut.locator('.urut-kotak').count();
+  ok(n === 4, `${nama}: urutkan cerita — 4 kejadian diacak`, n);
+  // Klik salah dulu (bukan kejadian pertama) → bergoyang, tidak masuk daftar.
+  const bukanPertama = urut.locator('.urut-kotak:not([data-i="0"])').first();
+  await bukanPertama.click();
+  ok(await bukanPertama.evaluate((el) => el.classList.contains('goyang')) && (await urut.locator('.urut-butir').count()) === 0, `${nama}: urutan salah digoyang`);
+  for (let i = 0; i < n; i += 1) { await urut.locator(`.urut-kotak[data-i="${i}"]`).click(); await page.waitForTimeout(40); }
+  await page.waitForFunction((el) => el.classList.contains('selesai'), await urut.elementHandle());
+  ok((await urut.locator('.urut-butir').count()) === n, `${nama}: urutkan cerita selesai, ${n} kejadian bernomor`);
+  if (nama === 'ponsel') await urut.screenshot({ path: `${OUT}/pustaka-urutkan-ponsel.png` });
+  await urut.locator('.urut-ulang').click();
+  ok((await urut.locator('.urut-kotak').count()) === n && !(await urut.evaluate((el) => el.classList.contains('selesai'))), `${nama}: ↺ Ulangi mengacak lagi`);
+  const kuis = page.locator('[data-akt="kuis"]').first();
+  await kuis.locator('.akt-pil[data-benar="1"]').click();
+  ok(await kuis.evaluate((el) => el.classList.contains('selesai')), `${nama}: kuis isian otomatis bisa dijawab`);
+  await ctx.close();
+}
+
+// Setiap adegan (12) terpasang tanpa galat, bisa disentuh, dan ↺ Kembalikan bekerja.
+{
+  const { page } = await buka({ width: 1366, height: 860 }, {}, { mode: 'gulir' });
+  await page.goto(BASE + '/pustaka/b/k-menanam-padi/1', { waitUntil: 'load' });
+  const nama = await page.evaluate(() => window.YapidaAdegan.nama);
+  ok(['padi', 'hujan', 'langit', 'masjid', 'kebun', 'laut', 'gurun', 'gunung', 'rumah', 'sholat', 'huruf'].every((n) => nama.includes(n)), 'mesin adegan memuat 12 adegan', nama.join(','));
+  const hasil = await page.evaluate((daftar) => daftar.map((n) => {
+    const f = document.createElement('figure'); f.className = 'akt adegan'; f.setAttribute('data-akt', 'adegan'); f.setAttribute('data-adegan', n);
+    f.innerHTML = '<div class="adegan-panggung" data-adegan-isi></div><figcaption><button type="button" data-adegan-reset>↺</button></figcaption>';
+    document.querySelector('.baca-isi').appendChild(f); window.YapidaAdegan.pasang(f);
+    const svg = f.querySelector('svg'); const benda = svg ? svg.querySelectorAll('.ad-seret').length : 0;
+    f.querySelector('[data-adegan-reset]').click();
+    return [n, svg ? svg.childElementCount : 0, benda];
+  }), nama);
+  for (const [n, anak, benda] of hasil) ok(anak > 3 && benda >= 1, `adegan ${n}: tergambar (${anak} unsur) dan ${benda} benda bisa diseret`);
+  const rumah = page.locator('figure[data-adegan="rumah"]').last();
+  await rumah.scrollIntoViewIfNeeded();
+  await rumah.locator('.adegan-tbl', { hasText: 'Siang / Malam' }).click();
+  ok((await rumah.locator('svg rect').first().getAttribute('fill')) === '#0b1d3a', 'adegan rumah: tombol Siang / Malam');
+  await rumah.locator('[data-adegan-reset]').click();
+  ok((await rumah.locator('svg rect').first().getAttribute('fill')) === '#bfe7ff', 'adegan rumah: ↺ Kembalikan ke siang');
+  await page.locator('figure[data-adegan="gurun"]').last().screenshot({ path: `${OUT}/pustaka-adegan-gurun.png` });
+}
+
 ok(galat.length === 0, 'tanpa galat konsol/halaman/5xx', galat.join(' | '));
 await browser.close();
 const gagal = hasil.filter((x) => !x).length;
