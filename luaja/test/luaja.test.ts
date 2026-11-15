@@ -205,8 +205,9 @@ test('PayPal: kredensial disegel, order → capture → lunas + langganan aktif;
   const realFetch = globalThis.fetch;
   globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input instanceof Request ? input.url : input);
-    if (!url.startsWith('https://api-m.sandbox.paypal.com')) return realFetch(input as RequestInfo, init);
-    calls.push(url.replace('https://api-m.sandbox.paypal.com', ''));
+    const u = new URL(url);
+    if (u.protocol !== 'https:' || u.host !== 'api-m.sandbox.paypal.com') return realFetch(input as RequestInfo, init);
+    calls.push(u.pathname);
     const json = (o: unknown, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json' } });
     if (url.endsWith('/v1/oauth2/token')) return json({ access_token: 'tok' });
     if (url.endsWith('/v2/checkout/orders')) {
