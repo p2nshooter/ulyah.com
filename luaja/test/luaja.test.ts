@@ -196,3 +196,78 @@ test('portal & admin terlindungi', async () => {
   assert.match((await req(e, '/admin', { cookie })).headers.get('location') ?? '', /\/admin\/masuk/);
   assert.equal((await req(e, '/admin/masuk', { method: 'POST', body: form({ email: 'a@contoh.id', password: 'rahasia123' }) })).status, 403);
 });
+
+test('PayPal: kredensial disegel, order → capture → lunas + langganan aktif; webhook palsu ditolak; nominal salah tidak melunasi', async () => {
+  const e = env({ MASTER_KEY: 'master-key-for-tests-0123456789abcdef' });
+  const calls: string[] = [];
+  let capturedAmount = '32.00';
+  let invForMock = '';
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input instanceof Request ? input.url : input);
+    const u = new URL(url);
+    if (u.protocol !== 'https:' || u.host !== 'api-m.sandbox.paypal.com') return realFetch(input as RequestInfo, init);
+    calls.push(u.pathname);
+    const json = (o: unknown, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json' } });
+    if (url.endsWith('/v1/oauth2/token')) return json({ access_token: 'tok' });
+    if (url.endsWith('/v2/checkout/orders')) {
+      const b = JSON.parse(String(init?.body));
+      return json({ id: 'ORDER1', status: 'CREATED', links: [{ rel: 'payer-action', href: 'https://paypal.test/approve' }], echo: b });
+    }
+    if (url.endsWith('/v2/checkout/orders/ORDER1/capture')) return json({ id: 'ORDER1', status: 'COMPLETED', payer: { email_address: 'buyer@paypal.test' }, purchase_units: [{ payments: { captures: [{ id: 'CAP1', status: 'COMPLETED', custom_id: invForMock, amount: { value: capturedAmount, currency_code: 'USD' } }] } }] });
+    if (url.endsWith('/v1/notifications/verify-webhook-signature')) return json({ verification_status: 'FAILURE' });
+    return json({}, 404);
+  }) as typeof fetch;
+  try {
+    // pemilik menyimpan kredensial sandbox
+    let r = await req(e, '/admin/masuk', { method: 'POST', body: form({ email: 'owner@luaja.test', password: 'owner-pass-123' }) });
+    const owner = cookieOf(r);
+    let h = await (await req(e, '/admin/paypal', { cookie: owner })).text();
+    r = await req(e, '/admin/paypal', { method: 'POST', cookie: owner, body: form({ _csrf: csrfIn(h), enabled: 'on', mode: 'sandbox', sandbox_client: 'SB-CLIENT', sandbox_secret: 'SB-SECRET-VALUE', sandbox_webhook: 'WH-1', live_client: '', live_secret: '', live_webhook: '' }) });
+    assert.match(r.headers.get('location') ?? '', /ok=/);
+    const stored = [...(e.DATA as unknown as FakeR2).m.entries()].find(([k]) => k === 'k/paypal.json')![1].v;
+    assert.ok(!stored.includes('SB-SECRET-VALUE'), 'secret tersimpan terenkripsi, bukan teks biasa');
+    h = await (await req(e, '/admin/paypal', { cookie: owner })).text();
+    assert.ok(!h.includes('SB-SECRET-VALUE'), 'secret tidak pernah ditampilkan ulang');
+    // member membuat tagihan USD
+    r = await req(e, '/daftar', { method: 'POST', body: form({ name: 'Buyer', email: 'buyer@contoh.id', password: 'rahasia123', setuju: 'on' }) });
+    const member = cookieOf(r);
+    h = await (await req(e, '/portal/paket', { cookie: member })).text();
+    const body = new URLSearchParams({ _csrf: csrfIn(h), kategori: 'umum', mata_uang: 'USD', bahasa: 'en' });
+    r = await req(e, '/portal/paket', { method: 'POST', body, cookie: member });
+    const invPath = new URL(r.headers.get('location')!, 'https://luaja.com').pathname;
+    const invId = invPath.split('/').pop()!;
+    invForMock = invId;
+    h = await (await req(e, invPath, { cookie: member })).text();
+    assert.ok(h.includes('US$32.00') && h.includes('data-paypal=') && h.includes('BNINIDJA') && h.includes('2090571495'), 'tagihan USD: PayPal + BNI USD + SWIFT');
+    // webhook dengan tanda tangan tidak sah ditolak
+    r = await req(e, '/api/paypal/webhook', { method: 'POST', body: JSON.stringify({ event_type: 'PAYMENT.CAPTURE.COMPLETED', resource: { custom_id: invId, status: 'COMPLETED', amount: { value: '32.00', currency_code: 'USD' } } }) });
+    assert.equal(r.status, 400);
+    // nominal salah tidak melunasi
+    r = await req(e, `/api/paypal/order/${invId}`, { method: 'POST', cookie: member });
+    assert.equal(((await r.json()) as { id: string }).id, 'ORDER1');
+    capturedAmount = '1.00';
+    r = await req(e, `/api/paypal/capture/${invId}`, { method: 'POST', cookie: member, body: JSON.stringify({ orderId: 'ORDER1' }), headers: { 'content-type': 'application/json' } });
+    assert.equal(r.status, 409);
+    // nominal benar → lunas, langganan aktif, kuitansi
+    capturedAmount = '32.00';
+    r = await req(e, `/api/paypal/capture/${invId}`, { method: 'POST', cookie: member, body: JSON.stringify({ orderId: 'ORDER1' }), headers: { 'content-type': 'application/json' } });
+    assert.equal(r.status, 200);
+    h = await (await req(e, '/belajar/en-beginner-m01-l02', { cookie: member })).text();
+    assert.ok(h.includes('data-lesson'), 'pelajaran Inggris berbayar terbuka');
+    h = await (await req(e, `${invPath}/invoice`, { cookie: member })).text();
+    assert.ok(h.includes('KUITANSI') && h.includes('US$32.00') && h.includes('CAP1'));
+    assert.ok(calls.some((u) => u.includes('/capture')));
+    // tagihan orang lain tidak bisa dibuka
+    r = await req(e, '/daftar', { method: 'POST', body: form({ name: 'Other', email: 'other@contoh.id', password: 'rahasia123', setuju: 'on' }) });
+    assert.equal((await req(e, `${invPath}/invoice`, { cookie: cookieOf(r) })).status, 404);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test('harga per mata uang: IDR, USD, JPY', () => {
+  assert.equal(priceFor(DEFAULT_PRICING, 'umum', ['de'], 'USD'), 32);
+  assert.equal(priceFor(DEFAULT_PRICING, 'umum', ['de', 'en', 'ja'], 'JPY'), 12_400);
+  assert.equal(priceFor(DEFAULT_PRICING, 'pelajar', ['de', 'en'], 'USD'), 44);
+});

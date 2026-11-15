@@ -5,9 +5,9 @@ name: Deploy luaja.com (LUAJA)
 # KV hanya untuk penghitung batas laju.
 #
 # - Bucket R2 dan namespace KV dibuat sendiri bila belum ada.
-# - luaja.com (+ www) dipasang sebagai custom domain begitu zonanya aktif di akun Cloudflare ini. Sebelum itu situs
-#   online di https://luaja-com.<subdomain>.workers.dev (noindex). Langkah pemasangan menulis penyebabnya bila zona belum
-#   terlihat (belum ditambahkan, nameserver belum dipindah, atau token tidak punya akses ke zona itu).
+# - luaja.com (+ www) dipasang sebagai custom domain lewat API begitu zonanya aktif; record A/AAAA/CNAME lama yang
+#   menghalangi dicatat di ringkasan run untuk dihapus pemilik. Alamat kanonik baru dipasang setelah domain menjawab; sebelum itu
+#   situs online di https://luaja-com.<subdomain>.workers.dev (noindex).
 # - SESSION_SECRET dibuat acak SEKALI bila belum ada dan tidak pernah diganti oleh deploy berikutnya.
 # - Jadwal harian ikut menjalankan deploy agar luaja.com langsung terpasang begitu zonanya aktif.
 # - AdSense: akun utama + tumpukan dari adsense-stack.json; uji asap menolak deploy yang ads.txt, tag meta, atau loadernya
@@ -88,48 +88,67 @@ jobs:
           echo "KV id: $KV_ID"
           sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" wrangler.jsonc
 
-      - name: Attach luaja.com when its zone is active
+      - name: Deploy Worker
+        run: npx wrangler deploy | tee deploy.log
+
+      # Domain dipasang lewat API (bukan routes wrangler) agar penyebab kegagalan terbaca. Bila apex/www masih punya record
+      # A/AAAA/CNAME lama (Cloudflare 100117), record itu dicatat di ringkasan run — tidak dihapus otomatis; pemilik
+      # menghapusnya sekali di dasbor Cloudflare. Alamat kanonik baru dipasang setelah apex benar-benar tersambung,
+      # sehingga workers.dev tidak pernah dialihkan ke domain yang belum menjawab.
+      - name: Attach luaja.com (+ www) when its zone is active
         run: |
           set -eu
+          CF="https://api.cloudflare.com/client/v4"
           AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
-          ZONE_RESP=$(curl -s -H "$AUTH" "https://api.cloudflare.com/client/v4/zones?name=${DOMAIN}")
+          JSON="Content-Type: application/json"
+          ZONE_RESP=$(curl -s --max-time 20 -H "$AUTH" "$CF/zones?name=${DOMAIN}")
           if [ "$(echo "$ZONE_RESP" | jq -r '.success')" != "true" ]; then
             echo "$ZONE_RESP" | jq -r '.errors[]? | "  CF error \(.code): \(.message)"' || true
-            echo "::warning::Token tidak bisa membaca daftar zona (izin 'Zone > Zone : Read' untuk semua zona diperlukan). Situs tetap online di workers.dev."
+            echo "::warning::Token tidak bisa membaca zona ${DOMAIN}. Situs tetap online di workers.dev."
             echo "ZONE_STATUS=token tanpa akses zona" >> "$GITHUB_ENV"; exit 0
           fi
           ZONE_ID=$(echo "$ZONE_RESP" | jq -r '.result[0]?.id // empty')
           ZONE_STATUS=$(echo "$ZONE_RESP" | jq -r '.result[0]?.status // empty')
-          ZONE_ACCT=$(echo "$ZONE_RESP" | jq -r '.result[0]?.account.id // empty')
           echo "ZONE_STATUS=${ZONE_STATUS:-belum ada}" >> "$GITHUB_ENV"
-          if [ -z "$ZONE_ID" ]; then
-            echo "::warning::Zona ${DOMAIN} tidak terlihat oleh token ini: belum ditambahkan di Cloudflare (Websites > Add a site), ada di akun lain, atau token hanya untuk zona tertentu. Situs tetap online di workers.dev."
-            exit 0
-          fi
-          if [ -n "$ZONE_ACCT" ] && [ "$ZONE_ACCT" != "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "::warning::Zona ${DOMAIN} ada di akun Cloudflare lain; Worker di akun ini tidak bisa memakainya."
-            exit 0
-          fi
+          if [ -z "$ZONE_ID" ]; then echo "::warning::Zona ${DOMAIN} belum ada di akun ini. Situs tetap online di workers.dev."; exit 0; fi
           if [ "$ZONE_STATUS" != "active" ]; then
             NS=$(echo "$ZONE_RESP" | jq -r '.result[0].name_servers // [] | join(", ")')
-            echo "::warning::Zona ${DOMAIN} berstatus '${ZONE_STATUS}'. Ganti nameserver domain di registrar ke: ${NS}. Deploy harian akan memasangnya otomatis."
-            exit 0
+            echo "::warning::Zona ${DOMAIN} berstatus '${ZONE_STATUS}'. Arahkan nameserver ke: ${NS}."; exit 0
           fi
-          printf '%s\n' '"routes": [{ "pattern": "'"${DOMAIN}"'", "custom_domain": true }, { "pattern": "www.'"${DOMAIN}"'", "custom_domain": true }],' > /tmp/routes.txt
-          sed -i "/__CUSTOM_DOMAIN_ROUTES__/r /tmp/routes.txt" wrangler.jsonc
-          sed -i "/__CUSTOM_DOMAIN_ROUTES__/d" wrangler.jsonc
-          sed -i "s/\"CANONICAL_HOST\": \"\"/\"CANONICAL_HOST\": \"${DOMAIN}\"/" wrangler.jsonc
-          echo "PUBLIC_URL=https://${DOMAIN}" >> "$GITHUB_ENV"
-          echo "Zona ${DOMAIN} aktif — dipasang sebagai custom domain + alamat kanonik."
+          attach() { curl -s --max-time 30 -X PUT -H "$AUTH" -H "$JSON" -d "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"$1\",\"service\":\"luaja-com\",\"environment\":\"production\"}" "$CF/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/domains"; }
+          apex_ok=no; blocked=""
+          for host in "${DOMAIN}" "www.${DOMAIN}"; do
+            resp=$(attach "$host"); ok=$(echo "$resp" | jq -r '.success'); code=$(echo "$resp" | jq -r '.errors[0].code // 0')
+            if [ "$ok" != "true" ] && [ "$code" = "100117" ]; then
+              # Record A/AAAA/CNAME lama menghalangi. Tidak dihapus otomatis (perubahan DNS = keputusan pemilik): dicatat saja.
+              recs=$(curl -s --max-time 20 -H "$AUTH" "$CF/zones/$ZONE_ID/dns_records?name=$host&per_page=50" | jq -r '.result[]? | select(.type=="A" or .type=="AAAA" or .type=="CNAME") | "- \(.type) \(.name) → \(.content)"')
+              { echo "### Record DNS lama yang menghalangi \`$host\`"; echo "$recs"; } >> "$GITHUB_STEP_SUMMARY"
+            fi
+            echo "$host -> luaja-com: success=$ok $(echo "$resp" | jq -c '.errors')"
+            if [ "$ok" = "true" ]; then [ "$host" = "${DOMAIN}" ] && apex_ok=yes; else blocked="$blocked $host"; fi
+          done
+          if [ -n "$blocked" ]; then
+            {
+              echo "## ⚠️ Belum tersambung:$blocked"
+              echo ""
+              echo "Hapus sekali record A/AAAA/CNAME lama untuk host tersebut di Cloudflare → ${DOMAIN} → DNS (MX/TXT biarkan), lalu jalankan ulang workflow ini — atau beri token izin **Zone → DNS → Edit** agar workflow membersihkannya sendiri."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::warning::Belum tersambung:$blocked — lihat ringkasan run."
+          fi
+          if [ "$apex_ok" = "yes" ]; then
+            echo "PUBLIC_URL=https://${DOMAIN}" >> "$GITHUB_ENV"
+            echo "ATTACHED=yes" >> "$GITHUB_ENV"
+          fi
 
-      - name: Deploy Worker
-        run: npx wrangler deploy | tee deploy.log
+      - name: Set canonical host after the domain answers
+        if: env.ATTACHED == 'yes'
+        run: npx wrangler deploy --var "CANONICAL_HOST:${DOMAIN}" | tee -a deploy.log
 
-      - name: Create SESSION_SECRET once (never rotated by deploys)
+      - name: Create SESSION_SECRET and MASTER_KEY once (never rotated by deploys)
         run: |
           set -eu
           have=$(npx wrangler secret list --format json 2>/dev/null | jq -r '.[].name' || true)
-          for name in SESSION_SECRET; do
+          for name in SESSION_SECRET MASTER_KEY; do
             if echo "$have" | grep -qx "$name"; then echo "$name: sudah ada (tidak diubah)"; continue; fi
             openssl rand -base64 48 | tr -d '\n' | npx wrangler secret put "$name" >/dev/null
             echo "$name: dibuat"
@@ -141,15 +160,17 @@ jobs:
           WORKERS_URL="$(grep -oE 'https://[a-z0-9.-]+\.workers\.dev' deploy.log | head -1 || true)"
           URL="${PUBLIC_URL:-$WORKERS_URL}"
           [ -n "$URL" ] || { echo "::error::URL tidak ditemukan di log deploy"; exit 1; }
-          for i in $(seq 1 20); do curl -sf "$URL/api/health" >/dev/null && break; sleep 3; done
-          curl -sf "$URL/api/health"; echo
+          # Setiap curl berbatas waktu: sertifikat domain baru bisa butuh beberapa menit, uji tidak boleh menggantung.
+          C="curl -sf --max-time 20 --retry 3 --retry-delay 5 --retry-all-errors"
+          for i in $(seq 1 40); do curl -sf --max-time 10 "$URL/api/health" >/dev/null && break; sleep 6; done
+          $C "$URL/api/health"; echo
           STACK="$GITHUB_WORKSPACE/adsense-stack.json"
           PRIMARY=$(node -e 'console.log(JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")).primary["luaja.com"])' "$STACK")
           want=$(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));const a=[...new Set([s.primary["luaja.com"],...s.stack])];process.stdout.write(a.map(c=>"google.com, "+c.replace(/^ca-/,"")+", DIRECT, f08c47fec0942fa0").join("\n"))' "$STACK")
-          ads=$(curl -sf "$URL/ads.txt")
+          ads=$($C "$URL/ads.txt")
           [ "$ads" = "$want" ] || { echo "::error::ads.txt salah (harus $(echo "$want" | wc -l) baris dari adsense-stack.json)"; exit 1; }
           echo "ads.txt: $(echo "$ads" | wc -l) baris ✅"
-          curl -sfL "$URL/" -o home.html
+          $C -L "$URL/" -o home.html
           n=0
           for c in $(node -e 'const s=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));console.log([...new Set([s.primary["luaja.com"],...s.stack])].join(" "))' "$STACK"); do
             grep -q "name=\"google-adsense-account\" content=\"$c\"" home.html || { echo "::error::tag meta AdSense $c hilang"; exit 1; }
@@ -159,13 +180,13 @@ jobs:
           grep -q "adsbygoogle.js?client=${PRIMARY}" home.html || { echo "::error::loader AdSense ${PRIMARY} hilang"; exit 1; }
           grep -q '<html lang="id"' home.html || { echo "::error::beranda tidak tampil"; exit 1; }
           node scripts/robots-check.mjs "$URL/robots.txt" || { echo "::error::robots.txt menutup crawler Google"; exit 1; }
-          curl -sf "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
-          curl -sf "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
+          $C "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
+          $C "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
           for p in /jerman /inggris /jepang /harga /coba /latihan /belajar/de-a1-m01-l01 /masuk /daftar /privasi /syarat /sw.js /assets/app.css /assets/app.js /favicon.svg; do
-            curl -sf -o /dev/null "$URL$p" || { echo "::error::$p gagal"; exit 1; }
+            $C -o /dev/null "$URL$p" || { echo "::error::$p gagal"; exit 1; }
           done
           # Kunci jawaban tidak pernah ikut terkirim ke peramban sebelum peserta selesai.
-          if curl -sf "$URL/belajar/de-a1-m01-l01" | grep -q '"answer"'; then echo "::error::kunci jawaban bocor ke halaman pelajaran"; exit 1; fi
+          if $C "$URL/belajar/de-a1-m01-l01" | grep -q '"answer"'; then echo "::error::kunci jawaban bocor ke halaman pelajaran"; exit 1; fi
           {
             echo "## luaja.com online"
             echo ""
