@@ -58,10 +58,16 @@ export interface Unit {
   jadwal?: string;
   kurikulum?: string;
   alamat?: string;
+  /** Alamat per bagian (formulir profil lembaga); `alamat` ditulis darinya dengan ejaan baku. */
+  alamatRinci?: import('../lib/alamat.ts').AlamatRinci;
   kontak?: Kontak;
   sosmed?: Sosmed;
   /** ID kanal YouTube (UC…) untuk menarik video kegiatan otomatis. */
   ytKanal?: string;
+  /** Nomor Statistik Madrasah (12 angka) & NPSN — impor file master mencocokkan siswa ke lembaga lewat NSM. */
+  nsm?: string;
+  npsn?: string;
+  nipKepala?: string;
   sampul?: string;
   suara: Suara;
   aktif: boolean;
@@ -79,6 +85,7 @@ export interface UnitRingkas {
   suara: Suara;
   aktif: boolean;
   sampul?: string;
+  nsm?: string;
 }
 
 export interface Organ {
@@ -142,4 +149,5 @@ export interface Halaman {
 
 export const unitRingkas = (u: Unit): UnitRingkas => ({
   nama: u.nama, singkat: u.singkat, jenis: u.jenis, kelompok: u.kelompok, urut: u.urut, ringkas: u.ringkas.slice(0, 180), suara: u.suara, aktif: u.aktif, sampul: u.sampul,
+  ...(u.nsm ? { nsm: u.nsm } : {}),
 });

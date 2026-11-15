@@ -3,6 +3,7 @@ import type { Bidang, Koleksi } from './koleksi.ts';
 import { PERAN } from './users.ts';
 import { RAK } from './buku.ts';
 import { GAYA_KOP, JENIS_PENGHARGAAN, METODE_BAYAR, PILIHAN_DESAIN, UNTUK_KWITANSI, WARNA_KOP } from './dokumen.ts';
+import { STATUS_SISWA, TINGKAT_SEMUA } from './siswa.ts';
 
 export const GOLONGAN: [string, string][] = [
   ['pendiri', 'Pendiri'], ['pembina', 'Pembina'], ['pengurus', 'Pengurus'], ['pengawas', 'Pengawas'],
@@ -16,11 +17,26 @@ export const SDM: Koleksi = {
   bidang: [
     { k: 'golongan', label: 'Kelompok', jenis: 'pilih', pilihan: GOLONGAN, wajib: true, indeks: true, bantuan: 'Menentukan di bagian mana orang ini tampil pada struktur.' },
     { k: 'jabatan', label: 'Jabatan', jenis: 'teks', wajib: true, maks: 120, indeks: true, bantuan: 'Mis. Kepala Madrasah, Wali Kelas 3, Guru Fikih, Bendahara.' },
-    { k: 'bidang', label: 'Mata pelajaran / bidang tugas', jenis: 'teks', maks: 100, indeks: true },
+    { k: 'bidang', label: 'Fokus mengajar / mata pelajaran', jenis: 'teks', maks: 100, indeks: true, bantuan: 'Tampil di kartu guru, mis. Tahfidz Al-Qur’an, Matematika, Komputer & Pemrograman, Bahasa Arab.' },
     { k: 'foto', label: 'Foto', jenis: 'gambar', bantuan: 'Foto setengah badan, wajah terlihat jelas. Dikecilkan otomatis sebelum diunggah.' },
     { k: 'urut', label: 'Nomor urut tampil', jenis: 'angka', bantuan: 'Angka kecil tampil lebih dulu (mis. kepala = 1).' },
-    { k: 'pendidikan', label: 'Pendidikan terakhir', jenis: 'teks', maks: 120 },
-    { k: 'bio', label: 'Riwayat singkat', jenis: 'markdown', maks: 8000, bantuan: 'Pendidikan, pengabdian, atau kata pengantar singkat. Boleh dikosongkan.' },
+    { k: 'bio', label: 'Riwayat singkat (tampil di situs)', jenis: 'markdown', maks: 8000, bantuan: 'Kata pengantar atau pengabdian singkat. Boleh dikosongkan.' },
+    // Data kepegawaian — privat (pemilik: „NUPTK, PEG ID, NPK dan seluruh yg privasi jgn di tampilkan, cukup nama foto,
+    // nama guru dan focus mengajar nya“). Tampil hanya di portal, tidak pernah di halaman publik.
+    { k: 'pendidikan', label: 'Pendidikan terakhir', jenis: 'teks', maks: 120, rahasia: true },
+    { k: 'jk', label: 'L/P', jenis: 'pilih', pilihan: [['L', 'Laki-laki'], ['P', 'Perempuan']], rahasia: true },
+    { k: 'nuptk', label: 'NUPTK', jenis: 'teks', maks: 20, rahasia: true },
+    { k: 'pegId', label: 'PegID', jenis: 'teks', maks: 20, rahasia: true },
+    { k: 'npk', label: 'NPK', jenis: 'teks', maks: 20, rahasia: true },
+    { k: 'nip', label: 'NIP', jenis: 'teks', maks: 20, rahasia: true },
+    { k: 'nik', label: 'NIK', jenis: 'teks', maks: 16, rahasia: true },
+    { k: 'tempatLahir', label: 'Tempat lahir', jenis: 'teks', maks: 60, rahasia: true },
+    { k: 'tanggalLahir', label: 'Tanggal lahir', jenis: 'tanggal', rahasia: true },
+    { k: 'statusPegawai', label: 'Status kepegawaian', jenis: 'teks', maks: 60, rahasia: true, bantuan: 'Mis. GTY, GTT, PNS, Honorer.' },
+    { k: 'tmt', label: 'TMT (mulai bertugas)', jenis: 'teks', maks: 20, rahasia: true },
+    { k: 'hp', label: 'No. HP/WA', jenis: 'teks', maks: 30, rahasia: true },
+    { k: 'email', label: 'E-mail', jenis: 'teks', maks: 100, rahasia: true },
+    { k: 'alamat', label: 'Alamat', jenis: 'paragraf', maks: 300, rahasia: true },
   ],
 };
 
@@ -200,6 +216,8 @@ export const KWITANSI: Koleksi = {
     { k: 'jabatanPenerima', label: 'Jabatan penerima', jenis: 'teks', maks: 60 },
     { k: 'tempat', label: 'Tempat', jenis: 'teks', maks: 60, bantuan: 'Kosongkan untuk memakai kota pada kop.' },
     { k: 'nomor', label: 'Nomor kwitansi', jenis: 'teks', maks: 60, indeks: true, bantuan: 'Kosongkan — nomor dibuat otomatis saat disimpan (urut per lembaga per tahun).' },
+    { k: 'nisn', label: 'NISN / NIS siswa', jenis: 'teks', maks: 20, indeks: true, bantuan: 'Isi supaya kwitansi muncul di portal siswanya (siswa bisa melihat dan mencetak kwitansinya).' },
+    { k: 'tagihan', label: 'Tagihan', jenis: 'teks', maks: 40, indeks: true, sembunyi: true },
     { k: 'catatan', label: 'Catatan (opsional)', jenis: 'paragraf', maks: 300 },
   ],
 };
@@ -238,5 +256,47 @@ export const KOP: Koleksi = {
   ],
 };
 
-export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN, penghargaan: PENGHARGAAN, kwitansi: KWITANSI, surat: SURAT, kop: KOP };
+/* ── kesiswaan (perintah 22): data siswa (dari file master), tagihan ───────────────────────────────── */
+
+export const SISWA: Koleksi = {
+  id: 'siswa', nama: 'Data siswa', satu: 'siswa', labelJudul: 'Nama lengkap siswa', urut: 'judul', tanpaTanggal: true, sampul: 'foto', ringkasDari: 'alamat',
+  tingkat: PERAN.lembaga.tingkat, tanpaPublik: true, menu: 'siswa',
+  bidang: [
+    { k: 'jenjang', label: 'Jenjang', jenis: 'pilih', pilihan: [['RA', 'RA'], ['MI', 'MI'], ['MTs', 'MTs'], ['MA', 'MA']], wajib: true, indeks: true },
+    { k: 'tingkat', label: 'Tingkat / kelompok pada tahun pelajaran acuan', jenis: 'pilih', pilihan: TINGKAT_SEMUA.map((t): [string, string] => [t, t]), wajib: true, indeks: true, bantuan: 'Kelas naik otomatis setiap Juli dari tahun pelajaran acuan; melewati kelas tertinggi = lulus.' },
+    { k: 'rombel', label: 'Nama rombel', jenis: 'teks', maks: 20, indeks: true, bantuan: 'Mis. 1-A, 7-B, B-1 (angka/huruf depannya ikut naik setiap tahun).' },
+    { k: 'tahunAcuan', label: 'Tahun pelajaran acuan', jenis: 'teks', maks: 9, wajib: true, indeks: true, bantuan: 'Tahun pelajaran saat tingkat & rombel di atas berlaku, mis. 2026/2027. Tinggal kelas: isi tingkat sekarang dan tahun pelajaran sekarang.' },
+    { k: 'nisn', label: 'NISN (10 angka)', jenis: 'teks', maks: 10, indeks: true, bantuan: 'Dipakai siswa untuk masuk portal siswa. Siswa RA tanpa NISN memakai NIS lokal.' },
+    { k: 'nis', label: 'NIS lokal', jenis: 'teks', maks: 20, indeks: true },
+    { k: 'nik', label: 'NIK siswa (16 angka)', jenis: 'teks', maks: 16 },
+    { k: 'jk', label: 'L/P', jenis: 'pilih', pilihan: [['L', 'Laki-laki'], ['P', 'Perempuan']], wajib: true, indeks: true },
+    { k: 'tempatLahir', label: 'Tempat lahir', jenis: 'teks', maks: 60 },
+    { k: 'tanggalLahir', label: 'Tanggal lahir', jenis: 'tanggal', wajib: true, bantuan: 'Juga kata sandi portal siswa (ditulis tgl/bln/thn).' },
+    { k: 'ayah', label: 'Nama ayah kandung', jenis: 'teks', maks: 80 },
+    { k: 'ibu', label: 'Nama ibu kandung', jenis: 'teks', maks: 80 },
+    { k: 'kk', label: 'No. KK (16 angka)', jenis: 'teks', maks: 16 },
+    { k: 'alamat', label: 'Alamat lengkap', jenis: 'paragraf', maks: 300 },
+    { k: 'statusSiswa', label: 'Status siswa', jenis: 'pilih', pilihan: STATUS_SISWA, wajib: true, indeks: true, bantuan: 'Lulus dihitung otomatis setelah kelas tertinggi jenjangnya; Pindah/Keluar dipilih manual. Selain Aktif tidak bisa masuk portal siswa.' },
+    { k: 'nsm', label: 'NSM lembaga', jenis: 'teks', maks: 12 },
+    { k: 'foto', label: 'Foto (opsional)', jenis: 'gambar' },
+    { k: 'catatan', label: 'Catatan (opsional, hanya pengelola)', jenis: 'paragraf', maks: 1000 },
+  ],
+};
+
+export const TAGIHAN: Koleksi = {
+  id: 'tagihan', nama: 'Tagihan siswa', satu: 'tagihan', labelJudul: 'Nama siswa', urut: 'baru', ringkasDari: 'periode',
+  tingkat: PERAN.lembaga.tingkat, tanpaPublik: true, menu: 'siswa',
+  bidang: [
+    { k: 'nisn', label: 'NISN / NIS siswa', jenis: 'teks', maks: 20, wajib: true, indeks: true, bantuan: 'Tagihan langsung tampil di portal siswanya.' },
+    { k: 'kelas', label: 'Kelas / rombel', jenis: 'teks', maks: 40, indeks: true },
+    { k: 'untuk', label: 'Jenis tagihan', jenis: 'pilih', pilihan: UNTUK_KWITANSI, wajib: true, indeks: true },
+    { k: 'periode', label: 'Periode / keterangan', jenis: 'teks', maks: 80, wajib: true, indeks: true, bantuan: 'Mis. „November 2026“ atau „Daftar ulang 2027/2028“.' },
+    { k: 'jumlah', label: 'Jumlah tagihan (rupiah)', jenis: 'angka', wajib: true, indeks: true },
+    { k: 'jatuhTempo', label: 'Jatuh tempo', jenis: 'tanggal', indeks: true },
+    { k: 'dibayar', label: 'Sudah dibayar', jenis: 'angka', indeks: true, sembunyi: true },
+    { k: 'catatan', label: 'Catatan (opsional)', jenis: 'paragraf', maks: 300 },
+  ],
+};
+
+export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN, penghargaan: PENGHARGAAN, kwitansi: KWITANSI, surat: SURAT, kop: KOP, siswa: SISWA, tagihan: TAGIHAN };
 export const koleksi = (id: string): Koleksi | null => KOLEKSI[id] ?? null;

@@ -29,6 +29,10 @@ export interface Bidang {
   bantuan?: string;
   /** Ikut disalin ke ringkasan indeks (nilai pendek saja). */
   indeks?: boolean;
+  /** Tidak tampil di formulir (nilai dibawa sebagai input tersembunyi), mis. tautan tagihan pada kwitansi. */
+  sembunyi?: boolean;
+  /** Data pribadi (NUPTK, NIK, nomor HP …): hanya di portal, tidak pernah di indeks, halaman publik, atau sitemap. */
+  rahasia?: boolean;
 }
 
 export interface Koleksi {
@@ -58,7 +62,7 @@ export interface Koleksi {
   /** Bidang nomor yang diisi otomatis saat pertama disimpan bila dikosongkan (src/data/dokumen.ts nomorBerikut). */
   nomorOtomatis?: string;
   /** Kelompok menu portal (bawaan: Isi). */
-  menu?: 'isi' | 'dokumen';
+  menu?: 'isi' | 'dokumen' | 'siswa';
 }
 
 export interface FotoGaleri { f: string; k?: string; ket?: string }
@@ -117,7 +121,7 @@ function meta(def: Koleksi, d: Dok): IxMeta {
   if (typeof r === 'string' && r) m.r = ringkas(polos(r), 150);
   const x: Record<string, string | number | boolean> = {};
   for (const b of def.bidang) {
-    if (!b.indeks) continue;
+    if (!b.indeks || b.rahasia) continue;
     const v = d.d[b.k];
     if (typeof v === 'string' && v) x[b.k] = v.slice(0, 80);
     else if (typeof v === 'number' || typeof v === 'boolean') x[b.k] = v;

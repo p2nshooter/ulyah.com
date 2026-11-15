@@ -86,6 +86,7 @@
       return fetch('/portal/unggah', { method: 'POST', body: fd, credentials: 'same-origin' }).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || 'Unggahan gagal.'); return j; }); });
     });
   }
+  window.YapidaUnggah = { kirimBerkas: kirimBerkas };
   $$('[data-unggah]').forEach(function (w) {
     var jenis = w.getAttribute('data-unggah'), inp = $('input[type="hidden"]', w), pra = $('[data-pratinjau]', w), st = $('[data-unggah-status]', w), hapus = $('[data-unggah-hapus]', w);
     $('input[type="file"]', w).addEventListener('change', function () {
@@ -224,5 +225,139 @@
       var kata = inp.value.toLowerCase().split(/\s+/).filter(Boolean);
       baris.forEach(function (tr) { var t = tr.getAttribute('data-cari') || ''; tr.hidden = !kata.every(function (k) { return t.indexOf(k) >= 0; }); });
     });
+  });
+
+  /* ── kesiswaan: saringan langsung, unggah seret-lepas, pekerjaan bertahap, cetak ── */
+  $$('form[data-saring-otomatis]').forEach(function (f) {
+    $$('select', f).forEach(function (s) { s.addEventListener('change', function () { if (f.requestSubmit) f.requestSubmit(); else f.submit(); }); });
+  });
+  $$('[data-jatuh]').forEach(function (z) {
+    var inp = $('input[type=file]', z), nama = $('[data-jatuh-nama]', z);
+    var tampil = function () {
+      var b = inp.files && inp.files[0];
+      if (nama) nama.textContent = b ? (inp.files.length > 1 ? '✓ ' + inp.files.length + ' berkas dipilih' : '✓ ' + b.name + ' (' + Math.ceil(b.size / 1024) + ' KB)') : '';
+      z.classList.toggle('terisi', !!b);
+    };
+    inp.addEventListener('change', tampil);
+    ['dragenter', 'dragover'].forEach(function (e) { z.addEventListener(e, function (ev) { ev.preventDefault(); z.classList.add('seret'); }); });
+    ['dragleave', 'drop'].forEach(function (e) { z.addEventListener(e, function () { z.classList.remove('seret'); }); });
+    z.addEventListener('drop', function (ev) { ev.preventDefault(); if (ev.dataTransfer && ev.dataTransfer.files.length) { inp.files = ev.dataTransfer.files; tampil(); } });
+  });
+  $$('form[data-impor]').forEach(function (f) {
+    f.addEventListener('submit', function () { var b = $('button[type=submit]', f); if (b) { b.disabled = true; b.textContent = 'Membaca file…'; } });
+  });
+  $$('[data-kerja]').forEach(function (kotak) {
+    if (kotak.getAttribute('data-selesai') === '1') return;
+    var id = kotak.getAttribute('data-kerja'), bar = $('.ks-progres span', kotak), teks = $('[data-kerja-teks]', kotak), lanjut = $('.ks-kerja-lanjut', kotak);
+    if (lanjut) lanjut.hidden = true;
+    var ubin = $$('.g-ubin-nilai', kotak), gagal = 0;
+    var angka = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+    var langkah = function () {
+      fetch('/portal/kerja/' + encodeURIComponent(id) + '/lanjut', { method: 'POST', headers: { accept: 'application/json' }, credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (j) {
+          gagal = 0;
+          var persen = j.total ? Math.round(j.pos / j.total * 100) : 100;
+          if (bar) bar.style.width = persen + '%';
+          var pb = $('.ks-progres', kotak); if (pb) pb.setAttribute('aria-valuenow', j.pos);
+          if (j.hasil && ubin.length >= 4) { ubin[0].textContent = angka(j.hasil.baru); ubin[1].textContent = angka(j.hasil.ubah); ubin[2].textContent = angka(j.hasil.lewat); ubin[3].textContent = angka(j.hasil.gagalN); }
+          if (j.selesai) { if (teks) teks.textContent = 'Selesai — ' + angka(j.total) + ' baris diproses. Memuat hasil…'; setTimeout(function () { location.reload(); }, 600); return; }
+          if (teks) teks.textContent = 'Memproses ' + angka(j.pos) + ' dari ' + angka(j.total) + ' baris… jangan tutup halaman ini.';
+          langkah();
+        })
+        .catch(function () {
+          gagal += 1;
+          if (gagal > 4) { if (teks) teks.textContent = 'Koneksi terputus. Tekan Lanjutkan untuk meneruskan.'; if (lanjut) lanjut.hidden = false; return; }
+          setTimeout(langkah, 1500 * gagal);
+        });
+    };
+    langkah();
+  });
+  $$('[data-cetak-halaman]').forEach(function (b) { b.addEventListener('click', function () { window.print(); }); });
+
+  /* ── grafik: keterangan saat disorot / difokus (teks lewat textContent) ── */
+  var tip = null;
+  var tunjuk = function (el, x, y) {
+    if (!tip) { tip = d.createElement('div'); tip.className = 'g-tip'; tip.setAttribute('role', 'status'); d.body.appendChild(tip); }
+    tip.textContent = el.getAttribute('data-tip');
+    tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x - w / 2)) + 'px';
+    tip.style.top = Math.max(8, y - h - 12) + 'px';
+  };
+  var sembunyi = function () { if (tip) tip.hidden = true; };
+  $$('[data-tip]').forEach(function (el) {
+    el.addEventListener('pointermove', function (e) { tunjuk(el, e.clientX, e.clientY); });
+    el.addEventListener('pointerleave', sembunyi);
+    el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); tunjuk(el, r.left + r.width / 2, r.top); });
+    el.addEventListener('blur', sembunyi);
+  });
+
+  /* ── impor data guru: foto banyak dikecilkan & diunggah dulu, lalu peta nama file → kunci foto dikirim ── */
+  $$('form[data-impor-guru]').forEach(function (f) {
+    var inp = $('input[data-foto-banyak]', f), peta = $('input[name="peta_foto"]', f), st = $('[data-foto-status]', f), siap = false;
+    if (!inp || !peta) return;
+    f.addEventListener('submit', function (ev) {
+      if (siap || !inp.files || !inp.files.length) return;
+      ev.preventDefault();
+      var berkas = Array.prototype.slice.call(inp.files, 0, 300), hasil = {}, i = 0, tombol = $('button[type=submit]', f);
+      if (tombol) { tombol.disabled = true; }
+      var lanjut = function () {
+        if (i >= berkas.length) {
+          peta.value = JSON.stringify(hasil);
+          inp.value = '';
+          siap = true;
+          if (st) st.textContent = 'Foto siap — membaca file Excel…';
+          f.submit();
+          return;
+        }
+        var b = berkas[i];
+        if (st) st.textContent = 'Mengecilkan & mengunggah foto ' + (i + 1) + ' dari ' + berkas.length + '…';
+        kirimBerkas(b, 'gambar', '').then(function (j) { hasil[b.name] = j.f; }).catch(function () { /* foto rusak dilewati */ }).then(function () { i += 1; lanjut(); });
+      };
+      lanjut();
+    });
+  });
+
+  /* ── notifikasi pesan: lencana menu, judul tab, dan notifikasi perangkat bila diizinkan ── */
+  (function () {
+    var lencana = $('[data-lencana-pesan]');
+    if (!lencana || !window.fetch) return;
+    var judulAsli = d.title, terakhir = -1, izin = $('[data-notif-izin]'), ket = $('[data-notif-ket]');
+    var bisaNotif = 'Notification' in window;
+    if (izin && bisaNotif && Notification.permission === 'default') { izin.hidden = false; izin.addEventListener('click', function () { Notification.requestPermission().then(function (p) { izin.hidden = p !== 'default'; if (ket) ket.textContent = p === 'granted' ? 'Notifikasi aktif di perangkat ini.' : 'Notifikasi tidak diizinkan.'; }); }); }
+    else if (ket && bisaNotif && Notification.permission === 'granted') ket.textContent = 'Notifikasi pesan aktif di perangkat ini.';
+    var periksa = function () {
+      fetch('/portal/pesan/hitung', { headers: { accept: 'application/json' }, credentials: 'same-origin', cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          if (!j) return;
+          lencana.hidden = !j.total; lencana.textContent = j.total > 99 ? '99+' : String(j.total);
+          d.title = (j.total ? '(' + j.total + ') ' : '') + judulAsli;
+          if (terakhir >= 0 && j.total > terakhir && j.terbaru && bisaNotif && Notification.permission === 'granted' && d.hidden) {
+            try { var n = new Notification('Pesan ' + j.terbaru.jenis + ' — ' + j.terbaru.dari, { body: j.terbaru.cuplikan, icon: '/assets/icon-192.png', tag: 'yapida-pesan' }); n.onclick = function () { window.focus(); location.href = j.terbaru.href; }; } catch (e) { /* abaikan */ }
+          }
+          terakhir = j.total;
+        })
+        .catch(function () { /* coba lagi nanti */ });
+    };
+    periksa();
+    setInterval(function () { if (!d.hidden) periksa(); }, 30000);
+    d.addEventListener('visibilitychange', function () { if (!d.hidden) periksa(); });
+  })();
+
+  /* ── alamat lembaga: pratinjau penulisan baku saat mengetik (server menulis versi finalnya) ── */
+  $$('[data-alamat]').forEach(function (w) {
+    var hasil = $('[data-alamat-hasil]', w);
+    var v = function (n) { var el = $('[name="' + n + '"]', w); return el ? (el.type === 'checkbox' ? el.checked : el.value.replace(/\s+/g, ' ').trim()) : ''; };
+    var judul = function (s) { return s && s === s.toUpperCase() ? s.toLowerCase().replace(/(^|[\s-])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }) : s; };
+    var nol = function (s) { s = String(s).replace(/\D/g, ''); return s ? ('00' + s).slice(-3) : ''; };
+    var tulis = function () {
+      var rt = v('a_rt') || v('a_rw') ? [v('a_rt') && 'RT ' + nol(v('a_rt')), v('a_rw') && 'RW ' + nol(v('a_rw'))].filter(Boolean).join('/') : '';
+      var kp = v('a_kampung') ? (/^(kp|kampung|dusun|perum)/i.test(v('a_kampung')) ? judul(v('a_kampung')) : 'Kp. ' + judul(v('a_kampung'))) : '';
+      var bag = [judul(v('a_jalan')), [kp, rt].filter(Boolean).join(' '), v('a_desa') && (v('a_kelurahan') ? 'Kelurahan ' : 'Desa ') + judul(v('a_desa').replace(/^(desa|ds\.?|kelurahan|kel\.?)\s*/i, '')), v('a_kecamatan') && 'Kecamatan ' + judul(v('a_kecamatan').replace(/^(kecamatan|kec\.?)\s*/i, '')), v('a_kabupaten') && (v('a_kota') ? 'Kota ' : 'Kabupaten ') + judul(v('a_kabupaten').replace(/^(kabupaten|kab\.?|kota)\s*/i, '')), [v('a_provinsi'), v('a_kodepos')].filter(Boolean).join(' ')].filter(Boolean);
+      if (hasil) hasil.textContent = bag.join(', ') || '—';
+    };
+    w.addEventListener('input', tulis); w.addEventListener('change', tulis);
   });
 })();

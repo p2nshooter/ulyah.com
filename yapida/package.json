@@ -9,10 +9,11 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit -p .",
-    "pustaka": "tsx scripts/buat-pustaka.ts",
+    "pustaka": "tsx scripts/buat-pustaka.ts && npm run klien --silent",
     "pretest": "npm run pustaka --silent",
     "test": "node --import tsx --test test/*.test.ts",
-    "e2e": "bash test/run-e2e.sh"
+    "e2e": "bash test/run-e2e.sh",
+    "klien": "esbuild src/klien/impor.ts --bundle --format=iife --minify --target=es2020 --log-level=warning --outfile=public/assets/impor.js"
   },
   "dependencies": {
     "hono": "4.13.16"

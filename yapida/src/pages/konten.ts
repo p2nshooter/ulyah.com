@@ -288,7 +288,7 @@ export function sdmDetail(x: Ctx, d: Dok): Raw {
   return html`${kepalaHalaman(d.judul, `${String(d.d.jabatan ?? '')} — ${d.unit === 'yayasan' ? 'Yayasan Al-Huda Yapida' : namaUnit(x, d.unit)}.`, [['Struktur & Guru', '/struktur'], [d.judul.slice(0, 40), `/sdm/${d.slug}`]], NAMA_GOLONGAN[String(d.d.golongan)] ?? '')}
 <section class="bagian"><div class="wadah sdm-profil">
   <figure class="sdm-foto muncul">${foto ? html`<img src="${x.media(foto)}" alt="${d.judul}" decoding="async">` : polaKosong(d.judul)}</figure>
-  <div class="muncul"><dl class="rinci"><dt>Jabatan</dt><dd>${String(d.d.jabatan ?? '')}</dd><dt>Lembaga</dt><dd>${tautUnit(x, d.unit)}</dd>${d.d.bidang ? html`<dt>Bidang</dt><dd>${String(d.d.bidang)}</dd>` : ''}${d.d.pendidikan ? html`<dt>Pendidikan</dt><dd>${String(d.d.pendidikan)}</dd>` : ''}</dl>
+  <div class="muncul"><dl class="rinci"><dt>Jabatan</dt><dd>${String(d.d.jabatan ?? '')}</dd><dt>Lembaga</dt><dd>${tautUnit(x, d.unit)}</dd>${d.d.bidang ? html`<dt>Fokus mengajar</dt><dd>${String(d.d.bidang)}</dd>` : ''}</dl>
   ${d.html.bio ? html`<div class="prosa">${raw(d.html.bio)}</div>` : ''}<p><a class="tbl tbl-garis tbl-kecil" href="/struktur${d.unit === 'yayasan' ? '' : `#${d.unit}`}">← Struktur & guru</a></p></div>
 </div></section>`;
 }

@@ -320,3 +320,46 @@ body.cetak.muat{background:transparent;overflow:hidden}
 .d-malam .tanda-terang{opacity:0}
 .d-malam .tanda-bayang{opacity:.35}
 .d-tosca .sert-tanda,.d-ceria .sert-tanda{inset:14mm}
+
+/* ── daftar peserta didik (A4 mendatar) & biodata siswa (A4 tegak) ── */
+.dpd{display:flex;flex-direction:column;padding:9mm 11mm 8mm;font:400 8.6pt/1.35 var(--f-isi);color:#1b1b1b}
+.dpd .kop{margin-bottom:0}
+.dpd-lanjut{margin:0 0 3mm;font:600 9pt var(--f-isi);color:#555;letter-spacing:.04em}
+.dpd-judul{text-align:center;margin:3.5mm 0 3mm}
+.dpd-judul h1{margin:0;font:700 13.5pt var(--f-cap,var(--f-isi));letter-spacing:.22em;text-transform:uppercase;color:#0b3d29}
+.dpd.w-safir .dpd-judul h1{color:#123a7a}.dpd.w-marun .dpd-judul h1{color:#7a1f2b}.dpd.w-arang .dpd-judul h1{color:#1f1f1f}
+.dpd-judul p{margin:.8mm 0 0;font-size:9.2pt;color:#444}
+.dpd-tabel{width:100%;border-collapse:collapse;table-layout:fixed}
+.dpd-tabel th{padding:1.6mm 1.4mm;font:700 7.6pt var(--f-isi);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:#0b5a3c;border:.25mm solid #0b5a3c}
+.dpd.w-safir .dpd-tabel th{background:#123a7a;border-color:#123a7a}.dpd.w-marun .dpd-tabel th{background:#7a1f2b;border-color:#7a1f2b}.dpd.w-arang .dpd-tabel th{background:#2a2a2a;border-color:#2a2a2a}
+.dpd-tabel td{padding:1.25mm 1.4mm;border:.25mm solid #d6cfb6;vertical-align:top;overflow-wrap:anywhere}
+.dpd-tabel tbody tr:nth-child(even) td{background:#fbf7ea}
+.dpd-tabel th:nth-child(1){width:8mm}.dpd-tabel th:nth-child(2){width:21mm}.dpd-tabel th:nth-child(3){width:15mm}.dpd-tabel th:nth-child(4){width:46mm}
+.dpd-tabel th:nth-child(5){width:9mm}.dpd-tabel th:nth-child(6){width:36mm}.dpd-tabel th:nth-child(7),.dpd-tabel th:nth-child(8){width:30mm}.dpd-tabel th:nth-child(10){width:13mm}
+.dpd-tabel td:nth-child(1),.dpd-tabel td:nth-child(5){text-align:center}
+.dpd-nama{font-weight:700}
+.dpd-alamat{font-size:7.6pt;color:#333}
+.dpd-kaki{display:flex;justify-content:space-between;align-items:flex-start;gap:8mm;margin-top:4mm}
+.dpd-rekap{margin:0;font-size:9pt}
+.dpd-ttd{width:70mm;text-align:center;font-size:9.5pt}
+.dpd-ttd p{margin:0}
+.dpd-ttd-ruang{height:17mm}
+.dpd-ttd-nama{font-weight:700;text-decoration:underline;text-underline-offset:1mm}
+.dpd-hal{position:absolute;right:11mm;bottom:4.5mm;margin:0;font-size:7.5pt;color:#888}
+.bio{display:flex;flex-direction:column;padding:12mm 18mm 14mm;font:400 10.4pt/1.5 var(--f-isi);color:#1b1b1b}
+.bio-judul{text-align:center;margin:4mm 0 5mm}
+.bio-judul h1{margin:0;font:700 14pt var(--f-cap,var(--f-isi));letter-spacing:.24em;text-transform:uppercase;color:#0b3d29}
+.bio-judul p{margin:.6mm 0 0;color:#555}
+.bio-atas{display:flex;gap:6mm;align-items:center;margin-bottom:4mm;padding:4mm;border:.3mm solid #e2d8b6;border-radius:2mm;background:linear-gradient(135deg,#fffdf6,#f8f0d8)}
+.bio-foto{flex:none;width:30mm;height:40mm;margin:0;display:grid;place-items:center;border:.4mm solid #b8902a;border-radius:1mm;background:#fff;overflow:hidden;color:#999;font-size:8pt;text-align:center}
+.bio-foto img{width:100%;height:100%;object-fit:cover}
+.bio-nama{margin:0;font:700 17pt var(--f-serif,var(--f-isi));color:#0b3d29}
+.bio-kelas{margin:1mm 0 0;color:#444}
+.bio-tabel{width:100%;border-collapse:collapse}
+.bio-tabel td{padding:1.5mm 1.5mm;border-bottom:.25mm dotted #bbb;vertical-align:top}
+.bio-no{width:7mm;color:#888}.bio-label{width:52mm;font-weight:600;color:#333}.bio-tabel td:nth-child(3){width:3mm}
+.bio-sub{margin:6mm 0 2mm;font:700 10.5pt var(--f-isi);letter-spacing:.1em;text-transform:uppercase;color:#0b3d29}
+.bio-riwayat{border-collapse:collapse;width:100%}
+.bio-riwayat td{padding:2mm;border:.25mm solid #e2d8b6;text-align:center;font-size:9pt}
+.bio-riwayat b,.bio-riwayat span{display:block}
+.bio-ttd{margin:auto 0 0 auto}
