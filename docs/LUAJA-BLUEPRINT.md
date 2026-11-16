@@ -44,7 +44,8 @@ Folder kode: `luaja/` (Cloudflare Worker `luaja-com`). Aturan tetap pemilik berl
 | 16 Nov 2026 | „Kerjain dulu hasil yg lu download, cari dulu sebanyak mungkin dari sumber2 buku terbuka dan contoh2 soal, klo itu sudah selesai baru yg lu bikin“ | ✅ urutan kerja: (1) impor sumber terbuka sebanyak mungkin, (2) baru buku & simulasi buatan LUAJA |
 | 16 Nov 2026 | „Lu wajib inget satu hal, bikin yg interaktif, menyenangkan dan siswa betah lama2 belajar“ | ✅ aturan tetap desain (§8): setiap halaman belajar punya interaksi (dengar, ketuk kata, uji diri, kartu hafalan, latihan langsung dinilai), umpan balik positif, XP & runtun harian |
 | 16 Nov 2026 | (Foto halaman buku) „Ini ga perlu ada kata2 kaya gini, ini rahasia perusahaan, jgn bongkar rahasia perusahaan“ | ✅ teks „tentang buku“ & catatan simulasi tidak lagi menyebut cara pembuatan (PDF diurai, data dibangkitkan, dsb.) — hanya manfaat bagi pelajar; atribusi lisensi tetap di bagian Sumber & lisensi |
-| 16 Nov 2026 | „mana terjemahan bahasa Indonesia nya, atau bhs inggris atau bhs Jepang tergantung pelajar memilih bahasa induk website nya … jelaskan seluruh pelajaran menggunakan bahasa induk website yg di pilih … Kamus bukan di lempar ke website wiki tapi website ini wajib punya kamus besar kumplit 3 bahasa … langsung di tampilkan arti dari kata yg di pilih … larikan ke kamus nya agar lebih banyak arti … Ambil kamus besar 3 bahasa itu dari sumber manapun dan serap“ | ⏳ §6.6 kamus LUAJA (Jerman/Inggris/Jepang → Indonesia/Inggris/Jepang) dari data berlisensi terbuka; ketuk kata → arti langsung dalam bahasa antarmuka + tautan ke `/kamus/<kata>`; penjelasan pelajaran mengikuti bahasa antarmuka |
+| 16 Nov 2026 | „mana terjemahan bahasa Indonesia nya, atau bhs inggris atau bhs Jepang tergantung pelajar memilih bahasa induk website nya … jelaskan seluruh pelajaran menggunakan bahasa induk website yg di pilih … Kamus bukan di lempar ke website wiki tapi website ini wajib punya kamus besar kumplit 3 bahasa … langsung di tampilkan arti dari kata yg di pilih … larikan ke kamus nya agar lebih banyak arti … Ambil kamus besar 3 bahasa itu dari sumber manapun dan serap“ | ✅ §6.6 **Kamus LUAJA** di R2: ±1,05 juta entri Jerman/Inggris/Jepang/Indonesia, 1,67 juta bentuk kata; ketuk kata di pembaca → arti langsung dalam bahasa antarmuka (+ „Kamus lengkap →“ ke `/kamus/<bahasa>/<kata>`), kalimat Jepang dipecah per kata; tidak ada lagi tautan ke Wiktionary/jisho · ⏳ penjelasan pelajaran dalam bahasa antarmuka (EN/JA manual) |
+| 16 Nov 2026 | „Sy berikan ke keluasan 100gb R2“ | ✅ kamus disimpan **utuh** (bukan hanya kata di buku) di R2 `luaja-media/kamus/<versi>/` (±0,55 GB per versi, versi sebelumnya disimpan sebagai cadangan, yang lebih lama dihapus); dibangun ulang bulanan oleh `kamus-luaja.yml` |
 | 16 Nov 2026 | „Mana ada ujian resmi IELTS dan TOEFL cuma 15 soal... Bikin semua soal totalnya realistis sesuai dengan yg akan di hadapi siswa“ | 🔄 paket 15 soal kini berlabel **Latihan per bagian** (bukan simulasi); **Simulasi ujian resmi** berjumlah soal persis: JLPT N5 20 simulasi × 67 soal ✅; **Goethe A1 4 Modelltest utuh** (Hören 6+4+5 dengan audio 2×/1×, Lesen 5+5+5, Schreiben formulir 5 + pesan 10 poin, Sprechen 3+6+6 poin; skor mentah × 1,66 → 0–100, lulus ≥ 60 dan keempat bagian dikerjakan, predikat resmi) ✅; TOEFL ITP 140 soal (50/40/50) & IELTS Academic (L40 · R40 · W2 · S3) ⏳ |
 | 16 Nov 2026 | „Catat semua ini, Pelajari link2 ini … Seperti inilah yg lu bikin, lu pelajarin, masukin ke blueprint setiap link yg lu pelajarin, serap seluruh datanya dan masukin jadi media pembelajaran“ (IDP IELTS, parroto, englishversity, 8 repositori GitHub, topik b1) | ✅ dipelajari & dicatat §4.2; yang berlisensi terbuka diserap, yang tidak hanya dijadikan rujukan fitur |
 | 16 Nov 2026 | „Ga ada logout nya lg, bikin portal admin dan member yg elegan, indah, estetik, nyaman di pake“ | ✅ menu akun di kepala situs (avatar → Portal · Pustaka · Akun · Panel pengelola · **Keluar**); portal: kartu profil, navigasi berikon, **bilah bawah di HP**, tombol Keluar selalu terlihat; panel pengelola: bilah atas terang dengan **Keluar**, tab berbentuk pil |
@@ -294,12 +295,29 @@ tema terang/gelap, lanjut otomatis ke bab berikutnya.
 
 **Sudah berjalan (16 Nov 2026):** rak per bahasa → jenjang → kategori dengan angka nyata; halaman buku (sampul, daftar isi
 bernomor halaman, sumber & lisensi, JSON-LD `Book`); pembaca `/baca/<id>`: halaman berbalik (tombol, panah, geser), bacakan
-seluruh halaman dengan sorot, 🔊 per paragraf/kalimat/kata, ketuk kata → dengar · simpan · kamus (Wiktionary / jisho),
+seluruh halaman dengan sorot, 🔊 per paragraf/kalimat/kata, ketuk kata → **arti langsung dari Kamus LUAJA dalam bahasa antarmuka** · dengar · simpan · „Kamus lengkap →“,
 **uji diri** (arti diburamkan, ketuk untuk melihat), **kartu hafalan** per kelompok kosakata, latihan isian & pilihan ganda
 langsung dinilai dengan skor halaman, audio & video asli, XP (+2 halaman baru, +3 jawaban benar) dan runtun harian tersimpan
 di R2 (`c/reading/<uid>.json`). Tiga halaman pertama gratis; seluruh halaman untuk member bahasa itu dan pengelola — data
 `/p/b/<id>.json` selalu lewat Worker (`assets.run_worker_first`). Terjemahan mesin dibuat sekali lalu disimpan di R2 (tidak dihitung
 ulang); terjemahan pelajaran inti ditulis tangan.
+
+### 6.6 Kamus LUAJA (perintah pemilik 16 Nov 2026)
+
+„Website ini wajib punya kamus besar kumplit 3 bahasa … langsung di tampilkan arti dari kata yg di pilih … larikan ke
+kamus nya agar lebih banyak arti“ dan „Sy berikan ke keluasan 100gb R2“.
+
+| Bagian | Isi |
+|---|---|
+| Bahasa kata | Jerman (119.534 entri · 395.826 bentuk), Inggris (734.993 · 579.680), Jepang (135.353 · 662.875 termasuk cara baca kana & romaji), Indonesia (58.464 · arah balik ke Jerman/Inggris/Jepang) |
+| Arti | dalam bahasa antarmuka: Indonesia (Jerman 68 %, Jepang 79 %, Inggris 210.201 entri), Jepang, Inggris; bila belum ada → arti Inggris dengan keterangan |
+| Sumber (atribusi di `/kredit` & setiap halaman kamus) | Wiktionary en/de/ja/id (CC BY-SA 4.0, ekstraksi kaikki.org), Princeton WordNet 3.0, Wordnet Bahasa (MIT), Japanese WordNet (NICT), daftar JLPT (CC BY), FrequencyWords (CC BY-SA, hanya untuk mengurutkan) |
+| Pemilihan arti | semua calon dari semua sumber diberi skor: banyaknya sumber yang setuju (satu sumber satu suara), makna utama (kelompok terjemahan yang paling banyak diterjemahkan), kata umum (daftar kekerapan; Jepang juga JLPT); calon lemah dibuang. Partikel & kata bantu Jepang (は, が, を, に, です, ます …) dijelaskan manual tiga bahasa |
+| Bentuk → lema | „Hauses“ → Haus, „ging“ → gehen, „children“ → child, „たべる“/„食べた“ → 食べる; entri usang („went“ = jalan) tidak mengalahkan lema umum; huruf besar bermakna hanya di bahasa Jerman |
+| Penyimpanan | R2 `luaja-media/kamus/<versi>/<bhs>/e-<n>.txt` (baris terurut „kunci⇥[entri]“, bagian ≤ 90 MB) + `e.idx.json` (blok ±48 KB); Worker membaca satu blok lewat *range read*; penunjuk `kamus/current.json` ditulis paling akhir (ganti versi atomik), versi sebelumnya disimpan, yang lebih lama dihapus. Tidak ada D1, tidak ada KV untuk data |
+| Halaman | `/kamus` (cari, isian otomatis, 4 bahasa, statistik), `/kamus/<bhs>/<kata>` (terindeks, JSON-LD `DefinedTerm`): artikel der/die/das berwarna, jamak, IPA, cara baca, JLPT, 🔊, arti, definisi ekabahasa (Jerman/Jepang/Indonesia), makna rinci per kelas kata + contoh kalimat bersuara, bentuk kata, sinonim, padanan antarbahasa |
+| API | `/api/kamus/cari` (popup pembaca), `/api/kamus/awal` (isian otomatis), `/api/kamus/pecah` (kalimat Jepang → kata) — batas laju per IP di KV |
+| Pembangunan | `scripts/kamus/fetch.sh` + `build.py` + `verify.ts` (pemeriksaan dengan pembaca Worker yang sama; gagal = tidak diunggah) di workflow `kamus-luaja.yml` (saat skrip berubah, bulanan, manual) |
 
 ### 6.3 Video dan mesin kosakata
 

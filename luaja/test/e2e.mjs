@@ -307,6 +307,22 @@ try {
     await c.close();
     ok('simulasi Goethe A1: 4 bagian berwaktu, formulir & pesan, nilai diri berbicara, skor 0–100 dengan predikat');
   }
+  // 4h. Kamus: beranda kamus tampil (kotak cari + pilihan bahasa), tanpa geser samping di ponsel; menu memuat Kamus
+  {
+    const { c, p } = await ctx({ ...devices['Pixel 7'] });
+    await p.goto(BASE + '/kamus');
+    await p.waitForSelector('[data-k-search] [data-k-q]');
+    if ((await p.locator('.k-tab').count()) !== 4) fail('pilihan bahasa kamus tidak lengkap');
+    const ov = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    if (ov > 1) fail(`kamus melebar ${ov}px di ponsel`);
+    await p.screenshot({ path: `${OUT}/kamus-ponsel.png` });
+    await c.close();
+    const d = await ctx();
+    await d.p.goto(BASE + '/');
+    if (!(await d.p.locator('header a[href="/kamus"]').count())) fail('menu tidak memuat Kamus');
+    await d.c.close();
+    ok('kamus: beranda kamus (4 bahasa, kotak cari), pas di ponsel, ada di menu');
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();
