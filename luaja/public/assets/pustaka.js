@@ -18,7 +18,6 @@
   function add(el, c) { if (c === null || c === undefined || c === false) return; if (Array.isArray(c)) { c.forEach(function (x) { add(el, x); }); return; } el.appendChild(typeof c === 'object' ? c : d.createTextNode(String(c))); }
 
   var LOC = { de: 'de-DE', en: 'en-GB', ja: 'ja-JP' };
-  var WIKI = { de: 'German', en: 'English', ja: 'Japanese' };
   var locOf = function (l) { return LOC[l] || B.locale; };
   var stopSpeech = function () { try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* tanpa suara */ } };
   var RUBY = /｜([^《｜]+)《([^》]+)》/g;
@@ -32,33 +31,117 @@
   var keep = function () { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* abaikan */ } };
   var chapterStarts = (B.toc || []).map(function (x) { return x[1]; });
 
-  /* ── kata yang bisa diketuk ─────────────────────────────────────────── */
+  /* ── kata yang bisa diketuk: arti langsung dari Kamus LUAJA dalam bahasa antarmuka ─────────────── */
   var pop = $('[data-pop]');
+  var UI = (window.LJ && window.LJ.lang) || 'id', kcache = {};
   function closePop() { pop.hidden = true; pop.textContent = ''; }
+  function place(anchor) {
+    var r = anchor.getBoundingClientRect(), pw = Math.min(360, window.innerWidth - 24), ph = pop.offsetHeight || 140;
+    pop.style.width = pw + 'px';
+    pop.style.left = Math.max(12, Math.min(window.innerWidth - pw - 12, r.left + r.width / 2 - pw / 2)) + 'px';
+    var below = r.bottom + 8, above = r.top - 8 - ph;
+    pop.style.top = Math.max(8, below + ph > window.innerHeight - 8 && above > 8 ? above : Math.min(below, window.innerHeight - ph - 8)) + 'px';
+  }
+  function kfetch(path) {
+    if (kcache[path]) return kcache[path];
+    kcache[path] = fetch(path, { credentials: 'same-origin' }).then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); });
+    kcache[path].catch(function () { delete kcache[path]; });
+    return kcache[path];
+  }
+  function savedHas(w, l) { try { return (JSON.parse(localStorage.getItem('lj_words') || '[]')).some(function (x) { return x.w === w && x.l === l; }); } catch (e) { return false; } }
+  function saveWord(w, l, m) { try { var list = JSON.parse(localStorage.getItem('lj_words') || '[]'); if (!list.some(function (x) { return x.w === w && x.l === l; })) list.unshift({ w: w, l: l, b: B.id, at: Date.now(), m: m || '' }); localStorage.setItem('lj_words', JSON.stringify(list.slice(0, 2000))); } catch (e) { /* abaikan */ } }
+  function meaningBlock(hit, l) {
+    var head = h('div', { class: 'pop-lemma' }, hit.art ? h('span', { class: 'pop-art' }, hit.art + ' ') : null, h('b', { lang: l }, hit.w),
+      hit.r && hit.r !== hit.w ? h('span', { class: 'pop-ipa', lang: 'ja' }, ' ' + hit.r) : null, hit.ipa ? h('span', { class: 'pop-ipa' }, ' ' + hit.ipa) : null,
+      hit.lv ? h('span', { class: 'pop-lv' }, 'JLPT ' + hit.lv) : null);
+    var list = h('ol', { class: 'pop-m', lang: hit.ml || UI }, (hit.m || []).map(function (x) { return h('li', null, x); }));
+    return [head, list, hit.ml && hit.ml !== UI ? h('small', { class: 'pop-note' }, T('js.kamus.enNote')) : null];
+  }
   function openPop(word, l, anchor) {
     var clean = word.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '');
     if (!clean) return;
     pop.textContent = '';
-    var saved = false;
-    try { saved = (JSON.parse(localStorage.getItem('lj_words') || '[]')).some(function (w) { return w.w === clean && w.l === l; }); } catch (e) { /* abaikan */ }
-    var dict = l === 'ja' ? 'https://jisho.org/search/' + encodeURIComponent(clean) : 'https://en.wiktionary.org/wiki/' + encodeURIComponent(l === 'de' ? clean : clean.toLowerCase()) + '#' + WIKI[l];
-    var saveBtn = h('button', { type: 'button', class: 'pop-btn' }, saved ? T('js.lib.saved') : T('js.lib.save'));
-    saveBtn.addEventListener('click', function () {
-      try { var list = JSON.parse(localStorage.getItem('lj_words') || '[]'); if (!list.some(function (w) { return w.w === clean && w.l === l; })) list.unshift({ w: clean, l: l, b: B.id, at: Date.now() }); localStorage.setItem('lj_words', JSON.stringify(list.slice(0, 2000))); } catch (e) { /* abaikan */ }
-      saveBtn.textContent = T('js.lib.saved');
-    });
+    var body = h('div', { class: 'pop-body', 'aria-live': 'polite' }, h('span', { class: 'pop-wait' }, T('js.kamus.loading')));
     var listen = h('button', { type: 'button', class: 'pop-btn' }, '🔊 ' + T('js.lib.listen'));
+    var full = h('a', { class: 'pop-btn pop-full', href: '/kamus?l=' + l + '&q=' + encodeURIComponent(clean) }, T('js.kamus.full') + ' →');
+    var lemma = clean, meaning = '';
+    var saveBtn = h('button', { type: 'button', class: 'pop-btn' }, savedHas(clean, l) ? T('js.lib.saved') : T('js.lib.save'));
+    saveBtn.addEventListener('click', function () { saveWord(lemma, l, meaning); saveBtn.textContent = T('js.lib.saved'); });
     listen.addEventListener('click', function () { say(clean, l); });
-    add(pop, [h('b', { lang: l }, clean), h('div', { class: 'pop-row' }, listen, saveBtn, h('a', { class: 'pop-btn', href: dict, target: '_blank', rel: 'noopener' }, T('js.lib.dict') + ' ↗'))]);
+    var wordHead = l === 'ja' ? null : h('div', { class: 'pop-word' }, h('b', { lang: l }, clean));
+    add(pop, [wordHead, body, h('div', { class: 'pop-row' }, listen, saveBtn, full)]);
     pop.hidden = false;
-    var r = anchor.getBoundingClientRect(), pw = Math.min(320, window.innerWidth - 24);
-    pop.style.width = pw + 'px';
-    pop.style.left = Math.max(12, Math.min(window.innerWidth - pw - 12, r.left + r.width / 2 - pw / 2)) + 'px';
-    pop.style.top = (r.bottom + 8 + 120 > window.innerHeight ? r.top - 128 : r.bottom + 8) + 'px';
+    place(anchor);
     say(clean, l);
+    if (navigator.onLine === false) { body.textContent = T('js.kamus.offline'); place(anchor); return; }
+    if (l === 'ja') {
+      kfetch('/api/kamus/pecah?l=ja&ui=' + UI + '&q=' + encodeURIComponent(clean)).then(function (d) {
+        body.textContent = '';
+        var detail = h('div', { class: 'pop-detail' });
+        var chips = h('div', { class: 'pop-chips', role: 'group', 'aria-label': T('js.kamus.words') });
+        var first = null;
+        function pick(b, tk, speak) {
+          $$('.pop-chip', chips).forEach(function (x) { x.classList.toggle('on', x === b); });
+          detail.textContent = '';
+          add(detail, meaningBlock({ w: tk.w, r: tk.r, m: tk.m }, 'ja'));
+          lemma = tk.w; meaning = (tk.m || []).join(', ');
+          full.setAttribute('href', tk.url);
+          saveBtn.textContent = savedHas(tk.w, 'ja') ? T('js.lib.saved') : T('js.lib.save');
+          if (speak) say(tk.t, 'ja');
+          place(anchor);
+        }
+        (d.tokens || []).forEach(function (tk) {
+          if (!tk.w) { if (/\S/.test(tk.t)) add(chips, h('span', { class: 'pop-sep', lang: 'ja' }, tk.t)); return; }
+          var b = h('button', { type: 'button', class: 'pop-chip', lang: 'ja' }, tk.t);
+          b.addEventListener('click', function (e) { e.stopPropagation(); pick(b, tk, true); });
+          if (!first) first = { b: b, tk: tk };
+          add(chips, b);
+        });
+        add(body, [h('small', { class: 'pop-note' }, T('js.kamus.words')), chips, detail]);
+        if (first) pick(first.b, first.tk, false);
+        else { body.textContent = T('js.kamus.none'); place(anchor); }
+      }).catch(function () { body.textContent = T('js.kamus.none'); place(anchor); });
+      return;
+    }
+    kfetch('/api/kamus/cari?l=' + l + '&ui=' + UI + '&q=' + encodeURIComponent(clean)).then(function (d) {
+      body.textContent = '';
+      var hits = d.hits || [];
+      if (!hits.length) { body.textContent = T('js.kamus.none'); place(anchor); return; }
+      var top = hits[0];
+      lemma = top.w; meaning = (top.m || []).slice(0, 3).join(', ');
+      full.setAttribute('href', top.url);
+      if (top.w.toLowerCase() !== clean.toLowerCase()) add(body, h('small', { class: 'pop-note' }, T('js.kamus.formOf', { w: top.w })));
+      else if (wordHead && wordHead.parentNode) wordHead.parentNode.removeChild(wordHead);
+      add(body, meaningBlock(top, l));
+      hits.slice(1, 3).forEach(function (x) {
+        add(body, h('a', { class: 'pop-more', href: x.url }, h('b', { lang: l }, (x.art ? x.art + ' ' : '') + x.w), ' — ' + (x.m || []).slice(0, 2).join(', ')));
+      });
+      saveBtn.textContent = savedHas(top.w, l) || savedHas(clean, l) ? T('js.lib.saved') : T('js.lib.save');
+      place(anchor);
+    }).catch(function () { body.textContent = T('js.kamus.none'); place(anchor); });
   }
   d.addEventListener('click', function (e) { if (!pop.hidden && !pop.contains(e.target) && !e.target.classList.contains('w')) closePop(); });
   window.addEventListener('scroll', closePop, { passive: true });
+
+  /** Kalimat Jepang di titik ketukan (paragraf panjang dipotong di 。！？ agar kamus memecah kalimat itu saja). */
+  function sentenceAt(w, ev) {
+    var full = w.getAttribute('data-w') || '', idx = -1;
+    try {
+      var r = d.caretRangeFromPoint ? d.caretRangeFromPoint(ev.clientX, ev.clientY) : null;
+      var pos = !r && d.caretPositionFromPoint ? d.caretPositionFromPoint(ev.clientX, ev.clientY) : null;
+      var node = r ? r.startContainer : pos ? pos.offsetNode : null, off = r ? r.startOffset : pos ? pos.offset : 0;
+      if (node && w.contains(node)) {
+        var walker = d.createTreeWalker(w, NodeFilter.SHOW_TEXT), n, count = 0;
+        while ((n = walker.nextNode())) { if (n.parentNode && n.parentNode.nodeName === 'RT') continue; if (n === node) { idx = count + off; break; } count += n.nodeValue.length; }
+      }
+    } catch (x) { idx = -1; }
+    if (idx < 0) idx = 0;
+    var start = idx, end = idx, stop = /[。！？!?\n]/;
+    while (start > 0 && !stop.test(full.charAt(start - 1))) start--;
+    while (end < full.length && !stop.test(full.charAt(end))) end++;
+    var s = full.slice(start, Math.min(full.length, end + 1)).trim();
+    return (s || full).slice(0, 100);
+  }
 
   /** Teks bahasa sasaran → kata yang bisa diketuk (Jepang: per kalimat). */
   function words(text, l) {
@@ -78,7 +161,7 @@
   }
   pageEl.addEventListener('click', function (e) {
     var w = e.target.closest && e.target.closest('.w');
-    if (w && pageEl.contains(w)) { e.stopPropagation(); var l = (w.closest('[data-l]') || {}).getAttribute ? w.closest('[data-l]').getAttribute('data-l') : B.lang; openPop(w.getAttribute('data-w'), l || B.lang, w); return; }
+    if (w && pageEl.contains(w)) { e.stopPropagation(); var l = (w.closest('[data-l]') || {}).getAttribute ? w.closest('[data-l]').getAttribute('data-l') : B.lang; l = l || B.lang; openPop(l === 'ja' ? sentenceAt(w, e) : w.getAttribute('data-w'), l, w); return; }
     var tr = e.target.closest && e.target.closest('.tr');
     if (tr && d.body.classList.contains('rd-hide-tr')) tr.classList.toggle('shown');
   });

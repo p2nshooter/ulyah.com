@@ -6,7 +6,7 @@
   var root = document.querySelector('[data-sim]'); if (!root) return;
   var M = JSON.parse(document.getElementById('mock').textContent);
   var C = JSON.parse(document.getElementById('simcfg').textContent);
-  var d = document, $ = function (s, c) { return (c || d).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
+  var d = document, $ = function (s, c) { return (c || d).querySelector(s); };
   var T = function (k, v) { var s = (window.LJ && window.LJ.t && window.LJ.t[k]) || k; if (v) for (var x in v) s = s.split('{' + x + '}').join(v[x]); return s; };
   function h(tag, attrs) { var el = d.createElement(tag), k; if (attrs) for (k in attrs) { if (attrs[k] === null || attrs[k] === undefined || attrs[k] === false) continue; if (k === 'class') el.className = attrs[k]; else el.setAttribute(k, attrs[k] === true ? '' : String(attrs[k])); } for (var i = 2; i < arguments.length; i++) add(el, arguments[i]); return el; }
   function add(el, c) { if (c === null || c === undefined || c === false) return; if (Array.isArray(c)) { c.forEach(function (x) { add(el, x); }); return; } el.appendChild(typeof c === 'object' ? c : d.createTextNode(String(c))); }

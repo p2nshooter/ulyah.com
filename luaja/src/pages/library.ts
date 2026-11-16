@@ -49,7 +49,7 @@ export function libraryIndexPage(o: { course: Course; level?: string; lang: Lang
   const shown = o.level ? levels.filter((l) => l.id === o.level) : levels;
   const st = libStats(o.course);
   const q = (lv?: string) => `/pustaka?bahasa=${o.course}${lv ? `&jenjang=${lv}` : ''}`;
-  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=2">
+  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=3">
 <section class="page-hero"><div class="scene">${raw(scene(o.course, 'siang', { id: 'lib-hero', seed: 11 }))}</div><div class="wrap page-hero-in">
   ${breadcrumbs([[t(L, 'lib.home'), '/pustaka'], [name, q()]], L)}
   <p class="eyebrow">${t(L, 'lib.eyebrow')}</p>
@@ -85,7 +85,7 @@ export function bookPage(o: { book: BookMeta; open: boolean; lastPage?: number; 
   const L = o.lang, b = o.book, m = COURSE_META[b.lang], name = m.names[L];
   const related = booksOf(b.lang, b.level).filter((x) => x.id !== b.id).slice(0, 8);
   const start = o.lastPage && o.lastPage > 0 ? o.lastPage : 0;
-  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=2">
+  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=3">
 <section class="section-tight book-hero"><div class="wrap">
   ${breadcrumbs([[t(L, 'lib.home'), '/pustaka'], [name, `/pustaka?bahasa=${b.lang}`], [levelLabel(b.lang, b.level), `/pustaka?bahasa=${b.lang}&jenjang=${b.level}`], [b.title, `/pustaka/${b.id}`]], L)}
   <div class="book-head">
@@ -123,7 +123,7 @@ export function bookPage(o: { book: BookMeta; open: boolean; lastPage?: number; 
 /** Cangkang pembaca: isi halaman dirender skrip dari JSON buku; tanpa iklan, tanpa indeks. */
 export function readerPage(o: { book: BookMeta; open: boolean; start: number; loggedIn: boolean; xp: number; streak: number; lang: Lang }): Raw {
   const L = o.lang, b = o.book, m = COURSE_META[b.lang];
-  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=2"><section class="reader" data-reader>
+  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=3"><section class="reader" data-reader>
   <div class="rd-bar">
     <a class="rd-back" href="/pustaka/${b.id}" aria-label="${t(L, 'lib.toc')}">${icon('panah')}</a>
     <div class="rd-title"><b>${b.title}</b><span data-pg-label>${t(L, 'js.lib.loading')}</span></div>
@@ -148,5 +148,5 @@ export function readerPage(o: { book: BookMeta; open: boolean; start: number; lo
   <div class="rd-toast" data-rd-toast hidden></div>
   ${jsonScript('book', { id: b.id, lang: b.lang, locale: m.locale, pages: b.pages, toc: b.toc, start: o.start, open: o.open, loggedIn: o.loggedIn, preview: PREVIEW_PAGES })}
 </section>
-<script src="/assets/pustaka.js?v=3" defer></script>`;
+<script src="/assets/pustaka.js?v=4" defer></script>`;
 }

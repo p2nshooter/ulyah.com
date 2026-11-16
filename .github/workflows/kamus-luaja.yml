@@ -1,0 +1,119 @@
+name: Kamus luaja.com (bangun & unggah ke R2)
+
+# Kamus LUAJA (pemilik, 16 Nov 2026: „kamus besar kumplit 3 bahasa … arti langsung“, „Sy berikan ke keluasan 100gb R2“).
+# 1. Unduh sumber terbuka (Wiktionary via kaikki.org, WordNet, Wordnet Bahasa, Japanese WordNet, daftar JLPT & kekerapan).
+# 2. Bangun paket kamus (scripts/kamus/build.py) dan periksa dengan pembaca yang sama dengan Worker (scripts/kamus/verify.ts).
+# 3. Unggah ke R2 `luaja-media` di kamus/<versi>/…, lalu tulis kamus/current.json PALING AKHIR (pergantian versi atomik).
+# 4. Versi sebelumnya disimpan (cadangan & permintaan yang sedang berjalan); versi yang lebih lama lagi dihapus.
+# Aturan tetap pemilik: semua penyimpanan di R2, tidak pernah D1. Data kamus dapat dibangun ulang kapan saja dari sumbernya.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'luaja/scripts/kamus/**'
+      - 'luaja/src/kamus/**'
+      - '.github/workflows/kamus-luaja.yml'
+  schedule:
+    - cron: '17 2 3 * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: kamus-luaja
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  BUCKET: luaja-media
+
+jobs:
+  kamus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: luaja
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Verify Cloudflare secrets are present
+        run: |
+          set -eu
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name:-}" ]; then echo "::error::Secret GitHub yang belum diisi: $name"; exit 1; fi
+          done
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download open dictionary sources
+        run: bash scripts/kamus/fetch.sh "$RUNNER_TEMP/kamus-src"
+
+      - name: Build dictionary packs
+        run: python3 -I scripts/kamus/build.py "$RUNNER_TEMP/kamus-src" "$RUNNER_TEMP/kamus-out"
+
+      - name: Verify packs with the Worker's reader
+        run: node --import tsx scripts/kamus/verify.ts "$RUNNER_TEMP/kamus-out"
+
+      - name: Upload to R2 and switch the active version
+        run: |
+          set -euo pipefail
+          WR="$GITHUB_WORKSPACE/luaja/node_modules/.bin/wrangler"
+          OUT="$RUNNER_TEMP/kamus-out"
+          VER="$(date -u +%Y%m%d-%H%M)"
+          cd "$RUNNER_TEMP"
+          put() { # put <kunci> <berkas> <jenis>
+            for i in 1 2 3 4 5; do
+              if "$WR" r2 object put "$BUCKET/$1" --file "$2" --content-type "$3" --remote >/dev/null 2>&1; then return 0; fi
+              echo "  ulang $1 ($i)"; sleep $((i * 5))
+            done
+            echo "::error::Gagal mengunggah $1"; return 1
+          }
+          export -f put; export WR BUCKET
+          (cd "$OUT" && find . -type f \( -name '*.txt' -o -name '*.json' \) ! -name meta.json | sed 's|^\./||' | sort) > files.txt
+          echo "Versi $VER: $(wc -l < files.txt) berkas, $(du -sh "$OUT" | cut -f1)"
+          # data dulu (paralel 4), indeks belakangan — penunjuk versi baru ditulis setelah semuanya ada
+          grep '\.txt$' files.txt | xargs -P 4 -I{} bash -c 'put "kamus/'"$VER"'/{}" "'"$OUT"'/{}" "text/plain; charset=utf-8"'
+          grep '\.json$' files.txt | xargs -P 4 -I{} bash -c 'put "kamus/'"$VER"'/{}" "'"$OUT"'/{}" "application/json"'
+          "$WR" r2 object get "$BUCKET/kamus/current.json" --pipe --remote > old.json 2>/dev/null || echo '{}' > old.json
+          python3 -I - "$OUT/meta.json" old.json files.txt "$VER" > current.json <<'PY'
+          import json, sys
+          meta = json.load(open(sys.argv[1], encoding='utf-8'))
+          try:
+              old = json.load(open(sys.argv[2], encoding='utf-8'))
+          except ValueError:
+              old = {}
+          files = [x.strip() for x in open(sys.argv[3], encoding='utf-8') if x.strip()]
+          meta.update({'ver': sys.argv[4], 'files': files, 'prev': old.get('ver'), 'prevFiles': old.get('files', [])})
+          meta['drop'] = {'ver': old.get('prev'), 'files': old.get('prevFiles', [])}
+          print(json.dumps(meta, ensure_ascii=False))
+          PY
+          put kamus/current.json current.json "application/json"
+          echo "Versi aktif: $VER"
+          # hapus versi dua langkah sebelumnya (versi sebelumnya tetap disimpan)
+          DROP="$(python3 -I -c "import json;d=json.load(open('current.json'))['drop'];print(d['ver'] or '')")"
+          if [ -n "$DROP" ] && [ "$DROP" != "$VER" ]; then
+            python3 -I -c "import json;[print(f) for f in json.load(open('current.json'))['drop']['files']]" | while read -r f; do
+              "$WR" r2 object delete "$BUCKET/kamus/$DROP/$f" --remote >/dev/null 2>&1 || echo "  (lewati $f)"
+            done
+            echo "Versi lama $DROP dihapus."
+          fi
+          {
+            echo "### Kamus LUAJA — versi $VER"
+            python3 -I -c "import json;m=json.load(open('current.json'));[print(f'- **{l}**: {s[\"entries\"]:,} entri · {s[\"forms\"]:,} bentuk · arti id {s[\"id\"]:,} · ja {s[\"ja\"]:,}') for l,s in m['langs'].items()]"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Smoke test on luaja.com
+        run: |
+          set -u
+          for i in $(seq 1 12); do
+            body="$(curl -fsS "https://luaja.com/api/kamus/cari?l=de&q=Hauses&ui=id" || true)"
+            if echo "$body" | grep -q '"w":"Haus"' && echo "$body" | grep -q 'rumah'; then echo "Kamus aktif di luaja.com"; exit 0; fi
+            sleep 30
+          done
+          echo "::warning::Kamus belum menjawab di luaja.com (domain belum aktif atau Worker belum dideploy dengan rute kamus)."

@@ -36,6 +36,7 @@ import { admin } from './routes/admin.ts';
 import { pay } from './routes/pay.ts';
 import { library } from './routes/library.ts';
 import { exam } from './routes/exam.ts';
+import { kamus } from './routes/kamus.ts';
 import { readyExams, mocksOf } from './exam/mocks.ts';
 import { BOOKS } from './library/index.ts';
 
@@ -140,7 +141,7 @@ app.get('/sitemap.xml', (c) => {
     ...COURSES.flatMap((k) => COURSE_META[k].levels.map((l) => [`/${COURSE_META[k].slug}/${l.id}`, 'weekly', '0.7'] as [string, string, string])),
     ...COURSES.map((k) => [`/latihan?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
     ['/simulasi', 'weekly', '0.8'], ...readyExams().map((e) => [`/simulasi/${e.id}`, 'weekly', '0.8'] as [string, string, string]),
-    ['/pustaka', 'weekly', '0.8'], ...COURSES.map((k) => [`/pustaka?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
+    ['/pustaka', 'weekly', '0.8'], ['/kamus', 'weekly', '0.8'], ...(['de', 'en', 'ja', 'id'] as const).map((k) => [`/kamus?l=${k}`, 'weekly', '0.6'] as [string, string, string]), ...COURSES.map((k) => [`/pustaka?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
     ...BOOKS.map((b) => [`/pustaka/${b.id}`, 'monthly', '0.6'] as [string, string, string]),
     ...LESSONS.filter((l) => l.free).map((l) => [`/belajar/${l.code}`, 'monthly', '0.8'] as [string, string, string]),
     ...SETS.filter((s) => s.free && s.kind === 'simulasi').map((s) => [`/latihan/${s.id}`, 'monthly', '0.7'] as [string, string, string]),
@@ -335,6 +336,7 @@ app.route('/', admin);
 app.route('/', pay);
 app.route('/', library);
 app.route('/', exam);
+app.route('/', kamus);
 
 app.notFound(async (c) => {
   const lang = L(c) ?? 'id';
