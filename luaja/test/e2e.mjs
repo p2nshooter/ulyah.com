@@ -16,7 +16,7 @@ const fail = (m) => { throw new Error(m); };
 async function ctx(opts = {}) {
   const c = await browser.newContext({ viewport: { width: 1366, height: 860 }, reducedMotion: 'reduce', acceptDownloads: true, ...opts });
   const p = await c.newPage();
-  p.on('console', (m) => { if (m.type() === 'error' && !/ERR_TUNNEL|ERR_PROXY|googlesyndication|ERR_NAME|ERR_CONNECTION|Failed to load resource/.test(m.text())) errors.push(`${p.url()} ${m.text()}`); });
+  p.on('console', (m) => { if (m.type() === 'error' && !/ERR_TUNNEL|ERR_PROXY|googlesyndication|ERR_NAME|ERR_CONNECTION|Failed to load resource|\[Report Only\] Refused to frame 'https:\/\/[a-z.]*google\.com\//.test(m.text())) errors.push(`${p.url()} ${m.text()}`); });
   p.on('pageerror', (e) => errors.push(`${p.url()} ${e.message}`));
   return { c, p };
 }

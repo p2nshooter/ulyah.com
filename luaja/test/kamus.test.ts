@@ -170,3 +170,18 @@ test('kamus: popup pembaca memakai kamus sendiri (bukan situs kamus luar) dan me
   const sm = await (await get(env(fixture()), '/sitemap.xml')).text();
   assert.match(sm, /\/kamus</);
 });
+
+test('pustaka: semua penjelasan berbahasa Inggris di buku Jerman/Jepang punya terjemahan Indonesia; kosakata ber-arti Indonesia', () => {
+  let explain = 0, missing = 0, voc = 0, vocId = 0;
+  for (const f of fs.readdirSync(new URL('../public/p/b/', import.meta.url))) {
+    const d = JSON.parse(fs.readFileSync(new URL(`../public/p/b/${f}`, import.meta.url), 'utf8')) as { lang: string; pages: { b: Record<string, unknown>[] }[] };
+    if (d.lang === 'en') continue;
+    for (const pg of d.pages) for (const b of pg.b) {
+      if ((b.k === 'p' || b.k === 'tip') && b.l === 'en') { explain += 1; if (!b.t_id) missing += 1; }
+      if (b.k === 'voc' && Array.isArray(b.i)) { voc += (b.i as unknown[]).length; vocId += ((b.tr as { id?: string[] } | undefined)?.id ?? []).filter(Boolean).length; }
+    }
+  }
+  assert.ok(explain > 1000, `paragraf penjelasan: ${explain}`);
+  assert.equal(missing, 0, `${missing} paragraf penjelasan belum diterjemahkan`);
+  assert.ok(vocId / voc > 0.8, `kosakata ber-arti Indonesia ${vocId}/${voc}`);
+});

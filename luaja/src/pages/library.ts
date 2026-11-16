@@ -8,6 +8,10 @@ import { fmtNum, t, type Key, type Lang } from '../lib/i18n.ts';
 import { breadcrumbs, icon } from './layout.ts';
 import { scene } from './scene.ts';
 import { booksOf, coverStyle, libStats, PREVIEW_PAGES, sources, type BookMeta } from '../library/index.ts';
+import { JUDUL_ID } from '../library/judul-id.gen.ts';
+
+/** Judul bab dalam bahasa antarmuka (judul berbahasa Inggris di sumber diterjemahkan ke Indonesia). */
+const judul = (L: Lang, title: string) => (L === 'id' && JUDUL_ID[title]) || title;
 
 const CAT_ICON: Record<string, string> = { kursus: 'buku', grammatik: 'tangga', wortschatz: 'kartu', kalimat: 'suara', video: 'video', arbeitsbuch: 'ujian', bacaan: 'buku', kamus: 'dunia' };
 export const catLabel = (L: Lang, cat: string) => t(L, `lib.cat.${cat}` as Key);
@@ -107,7 +111,7 @@ export function bookPage(o: { book: BookMeta; open: boolean; lastPage?: number; 
 <section class="section-tight"><div class="wrap book-body">
   <div class="card">
     <h2 style="font-size:var(--fs-4);margin-top:0">${t(L, 'lib.toc')}</h2>
-    <ol class="toc">${b.toc.map(([title, page]) => html`<li><a href="/baca/${b.id}?h=${page + 1}"><span>${title}</span><span class="toc-dots"></span><span class="toc-pg">${page + 1}</span></a></li>`)}</ol>
+    <ol class="toc">${b.toc.map(([title, page]) => html`<li><a href="/baca/${b.id}?h=${page + 1}"><span>${judul(L, title)}</span><span class="toc-dots"></span><span class="toc-pg">${page + 1}</span></a></li>`)}</ol>
     ${b.chapters > b.toc.length ? html`<p class="small muted">… ${t(L, 'lib.chapters', { n: b.chapters })}</p>` : ''}
   </div>
   <aside class="stack">
@@ -143,7 +147,7 @@ export function readerPage(o: { book: BookMeta; open: boolean; start: number; lo
     <label class="rd-goto"><span class="sr-only">${t(L, 'js.lib.goto')}</span><input type="number" min="1" max="${b.pages}" value="${o.start + 1}" data-goto inputmode="numeric"> / ${b.pages}</label>
     <button type="button" class="btn btn-gold" data-next>${t(L, 'js.lib.next')} →</button>
   </nav>
-  <dialog class="rd-toc" data-toc><form method="dialog"><h2>${t(L, 'lib.toc')}</h2><ol>${b.toc.map(([title, page]) => html`<li><button type="submit" value="${page}" data-jump="${page}"><span>${title}</span><span class="toc-pg">${page + 1}</span></button></li>`)}</ol><button class="btn btn-ghost" value="close">✕</button></form></dialog>
+  <dialog class="rd-toc" data-toc><form method="dialog"><h2>${t(L, 'lib.toc')}</h2><ol>${b.toc.map(([title, page]) => html`<li><button type="submit" value="${page}" data-jump="${page}"><span>${judul(L, title)}</span><span class="toc-pg">${page + 1}</span></button></li>`)}</ol><button class="btn btn-ghost" value="close">✕</button></form></dialog>
   <div class="rd-pop" data-pop hidden></div>
   <div class="rd-toast" data-rd-toast hidden></div>
   ${jsonScript('book', { id: b.id, lang: b.lang, locale: m.locale, pages: b.pages, toc: b.toc, start: o.start, open: o.open, loggedIn: o.loggedIn, preview: PREVIEW_PAGES })}
