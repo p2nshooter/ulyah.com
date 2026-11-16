@@ -603,7 +603,7 @@ const D = {
   /* pustaka & pembaca */
   'menu.library': ['Pustaka', 'Library', 'ライブラリ'],
   'pwa.install': ['Pasang aplikasi', 'Install app', 'アプリをインストール'],
-  'pwa.title': ['Pasang LUAJA di HP Anda', 'Install LUAJA on your phone', 'LUAJAをスマホにインストール'],
+  'pwa.title': ['Pasang LUAJA di perangkat Anda', 'Install LUAJA on your device', 'LUAJAをお使いの端末にインストール'],
   'pwa.text': ['Buka langsung dari layar utama, tampil layar penuh dan lebih cepat — gratis, tanpa toko aplikasi.', 'Open it straight from your home screen, full screen and faster — free, no app store needed.', 'ホーム画面からすぐに開けて、全画面で快適。アプリストア不要・無料です。'],
   'pwa.ios': ['Di iPhone/iPad: ketuk tombol Bagikan (kotak dengan panah ke atas) di Safari, lalu pilih „Tambah ke Layar Utama“.', 'On iPhone/iPad: tap the Share button (square with an up arrow) in Safari, then choose “Add to Home Screen”.', 'iPhone・iPadでは、Safariの共有ボタン（上向き矢印の四角）をタップし、「ホーム画面に追加」を選んでください。'],
   'pwa.later': ['Nanti', 'Later', 'あとで'],
