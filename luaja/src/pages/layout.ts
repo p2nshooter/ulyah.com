@@ -130,6 +130,7 @@ export const MENU = (L: Lang): { id: string; label: string; href: string }[] => 
   { id: 'jepang', label: t(L, 'menu.ja'), href: '/jepang' },
   { id: 'latihan', label: t(L, 'menu.practice'), href: '/latihan' },
   { id: 'pustaka', label: t(L, 'menu.library'), href: '/pustaka' },
+  { id: 'kamus', label: t(L, 'menu.dict'), href: '/kamus' },
   { id: 'harga', label: t(L, 'menu.pricing'), href: '/harga' },
 ];
 

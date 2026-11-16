@@ -4,9 +4,12 @@ import type { R2Like } from '../src/lib/store.ts';
 export class FakeR2 implements R2Like {
   m = new Map<string, { v: string; etag: string; meta?: Record<string, string>; up: Date }>();
   n = 0;
-  async get(k: string) {
+  async get(k: string, opts?: { range?: { offset: number; length: number } }) {
     const o = this.m.get(k);
-    return o ? { etag: o.etag, text: async () => o.v, body: o.v } : null;
+    if (!o) return null;
+    // range dalam byte UTF-8, seperti R2 (dipakai Kamus LUAJA)
+    const v = opts?.range ? Buffer.from(o.v, 'utf8').subarray(opts.range.offset, opts.range.offset + opts.range.length).toString('utf8') : o.v;
+    return { etag: o.etag, text: async () => v, body: v };
   }
   async head(k: string) {
     const o = this.m.get(k);

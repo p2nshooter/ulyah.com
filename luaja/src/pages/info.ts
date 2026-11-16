@@ -99,5 +99,16 @@ export function infoPage(site: SiteContent, slug: string, L: Lang = 'id'): { tit
 
 /** Daftar sumber pustaka (dihitung dari katalog impor) — atribusi wajib CC BY / CC BY-SA. */
 function libraryCredits(L: Lang): Raw {
-  return html`<div class="article"><h2>${t(L, 'credit.library')}</h2><p>${t(L, 'credit.libraryText')}</p><ul>${sources().map((s) => html`<li><a href="${s.url}" rel="noopener" target="_blank">${s.source}</a> — <a href="${s.licenceUrl}" rel="noopener license" target="_blank">${s.licence}</a> · ${t(L, 'lib.stat.books')}: ${s.books}</li>`)}</ul></div>`;
+  return html`<div class="article"><h2>${t(L, 'credit.library')}</h2><p>${t(L, 'credit.libraryText')}</p><ul>${sources().map((s) => html`<li><a href="${s.url}" rel="noopener" target="_blank">${s.source}</a> — <a href="${s.licenceUrl}" rel="noopener license" target="_blank">${s.licence}</a> · ${t(L, 'lib.stat.books')}: ${s.books}</li>`)}</ul>
+  <h2>${t(L, 'kamus.source')}</h2><p>${t(L, 'kamus.sourceText')}</p><ul>${KAMUS_SOURCES.map(([name, url, lic]) => html`<li><a href="${url}" rel="noopener" target="_blank">${name}</a> — ${lic}</li>`)}</ul></div>`;
 }
+
+/** Sumber Kamus LUAJA (sama dengan scripts/kamus/build.py; atribusi wajib CC BY-SA & lisensi WordNet). */
+const KAMUS_SOURCES: [string, string, string][] = [
+  ['Wiktionary (English, Deutsch, 日本語, Bahasa Indonesia) via kaikki.org / wiktextract', 'https://kaikki.org/', 'CC BY-SA 4.0'],
+  ['Princeton WordNet 3.0', 'https://wordnet.princeton.edu/', 'WordNet 3.0 License'],
+  ['Wordnet Bahasa (Francis Bond et al.)', 'https://wn-msa.sourceforge.net/', 'MIT'],
+  ['Japanese WordNet (NICT)', 'https://bond-lab.github.io/wnja/', 'Japanese WordNet License'],
+  ['JLPT vocabulary lists (Jonathan Waller) via open-anki-jlpt-decks', 'https://github.com/jamsinclair/open-anki-jlpt-decks', 'CC BY'],
+  ['FrequencyWords (Hermit Dave)', 'https://github.com/hermitdave/FrequencyWords', 'CC BY-SA 4.0'],
+];
