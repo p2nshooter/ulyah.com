@@ -16,8 +16,11 @@
   }
   function teks(induk, x, y, t, at) { var e = s('text', Object.assign({ x: x, y: y, 'text-anchor': 'middle', class: 'ad-teks' }, at || {}), induk); e.textContent = t; return e; }
   function ucap(t, lang) {
-    if (!window.speechSynthesis || !t) return;
-    try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t), b = (lang || 'id').slice(0, 2), YS = window.YapidaSuara, v = YS ? YS.pilihSuara(b, 'anak') : null; u.lang = v ? v.lang : lang || 'id-ID'; if (v) u.voice = v; u.rate = 0.9; u.pitch = 1.15; speechSynthesis.speak(u); } catch (e) { /* abaikan */ }
+    /* Tokoh kartun bersuara anak (pencerita „anak“ di suara.js: suara perempuan bernada tinggi, logat Indonesia). */
+    if (!t) return;
+    if (window.YapidaSuara && window.YapidaSuara.ucap) { window.YapidaSuara.ucap(t, (lang || 'id').slice(0, 2), 'anak'); return; }
+    if (!window.speechSynthesis) return;
+    try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(t); u.lang = lang && lang.length > 2 ? lang : 'id-ID'; u.rate = 0.9; u.pitch = 1.2; speechSynthesis.speak(u); } catch (e) { /* abaikan */ }
   }
   function bunyi(f) {
     try {

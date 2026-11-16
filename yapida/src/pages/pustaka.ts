@@ -12,11 +12,12 @@ import { KURIKULUM, namaKelas, type JenjangPel, type Mapel } from '../data/kurik
 export type Media = (f: string | undefined | null) => string;
 export interface PCtx { media: Media; kecil: (f: string | undefined | null) => string; units: UnitItem[] }
 
+/** Pencerita per jenjang — suara dipilih suara.js: anak-anak bernada tinggi, remaja lembut, dewasa berwibawa. */
 export const PENCERITA: Record<Suara, { nama: string; gaya: string }> = {
-  balita: { nama: 'Kak Ara', gaya: 'ceria — RA & TK' },
-  anak: { nama: 'Kak Fikri', gaya: 'bersemangat — MI & TPQ' },
-  remaja: { nama: 'Ustadzah Salma', gaya: 'lembut — MTs & pesantren' },
-  dewasa: { nama: 'Ustadz Hafidz', gaya: 'tenang — guru & kajian' },
+  balita: { nama: 'Kak Ara', gaya: 'suara anak, ceria — RA & TK' },
+  anak: { nama: 'Kak Nisa', gaya: 'suara anak, riang — MI & TPQ' },
+  remaja: { nama: 'Ustadzah Salma', gaya: 'lembut & jernih — MTs & pesantren' },
+  dewasa: { nama: 'Ustadz Hafidz', gaya: 'tenang & berwibawa — kitab, hadits, kajian' },
 };
 const NAMA_BAHASA: Record<string, string> = { id: 'Indonesia', ar: 'Arab', en: 'Inggris' };
 const ASAL: Record<KartuBuku['asal'], string> = { bawaan: 'Pustaka Yapida', lembaga: 'Tulisan lembaga', jenius: 'jenius.es', gutenberg: 'Katalog dunia' };
@@ -168,7 +169,7 @@ export function pustakaBeranda(d: DataBeranda, x: PCtx): Raw {
 
 <section class="bagian"><div class="wadah sempit panduan-suara muncul">
   <h2>Cara kerja suara</h2>
-  <p>Pembaca memakai suara yang terpasang di HP atau komputer Anda. Pilih pencerita — <strong>Kak Ara</strong> (ceria, RA), <strong>Kak Fikri</strong> (MI & TPQ), <strong>Ustadzah Salma</strong> (MTs & pesantren), atau <strong>Ustadz Hafidz</strong> (guru & kajian) — dan suara tiap bahasa bisa dipilih sendiri.</p>
+  <p>Pembaca memakai suara yang terpasang di HP atau komputer Anda. Pencerita mengikuti jenjang bukunya — <strong>Kak Ara</strong> dan <strong>Kak Nisa</strong> bersuara anak yang riang (RA, MI & TPQ), <strong>Ustadzah Salma</strong> lembut (MTs & pesantren), <strong>Ustadz Hafidz</strong> tenang dan berwibawa (kitab, hadits & kajian). Logatnya selalu Indonesia — tidak pernah Melayu — dan suara tiap bahasa bisa dipilih sendiri.</p>
   <p>Bila teks Arab terdengar dibaca dengan logat Indonesia, pasang paket suara Arab: di Android buka <em>Setelan → Bahasa & masukan → Keluaran teks-ke-ucapan</em>, di iPhone <em>Setelan → Aksesibilitas → Konten Lisan → Suara</em>.</p>
 </div></section>`;
 }
@@ -349,7 +350,7 @@ export function pembacaPage(m: BukuMeta, babAsli: Bab, x: PCtx): Raw {
     <button class="baca-ikon tbl-suka" type="button" data-suka="${m.id}" aria-pressed="false" title="Suka buku ini">♥<span class="sr">Suka</span></button>
   </footer>
   <div class="baca-suara-panel" data-suara-panel hidden>
-    <p><strong>Suara tiap bahasa</strong> — dipilih dari suara yang terpasang di perangkat ini.</p>
+    <p><strong>Suara tiap bahasa</strong> — dipilih otomatis dari suara terbaik di perangkat ini (suara neural lebih dulu). Paling jernih: Microsoft Edge („Gadis“ & „Ardi“ Natural), Chrome („Google Bahasa Indonesia“), iPhone („Damayanti“).</p>
     <label>Indonesia <select data-suara-bhs="id"></select></label>
     <label>Arab <select data-suara-bhs="ar"></select></label>
     <label>Inggris <select data-suara-bhs="en"></select></label>
