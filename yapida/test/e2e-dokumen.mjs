@@ -42,7 +42,7 @@ const isiBingkai = async (page) => (await page.frameLocator('[data-pratinjau-bin
   ok((await page.inputValue('[name="judul"]')).includes('AL HUDA'), 'kop: nama lembaga terisi otomatis');
   await page.fill('[name="d_arab"]', 'مدرسة الهدى الابتدائية');
   await page.selectOption('[name="d_gaya"]', 'islami');
-  await page.waitForFunction(() => { const f = document.querySelector('[data-pratinjau-bingkai]'); return f && f.contentDocument && f.contentDocument.body.innerHTML.includes('مدرسة الهدى'); }, null, { timeout: 8000 });
+  await page.waitForFunction(() => { const f = document.querySelector('[data-pratinjau-bingkai]'); return f && f.contentDocument && f.contentDocument.body && f.contentDocument.body.innerHTML.includes('مدرسة الهدى'); }, null, { timeout: 8000 });
   ok(true, 'kop: pratinjau langsung berubah saat mengetik');
   await page.click('button:has-text("Simpan")');
   await page.waitForURL(/\/portal\/k\/kop\/kop_/);
@@ -55,7 +55,7 @@ const isiBingkai = async (page) => (await page.frameLocator('[data-pratinjau-bin
   await page.fill('[name="d_predikat"]', 'Mumtaz');
   await page.fill('[name="d_nisn"]', '0099887766');
   await page.click('.p-desain-butir.d-malam');
-  await page.waitForFunction(() => { const f = document.querySelector('[data-pratinjau-bingkai]'); return f && f.contentDocument && f.contentDocument.querySelector('.sert.d-malam') && f.contentDocument.body.innerHTML.includes('Ananda Uji Prestasi'); }, null, { timeout: 8000 });
+  await page.waitForFunction(() => { const f = document.querySelector('[data-pratinjau-bingkai]'); return f && f.contentDocument && f.contentDocument.body && f.contentDocument.querySelector('.sert.d-malam') && f.contentDocument.body.innerHTML.includes('Ananda Uji Prestasi'); }, null, { timeout: 8000 });
   ok(true, 'sertifikat: pratinjau mengikuti desain dan nama');
   ok((await isiBingkai(page)).includes('مدرسة الهدى'), 'sertifikat memakai kop utama lembaga (nama Arab)');
   await page.screenshot({ path: `${OUT}/dokumen-form-sertifikat.png` });
@@ -72,7 +72,7 @@ const isiBingkai = async (page) => (await page.frameLocator('[data-pratinjau-bin
   await page.goto(BASE + '/portal/k/kwitansi/baru?unit=mi-al-huda');
   await page.fill('[name="judul"]', 'Wali Murid Uji');
   await page.fill('[name="d_jumlah"]', '250000');
-  await page.waitForFunction(() => { const f = document.querySelector('[data-pratinjau-bingkai]'); return f && f.contentDocument && f.contentDocument.body.innerHTML.includes('dua ratus lima puluh ribu rupiah'); }, null, { timeout: 8000 });
+  await page.waitForFunction(() => { const f = document.querySelector('[data-pratinjau-bingkai]'); return f && f.contentDocument && f.contentDocument.body && f.contentDocument.body.innerHTML.includes('dua ratus lima puluh ribu rupiah'); }, null, { timeout: 8000 });
   ok(true, 'kwitansi: terbilang otomatis di pratinjau');
   await page.click('button:has-text("Simpan")');
   await page.waitForURL(/\/portal\/k\/kwitansi\/kwit_/);

@@ -13,7 +13,7 @@ import { cariGutenberg, katalogJenius } from '../data/luar.ts';
 import { catatBaca, peringkat, sepuluh, setelSuka, sudahSuka } from '../data/statistik.ts';
 import { limit } from '../lib/ratelimit.ts';
 import { b64url } from '../lib/crypto.ts';
-import { bukuDetail, duniaPage, lembagaPustaka, pelajaranBeranda, pelajaranMapel, pembacaPage, pustakaBeranda, rakPage, rakUntukUnit, type PCtx } from '../pages/pustaka.ts';
+import { bukuDetail, duniaPage, jenjangDariSlug, lembagaPustaka, pelajaranBeranda, pelajaranMapel, pembacaPage, petaPelajaranSisip, pustakaBeranda, rakPage, rakUntukUnit, selPelajaran, type PCtx } from '../pages/pustaka.ts';
 import { KURIKULUM, bukuMapel, namaKelas, type JenjangPel } from '../data/kurikulum.ts';
 
 export const pustaka = new Hono<HonoEnv>();
@@ -73,9 +73,12 @@ pustaka.get('/pustaka/rak/:rak', async (c) => {
   const hal = Math.max(1, Math.min(Math.ceil(total / PER) || 1, Number(c.req.query('hal') ?? 1) || 1));
   buku = buku.slice((hal - 1) * PER, hal * PER);
   const o = origin(c);
+  // Rak RA / MI / MTs: peta pelajaran formal (kelas → mata pelajaran → buku) tampil paling atas.
+  const jRak = jenjangDariSlug(r.id);
+  const atas = jRak && hal === 1 && !pilihMapel ? petaPelajaranSisip(jRak, selPelajaran(jRak, kat.semua), { polos: true, buka: Number(/\d+/.exec(pilih)?.[0]) || undefined }) : undefined;
   return render(c, {
     path: `/pustaka/rak/${r.id}`, title: `${r.nama} — Pustaka Yapida`, desc: `${r.ringkas} ${buku.length} buku di rak ${r.nama} Perpustakaan Yayasan Al-Huda Yapida, semuanya bisa dibacakan.`,
-    body: rakPage(`${r.ikon} ${r.nama}`, r.ringkas, [['Perpustakaan', '/pustaka'], [r.nama, `/pustaka/rak/${r.id}`]], buku, x, { kelas, pilihKelas: kelas.includes(pilih) ? pilih : '', mapel, pilihMapel: mapel.includes(pilihMapel) ? pilihMapel : '', dasar: `/pustaka/rak/${r.id}`, hal, total, perHal: PER }),
+    body: rakPage(`${r.ikon} ${r.nama}`, r.ringkas, [['Perpustakaan', '/pustaka'], [r.nama, `/pustaka/rak/${r.id}`]], buku, x, { atas, kelas, pilihKelas: kelas.includes(pilih) ? pilih : '', mapel, pilihMapel: mapel.includes(pilihMapel) ? pilihMapel : '', dasar: `/pustaka/rak/${r.id}`, hal, total, perHal: PER }),
     noindex: hal > 1 || Boolean(pilihMapel),
     aktif: 'belajar', css: ['pustaka.css'], js: ['pustaka.js'], jsonLd: [crumbs(o, [['Perpustakaan', '/pustaka'], [r.nama, `/pustaka/rak/${r.id}`]])],
   });
@@ -242,7 +245,7 @@ pustaka.get('/pustaka/pelajaran/:jenjang', async (c) => {
   const j = c.req.param('jenjang') as JenjangPel;
   if (!KURIKULUM[j]) return tidakAda(c);
   const [x, kat] = await Promise.all([pctx(c), katalog(c.env, c.get('store'))]);
-  const sel = KURIKULUM[j].kelas.flatMap((kl) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(kl)).map((m) => { const b = bukuMapel(kat.semua, j, kl, m); return { m, kelas: kl, jumlah: b.pelajaran.length, dukung: b.dukung.length }; }));
+  const sel = selPelajaran(j, kat.semua);
   const o = origin(c);
   const nama = KURIKULUM[j].nama;
   return render(c, {

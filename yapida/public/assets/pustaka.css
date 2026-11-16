@@ -396,3 +396,26 @@
 .baca-petunjuk-tutup:hover, .baca-petunjuk-tutup:focus-visible { background: color-mix(in srgb, var(--emas, #c9a24a) 18%, transparent); }
 @keyframes petunjuk-masuk { from { opacity: 0; transform: translate(-50%, 14px); } }
 @media (prefers-reduced-motion: reduce) { .baca-petunjuk-suara { animation: none; } }
+
+/* peta pelajaran sisipan (halaman lembaga RA/MI/MTs & rak perpustakaan): kelas buka-tutup → mata pelajaran */
+.pel-sisip-bungkus{margin:0 0 2.2rem;padding:clamp(1.1rem,3vw,1.8rem);border-radius:28px;border:1px solid var(--garis);background:linear-gradient(165deg,var(--permukaan),var(--gading));box-shadow:var(--bayang)}
+.pel-sisip-kepala{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.2rem}
+.pel-sisip-kepala h2{margin:.15rem 0 .35rem;font-size:clamp(1.35rem,3.4vw,1.9rem)}
+.pel-sisip-kepala p{margin:0;max-width:62ch;color:var(--redup);font-size:.95rem}
+.pel-sisip-kepala .eyebrow{color:var(--e500);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700}
+.pel-sisip{display:grid;gap:.7rem}
+.pel-lipat{border:1px solid var(--garis);border-radius:20px;background:var(--permukaan);overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.pel-lipat[open]{border-color:var(--e500);box-shadow:var(--bayang)}
+.pel-lipat summary{display:flex;align-items:center;gap:.9rem;padding:.75rem 1rem;cursor:pointer;list-style:none;min-height:56px}
+.pel-lipat summary::-webkit-details-marker{display:none}
+.pel-lipat summary:focus-visible{outline:3px solid var(--e400);outline-offset:-3px}
+.pel-lipat .pel-kelas-angka{width:2.7rem;height:2.7rem;font-size:1.15rem;border-radius:14px}
+.pel-lipat-teks{display:flex;flex-direction:column;flex:1;min-width:0}
+.pel-lipat-teks strong{font-family:var(--f-judul);font-size:1.08rem}
+.pel-lipat-teks small{color:var(--redup);font-size:.82rem}
+.pel-lipat-panah{font-size:1.3rem;color:var(--e500);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pel-lipat[open] .pel-lipat-panah{transform:rotate(180deg)}
+.pel-lipat .pel-kisi{padding:.2rem 1rem 1.1rem;animation:pel-buka .4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pel-buka{from{opacity:0;transform:translateY(-6px)}}
+@media (max-width:560px){.pel-lipat .pel-kisi{grid-template-columns:1fr;padding:.2rem .7rem .9rem}.pel-sisip-kepala .tbl{width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){.pel-lipat .pel-kisi{animation:none}.pel-lipat-panah{transition:none}}

@@ -451,3 +451,7 @@ a.g-tautan:hover .g-label{text-decoration:underline}
 .p-alamat-hasil b{font-family:var(--f-judul);font-weight:600;font-size:1.02rem}
 [data-tema="malam"] .p-alamat-hasil{background:#2b2408}
 @media (max-width:640px){.p-baris-rapat{grid-template-columns:1fr 1fr}}
+
+/* Pesan pengunjung (formulir kontak) di dalam menu Pesan — satu pintu untuk semua pesan */
+.ps-pengunjung{margin-bottom:1rem}
+.ps-av-tamu{background:linear-gradient(150deg,#b08a1e,#7a5a12);color:#fff9e3}

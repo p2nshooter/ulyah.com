@@ -762,3 +762,4 @@ textarea{min-height:120px;resize:vertical;line-height:1.5}
 .tabs.admin-tabs,.section-tight .tabs{gap:6px;border-bottom:0;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-pill)}
 .section-tight .tabs a{border:0;border-radius:var(--r-pill);padding:.5em 1em;margin:0}
 .section-tight .tabs a[aria-current="page"]{background:var(--brand);color:#fff}
+.rahasia{-webkit-text-security:disc;font-family:var(--f-mono,ui-monospace,monospace);letter-spacing:.06em}

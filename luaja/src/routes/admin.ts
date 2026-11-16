@@ -13,7 +13,7 @@ import { getInvoice, listOpenInvoices, decideInvoice, listAllInvoices } from '..
 import { getUser, grantSubs, isAdmin, updateUser, getSubs } from '../data/users.ts';
 import { getPayment, getPricing, getSite, saveDoc, updatePayment, PRICING_DOC, SITE_DOC } from '../data/settings.ts';
 import { COURSE_META, COURSES, CURRENCIES, METHOD_KINDS, methodLive, money, type Currency, type MethodKind, type PayMethod, type Pricing, type Tier, type User } from '../data/model.ts';
-import { clearPaypalMode, getPaypalConfig, savePaypalConfig, registerWebhook, testConnection, paypalReady, PaypalError, type PaypalMode } from '../data/paypal.ts';
+import { clearPaypalMode, getPaypalConfig, savePaypalConfig, registerWebhook, paypalReady, periksaBentuk, diagnosa, PaypalError, type PaypalMode } from '../data/paypal.ts';
 import { GATEWAYS, GW_META, getAllGw, getGw, gwReady, gwTest, saveGw, stripeRegisterHook, GwError, STRIPE_EVENTS, type GwId, type GwMode } from '../data/gw.ts';
 import { origin } from '../lib/render.ts';
 import { icon } from '../pages/layout.ts';
@@ -304,12 +304,17 @@ admin.get('/admin/paypal', async (c) => {
   const csrf = await csrfToken(c, c.get('user')!);
   const hook = `${origin(c)}/api/paypal/webhook`;
   const row = (m: PaypalMode) => html`<fieldset class="card" style="box-shadow:none"><legend><b>${m === 'live' ? 'LIVE' : 'Sandbox'}</b></legend>
-    <div class="field"><label>Client ID</label><input name="${m}_client" value="${cfg[m].clientId}" autocomplete="off" spellcheck="false"></div>
-    <div class="field"><label>Secret ${cfg[m].secret ? html`<span class="pill pill-ok">tersimpan terenkripsi</span>` : html`<span class="pill pill-line">belum ada</span>`}</label><input name="${m}_secret" type="password" autocomplete="new-password" placeholder="${cfg[m].secret ? 'Kosongkan bila tidak diganti' : 'Tempel secret di sini'}"></div>
+    <div class="field"><label>Client ID</label><input name="${m}_client" value="${cfg[m].clientId}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="latin" data-lpignore="true" data-1p-ignore></div>
+    <div class="field"><label>Secret ${cfg[m].secret ? html`<span class="pill pill-ok">tersimpan terenkripsi</span>` : html`<span class="pill pill-line">belum ada</span>`}</label><input name="${m}_secret" type="text" class="rahasia" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-1p-ignore placeholder="${cfg[m].secret ? 'Kosongkan bila tidak diganti' : 'Tempel secret di sini'}"><span class="hint">Kolom ini sengaja bukan kolom sandi, supaya pengelola sandi peramban tidak mengisinya dengan sandi akun Anda.</span></div>
     <div class="field"><label>Webhook ID</label><input name="${m}_webhook" value="${cfg[m].webhookId}" autocomplete="off" spellcheck="false"><span class="hint">Isi otomatis dengan tombol „Daftarkan webhook“ di bawah.</span></div></fieldset>`;
   return shell(c, '/admin/paypal', 'PayPal', html`
   <h1 style="font-size:var(--fs-5)">PayPal</h1>
   <p class="muted">Pembayaran otomatis untuk tagihan USD dan JPY. Secret disegel dengan kunci induk server sebelum disimpan; tidak pernah ditampilkan kembali.</p>
+  <div class="card" style="margin-bottom:18px"><h3 style="margin-top:0">Cara mengisi (2 menit)</h3><ol class="small" style="margin:0;padding-left:20px;line-height:1.7">
+    <li>Buka <strong>developer.paypal.com → Apps &amp; Credentials</strong>. Di kanan atas ada sakelar <strong>Sandbox / Live</strong> — kredensial keduanya berbeda dan tidak bisa saling dipakai.</li>
+    <li>Pilih (atau buat) satu aplikasi REST, lalu salin <strong>Client ID</strong> dan <strong>Secret</strong> (tombol „Show“) <em>dari aplikasi yang sama</em>: Client ID ±80 karakter diawali „A“, Secret ±80 karakter diawali „E“. Jangan ada spasi.</li>
+    <li>Tempel ke kolom mode yang sesuai di bawah, lalu <strong>Simpan</strong>. Saat disimpan, kedua mode diuji ke PayPal dan <strong>webhook didaftarkan otomatis</strong> untuk mode yang diterima — tidak perlu mengisi Webhook ID sendiri.</li>
+    <li>Mode LIVE hanya bisa aktif bila kredensial LIVE diterima PayPal; sebelum itu tagihan memakai Sandbox (uji).</li></ol></div>
   ${c.env.MASTER_KEY ? '' : html`<div class="alert alert-bad">Kunci induk (MASTER_KEY) belum terpasang di server — deploy berikutnya membuatnya otomatis. Secret belum bisa disimpan.</div>`}
   <div class="kpi" style="margin-bottom:18px"><div class="card"><b>${cfg.mode === 'live' ? 'LIVE' : 'Sandbox'}</b><span>mode aktif</span></div><div class="card"><b>${paypalReady(cfg) ? 'Siap' : 'Belum siap'}</b><span>status pembayaran otomatis</span></div></div>
   <form method="post" class="stack"><input type="hidden" name="_csrf" value="${csrf}">
@@ -319,7 +324,7 @@ admin.get('/admin/paypal', async (c) => {
     <button class="btn btn-gold" type="submit">Simpan PayPal</button>
   </form>
   <div class="card" style="margin-top:18px"><h3 style="margin-top:0">Webhook</h3><p>URL webhook: <code>${hook}</code></p><p class="small muted">Peristiwa: PAYMENT.CAPTURE.COMPLETED, CHECKOUT.ORDER.APPROVED, PAYMENT.CAPTURE.DENIED, PAYMENT.CAPTURE.REFUNDED.</p>
-    <div class="row"><form method="post" action="/admin/paypal/uji"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Uji koneksi (mode aktif)</button></form><form method="post" action="/admin/paypal/webhook"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Daftarkan webhook (mode aktif)</button></form></div></div>
+    <div class="row"><form method="post" action="/admin/paypal/uji"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Uji koneksi LIVE & Sandbox</button></form><form method="post" action="/admin/paypal/webhook"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm">Daftarkan webhook (mode aktif)</button></form></div></div>
   <div class="card" style="margin-top:18px"><h3 style="margin-top:0">Hapus kredensial</h3><p class="small muted">Menghapus client ID, secret dan webhook ID satu mode (mis. saat akun PayPal berganti pemilik). Bila mode itu sedang aktif, PayPal langsung disembunyikan dari halaman tagihan.</p>
     <div class="row">${(['live', 'sandbox'] as const).map((m) => html`<form method="post" action="/admin/paypal/hapus/${m}" data-confirm="Hapus seluruh kredensial PayPal ${m}?"><input type="hidden" name="_csrf" value="${csrf}"><button class="btn btn-ghost btn-sm" ${cfg[m].clientId || cfg[m].secret ? '' : raw('disabled')}>Hapus kredensial ${m === 'live' ? 'LIVE' : 'sandbox'}</button></form>`)}</div></div>`);
 });
@@ -330,31 +335,50 @@ admin.post('/admin/paypal', async (c) => {
   if (!c.env.MASTER_KEY) return back(c, '/admin/paypal', 'MASTER_KEY belum terpasang di server.', true);
   const store = c.get('store');
   const mode: PaypalMode = f.mode === 'live' ? 'live' : 'sandbox';
-  const take = (m: PaypalMode) => ({ clientId: String(f[`${m}_client`] ?? ''), secret: String(f[`${m}_secret`] ?? ''), webhookId: String(f[`${m}_webhook`] ?? '') });
-  const saved = await savePaypalConfig(store, c.env.MASTER_KEY, { enabled: Boolean(f.enabled), mode, live: take('live'), sandbox: take('sandbox') });
-  // LIVE hanya diaktifkan bila kredensial live benar-benar diterima PayPal.
-  if (saved.mode === 'live' && saved.enabled) {
-    try {
-      await testConnection(saved, c.env.MASTER_KEY);
-    } catch (err) {
-      await savePaypalConfig(store, c.env.MASTER_KEY, { enabled: saved.enabled, mode: 'sandbox', live: { ...take('live'), secret: '' }, sandbox: { ...take('sandbox'), secret: '' } });
-      return back(c, '/admin/paypal', `LIVE belum diaktifkan: ${(err as Error).message} Mode dikembalikan ke sandbox.`, true);
-    }
+  const take = (m: PaypalMode) => ({ clientId: String(f[`${m}_client`] ?? '').trim(), secret: String(f[`${m}_secret`] ?? '').trim(), webhookId: String(f[`${m}_webhook`] ?? '').trim() });
+  // Pemeriksaan bentuk sebelum disimpan: kesalahan tempel langsung disebut (tanpa menampilkan rahasia).
+  for (const m of ['live', 'sandbox'] as const) {
+    const v = take(m);
+    if (!v.clientId && !v.secret) continue;
+    const salah = periksaBentuk(m, v.clientId, v.secret || undefined);
+    if (salah) return back(c, '/admin/paypal', `Belum disimpan — ${salah}`, true);
   }
-  await audit(store, c.get('user')!.id, 'paypal.save', { mode: saved.mode, enabled: saved.enabled, live: Boolean(saved.live.secret), sandbox: Boolean(saved.sandbox.secret) });
-  return back(c, '/admin/paypal', `PayPal tersimpan (mode ${saved.mode === 'live' ? 'LIVE' : 'sandbox'}${saved.enabled ? ', aktif' : ', nonaktif'}).`);
+  let saved = await savePaypalConfig(store, c.env.MASTER_KEY, { enabled: Boolean(f.enabled), mode, live: take('live'), sandbox: take('sandbox') });
+  // Uji kedua mode yang terisi; mode yang diterima PayPal dan belum punya webhook → webhook didaftarkan otomatis
+  // (pemilik: „buatin dr sisi Anda webhooknya“). LIVE hanya aktif bila kredensial live benar-benar diterima.
+  const hasil = await diagnosa(saved, c.env.MASTER_KEY);
+  const catatan: string[] = [];
+  for (const d of hasil) {
+    if (!d.ok) { if (saved[d.mode].clientId || saved[d.mode].secret) catatan.push(`✗ ${d.pesan}`); continue; }
+    let baris = `✓ ${d.pesan}`;
+    if (!saved[d.mode].webhookId) {
+      try {
+        const id = await registerWebhook(saved, c.env.MASTER_KEY, `${origin(c)}/api/paypal/webhook`, d.mode);
+        const keep = (m: PaypalMode) => ({ clientId: saved[m].clientId, secret: '', webhookId: m === d.mode ? id : saved[m].webhookId });
+        saved = await savePaypalConfig(store, c.env.MASTER_KEY, { enabled: saved.enabled, mode: saved.mode, live: keep('live'), sandbox: keep('sandbox') });
+        baris += ` Webhook ${d.mode === 'live' ? 'LIVE' : 'Sandbox'} didaftarkan otomatis.`;
+      } catch (err) { baris += ` Webhook belum terdaftar: ${err instanceof PaypalError ? err.message : 'PayPal tidak dapat dihubungi.'}`; }
+    }
+    catatan.push(baris);
+  }
+  const liveOk = hasil.find((d) => d.mode === 'live')?.ok ?? false;
+  if (saved.mode === 'live' && saved.enabled && !liveOk) {
+    const keep = (m: PaypalMode) => ({ clientId: saved[m].clientId, secret: '', webhookId: saved[m].webhookId });
+    saved = await savePaypalConfig(store, c.env.MASTER_KEY, { enabled: saved.enabled, mode: 'sandbox', live: keep('live'), sandbox: keep('sandbox') });
+    catatan.push('Mode dikembalikan ke Sandbox karena kredensial LIVE belum diterima PayPal.');
+  }
+  await audit(store, c.get('user')!.id, 'paypal.save', { mode: saved.mode, enabled: saved.enabled, live: Boolean(saved.live.secret), sandbox: Boolean(saved.sandbox.secret), liveOk, sandboxOk: hasil.find((d) => d.mode === 'sandbox')?.ok ?? false });
+  const aktifOk = hasil.find((d) => d.mode === saved.mode)?.ok ?? false;
+  return back(c, '/admin/paypal', `PayPal tersimpan (mode ${saved.mode === 'live' ? 'LIVE' : 'Sandbox'}${saved.enabled ? ', aktif' : ', nonaktif'}). ${catatan.join(' ')}`, !aktifOk);
 });
 
 admin.post('/admin/paypal/uji', async (c) => {
   if (!(await guard(c))) return back(c, '/admin/paypal', 'Sesi formulir kedaluwarsa.', true);
   if (!c.env.MASTER_KEY) return back(c, '/admin/paypal', 'MASTER_KEY belum terpasang.', true);
   const cfg = await getPaypalConfig(c.get('store'));
-  try {
-    await testConnection(cfg, c.env.MASTER_KEY);
-    return back(c, '/admin/paypal', `Koneksi PayPal ${cfg.mode} berhasil.`);
-  } catch (err) {
-    return back(c, '/admin/paypal', err instanceof PaypalError ? err.message : 'PayPal tidak dapat dihubungi.', true);
-  }
+  const hasil = await diagnosa(cfg, c.env.MASTER_KEY);
+  const teks = hasil.map((d) => `${d.ok ? '✓' : '✗'} ${d.mode === 'live' ? 'LIVE' : 'Sandbox'}: ${d.pesan}${d.ok ? (d.webhook ? ' Webhook terdaftar.' : ' Webhook belum terdaftar — simpan sekali lagi atau tekan „Daftarkan webhook“.') : ''}`).join('  ');
+  return back(c, '/admin/paypal', teks, !(hasil.find((d) => d.mode === cfg.mode)?.ok));
 });
 
 admin.post('/admin/paypal/webhook', async (c) => {

@@ -23,7 +23,7 @@ import { katalog, urutkan } from './data/pustaka.ts';
 import { peringkat, sepuluh } from './data/statistik.ts';
 import { RAK } from './data/buku.ts';
 import { KURIKULUM } from './data/kurikulum.ts';
-import { pitaPustaka, rakSisipUnit, rakUntukUnit } from './pages/pustaka.ts';
+import { jenjangDariSlug, petaPelajaranSisip, pitaPustaka, rakSisipUnit, rakUntukUnit, selPelajaran } from './pages/pustaka.ts';
 import { daftar, type IxItem } from './data/koleksi.ts';
 import { videoKanal } from './data/yt.ts';
 import { bagianUnit, beritaBeranda, formKontak, organYayasan } from './pages/sisipan.ts';
@@ -173,7 +173,10 @@ app.get('/lembaga/:slug', async (c) => {
   const rakU = rakUntukUnit(u.slug).map((r) => r.id);
   const bukuU = urutkan(kat.semua.filter((b) => b.unit === u.slug || b.rak.some((r) => rakU.includes(r))), kat.atur, u.slug).slice(0, 16);
   const uItem = units.find((x) => x.slug === u.slug);
-  const isi = raw(bagianUnit({ media: media(c), kecil, units }, u.slug, u.singkat, { sdm, kabar, galeri, video, kanal: kanal.slice(0, 6), ppdb, dokumen, karya, agenda }).s + (uItem ? halamanLembaga(u.singkat, halamanU.filter((h) => h.unit === u.slug)).s + bagianPrestasiUnit({ media: media(c), kecil, units }, uItem, prestasiU).s + rakSisipUnit(uItem, bukuU, { media: media(c), kecil, units }).s : ''));
+  // RA, MI, MTs: pelajaran formal per kelas & mata pelajaran tampil di halaman lembaganya (di atas kabar & galeri).
+  const jU = jenjangDariSlug(u.slug);
+  const pelajaranU = jU ? petaPelajaranSisip(jU, selPelajaran(jU, kat.semua), { judul: `Pelajaran ${u.singkat}` }).s : '';
+  const isi = raw(pelajaranU + bagianUnit({ media: media(c), kecil, units }, u.slug, u.singkat, { sdm, kabar, galeri, video, kanal: kanal.slice(0, 6), ppdb, dokumen, karya, agenda }).s + (uItem ? halamanLembaga(u.singkat, halamanU.filter((h) => h.unit === u.slug)).s + bagianPrestasiUnit({ media: media(c), kecil, units }, uItem, prestasiU).s + rakSisipUnit(uItem, bukuU, { media: media(c), kecil, units }).s : ''));
   return render(c, {
     path: `/lembaga/${u.slug}`, aktif: 'lembaga',
     title: `${u.nama} — ${u.jenis} di Sukakarya, Bekasi | ${s.singkatan}`,

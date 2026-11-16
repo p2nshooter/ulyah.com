@@ -40,17 +40,71 @@ export const paypalReady = (c: PaypalConfig) => c.enabled && Boolean(c[c.mode].c
 
 export class PaypalError extends Error {}
 
-async function token(c: PaypalConfig, master: string): Promise<string> {
-  const cr = c[c.mode];
-  if (!cr.clientId || !cr.secret) throw new PaypalError(`Kredensial PayPal ${c.mode} belum diisi.`);
-  const secret = await unseal<string>(master, cr.secret, `paypal-${c.mode}`);
-  const res = await fetch(`${paypalBase(c.mode)}/v1/oauth2/token`, {
+const NAMA_MODE: Record<PaypalMode, string> = { live: 'LIVE', sandbox: 'Sandbox' };
+/** Bentuk kredensial REST PayPal: client ID dan secret ±80 karakter huruf/angka/-/_ (client ID diawali „A“, secret „E“). */
+const BENTUK = /^[A-Za-z0-9_-]{40,120}$/;
+
+/**
+ * Pemeriksaan bentuk sebelum menghubungi PayPal — kesalahan tempel yang paling sering: spasi/baris baru ikut tersalin,
+ * secret ditempel di kolom client ID (atau sebaliknya), kredensial Sandbox dimasukkan ke LIVE.
+ */
+export function periksaBentuk(m: PaypalMode, clientId: string, secret?: string): string | null {
+  if (!clientId) return `Client ID ${NAMA_MODE[m]} kosong.`;
+  if (/\s/.test(clientId)) return `Client ID ${NAMA_MODE[m]} mengandung spasi atau baris baru — salin ulang tanpa spasi.`;
+  if (!BENTUK.test(clientId)) return `Client ID ${NAMA_MODE[m]} tidak berbentuk kredensial REST PayPal (biasanya ±80 karakter diawali „A“). Pastikan yang disalin adalah Client ID aplikasi REST, bukan e-mail, merchant ID, atau API signature.`;
+  if (secret !== undefined) {
+    if (!secret) return `Secret ${NAMA_MODE[m]} kosong.`;
+    if (/\s/.test(secret)) return `Secret ${NAMA_MODE[m]} mengandung spasi atau baris baru — salin ulang tanpa spasi.`;
+    if (!BENTUK.test(secret)) return `Secret ${NAMA_MODE[m]} tidak berbentuk secret REST PayPal (biasanya ±80 karakter diawali „E“).`;
+    if (secret === clientId) return `Secret ${NAMA_MODE[m]} sama dengan Client ID — kolom tertukar.`;
+  }
+  return null;
+}
+
+/** Penjelasan jawaban PayPal saat token ditolak, dengan langkah perbaikan yang jelas (tanpa menyalin rahasia). */
+function jelaskanTolak(m: PaypalMode, status: number, isi: { error?: string; error_description?: string }): string {
+  const kode = isi.error ?? '';
+  const ket = isi.error_description ? ` — PayPal: „${isi.error_description.slice(0, 120)}“` : '';
+  if (status === 401 || kode === 'invalid_client') {
+    return `PayPal ${NAMA_MODE[m]} menolak pasangan Client ID & Secret (401 ${kode || 'invalid_client'})${ket}. Pasangan ini tidak dikenal di lingkungan ${NAMA_MODE[m]}: buka developer.paypal.com → Apps & Credentials → pilih tab ${m === 'live' ? 'Live' : 'Sandbox'} → aplikasi yang sama → salin Client ID dan Secret (tombol „Show“) dari aplikasi itu, lalu simpan lagi di sini. Kredensial Sandbox tidak berlaku di LIVE dan sebaliknya.`;
+  }
+  if (status === 403) return `PayPal ${NAMA_MODE[m]} menolak akses (403 ${kode})${ket}. Aplikasi REST belum diizinkan untuk fitur ini atau akun bisnis belum diverifikasi.`;
+  if (status >= 500) return `PayPal ${NAMA_MODE[m]} sedang bermasalah (${status}). Coba lagi beberapa menit lagi.`;
+  return `PayPal ${NAMA_MODE[m]} menolak permintaan token (${status} ${kode})${ket}.`;
+}
+
+async function token(c: PaypalConfig, master: string, modeOverride?: PaypalMode): Promise<string> {
+  const m = modeOverride ?? c.mode;
+  const cr = c[m];
+  if (!cr.clientId || !cr.secret) throw new PaypalError(`Kredensial PayPal ${NAMA_MODE[m]} belum lengkap (Client ID dan Secret wajib diisi).`);
+  const bentuk = periksaBentuk(m, cr.clientId);
+  if (bentuk) throw new PaypalError(bentuk);
+  let secret: string;
+  try { secret = await unseal<string>(master, cr.secret, `paypal-${m}`); } catch { throw new PaypalError(`Secret ${NAMA_MODE[m]} tidak bisa dibuka dengan kunci induk server saat ini — tempel ulang secret-nya lalu simpan.`); }
+  const res = await fetch(`${paypalBase(m)}/v1/oauth2/token`, {
     method: 'POST',
-    headers: { Authorization: `Basic ${btoa(`${cr.clientId}:${secret}`)}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+    headers: { Authorization: `Basic ${btoa(`${cr.clientId}:${secret}`)}`, 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
     body: 'grant_type=client_credentials',
   });
-  if (!res.ok) throw new PaypalError(`PayPal menolak kredensial (${res.status}).`);
+  if (!res.ok) {
+    let isi: { error?: string; error_description?: string } = {};
+    try { isi = (await res.json()) as typeof isi; } catch { /* bukan JSON */ }
+    throw new PaypalError(jelaskanTolak(m, res.status, isi));
+  }
   return ((await res.json()) as { access_token: string }).access_token;
+}
+
+export interface Diagnosis { mode: PaypalMode; ok: boolean; pesan: string; webhook: boolean }
+/** Uji kedua mode satu per satu: bentuk kredensial, token, dan keberadaan webhook id. */
+export async function diagnosa(c: PaypalConfig, master: string): Promise<Diagnosis[]> {
+  const out: Diagnosis[] = [];
+  for (const m of ['live', 'sandbox'] as const) {
+    const cr = c[m];
+    if (!cr.clientId && !cr.secret) { out.push({ mode: m, ok: false, pesan: 'Belum diisi.', webhook: Boolean(cr.webhookId) }); continue; }
+    try { await token(c, master, m); out.push({ mode: m, ok: true, pesan: `Client ID & Secret ${NAMA_MODE[m]} diterima PayPal.`, webhook: Boolean(cr.webhookId) }); }
+    catch (err) { out.push({ mode: m, ok: false, pesan: err instanceof PaypalError ? err.message : 'PayPal tidak dapat dihubungi.', webhook: Boolean(cr.webhookId) }); }
+  }
+  return out;
 }
 
 /** Nilai dalam format PayPal: JPY tanpa desimal, USD dua desimal. */
@@ -120,9 +174,9 @@ export async function verifyWebhook(c: PaypalConfig, master: string, headers: He
 export const WEBHOOK_EVENTS = ['PAYMENT.CAPTURE.COMPLETED', 'CHECKOUT.ORDER.APPROVED', 'PAYMENT.CAPTURE.DENIED', 'PAYMENT.CAPTURE.REFUNDED'];
 
 /** Daftarkan webhook di akun PayPal (mode aktif) lalu kembalikan id-nya. Bila URL sudah terdaftar, id lama dipakai. */
-export async function registerWebhook(c: PaypalConfig, master: string, url: string): Promise<string> {
-  const t = await token(c, master);
-  const base = paypalBase(c.mode);
+export async function registerWebhook(c: PaypalConfig, master: string, url: string, mode?: PaypalMode): Promise<string> {
+  const t = await token(c, master, mode);
+  const base = paypalBase(mode ?? c.mode);
   const list = (await (await fetch(`${base}/v1/notifications/webhooks`, { headers: { Authorization: `Bearer ${t}` } })).json()) as { webhooks?: { id: string; url: string }[] };
   const found = list.webhooks?.find((w) => w.url === url);
   if (found) return found.id;
@@ -135,9 +189,9 @@ export async function registerWebhook(c: PaypalConfig, master: string, url: stri
   return j.id;
 }
 
-/** Uji koneksi: ambil token saja. */
-export async function testConnection(c: PaypalConfig, master: string): Promise<void> {
-  await token(c, master);
+/** Uji koneksi: ambil token saja (mode aktif, atau mode yang disebut). */
+export async function testConnection(c: PaypalConfig, master: string, mode?: PaypalMode): Promise<void> {
+  await token(c, master, mode);
 }
 
 /** Hapus seluruh kredensial satu mode (client ID, secret, webhook). Bila mode itu yang aktif, PayPal dinonaktifkan. */

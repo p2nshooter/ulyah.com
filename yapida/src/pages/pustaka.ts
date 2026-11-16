@@ -7,7 +7,7 @@ import type { UnitItem } from '../data/site.ts';
 import type { Suara } from '../data/model.ts';
 import { hiasan, icon } from './layout.ts';
 import { kepalaHalaman } from './public.ts';
-import { KURIKULUM, namaKelas, type JenjangPel, type Mapel } from '../data/kurikulum.ts';
+import { bukuMapel, KURIKULUM, namaKelas, type JenjangPel, type Mapel } from '../data/kurikulum.ts';
 
 export type Media = (f: string | undefined | null) => string;
 export interface PCtx { media: Media; kecil: (f: string | undefined | null) => string; units: UnitItem[] }
@@ -174,11 +174,12 @@ export function pustakaBeranda(d: DataBeranda, x: PCtx): Raw {
 </div></section>`;
 }
 
-export function rakPage(judul: string, lead: string, remah: [string, string][], buku: KartuBuku[], x: PCtx, o: { kelas?: string[]; pilihKelas?: string; mapel?: string[]; pilihMapel?: string; dasar?: string; q?: string; hal?: number; total?: number; perHal?: number } = {}): Raw {
+export function rakPage(judul: string, lead: string, remah: [string, string][], buku: KartuBuku[], x: PCtx, o: { kelas?: string[]; pilihKelas?: string; mapel?: string[]; pilihMapel?: string; dasar?: string; q?: string; hal?: number; total?: number; perHal?: number; atas?: Raw } = {}): Raw {
   const qs = (h: number) => { const p = new URLSearchParams(); if (o.pilihKelas) p.set('kelas', o.pilihKelas); if (o.pilihMapel) p.set('mapel', o.pilihMapel); if (h > 1) p.set('hal', String(h)); const t = p.toString(); return `${o.dasar ?? ''}${t ? `?${t}` : ''}`; };
   const jumlahHal = o.total && o.perHal ? Math.ceil(o.total / o.perHal) : 1;
   return html`${kepalaHalaman(judul, lead, remah, 'Perpustakaan')}
 <section class="bagian"><div class="wadah">
+  ${o.atas ?? ''}
   ${formCari(o.q ?? '')}
   ${o.kelas && o.kelas.length > 1 ? html`<nav class="saring saring-taut muncul" aria-label="Saring kelas"><a class="saring-tbl" href="${o.dasar}"${!o.pilihKelas ? raw(' aria-current="true"') : ''}>Semua</a>${o.kelas.map((k) => html`<a class="saring-tbl" href="${o.dasar}?kelas=${encodeURIComponent(k)}"${o.pilihKelas === k ? raw(' aria-current="true"') : ''}>${k}</a>`)}</nav>` : ''}
   ${o.mapel && o.mapel.length > 1 ? html`<form class="saring-mapel muncul" method="get" action="${o.dasar}">${o.pilihKelas ? html`<input type="hidden" name="kelas" value="${o.pilihKelas}">` : ''}<label>Mata pelajaran <select name="mapel" data-kirim-otomatis><option value="">Semua mata pelajaran</option>${o.mapel.map((m) => html`<option value="${m}"${o.pilihMapel === m ? raw(' selected') : ''}>${m}</option>`)}</select></label><noscript><button class="tbl tbl-garis tbl-kecil" type="submit">Saring</button></noscript></form>` : ''}
@@ -404,6 +405,33 @@ export function pelajaranBeranda(j: JenjangPel, sel: SelMapel[], x: PCtx): Raw {
   <p class="kecil-abu muncul">Struktur mata pelajaran mengikuti Kurikulum Merdeka pada madrasah (KMA 347/2022 dan pembaruannya) serta mata pelajaran PAI &amp; Bahasa Arab madrasah (KMA 183/2019). Buku pelajaran umum berasal dari Buku Sekolah Elektronik yang hak ciptanya dibeli Depdiknas dan boleh dialihmediakan — teksnya disusun ulang menjadi buku interaktif.</p>
 </div></section>`;
 }
+
+/**
+ * Peta pelajaran ringkas untuk disisipkan di halaman profil lembaga (RA, MI, MTs) dan di rak perpustakaannya (pemilik,
+ * 16 Nov 2026: „Mana ini pelajaran formalnya ga tampil disini … Harusnya tampil … yg RA malah kosong“): setiap kelas
+ * dapat dibuka-tutup, berisi semua mata pelajarannya dengan jumlah buku — satu ketuk menuju bukunya.
+ */
+export function petaPelajaranSisip(j: JenjangPel, sel: SelMapel[], o: { judul?: string; buka?: number; polos?: boolean } = {}): Raw {
+  const k = KURIKULUM[j];
+  const buku = sel.reduce((n, s) => n + s.jumlah, 0);
+  const isi = html`<header class="pel-sisip-kepala"><div><p class="eyebrow">Pelajaran formal</p><h2>${o.judul ?? `Pelajaran ${k.nama}`}</h2>
+    <p>${j === 'ra' ? 'Tiga elemen capaian pembelajaran anak usia dini — dengan buku bergambar, doa, hijaiyah, dan cerita yang dibacakan.' : `Semua mata pelajaran ${namaKelas(j, k.kelas[0]!)}–${k.kelas[k.kelas.length - 1]} lengkap dengan ${buku} buku pelajaran yang dibacakan, berpenanda kata, dan berlatihan di tiap bab.`}</p></div>
+    <a class="tbl tbl-emas tbl-kecil" href="/pustaka/pelajaran/${j}">Lihat semua pelajaran →</a></header>
+  <div class="pel-sisip">${k.kelas.map((kl, i) => {
+    const baris = sel.filter((s) => s.kelas === kl);
+    return html`<details class="pel-lipat"${raw((o.buka ?? k.kelas[0]) === kl || (o.buka === undefined && i === 0) ? ' open' : '')}><summary><span class="pel-kelas-angka">${j === 'ra' ? 'RA' : kl}</span><span class="pel-lipat-teks"><strong>${namaKelas(j, kl)}</strong><small>${baris.length} mata pelajaran · ${baris.reduce((n, s) => n + s.jumlah, 0) || baris.reduce((n, s) => n + s.dukung, 0)} buku</small></span><span class="pel-lipat-panah" aria-hidden="true">⌄</span></summary>
+      <div class="pel-kisi">${baris.map((s) => html`<a class="pel-mapel${s.jumlah ? '' : ' pel-dukung'}" href="/pustaka/pelajaran/${j}/${kl}/${s.m.slug}"><span class="pel-ikon" aria-hidden="true">${s.m.ikon}</span><strong>${s.m.nama}</strong><small>${s.m.ket}</small><em>${s.jumlah ? `${s.jumlah} buku pelajaran` : s.dukung ? `${s.dukung} bacaan pendukung` : 'Segera hadir'}</em></a>`)}</div>
+    </details>`;
+  })}</div>`;
+  return o.polos ? html`<div class="pel-sisip-bungkus muncul">${isi}</div>` : html`<section class="bagian bagian-pelajaran"><div class="wadah"><div class="pel-sisip-bungkus muncul">${isi}</div></div></section>`;
+}
+
+/** Sel peta pelajaran sebuah jenjang dari katalog (jumlah buku pelajaran & bacaan pendukung per kelas dan mapel). */
+export function selPelajaran(j: JenjangPel, semua: KartuBuku[]): SelMapel[] {
+  return KURIKULUM[j].kelas.flatMap((kl) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(kl)).map((m) => { const b = bukuMapel(semua, j, kl, m); return { m, kelas: kl, jumlah: b.pelajaran.length, dukung: b.dukung.length }; }));
+}
+/** Jenjang pelajaran formal sebuah lembaga (dari slug-nya) atau rak perpustakaan; null bila bukan RA/MI/MTs. */
+export const jenjangDariSlug = (slug: string): JenjangPel | null => (/^ra(-|$)/.test(slug) ? 'ra' : /^mi(-|$)/.test(slug) ? 'mi' : /^mts(-|$)/.test(slug) ? 'mts' : null);
 
 export function pelajaranMapel(j: JenjangPel, kelas: number, m: Mapel, isi: { pelajaran: KartuBuku[]; dukung: KartuBuku[] }, x: PCtx): Raw {
   const k = KURIKULUM[j];

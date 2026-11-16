@@ -85,7 +85,8 @@ export function pasangPage(o: { papan: Raw; galat?: string }): string {
 
 /* ── kerangka portal ───────────────────────────────────────────────────── */
 
-const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'buku', 'ppdb', 'pendaftar', 'pesan'];
+/* Koleksi „pesan“ (formulir kontak pengunjung) tidak lagi punya menu sendiri: ia tampil di dalam menu Pesan (satu pintu). */
+const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya', 'buku', 'ppdb', 'pendaftar'];
 const NAV_DOK = ['penghargaan', 'kwitansi', 'surat', 'kop'];
 const IKON_DOK: Record<string, string> = { penghargaan: 'bintang', kwitansi: 'niaga', surat: 'surat', kop: 'kubah' };
 
