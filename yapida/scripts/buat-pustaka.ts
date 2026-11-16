@@ -290,7 +290,7 @@ for (const f of readdirSync(BSE, { withFileTypes: true }).filter((x) => x.isFile
   const { meta, bab } = JSON.parse(readFileSync(join(BSE, f), 'utf8')) as { meta: BukuMeta; bab: Bab[] };
   const { bab: _b, kata: _k, menit: _m, ...m } = meta;
   // Nama penulis yang salah terbaca dari halaman hak cipta (potongan kalimat, „Naskah“, „/penerbit …“) → nama umum.
-  if (!/^\p{Lu}[\p{L}.' -]{2,}/u.test(m.penulis) || /penerbit|hak cipta|naskah|diterbitkan|dilindungi|undang/i.test(m.penulis)) m.penulis = 'Tim Penulis Buku Sekolah Elektronik';
+  if (!/^\p{Lu}[\p{L}.' -]{2,}/u.test(m.penulis) || /penerbit|hak cipta|naskah|diterbitkan|dilindungi|undang|^ilustrasi|^tim penulis bse/i.test(m.penulis)) m.penulis = 'Tim Penulis Buku Sekolah Elektronik';
   tambah(m, bab);
 }
 
