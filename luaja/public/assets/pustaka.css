@@ -1,5 +1,9 @@
 /* LUAJA — pustaka & pembaca (dimuat hanya di halaman pustaka). Terang, lembut, ramah mata; gerak dimatikan oleh
    prefers-reduced-motion. */
+/* atribut hidden selalu menang atas display:grid/flex (popup kosong tidak boleh terlihat sebagai pita putih) */
+[hidden]{display:none!important}
+.tr-en{display:block;font-size:.78em;color:var(--muted);font-weight:500}
+.rd-expl{color:var(--ink)}
 .sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .chip-row{display:flex;flex-wrap:wrap;gap:8px}
 .chip-row .chip{text-decoration:none;color:var(--ink-2);background:var(--card);border:1px solid var(--line);padding:.45em 1em;border-radius:var(--r-pill);font-weight:600;font-size:var(--fs-1)}

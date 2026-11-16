@@ -833,6 +833,7 @@ const D = {
   'js.kamus.enNote': ['arti bahasa Inggris', 'in English', '英語の意味'],
   'js.kamus.words': ['Kata dalam kalimat ini — ketuk untuk melihat arti', 'Words in this sentence — tap for the meaning', 'この文の単語 — タップで意味を表示'],
   'js.kamus.formOf': ['bentuk dari {w}', 'form of {w}', '{w}の活用形'],
+  'js.kamus.updating': ['Kamus sedang diperbarui — coba lagi sebentar lagi.', 'The dictionary is being updated — please try again shortly.', '辞書を更新中です。しばらくしてからお試しください。'],
   'js.kamus.offline': ['Kamus memerlukan koneksi internet.', 'The dictionary needs an internet connection.', '辞書の利用にはインターネット接続が必要です。'],
 } as const satisfies Record<string, Row>;
 

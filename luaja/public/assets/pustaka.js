@@ -17,7 +17,7 @@
   }
   function add(el, c) { if (c === null || c === undefined || c === false) return; if (Array.isArray(c)) { c.forEach(function (x) { add(el, x); }); return; } el.appendChild(typeof c === 'object' ? c : d.createTextNode(String(c))); }
 
-  var LOC = { de: 'de-DE', en: 'en-GB', ja: 'ja-JP' };
+  var LOC = { de: 'de-DE', en: 'en-GB', ja: 'ja-JP', id: 'id-ID' };
   var locOf = function (l) { return LOC[l] || B.locale; };
   var stopSpeech = function () { try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* tanpa suara */ } };
   var RUBY = /｜([^《｜]+)《([^》]+)》/g;
@@ -44,7 +44,7 @@
   }
   function kfetch(path) {
     if (kcache[path]) return kcache[path];
-    kcache[path] = fetch(path, { credentials: 'same-origin' }).then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); });
+    kcache[path] = fetch(path, { credentials: 'same-origin' }).then(function (r) { if (!r.ok) { var er = new Error(String(r.status)); er.status = r.status; throw er; } return r.json(); });
     kcache[path].catch(function () { delete kcache[path]; });
     return kcache[path];
   }
@@ -100,7 +100,7 @@
         add(body, [h('small', { class: 'pop-note' }, T('js.kamus.words')), chips, detail]);
         if (first) pick(first.b, first.tk, false);
         else { body.textContent = T('js.kamus.none'); place(anchor); }
-      }).catch(function () { body.textContent = T('js.kamus.none'); place(anchor); });
+      }).catch(function (er) { body.textContent = T(er && er.status === 503 ? 'js.kamus.updating' : 'js.kamus.none'); place(anchor); });
       return;
     }
     kfetch('/api/kamus/cari?l=' + l + '&ui=' + UI + '&q=' + encodeURIComponent(clean)).then(function (d) {
@@ -118,7 +118,7 @@
       });
       saveBtn.textContent = savedHas(top.w, l) || savedHas(clean, l) ? T('js.lib.saved') : T('js.lib.save');
       place(anchor);
-    }).catch(function () { body.textContent = T('js.kamus.none'); place(anchor); });
+    }).catch(function (er) { body.textContent = T(er && er.status === 503 ? 'js.kamus.updating' : 'js.kamus.none'); place(anchor); });
   }
   d.addEventListener('click', function (e) { if (!pop.hidden && !pop.contains(e.target) && !e.target.classList.contains('w')) closePop(); });
   window.addEventListener('scroll', closePop, { passive: true });
@@ -203,7 +203,8 @@
   }
   function mcBlock(b) {
     var opts = h('div', { class: 'mc-opts' }), done = false;
-    b.o.forEach(function (o, i) {
+    var oo = UI === 'id' && b.o_id && b.o_id.length === b.o.length ? b.o_id : b.o;
+    oo.forEach(function (o, i) {
       var btn = h('button', { type: 'button', class: 'mc-opt' }, h('span', { class: 'k' }, String.fromCharCode(65 + i)), o);
       btn.addEventListener('click', function () {
         if (done) return; done = true;
@@ -214,11 +215,11 @@
       });
       add(opts, btn);
     });
-    return h('div', { class: 'ex-item' }, b.n ? h('span', { class: 'ex-n' }, String(b.n)) : null, h('p', { class: 'mc-q', 'data-l': B.lang }, words(b.q, B.lang)), opts);
+    return h('div', { class: 'ex-item' }, b.n ? h('span', { class: 'ex-n' }, String(b.n)) : null, UI === 'id' && b.q_id ? h('p', { class: 'mc-q', lang: 'id' }, b.q_id) : h('p', { class: 'mc-q', 'data-l': B.lang }, words(b.q, B.lang)), opts);
   }
   /** Pilihan ganda dengar: naskah dibacakan; teksnya baru tampil setelah dijawab. */
   function lmcBlock(b) {
-    var item = mcBlock({ n: b.n, q: '🎧', o: b.o, a: b.a });
+    var item = mcBlock({ n: b.n, q: '🎧', o: b.o, o_id: b.o_id, a: b.a });
     var play = h('button', { type: 'button', class: 'btn btn-ghost btn-sm' }, '▶ ' + T('js.lib.listen'));
     play.addEventListener('click', function () { say(b.au, B.lang); });
     var script = h('p', { class: 'small muted', hidden: true, 'data-l': B.lang }, b.au);
@@ -248,24 +249,41 @@
     d.body.appendChild(dlg); dlg.showModal(); draw();
   }
 
+  /* ── bahasa antarmuka: penjelasan & arti dalam bahasa pelajar ─────────── */
+  /** Teks blok dalam bahasa antarmuka bila terjemahannya ada (t_id, g_id, q_id, o_id …), selain itu teks asli. */
+  var loc = function (b, f) { return UI === 'id' && b[f + '_id'] ? b[f + '_id'] : b[f]; };
+  /** Arti butir kosakata/tabel/kanji dalam bahasa antarmuka; arti Inggris asli tetap terlihat kecil di bawahnya. */
+  function meaningCell(b, i, en) {
+    var t = b.tr && b.tr[UI] && b.tr[UI][i];
+    if (!t || t === en) return en;
+    return [h('span', { lang: UI }, t), UI !== 'en' && en ? h('small', { class: 'tr-en', lang: 'en' }, en) : null];
+  }
+  var meaningText = function (b, i, en) { return (b.tr && b.tr[UI] && b.tr[UI][i]) || en; };
+  /** Paragraf penjelasan: terjemahan Indonesia (tidak diketuk sebagai kata asing) atau teks asli. */
+  function explain(b, l, cls) {
+    if (UI === 'id' && b.t_id) { var e = h(cls === 'p' ? 'p' : 'div', { class: cls === 'p' ? 'rd-p rd-expl' : 'rd-tip', 'data-l': 'id', 'data-rs': b.t_id, lang: 'id' }); add(e, [speakBtn(b.t_id, 'id', e), ' ', b.t_id]); return e; }
+    if (cls === 'p') { var p = h('p', { class: 'rd-p', 'data-l': l, 'data-rs': b.t }); add(p, [speakBtn(b.t, l, p), ' ', l === B.lang ? words(b.t, l) : b.t]); return p; }
+    return h('div', { class: 'rd-tip', 'data-l': l, 'data-rs': b.t }, speakBtn(b.t, l), ' ', b.t);
+  }
+
   /* ── blok halaman ──────────────────────────────────────────────────── */
   function block(b) {
     var l = b.l || B.lang;
     switch (b.k) {
-      case 'h': return h('h2', { class: 'rd-h' }, b.t);
-      case 'p': { var p = h('p', { class: 'rd-p', 'data-l': l, 'data-rs': b.t }); add(p, [speakBtn(b.t, l, p), ' ', l === B.lang ? words(b.t, l) : b.t]); return p; }
-      case 'tip': return h('div', { class: 'rd-tip', 'data-l': l, 'data-rs': b.t }, speakBtn(b.t, l), ' ', b.t);
-      case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) add(ex, h('span', { class: 'tr' }, b.g)); return ex; }
+      case 'h': return h('h2', { class: 'rd-h' }, loc(b, 't'));
+      case 'p': return explain(b, l, 'p');
+      case 'tip': return explain(b, l, 'tip');
+      case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) add(ex, h('span', { class: 'tr', lang: UI === 'id' && b.g_id ? 'id' : 'en' }, loc(b, 'g'))); return ex; }
       case 'voc': {
         var list = h('ul', { class: 'voc-list' });
-        b.i.forEach(function (it) { var li = h('li', { 'data-l': B.lang, 'data-rs': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, it[1])); add(list, li); });
+        b.i.forEach(function (it, n) { var li = h('li', { 'data-l': B.lang, 'data-rs': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, meaningCell(b, n, it[1]))); add(list, li); });
         var fc = h('button', { type: 'button', class: 'btn btn-gold btn-sm' }, '🃏 ' + T('js.lib.cards') + ' (' + b.i.length + ')');
-        fc.addEventListener('click', function () { cards(b.i.map(function (x) { return [x[0], x[2] ? x[2] + ' — ' + x[1] : x[1]]; }), B.lang); });
+        fc.addEventListener('click', function () { cards(b.i.map(function (x, n) { var m = meaningText(b, n, x[1]); return [x[0], x[2] ? x[2] + ' — ' + m : m]; }), B.lang); });
         return h('section', { class: 'voc' }, h('div', { class: 'voc-head' }, b.a ? h('div', { class: 'native' }, h('small', null, '🎧 ' + T('js.lib.native')), h('audio', { controls: true, preload: 'none', src: b.a })) : null, fc), list);
       }
       case 'tbl': {
         var tb = h('table', { class: 'rd-tbl' });
-        b.r.forEach(function (r) { var tr = h('tr', { 'data-l': B.lang, 'data-rs': r[0] }); r.forEach(function (c, j) { add(tr, h('td', j === 0 ? null : { class: 'tr-cell' }, j === 0 ? [speakBtn(c, B.lang), ' ', words(c, B.lang)] : c)); }); add(tb, tr); });
+        b.r.forEach(function (r, ri) { var tr = h('tr', { 'data-l': B.lang, 'data-rs': r[0] }); r.forEach(function (c, j) { add(tr, h('td', j === 0 ? null : { class: 'tr-cell' }, j === 0 ? [speakBtn(c, B.lang), ' ', words(c, B.lang)] : j === 1 ? meaningCell(b, ri, c) : c)); }); add(tb, tr); });
         return h('div', { class: 'table-wrap' }, tb);
       }
       case 'aud': return h('div', { class: 'rd-aud' }, h('small', null, '🎧 ' + (b.t || T('js.lib.native'))), h('audio', { controls: true, preload: 'none', src: b.src }));
@@ -280,7 +298,7 @@
         (b.ex || []).forEach(function (x) { add(exl, h('li', { 'data-l': 'ja', 'data-rs': x[0] }, speakBtn(x[0], 'ja'), h('b', { lang: 'ja' }, x[0]), x[1] ? h('small', { lang: 'ja' }, x[1]) : null, h('span', { class: 'tr' }, x[2]))); });
         var big = h('button', { type: 'button', class: 'kj-char', lang: 'ja', 'aria-label': T('js.lib.listen') }, b.c);
         big.addEventListener('click', function () { say((b.kun || b.on || b.c).split('、')[0].replace(/[.-]/g, ''), 'ja'); });
-        return h('div', { class: 'kj' }, big, h('div', { class: 'kj-info' }, h('p', { class: 'kj-m tr' }, b.m), b.on ? h('p', null, h('span', { class: 'kj-tag' }, 'ON'), ' ', h('span', { lang: 'ja' }, b.on)) : null, b.kun ? h('p', null, h('span', { class: 'kj-tag kun' }, 'KUN'), ' ', h('span', { lang: 'ja' }, b.kun)) : null, b.s ? h('p', { class: 'small muted' }, '✍️ ' + b.s) : null, exl));
+        return h('div', { class: 'kj' }, big, h('div', { class: 'kj-info' }, h('p', { class: 'kj-m tr' }, meaningCell(b, 0, b.m)), b.on ? h('p', null, h('span', { class: 'kj-tag' }, 'ON'), ' ', h('span', { lang: 'ja' }, b.on)) : null, b.kun ? h('p', null, h('span', { class: 'kj-tag kun' }, 'KUN'), ' ', h('span', { lang: 'ja' }, b.kun)) : null, b.s ? h('p', { class: 'small muted' }, '✍️ ' + b.s) : null, exl));
       }
       case 'gap': return gapBlock(b);
       case 'mc': return mcBlock(b);
