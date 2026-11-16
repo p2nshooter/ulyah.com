@@ -63,7 +63,8 @@
    */
   function bacakan(blok, wadah, o) {
     o = o || {};
-    var i = o.mulai || 0, j = 0, bagian = null, berhenti = false, dijeda = false;
+    var i = o.mulai || 0, j = 0, bagian = null, berhenti = false, dijeda = false, jam = null;
+    var hentiJam = function () { if (jam) { clearInterval(jam); jam = null; } };
     var profil = PROFIL[o.profil] || PROFIL.dewasa;
     var lanjutBlok = function () {
       if (berhenti) return;
@@ -75,9 +76,27 @@
       if (v) u.voice = v;
       u.rate = Math.max(0.5, Math.min(2, profil.rate * (o.kecepatan || 1) * (p.lang === 'ar' ? 0.9 : 1)));
       u.pitch = profil.pitch;
-      u.onend = function () { j++; lanjutBlok(); };
-      u.onerror = function (e) { if (e.error === 'interrupted' || e.error === 'canceled') return; j++; lanjutBlok(); };
-      if (o.saatKata) u.onboundary = function (e) { if (e.name === 'word' || e.name === undefined) o.saatKata(blok[i], e.charIndex, p); };
+      var elBlok = blok[i], adaBatas = false;
+      u.onend = function () { hentiJam(); j++; lanjutBlok(); };
+      u.onerror = function (e) { hentiJam(); if (e.error === 'interrupted' || e.error === 'canceled') return; j++; lanjutBlok(); };
+      if (o.saatPotong) o.saatPotong(elBlok, p);
+      if (o.saatKata) {
+        u.onboundary = function (e) { if (e.name === 'word' || e.name === undefined) { adaBatas = true; hentiJam(); o.saatKata(elBlok, e.charIndex, p); } };
+        /* Banyak suara (mis. Android) tidak mengirim batas kata: posisi kata diperkirakan dari kecepatan ucapan,
+           supaya penanda kata dan perpindahan halaman tetap berjalan di semua perangkat. */
+        u.onstart = function () {
+          hentiJam();
+          var awal = [], re = /\S+/g, m; while ((m = re.exec(p.teks))) awal.push(m.index);
+          var cps = (p.lang === 'ar' ? 8.5 : 13.5) * (u.rate || 1), t0 = Date.now(), k = 0;
+          jam = setInterval(function () {
+            if (adaBatas || berhenti) { hentiJam(); return; }
+            if (dijeda) { t0 += 150; return; }
+            var c = (Date.now() - t0) / 1000 * cps;
+            while (k < awal.length - 1 && awal[k + 1] <= c) k++;
+            o.saatKata(elBlok, awal[k] || 0, p);
+          }, 150);
+        };
+      }
       ss.speak(u);
     };
     ss.cancel();
@@ -85,10 +104,62 @@
     return {
       jeda: function () { dijeda = true; ss.pause(); },
       lanjut: function () { dijeda = false; ss.resume(); },
-      henti: function () { berhenti = true; ss.cancel(); },
+      henti: function () { berhenti = true; hentiJam(); ss.cancel(); },
       sedang: function () { return !berhenti && !dijeda; },
       indeks: function () { return i; },
     };
+  }
+
+  /* ── penanda kata (pemilik: „wajib ada penanda setiap kata yg di baca di setiap buku“) ─────────────────
+     Kata yang sedang diucapkan disorot: CSS Custom Highlight bila peramban mendukung, selain itu kotak penanda
+     melayang di atas kata. Teks blok diringkas spasinya dan dipetakan ke simpul teks aslinya, lalu setiap potongan
+     ucapan dicari mulai dari akhir potongan sebelumnya (kalimat yang berulang tidak salah tempat). */
+  function petaTeks(el) {
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), node, teks = '', peta = [], spasi = true;
+    while ((node = w.nextNode())) {
+      if (node.parentNode && /^(SCRIPT|STYLE|BUTTON)$/i.test(node.parentNode.nodeName)) continue;
+      var v = node.nodeValue;
+      for (var x = 0; x < v.length; x++) {
+        if (/\s/.test(v.charAt(x))) { if (spasi) continue; teks += ' '; peta.push([node, x]); spasi = true; }
+        else { teks += v.charAt(x); peta.push([node, x]); spasi = false; }
+      }
+    }
+    return { teks: teks, peta: peta };
+  }
+  var lapis = null;
+  function penanda() {
+    var kini = null, dukung = !!(window.CSS && CSS.highlights && window.Highlight);
+    var hapus = function () { try { if (dukung) CSS.highlights.delete('yp-kata'); } catch (e) { /* abaikan */ } if (lapis) lapis.hidden = true; };
+    var tandai = function (el, idx, p) {
+      if (!el || !p) return null;
+      if (!kini || kini.el !== el) kini = { el: el, data: petaTeks(el), kursor: 0, p: null, dasar: 0 };
+      if (kini.p !== p) {
+        var kunci = p.teks.replace(/\s+/g, ' ').trim(), t = kini.data.teks;
+        var pos = t.indexOf(kunci.slice(0, 40), Math.max(0, kini.kursor - 2));
+        if (pos < 0) pos = t.indexOf(kunci.slice(0, 14), Math.max(0, kini.kursor - 2));
+        if (pos < 0) pos = t.indexOf(kunci.slice(0, 14));
+        if (pos < 0) return null;
+        kini.p = p; kini.dasar = pos; kini.kursor = pos + kunci.length;
+      }
+      var s = kini.data.teks, mulai = Math.min(s.length - 1, kini.dasar + Math.max(0, idx || 0));
+      while (mulai > kini.dasar && !/\s/.test(s.charAt(mulai - 1))) mulai--;
+      while (mulai < s.length && /\s/.test(s.charAt(mulai))) mulai++;
+      var akhir = mulai; while (akhir < s.length && !/\s/.test(s.charAt(akhir))) akhir++;
+      var a = kini.data.peta[mulai], b = kini.data.peta[akhir - 1];
+      if (!a || !b) return null;
+      var r = document.createRange();
+      try { r.setStart(a[0], a[1]); r.setEnd(b[0], b[1] + 1); } catch (e) { return null; }
+      if (dukung) { try { CSS.highlights.set('yp-kata', new Highlight(r)); } catch (e) { /* abaikan */ } }
+      else {
+        var rc = r.getBoundingClientRect();
+        if (!lapis) { lapis = document.createElement('span'); lapis.className = 'yp-penanda'; lapis.setAttribute('aria-hidden', 'true'); document.body.appendChild(lapis); }
+        lapis.hidden = false;
+        lapis.style.left = (rc.left + window.scrollX - 3) + 'px'; lapis.style.top = (rc.top + window.scrollY - 1) + 'px';
+        lapis.style.width = (rc.width + 6) + 'px'; lapis.style.height = (rc.height + 2) + 'px';
+      }
+      return r;
+    };
+    return { tandai: tandai, hapus: hapus, ulang: function () { kini = null; hapus(); } };
   }
 
   var BLOK = 'p, li, h1, h2, h3, h4, blockquote > p, figcaption, td, th';
@@ -100,7 +171,7 @@
     });
   }
 
-  window.YapidaSuara = { tersedia: Boolean(ss && window.SpeechSynthesisUtterance), bacakan: bacakan, blokDari: blokDari, potongan: potongan, pilihSuara: pilihSuara, kodeBahasa: KODE, cocokKode: cocokKode, langUcap: LANG_UTTER, daftar: function () { if (ss) muatSuara(); return suara.slice(); }, kode: KODE };
+  window.YapidaSuara = { tersedia: Boolean(ss && window.SpeechSynthesisUtterance), bacakan: bacakan, penanda: penanda, blokDari: blokDari, potongan: potongan, pilihSuara: pilihSuara, kodeBahasa: KODE, cocokKode: cocokKode, langUcap: LANG_UTTER, daftar: function () { if (ss) muatSuara(); return suara.slice(); }, kode: KODE };
 
   /* ── tombol „Dengarkan“ pada kabar dan karya tulis ─────── */
   var tenang = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -108,8 +179,13 @@
     var isi = document.querySelector('[data-baca-isi]'), tb = bar.querySelector('[data-dengar-putar]'), st = bar.querySelector('[data-dengar-status]'), label = tb.querySelector('span');
     if (!isi) return;
     if (!window.YapidaSuara.tersedia) { tb.disabled = true; st.textContent = 'Peramban ini belum mendukung suara pembaca.'; return; }
-    var kendali = null, blok = blokDari(isi), profil = isi.getAttribute('data-suara') || 'dewasa';
-    var bersih = function () { blok.forEach(function (b) { b.classList.remove('dibaca'); }); };
+    var kendali = null, blok = blokDari(isi), profil = isi.getAttribute('data-suara') || 'dewasa', tanda = penanda();
+    var bersih = function () { blok.forEach(function (b) { b.classList.remove('dibaca'); }); tanda.hapus(); };
+    var ikuti = function (el, idx, p) {
+      var r = tanda.tandai(el, idx, p); if (!r) return;
+      var rc = r.getBoundingClientRect();
+      if (rc.height && (rc.bottom > innerHeight - 90 || rc.top < 80)) window.scrollBy({ top: rc.top - innerHeight * 0.4, behavior: tenang ? 'auto' : 'smooth' });
+    };
     tb.addEventListener('click', function () {
       if (kendali && kendali.sedang()) { kendali.jeda(); label.textContent = 'Lanjutkan'; bar.classList.remove('main'); return; }
       if (kendali && !kendali.sedang()) { kendali.lanjut(); label.textContent = 'Jeda'; bar.classList.add('main'); return; }
@@ -117,6 +193,7 @@
       kendali = bacakan(blok, isi, {
         profil: profil,
         saatBlok: function (i, el) { bersih(); el.classList.add('dibaca'); el.scrollIntoView({ block: 'center', behavior: tenang ? 'auto' : 'smooth' }); st.textContent = 'Membaca bagian ' + (i + 1) + ' dari ' + blok.length; },
+        saatKata: ikuti,
         saatSelesai: function () { bersih(); kendali = null; bar.classList.remove('main'); label.textContent = 'Dengarkan lagi'; st.textContent = 'Selesai dibacakan.'; },
       });
     });

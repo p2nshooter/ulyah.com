@@ -3,6 +3,7 @@
  * berkop. Semua CRUD lewat mesin koleksi (R2, src/data/koleksi.ts); berkas ini memuat daftar desain, jenis, kalimat
  * otomatis, nomor otomatis (create-once per nomor — aman dari balapan), dan kop yang dipakai setiap dokumen.
  */
+import { rinciSitus, tulisAlamat } from '../lib/alamat.ts';
 import type { Store } from '../lib/store.ts';
 import { bulanRomawi } from '../lib/text.ts';
 import { ambil, daftar, type Dok } from './koleksi.ts';
@@ -95,13 +96,13 @@ export interface Kop {
 }
 
 const kontakTeks = (k?: Kontak) => [k?.telepon && `Telp. ${k.telepon}`, k?.wa && `WA ${k.wa}`, k?.email].filter(Boolean).join(' · ');
-const alamatSitus = (s: Situs) => [s.alamat.jalan, s.alamat.desa, s.alamat.kecamatan, s.alamat.kabupaten, s.alamat.provinsi, s.alamat.kodepos].filter(Boolean).join(', ');
+const alamatSitus = (s: Situs) => tulisAlamat(rinciSitus(s.alamat), { singkat: false });
 
 /** Kop dari profil (tanpa kop tersimpan): lembaga memakai nama yayasan sebagai induk; yayasan memakai namanya sendiri. */
 export function kopDariProfil(u: Unit | null, s: Situs): Kop {
   const kota = s.alamat.kecamatan || s.alamat.kabupaten || 'Sukakarya';
   if (!u) return { induk: '', nama: s.nama.toUpperCase(), ket: s.singkatan ? `(${s.singkatan})` : undefined, alamat: alamatSitus(s), kontak: kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
-  return { induk: s.nama.toUpperCase(), nama: u.nama.toUpperCase(), ket: u.jenis, alamat: u.alamat || alamatSitus(s), kontak: kontakTeks(u.kontak) || kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
+  return { induk: s.nama.toUpperCase(), nama: u.nama.toUpperCase(), ket: u.jenis, alamat: (u.alamatRinci ? tulisAlamat(u.alamatRinci, { singkat: false }) : u.alamat) || alamatSitus(s), kontak: kontakTeks(u.kontak) || kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
 }
 
 /** Kop dari dokumen koleksi `kop`; bidang kosong diambil dari kop profil. */

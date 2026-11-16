@@ -14,6 +14,10 @@ import { quran } from './routes/quran.ts';
 import { radio } from './routes/radio.ts';
 import { pustaka } from './routes/pustaka.ts';
 import { dokumen, tampilDiPrestasi } from './routes/dokumen.ts';
+import { kesiswaan } from './routes/kesiswaan.ts';
+import { siswa } from './routes/siswa.ts';
+import { guru } from './routes/guru.ts';
+import { pesan } from './routes/pesan.ts';
 import { bagianPrestasiUnit, pitaPrestasi } from './pages/prestasi.ts';
 import { katalog, urutkan } from './data/pustaka.ts';
 import { peringkat, sepuluh } from './data/statistik.ts';
@@ -62,7 +66,7 @@ export const GOOGLE_CRAWLERS = ['Googlebot', 'Googlebot-Image', 'Googlebot-News'
 app.get('/robots.txt', (c) => c.text([
   ...GOOGLE_CRAWLERS.map((g) => `User-agent: ${g}\nAllow: /\n`),
   'User-agent: Bingbot\nAllow: /\n',
-  'User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /portal\nDisallow: /masuk\n',
+  'User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /portal\nDisallow: /masuk\nDisallow: /siswa\n',
   `Sitemap: ${origin(c)}/sitemap.xml\n`,
 ].join('\n'), 200, { 'cache-control': 'public, max-age=3600' }));
 
@@ -94,7 +98,7 @@ const V='yp-${ASSET_V}';const SHELL=['/assets/app.css?v=${ASSET_V}','/assets/app
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(e.request.method!=='GET'||u.origin!==location.origin)return;
-if(u.pathname.startsWith('/api/')||u.pathname.startsWith('/portal')||u.pathname.startsWith('/masuk')||u.pathname==='/keluar')return;
+if(u.pathname.startsWith('/api/')||u.pathname.startsWith('/portal')||u.pathname.startsWith('/masuk')||u.pathname.startsWith('/siswa')||u.pathname==='/keluar')return;
 if(u.pathname.startsWith('/assets/')||u.pathname.startsWith('/f/')){e.respondWith(caches.open(V).then(async c=>{const hit=await c.match(e.request);if(hit)return hit;const r=await fetch(e.request);if(r.ok)c.put(e.request,r.clone());return r}));return}
 if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{if(r.ok){const cp=r.clone();caches.open(V).then(c=>c.put(e.request,cp))}return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('/'))))}});
 `, 200, { 'content-type': 'text/javascript; charset=utf-8', 'cache-control': 'no-cache' }));
@@ -243,6 +247,10 @@ app.route('/', pustaka);
 app.route('/', konten);
 app.route('/', portal);
 app.route('/', dokumen);
+app.route('/', kesiswaan);
+app.route('/', siswa);
+app.route('/', guru);
+app.route('/', pesan);
 
 app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({ error: 'not found' }, 404) : tidakAda(c as Ctx)));
 

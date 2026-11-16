@@ -407,25 +407,27 @@
       s.onchange = function () { var p = simpan.get('yp-suara-pilih', {}); p[b] = s.value; simpan.set('yp-suara-pilih', p); };
     });
     var ket = $('[data-suara-ket]', panel);
-    if (ket) ket.textContent = semua.some(function (v) { return /^ar/i.test(v.lang); }) ? 'Suara Arab tersedia di perangkat ini.' : 'Suara Arab belum terpasang — teks Arab akan dibaca suara bawaan. Pasang paket suara Arab di pengaturan teks-ke-ucapan HP.';
+    var adaId = semua.some(function (v) { return /^(id|in)([-_]|$)/i.test(v.lang); }), adaAr = semua.some(function (v) { return /^ar/i.test(v.lang); });
+    if (ket) ket.textContent = (adaId ? 'Suara Indonesia (id-ID) tersedia — tidak memakai suara Melayu. ' : 'Suara Indonesia belum terpasang — pasang „Bahasa Indonesia“ di pengaturan teks-ke-ucapan HP agar logatnya Indonesia, bukan Melayu. ') + (adaAr ? 'Suara Arab tersedia.' : 'Suara Arab belum terpasang — pasang paket suara Arab di pengaturan teks-ke-ucapan HP.');
   }
   if (tPanel) tPanel.addEventListener('click', function () { panel.hidden = !panel.hidden; tPanel.setAttribute('aria-expanded', String(!panel.hidden)); if (!panel.hidden) isiPanel(); });
-  var aktifBlok = null;
-  function bersih() { if (aktifBlok) aktifBlok.classList.remove('dibaca'); aktifBlok = null; try { if (window.CSS && CSS.highlights) CSS.highlights.delete('yp-kata'); } catch (e) { /* abaikan */ } }
+  var aktifBlok = null, tanda = S && S.penanda ? S.penanda() : null;
+  function bersih() { if (aktifBlok) aktifBlok.classList.remove('dibaca'); aktifBlok = null; if (tanda) tanda.ulang(); }
   function halamanDari(x) { return mode === 'halaman' && lebar ? Math.max(0, Math.min(jumlah - 1, Math.floor((x.offsetLeft + 4) / lebar))) : 0; }
   function blokTerlihat() { return $$('[data-b]', isi).filter(function (x) { return x.offsetParent !== null && x.textContent.trim(); }); }
+  /* Kata yang dibaca disorot; bila kata itu sudah di halaman berikutnya (hadits/paragraf panjang), halaman membalik
+     sendiri — pemilik: „di hadits panjang tidak otomatis pindah ke halaman berikutnya, harus nya otomatis“. */
   function sorotKata(x, idx, p) {
-    try {
-      if (!window.CSS || !CSS.highlights || !window.Highlight || !p) return;
-      var w = d.createTreeWalker(x, NodeFilter.SHOW_TEXT), node, teks = '', peta = [];
-      while ((node = w.nextNode())) { for (var i = 0; i < node.nodeValue.length; i += 1) peta.push([node, i]); teks += node.nodeValue; }
-      var awal = teks.replace(/\s/g, ' ').indexOf(p.teks.slice(0, 24));
-      if (awal < 0) return;
-      var mulai = awal + idx, akhir = mulai; while (akhir < teks.length && !/\s/.test(teks[akhir])) akhir += 1;
-      if (!peta[mulai] || !peta[akhir - 1]) return;
-      var r = new Range(); r.setStart(peta[mulai][0], peta[mulai][1]); r.setEnd(peta[akhir - 1][0], peta[akhir - 1][1] + 1);
-      CSS.highlights.set('yp-kata', new Highlight(r));
-    } catch (e) { /* abaikan */ }
+    if (!tanda) return;
+    var r = tanda.tandai(x, idx, p);
+    if (!r) return;
+    var rc = r.getBoundingClientRect();
+    if (!rc.width && !rc.height) return;
+    if (mode === 'halaman') {
+      var kotak = lembar.getBoundingClientRect();
+      if (rc.left >= kotak.right - 4 && hal < jumlah - 1) balik(Math.min(jumlah - 1, hal + Math.max(1, Math.floor((rc.left - kotak.left) / Math.max(1, lebar)))), 1);
+      else if (rc.right <= kotak.left + 4 && hal > 0) balik(hal - 1, -1);
+    } else if (rc.bottom > innerHeight - 90 || rc.top < 80) scrollBy({ top: rc.top - innerHeight * 0.4, behavior: tenang ? 'auto' : 'smooth' });
   }
   function dengar(dari) {
     if (!S || !S.tersedia) return;
@@ -442,6 +444,7 @@
         else x.scrollIntoView({ block: 'center', behavior: tenang ? 'auto' : 'smooth' });
       },
       saatKata: sorotKata,
+      saatPotong: function (x, p) { sorotKata(x, 0, p); },
       saatSelesai: function () {
         bersih(); kendali = null;
         if (babKini < data.bab.length) { gantiBab(babKini + 1, true, 0); return; }

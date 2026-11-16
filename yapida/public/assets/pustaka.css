@@ -322,7 +322,6 @@
 .cocok-kotak.goyang{animation:goyang .45s;background:#fde2e2;border-color:#c8202b}
 .akt-cocok.selesai{border-color:#178a5a;box-shadow:0 0 0 4px rgba(23,138,90,.18)}
 .baca[data-kertas="malam"] .akt{color:#14231b}
-::highlight(yp-kata){background-color:rgba(233,196,106,.85);color:inherit}
 @media (prefers-reduced-motion:reduce){.akt,.akt-pil.benar,.cocok-kotak.cocok{animation:none}.akt-kartu .kartu-muka{transition:none}}
 
 /* ── saring mapel, pita beranda ── */

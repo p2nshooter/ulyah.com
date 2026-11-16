@@ -8,8 +8,13 @@ import { rupiah, tanggal, terbilang } from '../lib/text.ts';
 import type { Dok } from '../data/koleksi.ts';
 import { DESAIN_ID, JUDUL_PENGHARGAAN, kalimatPenghargaan, labelMetode, labelUntuk, type Kop } from '../data/dokumen.ts';
 import { ASSET_V } from './layout.ts';
+import { duaBaris, tulisAlamat, uraiAlamat } from '../lib/alamat.ts';
 
 export type Media = (f: string | undefined | null) => string;
+/** Alamat kop: dua baris (jalan sampai desa | kecamatan sampai kode pos) dengan ejaan baku. */
+const barisKop = (alamat: string) => duaBaris(uraiAlamat(alamat), { singkat: false }).filter(Boolean);
+/** Alamat di sertifikat: satu baris ringkas bersekat titik tengah. */
+const alamatSert = (alamat: string) => tulisAlamat(uraiAlamat(alamat), { singkat: true, pisah: '  ·  ' }) || alamat;
 const LOGO_YAYASAN = '/assets/logo-512.webp';
 /** Dokumen yang dicetak: tersimpan (Dok) atau pratinjau dari formulir (belum punya id/slug/html). */
 export type DokCetak = Pick<Dok, 'judul' | 'tanggal' | 'd' | 'unit'> & Partial<Pick<Dok, 'id' | 'slug' | 'html' | 'status'>>;
@@ -45,7 +50,7 @@ export function kopHtml(k: Kop, media: Media, o: { kecil?: boolean } = {}): Raw 
   const kanan = k.logoKanan || k.gaya === 'dua' ? logo(k.logoKanan, 'kop-kanan') : '';
   return html`<header class="kop g-${k.gaya} w-${k.warna}${o.kecil ? ' kop-kecil' : ''}${kanan ? ' kop-dua' : ''}">
   ${logo(k.logo, 'kop-kiri')}
-  <div class="kop-teks">${k.induk ? html`<p class="kop-induk">${k.induk}</p>` : ''}<p class="kop-nama">${k.nama}</p>${k.arab ? html`<p class="kop-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}${k.ket || k.nsm ? html`<p class="kop-ket">${[k.ket, k.nsm].filter(Boolean).join(' · ')}</p>` : ''}<p class="kop-alamat">${k.alamat}</p><p class="kop-kontak">${k.kontak}</p></div>
+  <div class="kop-teks">${k.induk ? html`<p class="kop-induk">${k.induk}</p>` : ''}<p class="kop-nama">${k.nama}</p>${k.arab ? html`<p class="kop-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}${k.ket || k.nsm ? html`<p class="kop-ket">${[k.ket, k.nsm].filter(Boolean).join(' · ')}</p>` : ''}<p class="kop-alamat">${barisKop(k.alamat).map((b, i) => html`${i ? raw('<br>') : ''}${b}`)}</p><p class="kop-kontak">${k.kontak}</p></div>
   ${kanan}
 </header><div class="kop-garis w-${k.warna}" aria-hidden="true"></div>`;
 }
@@ -99,7 +104,7 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
   <div class="sert-garis" aria-hidden="true"></div>
   <div class="sert-sudut-wadah" aria-hidden="true">${sudutP(1)}${sudutP(2)}${sudutP(3)}${sudutP(4)}</div>
   <div class="sert-isi">
-    <header class="sert-kop"><img class="sert-logo" src="${logo}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${k.alamat}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
+    <header class="sert-kop"><img class="sert-logo" src="${logo}" alt=""><div><p class="sert-induk">${k.induk || k.nama}</p>${k.induk ? html`<p class="sert-lembaga">${k.nama}</p>` : ''}${k.arab ? html`<p class="sert-arab" lang="ar" dir="rtl">${k.arab}</p>` : ''}<p class="sert-alamat">${alamatSert(k.alamat)}</p></div>${k.logoKanan ? html`<img class="sert-logo" src="${media(k.logoKanan)}" alt="">` : ''}</header>
     <p class="sert-bismillah" lang="ar" dir="rtl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
     <h1 class="sert-judul"><span>${judul}</span></h1>
     ${t(d, 'nomor') ? html`<p class="sert-nomor">Nomor: ${t(d, 'nomor')}</p>` : ''}
@@ -162,4 +167,54 @@ export function suratHtml(d: DokCetak, k: Kop, media: Media): Raw {
   <div class="surat-ttd"><p>${t(d, 'ttdJabatan')}</p><div class="surat-ttd-ruang"></div><p class="surat-ttd-nama">${t(d, 'ttdNama')}</p></div>
   ${tembusan.length ? html`<div class="surat-tembusan"><p>Tembusan:</p><ol>${tembusan.map((x) => html`<li>${x}</li>`)}</ol></div>` : ''}
 </article>`;
+}
+
+/* ── kesiswaan: daftar peserta didik & biodata siswa ───────────────────── */
+
+export interface BarisDaftar { no: number; nisn: string; nis: string; nama: string; jk: string; ttl: string; ayah: string; ibu: string; alamat: string; status: string }
+export interface KelompokDaftar { judul: string; sub: string; baris: BarisDaftar[] }
+export interface Ttd { kota: string; tanggal: string; jabatan: string; nama: string; nip?: string }
+
+const PER_HALAMAN = 18;
+
+/** Daftar peserta didik A4 mendatar: setiap rombel mulai di halaman baru, berkop, judul kolom diulang, tanda tangan kepala. */
+export function daftarPesertaHtml(kelompok: KelompokDaftar[], k: Kop, media: Media, ttd: Ttd): Raw {
+  const lembar: Raw[] = [];
+  for (const g of kelompok) {
+    const L = g.baris.filter((b) => b.jk === 'L').length, P = g.baris.filter((b) => b.jk === 'P').length;
+    const potong: BarisDaftar[][] = [];
+    for (let i = 0; i < Math.max(1, g.baris.length); i += PER_HALAMAN) potong.push(g.baris.slice(i, i + PER_HALAMAN));
+    potong.forEach((isi, h) => {
+      const akhir = h === potong.length - 1;
+      lembar.push(html`<article class="lembar a4l dpd w-${k.warna}" lang="id">
+        ${h === 0 ? kopHtml(k, media, { kecil: true }) : html`<p class="dpd-lanjut">${k.nama} — ${g.judul} (lanjutan)</p>`}
+        ${h === 0 ? html`<div class="dpd-judul"><h1>Daftar Peserta Didik</h1><p>${g.judul} · ${g.sub}</p></div>` : ''}
+        <table class="dpd-tabel"><thead><tr><th>No</th><th>NISN</th><th>NIS</th><th>Nama lengkap</th><th>L/P</th><th>Tempat, tanggal lahir</th><th>Nama ayah</th><th>Nama ibu</th><th>Alamat</th><th>Ket.</th></tr></thead>
+          <tbody>${isi.map((b) => html`<tr><td>${b.no}</td><td>${b.nisn}</td><td>${b.nis}</td><td class="dpd-nama">${b.nama}</td><td>${b.jk}</td><td>${b.ttl}</td><td>${b.ayah}</td><td>${b.ibu}</td><td class="dpd-alamat">${b.alamat}</td><td>${b.status}</td></tr>`)}</tbody></table>
+        ${akhir ? html`<div class="dpd-kaki"><p class="dpd-rekap">Jumlah: <b>${g.baris.length}</b> peserta didik — laki-laki <b>${L}</b>, perempuan <b>${P}</b>.</p>
+          <div class="dpd-ttd"><p>${ttd.kota}, ${ttd.tanggal}</p><p>${ttd.jabatan},</p><div class="dpd-ttd-ruang"></div><p class="dpd-ttd-nama">${ttd.nama || '……………………'}</p>${ttd.nip ? html`<p>NIP/NUPTK. ${ttd.nip}</p>` : ''}</div></div>` : ''}
+        <p class="dpd-hal">Halaman ${h + 1} dari ${potong.length}</p>
+      </article>`);
+    });
+  }
+  return html`${lembar}`;
+}
+
+export interface Biodata {
+  nama: string; foto?: string; lembaga: string; kelas: string; tp: string; status: string;
+  isian: [string, string][]; riwayat: { tp: string; kelas: string }[];
+}
+
+/** Biodata siswa A4 tegak berkop, dengan foto 3×4 dan riwayat kelas. */
+export function biodataHtml(b: Biodata, k: Kop, media: Media, ttd: Ttd): Raw {
+  return html`<article class="lembar a4p bio w-${k.warna}" lang="id">${kopHtml(k, media)}
+    <div class="bio-judul"><h1>Biodata Peserta Didik</h1><p>Tahun Pelajaran ${b.tp}</p></div>
+    <div class="bio-atas">
+      <figure class="bio-foto">${b.foto ? html`<img src="${media(b.foto)}" alt="">` : html`<span>Pas foto<br>3 × 4</span>`}</figure>
+      <div><p class="bio-nama">${b.nama}</p><p class="bio-kelas">${b.lembaga} · ${b.kelas} · <b>${b.status}</b></p></div>
+    </div>
+    <table class="bio-tabel">${b.isian.map(([l, v], i) => html`<tr><td class="bio-no">${i + 1}.</td><td class="bio-label">${l}</td><td>:</td><td>${v || '—'}</td></tr>`)}</table>
+    ${b.riwayat.length ? html`<h2 class="bio-sub">Riwayat kelas</h2><table class="bio-riwayat"><tr>${b.riwayat.map((r) => html`<td><b>${r.tp}</b><span>${r.kelas}</span></td>`)}</tr></table>` : ''}
+    <div class="dpd-ttd bio-ttd"><p>${ttd.kota}, ${ttd.tanggal}</p><p>${ttd.jabatan},</p><div class="dpd-ttd-ruang"></div><p class="dpd-ttd-nama">${ttd.nama || '……………………'}</p>${ttd.nip ? html`<p>NIP/NUPTK. ${ttd.nip}</p>` : ''}</div>
+  </article>`;
 }
