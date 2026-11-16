@@ -8,6 +8,7 @@ import { getPayment } from './settings.ts';
 import { getPaypalConfig, paypalReady, PAYPAL_CURRENCIES, type PaypalConfig } from './paypal.ts';
 import { GATEWAYS, GW_META, getAllGw, gwServes, type GwConfig, type GwId } from './gw.ts';
 import { CURRENCIES, methodsFor, type Currency, type Payment, type PayMethod } from './model.ts';
+import { t, type Lang } from '../lib/i18n.ts';
 
 export interface PayOptions {
   payment: Payment;
@@ -31,9 +32,9 @@ export async function payOptions(store: Store, env: Env): Promise<PayOptions> {
 export const hasAnyWay = (o: PayOptions, cur: Currency) => o.by[cur].paypal || o.by[cur].gw.length > 0 || o.by[cur].manual.length > 0;
 
 /** Kalimat singkat cara bayar untuk pilihan mata uang di halaman paket. */
-export function waysLabel(o: PayOptions, cur: Currency): string {
+export function waysLabel(o: PayOptions, cur: Currency, L: Lang = 'id'): string {
   const b = o.by[cur];
   const auto = [b.paypal ? 'PayPal' : '', ...b.gw.map((g) => GW_META[g].name)].filter(Boolean);
   const manual = [...new Set(b.manual.map((m) => m.name.replace(/\s*\((IDR|USD|JPY)\)$/, '')))];
-  return [auto.length ? `${auto.join(' / ')} otomatis` : '', manual.length ? `transfer ${manual.join(' / ')}` : ''].filter(Boolean).join(' atau ');
+  return [auto.length ? t(L, 'plan.ways.auto', { list: auto.join(' / ') }) : '', manual.length ? t(L, 'plan.ways.manual', { list: manual.join(' / ') }) : ''].filter(Boolean).join(` ${t(L, 'common.or')} `);
 }
