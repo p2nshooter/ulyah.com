@@ -288,7 +288,9 @@ def dib_chapter(k: int):
         url = (re.search(r'<enclosure url="([^"]+)"', item) or [None, ''])[1]
         dur = (re.search(r'<itunes:duration>(.*?)</itunes:duration>', item) or [None, ''])[1]
         if url:
-            videos.append({'t': re.sub(r'^Kapitel \d+ - ', '', t), 'src': url.replace('http://', 'https://'), 'd': dur})
+            # Umpan RSS masih menunjuk coerll.utexas.edu/dib/mp4s/ (404); berkasnya kini di media.la.utexas.edu/dib/video/.
+            src = url.replace('http://', 'https://').replace('https://coerll.utexas.edu/dib/mp4s/', 'https://media.la.utexas.edu/dib/video/')
+            videos.append({'t': re.sub(r'^Kapitel \d+ - ', '', t), 'src': src, 'd': dur})
     return chap, sections, videos
 
 

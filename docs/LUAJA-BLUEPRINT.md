@@ -49,6 +49,11 @@ Folder kode: `luaja/` (Cloudflare Worker `luaja-com`). Aturan tetap pemilik berl
 | 16 Nov 2026 | „Mana ada ujian resmi IELTS dan TOEFL cuma 15 soal... Bikin semua soal totalnya realistis sesuai dengan yg akan di hadapi siswa“ | 🔄 paket 15 soal kini berlabel **Latihan per bagian** (bukan simulasi); **Simulasi ujian resmi** berjumlah soal persis: JLPT N5 20 simulasi × 67 soal ✅; **Goethe A1 4 Modelltest utuh** (Hören 6+4+5 dengan audio 2×/1×, Lesen 5+5+5, Schreiben formulir 5 + pesan 10 poin, Sprechen 3+6+6 poin; skor mentah × 1,66 → 0–100, lulus ≥ 60 dan keempat bagian dikerjakan, predikat resmi) ✅; TOEFL ITP 140 soal (50/40/50) & IELTS Academic (L40 · R40 · W2 · S3) ⏳ |
 | 16 Nov 2026 | „Catat semua ini, Pelajari link2 ini … Seperti inilah yg lu bikin, lu pelajarin, masukin ke blueprint setiap link yg lu pelajarin, serap seluruh datanya dan masukin jadi media pembelajaran“ (IDP IELTS, parroto, englishversity, 8 repositori GitHub, topik b1) | ✅ dipelajari & dicatat §4.2; yang berlisensi terbuka diserap, yang tidak hanya dijadikan rujukan fitur |
 | 16 Nov 2026 | „Ga ada logout nya lg, bikin portal admin dan member yg elegan, indah, estetik, nyaman di pake“ | ✅ menu akun di kepala situs (avatar → Portal · Pustaka · Akun · Panel pengelola · **Keluar**); portal: kartu profil, navigasi berikon, **bilah bawah di HP**, tombol Keluar selalu terlihat; panel pengelola: bilah atas terang dengan **Keluar**, tab berbentuk pil |
+| 16 Nov 2026 | **Catatan sangat besar: luaja.com wajib konsisten dari A–Z.** „Website ini memiliki 3 bahasa website dan memiliki 3 bahasa kursus untuk pelajar. Jika website terdeteksi IP dari Indonesia maka bahasa website dan full seluruh penjelasan kursus menggunakan bahasa Indonesia, dan setiap kata yg di klik akan muncul terjemahan bahasa Indonesia dan jika klik kamus maka akan di arahkan ke halaman kamus agar pelajar bisa mendapatkan terjemahan yg lebih banyak dari kamus induk bahasa Indonesia … ambil kosa kata nya dari kamus di R2. Jika Pelajar terdeteksi IP dari Jepang maka seluruh website dan seluruh penjelasan menggunakan bahasa jepang begitu juga terjemahan dan link kamus nya menggunakan kamus besar bahasa Jepang … di luar dr ke dua negara itu maka defoultnya bahasa inggris dan begitu juga penjelasanya dan halam kamusnya“ | ✅ antarmuka, kamus (`/kamus`, arti dalam bahasa antarmuka, dari R2) dan popup kata mengikuti bahasa terpilih · ✅ penjelasan buku tata bahasa Jerman dalam bahasa Indonesia · ⏳ **penjelasan pelajaran inti, latihan dan pembahasan dalam bahasa Inggris & Jepang** (§5.4a) |
+| 16 Nov 2026 | „kerjakan ini dulu, karena banyak yg tidak konsisten termasuk buku2nya masih banyak yg tidak kumplit setiap jenjang nya termasuk contoh soalnya, audio nya kosong semua, dan tidak ada video nya yg saya minta … animasi dari foto modelnya masih kurang bagus, tolong di cerahin wajah modelnya … buatkan buku2nya sesuai jenjang dan simulasi soal2nya yg real yg akan di hadapi saat ujian resmi pengambilan level A1–C2 untuk Jerman dan N5–N1 untuk Jepang / skor IELTS dan TOEFL dengan penjelasan yg konsisten sesuai bahasa yg d pilih“ | ✅ wajah pemandu dicerahkan (filter cahaya di `figure.ts`) · ✅ **263 video Jerman hidup lagi** (umpan sumber menunjuk alamat mati; kini `media.la.utexas.edu/dib/video/`) · ⏳ audio & video untuk jenjang yang masih kosong (§6.6), buku ≥ 20 per jenjang (§6.4), simulasi penuh tiap ujian (§6.5) |
+| 16 Nov 2026 | „Sempurnakan CSS portal nya, pembayaranya, promosinya di homepage dan full dari A–Z wajib elegan, interaktif konsisten nyaman bagi pelajar dan betah berlama2 untuk belajar“ | ⏳ §8 (portal, pembayaran, promosi beranda) |
+| 16 Nov 2026 | (Tangkapan layar Admin → PayPal: „PayPal menolak kredensial (401)“) „tolong cek PayPal nya, buatin dr sisi Anda webhooknya karena ini ketolak, sudah sy isi live dan sandbox nya“ | ✅ 401 = pasangan Client ID & Secret tidak dikenal PayPal di lingkungan itu (bukan galat situs). Admin → PayPal kini: memeriksa bentuk kredensial sebelum disimpan (spasi, kolom tertukar, bukan kredensial REST), menguji **LIVE dan Sandbox sekaligus** dengan penjelasan per mode dan langkah perbaikannya, **mendaftarkan webhook otomatis** untuk mode yang diterima, dan kolom secret tidak lagi diisi pengelola sandi peramban. Kredensial tidak pernah ditulis ke repo/log |
+| 16 Nov 2026 | „luaja.com xscan.es dan yapida.sch.id sempurnakan semuanya di sesi ini beserta SEO nya agar mendapatkan puluhan ribu pengunjung perhari“ | 🔄 §9 (SEO): halaman kata kamus terindeks, halaman jenjang & buku ber-JSON-LD; ⏳ panduan belajar & halaman kata kunci per ujian |
 
 Kode AdSense `pub-6701063918838796` (akun ke-22) sudah masuk `adsense-stack.json` pada 14 Nov 2026 (PR #427), sehingga
 luaja.com membawanya sejak deploy pertama bersama 21 akun lainnya.
@@ -248,6 +253,22 @@ JLPT, ETS, IELTS, Cambridge) hanya **ditautkan** — tidak disalin.
 | Mata uang tampilan | Indonesia → IDR, Inggris → USD, Jepang → JPY (pembeli tetap bebas memilih di portal) |
 | Isi pelajaran | Penjelasan & pembahasan saat ini bahasa Indonesia; terjemahan manual EN/JA menyusul (catatan jujur tampil di halaman EN/JA) |
 
+### 5.4a Konsistensi bahasa A–Z (aturan tetap, pemilik 16 Nov 2026)
+
+Satu pelajar = satu bahasa induk di **semua** tempat. Bahasa induk berasal dari negara (ID → Indonesia, JP → Jepang,
+lainnya → Inggris) atau pilihan manualnya, dan berlaku untuk:
+
+| Tempat | Indonesia | Inggris | Jepang |
+|---|---|---|---|
+| Antarmuka, portal, tagihan, invoice, e-mail | ✅ | ✅ | ✅ |
+| Kamus `/kamus` dan popup kata (arti, kelas kata, contoh) | ✅ | ✅ | ✅ |
+| Penjelasan buku pustaka (tata bahasa, tips, glos, soal) | ✅ | ✅ (teks asli sumber) | ⏳ |
+| Pelajaran inti (terjemahan baris, kosakata, tata bahasa, alasan jawaban, rekap) | ✅ | ⏳ | ⏳ |
+| Latihan soal & simulasi ujian (petunjuk, pembahasan, kebijakan nilai) | ✅ | ⏳ | ⏳ |
+
+Terjemahan ditulis manual (tidak ada terjemahan mesin di pelajaran inti). Sampai sebuah bagian diterjemahkan, halaman EN/JA
+menampilkan catatan jujur dan teks bahasa sasaran tetap utuh — tidak pernah campur aduk dalam satu kalimat.
+
 ### 5.3 Portal admin `/admin` (tersembunyi)
 
 **Masuk:** ketuk logo **5 kali cepat** (≤ 4 detik) → jendela masuk admin; tidak ada tautan „admin“ di halaman publik. Akun
@@ -327,6 +348,20 @@ Setiap video punya halaman dengan pemutar dan **teks di bawahnya**:
 |---|---|
 | L1 terbuka / L4 orisinal | Transkrip penuh ber-waktu: kalimat aktif tersorot, ketuk kalimat untuk melompat; setiap kata bisa diketuk (arti, dengar, simpan); latihan per **kata** (dengar-ketik, ucap) dan per **kalimat** (menirukan, dikte, susun kata) |
 | L3 sematan (YouTube standar) | Pemutar resmi + ≤ 20 kata kunci buatan editor dengan arti, contoh orisinal dan latihan; **tanpa** transkrip salinan |
+
+### 6.6 Audio & video per jenjang (pemilik: „audio nya kosong semua, dan tidak ada video nya“)
+
+Setiap jenjang wajib punya **audio penutur asli** dan **video**; suara peramban (Web Speech) hanya pelengkap.
+
+| Bahasa | Audio | Video | Status |
+|---|---|---|---|
+| Jerman A1–B1 | Grimm Grammar & Deutsch im Blick (COERLL, CC BY) — 681 berkas MP3 | Deutsch im Blick — 263 video MP4 | ✅ (alamat video diperbaiki 16 Nov) |
+| Jerman B2–C2 | LibriVox (domain publik) untuk bacaan yang sudah ada di pustaka (Kafka, Storm, Heyse, Fontane, Goethe, Schiller) | sematan resmi YouTube (rute L3, §6.3) | ⏳ |
+| Inggris Beginner–Elementary | VOA Let's Learn English 1 & 2 (domain publik) | VOA (MP4) | ✅ Level 1 · 🔄 Level 2 |
+| Inggris Pre-Intermediate–Proficiency | VOA Learning English (American Stories, Words and Their Stories, Science & Technology) · LibriVox | VOA English in a Minute, Everyday Grammar, News Words | ⏳ |
+| Jepang N5–N1 | LibriVox Jepang untuk karya Aozora yang ada di pustaka · rekaman kata Lingua Libre (CC BY-SA) | sematan resmi YouTube (rute L3) | ⏳ |
+
+Aturan: tautan media diperiksa otomatis (workflow mingguan) — berkas yang mati tidak boleh tampil sebagai pemutar kosong.
 
 ---
 

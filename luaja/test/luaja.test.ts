@@ -732,3 +732,14 @@ test('simulasi penuh: halaman & API — kunci tidak terkirim, simulasi 1 gratis,
   const sm = await (await req(e, '/sitemap.xml')).text();
   assert.ok(sm.includes('/simulasi/jlpt-n5'));
 });
+
+test('pustaka: tidak ada tautan media ke alamat sumber yang sudah mati', () => {
+  const dir = new URL('../public/p/b/', import.meta.url);
+  let media = 0;
+  for (const f of fs.readdirSync(dir)) {
+    const t = fs.readFileSync(new URL(f, dir), 'utf8');
+    assert.ok(!t.includes('coerll.utexas.edu/dib/mp4s/'), `${f}: video Deutsch im Blick memakai alamat lama (404)`);
+    media += (t.match(/"src":"https:\/\/[^"]+\.(mp3|mp4)"/g) ?? []).length;
+  }
+  assert.ok(media > 1000, `media ${media}`);
+});
