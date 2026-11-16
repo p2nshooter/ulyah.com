@@ -162,9 +162,8 @@ test('kamus: halaman & API — pencarian dialihkan ke halaman kata, arti Indones
 
 test('kamus: popup pembaca memakai kamus sendiri (bukan situs kamus luar) dan menu memuat Kamus', async () => {
   const js = fs.readFileSync(new URL('../public/assets/pustaka.js', import.meta.url), 'utf8');
-  assert.doesNotMatch(js, /wiktionary\.org|jisho\.org/);
-  assert.match(js, /\/api\/kamus\/cari/);
-  assert.match(js, /\/api\/kamus\/pecah/);
+  for (const outside of ['wiktionary.org', 'jisho.org']) assert.ok(!js.includes(outside), `pustaka.js masih menyebut ${outside}`);
+  assert.ok(js.includes('/api/kamus/cari') && js.includes('/api/kamus/pecah'));
   resetKamusCache();
   const h = await (await get(env(fixture()), '/')).text();
   assert.match(h, /href="\/kamus"/);

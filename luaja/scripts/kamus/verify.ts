@@ -15,13 +15,20 @@ const bucket: KBucket = {
     if (key === 'kamus/current.json') return { text: async () => JSON.stringify(meta) };
     const rel = key.replace(/^kamus\/lokal\//, '');
     const file = path.join(dir, rel);
-    if (!fs.existsSync(file)) return null;
-    if (!opts?.range) return { text: async () => fs.readFileSync(file, 'utf8') };
-    const fd = fs.openSync(file, 'r');
-    const buf = Buffer.alloc(opts.range.length);
-    fs.readSync(fd, buf, 0, opts.range.length, opts.range.offset);
-    fs.closeSync(fd);
-    return { text: async () => buf.toString('utf8') };
+    let fd: number;
+    try {
+      fd = fs.openSync(file, 'r');
+    } catch {
+      return null;
+    }
+    try {
+      const len = opts?.range ? opts.range.length : fs.fstatSync(fd).size;
+      const buf = Buffer.alloc(len);
+      fs.readSync(fd, buf, 0, len, opts?.range ? opts.range.offset : 0);
+      return { text: async () => buf.toString('utf8') };
+    } finally {
+      fs.closeSync(fd);
+    }
   },
 };
 

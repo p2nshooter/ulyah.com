@@ -6,11 +6,12 @@
   var input = form.querySelector('[data-k-q]'), list = form.querySelector('[data-k-list]');
   var UI = (window.LJ && window.LJ.lang) || document.documentElement.lang || 'id';
   var EX = { de: 'Haus', en: 'house', ja: '家', id: 'rumah' };
-  var lang = function () { var r = form.querySelector('input[name="l"]:checked'); return r ? r.value : 'de'; };
+  var LANGS = ['de', 'en', 'ja', 'id'];
+  var lang = function () { var r = form.querySelector('input[name="l"]:checked'), v = r ? r.value : 'de'; return LANGS.indexOf(v) >= 0 ? v : 'de'; };
   var timer = null, seq = 0, active = -1, items = [];
 
   function close() { list.hidden = true; list.textContent = ''; active = -1; items = []; input.setAttribute('aria-expanded', 'false'); }
-  function go(w) { window.location.href = '/kamus/' + lang() + '/' + encodeURIComponent(w); }
+  function go(w) { var u = new URL('/kamus/' + lang() + '/' + encodeURIComponent(String(w)), window.location.origin); if (u.origin === window.location.origin) window.location.assign(u.pathname); }
   function mark() { items.forEach(function (li, i) { li.classList.toggle('on', i === active); li.setAttribute('aria-selected', i === active ? 'true' : 'false'); }); }
   function show(data) {
     list.textContent = '';
@@ -20,6 +21,7 @@
       var s = document.createElement('span'); s.textContent = it.m || '';
       li.appendChild(b); li.appendChild(s);
       li.addEventListener('mousedown', function (e) { e.preventDefault(); go(it.w); });
+      li._w = it.w;
       list.appendChild(li);
       return li;
     });
@@ -39,7 +41,7 @@
     if (!items.length) return;
     if (e.key === 'ArrowDown') { e.preventDefault(); active = (active + 1) % items.length; mark(); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); active = (active - 1 + items.length) % items.length; mark(); }
-    else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); go(items[active].querySelector('b').textContent); }
+    else if (e.key === 'Enter' && active >= 0) { e.preventDefault(); go(items[active]._w); }
     else if (e.key === 'Escape') close();
   });
   input.addEventListener('blur', function () { setTimeout(close, 150); });
