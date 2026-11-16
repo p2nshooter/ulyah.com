@@ -44,7 +44,8 @@ const MAPEL: [RegExp, string][] = [
 export const mapelDari = (judul: string, kelas: number) => MAPEL.find(([re]) => re.test(judul))?.[1] ?? (kelas >= 10 ? 'Kejuruan & Umum' : 'Umum');
 
 const ROMAWI: Record<string, number> = { I: 1, V: 5, X: 10, L: 50 };
-export function angka(s: string): number {
+export function angka(teks: string): number {
+  const s = teks.toUpperCase();
   if (/^\d+$/.test(s)) return Number(s);
   let n = 0;
   for (let i = 0; i < s.length; i += 1) {
@@ -81,58 +82,125 @@ export function bersihkanHalaman(halaman: string[]): string[][] {
   });
 }
 
-const JUDUL_BAB = /^(BAB|Bab|PELAJARAN|Pelajaran|UNIT|Unit|TEMA|Tema|CHAPTER|Chapter|BAGIAN|Bagian)\s+(\d{1,2}|[IVXL]{1,6})\b\s*[:.\-–—]?\s*(.*)$/;
+const JUDUL_BAB = /^(BAB|Bab|bab|PELAJARAN|Pelajaran|pelajaran|UNIT|Unit|unit|TEMA|Tema|tema|CHAPTER|Chapter|BAGIAN|Bagian|bagian)\s+(\d{1,2}|[IVXLivxl]{1,6})\b\s*[:.\-–—]?\s*(.*)$/;
 const TITIK_DAFTAR = /\.{4,}|…{2,}|\s\d{1,3}$/;
 const AKHIR_BUKU = /^(GLOSARIUM|Glosarium|DAFTAR PUSTAKA|Daftar Pustaka|DAFTAR ISTILAH|Daftar Istilah|INDEKS|Indeks|KUNCI JAWABAN|Kunci Jawaban|LAMPIRAN|Lampiran)\s*$/;
 
 interface Awal { hal: number; baris: number; n: number; judul: string }
 
 const rapikanJudul = (s: string) => {
-  const t = s.replace(TITIK_DAFTAR, '').replace(/\.{2,}.*$/, '').replace(/\s+/g, ' ').trim().replace(/[:.\-–—]+$/, '').trim();
-  return t === t.toUpperCase() && /[A-Z]/.test(t) ? t.toLowerCase().replace(/(^|\s)(\p{L})/gu, (_, a: string, b: string) => a + b.toUpperCase()) : t;
+  // Baris daftar isi: titik-titik pengarah dan nomor halaman di ujung dibuang („gerak kaki dan tangan....... . 1“).
+  const t = s.replace(/[.·…]{3,}.*$/, '').replace(TITIK_DAFTAR, '').replace(/[\s.·…]*\s\d{1,3}\s*$/, '').replace(/\s+/g, ' ').trim().replace(/[:.\-–—]+$/, '').trim();
+  const r = t === t.toUpperCase() && /[A-Z]/.test(t) ? t.toLowerCase().replace(/(^|\s)(\p{L})/gu, (_, a: string, b: string) => a + b.toUpperCase()) : t;
+  return r.charAt(0).toUpperCase() + r.slice(1);
 };
 
-/** Judul sesudah „Bab N“: sisa baris, atau baris berikutnya yang pendek. */
+/** Judul sesudah „Bab N“: sisa baris, atau baris berikutnya yang pendek (judul yang terpenggal dua baris digabung). */
 function judulSesudah(b: string[], i: number, sisa: string): string {
   if (sisa && sisa.length > 2) return rapikanJudul(sisa);
   for (let j = i + 1; j < Math.min(b.length, i + 4); j += 1) {
     const l = b[j]!;
-    if (l && l.length <= 90 && !nomorHalaman(l) && !JUDUL_BAB.test(l)) return rapikanJudul(l);
+    if (l && l.length <= 90 && !nomorHalaman(l) && !JUDUL_BAB.test(l)) {
+      const lanjut = b[j + 1];
+      const gabung = lanjut && /^\p{Ll}/u.test(lanjut) && !/^[a-h](\s|$)/.test(lanjut) && !/[.?!:]$/.test(l) && !/[.·…]{3,}/.test(lanjut) && lanjut.split(' ').length <= 5 && (l.length + lanjut.length) <= 90 && !nomorHalaman(lanjut);
+      return rapikanJudul(gabung ? `${l} ${lanjut}` : l);
+    }
   }
   return '';
 }
 
 /** Daftar isi: judul per nomor bab (dari halaman yang memuat ≥ 3 judul bab). */
-function daftarIsi(hal: string[][]): Map<number, string> {
-  const peta = new Map<number, string>();
-  for (const b of hal) {
+/** Daftar isi ada di bagian depan buku (kunci jawaban/indeks di belakang juga menyebut „bab n“ — bukan daftar isi). */
+const batasDepan = (hal: string[][]) => Math.max(12, Math.ceil(hal.length * 0.25));
+
+interface IsiBab { judul: string; cetak?: number }
+const NOMOR_UJUNG = /(?:^|[\s.·…])(\d{1,3})\s*$/;
+
+/** Daftar isi: judul (dan nomor halaman cetak) per nomor bab. */
+function daftarIsi(hal: string[][]): Map<number, IsiBab> {
+  const peta = new Map<number, IsiBab>();
+  let sebelumDaftar = false;
+  for (const b of hal.slice(0, batasDepan(hal)).map((x) => x.filter(Boolean))) {
     const calon = b.map((l, i) => [JUDUL_BAB.exec(l), i] as const).filter(([m]) => m);
-    if (calon.length < 3) continue;
-    for (const [m, i] of calon) { const n = angka(m![2]!); const j = judulSesudah(b, i, m![3]!); if (n && j && !peta.has(n)) peta.set(n, j); }
+    // Halaman daftar isi: ≥ 3 judul bab, atau lanjutan halaman daftar isi sebelumnya.
+    const daftar = calon.length >= 3 || (sebelumDaftar && calon.length >= 1);
+    sebelumDaftar = daftar;
+    if (!daftar) continue;
+    for (const [m, i] of calon) {
+      const n = angka(m![2]!);
+      const j = judulSesudah(b, i, m![3]!);
+      // Nomor halaman di ujung judul pada baris itu (bukan nomor bab „BAB 1“), atau di ujung baris-baris judul berikutnya.
+      let c = m![3] ? NOMOR_UJUNG.exec(m![3]) : null;
+      for (let k = i + 1; !c && k <= i + 3 && k < b.length && !JUDUL_BAB.test(b[k]!); k += 1) c = NOMOR_UJUNG.exec(b[k]!);
+      if (n && j && !peta.has(n)) peta.set(n, { judul: j, ...(c ? { cetak: Number(c[1]) } : {}) });
+    }
   }
   return peta;
 }
 
-/** Awal setiap bab. */
-export function cariBab(hal: string[][]): Awal[] {
-  const isi = daftarIsi(hal);
-  const halDaftar = new Set(hal.map((b, i) => [b.filter((l) => JUDUL_BAB.test(l)).length, i] as const).filter(([n]) => n >= 3).map(([, i]) => i));
+/** Nomor halaman cetak tiap halaman PDF (baris berisi angka saja di tepi atas/bawah halaman), null bila tidak ada. */
+export function nomorCetak(halaman: string[]): (number | null)[] {
+  return halaman.map((h) => {
+    const isi = h.split('\n').map((l) => l.trim()).filter(Boolean);
+    const tepi = [...isi.slice(0, 3), ...isi.slice(-3)].map((l) => /^(\d{1,3})$/.exec(l)).filter((m): m is RegExpExecArray => Boolean(m));
+    return tepi.length ? Number(tepi[tepi.length - 1]![1]) : null;
+  });
+}
+
+/** Halaman PDF yang nomor cetaknya `p`: dicari yang selisihnya dengan nomor cetak konsisten (median selisih seluruh buku). */
+function halamanCetak(cetak: (number | null)[], p: number, sesudah: number): number | null {
+  const selisih = cetak.map((c, i) => (c === null ? null : i - c)).filter((x): x is number => x !== null).sort((a, b) => a - b);
+  if (selisih.length < 5) return null;
+  const off = selisih[Math.floor(selisih.length / 2)]!;
+  const cocok = cetak.map((c, i) => (c === p && i > sesudah && Math.abs(i - p - off) <= 3 ? i : -1)).filter((i) => i >= 0);
+  if (cocok.length) return cocok[0]!;
+  const kira = p + off;
+  return kira > sesudah && kira < cetak.length ? kira : null;
+}
+
+/** Awal setiap bab. `cetak` = nomor halaman cetak per halaman PDF (nomorCetak), untuk strategi daftar isi. */
+export function cariBab(hal: string[][], paksa = false, cetak: (number | null)[] = [], mentah?: string[][]): Awal[] {
+  // Daftar isi dibaca dari halaman mentah: nomor halaman yang berdiri sendiri di baris berikutnya masih ada di sana.
+  const isi = daftarIsi(mentah ?? hal);
+  const halDaftar = new Set(hal.map((b, i) => [b.filter((l) => JUDUL_BAB.test(l)).length, i] as const).filter(([n, i]) => n >= 3 && i < batasDepan(hal)).map(([, i]) => i));
   const akhirDaftar = Math.max(-1, ...halDaftar);
-  // 1) Judul bab tertulis di badan buku.
-  const tertulis: Awal[] = [];
+  // 1) Judul bab tertulis di badan buku: rantai terpanjang „bab 1, bab 2, …“ berurutan dengan jarak ≥ 2 halaman
+  //    (penyebutan „bab 3“ yang nyasar di tengah kalimat tidak memutus rantai).
+  const calonBab: Awal[] = [];
   hal.forEach((b, h) => {
     if (h <= akhirDaftar) return;
     b.forEach((l, i) => {
       const m = JUDUL_BAB.exec(l);
-      if (!m || TITIK_DAFTAR.test(l) || i > 8) return;
+      // Baris daftar isi (titik-titik pengarah atau judul diakhiri nomor halaman) bukan awal bab; „BAB 7“ sendirian adalah.
+      if (!m || /\.{4,}|…{2,}/.test(l) || (m[3] && /\s\d{1,3}$/.test(` ${m[3]}`)) || i > 8) return;
       const n = angka(m[2]!);
-      const terakhir = tertulis[tertulis.length - 1];
-      if (n !== (terakhir ? terakhir.n + 1 : n) || (terakhir && h - terakhir.hal < 2) || n > 40) return;
-      tertulis.push({ hal: h, baris: i, n, judul: isi.get(n) || judulSesudah(b, i, m[3]!) || `Bab ${n}` });
+      if (n >= 1 && n <= 40) calonBab.push({ hal: h, baris: i, n, judul: isi.get(n)?.judul || judulSesudah(b, i, m[3]!) || `Bab ${n}` });
     });
   });
-  if (tertulis.length >= 2) return tertulis;
-  // 2) Penomoran Gambar/Tabel/Kegiatan X.Y: angka depan naik = bab baru.
+  let tertulis: Awal[] = [];
+  for (const mulai of calonBab.filter((a) => a.n <= 2)) {
+    const rantai = [mulai];
+    for (const a of calonBab) { const t = rantai[rantai.length - 1]!; if (a.n === t.n + 1 && a.hal - t.hal >= 2) rantai.push(a); }
+    if (rantai.length > tertulis.length) tertulis = rantai;
+  }
+  if (tertulis.length >= 2 && !paksa) return tertulis;
+  // 2) Daftar isi + nomor halaman cetak: bab dimulai di halaman PDF yang nomor cetaknya tertulis di daftar isi
+  //    (judul bab di badan buku sering berupa gambar atau huruf kecil terpisah).
+  if (!paksa && cetak.length) {
+    const dariIsi: Awal[] = [];
+    for (const [n, x] of [...isi].sort((a, b) => a[0] - b[0])) {
+      if (x.cetak === undefined || n > 40) continue;
+      const terakhir = dariIsi[dariIsi.length - 1];
+      if (terakhir && n !== terakhir.n + 1) break;
+      const h = halamanCetak(cetak, x.cetak, terakhir ? terakhir.hal : akhirDaftar);
+      if (h === null) { if (terakhir) break; continue; }
+      dariIsi.push({ hal: h, baris: 0, n, judul: x.judul });
+    }
+    // Dipakai hanya bila meyakinkan: mencakup sebagian besar bab daftar isi dan halamannya naik dengan jarak wajar.
+    const naik = dariIsi.every((a, k) => k === 0 || a.hal - dariIsi[k - 1]!.hal >= 2);
+    if (dariIsi.length >= Math.max(2, Math.ceil(isi.size * 0.6)) && naik) return dariIsi;
+  }
+  // 3) Penomoran Gambar/Tabel/Kegiatan X.Y: angka depan naik = bab baru.
   const nomor: Awal[] = [];
   hal.forEach((b, h) => {
     if (h <= akhirDaftar) return;
@@ -141,14 +209,14 @@ export function cariBab(hal: string[][]): Awal[] {
       if (!m) continue;
       const n = Number(m[2]);
       const terakhir = nomor[nomor.length - 1];
-      if ((terakhir ? n === terakhir.n + 1 : n === 1) && n <= 30) nomor.push({ hal: Math.max(akhirDaftar + 1, terakhir ? h : h - 2), baris: 0, n, judul: isi.get(n) ? `${n}. ${isi.get(n)}` : `Bab ${n}` });
+      if ((terakhir ? n === terakhir.n + 1 : n === 1) && n <= 30) nomor.push({ hal: Math.max(akhirDaftar + 1, terakhir ? h : h - 2), baris: 0, n, judul: isi.get(n) ? `${n}. ${isi.get(n)!.judul}` : `Bab ${n}` });
     }
   });
-  if (nomor.length >= 2) {
+  if (nomor.length >= 2 && !paksa) {
     // Bab ditandai pada halaman nomor pertamanya muncul; mundur ke halaman sebelumnya yang kosong/berjudul (pembuka bab).
     return nomor.map((a, k) => (k === 0 ? a : { ...a, hal: Math.max(nomor[k - 1]!.hal + 1, a.hal - 1) }));
   }
-  // 3) Per 12 halaman.
+  // 4) Per 12 halaman.
   const mulai = akhirDaftar + 1;
   const out: Awal[] = [];
   for (let h = mulai, n = 1; h < hal.length; h += 12, n += 1) out.push({ hal: h, baris: 0, n, judul: `Bagian ${n}` });
@@ -157,8 +225,48 @@ export function cariBab(hal: string[][]): Awal[] {
 
 const KEPALA_KOTAK = /^(Info\s+\p{L}+|Tugas(\s+\d+(\.\d+)?)?|Kegiatan(\s+\d+(\.\d+)?)?|Latihan(\s+\d+(\.\d+)?)?|Rangkuman|Ringkasan|Uji Kompetensi.*|Evaluasi.*|Refleksi|Tahukah Kamu\??|Kata Kunci|Peta Konsep|Tujuan Pembelajaran|Ayo\s+\p{L}+.*|Mari\s+\p{L}+.*|Contoh(\s+(Soal\s+)?\d+(\.\d+)?)?|Aktivitas(\s+\d+(\.\d+)?)?|Let'?s\s+\p{L}+.*|Exercise\s*\d*|Activity\s*\d*)$/u;
 
+/* ── buku pembaca pemula (BSE kelas 1–2): huruf kecil semua, tanpa tanda baca; satu baris = satu kalimat ───────── */
+
+const SAMBUNG_AKHIR = /\s(dan|yang|dengan|di|ke|untuk|atau|karena|adalah|pada|dari|serta|agar|supaya|sebagai|oleh|bila|jika|kalau|saat|ketika|tetapi|tapi|namun|sambil|seperti|sampai|hingga|maupun|baik|akan|dapat|bisa|harus|sudah|belum|tidak|sangat|lebih|paling|setiap|semua|para|sebuah|seorang|suatu|ada|yaitu|antara|misalnya|contohnya|menjadi)$/u;
+const SAMBUNG_AWAL = /^(dan|atau|yang|dengan|untuk|ke|di|dari|serta|sehingga|karena|adalah|juga|akan|pada|agar|supaya|maupun|hingga|sampai|seperti|kepada|oleh|secara|tentang|tanpa|tetapi|tapi|namun|yaitu|menjadi)\b/u;
+const TANYA = /^(apa|apakah|siapa|siapakah|mengapa|kenapa|bagaimana|bagaimanakah|di ?mana|ke ?mana|dari ?mana|kapan|berapa|bolehkah|manakah|mana|adakah)\b/i;
+const PILIHAN = /^([a-e])\s+(\p{L}.*)$/u;
+
+/**
+ * Kalimat dari satu kelompok baris buku pembaca pemula: baris sambungan (kolom sempit, kata sambung di ujung/awal, sisa
+ * satu–dua kata) digabung; tiap kalimat diberi huruf kapital dan titik/tanda tanya agar enak dibaca dan dibacakan dengan
+ * jeda; pilihan jawaban „a daun“ menjadi „a. daun“.
+ */
+export function kalimatPemula(g: string[]): string[] {
+  const rerata = g.reduce((n, l) => n + l.split(' ').length, 0) / g.length;
+  const baris = g.length >= 3 && rerata < 3.5 && !g.some((l) => PILIHAN.test(l)) ? [g.join(' ')] : g;
+  const out: string[] = [];
+  let buf = '';
+  baris.forEach((l, i) => {
+    if (PILIHAN.test(l)) { if (buf) { out.push(buf); buf = ''; } out.push(l.replace(PILIHAN, '$1. $2')); return; }
+    buf = buf ? `${buf} ${l}` : l;
+    const next = baris[i + 1];
+    const lanjut = next !== undefined && !PILIHAN.test(next) && !/[.!?…:]$/.test(buf)
+      && (SAMBUNG_AKHIR.test(buf) || SAMBUNG_AWAL.test(next) || /[,;]$/.test(buf) || (next.split(' ').length <= 2 && buf.length >= 30));
+    if (!lanjut) { out.push(buf); buf = ''; }
+  });
+  if (buf) out.push(buf);
+  return out.map((k) => {
+    const s = k.replace(/\s+/g, ' ').trim().replace(/\s*(\.{3,}|…+)$/, ' …');
+    if (/^[a-e]\.\s/.test(s)) return s; // pilihan jawaban „a. daun“ dibiarkan
+    const akhir = /[.!?…:]$/.test(s) ? '' : TANYA.test(s) ? '?' : '.';
+    return s.charAt(0).toUpperCase() + s.slice(1) + akhir;
+  });
+}
+
+/** Buku pembaca pemula: kurang dari 35% paragraf diawali huruf kapital (dihitung dari baris pertama tiap kelompok). */
+export function bukuPemula(hal: string[][]): boolean {
+  const awal = hal.flatMap((b) => b.filter((l, i, arr) => l && (i === 0 || !arr[i - 1]) && l.split(' ').length >= 3));
+  return awal.length >= 50 && awal.filter((l) => /^\p{Lu}/u.test(l)).length / awal.length < 0.35;
+}
+
 /** Baris satu bab → blok. */
-export function keBlok(baris: string[]): Blok[] {
+export function keBlok(baris: string[], o: { pemula?: boolean } = {}): Blok[] {
   // Kelompok = baris berurutan tanpa baris kosong.
   const kelompok: string[][] = [];
   let cur: string[] = [];
@@ -170,6 +278,29 @@ export function keBlok(baris: string[]): Blok[] {
     const g = kelompok[k]!;
     // Nomor soal sendirian („4.“) atau huruf bagian sendirian („A“) digabung dengan kelompok berikutnya.
     if (g.length === 1 && /^(\d{1,2}\.|[A-H]\.?)$/.test(g[0]!)) { tunda = g[0]!.replace(/^([A-H])$/, '$1.'); continue; }
+    if (o.pemula && g.every((l) => /^[\p{Ll}\d]/u.test(l))) {
+      const awal = tunda;
+      tunda = '';
+      if (!awal && /^sumber\b/i.test(g[0]!) && g.join(' ').split(' ').length <= 6) continue;
+      const kal = kalimatPemula(awal ? [`${awal} ${g[0]!}`, ...g.slice(1)] : g);
+      if (kal.length === 1) {
+        const s = kal[0]!;
+        const n = s.split(' ').length;
+        if (/^(gambar|tabel)\s+\d/i.test(s)) { if (n <= 30) blok.push({ t: 'cat', x: s.replace(/\.$/, '') }); continue; }
+        if (g.length === 1 && !awal) {
+          if (n < 2) continue;
+          // Judul bagian: dua–empat kata tanpa tanda baca, bukan awal kalimat sambungan.
+          if (n <= 4 && !/[.?!…:]$/.test(g[0]!) && !SAMBUNG_AWAL.test(g[0]!)) { blok.push({ t: 'h', x: s.replace(/\.$/, '') }); continue; }
+        }
+      }
+      let par: string[] = [];
+      const tutup = () => { if (par.length) { for (const b of pecahPanjang({ t: 'p', x: par.join(' ') })) blok.push(b); par = []; } };
+      for (const s of kal) {
+        if (/^(\d{1,2}\.|[a-e]\.)\s/.test(s)) { tutup(); blok.push({ t: 'li', x: s }); } else par.push(s);
+      }
+      tutup();
+      continue;
+    }
     let teks = '';
     for (const l of g) {
       if (!teks) teks = l;
@@ -218,7 +349,7 @@ const slug = (s: string) => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g
 export const idBse = (it: Pick<ItemBse, 'id' | 'title'>) => `s-${it.id}-${slug(it.title.replace(/^buku\s+/i, ''))}`;
 
 /** Satu buku BSE: teks pdftotext → buku interaktif, atau alasan dilewati. */
-export function ubahBuku(it: ItemBse, teks: string): HasilBse {
+export function ubahBuku(it: ItemBse, teks: string, o: { paksa?: boolean } = {}): HasilBse {
   const kelas = Number(it.class);
   if (!Number.isInteger(kelas) || kelas < 1 || kelas > 12) return { ok: false, alasan: 'kelas tidak dikenal' };
   if (AGAMA_LAIN.test(it.title)) return { ok: false, alasan: 'buku agama selain Islam' };
@@ -228,7 +359,7 @@ export function ubahBuku(it: ItemBse, teks: string): HasilBse {
   const hal = bersihkanHalaman(halaman);
   const kata = hal.reduce((n, b) => n + b.join(' ').split(/\s+/).filter(Boolean).length, 0);
   if (kata < 2500) return { ok: false, alasan: 'teks tidak terbaca (hasil pindaian)' };
-  const awal = cariBab(hal);
+  const awal = cariBab(hal, o.paksa, nomorCetak(halaman), halaman.map((h) => h.split('\n').map((l) => l.replace(/\s+/g, ' ').trim())));
   // Akhir isi: glosarium/daftar pustaka/indeks sesudah bab terakhir.
   const terakhir = awal[awal.length - 1]!;
   let akhirHal = hal.length;
@@ -242,12 +373,13 @@ export function ubahBuku(it: ItemBse, teks: string): HasilBse {
   }
   const mapel = mapelDari(it.title, kelas);
   const suara: Suara = kelas <= 6 ? 'anak' : 'remaja';
+  const pemula = bukuPemula(hal);
   const bab: Bab[] = [];
   awal.forEach((a, k) => {
     const sampai = k + 1 < awal.length ? awal[k + 1]!.hal : akhirHal;
     const baris = hal.slice(a.hal, Math.max(a.hal + 1, sampai)).flatMap((b, j) => (j === 0 ? b.slice(a.baris) : b).concat(''));
     // Baris judul bab sendiri tidak diulang di isi.
-    const isi = keBlok(baris.filter((l, j) => !(j < 4 && (JUDUL_BAB.test(l) || rapikanJudul(l) === a.judul))));
+    const isi = keBlok(baris.filter((l, j) => !(j < 4 && (JUDUL_BAB.test(l) || rapikanJudul(l) === a.judul))), { pemula });
     if (hitungKata(isi) < 60) return;
     // Bab sangat panjang dibagi agar nyaman dibaca (±6.000 kata per bagian).
     const bagian: Blok[][] = [];

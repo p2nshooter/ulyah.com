@@ -22,6 +22,7 @@ import { bagianPrestasiUnit, pitaPrestasi } from './pages/prestasi.ts';
 import { katalog, urutkan } from './data/pustaka.ts';
 import { peringkat, sepuluh } from './data/statistik.ts';
 import { RAK } from './data/buku.ts';
+import { KURIKULUM } from './data/kurikulum.ts';
 import { pitaPustaka, rakSisipUnit, rakUntukUnit } from './pages/pustaka.ts';
 import { daftar, type IxItem } from './data/koleksi.ts';
 import { videoKanal } from './data/yt.ts';
@@ -76,7 +77,7 @@ app.get('/sitemap.xml', async (c) => {
   const o = origin(c);
   const store2 = c.get('store');
   const isi = await Promise.all(['kabar', 'galeri', 'karya', 'ppdb', 'sdm', 'penghargaan'].map(async (k) => (await daftar(store2, k, { tayang: true, limit: 900, ...(k === 'penghargaan' ? { saring: tampilDiPrestasi } : {}) })).filter((it) => it.u === 'yayasan' || units.some((u) => u.slug === it.u)).map((it) => publikDok(k, it.sl))));
-  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/prestasi', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
+  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/prestasi', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...(Object.keys(KURIKULUM) as (keyof typeof KURIKULUM)[]).flatMap((j) => [`/pustaka/pelajaran/${j}`, ...KURIKULUM[j].kelas.flatMap((k) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(k)).map((m) => `/pustaka/pelajaran/${j}/${k}/${m.slug}`))]), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${o}${u}</loc></url>`).join('\n')}\n</urlset>`;
   return c.body(xml, 200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=3600' });
 });

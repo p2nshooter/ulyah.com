@@ -154,6 +154,29 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     „abal2“, hati-hati dengan kitab agama. „Jika engine website artikel sudah di buat dan sudah 100% running tinggal kan
     karena kita focus kepada keberhasilan yapida.sch.id“. Kerjakan „secara profesional, teliti dan cepat tanpa agen“.
 
+**16 Nov 2026**
+
+33. „Tolong cek d github banyak yg gagal“ — CI hijau lagi: galat `$$` di portal.js, peringatan CodeQL (balapan berkas di
+    skrip, regex tanpa jangkar). „Di portal ada pesan dan ada pesan masuk, jika sudah di wakili dengan pesan masuk hapus
+    yg pesan kecuali beda fungsi“ — satu menu Pesan; pesan pengunjung (formulir kontak) menjadi bagian di dalamnya.
+34. „Masih tidak ada buku formal di setiap kelas di perpustakaan digital“ — buku BSE per kelas 1–9 dan mapel inti
+    (pustaka/bse, §5f) + Peta Pelajaran Madrasah. Buku kelas 1–2 ditulis huruf kecil satu kalimat per baris (gaya
+    pembaca pemula): diubah menjadi kalimat berkapital dan bertitik, bab dari daftar isinya. „belum ada login untuk
+    masuk portal siswa“ — /siswa tayang.
+35. „Ubah voice jd bahasa Indonesia dengan suara yg lembut, cari voice yg memiliki suara yg berwibawa … yg penting
+    suaranya nyaman d dengar, elegan, berwibawa dan sesuai jenjang, misal buku anak di bacakan suara anak dll“ — suara
+    neural perangkat dipilih per jenjang (anak: lembut & ceria; remaja: jernih; dewasa/kitab: berwibawa), tidak pernah
+    Melayu. Layanan suara pihak ketiga hanya lewat jalur resmi (kunci API sah), bukan meniru peramban.
+36. „translate kitab menggunakan bhs Indonesia bukan bahasa yg lain“ — kitab dan hadits tampil dengan terjemah Indonesia.
+37. Bank Soal (Kurikulum Berbasis Cinta 2026): guru — PTS & PAS, Ganjil & Genap, per mapel PG 15 · menjodohkan 5 ·
+    isian 10 · uraian 5, maks. 2 lembar kertas legal dengan kop lembaga, unduh rapi, huruf elegan; tampil di portal super
+    admin, yayasan, dan lembaga; siswa — latihan & ujian dengan kunci dan pembahasan sesudah selesai. RA (TK A & B):
+    kartun interaktif (hewan, pohon, berhitung, hijaiyah, balok) yang bergerak dan bercerita.
+38. „Sertififikatnya masih kurang indah, masih kurang premium, dan beberapa masih kurang interaktif, hususnya d
+    perpustakaanya“ — sertifikat & perpustakaan dinaikkan lagi kelasnya. Promosi www.yapida.sch.id di kop, sertifikat, dan
+    semua unduhan; laporan detektor artikel mempromosikan www.xscan.es dan www.luaja.com (kursus 3 bahasa).
+    „kerjakan semua yg blm d kerjakan“.
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di

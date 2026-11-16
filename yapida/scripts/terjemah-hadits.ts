@@ -14,7 +14,7 @@
  *
  * Pakai: npx tsx scripts/terjemah-hadits.ts [--ulang]
  */
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { barisInsert } from './sql-seed.ts';
@@ -152,8 +152,13 @@ const EN = /\b(the|and|of|that|he|said|to|was|his|with|from|they|which|who|is)\b
 const ID = /\b(dan|yang|dari|kepada|bahwa|beliau|telah|dengan|tidak|kami|mereka|itu|ini|adalah)\b/gi;
 export const berbahasaInggris = (s: string) => (s.match(EN) ?? []).length > (s.match(ID) ?? []).length;
 
+/** Isi berkas, atau null bila belum ada — dibaca langsung (tanpa cek-lalu-baca yang rawan balapan). */
+function bacaAtau(f: string): string | null {
+  try { return readFileSync(f, 'utf8'); } catch (err) { if ((err as NodeJS.ErrnoException).code === 'ENOENT') return null; throw err; }
+}
+
 async function utama(): Promise<void> {
-  const lama: Record<string, Record<string, string>> = existsSync(KELUAR) ? JSON.parse(readFileSync(KELUAR, 'utf8')) : {};
+  const lama = JSON.parse(bacaAtau(KELUAR) ?? '{}') as Record<string, Record<string, string>>;
   if (process.argv.includes('--rapikan')) { // hanya merapikan ulang hasil tersimpan (aturan rapikan berubah), tanpa menerjemahkan
     for (const k of Object.keys(lama)) for (const n of Object.keys(lama[k]!)) lama[k]![n] = rapikan(lama[k]![n]!);
     writeFileSync(KELUAR, `${JSON.stringify(lama, null, 1)}\n`);
@@ -162,9 +167,9 @@ async function utama(): Promise<void> {
   }
   let baru = 0;
   for (const k of KITAB) {
-    const f = join(SEED, `hadith_${k}.sql`);
-    if (!existsSync(f)) continue;
-    const rows = barisInsert(readFileSync(f, 'utf8'), 'hadits');
+    const sql = bacaAtau(join(SEED, `hadith_${k}.sql`));
+    if (sql === null) continue;
+    const rows = barisInsert(sql, 'hadits');
     lama[k] ??= {};
     for (const r of rows) {
       const no = String(r.hadith_number ?? r.id);

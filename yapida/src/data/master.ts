@@ -69,7 +69,7 @@ export function kenaliJudul(asli: string): KunciKolom | null {
   if (/kabupaten|\bkota\b/.test(h)) return 'kabupaten';
   if (/provinsi|propinsi/.test(h)) return 'provinsi';
   if (/alamat|domisili|tempat tinggal/.test(h)) return 'alamat';
-  if (/^status|keaktifan|status siswa|status peserta|mutasi/.test(h)) return 'statusSiswa';
+  if (/^status/.test(h) || /keaktifan|status siswa|status peserta|mutasi/.test(h)) return 'statusSiswa';
   if (/nama lengkap|nama siswa|nama peserta|nama murid|nama santri|nama anak|^nama$|^name$|full name|^nama pd$/.test(h)) return 'nama';
   if (/^(no|no urut|nomor|nomor urut|urut|#)$/.test(h)) return 'no';
   if (/agama|telp|\bhp\b|email|hobi|cita|berat|tinggi|darah|anak ke|saudara|transport|jarak|\bkip\b|\bkps\b|\bpkh\b|bank|rekening|\bpip\b|^ket|keterangan|catatan|foto|ttd|paraf|kebutuhan|penghasilan|pekerjaan/.test(h)) return 'abaikan';

@@ -214,9 +214,13 @@
   });
 })();
 
-/* ── saring baris tabel (rak perpustakaan, daftar panjang) ── */
+/* ── saring baris tabel (rak perpustakaan, daftar panjang) + fitur kesiswaan, pesan, grafik ── */
 (function () {
   'use strict';
+  var d = document;
+  var $ = function (s, c) { return (c || d).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
+  var kirimBerkas = function (f, j, u) { return window.YapidaUnggah.kirimBerkas(f, j, u); };
   Array.prototype.slice.call(document.querySelectorAll('input[data-saring-baris]')).forEach(function (inp) {
     var tabel = document.querySelector(inp.getAttribute('data-saring-baris'));
     if (!tabel) return;

@@ -48,8 +48,11 @@ export function katalogBawaan(env: Env): Promise<BukuMeta[]> {
   return bawaanMemo;
 }
 
+/** Buku bawaan (aset statis): `k-` koleksi bawaan, `s-` buku pelajaran BSE (scripts/bse-ambil.ts). */
+export const bukuBawaan = (id: string) => /^[ks]-[a-z0-9-]{1,80}$/.test(id);
+
 async function babBawaan(env: Env, id: string, n: number): Promise<Bab | null> {
-  if (!/^k-[a-z0-9-]{1,60}$/.test(id) || !Number.isInteger(n) || n < 1 || n > 2000) return null;
+  if (!bukuBawaan(id) || !Number.isInteger(n) || n < 1 || n > 2000) return null;
   const r = await env.ASSETS.fetch(new Request(`https://aset.local/assets/pustaka/b/${id}/${n}.json`));
   return r.ok ? ((await r.json()) as Bab) : null;
 }
@@ -127,7 +130,7 @@ export async function katalog(env: Env, store: Store): Promise<Katalog> {
 
 /** Metadata lengkap satu buku (dengan daftar bab). */
 export async function ambilBuku(env: Env, store: Store, id: string): Promise<BukuMeta | null> {
-  if (id.startsWith('k-')) {
+  if (bukuBawaan(id)) {
     const atur = await store.get<AturPustaka>(ATUR_KEY);
     if (atur?.sembunyi.includes(id)) return null;
     return (await katalogBawaan(env)).find((b) => b.id === id) ?? null;
@@ -141,7 +144,7 @@ export async function ambilBuku(env: Env, store: Store, id: string): Promise<Buk
 }
 
 export async function ambilBab(env: Env, store: Store, id: string, n: number): Promise<Bab | null> {
-  if (id.startsWith('k-')) return babBawaan(env, id, n);
+  if (bukuBawaan(id)) return babBawaan(env, id, n);
   if (id.startsWith('p-')) {
     const d = await ambil(store, 'buku', id.slice(2));
     if (!d || d.status !== 'tayang') return null;

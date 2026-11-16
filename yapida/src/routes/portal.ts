@@ -523,7 +523,7 @@ portal.post('/portal/pustaka', async (c) => {
   if (tingkat(u) < PERAN.yayasan.tingkat) return tolak(c);
   const store = c.get('store');
   const f = (await c.req.parseBody({ all: true })) as Record<string, unknown>;
-  const daftarId = (v: unknown) => (Array.isArray(v) ? v : v === undefined ? [] : [v]).map(String).filter((x) => /^[kp]-[A-Za-z0-9_-]{1,80}$/.test(x));
+  const daftarId = (v: unknown) => (Array.isArray(v) ? v : v === undefined ? [] : [v]).map(String).filter((x) => /^[kps]-[A-Za-z0-9_-]{1,80}$/.test(x));
   const ada = new Set((await katalogBawaan(c.env)).map((b) => b.id));
   const sembunyi = [...new Set(daftarId(f.sembunyi).filter((x) => ada.has(x)))];
   const unggulan = [...new Set(daftarId(f.unggulan))].slice(0, 200);

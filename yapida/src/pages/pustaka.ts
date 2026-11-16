@@ -7,6 +7,7 @@ import type { UnitItem } from '../data/site.ts';
 import type { Suara } from '../data/model.ts';
 import { hiasan, icon } from './layout.ts';
 import { kepalaHalaman } from './public.ts';
+import { KURIKULUM, namaKelas, type JenjangPel, type Mapel } from '../data/kurikulum.ts';
 
 export type Media = (f: string | undefined | null) => string;
 export interface PCtx { media: Media; kecil: (f: string | undefined | null) => string; units: UnitItem[] }
@@ -382,3 +383,36 @@ export function rakSisipUnit(u: UnitItem, buku: KartuBuku[], x: PCtx): Raw {
   return html`<section class="bagian bagian-rak"><div class="wadah">${rakBuku({ judul: `Rak pustaka ${u.singkat}`, ringkas: 'Buku bacaan, kitab, dan buku pelajaran pilihan — bisa dibaca dan dibacakan.', ikon: '📚', href: `/pustaka/lembaga/${u.slug}` }, buku, x)}</div></section>`;
 }
 
+
+/* ── Pelajaran Madrasah: peta mata pelajaran RA, MI, MTs per kelas (perintah pemilik 31) ─────────────────────── */
+
+export interface SelMapel { m: Mapel; kelas: number; jumlah: number; dukung: number }
+
+export function pelajaranBeranda(j: JenjangPel, sel: SelMapel[], x: PCtx): Raw {
+  const k = KURIKULUM[j];
+  void x;
+  return html`${kepalaHalaman(`Pelajaran ${k.nama}`, `${k.ringkas} Semua buku dibacakan dengan suara yang pas, berpenanda kata, dan bisa dibaca tanpa unduhan.`, [['Perpustakaan', '/pustaka'], ['Pelajaran madrasah', '/pustaka/pelajaran'], [k.nama, `/pustaka/pelajaran/${j}`]], 'Perpustakaan formal')}
+<section class="bagian"><div class="wadah">
+  <nav class="pel-jenjang muncul" aria-label="Jenjang">${(Object.keys(KURIKULUM) as JenjangPel[]).map((x2) => html`<a href="/pustaka/pelajaran/${x2}"${raw(x2 === j ? ' aria-current="page"' : '')}><b>${x2.toUpperCase().replace('MTS', 'MTs')}</b><span>${KURIKULUM[x2].nama.replace(/^\w+ /, '')}</span></a>`)}</nav>
+  ${k.kelas.map((kl) => {
+    const isi = sel.filter((s) => s.kelas === kl);
+    return html`<section class="pel-kelas muncul" id="kelas-${kl}"><header><span class="pel-kelas-angka">${j === 'ra' ? 'RA' : kl}</span><div><h2>${namaKelas(j, kl)}</h2><p>${isi.length} mata pelajaran · ${isi.reduce((n, s) => n + s.jumlah, 0)} buku pelajaran · ${isi.reduce((n, s) => n + s.dukung, 0)} bacaan pendukung</p></div></header>
+      <div class="pel-kisi">${isi.map((s) => html`<a class="pel-mapel${s.jumlah ? '' : ' pel-dukung'}" href="/pustaka/pelajaran/${j}/${kl}/${s.m.slug}"><span class="pel-ikon" aria-hidden="true">${s.m.ikon}</span><strong>${s.m.nama}</strong><small>${s.m.ket}</small><em>${s.jumlah ? `${s.jumlah} buku pelajaran` : s.dukung ? `${s.dukung} bacaan pendukung` : 'segera'}</em></a>`)}</div>
+    </section>`;
+  })}
+  <p class="kecil-abu muncul">Struktur mata pelajaran mengikuti Kurikulum Merdeka pada madrasah (KMA 347/2022 dan pembaruannya) serta mata pelajaran PAI &amp; Bahasa Arab madrasah (KMA 183/2019). Buku pelajaran umum berasal dari Buku Sekolah Elektronik yang hak ciptanya dibeli Depdiknas dan boleh dialihmediakan — teksnya disusun ulang menjadi buku interaktif.</p>
+</div></section>`;
+}
+
+export function pelajaranMapel(j: JenjangPel, kelas: number, m: Mapel, isi: { pelajaran: KartuBuku[]; dukung: KartuBuku[] }, x: PCtx): Raw {
+  const k = KURIKULUM[j];
+  const lain = k.mapel.filter((y) => y.kelas.includes(kelas) && y.slug !== m.slug);
+  return html`${kepalaHalaman(`${m.ikon} ${m.nama} — ${namaKelas(j, kelas)} ${j === 'ra' ? 'RA' : j.toUpperCase().replace('MTS', 'MTs')}`, `${m.ket} Buku pelajaran dan bacaan pendukung, dibacakan dengan penanda kata.`, [['Perpustakaan', '/pustaka'], ['Pelajaran madrasah', '/pustaka/pelajaran'], [k.nama, `/pustaka/pelajaran/${j}`], [m.nama, `/pustaka/pelajaran/${j}/${kelas}/${m.slug}`]], 'Perpustakaan formal')}
+<section class="bagian"><div class="wadah">
+  ${m.taut?.length ? html`<p class="pel-taut muncul">${m.taut.map(([l, h]) => html`<a class="tbl tbl-emas tbl-kecil" href="${h}">${l} →</a>`)}</p>` : ''}
+  ${isi.pelajaran.length ? html`<h2 class="judul-kecil">Buku pelajaran ${namaKelas(j, kelas)}</h2><div class="kisi-buku">${isi.pelajaran.map((b) => kartuBuku(b, x))}</div>` : j === 'ra' ? '' : html`<p class="kosong-teks muncul">Buku pelajaran ${m.nama} ${namaKelas(j, kelas)} sedang disusun — sementara gunakan bacaan pendukung di bawah.</p>`}
+  ${isi.dukung.length ? html`<h2 class="judul-kecil">Bacaan pendukung</h2><div class="kisi-buku">${isi.dukung.map((b) => kartuBuku(b, x))}</div>` : ''}
+  <nav class="pel-lain muncul" aria-label="Mata pelajaran lain"><h2 class="judul-kecil">Mata pelajaran lain ${namaKelas(j, kelas)}</h2>${lain.map((y) => html`<a href="/pustaka/pelajaran/${j}/${kelas}/${y.slug}"><span aria-hidden="true">${y.ikon}</span>${y.nama}</a>`)}</nav>
+  ${j !== 'ra' ? html`<nav class="pel-lain muncul" aria-label="Kelas lain"><h2 class="judul-kecil">${m.nama} kelas lain</h2>${m.kelas.filter((y) => y !== kelas).map((y) => html`<a href="/pustaka/pelajaran/${j}/${y}/${m.slug}">${namaKelas(j, y)}</a>`)}</nav>` : ''}
+</div></section>`;
+}

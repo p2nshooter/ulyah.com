@@ -13,7 +13,8 @@ import { cariGutenberg, katalogJenius } from '../data/luar.ts';
 import { catatBaca, peringkat, sepuluh, setelSuka, sudahSuka } from '../data/statistik.ts';
 import { limit } from '../lib/ratelimit.ts';
 import { b64url } from '../lib/crypto.ts';
-import { bukuDetail, duniaPage, lembagaPustaka, pembacaPage, pustakaBeranda, rakPage, rakUntukUnit, type PCtx } from '../pages/pustaka.ts';
+import { bukuDetail, duniaPage, lembagaPustaka, pelajaranBeranda, pelajaranMapel, pembacaPage, pustakaBeranda, rakPage, rakUntukUnit, type PCtx } from '../pages/pustaka.ts';
+import { KURIKULUM, bukuMapel, namaKelas, type JenjangPel } from '../data/kurikulum.ts';
 
 export const pustaka = new Hono<HonoEnv>();
 
@@ -230,4 +231,45 @@ pustaka.get('/pustaka/m/:id/:file', async (c) => {
   } catch {
     return c.notFound();
   }
+});
+
+
+/* ── Pelajaran madrasah: peta mapel per kelas & halaman mapel (diindeks: „buku matematika kelas 4 MI“) ─────────── */
+
+pustaka.get('/pustaka/pelajaran', (c) => c.redirect('/pustaka/pelajaran/mi', 302));
+
+pustaka.get('/pustaka/pelajaran/:jenjang', async (c) => {
+  const j = c.req.param('jenjang') as JenjangPel;
+  if (!KURIKULUM[j]) return tidakAda(c);
+  const [x, kat] = await Promise.all([pctx(c), katalog(c.env, c.get('store'))]);
+  const sel = KURIKULUM[j].kelas.flatMap((kl) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(kl)).map((m) => { const b = bukuMapel(kat.semua, j, kl, m); return { m, kelas: kl, jumlah: b.pelajaran.length, dukung: b.dukung.length }; }));
+  const o = origin(c);
+  const nama = KURIKULUM[j].nama;
+  return render(c, {
+    path: `/pustaka/pelajaran/${j}`, aktif: 'belajar', css: ['pustaka.css'], js: ['pustaka.js'],
+    title: `Buku Pelajaran ${nama} Lengkap per Kelas & Mata Pelajaran — Pustaka Yapida`,
+    desc: `Peta mata pelajaran ${nama}: ${KURIKULUM[j].mapel.map((m) => m.nama).slice(0, 8).join(', ')} — buku pelajaran interaktif per kelas, dibacakan, gratis.`,
+    body: pelajaranBeranda(j, sel, x),
+    jsonLd: [crumbs(o, [['Perpustakaan', '/pustaka'], ['Pelajaran madrasah', '/pustaka/pelajaran'], [nama, `/pustaka/pelajaran/${j}`]])],
+  });
+});
+
+pustaka.get('/pustaka/pelajaran/:jenjang/:kelas/:mapel', async (c) => {
+  const j = c.req.param('jenjang') as JenjangPel;
+  const k = KURIKULUM[j];
+  const kelas = Number(c.req.param('kelas'));
+  const m = k?.mapel.find((y) => y.slug === c.req.param('mapel'));
+  if (!k || !m || !k.kelas.includes(kelas) || !m.kelas.includes(kelas)) return tidakAda(c);
+  const [x, kat] = await Promise.all([pctx(c), katalog(c.env, c.get('store'))]);
+  const isi = bukuMapel(kat.semua, j, kelas, m);
+  const o = origin(c);
+  const label = `${m.nama} ${namaKelas(j, kelas)} ${j === 'ra' ? 'RA' : j.toUpperCase().replace('MTS', 'MTs')}`;
+  return render(c, {
+    path: `/pustaka/pelajaran/${j}/${kelas}/${m.slug}`, aktif: 'belajar', css: ['pustaka.css'], js: ['pustaka.js'],
+    title: `Buku ${label} — Interaktif & Dibacakan | Pustaka Yapida`,
+    desc: `Buku ${label}: ${m.ket} ${isi.pelajaran.length} buku pelajaran dan ${isi.dukung.length} bacaan pendukung, gratis, dibacakan dengan penanda kata.`,
+    body: pelajaranMapel(j, kelas, m, isi, x), noindex: !isi.pelajaran.length && !isi.dukung.length,
+    jsonLd: [crumbs(o, [['Perpustakaan', '/pustaka'], ['Pelajaran madrasah', '/pustaka/pelajaran'], [k.nama, `/pustaka/pelajaran/${j}`], [label, `/pustaka/pelajaran/${j}/${kelas}/${m.slug}`]]),
+      { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `Buku ${label}`, about: { '@type': 'Course', name: label, provider: { '@id': `${o}/#yayasan` }, educationalLevel: namaKelas(j, kelas) }, hasPart: isi.pelajaran.slice(0, 10).map((b) => ({ '@type': 'Book', name: b.judul, url: `${o}/pustaka/b/${b.id}` })) }],
+  });
 });
