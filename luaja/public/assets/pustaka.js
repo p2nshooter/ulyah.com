@@ -159,31 +159,31 @@
     var l = b.l || B.lang;
     switch (b.k) {
       case 'h': return h('h2', { class: 'rd-h' }, b.t);
-      case 'p': { var p = h('p', { class: 'rd-p', 'data-l': l, 'data-say': b.t }); add(p, [speakBtn(b.t, l, p), ' ', l === B.lang ? words(b.t, l) : b.t]); return p; }
-      case 'tip': return h('div', { class: 'rd-tip', 'data-l': l, 'data-say': b.t }, speakBtn(b.t, l), ' ', b.t);
-      case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-say': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) add(ex, h('span', { class: 'tr' }, b.g)); return ex; }
+      case 'p': { var p = h('p', { class: 'rd-p', 'data-l': l, 'data-rs': b.t }); add(p, [speakBtn(b.t, l, p), ' ', l === B.lang ? words(b.t, l) : b.t]); return p; }
+      case 'tip': return h('div', { class: 'rd-tip', 'data-l': l, 'data-rs': b.t }, speakBtn(b.t, l), ' ', b.t);
+      case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) add(ex, h('span', { class: 'tr' }, b.g)); return ex; }
       case 'voc': {
         var list = h('ul', { class: 'voc-list' });
-        b.i.forEach(function (it) { var li = h('li', { 'data-l': B.lang, 'data-say': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, it[1])); add(list, li); });
+        b.i.forEach(function (it) { var li = h('li', { 'data-l': B.lang, 'data-rs': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, it[1])); add(list, li); });
         var fc = h('button', { type: 'button', class: 'btn btn-gold btn-sm' }, '🃏 ' + T('js.lib.cards') + ' (' + b.i.length + ')');
         fc.addEventListener('click', function () { cards(b.i.map(function (x) { return [x[0], x[2] ? x[2] + ' — ' + x[1] : x[1]]; }), B.lang); });
         return h('section', { class: 'voc' }, h('div', { class: 'voc-head' }, b.a ? h('div', { class: 'native' }, h('small', null, '🎧 ' + T('js.lib.native')), h('audio', { controls: true, preload: 'none', src: b.a })) : null, fc), list);
       }
       case 'tbl': {
         var tb = h('table', { class: 'rd-tbl' });
-        b.r.forEach(function (r) { var tr = h('tr', { 'data-l': B.lang, 'data-say': r[0] }); r.forEach(function (c, j) { add(tr, h('td', j === 0 ? null : { class: 'tr-cell' }, j === 0 ? [speakBtn(c, B.lang), ' ', words(c, B.lang)] : c)); }); add(tb, tr); });
+        b.r.forEach(function (r) { var tr = h('tr', { 'data-l': B.lang, 'data-rs': r[0] }); r.forEach(function (c, j) { add(tr, h('td', j === 0 ? null : { class: 'tr-cell' }, j === 0 ? [speakBtn(c, B.lang), ' ', words(c, B.lang)] : c)); }); add(tb, tr); });
         return h('div', { class: 'table-wrap' }, tb);
       }
       case 'aud': return h('div', { class: 'rd-aud' }, h('small', null, '🎧 ' + (b.t || T('js.lib.native'))), h('audio', { controls: true, preload: 'none', src: b.src }));
       case 'vid': return h('figure', { class: 'rd-vid' }, h('video', { controls: true, preload: 'metadata', playsinline: true, src: b.src }), h('figcaption', null, '🎬 ' + b.t + (b.d ? ' · ' + b.d : '')));
       case 'sen': {
-        var c = h('div', { class: 'sen', 'data-l': B.lang, 'data-say': b.t }, speakBtn(b.t, B.lang), h('div', null, h('p', { class: 'tgt' }, words(b.t, B.lang)), h('p', { class: 'tr', lang: 'id' }, b.id)));
+        var c = h('div', { class: 'sen', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('div', null, h('p', { class: 'tgt' }, words(b.t, B.lang)), h('p', { class: 'tr', lang: 'id' }, b.id)));
         if (b.n) add(c, h('a', { class: 'src', href: 'https://tatoeba.org/sentences/show/' + b.n, target: '_blank', rel: 'noopener' }, '#' + b.n));
         return c;
       }
       case 'kj': {
         var exl = h('ul', { class: 'kj-ex' });
-        (b.ex || []).forEach(function (x) { add(exl, h('li', { 'data-l': 'ja', 'data-say': x[0] }, speakBtn(x[0], 'ja'), h('b', { lang: 'ja' }, x[0]), x[1] ? h('small', { lang: 'ja' }, x[1]) : null, h('span', { class: 'tr' }, x[2]))); });
+        (b.ex || []).forEach(function (x) { add(exl, h('li', { 'data-l': 'ja', 'data-rs': x[0] }, speakBtn(x[0], 'ja'), h('b', { lang: 'ja' }, x[0]), x[1] ? h('small', { lang: 'ja' }, x[1]) : null, h('span', { class: 'tr' }, x[2]))); });
         var big = h('button', { type: 'button', class: 'kj-char', lang: 'ja', 'aria-label': T('js.lib.listen') }, b.c);
         big.addEventListener('click', function () { say((b.kun || b.on || b.c).split('、')[0].replace(/[.-]/g, ''), 'ja'); });
         return h('div', { class: 'kj' }, big, h('div', { class: 'kj-info' }, h('p', { class: 'kj-m tr' }, b.m), b.on ? h('p', null, h('span', { class: 'kj-tag' }, 'ON'), ' ', h('span', { lang: 'ja' }, b.on)) : null, b.kun ? h('p', null, h('span', { class: 'kj-tag kun' }, 'KUN'), ' ', h('span', { lang: 'ja' }, b.kun)) : null, b.s ? h('p', { class: 'small muted' }, '✍️ ' + b.s) : null, exl));
@@ -246,14 +246,14 @@
   var reading = false, readBtn = $('[data-read]');
   function readAll() {
     if (reading) { reading = false; stopSpeech(); $$('.speaking', pageEl).forEach(function (x) { x.classList.remove('speaking'); }); readBtn.lastChild.textContent = T('js.lib.readPage'); return; }
-    var items = $$('[data-say]', pageEl), i = 0;
+    var items = $$('[data-rs]', pageEl), i = 0;
     if (!items.length) return;
     reading = true; readBtn.lastChild.textContent = T('js.lib.stop');
     (function next() {
       $$('.speaking', pageEl).forEach(function (x) { x.classList.remove('speaking'); });
       if (!reading || i >= items.length) { reading = false; readBtn.lastChild.textContent = T('js.lib.readPage'); return; }
       var el = items[i++]; el.classList.add('speaking'); el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      say(el.getAttribute('data-say'), el.getAttribute('data-l') || B.lang, function () { setTimeout(next, 250); });
+      say(el.getAttribute('data-rs'), el.getAttribute('data-l') || B.lang, function () { setTimeout(next, 250); });
     })();
   }
   if (readBtn) readBtn.addEventListener('click', readAll);

@@ -9,7 +9,7 @@ import { clientDict, LANGS, LANG_NAME, PREFIX, UI_LOCALE, t, type Lang } from '.
 import type { Country, Mood } from './scene.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '4';
+export const ASSET_V = '5';
 
 const ICON: Record<string, string> = {
   tangga: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
@@ -156,7 +156,11 @@ export function page(o: PageOpts): string {
 <meta name="description" content="${esc(o.desc)}">
 <link rel="canonical" href="${esc(url)}">
 ${o.noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" content="index, follow, max-image-preview:large">'}
-<meta name="theme-color" content="#0b1f4d">
+<meta name="theme-color" content="#1746b8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LUAJA">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="${esc(o.ogType ?? 'website')}">
 <meta property="og:site_name" content="${esc(s.name)}">
 <meta property="og:locale" content="${OG_LOCALE[L]}">
@@ -189,6 +193,7 @@ ${o.headExtra ?? ''}
 <button class="btn btn-ghost btn-icon nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="${esc(t(L, 'nav.menu'))}" data-nav-toggle>${icon('menu').s}</button>
 <nav class="nav" id="nav" aria-label="${esc(t(L, 'menu.label'))}">
 ${menu.map((m) => `<a href="${m.href}"${o.active === m.id ? ' aria-current="page"' : ''}>${esc(m.label)}</a>`).join('')}
+<button type="button" class="btn btn-ghost btn-sm install-btn" data-install hidden>${icon('pasang').s}${esc(t(L, 'pwa.install'))}</button>
 <span class="lang-switch" role="group" aria-label="${esc(t(L, 'lang.label'))}">${LANGS.map((x) => `<a href="${switchHref(x)}" lang="${x}" hreflang="${x}" title="${esc(LANG_NAME[x])}"${L === x ? ' aria-current="true"' : ''}>${x === 'ja' ? '日本語' : x.toUpperCase()}</a>`).join('')}</span>
 ${o.user ? `<a class="btn btn-ghost btn-sm" href="/portal">${icon('masuk').s}${esc(o.user.name.split(' ')[0] ?? '')}</a>${o.user.admin ? `<a class="btn btn-ghost btn-sm" href="/admin">${esc(t(L, 'nav.admin'))}</a>` : ''}` : `<a class="btn btn-ghost btn-sm" href="/masuk">${esc(t(L, 'nav.signin'))}</a><a class="btn btn-gold btn-sm" href="/daftar">${esc(t(L, 'nav.start'))}</a>`}
 </nav>
@@ -211,6 +216,7 @@ ${header}
 <main id="isi">${o.body.s}</main>
 ${footer}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<aside class="install-banner" data-install-banner hidden aria-label="${esc(t(L, 'pwa.title'))}"><img src="/assets/icon-192.png" width="48" height="48" alt=""><div><b>${esc(t(L, 'pwa.title'))}</b><p data-install-text>${esc(t(L, 'pwa.text'))}</p><p data-install-ios hidden>${esc(t(L, 'pwa.ios'))}</p></div><div class="install-actions"><button type="button" class="btn btn-gold btn-sm" data-install>${esc(t(L, 'pwa.install'))}</button><button type="button" class="btn btn-ghost btn-sm" data-install-later>${esc(t(L, 'pwa.later'))}</button></div></aside>
 <script src="/assets/app.js?v=${v}" defer></script>
 </body>
 </html>`;

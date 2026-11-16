@@ -703,3 +703,14 @@ textarea{min-height:120px;resize:vertical;line-height:1.5}
   .hero.light .scene::after{background:linear-gradient(180deg,rgba(251,248,241,.86) 0%,rgba(251,248,241,.7) 55%,rgba(251,248,241,.1) 85%,transparent)}
   .hero .scene{position:absolute}
 }
+
+/* ---- pasang aplikasi (PWA) ---------------------------------------------- */
+.install-banner{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:80;width:min(560px,calc(100vw - 24px));display:grid;grid-template-columns:auto 1fr;gap:10px 14px;align-items:center;padding:14px 16px;border-radius:20px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-3);animation:ib-in .5s var(--spring)}
+.install-banner[hidden]{display:none}
+.install-banner img{border-radius:12px}
+.install-banner b{color:var(--brand)}
+.install-banner p{margin:2px 0 0;font-size:var(--fs-0);color:var(--ink-2)}
+.install-actions{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+@keyframes ib-in{from{opacity:0;transform:translate(-50%,24px)}}
+@media (prefers-reduced-motion:reduce){.install-banner{animation:none}}
+.install-btn svg{width:18px;height:18px}

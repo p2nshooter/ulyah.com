@@ -240,6 +240,24 @@ try {
     await m.c.close();
     ok('pustaka: pengelola membaca penuh, pilihan ganda dinilai langsung, kartu hafalan, pembaca ponsel tanpa geser samping');
   }
+  // 4e. Pasang aplikasi: tanda muncul saat peramban menawarkan pemasangan, hilang setelah terpasang, muncul lagi bila dihapus
+  {
+    const m = await ctx({ ...devices['Pixel 7'] });
+    await m.p.goto(BASE + '/');
+    if (await m.p.locator('[data-install-banner]').isVisible()) fail('spanduk pasang tampil sebelum peramban menawarkan');
+    const offer = () => m.p.evaluate(() => { const ev = new Event('beforeinstallprompt', { cancelable: true }); ev.prompt = () => Promise.resolve(); ev.userChoice = Promise.resolve({ outcome: 'accepted' }); window.dispatchEvent(ev); });
+    await offer();
+    await m.p.waitForSelector('[data-install-banner]:not([hidden])');
+    await m.p.screenshot({ path: `${OUT}/pasang-ponsel.png` });
+    await m.p.evaluate(() => window.dispatchEvent(new Event('appinstalled')));
+    await m.p.waitForSelector('[data-install-banner][hidden]', { state: 'attached' });
+    if ((await m.p.evaluate(() => localStorage.getItem('lj_installed'))) !== '1') fail('status terpasang tidak tersimpan');
+    await offer(); // aplikasi dihapus dari HP → peramban menawarkan lagi
+    await m.p.waitForSelector('[data-install-banner]:not([hidden])');
+    if ((await m.p.evaluate(() => localStorage.getItem('lj_installed'))) !== null) fail('status terpasang tidak dibersihkan setelah dihapus');
+    await m.c.close();
+    ok('pasang aplikasi: tanda muncul saat bisa dipasang, hilang setelah terpasang, muncul lagi setelah dihapus');
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();

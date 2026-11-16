@@ -634,3 +634,18 @@ test('pustaka: rak & halaman buku publik; isi penuh hanya untuk member bahasa it
   const prog = await req(e, '/api/pustaka/progres', { method: 'POST', headers: { 'content-type': 'application/json', origin: 'https://luaja.com' }, body: JSON.stringify({ book: b.id, page: 0 }) });
   assert.equal(prog.status, 401, 'progres membaca hanya untuk yang masuk');
 });
+
+test('PWA: manifest bisa dipasang (id, ikon 192/512, standalone, mengenali diri sendiri) dan tombol pasang tersembunyi bawaan', async () => {
+  const e = env();
+  const m = (await (await req(e, '/manifest.webmanifest')).json()) as Record<string, unknown> & { icons: { sizes: string }[]; related_applications: { platform: string; url: string }[] };
+  assert.equal(m.id, '/');
+  assert.equal(m.display, 'standalone');
+  assert.ok(m.icons.some((i) => i.sizes === '192x192') && m.icons.some((i) => i.sizes === '512x512'));
+  assert.ok(m.related_applications.some((r) => r.platform === 'webapp' && r.url.endsWith('/manifest.webmanifest')));
+  const h = await (await req(e, '/', { headers: { accept: 'text/html', 'cf-ipcountry': 'ID' } })).text();
+  assert.ok(h.includes('rel="manifest"') && h.includes('apple-mobile-web-app-capable'));
+  assert.ok(/class="btn btn-ghost btn-sm install-btn" data-install hidden/.test(h), 'tombol pasang tersembunyi sampai peramban menawarkan pemasangan');
+  assert.ok(/data-install-banner hidden/.test(h));
+  const sw = await (await req(e, '/sw.js')).text();
+  assert.ok(sw.includes("addEventListener('fetch'"), 'service worker punya penangan fetch (syarat dapat dipasang)');
+});
