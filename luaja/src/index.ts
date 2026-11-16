@@ -35,6 +35,8 @@ import { account } from './routes/account.ts';
 import { admin } from './routes/admin.ts';
 import { pay } from './routes/pay.ts';
 import { library } from './routes/library.ts';
+import { exam } from './routes/exam.ts';
+import { readyExams, mocksOf } from './exam/mocks.ts';
 import { BOOKS } from './library/index.ts';
 
 const app = new Hono<HonoEnv>();
@@ -121,7 +123,7 @@ function lessonState(c: Ctx, l: Lesson, prog: Progress | undefined): LessonState
 }
 
 /* ── berkas teknis ──────────────────────────────────────────────────────── */
-app.get('/api/health', (c) => c.json({ ok: true, service: 'luaja.com', v: ASSET_V, lessons: LESSONS.length, sets: SETS.length }));
+app.get('/api/health', (c) => c.json({ ok: true, service: 'luaja.com', v: ASSET_V, lessons: LESSONS.length, sets: SETS.length, mocks: readyExams().reduce((n, e) => n + mocksOf(e.id).length, 0) }));
 app.get('/ads.txt', (c) => c.text(ADS_TXT, 200, { 'cache-control': 'public, max-age=3600' }));
 export const GOOGLE_CRAWLERS = ['Googlebot', 'Googlebot-Image', 'Googlebot-News', 'Googlebot-Video', 'Mediapartners-Google', 'AdsBot-Google', 'AdsBot-Google-Mobile', 'Google-InspectionTool', 'Storebot-Google', 'GoogleOther', 'GoogleOther-Image', 'GoogleOther-Video', 'Google-Extended', 'Google-CloudVertexBot', 'Google-Agent', 'Google-GeminiNotebook', 'Google-NotebookLM', 'APIs-Google', 'FeedFetcher-Google', 'Google-Read-Aloud', 'Google-Site-Verification'];
 app.get('/robots.txt', (c) => c.text([
@@ -137,6 +139,7 @@ app.get('/sitemap.xml', (c) => {
     ...COURSES.map((k) => [`/${COURSE_META[k].slug}`, 'weekly', '0.9'] as [string, string, string]),
     ...COURSES.flatMap((k) => COURSE_META[k].levels.map((l) => [`/${COURSE_META[k].slug}/${l.id}`, 'weekly', '0.7'] as [string, string, string])),
     ...COURSES.map((k) => [`/latihan?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
+    ['/simulasi', 'weekly', '0.8'], ...readyExams().map((e) => [`/simulasi/${e.id}`, 'weekly', '0.8'] as [string, string, string]),
     ['/pustaka', 'weekly', '0.8'], ...COURSES.map((k) => [`/pustaka?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
     ...BOOKS.map((b) => [`/pustaka/${b.id}`, 'monthly', '0.6'] as [string, string, string]),
     ...LESSONS.filter((l) => l.free).map((l) => [`/belajar/${l.code}`, 'monthly', '0.8'] as [string, string, string]),
@@ -331,6 +334,7 @@ app.route('/', account);
 app.route('/', admin);
 app.route('/', pay);
 app.route('/', library);
+app.route('/', exam);
 
 app.notFound(async (c) => {
   const lang = L(c) ?? 'id';

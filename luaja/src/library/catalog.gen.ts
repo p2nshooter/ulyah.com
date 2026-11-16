@@ -14,7 +14,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=1",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 1 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 1 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -140,7 +140,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=2",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 2 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 2 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -282,7 +282,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=3",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 3 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 3 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -396,7 +396,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=4",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 4 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 4 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -534,7 +534,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=5",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 5 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 5 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -1132,7 +1132,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=6",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 6 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 6 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -1266,7 +1266,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=7",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 7 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 7 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -1376,7 +1376,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=8",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 8 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 8 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -1502,7 +1502,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=9",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 9 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 9 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",
@@ -1620,7 +1620,7 @@ export const BOOKS: BookMeta[] = [
 "sourceUrl":"https://coerll.utexas.edu/dib/toc.php?k=10",
 "licence":"CC BY 4.0",
 "licenceUrl":"https://creativecommons.org/licenses/by/4.0/",
-"about":"Buku kerja bab 10 Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.",
+"about":"Buku kerja bab 10 Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.",
 "toc":[
 [
 "Überblick",

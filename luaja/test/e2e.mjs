@@ -258,6 +258,27 @@ try {
     await m.c.close();
     ok('pasang aplikasi: tanda muncul saat bisa dipasang, hilang setelah terpasang, muncul lagi setelah dihapus');
   }
+  // 4f. Simulasi ujian penuh JLPT N5: format resmi, bagian berwaktu, audio, kunci setelah selesai, skor 0–180 + aturan lulus
+  {
+    const { c, p } = await ctx();
+    await p.goto(BASE + '/simulasi/jlpt-n5');
+    if (!(await p.locator('.sim-format').count())) fail('tabel format ujian tidak tampil');
+    await p.goto(BASE + '/simulasi/jlpt-n5/1');
+    if ((await p.content()).includes('"answer"')) fail('kunci bocor ke halaman simulasi');
+    p.on('dialog', (dg) => dg.accept());
+    await p.click('[data-sim-start]');
+    await p.waitForSelector('.sim-q');
+    await p.locator('.sim-opt').first().click();
+    await p.screenshot({ path: `${OUT}/simulasi-bagian1.png` });
+    for (let i = 0; i < 3; i += 1) { await p.locator('.sim-foot .btn').click(); await p.waitForTimeout(300); }
+    await p.waitForSelector('.sim-score');
+    const score = await p.locator('.sim-score b').textContent();
+    if (!/\/ 180/.test(score)) fail(`skor bukan skala 180: ${score}`);
+    if (!(await p.locator('.sim-rq').count())) fail('pembahasan tidak tampil');
+    await p.screenshot({ path: `${OUT}/simulasi-hasil.png` });
+    await c.close();
+    ok('simulasi penuh JLPT N5: 67 soal dalam 3 bagian berwaktu, skor 0–180, status lulus & pembahasan setelah selesai');
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();

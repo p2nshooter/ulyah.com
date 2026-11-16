@@ -43,6 +43,11 @@ Folder kode: `luaja/` (Cloudflare Worker `luaja-com`). Aturan tetap pemilik berl
 | 16 Nov 2026 | „Luaja.com harus bisa di instal di HP, dan jika sudah d install halus tanda install nya, muncul lg klo yg di HP di hapus“ | ✅ PWA: manifest (`id`, ikon 192/512 maskable, standalone, pintasan Pustaka/Latihan/Portal, `related_applications` diri sendiri), service worker; tombol „Pasang aplikasi“ di kepala + spanduk di HP tampil **hanya** saat peramban menawarkan pemasangan, **hilang** setelah terpasang (event `appinstalled`, mode standalone, `getInstalledRelatedApps`), **muncul lagi** bila aplikasi dihapus (peramban kembali mengirim `beforeinstallprompt`); iPhone/iPad: panduan „Tambah ke Layar Utama“; tombol „Nanti“ menunda 7 hari · koreksi pemilik: „Kalimatnya jgn di HP anda, tp di perangkat anda“ → „Pasang LUAJA di perangkat Anda“ |
 | 16 Nov 2026 | „Kerjain dulu hasil yg lu download, cari dulu sebanyak mungkin dari sumber2 buku terbuka dan contoh2 soal, klo itu sudah selesai baru yg lu bikin“ | ✅ urutan kerja: (1) impor sumber terbuka sebanyak mungkin, (2) baru buku & simulasi buatan LUAJA |
 | 16 Nov 2026 | „Lu wajib inget satu hal, bikin yg interaktif, menyenangkan dan siswa betah lama2 belajar“ | ✅ aturan tetap desain (§8): setiap halaman belajar punya interaksi (dengar, ketuk kata, uji diri, kartu hafalan, latihan langsung dinilai), umpan balik positif, XP & runtun harian |
+| 16 Nov 2026 | (Foto halaman buku) „Ini ga perlu ada kata2 kaya gini, ini rahasia perusahaan, jgn bongkar rahasia perusahaan“ | ✅ teks „tentang buku“ & catatan simulasi tidak lagi menyebut cara pembuatan (PDF diurai, data dibangkitkan, dsb.) — hanya manfaat bagi pelajar; atribusi lisensi tetap di bagian Sumber & lisensi |
+| 16 Nov 2026 | „mana terjemahan bahasa Indonesia nya, atau bhs inggris atau bhs Jepang tergantung pelajar memilih bahasa induk website nya … jelaskan seluruh pelajaran menggunakan bahasa induk website yg di pilih … Kamus bukan di lempar ke website wiki tapi website ini wajib punya kamus besar kumplit 3 bahasa … langsung di tampilkan arti dari kata yg di pilih … larikan ke kamus nya agar lebih banyak arti … Ambil kamus besar 3 bahasa itu dari sumber manapun dan serap“ | ⏳ §6.6 kamus LUAJA (Jerman/Inggris/Jepang → Indonesia/Inggris/Jepang) dari data berlisensi terbuka; ketuk kata → arti langsung dalam bahasa antarmuka + tautan ke `/kamus/<kata>`; penjelasan pelajaran mengikuti bahasa antarmuka |
+| 16 Nov 2026 | „Mana ada ujian resmi IELTS dan TOEFL cuma 15 soal... Bikin semua soal totalnya realistis sesuai dengan yg akan di hadapi siswa“ | 🔄 paket 15 soal kini berlabel **Latihan per bagian** (bukan simulasi); **Simulasi ujian resmi** berjumlah soal persis: JLPT N5 20 simulasi × 67 soal ✅; Goethe A1 (15+15+Schreiben+Sprechen) ⏳; TOEFL ITP 140 soal (50/40/50) & IELTS Academic (L40 · R40 · W2 · S3) ⏳ |
+| 16 Nov 2026 | „Catat semua ini, Pelajari link2 ini … Seperti inilah yg lu bikin, lu pelajarin, masukin ke blueprint setiap link yg lu pelajarin, serap seluruh datanya dan masukin jadi media pembelajaran“ (IDP IELTS, parroto, englishversity, 8 repositori GitHub, topik b1) | ✅ dipelajari & dicatat §4.2; yang berlisensi terbuka diserap, yang tidak hanya dijadikan rujukan fitur |
+| 16 Nov 2026 | „Ga ada logout nya lg, bikin portal admin dan member yg elegan, indah, estetik, nyaman di pake“ | ✅ menu akun di kepala situs (avatar → Portal · Pustaka · Akun · Panel pengelola · **Keluar**); portal: kartu profil, navigasi berikon, **bilah bawah di HP**, tombol Keluar selalu terlihat; panel pengelola: bilah atas terang dengan **Keluar**, tab berbentuk pil |
 
 Kode AdSense `pub-6701063918838796` (akun ke-22) sudah masuk `adsense-stack.json` pada 14 Nov 2026 (PR #427), sehingga
 luaja.com membawanya sejak deploy pertama bersama 21 akun lainnya.
@@ -179,6 +184,23 @@ TV, English @ the Movies, News Words), FSI/DLI Japanese (domain publik AS), Wiki
 Setiap halaman jenjang (mis. `/jerman/a1` … `/jerman/c2`) kini menampilkan **buku jenjang itu, audio & video, dan simulasi
 ujiannya** di satu tempat. Soal ujian resmi (Goethe,
 JLPT, ETS, IELTS, Cambridge) hanya **ditautkan** — tidak disalin.
+
+### 4.2 Tautan yang dipelajari (perintah pemilik 16 Nov 2026)
+
+| Tautan | Isi | Lisensi / status hak | Keputusan |
+|---|---|---|---|
+| ielts.idp.com/indonesia | Situs resmi IDP: format IELTS, jadwal, contoh soal resmi | Hak cipta IDP | Rujukan format & **tautan** ke latihan resmi; tidak disalin |
+| parroto.app — IELTS 600 words, set IELTS 2025 | Aplikasi komersial kosakata & set latihan | Hak cipta pemiliknya | Rujukan fitur (kosakata bertema + audio + kuis); daftar kata tidak disalin |
+| englishversity.sch.id/pages/tes-toefl-gratis | Tes TOEFL gratis daring | Hak cipta pemiliknya | Rujukan alur tes (berwaktu, skor skala) |
+| github.com/w17714m/TOEFL-IELTS-Study-Material | 39 PDF buku persiapan komersial (mis. *Helpful Hints for IELTS*, *Answers to All TOEFL Essay Questions*) | Tanpa lisensi; buku berhak cipta penerbit | **Tidak diserap** (zona X) |
+| github.com/fg0x0/IELTS-Materials | PDF/XLSX buku kosakata & writing komersial | Tanpa lisensi; berhak cipta | **Tidak diserap** (zona X) |
+| github.com/sallowayma-git/IELTS-practice | Aplikasi latihan IELTS (reading/listening berwaktu, statistik, analisis kesalahan) | Kode GPL-3.0; **soal milik pemegang hak cipta**, README melarang distribusi publik/komersial | Hanya rujukan fitur (mode set lengkap, analisis kesalahan, riwayat) |
+| github.com/ZekkCode/OnlineTest-TOEFL_DPW | TOEL.id: tes TOEFL daring (Listening, Structure, Reading, Full Test), skor otomatis, riwayat, papan peringkat, sertifikat digital | Kode MIT; asal bank soal tidak dinyatakan | Rujukan fitur (papan peringkat, sertifikat latihan); soal tidak disalin |
+| github.com/hatwarsanskar95-web/japanese-JLPT-learner | Kuis JLPT harian, materi PDF | Tanpa lisensi | Rujukan fitur (kuis harian) |
+| github.com/kananinirav/jlptbenkyo | Tautan ke jlptbenkyo.com (kosakata, kanji, tata bahasa N5–N1) | README saja | Rujukan struktur materi per jenjang |
+| github.com/abdullahbutt/wordfeather | Materi Jerman A1–C2 & ujian tiruan | **CC BY-NC 4.0** (non-komersial) | Tidak diserap (zona D); rujukan struktur A1–C2 |
+| github.com/yashvikram30/german-course | *Deutsch von Anfang an*: buku A1 orisinal 13 bab (±49.000 kata), ±90 latihan, ±600 kosakata, **4 Modelltest Goethe A1 lengkap** (Hören 3 Teile + transkrip, Lesen 3 Teile, Schreiben 2 Teile, Sprechen 3 Teile) dengan penilaian resmi | **MIT** | **Diserap** dengan atribusi: buku A1 ke Pustaka + 4 simulasi Goethe A1 penuh (PR berikutnya) |
+| github.com/topics/b1 | Daftar repositori bertopik B1 | — | Ditelusuri; hanya yang berlisensi terbuka yang dipertimbangkan |
 
 ---
 

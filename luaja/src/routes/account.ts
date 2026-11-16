@@ -20,7 +20,7 @@ import { tierLabel, tierNote, tierReq } from '../pages/info.ts';
 import { getProgress, listAttempts } from '../data/progress.ts';
 import { getSet, levelName } from '../practice/index.ts';
 import { getLesson } from '../course/index.ts';
-import { icon } from '../pages/layout.ts';
+import { initials, icon } from '../pages/layout.ts';
 
 /** Akun pemilik bersama (sama dengan ulyah.com / axto.io / xscan.es): hanya hash sandi di kode. */
 const OWNER_SEED = { email: 'alghoniy2026@gmail.com', passwordHash: 'pbkdf2$100000$VOy29DR3UljFD-WLZEuH4w$Qsk_ukvOGQp2F8DVY4SqFqidY7f9aNa4a9_ubpqu22c' };
@@ -152,12 +152,12 @@ account.use('/portal', async (c, next) => {
   await next();
 });
 
-const NAV: [string, Key, string][] = [['/portal', 'portal.home', 'tangga'], ['/portal/paket', 'portal.plans', 'kartu'], ['/portal/latihan', 'portal.history', 'ujian'], ['/portal/akun', 'portal.account', 'masuk']];
+const NAV: [string, Key, string][] = [['/portal', 'portal.home', 'tangga'], ['/pustaka', 'menu.library', 'buku'], ['/simulasi', 'sim.eyebrow', 'jam'], ['/portal/latihan', 'portal.history', 'ujian'], ['/portal/paket', 'portal.plans', 'kartu'], ['/portal/akun', 'portal.account', 'masuk']];
 function portal(c: Ctx, active: string, title: string, body: Raw): Promise<Response> {
   const u = c.get('user')!, L = langOf(c);
   return render(c, {
     path: active, title: t(L, 'portal.title', { t: title, site: 'LUAJA' }), desc: t(L, 'portal.desc', { site: 'LUAJA' }), noindex: true, noAds: true,
-    body: html`<div class="wrap portal"><nav class="side" aria-label="${t(L, 'portal.nav')}"><div class="who"><b>${u.name}</b><small>${u.email}</small></div>${NAV.map(([href, key, ic]) => html`<a href="${href}" ${href === active ? raw('aria-current="page"') : ''}>${icon(ic)}${t(L, key)}</a>`)}${isAdmin(u) ? html`<a href="/admin">${icon('bintang')}${t(L, 'portal.adminPanel')}</a>` : ''}<form method="post" action="/keluar"><button class="btn btn-ghost btn-sm" style="width:100%;margin-top:8px" type="submit">${t(L, 'portal.signout')}</button></form></nav><div>${body}</div></div>`,
+    body: html`<div class="wrap portal"><nav class="side" aria-label="${t(L, 'portal.nav')}"><div class="who"><span class="avatar lg">${initials(u.name)}</span><div><b>${u.name}</b><small>${u.email}</small></div></div>${NAV.map(([href, key, ic]) => html`<a href="${href}" ${href === active ? raw('aria-current="page"') : ''}>${icon(ic)}<span>${t(L, key)}</span></a>`)}${isAdmin(u) ? html`<a href="/admin">${icon('bintang')}<span>${t(L, 'portal.adminPanel')}</span></a>` : ''}<a class="side-out" href="/keluar">${icon('panah')}<span>${t(L, 'portal.signout')}</span></a></nav><div class="portal-main">${body}</div></div>`,
   });
 }
 

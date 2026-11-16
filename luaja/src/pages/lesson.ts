@@ -13,6 +13,7 @@ import { getLesson, modulesOf, OUTLINE } from '../course/index.ts';
 import { setsOf } from '../practice/index.ts';
 import { booksOf } from '../library/index.ts';
 import { cover, catLabel } from './library.ts';
+import { examLinks } from './exam.ts';
 import { scene, autoMood } from './scene.ts';
 import type { Progress } from '../data/progress.ts';
 
@@ -47,6 +48,7 @@ export function levelPage(o: { course: Course; level: string; unlocked: boolean;
     <ol class="lesson-list">${mod.lessons.map((code) => { const l = getLesson(code)!; const st = o.state(code); return html`<li><a href="/belajar/${code}" class="${st === 'passed' ? 'done' : ''}"><span class="num">${l.index}</span><span class="t"><b>${l.title}</b><small>${l.native} · ${t(L, 'common.minutes', { n: l.minutes })}</small></span>${pill(st)}</a></li>`; })}</ol>
   </div>`) : html`<div class="notice">${t(L, 'level.empty', { level: lv.name })}</div>`}
   ${outline.length > mods.length ? html`<div class="card reveal" style="margin-top:18px"><h3 style="margin-top:0">${t(L, 'level.map', { level: lv.name })}</h3><ol class="outline">${outline.map((x) => html`<li class="${mods.some((mm) => mm.n === x.n) ? 'live' : ''}"><b>${t(L, 'common.module')} ${x.n}</b> ${x.title} <span class="muted">· ${x.native}</span>${mods.some((mm) => mm.n === x.n) ? html` <span class="pill pill-ok">${t(L, 'level.available')}</span>` : html` <span class="pill pill-line">${t(L, 'level.coming')}</span>`}</li>`)}</ol></div>` : ''}
+  ${examLinks(o.course, o.level, L)}
   ${levelHub(o.course, o.level, lv.name, L)}
   ${sets.length ? html`<div class="cta-band reveal" style="margin-top:28px"><div><h2>${t(L, 'level.practice.title', { level: lv.name })}</h2><p>${t(L, 'level.practice.text', { packs: t(L, 'common.packs', { n: sets.length }), questions: t(L, 'common.questions', { n: sets.reduce((n, s) => n + s.questions.length, 0) }) })}</p><div class="row" style="margin-top:16px"><a class="btn btn-gold" href="/latihan?bahasa=${o.course}#${o.level}">${t(L, 'level.practice.btn')}</a></div></div></div>` : ''}
 </div></section>`;

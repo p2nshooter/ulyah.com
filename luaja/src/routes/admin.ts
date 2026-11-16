@@ -34,7 +34,7 @@ const TABS: [string, string][] = [['/admin', 'Ringkasan'], ['/admin/pembayaran',
 async function shell(c: Ctx, active: string, title: string, body: Raw): Promise<Response> {
   return render(c, {
     path: active, title: `${title} — Pengelola LUAJA`, desc: 'Panel pengelola.', noindex: true, noAds: true,
-    body: html`<div class="admin-bar"><div class="wrap"><b>Panel pengelola</b><span>${c.get('user')!.email}</span><a href="/">Lihat situs</a><a href="/portal">Portal member (akses penuh)</a></div></div>
+    body: html`<div class="admin-bar"><div class="wrap"><span class="ab-brand">${icon('bintang')} <b>Panel pengelola</b></span><span class="ab-who">${c.get('user')!.email}</span><span class="ab-links"><a href="/">Lihat situs</a><a href="/portal">Portal member (akses penuh)</a><a class="ab-out" href="/keluar">Keluar</a></span></div></div>
     <section class="section-tight"><div class="wrap"><nav class="tabs">${TABS.map(([h, l]) => html`<a href="${h}" ${h === active ? raw('aria-current="page"') : ''}>${l}</a>`)}</nav>
     ${c.req.query('ok') ? html`<div class="alert alert-ok">${c.req.query('ok')}</div>` : ''}${c.req.query('err') ? html`<div class="alert alert-bad">${c.req.query('err')}</div>` : ''}
     ${body}</div></section>`,

@@ -349,7 +349,7 @@ def build_dib(pdf_dir: str):
         data = open(pdf_path, 'rb').read() if pdf_path and os.path.exists(pdf_path) else fetch(f'{DIB}pdfs/k_{k:02d}.pdf', binary=True)
         wb = Book(f'de-dib-arbeitsbuch-{k:02d}', 'de', lv, 'arbeitsbuch', f'Deutsch im Blick · Arbeitsbuch Kapitel {k}', chap,
                   'Department of Germanic Studies, UT Austin', DIB_SRC, f'{DIB}toc.php?k={k}', 'CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0/',
-                  f'Buku kerja bab {k} Deutsch im Blick yang diurai dari PDF menjadi halaman yang bisa dibaca, dibacakan dan diketuk per kata.')
+                  f'Buku kerja bab {k} Deutsch im Blick: latihan, dialog dan bacaan bab ini — bisa dibaca, didengarkan, dan setiap katanya diketuk untuk melihat arti.')
         for n, paras in enumerate(pdf_pages(data), 1):
             if n == 1:
                 wb.chapter('Überblick')
