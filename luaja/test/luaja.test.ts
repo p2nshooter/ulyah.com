@@ -579,7 +579,7 @@ async function sha(s: string) {
 import { BOOKS, PREVIEW_PAGES, getBook } from '../src/library/index.ts';
 import type { BookDoc } from '../src/library/types.ts';
 
-const OPEN_LICENCES = /^(CC BY 4\.0|CC BY 2\.0 FR|CC BY-SA [34]\.0|CC0|Public domain|Domain publik)$/;
+const OPEN_LICENCES = /^(CC BY 4\.0|CC BY 2\.0 FR|CC BY-SA [34]\.0|CC0|Public domain|Domain publik|MIT)$/;
 const bookDoc = (id: string) => JSON.parse(fs.readFileSync(new URL(`../public/p/b/${id}.json`, import.meta.url), 'utf8')) as BookDoc;
 
 test('pustaka: setiap buku punya isi, sumber, lisensi terbuka (bukan NC/ND), daftar isi sah dan kunci latihan yang benar', () => {
@@ -661,11 +661,15 @@ test('simulasi penuh: setiap simulasi terbit sama persis dengan format resmi (ju
   assert.equal(examTotalItems(n5), 67);
   assert.deepEqual(n5.sections.map((s) => s.minutes), [20, 40, 30]);
   assert.deepEqual([n5.total.max, n5.total.pass, n5.groups.map((g) => [g.max, g.min])], [180, 80, [[120, 38], [60, 19]]]);
-  assert.deepEqual(EXAMS.map((e) => [e.id, e.total.pass]), [['jlpt-n5', 80], ['jlpt-n4', 90], ['jlpt-n3', 95], ['jlpt-n2', 90], ['jlpt-n1', 100]]);
+  assert.deepEqual(EXAMS.filter((e) => e.family === 'jlpt').map((e) => [e.id, e.total.pass]), [['jlpt-n5', 80], ['jlpt-n4', 90], ['jlpt-n3', 95], ['jlpt-n2', 90], ['jlpt-n1', 100]]);
+  // Goethe A1 (Start Deutsch 1): Hören 15 (6+4+5), Lesen 15 (5+5+5), Schreiben formulir 5 + pesan 10 poin, Sprechen 3+6+6 poin.
+  const g = EXAMS.find((e) => e.id === 'goethe-a1')!;
+  assert.deepEqual(g.sections.map((s) => [s.id, s.minutes, s.parts.map((p) => p.items)]), [['hoeren', 20, [6, 4, 5]], ['lesen', 25, [5, 5, 5]], ['schreiben', 20, [5, 1]], ['sprechen', 15, [1, 1, 1]]]);
+  assert.deepEqual([g.factor, g.total.max, g.total.pass, g.requireAll, g.groups.map((x) => x.max)], [1.66, 100, 60, true, [15, 15, 15, 15]]);
   let mocks = 0;
   for (const e of readyExams()) {
     const ids = mocksOf(e.id);
-    assert.ok(ids.length >= 10, `${e.id}: hanya ${ids.length} simulasi`);
+    assert.ok(ids.length >= (e.family === 'goethe' ? 4 : 10), `${e.id}: hanya ${ids.length} simulasi`);
     for (const id of ids) {
       const m = getMock(id)!;
       assert.deepEqual(validateMock(m), [], id);
@@ -688,6 +692,21 @@ test('simulasi penuh: penilaian JLPT — lulus hanya bila total ≥ batas DAN se
   assert.equal(r.total, 120); assert.equal(r.pass, false);
   assert.equal(r.groups.find((g) => g.id === 'ck')!.ok, false);
   assert.equal(gradeMock(m, {}).pass, false);
+});
+
+test('simulasi Goethe A1: poin mentah × 1,66; lulus hanya bila skor ≥ 60 DAN keempat bagian dikerjakan', () => {
+  const m = getMock('goethe-a1-s1')!;
+  const items = m.sections.flatMap((s) => s.parts.flatMap((p) => p.items));
+  const full: Record<string, unknown> = {};
+  for (const it of items) full[it.id] = it.kind === 'gap' ? it.accept![0] : it.kind === 'write' ? { text: it.model, score: it.points } : it.kind === 'speak' ? { score: it.points } : it.answer;
+  const r = gradeMock(m, full);
+  assert.deepEqual([r.total, r.pass, r.grade], [100, true, 'sehr gut']);
+  const noSpeak = Object.fromEntries(Object.entries(full).filter(([k]) => !k.startsWith('sp')));
+  const r2 = gradeMock(m, noSpeak);
+  assert.deepEqual([r2.total, r2.pass], [75, false], 'Sprechen tidak dikerjakan → tidak lulus walau skor 75');
+  // Nilai diri tidak bisa melebihi poin maksimum.
+  const cheat = { ...full, 's2-1': { text: 'Hallo', score: 999 } };
+  assert.equal(gradeMock(m, cheat).items.find((x) => x.id === 's2-1')!.earned, 10);
 });
 
 test('simulasi penuh: halaman & API — kunci tidak terkirim, simulasi 1 gratis, lainnya khusus member', async () => {

@@ -7,7 +7,7 @@ import { examMinutes, examTotalItems, type ExamSpec } from '../exam/specs.ts';
 import { mocksOf, publicMock, readyExams } from '../exam/mocks.ts';
 import type { Mock } from '../exam/types.ts';
 
-const CSS = html`<link rel="stylesheet" href="/assets/simulasi.css?v=1">`;
+const CSS = html`<link rel="stylesheet" href="/assets/simulasi.css?v=2">`;
 
 export function examCard(e: ExamSpec, L: Lang): Raw {
   return html`<a class="card lift sim-card" href="/simulasi/${e.id}">
@@ -43,7 +43,7 @@ export function examPage(o: { exam: ExamSpec; unlocked: boolean; lang: Lang }): 
       <h2 style="font-size:var(--fs-4);margin-top:0">${t(L, 'sim.format')}</h2>
       <div class="table-wrap"><table class="table sim-format">
         <tr><th>${t(L, 'sim.section')}</th><th>${t(L, 'sim.part')}</th><th>${t(L, 'sim.itemsH')}</th></tr>
-        ${e.sections.map((s) => s.parts.map((p, i) => html`<tr>${i === 0 ? html`<td rowspan="${s.parts.length}"><b lang="${e.course}">${s.name}</b><br><span class="small muted">${t(L, 'common.minutes', { n: s.minutes })}</span></td>` : ''}<td><span lang="${e.course}">${p.name}</span><br><span class="small muted" lang="id">${p.about}</span></td><td class="num">${p.items}</td></tr>`))}
+        ${e.sections.map((s) => s.parts.map((p, i) => html`<tr>${i === 0 ? html`<td rowspan="${s.parts.length}"><b lang="${e.course}">${s.name}</b><br><span class="small muted">${t(L, 'common.minutes', { n: s.minutes })}</span></td>` : ''}<td><span lang="${e.course}">${p.name}</span><br><span class="small muted" lang="id">${p.about}</span></td><td class="num">${p.items}${p.points ? html`<br><span class="small">${t(L, 'sim.pointsN', { n: p.points })}</span>` : ''}</td></tr>`))}
         <tr class="sum"><td colspan="2"><b>${t(L, 'sim.totalRow')}</b></td><td class="num"><b>${examTotalItems(e)}</b><br><span class="small">${t(L, 'common.minutes', { n: examMinutes(e) })}</span></td></tr>
       </table></div>
       <p class="small muted" style="margin:10px 0 0">${t(L, 'sim.source')}: <a href="${e.source}" rel="noopener" target="_blank">${new URL(e.source).host}</a></p>
@@ -86,7 +86,7 @@ export function runnerPage(o: { mock: Mock; exam: ExamSpec; loggedIn: boolean; n
   ${jsonScript('mock', publicMock(o.mock))}
   ${jsonScript('simcfg', { locale, exam: e.id, next: o.nextUrl, loggedIn: o.loggedIn, groups: e.groups.map((g) => ({ id: g.id, name: g.name, max: g.max, min: g.min ?? null })), pass: e.total.pass, max: e.total.max })}
 </section>
-<script src="/assets/simulasi.js?v=1" defer></script>`;
+<script src="/assets/simulasi.js?v=2" defer></script>`;
 }
 
 /** Tautan ringkas untuk halaman jenjang & latihan. */

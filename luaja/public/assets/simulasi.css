@@ -59,3 +59,15 @@
 .sim-rq p{margin:4px 0}
 @media print{.sim-bar,.site-head,.site-foot,.btn{display:none!important}}
 @media (prefers-reduced-motion:reduce){.sim-timer.low{animation:none}}
+.sim-gap{font:inherit;padding:.5em .7em;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);min-width:min(320px,100%)}
+.sim-gap:focus,.sim-write:focus{outline:none;border-color:var(--brand-2);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-2) 18%,transparent)}
+.sim-write{font:inherit;width:100%;padding:.7em .8em;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);line-height:1.6;resize:vertical}
+.sim-cues{margin:8px 0 8px 40px;padding:10px 12px;border-radius:12px;background:var(--tint);border:1px dashed var(--brand-2)}
+.sim-cues ul{margin:6px 0 0;padding-left:18px}
+.sim-rubric{margin:10px 0 8px 40px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;display:grid;gap:6px}
+.sim-rubric legend{font-weight:700;color:var(--brand);padding:0 6px;font-size:var(--fs-0)}
+.sim-rc{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;cursor:pointer}
+.sim-rc b{color:var(--ok)}
+.sim-q > .btn{margin-left:40px}
+.sim-rq.self{border-color:var(--accent)}
+.sim-mytext{white-space:pre-wrap;background:var(--paper);border-radius:10px;padding:8px 10px;border:1px solid var(--line)}

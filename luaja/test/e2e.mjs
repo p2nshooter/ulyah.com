@@ -279,6 +279,34 @@ try {
     await c.close();
     ok('simulasi penuh JLPT N5: 67 soal dalam 3 bagian berwaktu, skor 0–180, status lulus & pembahasan setelah selesai');
   }
+  // 4g. Simulasi Goethe A1: Hören (audio 2×/1×), Lesen, Schreiben (formulir + pesan), Sprechen (nilai diri) → skor 0–100
+  {
+    const { c, p } = await ctx();
+    await p.goto(BASE + '/simulasi/goethe-a1');
+    if (!(await p.locator('.sim-format').count())) fail('format Goethe A1 tidak tampil');
+    await p.goto(BASE + '/simulasi/goethe-a1/1');
+    p.on('dialog', (dg) => dg.accept());
+    await p.click('[data-sim-start]');
+    await p.waitForSelector('.sim-q');
+    await p.locator('.sim-opt').first().click();
+    for (let i = 0; i < 2; i += 1) { await p.locator('.sim-foot .btn').click(); await p.waitForTimeout(300); }
+    await p.waitForSelector('.sim-gap');
+    await p.locator('.sim-gap').first().fill('Fischer');
+    await p.locator('.sim-write').fill('Lieber Tom, danke für die Einladung. Leider kann ich am Samstag nicht kommen. Ich muss arbeiten. Hast du am Sonntag Zeit? Viele Grüße');
+    await p.locator('.sim-rubric input').first().check();
+    await p.screenshot({ path: `${OUT}/goethe-schreiben.png` });
+    await p.locator('.sim-foot .btn').click(); await p.waitForTimeout(300);
+    await p.waitForSelector('.sim-rubric');
+    await p.locator('.sim-rubric input').first().check();
+    await p.locator('.sim-foot .btn').click();
+    await p.waitForSelector('.sim-score');
+    const score = await p.locator('.sim-score b').textContent();
+    if (!/\/ 100/.test(score)) fail(`skor Goethe bukan skala 100: ${score}`);
+    if (!(await p.locator('.sim-rq.self').count())) fail('contoh jawaban menulis/berbicara tidak tampil');
+    await p.screenshot({ path: `${OUT}/goethe-hasil.png` });
+    await c.close();
+    ok('simulasi Goethe A1: 4 bagian berwaktu, formulir & pesan, nilai diri berbicara, skor 0–100 dengan predikat');
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();

@@ -57,8 +57,13 @@ export interface ExamSpec {
   total: { max: number; pass: number };
   /** Kebijakan penilaian & kelulusan (Indonesia). */
   policy: string[];
-  /** Predikat menurut skor total (opsional). */
+  /** Predikat menurut skor total (opsional), dari tertinggi. */
   grades?: [number, string][];
+  /** proportional (JLPT): skor kelompok = proporsi benar × maks. raw (Goethe): skor kelompok = poin mentah, total = Σ × faktor. */
+  scoring?: 'proportional' | 'raw';
+  factor?: number;
+  /** Lulus hanya bila setiap kelompok dikerjakan (Goethe: keempat bagian). */
+  requireAll?: boolean;
 }
 
 const J = 'https://www.jlpt.jp/guideline/testsections.html';
@@ -236,6 +241,49 @@ export const EXAMS: ExamSpec[] = [
     total: { max: 180, pass: 100 }, policy: jlptPolicy(100, 'setiap kelompok ≥ 19/60'),
   },
 ];
+
+const G1 = 'https://www.goethe.de/de/spr/kup/prf/prf/gzsd1.html';
+/* ── Goethe-Zertifikat A1: Start Deutsch 1 (format & penilaian resmi Goethe-Institut) ─────────────────────── */
+EXAMS.push({
+  id: 'goethe-a1', course: 'de', level: 'a1', family: 'goethe', name: 'Goethe-Zertifikat A1 · Start Deutsch 1', source: G1,
+  scoring: 'raw', factor: 1.66, requireAll: true,
+  sections: [
+    { id: 'hoeren', name: 'Hören', minutes: 20, parts: [
+      { id: 'h1', name: 'Hören · Teil 1', about: 'Enam percakapan singkat sehari-hari — pilih a, b atau c (diputar 2×)', skill: 'listening', items: 6, plays: 2 },
+      { id: 'h2', name: 'Hören · Teil 2', about: 'Empat pengumuman di tempat umum — richtig atau falsch (diputar 1×)', skill: 'listening', items: 4, plays: 1 },
+      { id: 'h3', name: 'Hören · Teil 3', about: 'Lima pesan telepon — pilih a, b atau c (diputar 2×)', skill: 'listening', items: 5, plays: 2 },
+    ] },
+    { id: 'lesen', name: 'Lesen', minutes: 25, parts: [
+      { id: 'l1', name: 'Lesen · Teil 1', about: 'Dua pesan/e-mail pendek — richtig atau falsch', skill: 'reading', items: 5 },
+      { id: 'l2', name: 'Lesen · Teil 2', about: 'Iklan kecil berpasangan — pilih iklan a atau b', skill: 'reading', items: 5 },
+      { id: 'l3', name: 'Lesen · Teil 3', about: 'Papan & pengumuman — richtig atau falsch', skill: 'reading', items: 5 },
+    ] },
+    { id: 'schreiben', name: 'Schreiben', minutes: 20, parts: [
+      { id: 's1', name: 'Schreiben · Teil 1', about: 'Mengisi formulir: 5 isian dari teks pendek (1 poin per isian)', skill: 'writing', items: 5 },
+      { id: 's2', name: 'Schreiben · Teil 2', about: 'Menulis pesan ±30 kata mencakup 3 poin (10 poin)', skill: 'writing', items: 1, points: 10 },
+    ] },
+    { id: 'sprechen', name: 'Sprechen', minutes: 15, parts: [
+      { id: 'sp1', name: 'Sprechen · Teil 1', about: 'Memperkenalkan diri, mengeja, menyebut angka (3 poin)', skill: 'speaking', items: 1, points: 3 },
+      { id: 'sp2', name: 'Sprechen · Teil 2', about: 'Bertanya & menjawab dengan kartu kata (6 poin)', skill: 'speaking', items: 1, points: 6 },
+      { id: 'sp3', name: 'Sprechen · Teil 3', about: 'Membuat & menanggapi permintaan dengan kartu gambar (6 poin)', skill: 'speaking', items: 1, points: 6 },
+    ] },
+  ],
+  groups: [
+    { id: 'hoeren', name: 'Hören', parts: ['h1', 'h2', 'h3'], max: 15 },
+    { id: 'lesen', name: 'Lesen', parts: ['l1', 'l2', 'l3'], max: 15 },
+    { id: 'schreiben', name: 'Schreiben', parts: ['s1', 's2'], max: 15 },
+    { id: 'sprechen', name: 'Sprechen', parts: ['sp1', 'sp2', 'sp3'], max: 15 },
+  ],
+  total: { max: 100, pass: 60 },
+  grades: [[90, 'sehr gut'], [80, 'gut'], [70, 'befriedigend'], [60, 'ausreichend'], [0, 'nicht bestanden']],
+  policy: [
+    'Empat bagian: Hören ±20 menit (15 soal), Lesen 25 menit (15 soal), Schreiben 20 menit (formulir 5 isian + pesan ±30 kata), Sprechen ±15 menit dalam kelompok. Bagian tertulis 65 menit tanpa jeda; tanpa kamus.',
+    'Setiap bagian bernilai 15 poin mentah; poin mentah × 1,66 lalu dibulatkan → skor resmi 0–100 (75 tertulis + 25 lisan).',
+    'Lulus bila skor ≥ 60 dari 100 DAN keempat bagian dikerjakan. Predikat: 90–100 sehr gut · 80–89 gut · 70–79 befriedigend · 60–69 ausreichend · < 60 nicht bestanden.',
+    'Hören Teil 1 dan 3 diputar dua kali, Teil 2 satu kali — simulasi ini mengikuti aturan itu.',
+    'Schreiben Teil 2 & Sprechen dinilai penguji; di simulasi Anda menilai diri dengan rubrik resmi lalu membandingkan dengan contoh jawaban.',
+  ],
+});
 
 export const examTotalItems = (e: ExamSpec) => e.sections.reduce((n, s) => n + s.parts.reduce((m, p) => m + p.items, 0), 0);
 export const examMinutes = (e: ExamSpec) => e.sections.reduce((n, s) => n + s.minutes, 0);

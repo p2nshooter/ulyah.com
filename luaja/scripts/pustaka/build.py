@@ -781,6 +781,179 @@ def build_voa():
     return res
 
 
+
+# ───────────────────────────── Deutsch von Anfang an (MIT) ─────────────────────────────
+DVA_COMMIT = 'aa4095c8af4c9f68b261d2cb4682cc880c20d40e'
+DVA = f'https://raw.githubusercontent.com/yashvikram30/german-course/{DVA_COMMIT}/content/book/'
+CALLOUT = {'merke': 'Merke', 'tipp': 'Tipp', 'achtung': 'Achtung', 'kultur': 'Kultur', 'englisch': 'Englisch ↔ Deutsch'}
+
+
+def md_inline(s):
+    s = re.sub(r'\{#[^}]+\}', '', s)
+    s = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', s)
+    s = re.sub(r'\*\*([^*]+)\*\*', r'\1', s)
+    s = re.sub(r'(?<![\w*])\*([^*]+)\*(?![\w*])', r'\1', s)
+    s = re.sub(r'`([^`]+)`', r'\1', s)
+    return re.sub(r'\s+', ' ', s).strip()
+
+
+def dva_exercise(head, rows):
+    ty = head.get('type', 'choice')
+    out = [{'k': 'h', 't': md_inline(head.get('title', 'Übung'))}]
+    if head.get('intro'):
+        out.append({'k': 'tip', 't': md_inline(head['intro']), 'l': 'en'})
+    n = 0
+    for r in rows:
+        cols = [c.strip() for c in r.split('|')]
+        n += 1
+        if ty in ('choice', 'listen') and len(cols) >= 3:
+            opts = [md_inline(o) for o in cols[1].split(' / ')]
+            ans = md_inline(cols[2])
+            if ans not in opts or len(set(opts)) != len(opts):
+                continue
+            item = {'k': 'lmc' if ty == 'listen' else 'mc', 'n': n, 'q': md_inline(cols[0]), 'o': opts, 'a': opts.index(ans)}
+            if ty == 'listen':
+                item = {'k': 'lmc', 'n': n, 'au': md_inline(cols[0]), 'o': opts, 'a': opts.index(ans)}
+            out.append(item)
+        elif ty == 'gap' and len(cols) >= 2 and '___' in cols[0]:
+            segs = [md_inline(x) for x in cols[0].split('___')]
+            alts = [md_inline(a) for a in cols[1].split(' / ')]
+            if len(segs) == 2 and alts and alts[0]:
+                out.append({'k': 'gap', 'n': n, 's': segs, 'a': [alts[0]], 'alt': [alts]})
+        elif ty in ('translate', 'order') and len(cols) >= 2:
+            alts = [md_inline(a) for a in cols[1].split(' / ')]
+            if alts and alts[0]:
+                out.append({'k': 'gap', 'n': n, 's': [md_inline(cols[0]) + ' →', ''], 'a': [alts[0]], 'alt': [alts]})
+        elif ty == 'match' and len(cols) >= 2:
+            pass
+        elif ty == 'write' and len(cols) >= 2:
+            out.append({'k': 'tip', 't': md_inline(cols[0]), 'l': 'en'})
+            for line in cols[1].split(' / '):
+                out.append({'k': 'ex', 't': md_inline(line)})
+    if ty == 'match':
+        pairs = [[md_inline(c) for c in r.split('|')[:2]] for r in rows if '|' in r]
+        meanings = [m for _, m in pairs]
+        for i, (de, en) in enumerate(pairs):
+            opts = meanings[i:] + meanings[:i]
+            opts = sorted(set(opts), key=lambda x: hashlib.md5((x + de).encode()).hexdigest())
+            out.append({'k': 'mc', 'n': i + 1, 'q': de, 'o': opts, 'a': opts.index(en)})
+    return out if len(out) > 1 else []
+
+
+def dva_chapter(md):
+    front = re.match(r'^---\n(.*?)\n---\n', md, re.S)
+    meta = {}
+    if front:
+        for ln in front.group(1).split('\n'):
+            if ':' in ln and not ln.startswith('-'):
+                k, v = ln.split(':', 1)
+                meta[k.strip()] = v.strip()
+        md = md[front.end():]
+    sections, cur, title = [], [], None
+    lines = md.split('\n')
+    i, para = 0, []
+
+    def flush_para():
+        nonlocal para
+        if para:
+            t = md_inline(' '.join(para))
+            if t:
+                cur.append({'k': 'p', 't': t, 'l': 'en'})
+            para = []
+    while i < len(lines):
+        ln = lines[i]
+        m = re.match(r'^```([a-z]+)\s*$', ln)
+        if m:
+            flush_para()
+            kind, head, rows, j, in_head = m.group(1), {}, [], i + 1, True
+            while j < len(lines) and lines[j].strip() != '```':
+                x = lines[j]
+                if in_head and x.strip() == '---':
+                    in_head = False
+                elif in_head and kind in ('exercise', 'dialogue', 'vocab') and re.match(r'^[a-z]+:\s', x):
+                    k, v = x.split(':', 1)
+                    head[k.strip()] = v.strip()
+                else:
+                    in_head = False
+                    if x.strip():
+                        rows.append(x.strip())
+                j += 1
+            i = j + 1
+            if kind == 'dialogue':
+                if head.get('setting'):
+                    cur.append({'k': 'tip', 't': md_inline(head['setting']), 'l': 'en'})
+                for r in rows:
+                    de, _, en = r.partition('|')
+                    cur.append({'k': 'ex', 't': md_inline(de), 'g': md_inline(en)})
+            elif kind == 'examples':
+                for r in rows:
+                    de, _, en = r.partition('|')
+                    cur.append({'k': 'ex', 't': md_inline(de), 'g': md_inline(en)})
+            elif kind == 'vocab':
+                items = []
+                for r in rows:
+                    c = [x.strip() for x in r.split('|')]
+                    if len(c) >= 3 and c[0] and c[2]:
+                        items.append([md_inline(c[0]), md_inline(c[2]), md_inline(c[1])])
+                if items:
+                    if head.get('title'):
+                        cur.append({'k': 'h', 't': md_inline(head['title'])})
+                    cur.append({'k': 'voc', 'a': None, 'i': items})
+            elif kind == 'exercise':
+                cur.extend(dva_exercise(head, rows))
+            elif kind in CALLOUT:
+                cur.append({'k': 'tip', 't': f"{CALLOUT[kind]}: " + md_inline(' '.join(rows)), 'l': 'en'})
+            continue
+        if ln.startswith('## '):
+            flush_para()
+            if cur:
+                sections.append((title or meta.get('title', ''), cur))
+            title, cur = md_inline(ln[3:]), []
+        elif ln.startswith('### '):
+            flush_para()
+            cur.append({'k': 'h', 't': md_inline(ln[4:])})
+        elif ln.startswith('|'):
+            flush_para()
+            rows = []
+            while i < len(lines) and lines[i].startswith('|'):
+                cells = [md_inline(c) for c in lines[i].strip().strip('|').split('|')]
+                if not all(re.match(r'^:?-{2,}:?$', c) for c in cells if c):
+                    rows.append(cells)
+                i += 1
+            if rows:
+                cur.append({'k': 'tbl', 'r': rows})
+            continue
+        elif ln.startswith('> '):
+            flush_para()
+            cur.append({'k': 'tip', 't': md_inline(ln[2:]), 'l': 'en'})
+        elif re.match(r'^\s*[-*] ', ln):
+            flush_para()
+            cur.append({'k': 'p', 't': '• ' + md_inline(re.sub(r'^\s*[-*] ', '', ln)), 'l': 'en'})
+        elif not ln.strip():
+            flush_para()
+        else:
+            para.append(ln.strip())
+        i += 1
+    flush_para()
+    if cur:
+        sections.append((title or meta.get('title', ''), cur))
+    return meta, sections
+
+
+def build_dva():
+    bk = Book('de-dva-a1', 'de', 'a1', 'kursus', 'Deutsch von Anfang an · Buku A1', '13 bab dari alfabet sampai Perfekt, dengan dialog bersuara, kosakata dan latihan',
+              'Yash Vikram', 'Deutsch von Anfang an — © 2026 Yash Vikram (MIT License)', 'https://github.com/yashvikram30/german-course',
+              'MIT', 'https://opensource.org/license/mit',
+              'Buku pelajaran bahasa Jerman A1 lengkap: 13 bab bertahap dengan tujuan belajar, dialog bersuara, tabel tata bahasa, '
+              'kosakata dengan lafal, dan latihan yang langsung dinilai — dari salam pertama sampai persiapan ujian Start Deutsch 1.')
+    for k in range(1, 14):
+        meta, sections = dva_chapter(fetch(f'{DVA}k{k:02d}.md'))
+        bk.chapter(f"Kapitel {k} · {meta.get('title', '')}")
+        for t, blocks in sections:
+            if blocks:
+                bk.add(f'K{k} · {t}', blocks)
+    return [bk.save()]
+
 # ───────────────────────────── Katalog ─────────────────────────────
 def write_catalog(entries):
     entries = [e for e in entries if e]
@@ -806,7 +979,7 @@ if __name__ == '__main__':
     cat += build_grimm()
     cat += build_dib(pdf_dir)
     cat += build_tatoeba()
-    for fn in (build_gutenberg, build_aozora, build_jlpt, build_voa):
+    for fn in (build_dva, build_gutenberg, build_aozora, build_jlpt, build_voa):
         try:
             cat += fn()
         except Exception as e:  # noqa: BLE001 — satu sumber gagal tidak menggagalkan yang lain; dilaporkan
