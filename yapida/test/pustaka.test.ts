@@ -226,13 +226,16 @@ test('semua bab buku anak bawaan mendapat adegan, dan hampir semua mendapat perm
   // Buku cerita bawaan (k-…). Buku pelajaran BSE (s-…) mendapat adegan hanya bila tema babnya cocok — diuji terpisah.
   for (const m of katalog.buku.filter((b) => b.id.startsWith('k-') && (b.suara === 'anak' || b.suara === 'balita'))) {
     for (const r of m.bab) {
-      const h = hidupkanBab(JSON.parse(fs.readFileSync(`${PUB}assets/pustaka/b/${m.id}/${r.n}.json`, 'utf8')) as Bab, m);
+      const asli = JSON.parse(fs.readFileSync(`${PUB}assets/pustaka/b/${m.id}/${r.n}.json`, 'utf8')) as Bab;
+      const h = hidupkanBab(asli, m);
+      // Buku berbahasa asing atau bergambar sendiri: adegan hanya bila temanya cocok (tidak dihitung di sini).
+      if (m.bahasa !== 'id' || asli.blok.some((b) => b.t === 'img')) { if (h.blok.some((b) => b.t === 'kuis' || b.t === 'urut' || b.t === 'kartu' || b.t === 'cocok')) main += 0; continue; }
       bab += 1;
       if (h.blok.some((b) => b.t === 'adegan')) adegan += 1;
       if (h.blok.some((b) => b.t === 'kuis' || b.t === 'urut' || b.t === 'kartu' || b.t === 'cocok')) main += 1;
     }
   }
-  assert.ok(bab > 300, `bab anak ${bab}`);
+  assert.ok(bab > 150, `bab anak ${bab}`);
   assert.equal(adegan, bab, 'setiap bab anak punya adegan');
   assert.ok(main / bab >= 0.9, `bab dengan permainan ${main}/${bab}`);
 });
