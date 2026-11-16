@@ -714,3 +714,51 @@ textarea{min-height:120px;resize:vertical;line-height:1.5}
 @keyframes ib-in{from{opacity:0;transform:translate(-50%,24px)}}
 @media (prefers-reduced-motion:reduce){.install-banner{animation:none}}
 .install-btn svg{width:18px;height:18px}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nav a,.lang-switch a{white-space:nowrap}
+.install-btn{padding-inline:.7em}
+@media (min-width:861px) and (max-width:1439px){.install-btn .install-label{display:none}}
+
+/* ---- menu akun, portal & panel pengelola (terang, elegan) ---------------- */
+.avatar{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--navy-700),#6f9bff);color:#fff;font-weight:800;font-size:.8rem;letter-spacing:.02em;box-shadow:0 4px 10px -4px rgba(23,70,184,.6)}
+.avatar.lg{width:48px;height:48px;font-size:1rem}
+.user-menu{position:relative}
+.user-menu summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 10px 4px 4px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);font-weight:700;color:var(--ink-2)}
+.user-menu summary::-webkit-details-marker{display:none}
+.user-menu[open] summary{border-color:var(--brand-2);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand-2) 18%,transparent)}
+.um-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:90;min-width:220px;display:grid;gap:2px;padding:8px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-3);animation:um-in .18s var(--ease-out)}
+@keyframes um-in{from{opacity:0;transform:translateY(-6px)}}
+.um-pop a{display:flex;align-items:center;gap:10px;padding:.62em .8em;border-radius:12px;text-decoration:none;color:var(--ink-2);font-weight:600}
+.um-pop a:hover{background:var(--tint);color:var(--brand)}
+.um-pop svg{width:18px;height:18px;color:var(--muted)}
+.um-pop .um-out{color:var(--bad);border-top:1px solid var(--line);margin-top:4px;border-radius:0 0 12px 12px}
+.um-pop .um-out svg{color:var(--bad);transform:rotate(180deg)}
+@media (max-width:860px){.user-menu .um-name{display:none}.um-pop{position:static;box-shadow:none;border:0;padding:4px 0}}
+.portal{grid-template-columns:260px minmax(0,1fr)}
+.side{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px;box-shadow:var(--sh-1)}
+.side .who{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,var(--tint),var(--tint-2));border:0}
+.side .who b{line-height:1.2}
+.side .who small{display:block;word-break:break-all}
+.side a span{flex:1}
+.side .side-out{margin-top:8px;border-top:1px solid var(--line);border-radius:0 0 12px 12px;color:var(--bad)}
+.side .side-out svg{color:var(--bad);transform:rotate(180deg)}
+.portal-main{min-width:0}
+@media (max-width:860px){
+  .portal{padding-bottom:84px}
+  .side{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom));top:auto;z-index:60;display:flex;justify-content:space-around;gap:0;padding:6px;border-radius:20px;box-shadow:var(--sh-3);overflow-x:auto}
+  .side .who{display:none}
+  .side a{flex-direction:column;gap:2px;padding:.45em .5em;font-size:.68rem;min-width:56px;text-align:center}
+  .side a span{flex:none}
+  .side .side-out{margin-top:0;border-top:0;border-radius:12px}
+}
+.admin-bar{background:linear-gradient(90deg,var(--tint),var(--tint-2));color:var(--ink-2);border-bottom:1px solid var(--line);padding:8px 0}
+.admin-bar .wrap{justify-content:space-between}
+.admin-bar .ab-brand{display:inline-flex;align-items:center;gap:6px;color:var(--brand)}
+.admin-bar .ab-brand svg{width:18px;height:18px;color:var(--accent)}
+.admin-bar .ab-who{color:var(--muted)}
+.admin-bar .ab-links{display:flex;gap:14px;flex-wrap:wrap}
+.admin-bar a{color:var(--brand-2)}
+.admin-bar .ab-out{color:var(--bad)}
+.tabs.admin-tabs,.section-tight .tabs{gap:6px;border-bottom:0;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-pill)}
+.section-tight .tabs a{border:0;border-radius:var(--r-pill);padding:.5em 1em;margin:0}
+.section-tight .tabs a[aria-current="page"]{background:var(--brand);color:#fff}

@@ -6,6 +6,7 @@ import { icon, breadcrumbs } from './layout.ts';
 import { publicSet, type PSet } from '../practice/types.ts';
 import { practiceLevels, setsOf, levelName, totalQuestions, SETS } from '../practice/index.ts';
 import { scene } from './scene.ts';
+import { examLinks } from './exam.ts';
 
 const flag = (c: Course) => html`<span class="pill pill-flag"><i class="flag-${c}"></i>${COURSE_META[c].native}</span>`;
 
@@ -34,6 +35,7 @@ export function practiceIndexPage(o: { course: Course; unlocked: boolean; best: 
 <section class="section-tight"><div class="wrap">
   <div class="ribbon reveal" style="margin-bottom:28px"><div class="stat"><b>${SETS.length}</b><span>${t(L, 'practice.stat.sets')}</span></div><div class="stat"><b>${totalQuestions().toLocaleString(UI_LOCALE[L])}</b><span>${t(L, 'practice.stat.q')}</span></div><div class="stat"><b>100%</b><span>${t(L, 'practice.stat.keys')}</span></div><div class="stat"><b>${icon('cek')}</b><span>${t(L, 'practice.stat.predict')}</span></div></div>
   ${L === 'id' ? '' : html`<p class="notice" style="margin-bottom:22px">${t(L, 'content.idNotice')}</p>`}
+  ${examLinks(o.course, undefined, L)}
   ${levels.map((l) => {
     const sets = setsOf(o.course, l.id);
     const sim = sets.filter((s) => s.kind === 'simulasi');

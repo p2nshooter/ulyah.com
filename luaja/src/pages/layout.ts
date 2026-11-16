@@ -38,6 +38,9 @@ const ICON: Record<string, string> = {
   surya: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',
   pasang: '<path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',
 };
+/** Inisial nama untuk avatar (maks. 2 huruf). */
+export const initials = (name: string): string => name.trim().split(/\s+/).slice(0, 2).map((w) => w[0] ?? '').join('').toUpperCase() || '•';
+
 export function icon(name: string, cls = ''): Raw {
   return raw(`<svg class="ik${cls ? ` ${cls}` : ''}" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[name] ?? ICON.bintang}</svg>`);
 }
@@ -193,9 +196,9 @@ ${o.headExtra ?? ''}
 <button class="btn btn-ghost btn-icon nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="${esc(t(L, 'nav.menu'))}" data-nav-toggle>${icon('menu').s}</button>
 <nav class="nav" id="nav" aria-label="${esc(t(L, 'menu.label'))}">
 ${menu.map((m) => `<a href="${m.href}"${o.active === m.id ? ' aria-current="page"' : ''}>${esc(m.label)}</a>`).join('')}
-<button type="button" class="btn btn-ghost btn-sm install-btn" data-install hidden>${icon('pasang').s}${esc(t(L, 'pwa.install'))}</button>
+<button type="button" class="btn btn-ghost btn-sm install-btn" data-install hidden title="${esc(t(L, 'pwa.install'))}" aria-label="${esc(t(L, 'pwa.install'))}">${icon('pasang').s}<span class="install-label">${esc(t(L, 'pwa.install'))}</span></button>
 <span class="lang-switch" role="group" aria-label="${esc(t(L, 'lang.label'))}">${LANGS.map((x) => `<a href="${switchHref(x)}" lang="${x}" hreflang="${x}" title="${esc(LANG_NAME[x])}"${L === x ? ' aria-current="true"' : ''}>${x === 'ja' ? '日本語' : x.toUpperCase()}</a>`).join('')}</span>
-${o.user ? `<a class="btn btn-ghost btn-sm" href="/portal">${icon('masuk').s}${esc(o.user.name.split(' ')[0] ?? '')}</a>${o.user.admin ? `<a class="btn btn-ghost btn-sm" href="/admin">${esc(t(L, 'nav.admin'))}</a>` : ''}` : `<a class="btn btn-ghost btn-sm" href="/masuk">${esc(t(L, 'nav.signin'))}</a><a class="btn btn-gold btn-sm" href="/daftar">${esc(t(L, 'nav.start'))}</a>`}
+${o.user ? `<details class="user-menu"><summary aria-label="${esc(t(L, 'portal.nav'))}"><span class="avatar">${esc(initials(o.user.name))}</span><span class="um-name">${esc(o.user.name.split(' ')[0] ?? '')}</span></summary><div class="um-pop"><a href="/portal">${icon('tangga').s}${esc(t(L, 'portal.home'))}</a><a href="/pustaka">${icon('buku').s}${esc(t(L, 'menu.library'))}</a><a href="/portal/akun">${icon('masuk').s}${esc(t(L, 'portal.account'))}</a>${o.user.admin ? `<a href="/admin">${icon('bintang').s}${esc(t(L, 'portal.adminPanel'))}</a>` : ''}<a class="um-out" href="/keluar">${icon('panah').s}${esc(t(L, 'portal.signout'))}</a></div></details>` : `<a class="btn btn-ghost btn-sm" href="/masuk">${esc(t(L, 'nav.signin'))}</a><a class="btn btn-gold btn-sm" href="/daftar">${esc(t(L, 'nav.start'))}</a>`}
 </nav>
 </div>
 </header>`;

@@ -649,3 +649,63 @@ test('PWA: manifest bisa dipasang (id, ikon 192/512, standalone, mengenali diri 
   const sw = await (await req(e, '/sw.js')).text();
   assert.ok(sw.includes("addEventListener('fetch'"), 'service worker punya penangan fetch (syarat dapat dipasang)');
 });
+
+/* ── simulasi ujian penuh ─────────────────────────────────────────────── */
+import { EXAMS, examTotalItems } from '../src/exam/specs.ts';
+import { getMock, gradeMock, mocksOf, readyExams, validateMock } from '../src/exam/mocks.ts';
+
+test('simulasi penuh: setiap simulasi terbit sama persis dengan format resmi (jumlah soal per bagian), soal tidak kembar, kunci sah', () => {
+  assert.ok(readyExams().length >= 1);
+  // Format JLPT resmi: total soal (目安) dan aturan skor.
+  const n5 = EXAMS.find((e) => e.id === 'jlpt-n5')!;
+  assert.equal(examTotalItems(n5), 67);
+  assert.deepEqual(n5.sections.map((s) => s.minutes), [20, 40, 30]);
+  assert.deepEqual([n5.total.max, n5.total.pass, n5.groups.map((g) => [g.max, g.min])], [180, 80, [[120, 38], [60, 19]]]);
+  assert.deepEqual(EXAMS.map((e) => [e.id, e.total.pass]), [['jlpt-n5', 80], ['jlpt-n4', 90], ['jlpt-n3', 95], ['jlpt-n2', 90], ['jlpt-n1', 100]]);
+  let mocks = 0;
+  for (const e of readyExams()) {
+    const ids = mocksOf(e.id);
+    assert.ok(ids.length >= 10, `${e.id}: hanya ${ids.length} simulasi`);
+    for (const id of ids) {
+      const m = getMock(id)!;
+      assert.deepEqual(validateMock(m), [], id);
+      assert.equal(m.sections.flatMap((s) => s.parts.flatMap((p) => p.items)).length, examTotalItems(e));
+      mocks++;
+    }
+  }
+  assert.ok(mocks >= 20);
+});
+
+test('simulasi penuh: penilaian JLPT — lulus hanya bila total ≥ batas DAN setiap kelompok ≥ minimum', () => {
+  const m = getMock('jlpt-n5-s1')!;
+  const items = m.sections.flatMap((s) => s.parts.flatMap((p) => p.items));
+  const key = Object.fromEntries(items.map((it) => [it.id, it.answer]));
+  const full = gradeMock(m, key);
+  assert.equal(full.total, 180); assert.equal(full.pass, true);
+  // Semua 言語知識・読解 benar, 聴解 kosong → total 120 (≥ 80) tetapi 聴解 0 < 19 → tidak lulus.
+  const noListen = Object.fromEntries(items.filter((it) => m.sections[2]!.parts.every((p) => p.items.every((x) => x.id !== it.id))).map((it) => [it.id, it.answer]));
+  const r = gradeMock(m, noListen);
+  assert.equal(r.total, 120); assert.equal(r.pass, false);
+  assert.equal(r.groups.find((g) => g.id === 'ck')!.ok, false);
+  assert.equal(gradeMock(m, {}).pass, false);
+});
+
+test('simulasi penuh: halaman & API — kunci tidak terkirim, simulasi 1 gratis, lainnya khusus member', async () => {
+  const e = env();
+  const idx = await req(e, '/simulasi/jlpt-n5', { headers: { accept: 'text/html', 'cf-ipcountry': 'ID' } });
+  assert.equal(idx.status, 200);
+  const ih = await idx.text();
+  assert.ok(ih.includes('67') && ih.includes('/simulasi/jlpt-n5/20'));
+  const run = await req(e, '/simulasi/jlpt-n5/1', { headers: { accept: 'text/html', 'cf-ipcountry': 'ID' } });
+  assert.equal(run.status, 200);
+  const rh = await run.text();
+  const json = rh.slice(rh.indexOf('id="mock">'), rh.indexOf('</script>', rh.indexOf('id="mock">')));
+  assert.ok(json.length > 1000 && !json.includes('"answer"') && !json.includes('"why"'), 'kunci/pembahasan bocor ke halaman simulasi');
+  assert.equal((await req(e, '/simulasi/jlpt-n5/2')).status, 302, 'simulasi 2 khusus member');
+  const graded = await req(e, '/api/simulasi/jlpt-n5-s1/nilai', { method: 'POST', headers: { 'content-type': 'application/json', origin: 'https://luaja.com' }, body: JSON.stringify({ answers: {} }) });
+  const gj = (await graded.json()) as { ok: boolean; result: { total: number; count: number; items: { why: string }[] } };
+  assert.equal(gj.ok, true); assert.equal(gj.result.count, 67); assert.ok(gj.result.items.every((x) => x.why));
+  assert.equal((await req(e, '/api/simulasi/jlpt-n5-s2/nilai', { method: 'POST', headers: { 'content-type': 'application/json', origin: 'https://luaja.com' }, body: '{}' })).status, 403);
+  const sm = await (await req(e, '/sitemap.xml')).text();
+  assert.ok(sm.includes('/simulasi/jlpt-n5'));
+});
