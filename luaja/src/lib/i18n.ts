@@ -602,6 +602,12 @@ const D = {
   'js.payIncomplete': ['Pembayaran belum selesai', 'Payment not completed', '支払いが完了していません'],
   /* pustaka & pembaca */
   'menu.library': ['Pustaka', 'Library', 'ライブラリ'],
+  'pwa.install': ['Pasang aplikasi', 'Install app', 'アプリをインストール'],
+  'pwa.title': ['Pasang LUAJA di perangkat Anda', 'Install LUAJA on your device', 'LUAJAをお使いの端末にインストール'],
+  'pwa.text': ['Buka langsung dari layar utama, tampil layar penuh dan lebih cepat — gratis, tanpa toko aplikasi.', 'Open it straight from your home screen, full screen and faster — free, no app store needed.', 'ホーム画面からすぐに開けて、全画面で快適。アプリストア不要・無料です。'],
+  'pwa.ios': ['Di iPhone/iPad: ketuk tombol Bagikan (kotak dengan panah ke atas) di Safari, lalu pilih „Tambah ke Layar Utama“.', 'On iPhone/iPad: tap the Share button (square with an up arrow) in Safari, then choose “Add to Home Screen”.', 'iPhone・iPadでは、Safariの共有ボタン（上向き矢印の四角）をタップし、「ホーム画面に追加」を選んでください。'],
+  'pwa.later': ['Nanti', 'Later', 'あとで'],
+  'js.pwaInstalled': ['LUAJA sudah terpasang di perangkat Anda 🎉', 'LUAJA is installed on your device 🎉', 'LUAJAがインストールされました 🎉'],
   'level.hub.books': ['Buku jenjang {level}', '{level} books', '{level}の本'],
   'level.hub.media': ['Audio & video {level}', '{level} audio & video', '{level}の音声・動画'],
   'level.hub.all': ['Lihat semua {n} buku {level}', 'See all {n} {level} books', '{level}の本をすべて見る（{n}冊）'],

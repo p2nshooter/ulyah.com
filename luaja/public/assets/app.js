@@ -60,7 +60,29 @@
   d.addEventListener('click', function (e) { var c = e.target.closest && e.target.closest('.vcard'); if (!c || e.target.closest('button')) return; c.classList.toggle('open'); });
 
   /* pasang PWA */
-  var deferred; window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; $$('[data-install]').forEach(function (b) { b.hidden = false; }); });
-  $$('[data-install]').forEach(function (b) { b.addEventListener('click', function () { if (deferred) { deferred.prompt(); deferred = null; b.hidden = true; } }); });
+  /* Tanda „Pasang“ tampil hanya bila LUAJA belum terpasang; hilang setelah terpasang, muncul lagi bila aplikasinya dihapus
+   * (peramban kembali mengirim beforeinstallprompt). iPhone/iPad: panduan „Tambah ke Layar Utama“ (tidak ada event pasang). */
+  var deferred = null, banner = $('[data-install-banner]');
+  var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+  var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  var put = function (k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { /* abaikan */ } };
+  var snoozed = function () { var t = Number(get('lj_install_later') || 0); return t && Date.now() - t < 7 * 864e5; };
+  var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function showInstall(on) {
+    $$('.install-btn[data-install]').forEach(function (b) { b.hidden = !on || ios; });
+    if (banner) banner.hidden = !on || Boolean(snoozed());
+  }
+  function markInstalled() { put('lj_installed', '1'); deferred = null; showInstall(false); }
+  if (standalone) markInstalled();
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault(); deferred = e;
+    put('lj_installed', null); // belum (atau tidak lagi) terpasang
+    showInstall(true);
+  });
+  window.addEventListener('appinstalled', function () { markInstalled(); if (window.ljToast) window.ljToast(T('js.pwaInstalled'), 3500); });
+  if (!standalone && navigator.getInstalledRelatedApps) navigator.getInstalledRelatedApps().then(function (apps) { if (apps && apps.length) markInstalled(); }).catch(function () {});
+  if (!standalone && ios && banner && !snoozed()) { var tx = $('[data-install-text]', banner), ix = $('[data-install-ios]', banner); if (ix) ix.hidden = false; if (tx) tx.hidden = true; $$('[data-install]', banner).forEach(function (b) { b.hidden = true; }); banner.hidden = false; }
+  $$('[data-install]').forEach(function (b) { b.addEventListener('click', function () { if (!deferred) return; var p = deferred; deferred = null; p.prompt(); if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === 'accepted') markInstalled(); else showInstall(false); }); }); });
+  $$('[data-install-later]').forEach(function (b) { b.addEventListener('click', function () { put('lj_install_later', String(Date.now())); if (banner) banner.hidden = true; }); });
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('/sw.js').catch(function () {});
 })();
