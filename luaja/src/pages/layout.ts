@@ -9,7 +9,7 @@ import { clientDict, LANGS, LANG_NAME, PREFIX, UI_LOCALE, t, type Lang } from '.
 import type { Country, Mood } from './scene.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '3';
+export const ASSET_V = '4';
 
 const ICON: Record<string, string> = {
   tangga: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
@@ -126,6 +126,7 @@ export const MENU = (L: Lang): { id: string; label: string; href: string }[] => 
   { id: 'inggris', label: t(L, 'menu.en'), href: '/inggris' },
   { id: 'jepang', label: t(L, 'menu.ja'), href: '/jepang' },
   { id: 'latihan', label: t(L, 'menu.practice'), href: '/latihan' },
+  { id: 'pustaka', label: t(L, 'menu.library'), href: '/pustaka' },
   { id: 'harga', label: t(L, 'menu.pricing'), href: '/harga' },
 ];
 

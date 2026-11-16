@@ -574,3 +574,63 @@ test('urutan pelajaran: member membuka pelajaran berikutnya hanya setelah lulus 
 async function sha(s: string) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
+
+/* ── pustaka interaktif ──────────────────────────────────────────────── */
+import { BOOKS, PREVIEW_PAGES, getBook } from '../src/library/index.ts';
+import type { BookDoc } from '../src/library/types.ts';
+
+const OPEN_LICENCES = /^(CC BY 4\.0|CC BY 2\.0 FR|CC BY-SA [34]\.0|CC0|Public domain|Domain publik)$/;
+const bookDoc = (id: string) => JSON.parse(fs.readFileSync(new URL(`../public/p/b/${id}.json`, import.meta.url), 'utf8')) as BookDoc;
+
+test('pustaka: setiap buku punya isi, sumber, lisensi terbuka (bukan NC/ND), daftar isi sah dan kunci latihan yang benar', () => {
+  assert.ok(BOOKS.length >= 40, `buku ${BOOKS.length}`);
+  const ids = new Set<string>();
+  for (const b of BOOKS) {
+    assert.ok(!ids.has(b.id), `id ganda ${b.id}`); ids.add(b.id);
+    assert.match(b.licence, OPEN_LICENCES, `${b.id}: lisensi ${b.licence}`);
+    assert.ok(!/NC|ND/.test(b.licence), `${b.id}: lisensi non-komersial/tanpa turunan dilarang`);
+    assert.ok(b.source && b.sourceUrl.startsWith('https://') && b.licenceUrl.startsWith('https://'), `${b.id}: sumber/lisensi kosong`);
+    const d = bookDoc(b.id);
+    assert.equal(d.pages.length, b.pages, `${b.id}: jumlah halaman katalog ≠ isi`);
+    for (const [title, page] of b.toc) assert.ok(title && page >= 0 && page < b.pages, `${b.id}: daftar isi ${title} → ${page}`);
+    for (const pg of d.pages) {
+      assert.ok(pg.t && pg.b.length, `${b.id}: halaman kosong`);
+      for (const x of pg.b) {
+        if (x.k === 'gap') { assert.equal(x.s.length, x.a.length + 1, `${b.id}: rumpang ${JSON.stringify(x)}`); assert.ok(x.a.every((a) => a.trim()), `${b.id}: kunci rumpang kosong`); }
+        if (x.k === 'mc') { assert.ok(x.a >= 0 && x.a < x.o.length && new Set(x.o).size === x.o.length, `${b.id}: pilihan ganda ${JSON.stringify(x)}`); }
+        if (x.k === 'aud' || x.k === 'vid') assert.ok(x.src.startsWith('https://'), `${b.id}: media tanpa https ${x.src}`);
+        if (x.k === 'voc') assert.ok(x.i.length && x.i.every((it) => it[0] && it[1]), `${b.id}: kosakata kosong`);
+        if (x.k === 'sen') assert.ok(x.t && x.id, `${b.id}: kalimat tanpa terjemahan`);
+      }
+    }
+  }
+  // Tiga bahasa terwakili; latihan berkunci jawaban ada.
+  for (const c of ['de', 'en', 'ja']) assert.ok(BOOKS.some((b) => b.lang === c), `tanpa buku ${c}`);
+  assert.ok(BOOKS.reduce((n, b) => n + b.exercises, 0) >= 500);
+});
+
+test('pustaka: rak & halaman buku publik; isi penuh hanya untuk member bahasa itu (selain itu pratinjau)', async () => {
+  const b = getBook('de-gg-a1')!;
+  const asset = fs.readFileSync(new URL(`../public/p/b/${b.id}.json`, import.meta.url));
+  const e = env({ ASSETS: { fetch: async (r: Request) => (new URL(r.url).pathname === `/p/b/${b.id}.json` ? new Response(asset, { headers: { 'content-type': 'application/json' } }) : new Response('nf', { status: 404 })) } as unknown as Fetcher });
+  const idx = await req(e, '/pustaka?bahasa=de', { headers: { accept: 'text/html', 'cf-ipcountry': 'ID' } });
+  assert.equal(idx.status, 200);
+  const ih = await idx.text();
+  assert.ok(ih.includes(`/pustaka/${b.id}`) && ih.includes('Grimm Grammar'));
+  const page = await req(e, `/pustaka/${b.id}`, { headers: { accept: 'text/html', 'cf-ipcountry': 'ID' } });
+  const ph = await page.text();
+  assert.equal(page.status, 200);
+  assert.ok(ph.includes('"@type":"Book"') && ph.includes(b.licence) && ph.includes(`/baca/${b.id}?h=`), 'halaman buku: JSON-LD, lisensi, daftar isi');
+  const reader = await req(e, `/baca/${b.id}`, { headers: { accept: 'text/html', 'cf-ipcountry': 'ID' } });
+  assert.equal(reader.status, 200);
+  assert.ok((reader.headers.get('x-robots-tag') ?? '').includes('noindex') || (await reader.text()).includes('noindex'));
+  const anon = (await (await req(e, `/p/b/${b.id}.json`)).json()) as BookDoc & { locked?: boolean; total?: number };
+  assert.equal(anon.locked, true);
+  assert.equal(anon.pages.length, PREVIEW_PAGES);
+  assert.equal(anon.total, b.pages);
+  assert.equal((await req(e, '/p/b/tidak-ada.json')).status, 404);
+  const sm = await (await req(e, '/sitemap.xml')).text();
+  assert.ok(sm.includes(`/pustaka/${b.id}`) && sm.includes('/en/pustaka'));
+  const prog = await req(e, '/api/pustaka/progres', { method: 'POST', headers: { 'content-type': 'application/json', origin: 'https://luaja.com' }, body: JSON.stringify({ book: b.id, page: 0 }) });
+  assert.equal(prog.status, 401, 'progres membaca hanya untuk yang masuk');
+});

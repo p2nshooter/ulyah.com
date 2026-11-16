@@ -191,10 +191,12 @@ export function autoMood(country: Country, now = new Date()): Mood {
     : country === 'en' ? ['hujan', 'kabut', 'pagi', 'siang']
       : country === 'de' ? (month >= 9 && month <= 11 ? ['gugur', 'gugur', 'siang'] : month === 12 || month <= 2 ? ['salju', 'salju', 'siang'] : ['siang', 'pagi'])
         : ['siang', 'sakura', 'gugur', 'pagi'];
-  if (hour >= 19 || hour < 5) return 'malam';
-  if (hour >= 17) return 'senja';
-  if (hour < 8) return 'pagi';
-  return special[day % special.length]!;
+  // Pemilik (16 Nov 2026): tampilan terang dan indah, jangan gelap — suasana otomatis selalu siang hari yang cerah.
+  // Malam, senja, hujan dan kabut tetap bisa dipilih manual dari bilah suasana.
+  const bright = special.filter((m) => !SKIES[m].dark && m !== 'hujan' && m !== 'kabut');
+  const pool = bright.length ? bright : ['siang', 'pagi'] as Mood[];
+  if (hour < 9 || hour >= 19) return pool.includes('pagi') ? 'pagi' : pool[0]!;
+  return pool[day % pool.length]!;
 }
 
 export const MOOD_ICON: Record<Mood, string> = {

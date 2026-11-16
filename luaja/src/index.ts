@@ -34,6 +34,8 @@ import { gradeSet, IncompleteError } from './practice/types.ts';
 import { account } from './routes/account.ts';
 import { admin } from './routes/admin.ts';
 import { pay } from './routes/pay.ts';
+import { library } from './routes/library.ts';
+import { BOOKS } from './library/index.ts';
 
 const app = new Hono<HonoEnv>();
 
@@ -135,6 +137,8 @@ app.get('/sitemap.xml', (c) => {
     ...COURSES.map((k) => [`/${COURSE_META[k].slug}`, 'weekly', '0.9'] as [string, string, string]),
     ...COURSES.flatMap((k) => COURSE_META[k].levels.map((l) => [`/${COURSE_META[k].slug}/${l.id}`, 'weekly', '0.7'] as [string, string, string])),
     ...COURSES.map((k) => [`/latihan?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
+    ['/pustaka', 'weekly', '0.8'], ...COURSES.map((k) => [`/pustaka?bahasa=${k}`, 'weekly', '0.7'] as [string, string, string]),
+    ...BOOKS.map((b) => [`/pustaka/${b.id}`, 'monthly', '0.6'] as [string, string, string]),
     ...LESSONS.filter((l) => l.free).map((l) => [`/belajar/${l.code}`, 'monthly', '0.8'] as [string, string, string]),
     ...SETS.filter((s) => s.free && s.kind === 'simulasi').map((s) => [`/latihan/${s.id}`, 'monthly', '0.7'] as [string, string, string]),
     ...INFO_SLUGS.map((s) => [`/${s}`, 'yearly', '0.3'] as [string, string, string]),
@@ -323,6 +327,7 @@ for (const slug of INFO_SLUGS) {
 app.route('/', account);
 app.route('/', admin);
 app.route('/', pay);
+app.route('/', library);
 
 app.notFound(async (c) => {
   const lang = L(c) ?? 'id';

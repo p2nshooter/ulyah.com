@@ -181,6 +181,57 @@ try {
     ok('tiga bahasa: pemilih ID/EN/日本語 konsisten, harga & teks klien ikut bahasa, ponsel tanpa geser samping');
     await c.close();
   }
+  // 4d. Pustaka: rak, halaman buku (sampul + daftar isi), pembaca — tamu: pratinjau lalu terkunci; pengelola: penuh + latihan
+  {
+    const { c, p } = await ctx();
+    for (const path of ['/pustaka', '/pustaka?bahasa=en', '/pustaka?bahasa=ja', '/pustaka/de-gg-a1']) {
+      const r = await p.goto(BASE + path, { waitUntil: 'load' });
+      if (r.status() !== 200) fail(`${path} → ${r.status()}`);
+    }
+    if (!(await p.locator('.toc li').count())) fail('daftar isi buku kosong');
+    await p.screenshot({ path: `${OUT}/pustaka-buku.png` });
+    await p.goto(BASE + '/baca/en-tatoeba-1-1');
+    await p.waitForSelector('.rd-page .sen');
+    await p.click('[data-hide-tr]');
+    if (!(await p.evaluate(() => document.body.classList.contains('rd-hide-tr')))) fail('uji diri tidak menyembunyikan arti');
+    await p.click('.rd-page .sen .w');
+    await p.waitForSelector('[data-pop]:not([hidden])');
+    await p.keyboard.press('Escape');
+    await p.screenshot({ path: `${OUT}/pembaca-kalimat.png` });
+    await p.goto(BASE + '/baca/de-gg-a1?h=4');
+    await p.waitForSelector('.rd-locked');
+    ok('pustaka: rak, sampul & daftar isi, pembaca kalimat (uji diri, ketuk kata), halaman ke-4 terkunci untuk tamu');
+    await c.close();
+    const a = await ctx();
+    await a.p.goto(BASE + '/admin/masuk');
+    await a.p.fill('#email', process.env.OWNER); await a.p.fill('#pw', process.env.OWNER_PASS); await a.p.click('button[type=submit]');
+    await a.p.waitForURL(/\/admin$/);
+    await a.p.goto(BASE + '/baca/de-gg-a1');
+    await a.p.waitForSelector('.rd-page .rd-pt');
+    const exPage = await a.p.evaluate(async () => { const j = await (await fetch('/p/b/de-gg-a1.json')).json(); return j.locked ? -1 : j.pages.findIndex((x) => x.b.some((b) => b.k === 'mc')); });
+    if (exPage < 0) fail('pengelola tidak menerima buku penuh');
+    await a.p.goto(BASE + `/baca/de-gg-a1?h=${exPage + 1}`);
+    await a.p.waitForSelector('.mc-opt');
+    await a.p.locator('.mc-opt').first().click();
+    await a.p.waitForSelector('.mc-opt.ok');
+    if (!(await a.p.locator('.rd-score').textContent()).match(/1/)) fail('skor latihan halaman tidak bertambah');
+    await a.p.click('[data-next]');
+    await a.p.waitForFunction((n) => new URL(location.href).searchParams.get('h') === String(n + 2), exPage);
+    await a.p.goto(BASE + '/baca/de-dib-wortschatz-a1');
+    await a.p.waitForSelector('.voc-list li');
+    await a.p.click('.voc-head .btn');
+    await a.p.waitForSelector('dialog.fc[open] .fc-card');
+    await a.p.click('dialog.fc[open] .fc-x');
+    await a.c.close();
+    const m = await ctx({ ...devices['Pixel 7'] });
+    await m.p.goto(BASE + '/baca/en-tatoeba-1-1');
+    await m.p.waitForSelector('.rd-page .sen');
+    const over = await m.p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    if (over > 2) fail(`pembaca ponsel melebar ${over}px`);
+    await m.p.screenshot({ path: `${OUT}/pembaca-ponsel.png` });
+    await m.c.close();
+    ok('pustaka: pengelola membaca penuh, pilihan ganda dinilai langsung, kartu hafalan, pembaca ponsel tanpa geser samping');
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();
