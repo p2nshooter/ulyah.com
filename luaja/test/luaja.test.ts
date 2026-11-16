@@ -475,7 +475,8 @@ test('tiga bahasa: /en dan /ja dirender dalam bahasanya, tautan berawalan, hrefl
     if (lang !== 'id') {
       assert.ok(h.includes(`href="/${lang}/harga"`) && h.includes(`href="/${lang}/jerman"`), `${path}: tautan publik berawalan`);
       assert.ok(h.includes('href="/masuk"') && !h.includes(`href="/${lang}/masuk"`), `${path}: tautan akun tanpa awalan`);
-      assert.ok(!/\b(js|auth|inv|plan|home|price)\.[a-zA-Z0-9.]+/.test(h.replace(/<script[\s\S]*?<\/script>/g, '')), `${path}: kunci kamus bocor`);
+      // Kamus klien (window.LJ) ada di <head>; isi <body> tidak boleh memuat kunci kamus mentah.
+      assert.ok(!/\b(js|auth|inv|plan|home|price)\.[a-zA-Z0-9.]+/.test(h.slice(h.indexOf('<body'))), `${path}: kunci kamus bocor`);
     }
   }
   // harga mengikuti bahasa: Rupiah, dolar AS, yen
