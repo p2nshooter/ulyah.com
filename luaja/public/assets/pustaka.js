@@ -133,6 +133,17 @@
     });
     return h('div', { class: 'ex-item' }, b.n ? h('span', { class: 'ex-n' }, String(b.n)) : null, h('p', { class: 'mc-q', 'data-l': B.lang }, words(b.q, B.lang)), opts);
   }
+  /** Pilihan ganda dengar: naskah dibacakan; teksnya baru tampil setelah dijawab. */
+  function lmcBlock(b) {
+    var item = mcBlock({ n: b.n, q: '🎧', o: b.o, a: b.a });
+    var play = h('button', { type: 'button', class: 'btn btn-ghost btn-sm' }, '▶ ' + T('js.lib.listen'));
+    play.addEventListener('click', function () { say(b.au, B.lang); });
+    var script = h('p', { class: 'small muted', hidden: true, 'data-l': B.lang }, b.au);
+    $$('.mc-opt', item).forEach(function (x) { x.addEventListener('click', function () { script.hidden = false; }); });
+    var q = $('.mc-q', item); q.textContent = ''; add(q, play);
+    add(item, script);
+    return item;
+  }
 
   /* ── kartu hafalan ─────────────────────────────────────────────────── */
   function cards(items, l) {
@@ -190,6 +201,7 @@
       }
       case 'gap': return gapBlock(b);
       case 'mc': return mcBlock(b);
+      case 'lmc': return lmcBlock(b);
       default: return null;
     }
   }

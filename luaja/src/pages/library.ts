@@ -148,5 +148,5 @@ export function readerPage(o: { book: BookMeta; open: boolean; start: number; lo
   <div class="rd-toast" data-rd-toast hidden></div>
   ${jsonScript('book', { id: b.id, lang: b.lang, locale: m.locale, pages: b.pages, toc: b.toc, start: o.start, open: o.open, loggedIn: o.loggedIn, preview: PREVIEW_PAGES })}
 </section>
-<script src="/assets/pustaka.js?v=2" defer></script>`;
+<script src="/assets/pustaka.js?v=3" defer></script>`;
 }

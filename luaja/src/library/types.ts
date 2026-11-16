@@ -46,7 +46,9 @@ export type Block =
   | { k: 'vid'; src: string; t: string; d?: string }
   | { k: 'sen'; t: string; id: string; n?: number }
   | { k: 'gap'; n?: number; s: string[]; a: string[]; alt?: string[][] }
-  | { k: 'mc'; n?: number; q: string; o: string[]; a: number };
+  | { k: 'mc'; n?: number; q: string; o: string[]; a: number }
+  /** Pilihan ganda dengar: naskah dibacakan (au), teksnya tampil setelah dijawab. */
+  | { k: 'lmc'; n?: number; au: string; o: string[]; a: number };
 
 export interface BookPage {
   t: string;

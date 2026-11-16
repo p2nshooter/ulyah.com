@@ -64,6 +64,49 @@
       });
       add(box, btn);
     }
+    if (it.kind === 'gap') {
+      var inp = h('input', { type: 'text', class: 'sim-gap', autocomplete: 'off', spellcheck: 'false', 'aria-label': it.stem });
+      if (typeof st.answers[it.id] === 'string') inp.value = st.answers[it.id];
+      inp.addEventListener('input', function () { if (inp.value.trim()) st.answers[it.id] = inp.value; else delete st.answers[it.id]; keep(); count(); });
+      add(box, h('div', { class: 'sim-opts' }, inp));
+      return box;
+    }
+    if (it.kind === 'write' || it.kind === 'speak') {
+      var cur = st.answers[it.id] && typeof st.answers[it.id] === 'object' ? st.answers[it.id] : {};
+      var ta = null, wc = null;
+      if (it.kind === 'write') {
+        ta = h('textarea', { class: 'sim-write', rows: 7, lang: C.locale.slice(0, 2), placeholder: T('js.sim.writeHere') });
+        ta.value = cur.text || '';
+        wc = h('span', { class: 'small muted' });
+        var words = function () { var n = (ta.value.trim().match(/\S+/g) || []).length; wc.textContent = T('js.sim.words', { n: n }); };
+        words();
+        add(box, h('div', { class: 'sim-opts' }, ta, wc));
+      }
+      if (it.cues && it.cues.length) add(box, h('div', { class: 'sim-cues' }, h('small', null, T('js.sim.cards')), h('ul', null, it.cues.map(function (c) { return h('li', { lang: C.locale.slice(0, 2) }, c); }))));
+      var rub = h('fieldset', { class: 'sim-rubric' }, h('legend', null, T('js.sim.selfCheck', { n: it.points })));
+      var checks = [];
+      (it.rubric || []).forEach(function (r, i) {
+        var cb = h('input', { type: 'checkbox', id: it.id + '-r' + i });
+        if (cur.checks && cur.checks[i]) cb.checked = true;
+        checks.push(cb);
+        add(rub, h('label', { for: it.id + '-r' + i, class: 'sim-rc' }, cb, h('span', null, r.t), h('b', null, '+' + r.pts)));
+      });
+      var save = function () {
+        var score = 0, marks = checks.map(function (cb, i) { if (cb.checked) score += it.rubric[i].pts; return cb.checked; });
+        var o = { score: score, checks: marks };
+        if (ta) { o.text = ta.value; if (!ta.value.trim()) { delete st.answers[it.id]; keep(); count(); return; } }
+        st.answers[it.id] = o; keep(); count();
+      };
+      checks.forEach(function (cb) { cb.addEventListener('change', save); });
+      if (ta) ta.addEventListener('input', function () { words(); save(); });
+      add(box, rub);
+      if (it.kind === 'speak') {
+        var done = h('button', { type: 'button', class: 'btn btn-ghost btn-sm' }, T('js.sim.spoken'));
+        done.addEventListener('click', function () { save(); done.textContent = '✓ ' + T('js.sim.spoken'); });
+        add(box, done);
+      }
+      return box;
+    }
     var opts = h('div', { class: 'sim-opts' + (it.spoken ? ' row' : '') });
     it.options.forEach(function (o, i) {
       var id = it.id + '-' + i;
@@ -85,12 +128,14 @@
   function fmt(ms) { var s = Math.max(0, Math.round(ms / 1000)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
   function startTimer() {
     clearInterval(tick);
-    tick = setInterval(function () {
+    var step = function () {
       var left = st.ends - Date.now();
       timerEl.textContent = fmt(left);
       timerEl.classList.toggle('low', left < 5 * 60000);
       if (left <= 0) { clearInterval(tick); if (window.ljToast) window.ljToast(T('js.sim.timeUp'), 3000); closeSection(true); }
-    }, 500);
+    };
+    step();
+    tick = setInterval(step, 500);
   }
   function showSection(i) {
     if (synth) synth.cancel();
@@ -137,10 +182,11 @@
     result.textContent = '';
     var why = [];
     if (r.total < r.passMark) why.push(T('js.sim.reasonTotal', { pass: r.passMark }));
-    r.groups.forEach(function (g) { if (!g.ok) why.push(T('js.sim.reasonGroup', { name: g.name, min: g.min })); });
+    r.groups.forEach(function (g) { if (!g.ok) why.push(g.attempted === false ? T('js.sim.reasonMissing', { name: g.name }) : T('js.sim.reasonGroup', { name: g.name, min: g.min })); });
     add(result, h('div', { class: 'sim-score ' + (r.pass ? 'ok' : 'bad') },
       h('div', null, h('small', null, T('js.sim.total')), h('b', null, r.total + ' / ' + r.max)),
-      h('span', { class: 'sim-badge' }, r.pass ? '🎉 ' + T('js.sim.pass') : T('js.sim.fail'))));
+      h('span', { class: 'sim-badge' }, (r.pass ? '🎉 ' + T('js.sim.pass') : T('js.sim.fail')) + (r.grade ? ' · ' + r.grade : ''))));
+    if (r.factor) add(result, h('p', { class: 'small muted' }, T('js.sim.factor', { f: r.factor })));
     if (why.length) add(result, h('p', { class: 'notice' }, T('js.sim.why') + ': ' + why.join(' · ')));
     var gl = h('div', { class: 'sim-groups-res' });
     r.groups.forEach(function (g) {
@@ -155,11 +201,17 @@
     r.items.forEach(function (x) { byId[x.id] = x; });
     M.sections.forEach(function (s) { s.parts.forEach(function (p) { p.items.forEach(function (it) {
       var x = byId[it.id], opts = x.options || it.options; no++;
-      add(rev, h('div', { class: 'sim-rq ' + (x.ok ? 'ok' : 'bad') },
-        h('p', { class: 'sim-stem', lang: C.locale.slice(0, 2) }, no + '. ' + it.stem),
-        it.audio ? h('p', { class: 'small muted', lang: C.locale.slice(0, 2) }, '🎧 ' + it.audio.map(function (l) { return l.t; }).join(' ／ ')) : null,
-        h('p', null, (x.ok ? '✓ ' : '✗ ') + T('js.yourAnswer') + ': ', h('b', null, x.chosen >= 0 ? opts[x.chosen] : T('js.sim.unanswered')), x.ok ? null : [' · ' + T('js.keyCol') + ': ', h('b', null, opts[x.answer])]),
-        h('p', { class: 'small', lang: 'id' }, x.why)));
+      var lng = C.locale.slice(0, 2), body;
+      if (x.kind === 'gap') body = h('p', null, (x.ok ? '✓ ' : '✗ ') + T('js.yourAnswer') + ': ', h('b', null, x.text || T('js.sim.unanswered')), x.ok ? null : [' · ' + T('js.keyCol') + ': ', h('b', { lang: lng }, (x.accept || []).join(' / '))]);
+      else if (x.kind === 'write' || x.kind === 'speak') body = [
+        x.text ? h('p', { class: 'sim-mytext', lang: lng }, x.text) : null,
+        h('p', null, T('js.sim.selfScore') + ': ', h('b', null, x.earned + ' / ' + x.max)),
+        x.model ? h('p', { class: 'small' }, h('b', null, T('js.sim.model') + ': '), h('span', { lang: lng }, x.model)) : null];
+      else body = h('p', null, (x.ok ? '✓ ' : '✗ ') + T('js.yourAnswer') + ': ', h('b', null, x.chosen >= 0 ? opts[x.chosen] : T('js.sim.unanswered')), x.ok ? null : [' · ' + T('js.keyCol') + ': ', h('b', null, opts[x.answer])]);
+      add(rev, h('div', { class: 'sim-rq ' + (x.kind === 'write' || x.kind === 'speak' ? 'self' : x.ok ? 'ok' : 'bad') },
+        h('p', { class: 'sim-stem', lang: lng }, no + '. ' + it.stem),
+        it.audio ? h('p', { class: 'small muted', lang: lng }, '🎧 ' + it.audio.map(function (l) { return l.t; }).join(' ／ ')) : null,
+        body, h('p', { class: 'small' }, x.why)));
     }); }); });
     add(result, rev);
     var acts = h('div', { class: 'row', style: 'gap:10px;margin-top:18px;flex-wrap:wrap' });

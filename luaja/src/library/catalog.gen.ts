@@ -1037,6 +1037,80 @@ export const BOOKS: BookMeta[] = [
 "sentences":528
 },
 {
+"id":"de-dva-a1",
+"lang":"de",
+"level":"a1",
+"cat":"kursus",
+"title":"Deutsch von Anfang an · Buku A1",
+"sub":"13 bab dari alfabet sampai Perfekt, dengan dialog bersuara, kosakata dan latihan",
+"author":"Yash Vikram",
+"source":"Deutsch von Anfang an — © 2026 Yash Vikram (MIT License)",
+"sourceUrl":"https://github.com/yashvikram30/german-course",
+"licence":"MIT",
+"licenceUrl":"https://opensource.org/license/mit",
+"about":"Buku pelajaran bahasa Jerman A1 lengkap: 13 bab bertahap dengan tujuan belajar, dialog bersuara, tabel tata bahasa, kosakata dengan lafal, dan latihan yang langsung dinilai — dari salam pertama sampai persiapan ujian Start Deutsch 1.",
+"toc":[
+[
+"Kapitel 1 · Hallo!",
+0
+],
+[
+"Kapitel 2 · Wer bist du?",
+21
+],
+[
+"Kapitel 3 · Die Familie und die Dinge um uns",
+47
+],
+[
+"Kapitel 4 · Der Tag",
+67
+],
+[
+"Kapitel 5 · Essen und Trinken",
+86
+],
+[
+"Kapitel 6 · Einkaufen",
+101
+],
+[
+"Kapitel 7 · Wohnen",
+116
+],
+[
+"Kapitel 8 · In der Stadt",
+133
+],
+[
+"Kapitel 9 · Freizeit und Pläne",
+149
+],
+[
+"Kapitel 10 · Reisen und Wetter",
+164
+],
+[
+"Kapitel 11 · Gestern",
+178
+],
+[
+"Kapitel 12 · Arbeit, Gesundheit und Dienste",
+197
+],
+[
+"Kapitel 13 · Das war A1",
+213
+]
+],
+"pages":226,
+"chapters":13,
+"exercises":444,
+"media":0,
+"words":607,
+"sentences":0
+},
+{
 "id":"de-dib-video-a1",
 "lang":"de",
 "level":"a1",
