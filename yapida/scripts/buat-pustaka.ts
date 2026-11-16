@@ -283,6 +283,15 @@ for (const [kol, info] of Object.entries(KITAB_HADITS)) {
   }, bab);
 }
 
+/* ── buku pelajaran formal MI & MTs: BSE 2008–2011 yang boleh dialihmediakan (scripts/bse-ambil.ts) ───────── */
+
+const BSE = join(DIR, '..', 'pustaka', 'bse');
+for (const f of readdirSync(BSE, { withFileTypes: true }).filter((x) => x.isFile() && /^s-.*\.json$/.test(x.name)).map((x) => x.name).sort()) {
+  const { meta, bab } = JSON.parse(readFileSync(join(BSE, f), 'utf8')) as { meta: BukuMeta; bab: Bab[] };
+  const { bab: _b, kata: _k, menit: _m, ...m } = meta;
+  tambah(m, bab);
+}
+
 /* ── buku cerita bergambar Book Dash (GitHub, CC BY 4.0) ─────────────────── */
 
 const bd = JSON.parse(readFileSync(join(KARYA, 'bookdash.json'), 'utf8')) as { buku: { slug: string; title: string; subtitle?: string; creator?: string; description?: string; halaman: { img: string; alt: string; teks: string[] }[] }[] };

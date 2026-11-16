@@ -223,7 +223,8 @@ test('semua buku anak interaktif: adegan + „Ayo Bermain!“ (kuis isian, urutk
 test('semua bab buku anak bawaan mendapat adegan, dan hampir semua mendapat permainan', async () => {
   const { hidupkanBab } = await import('../src/data/aktif.ts');
   let bab = 0, adegan = 0, main = 0;
-  for (const m of katalog.buku.filter((b) => b.suara === 'anak' || b.suara === 'balita')) {
+  // Buku cerita bawaan (k-…). Buku pelajaran BSE (s-…) mendapat adegan hanya bila tema babnya cocok — diuji terpisah.
+  for (const m of katalog.buku.filter((b) => b.id.startsWith('k-') && (b.suara === 'anak' || b.suara === 'balita'))) {
     for (const r of m.bab) {
       const h = hidupkanBab(JSON.parse(fs.readFileSync(`${PUB}assets/pustaka/b/${m.id}/${r.n}.json`, 'utf8')) as Bab, m);
       bab += 1;
@@ -234,4 +235,32 @@ test('semua bab buku anak bawaan mendapat adegan, dan hampir semua mendapat perm
   assert.ok(bab > 300, `bab anak ${bab}`);
   assert.equal(adegan, bab, 'setiap bab anak punya adegan');
   assert.ok(main / bab >= 0.9, `bab dengan permainan ${main}/${bab}`);
+});
+
+test('buku pelajaran BSE: tiap kelas MI & MTs punya buku, bab terbuka, dan setiap bab punya latihan', async () => {
+  const { hidupkanBab } = await import('../src/data/aktif.ts');
+  const bse = katalog.buku.filter((b) => b.id.startsWith('s-'));
+  assert.ok(bse.length >= 40, `buku BSE ${bse.length}`);
+  for (let k = 1; k <= 9; k += 1) assert.ok(bse.some((b) => b.kelas === `Kelas ${k}`), `kelas ${k}`);
+  let bab = 0, latihan = 0;
+  for (const m of bse) {
+    assert.ok(m.rak.includes(Number(m.kelas?.replace(/\D/g, '')) <= 6 ? 'mi' : 'mts'), m.id);
+    for (const r of m.bab) {
+      const h = hidupkanBab(JSON.parse(fs.readFileSync(`${PUB}assets/pustaka/b/${m.id}/${r.n}.json`, 'utf8')) as Bab, m);
+      bab += 1;
+      if (h.blok.some((b) => b.t === 'kuis' || b.t === 'urut' || b.t === 'kartu' || b.t === 'cocok')) latihan += 1;
+    }
+  }
+  assert.ok(latihan / bab >= 0.9, `bab BSE dengan latihan ${latihan}/${bab}`);
+});
+
+test('BSE pembaca pemula: baris huruf kecil tanpa tanda baca menjadi kalimat berkapital dan bertitik', async () => {
+  const { kalimatPemula, keBlok } = await import('../scripts/bse-ubah.ts');
+  assert.deepEqual(kalimatPemula(['mulailah melompat dengan kaki kanan', 'kemudian ganti dengan kaki kiri', 'apakah kamu bisa']), ['Mulailah melompat dengan kaki kanan.', 'Kemudian ganti dengan kaki kiri.', 'Apakah kamu bisa?']);
+  // Baris sambungan (kata sambung di ujung/awal) digabung, pilihan jawaban menjadi butir.
+  assert.deepEqual(kalimatPemula(['binatang yang memiliki kuku tajam kambing', 'atau harimau']), ['Binatang yang memiliki kuku tajam kambing atau harimau?'.replace('?', '.')]);
+  assert.deepEqual(kalimatPemula(['yang termasuk bagian pohon adalah …', 'a daun', 'b kertas']), ['Yang termasuk bagian pohon adalah …', 'a. daun', 'b. kertas']);
+  const blok = keBlok(['latihan melompat', '', 'mari bermain di luar kelas', 'ambil sebuah kardus', '', 'sumber dokumentasi penerbit', '', 'gambar 1.8', 'latihan melompat dapat', 'memperkuat otot kaki'], { pemula: true });
+  assert.deepEqual(blok.map((b) => b.t), ['h', 'p', 'cat']);
+  assert.equal(blok[1]!.x, 'Mari bermain di luar kelas. Ambil sebuah kardus.');
 });

@@ -44,15 +44,11 @@
       d.body.appendChild(s); setTimeout(function (z) { return function () { z.remove(); }; }(s), 1700);
     }
   }
+  /* Ucapan singkat (kata/kartu yang diketuk) memakai pencerita & logat yang sama dengan pembaca buku (suara.js). */
   var ucap = function (teks, bahasa) {
-    if (!window.speechSynthesis || !teks) return;
-    try {
-      speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(teks), lang = AR.test(teks) ? 'ar' : bahasa || 'id';
-      var v = window.YapidaSuara ? window.YapidaSuara.pilihSuara(lang, 'anak', simpan.get('yp-suara-pilih', {})) : null;
-      u.lang = v ? v.lang : lang === 'ar' ? 'ar-SA' : lang === 'en' ? 'en-GB' : 'id-ID'; if (v) u.voice = v;
-      u.rate = lang === 'ar' ? 0.8 : 0.92; speechSynthesis.speak(u);
-    } catch (e) { /* abaikan */ }
+    if (!teks || !window.YapidaSuara) return;
+    var profil = (d.querySelector('[data-pencerita]') || {}).value || (d.querySelector('[data-suara]') || { getAttribute: function () { return 'anak'; } }).getAttribute('data-suara') || 'anak';
+    window.YapidaSuara.ucap(teks, AR.test(teks) ? 'ar' : bahasa || 'id', profil, simpan.get('yp-suara-pilih', {}));
   };
 
   /* ── rak: geser, buku miring mengikuti kursor ── */
@@ -429,8 +425,27 @@
       else if (rc.right <= kotak.left + 4 && hal > 0) balik(hal - 1, -1);
     } else if (rc.bottom > innerHeight - 90 || rc.top < 80) scrollBy({ top: rc.top - innerHeight * 0.4, behavior: tenang ? 'auto' : 'smooth' });
   }
+  /* Perangkat tanpa suara Indonesia (sebagian HP memakai mesin suara bawaan pabrik) akan membaca dengan logat lain —
+     beri petunjuk sekali per kunjungan agar pembaca memasang „Bahasa Indonesia“ (pemilik: „banyak yg make voice Malaysia“). */
+  var sudahPetunjuk = false;
+  function petunjukSuara() {
+    if (sudahPetunjuk || !S || !S.siap) return;
+    S.siap(function () {
+      var bhs = (data && data.bahasa) || 'id';
+      if (sudahPetunjuk || S.adaSuara(bhs === 'ar' ? 'id' : bhs)) return;
+      sudahPetunjuk = true;
+      var k = el('div', 'baca-petunjuk-suara');
+      k.setAttribute('role', 'status');
+      k.innerHTML = '<strong>Suara Indonesia belum terpasang di perangkat ini.</strong> Agar logatnya Indonesia (bukan Melayu): buka <em>Setelan → Bahasa → Keluaran teks-ke-ucapan</em>, pilih mesin <em>Google</em>, lalu unduh <em>Bahasa Indonesia</em>. Di komputer, Microsoft Edge sudah memiliki suara Indonesia yang jernih.';
+      var x = el('button', 'baca-petunjuk-tutup', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Tutup petunjuk');
+      x.addEventListener('click', function () { k.remove(); });
+      k.appendChild(x);
+      (baca || d.body).appendChild(k);
+    });
+  }
   function dengar(dari) {
     if (!S || !S.tersedia) return;
+    petunjukSuara();
     if (kendali) kendali.henti();
     window.dispatchEvent(new Event('yp:audio-lain'));
     var blok = blokTerlihat(), mulai = typeof dari === 'number' ? dari : 0;

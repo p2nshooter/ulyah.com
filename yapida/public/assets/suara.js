@@ -6,28 +6,66 @@
 (function () {
   'use strict';
   var ss = window.speechSynthesis;
-  var PROFIL = { balita: { rate: 0.8, pitch: 1.35 }, anak: { rate: 0.9, pitch: 1.2 }, remaja: { rate: 0.98, pitch: 1.05 }, dewasa: { rate: 1, pitch: 1 } };
+  /* Pencerita per jenjang (pemilik: „suaranya nyaman d dengar, elegan, berwibawa dan sesuai jenjang, misal buku anak di
+     bacakan suara anak“): balita & anak — suara perempuan dengan nada tinggi (terdengar seperti anak/kakak), remaja —
+     lembut dan jernih, dewasa (kitab, hadits, kajian, kabar) — suara laki-laki yang tenang dan berwibawa. */
+  var PROFIL = {
+    balita: { rate: 0.86, pitch: 1.36, jenis: 'p' },
+    anak: { rate: 0.92, pitch: 1.24, jenis: 'p' },
+    remaja: { rate: 0.97, pitch: 1.03, jenis: 'p' },
+    dewasa: { rate: 0.93, pitch: 0.9, jenis: 'l' },
+  };
   /* Logat (pemilik: „make logat bahasa indonesia bukan Melayu, klo Arab make logat Arab, Inggris ya logat inggris“):
      Indonesia hanya suara id-ID (Android lama melaporkannya sebagai in-ID) — suara Melayu (ms) tidak pernah dipakai;
      Inggris logat Inggris (en-GB) lalu Amerika; Arab logat Arab (ar-SA lalu ar-* lain). */
   var KODE = { ar: ['ar-SA', 'ar-AE', 'ar-EG', 'ar'], en: ['en-GB', 'en-US', 'en-AU', 'en'], id: ['id-ID', 'in-ID', 'id', 'in'] };
   var LANG_UTTER = { ar: 'ar-SA', en: 'en-GB', id: 'id-ID' };
   var cocokKode = function (v, kode) { var l = (v.lang || '').toLowerCase().replace('_', '-'); return l.indexOf(kode.toLowerCase()) === 0 && !(kode.length === 2 && l.charAt(2) && l.charAt(2) !== '-'); };
+  /* Mutu & jenis suara dari namanya: suara neural (Edge „Natural“, Chrome „Google“, Apple „Premium/Enhanced“) dulu. */
+  var BAGUS = /natural|neural|online|premium|enhanced|google|siri/i;
+  var PEREMPUAN = /female|wanita|perempuan|gadis|damayanti|siti|sari|nisa|zira|samantha|sonia|libby|maisie|jenny|aria|kate|serena|zariyah|hoda|laila|amina|salma|id-id-x-idc|id-id-x-dfz|google bahasa indonesia|google uk english female/i;
+  var LAKI = /\bmale\b|laki|pria|ardi|andika|ryan|guy|thomas|daniel|oliver|hamed|naayf|shakir|maged|tarik|id-id-x-idd|id-id-x-ide|google uk english male/i;
   var suara = [];
   var muatSuara = function () { suara = ss ? ss.getVoices() : []; };
   if (ss) { muatSuara(); if (typeof ss.addEventListener === 'function') ss.addEventListener('voiceschanged', muatSuara); else ss.onvoiceschanged = muatSuara; }
+  /** Menunggu daftar suara termuat (Chrome/Safari mengisinya sesudah halaman siap) — maks. 1,5 detik. */
+  function siapSuara(cb) {
+    if (!ss || suara.length) { cb(); return; }
+    var sudah = false, jalan = function () { if (sudah) return; sudah = true; muatSuara(); cb(); };
+    try { ss.addEventListener('voiceschanged', jalan, { once: true }); } catch (e) { /* abaikan */ }
+    setTimeout(jalan, 1500);
+  }
 
+  function nilai(v, profil, urutan) {
+    var n = 40 - urutan * 8;
+    if (BAGUS.test(v.name)) n += 50;
+    var mau = (PROFIL[profil] || PROFIL.dewasa).jenis;
+    var p = PEREMPUAN.test(v.name), l = !p && LAKI.test(v.name);
+    if ((mau === 'p' && p) || (mau === 'l' && l)) n += 30; else if (p || l) n -= 12;
+    if (v.localService === false) n += 4;
+    return n;
+  }
   function pilihSuara(bhs, profil, pilihan) {
     if (pilihan && pilihan[bhs]) { var tetap = suara.filter(function (v) { return v.voiceURI === pilihan[bhs] && (KODE[bhs] || KODE.id).some(function (k) { return cocokKode(v, k); }); })[0]; if (tetap) return tetap; }
-    var calon = KODE[bhs] || KODE.id;
+    var calon = KODE[bhs] || KODE.id, terbaik = null, skor = -1e9;
     for (var i = 0; i < calon.length; i++) {
-      var cocok = suara.filter(function (v) { return cocokKode(v, calon[i]); });
-      if (!cocok.length) continue;
-      /* Profil anak: utamakan suara perempuan/anak bila namanya menyebutkannya; dewasa: suara alami/premium dulu. */
-      var suka = profil === 'balita' || profil === 'anak' ? /female|wanita|child|kid|girl|damayanti|gadis|sari|zira|samantha/i : /natural|premium|enhanced|neural|google/i;
-      return cocok.filter(function (v) { return suka.test(v.name); })[0] || cocok.filter(function (v) { return v.localService; })[0] || cocok[0];
+      suara.forEach(function (v) { if (!cocokKode(v, calon[i])) return; var n = nilai(v, profil, i); if (n > skor) { skor = n; terbaik = v; } });
     }
-    return null;
+    return terbaik;
+  }
+  var adaSuara = function (bhs) { return suara.some(function (v) { return (KODE[bhs] || KODE.id).some(function (k) { return cocokKode(v, k); }); }); };
+  /** Ucapan singkat (kata yang diketuk, adegan kartun) dengan pencerita & logat yang sama seperti pembaca buku. */
+  function ucap(teks, bhs, profil, pilihan) {
+    if (!ss || !teks) return;
+    siapSuara(function () {
+      try {
+        ss.cancel();
+        var b = (bhs || 'id').slice(0, 2), pr = PROFIL[profil] || PROFIL.anak, u = new SpeechSynthesisUtterance(teks), v = pilihSuara(b, profil || 'anak', pilihan);
+        u.lang = v ? v.lang : LANG_UTTER[b] || LANG_UTTER.id; if (v) u.voice = v;
+        u.rate = pr.rate * (b === 'ar' ? 0.88 : 1); u.pitch = pr.pitch;
+        ss.speak(u);
+      } catch (e) { /* abaikan */ }
+    });
   }
 
   /** Bahasa sebuah elemen: atribut lang terdekat (di dalam wadah), selain itu Indonesia. */
@@ -100,7 +138,7 @@
       ss.speak(u);
     };
     ss.cancel();
-    setTimeout(lanjutBlok, 60);
+    siapSuara(function () { setTimeout(lanjutBlok, 60); });
     return {
       jeda: function () { dijeda = true; ss.pause(); },
       lanjut: function () { dijeda = false; ss.resume(); },
@@ -171,7 +209,7 @@
     });
   }
 
-  window.YapidaSuara = { tersedia: Boolean(ss && window.SpeechSynthesisUtterance), bacakan: bacakan, penanda: penanda, blokDari: blokDari, potongan: potongan, pilihSuara: pilihSuara, kodeBahasa: KODE, cocokKode: cocokKode, langUcap: LANG_UTTER, daftar: function () { if (ss) muatSuara(); return suara.slice(); }, kode: KODE };
+  window.YapidaSuara = { tersedia: Boolean(ss && window.SpeechSynthesisUtterance), bacakan: bacakan, penanda: penanda, blokDari: blokDari, potongan: potongan, pilihSuara: pilihSuara, ucap: ucap, adaSuara: adaSuara, siap: siapSuara, profil: PROFIL, kodeBahasa: KODE, cocokKode: cocokKode, langUcap: LANG_UTTER, daftar: function () { if (ss) muatSuara(); return suara.slice(); }, kode: KODE };
 
   /* ── tombol „Dengarkan“ pada kabar dan karya tulis ─────── */
   var tenang = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;

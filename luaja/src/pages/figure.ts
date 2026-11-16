@@ -35,11 +35,14 @@ const TONE_FILTER: Record<Tone, string> = {
 
 interface Placed { img: string; x: number; y: number; w: number; h: number; chinY: number; faceX: number; bottom: number }
 /** Letakkan gambar kepala sehingga pusat wajah di (faceX, –) dengan tinggi h. */
+/* Wajah pemandu dicerahkan (pemilik, 16 Nov 2026: „tolong di cerahin wajah modelnya“): potret aslinya agak redup, jadi
+   setiap kepala diberi pencahayaan lembut — lebih terang, sedikit lebih kontras, nada hangat — sebelum penyesuaian suasana. */
+const CERAH = '<feComponentTransfer><feFuncR type="linear" slope="1.14" intercept="0.045"/><feFuncG type="linear" slope="1.12" intercept="0.04"/><feFuncB type="linear" slope="1.08" intercept="0.03"/></feComponentTransfer><feComponentTransfer><feFuncR type="gamma" exponent="0.92"/><feFuncG type="gamma" exponent="0.93"/><feFuncB type="gamma" exponent="0.95"/></feComponentTransfer>';
 function head(key: HeadKey, faceX: number, y: number, h: number, tone: Tone, small = false): Placed {
   const H = HEADS[key]; const w = h * H.ar; const x = faceX - H.cx * w;
-  const fid = `tone-${key}-${tone}`;
-  const filter = tone === 'none' ? '' : `<filter id="${fid}" color-interpolation-filters="sRGB">${TONE_FILTER[tone]}</filter>`;
-  const img = `${filter ? `<defs>${filter}</defs>` : ''}<image href="/assets/pemandu/${H.src}${small ? '-s' : ''}.webp" x="${r1(x)}" y="${r1(y)}" width="${r1(w)}" height="${r1(h)}" preserveAspectRatio="xMidYMid meet"${filter ? ` filter="url(#${fid})"` : ''}/>`;
+  const fid = `wajah-${key}-${tone}${small ? '-s' : ''}`;
+  const filter = `<filter id="${fid}" color-interpolation-filters="sRGB">${CERAH}${TONE_FILTER[tone]}</filter>`;
+  const img = `<defs>${filter}</defs><image href="/assets/pemandu/${H.src}${small ? '-s' : ''}.webp" x="${r1(x)}" y="${r1(y)}" width="${r1(w)}" height="${r1(h)}" preserveAspectRatio="xMidYMid meet" filter="url(#${fid})"/>`;
   return { img, x, y, w, h, chinY: y + H.chin * h, faceX, bottom: y + h };
 }
 

@@ -353,3 +353,69 @@
 .urut-ulang{margin-top:.6rem;padding:.45rem .9rem;border-radius:999px;border:2px solid #b08a1e;background:linear-gradient(140deg,#fff6d0,#f3d27a);color:#3a2a00;font:inherit;font-weight:800;font-size:.85em;cursor:pointer}
 .akt-urut.selesai{border-color:#178a5a;box-shadow:0 0 0 4px rgba(23,138,90,.18)}
 @media (prefers-reduced-motion:reduce){.urut-butir{animation:none}.urut-kotak{transition:none}}
+
+
+/* ── Pelajaran madrasah: peta mata pelajaran per kelas ── */
+.pel-jenjang{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:2rem}
+.pel-jenjang a{display:flex;flex-direction:column;align-items:center;padding:1rem;border-radius:22px;border:1px solid var(--garis);background:linear-gradient(160deg,var(--permukaan),var(--gading));text-decoration:none;color:var(--tinta);box-shadow:var(--bayang);transition:transform .3s,border-color .3s}
+.pel-jenjang a:hover{transform:translateY(-3px);border-color:var(--e500)}
+.pel-jenjang a[aria-current="page"]{background:radial-gradient(120% 140% at 50% 0%,#178a5a,#04281b 75%);color:#fff9e3;border-color:var(--e400)}
+.pel-jenjang b{font-family:var(--f-judul);font-size:1.7rem;line-height:1}
+.pel-jenjang span{font-size:.8rem;opacity:.85;text-align:center}
+.pel-kelas{margin-bottom:2.4rem}
+.pel-kelas header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.pel-kelas header h2{margin:0}
+.pel-kelas header p{margin:0;font-size:.88rem;color:var(--redup)}
+.pel-kelas-angka{display:grid;place-items:center;flex:none;width:3.4rem;height:3.4rem;border-radius:18px;background:var(--emas-grad);color:#241a00;font:700 1.5rem var(--f-judul);box-shadow:0 10px 24px -12px rgba(176,138,30,.9)}
+.pel-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem}
+.pel-mapel{position:relative;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:.7rem;padding:1rem 1.1rem;border-radius:20px;border:1px solid var(--garis);background:var(--permukaan);text-decoration:none;color:var(--tinta);box-shadow:var(--bayang);overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.pel-mapel::after{content:"";position:absolute;inset:auto -30% -60% auto;width:9rem;height:9rem;border-radius:50%;background:radial-gradient(circle,rgba(220,191,98,.22),transparent 70%);transition:transform .5s}
+.pel-mapel:hover{transform:translateY(-4px);border-color:var(--e500);box-shadow:var(--bayang-besar)}
+.pel-mapel:hover::after{transform:scale(1.4)}
+.pel-ikon{grid-row:1/4;display:grid;place-items:center;width:2.8rem;height:2.8rem;border-radius:14px;background:linear-gradient(150deg,var(--z600),var(--z900));color:#fff9e3;font-size:1.3rem}
+.pel-mapel strong{font-family:var(--f-judul);font-size:1.02rem;line-height:1.25}
+.pel-mapel small{font-size:.8rem;color:var(--redup);line-height:1.4}
+.pel-mapel em{font-style:normal;font-size:.76rem;font-weight:700;color:var(--z600);margin-top:.3rem}
+[data-tema="malam"] .pel-mapel em{color:var(--e300)}
+.pel-dukung em{color:var(--e700)}
+.pel-taut{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.pel-lain{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;margin-top:1.8rem}
+.pel-lain h2{flex-basis:100%;margin:0 0 .3rem}
+.pel-lain a{display:inline-flex;gap:.35rem;align-items:center;padding:.4rem .8rem;border-radius:999px;border:1px solid var(--garis);background:var(--permukaan);text-decoration:none;color:var(--tinta);font-size:.86rem}
+.pel-lain a:hover{border-color:var(--e500)}
+@media (max-width:560px){.pel-jenjang{grid-template-columns:repeat(3,1fr);gap:.4rem}.pel-jenjang b{font-size:1.3rem}.pel-jenjang span{font-size:.68rem}}
+@media (prefers-reduced-motion:reduce){.pel-mapel,.pel-mapel:hover,.pel-jenjang a:hover{transition:none;transform:none}}
+
+/* petunjuk pasang suara Indonesia (muncul sekali bila perangkat belum punya suara id-ID) */
+.baca-petunjuk-suara { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 60; width: min(560px, calc(100vw - 32px));
+  background: var(--kertas, #fffdf7); color: var(--tinta, #1d2a24); border: 1px solid color-mix(in srgb, var(--emas, #c9a24a) 55%, transparent);
+  border-radius: 16px; padding: 14px 44px 14px 16px; box-shadow: 0 18px 50px -18px rgba(10, 40, 30, .45); font-size: .93rem; line-height: 1.55;
+  animation: petunjuk-masuk .45s cubic-bezier(.2, .8, .2, 1) both; }
+.baca-petunjuk-suara strong { display: block; color: var(--zamrud, #0f5a44); margin-bottom: 2px; }
+.baca-petunjuk-tutup { position: absolute; top: 8px; right: 10px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: transparent; color: inherit; font-size: 1.3rem; cursor: pointer; }
+.baca-petunjuk-tutup:hover, .baca-petunjuk-tutup:focus-visible { background: color-mix(in srgb, var(--emas, #c9a24a) 18%, transparent); }
+@keyframes petunjuk-masuk { from { opacity: 0; transform: translate(-50%, 14px); } }
+@media (prefers-reduced-motion: reduce) { .baca-petunjuk-suara { animation: none; } }
+
+/* peta pelajaran sisipan (halaman lembaga RA/MI/MTs & rak perpustakaan): kelas buka-tutup → mata pelajaran */
+.pel-sisip-bungkus{margin:0 0 2.2rem;padding:clamp(1.1rem,3vw,1.8rem);border-radius:28px;border:1px solid var(--garis);background:linear-gradient(165deg,var(--permukaan),var(--gading));box-shadow:var(--bayang)}
+.pel-sisip-kepala{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.2rem}
+.pel-sisip-kepala h2{margin:.15rem 0 .35rem;font-size:clamp(1.35rem,3.4vw,1.9rem)}
+.pel-sisip-kepala p{margin:0;max-width:62ch;color:var(--redup);font-size:.95rem}
+.pel-sisip-kepala .eyebrow{color:var(--e500);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700}
+.pel-sisip{display:grid;gap:.7rem}
+.pel-lipat{border:1px solid var(--garis);border-radius:20px;background:var(--permukaan);overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.pel-lipat[open]{border-color:var(--e500);box-shadow:var(--bayang)}
+.pel-lipat summary{display:flex;align-items:center;gap:.9rem;padding:.75rem 1rem;cursor:pointer;list-style:none;min-height:56px}
+.pel-lipat summary::-webkit-details-marker{display:none}
+.pel-lipat summary:focus-visible{outline:3px solid var(--e400);outline-offset:-3px}
+.pel-lipat .pel-kelas-angka{width:2.7rem;height:2.7rem;font-size:1.15rem;border-radius:14px}
+.pel-lipat-teks{display:flex;flex-direction:column;flex:1;min-width:0}
+.pel-lipat-teks strong{font-family:var(--f-judul);font-size:1.08rem}
+.pel-lipat-teks small{color:var(--redup);font-size:.82rem}
+.pel-lipat-panah{font-size:1.3rem;color:var(--e500);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pel-lipat[open] .pel-lipat-panah{transform:rotate(180deg)}
+.pel-lipat .pel-kisi{padding:.2rem 1rem 1.1rem;animation:pel-buka .4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pel-buka{from{opacity:0;transform:translateY(-6px)}}
+@media (max-width:560px){.pel-lipat .pel-kisi{grid-template-columns:1fr;padding:.2rem .7rem .9rem}.pel-sisip-kepala .tbl{width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){.pel-lipat .pel-kisi{animation:none}.pel-lipat-panah{transition:none}}

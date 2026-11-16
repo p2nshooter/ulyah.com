@@ -161,7 +161,12 @@ export const jaga = async (c: Ctx, next: () => Promise<void>) => {
   if (!user) return c.redirect('/masuk');
   if (c.req.method !== 'GET' && c.req.method !== 'HEAD' && !asalSama(c)) return c.text('Asal permintaan tidak sah.', 403);
   c.set('user', user);
-  if (user.wajibGanti && c.req.path !== '/portal/akun') return c.redirect('/portal/akun');
+  if (user.wajibGanti && c.req.path !== '/portal/akun') {
+    // Permintaan data (fetch JSON) tidak boleh dialihkan ke halaman PIN: halaman itu memasang kuki papan angka baru,
+    // sehingga papan yang sedang tampil menjadi tidak cocok dan PIN yang disimpan salah (temuan e2e, 16 Nov 2026).
+    if ((c.req.header('accept') ?? '').includes('application/json') || c.req.header('x-requested-with')) return c.json({ error: 'ganti-pin' }, 403, tanpaCache);
+    return c.redirect('/portal/akun');
+  }
   await next();
 };
 portal.use('/portal', jaga);
@@ -523,7 +528,7 @@ portal.post('/portal/pustaka', async (c) => {
   if (tingkat(u) < PERAN.yayasan.tingkat) return tolak(c);
   const store = c.get('store');
   const f = (await c.req.parseBody({ all: true })) as Record<string, unknown>;
-  const daftarId = (v: unknown) => (Array.isArray(v) ? v : v === undefined ? [] : [v]).map(String).filter((x) => /^[kp]-[A-Za-z0-9_-]{1,80}$/.test(x));
+  const daftarId = (v: unknown) => (Array.isArray(v) ? v : v === undefined ? [] : [v]).map(String).filter((x) => /^[kps]-[A-Za-z0-9_-]{1,80}$/.test(x));
   const ada = new Set((await katalogBawaan(c.env)).map((b) => b.id));
   const sembunyi = [...new Set(daftarId(f.sembunyi).filter((x) => ada.has(x)))];
   const unggulan = [...new Set(daftarId(f.unggulan))].slice(0, 200);

@@ -214,9 +214,13 @@
   });
 })();
 
-/* ── saring baris tabel (rak perpustakaan, daftar panjang) ── */
+/* ── saring baris tabel (rak perpustakaan, daftar panjang) + fitur kesiswaan, pesan, grafik ── */
 (function () {
   'use strict';
+  var d = document;
+  var $ = function (s, c) { return (c || d).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
+  var kirimBerkas = function (f, j, u) { return window.YapidaUnggah.kirimBerkas(f, j, u); };
   Array.prototype.slice.call(document.querySelectorAll('input[data-saring-baris]')).forEach(function (inp) {
     var tabel = document.querySelector(inp.getAttribute('data-saring-baris'));
     if (!tabel) return;
@@ -322,7 +326,8 @@
   /* ── notifikasi pesan: lencana menu, judul tab, dan notifikasi perangkat bila diizinkan ── */
   (function () {
     var lencana = $('[data-lencana-pesan]');
-    if (!lencana || !window.fetch) return;
+    /* Tidak memeriksa pesan di halaman papan PIN (masuk / ganti PIN): jawaban server bisa merender ulang papan dan mengganti kuki tantangannya. */
+    if (!lencana || !window.fetch || d.querySelector('[data-pinpad]')) return;
     var judulAsli = d.title, terakhir = -1, izin = $('[data-notif-izin]'), ket = $('[data-notif-ket]');
     var bisaNotif = 'Notification' in window;
     if (izin && bisaNotif && Notification.permission === 'default') { izin.hidden = false; izin.addEventListener('click', function () { Notification.requestPermission().then(function (p) { izin.hidden = p !== 'default'; if (ket) ket.textContent = p === 'granted' ? 'Notifikasi aktif di perangkat ini.' : 'Notifikasi tidak diizinkan.'; }); }); }

@@ -197,6 +197,10 @@ test('portal & admin terlindungi', async () => {
   assert.equal((await req(e, '/admin/masuk', { method: 'POST', body: form({ email: 'a@contoh.id', password: 'rahasia123' }) })).status, 403);
 });
 
+/* Bentuk kredensial REST PayPal: ±80 karakter; Client ID diawali A, Secret diawali E (nilai uji, bukan kredensial nyata). */
+const SB_CLIENT = 'A' + 'b7Qx'.repeat(19) + 'Z1_';
+const SB_SECRET = 'E' + 'k3Ws'.repeat(19) + 'Q9-';
+
 test('PayPal: kredensial disegel, order → capture → lunas + langganan aktif; webhook palsu ditolak; nominal salah tidak melunasi', async () => {
   const e = env({ MASTER_KEY: 'master-key-for-tests-0123456789abcdef' });
   const calls: string[] = [];
@@ -223,12 +227,12 @@ test('PayPal: kredensial disegel, order → capture → lunas + langganan aktif;
     let r = await req(e, '/admin/masuk', { method: 'POST', body: form({ email: 'owner@luaja.test', password: 'owner-pass-123' }) });
     const owner = cookieOf(r);
     let h = await (await req(e, '/admin/paypal', { cookie: owner })).text();
-    r = await req(e, '/admin/paypal', { method: 'POST', cookie: owner, body: form({ _csrf: csrfIn(h), enabled: 'on', mode: 'sandbox', sandbox_client: 'SB-CLIENT', sandbox_secret: 'SB-SECRET-VALUE', sandbox_webhook: 'WH-1', live_client: '', live_secret: '', live_webhook: '' }) });
+    r = await req(e, '/admin/paypal', { method: 'POST', cookie: owner, body: form({ _csrf: csrfIn(h), enabled: 'on', mode: 'sandbox', sandbox_client: SB_CLIENT, sandbox_secret: SB_SECRET, sandbox_webhook: 'WH-1', live_client: '', live_secret: '', live_webhook: '' }) });
     assert.match(r.headers.get('location') ?? '', /ok=/);
     const stored = [...(e.DATA as unknown as FakeR2).m.entries()].find(([k]) => k === 'k/paypal.json')![1].v;
-    assert.ok(!stored.includes('SB-SECRET-VALUE'), 'secret tersimpan terenkripsi, bukan teks biasa');
+    assert.ok(!stored.includes(SB_SECRET), 'secret tersimpan terenkripsi, bukan teks biasa');
     h = await (await req(e, '/admin/paypal', { cookie: owner })).text();
-    assert.ok(!h.includes('SB-SECRET-VALUE'), 'secret tidak pernah ditampilkan ulang');
+    assert.ok(!h.includes(SB_SECRET), 'secret tidak pernah ditampilkan ulang');
     // member membuat tagihan USD
     r = await req(e, '/daftar', { method: 'POST', body: form({ name: 'Buyer', email: 'buyer@contoh.id', password: 'rahasia123', setuju: 'on' }) });
     const member = cookieOf(r);
@@ -727,4 +731,15 @@ test('simulasi penuh: halaman & API — kunci tidak terkirim, simulasi 1 gratis,
   assert.equal((await req(e, '/api/simulasi/jlpt-n5-s2/nilai', { method: 'POST', headers: { 'content-type': 'application/json', origin: 'https://luaja.com' }, body: '{}' })).status, 403);
   const sm = await (await req(e, '/sitemap.xml')).text();
   assert.ok(sm.includes('/simulasi/jlpt-n5'));
+});
+
+test('pustaka: tidak ada tautan media ke alamat sumber yang sudah mati', () => {
+  const dir = new URL('../public/p/b/', import.meta.url);
+  let media = 0;
+  for (const f of fs.readdirSync(dir)) {
+    const t = fs.readFileSync(new URL(f, dir), 'utf8');
+    assert.ok(!t.includes('coerll.utexas.edu/dib/mp4s/'), `${f}: video Deutsch im Blick memakai alamat lama (404)`);
+    media += (t.match(/"src":"https:\/\/[^"]+\.(mp3|mp4)"/g) ?? []).length;
+  }
+  assert.ok(media > 1000, `media ${media}`);
 });

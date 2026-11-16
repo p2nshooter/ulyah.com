@@ -139,7 +139,7 @@ export const PENDAFTAR: Koleksi = {
 };
 
 export const PESAN: Koleksi = {
-  id: 'pesan', nama: 'Pesan masuk', satu: 'pesan', labelJudul: 'Nama pengirim', urut: 'baru', privat: true, tingkat: PERAN.lembaga.tingkat, ringkasDari: 'isi',
+  id: 'pesan', nama: 'Pesan pengunjung', satu: 'pesan', labelJudul: 'Nama pengirim', urut: 'baru', privat: true, tingkat: PERAN.lembaga.tingkat, ringkasDari: 'isi',
   bidang: [
     { k: 'kontak', label: 'Kontak pengirim', jenis: 'teks', maks: 120, wajib: true, indeks: true },
     { k: 'isi', label: 'Isi pesan', jenis: 'paragraf', maks: 3000, wajib: true },
