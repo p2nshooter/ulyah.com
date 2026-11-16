@@ -144,11 +144,13 @@ jobs:
           node scripts/robots-check.mjs "$URL/robots.txt" || { echo "::error::robots.txt menutup crawler Google"; exit 1; }
           $C "$URL/sitemap.xml" | grep -q '<urlset' || { echo "::error::sitemap.xml tidak ada"; exit 1; }
           $C "$URL/manifest.webmanifest" | grep -q '"standalone"' || { echo "::error::manifest PWA tidak ada"; exit 1; }
-          for p in /jerman /inggris /jepang /harga /coba /latihan /belajar/de-a1-m01-l01 /masuk /daftar /privasi /syarat /sw.js /assets/app.css /assets/app.js /favicon.svg; do
+          for p in /jerman /inggris /jepang /jerman/c2 /harga /coba /latihan /pustaka /pustaka/de-gg-a1 /baca/de-gg-a1 /manifest.webmanifest /belajar/de-a1-m01-l01 /masuk /daftar /privasi /syarat /sw.js /assets/app.css /assets/app.js /assets/pustaka.js /favicon.svg; do
             $C -o /dev/null "$URL$p" || { echo "::error::$p gagal"; exit 1; }
           done
           # Kunci jawaban tidak pernah ikut terkirim ke peramban sebelum peserta selesai.
           if $C "$URL/belajar/de-a1-m01-l01" | grep -q '"answer"'; then echo "::error::kunci jawaban bocor ke halaman pelajaran"; exit 1; fi
+          # Isi buku pustaka hanya pratinjau untuk tamu (seluruh halaman khusus member).
+          $C "$URL/p/b/de-gg-a1.json" | grep -q '"locked":true' || { echo "::error::isi buku tidak terkunci untuk tamu"; exit 1; }
           {
             echo "## luaja.com online"
             echo ""
