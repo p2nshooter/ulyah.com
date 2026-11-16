@@ -21,7 +21,9 @@
   var WIKI = { de: 'German', en: 'English', ja: 'Japanese' };
   var locOf = function (l) { return LOC[l] || B.locale; };
   var stopSpeech = function () { try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) { /* tanpa suara */ } };
-  var say = function (text, l, onEnd) { if (window.ljSay) window.ljSay(text, locOf(l), rate, onEnd); else if (onEnd) onEnd(); };
+  var RUBY = /｜([^《｜]+)《([^》]+)》/g;
+  var plain = function (t) { return String(t).replace(RUBY, '$1'); };
+  var say = function (text, l, onEnd) { text = plain(text); if (window.ljSay) window.ljSay(text, locOf(l), rate, onEnd); else if (onEnd) onEnd(); };
 
   var pageEl = $('[data-page]'), label = $('[data-pg-label]'), bar = $('[data-progress]'), gotoIn = $('[data-goto]'), xpEl = $('[data-xp]');
   var doc = null, total = B.pages, cur = Math.max(0, Math.min(B.pages - 1, B.start || 0));
@@ -60,7 +62,12 @@
 
   /** Teks bahasa sasaran → kata yang bisa diketuk (Jepang: per kalimat). */
   function words(text, l) {
-    if (l === 'ja') return [h('span', { class: 'w', lang: 'ja', 'data-w': text }, text)];
+    if (l === 'ja') {
+      var parts = [], last = 0, m; RUBY.lastIndex = 0;
+      while ((m = RUBY.exec(text))) { if (m.index > last) parts.push(text.slice(last, m.index)); parts.push(h('ruby', null, m[1], h('rt', null, m[2]))); last = m.index + m[0].length; }
+      if (last < text.length) parts.push(text.slice(last));
+      return [h('span', { class: 'w', lang: 'ja', 'data-w': plain(text) }, parts)];
+    }
     var out = [];
     text.split(/(\s+)/).forEach(function (part) {
       if (!part) return;
@@ -157,9 +164,9 @@
       case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-say': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) add(ex, h('span', { class: 'tr' }, b.g)); return ex; }
       case 'voc': {
         var list = h('ul', { class: 'voc-list' });
-        b.i.forEach(function (it) { var li = h('li', { 'data-l': B.lang, 'data-say': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang)), h('span', { class: 'tr' }, it[1])); add(list, li); });
+        b.i.forEach(function (it) { var li = h('li', { 'data-l': B.lang, 'data-say': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, it[1])); add(list, li); });
         var fc = h('button', { type: 'button', class: 'btn btn-gold btn-sm' }, '🃏 ' + T('js.lib.cards') + ' (' + b.i.length + ')');
-        fc.addEventListener('click', function () { cards(b.i.slice(), B.lang); });
+        fc.addEventListener('click', function () { cards(b.i.map(function (x) { return [x[0], x[2] ? x[2] + ' — ' + x[1] : x[1]]; }), B.lang); });
         return h('section', { class: 'voc' }, h('div', { class: 'voc-head' }, b.a ? h('div', { class: 'native' }, h('small', null, '🎧 ' + T('js.lib.native')), h('audio', { controls: true, preload: 'none', src: b.a })) : null, fc), list);
       }
       case 'tbl': {
@@ -173,6 +180,13 @@
         var c = h('div', { class: 'sen', 'data-l': B.lang, 'data-say': b.t }, speakBtn(b.t, B.lang), h('div', null, h('p', { class: 'tgt' }, words(b.t, B.lang)), h('p', { class: 'tr', lang: 'id' }, b.id)));
         if (b.n) add(c, h('a', { class: 'src', href: 'https://tatoeba.org/sentences/show/' + b.n, target: '_blank', rel: 'noopener' }, '#' + b.n));
         return c;
+      }
+      case 'kj': {
+        var exl = h('ul', { class: 'kj-ex' });
+        (b.ex || []).forEach(function (x) { add(exl, h('li', { 'data-l': 'ja', 'data-say': x[0] }, speakBtn(x[0], 'ja'), h('b', { lang: 'ja' }, x[0]), x[1] ? h('small', { lang: 'ja' }, x[1]) : null, h('span', { class: 'tr' }, x[2]))); });
+        var big = h('button', { type: 'button', class: 'kj-char', lang: 'ja', 'aria-label': T('js.lib.listen') }, b.c);
+        big.addEventListener('click', function () { say((b.kun || b.on || b.c).split('、')[0].replace(/[.-]/g, ''), 'ja'); });
+        return h('div', { class: 'kj' }, big, h('div', { class: 'kj-info' }, h('p', { class: 'kj-m tr' }, b.m), b.on ? h('p', null, h('span', { class: 'kj-tag' }, 'ON'), ' ', h('span', { lang: 'ja' }, b.on)) : null, b.kun ? h('p', null, h('span', { class: 'kj-tag kun' }, 'KUN'), ' ', h('span', { lang: 'ja' }, b.kun)) : null, b.s ? h('p', { class: 'small muted' }, '✍️ ' + b.s) : null, exl));
       }
       case 'gap': return gapBlock(b);
       case 'mc': return mcBlock(b);

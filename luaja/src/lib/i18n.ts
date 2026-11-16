@@ -602,6 +602,9 @@ const D = {
   'js.payIncomplete': ['Pembayaran belum selesai', 'Payment not completed', '支払いが完了していません'],
   /* pustaka & pembaca */
   'menu.library': ['Pustaka', 'Library', 'ライブラリ'],
+  'level.hub.books': ['Buku jenjang {level}', '{level} books', '{level}の本'],
+  'level.hub.media': ['Audio & video {level}', '{level} audio & video', '{level}の音声・動画'],
+  'level.hub.all': ['Lihat semua {n} buku {level}', 'See all {n} {level} books', '{level}の本をすべて見る（{n}冊）'],
   'credit.library': ['Pustaka: sumber berlisensi terbuka', 'Library: openly licensed sources', 'ライブラリ：オープンライセンスの出典'],
   'credit.libraryText': ['Buku di Pustaka disusun ulang dari sumber berikut sesuai lisensinya. Rekaman suara di buku-buku tersebut adalah rekaman penutur asli dari sumbernya; selebihnya dibacakan mesin suara perangkat Anda.', 'Library books are rebuilt from the following sources under their licences. Voice recordings in those books are native-speaker recordings from the source; everything else is read by your device’s speech engine.', 'ライブラリの本は、以下の出典をそれぞれのライセンスに従って再構成したものです。本に含まれる音声は出典のネイティブ録音で、それ以外は端末の音声エンジンが読み上げます。'],
   'lib.eyebrow': ['Pustaka interaktif', 'Interactive library', 'インタラクティブ・ライブラリ'],

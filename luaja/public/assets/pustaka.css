@@ -155,5 +155,19 @@
 .fc-x{position:absolute;right:14px;top:14px}
 .fc-card{display:grid;place-items:center;width:100%;min-height:200px;margin:12px 0 16px;border-radius:20px;border:0;font:inherit;font-size:var(--fs-5);font-weight:700;color:var(--brand);background:linear-gradient(135deg,var(--tint),var(--tint-2));cursor:pointer;box-shadow:var(--sh-2);transition:transform .4s var(--ease-out)}
 .fc-card.flip{transform:rotateX(360deg);color:var(--ink-2);font-size:var(--fs-4)}
+.voc-list .rd{display:block;font-size:.8rem;color:var(--brand-2);font-weight:600}
+ruby rt{font-size:.55em;color:var(--brand-2);font-weight:500}
+.rd-page [lang="ja"]{font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",var(--f-text);line-height:2}
+.kj{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:14px;border:1px solid var(--line);border-radius:18px;margin:0 0 12px;background:linear-gradient(135deg,var(--card),var(--tint-2))}
+.kj-char{font-size:64px;line-height:1;width:96px;height:96px;display:grid;place-items:center;border-radius:20px;border:2px solid var(--line);background:var(--card);color:var(--brand);cursor:pointer;box-shadow:var(--sh-1);transition:transform var(--t) var(--spring)}
+.kj-char:hover{transform:scale(1.06) rotate(-2deg)}
+.kj-info p{margin:0 0 4px}
+.kj-m{font-weight:800;color:var(--ink);font-size:var(--fs-2)}
+.kj-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.06em;padding:.1em .5em;border-radius:6px;background:var(--brand-2);color:#fff}
+.kj-tag.kun{background:var(--accent);color:var(--accent-ink)}
+.kj-ex{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.kj-ex li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.kj-ex b{color:var(--brand)}
+@media (max-width:520px){.kj{grid-template-columns:1fr}.kj-char{width:80px;height:80px;font-size:52px}}
 @media (prefers-reduced-motion:reduce){.rd-page.turn-r,.rd-page.turn-l,.book-cover-wrap .bk-cover,.rd-xp.pulse,.mc-opt.bad,.rd-pop{animation:none}.fc-card.flip{transform:none}}
 @media print{.rd-bar,.rd-nav,.say{display:none!important}}

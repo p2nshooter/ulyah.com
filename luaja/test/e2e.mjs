@@ -189,6 +189,10 @@ try {
       if (r.status() !== 200) fail(`${path} → ${r.status()}`);
     }
     if (!(await p.locator('.toc li').count())) fail('daftar isi buku kosong');
+    for (const lv of ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']) {
+      await p.goto(BASE + `/jerman/${lv}`);
+      if (!(await p.locator('.level-hub .bk-card').count())) fail(`jenjang Jerman ${lv} tanpa buku`);
+    }
     await p.screenshot({ path: `${OUT}/pustaka-buku.png` });
     await p.goto(BASE + '/baca/en-tatoeba-1-1');
     await p.waitForSelector('.rd-page .sen');
@@ -217,6 +221,10 @@ try {
     if (!(await a.p.locator('.rd-score').textContent()).match(/1/)) fail('skor latihan halaman tidak bertambah');
     await a.p.click('[data-next]');
     await a.p.waitForFunction((n) => new URL(location.href).searchParams.get('h') === String(n + 2), exPage);
+    await a.p.goto(BASE + '/baca/ja-kanji-n5');
+    await a.p.waitForSelector('.kj .kj-char');
+    await a.p.goto(BASE + '/baca/ja-aozora-628');
+    await a.p.waitForSelector('.rd-page ruby rt');
     await a.p.goto(BASE + '/baca/de-dib-wortschatz-a1');
     await a.p.waitForSelector('.voc-list li');
     await a.p.click('.voc-head .btn');

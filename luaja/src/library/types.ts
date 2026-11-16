@@ -37,7 +37,10 @@ export type Block =
   | { k: 'p'; t: string; l?: string }
   | { k: 'tip'; t: string; l?: string }
   | { k: 'ex'; t: string; g?: string }
-  | { k: 'voc'; a?: string | null; i: [string, string][] }
+  /** Kosakata: [kata, arti, bacaan?]. */
+  | { k: 'voc'; a?: string | null; i: [string, string, string?][] }
+  /** Kartu kanji: huruf, arti, on, kun, jumlah goresan, contoh [kata, bacaan, arti]. */
+  | { k: 'kj'; c: string; m: string; on: string; kun: string; s: number; ex: [string, string, string][] }
   | { k: 'tbl'; r: string[][] }
   | { k: 'aud'; src: string; t: string }
   | { k: 'vid'; src: string; t: string; d?: string }

@@ -370,22 +370,35 @@ def tsv_bz2(url: str):
     return [ln.split('\t') for ln in raw.splitlines() if ln]
 
 
+_PAIRS = {}
+
+
+def tatoeba_pairs(code: str):
+    """(id, kalimat, terjemahan Indonesia) untuk satu bahasa Tatoeba (deu/eng/jpn), unik per kalimat."""
+    if code in _PAIRS:
+        return _PAIRS[code]
+    if 'ind' not in _PAIRS:
+        _PAIRS['ind'] = {r[0]: r[2] for r in tsv_bz2(TAT + 'ind/ind_sentences.tsv.bz2') if len(r) >= 3}
+    ind = _PAIRS['ind']
+    links = tsv_bz2(f'{TAT}{code}/{code}-ind_links.tsv.bz2')
+    want = {a for a, b in links}
+    src = {r[0]: r[2] for r in tsv_bz2(f'{TAT}{code}/{code}_sentences.tsv.bz2') if len(r) >= 3 and r[0] in want}
+    pairs, seen = [], set()
+    for a, b in links:
+        t, tr = src.get(a), ind.get(b)
+        if t and tr and t not in seen:
+            seen.add(t)
+            pairs.append((a, t, tr))
+    _PAIRS[code] = pairs
+    return pairs
+
+
 def build_tatoeba():
     res = []
-    ind = {r[0]: r[2] for r in tsv_bz2(TAT + 'ind/ind_sentences.tsv.bz2') if len(r) >= 3}
     names = {'deu': ('de', 'Jerman'), 'eng': ('en', 'Inggris'), 'jpn': ('ja', 'Jepang')}
     lv_names = {'de': ['a1', 'a2', 'b1', 'b2'], 'en': ['beginner', 'elementary', 'pre-intermediate', 'intermediate'], 'ja': ['n5', 'n4', 'n3', 'n2']}
     for code, (lang, nm) in names.items():
-        links = tsv_bz2(f'{TAT}{code}/{code}-ind_links.tsv.bz2')
-        want = {a for a, b in links}
-        src = {r[0]: r[2] for r in tsv_bz2(f'{TAT}{code}/{code}_sentences.tsv.bz2') if len(r) >= 3 and r[0] in want}
-        pairs, seen = [], set()
-        for a, b in links:
-            t, tr = src.get(a), ind.get(b)
-            if not t or not tr or t in seen:
-                continue
-            seen.add(t)
-            pairs.append((a, t, tr))
+        pairs = list(tatoeba_pairs(code))
         size = (lambda t: len(t)) if lang == 'ja' else (lambda t: len(t.split()))
         # Seruan satu kata („Ah!“, „Go!“) tidak membentuk kalimat untuk dipelajari.
         pairs = [p for p in pairs if (size(p[1]) >= 5 if lang == 'ja' else size(p[1]) >= 2)]
@@ -414,6 +427,360 @@ def build_tatoeba():
     return res
 
 
+# ───────────────────────────── Project Gutenberg (domain publik) ─────────────────────────────
+# Hanya penulis yang wafat ≤ 1955 (domain publik di Indonesia: hidup + 70 tahun, dihitung mulai 1 Januari berikutnya).
+PG_PD = 'https://creativecommons.org/publicdomain/mark/1.0/'
+GUTENBERG = [
+    # (id, bahasa, jenjang, judul tampilan, penulis, tahun wafat)
+    (17161, 'de', 'a1', 'Max und Moritz', 'Wilhelm Busch', 1908),
+    (35794, 'de', 'a1', 'Märchen und Erzählungen für Anfänger I', 'H. A. Guerber', 1929),
+    (45189, 'de', 'a2', 'Märchen und Erzählungen für Anfänger II', 'H. A. Guerber', 1929),
+    (8392, 'de', 'a2', 'Hin und Her: Ein Buch für die Kinder', 'Henry H. Fick', 1935),
+    (9860, 'de', 'a2', 'Moni der Geißbub', 'Johanna Spyri', 1901),
+    (6651, 'de', 'b1', 'Immensee', 'Theodor Storm', 1888),
+    (7858, 'de', 'b1', "L'Arrabbiata", 'Paul Heyse', 1914),
+    (21917, 'de', 'b1', 'Eingeschneit: Eine Studentengeschichte', 'Emil Frommel', 1896),
+    (49503, 'de', 'b1', 'Ährenlese: A German Reader with Practical Exercises', 'H. C. Bierwirth', 1940),
+    (7500, 'de', 'b1', 'Heidis Lehr- und Wanderjahre', 'Johanna Spyri', 1901),
+    (22367, 'de', 'b2', 'Die Verwandlung', 'Franz Kafka', 1924),
+    (21593, 'de', 'b2', 'Das Urteil', 'Franz Kafka', 1924),
+    (35312, 'de', 'b2', 'Aus dem Leben eines Taugenichts', 'Joseph von Eichendorff', 1857),
+    (6638, 'de', 'b2', 'Märchen-Almanach auf das Jahr 1826', 'Wilhelm Hauff', 1827),
+    (77905, 'de', 'b2', 'Deutsche Märchen (Brüder Grimm)', 'Jacob & Wilhelm Grimm', 1863),
+    (5323, 'de', 'c1', 'Effi Briest', 'Theodor Fontane', 1898),
+    (12108, 'de', 'c1', 'Der Tod in Venedig', 'Thomas Mann', 1955),
+    (23313, 'de', 'c1', 'Tonio Kröger', 'Thomas Mann', 1955),
+    (24249, 'de', 'c1', 'Die Harzreise', 'Heinrich Heine', 1856),
+    (22627, 'de', 'c1', 'German Science Reader', 'Charles F. Kroeh', 1928),
+    (2229, 'de', 'c2', 'Faust: Der Tragödie erster Teil', 'Johann Wolfgang von Goethe', 1832),
+    (6498, 'de', 'c2', 'Kabale und Liebe', 'Friedrich Schiller', 1805),
+    (69894, 'de', 'c2', 'Allerhand Sprachdummheiten', 'Gustav Wustmann', 1910),
+    (13810, 'de', 'c2', 'Tristan', 'Thomas Mann', 1955),
+    (14642, 'en', 'beginner', "McGuffey's Eclectic Primer", 'William H. McGuffey', 1873),
+    (14640, 'en', 'beginner', "McGuffey's First Eclectic Reader", 'William H. McGuffey', 1873),
+    (14304, 'en', 'beginner', 'The Tale of Peter Rabbit', 'Beatrix Potter', 1943),
+    (68453, 'en', 'beginner', 'The Summers Readers: Primer', 'Maud Summers', 1940),
+    (14668, 'en', 'elementary', "McGuffey's Second Eclectic Reader", 'William H. McGuffey', 1873),
+    (19994, 'en', 'elementary', 'The Aesop for Children', 'Aesop / Milo Winter', 1956 - 1),
+    (14407, 'en', 'elementary', 'The Tale of Benjamin Bunny', 'Beatrix Potter', 1943),
+    (14766, 'en', 'pre-intermediate', "McGuffey's Third Eclectic Reader", 'William H. McGuffey', 1873),
+    (55, 'en', 'pre-intermediate', 'The Wonderful Wizard of Oz', 'L. Frank Baum', 1919),
+    (7010, 'en', 'pre-intermediate', 'Graded Lessons in English', 'Alonzo Reed & Brainerd Kellogg', 1920),
+    (14880, 'en', 'intermediate', "McGuffey's Fourth Eclectic Reader", 'William H. McGuffey', 1873),
+    (11, 'en', 'intermediate', "Alice's Adventures in Wonderland", 'Lewis Carroll', 1898),
+    (236, 'en', 'intermediate', 'The Jungle Book', 'Rudyard Kipling', 1936),
+    (7188, 'en', 'intermediate', 'Higher Lessons in English', 'Alonzo Reed & Brainerd Kellogg', 1920),
+    (15040, 'en', 'upper-intermediate', "McGuffey's Fifth Eclectic Reader", 'William H. McGuffey', 1873),
+    (1661, 'en', 'upper-intermediate', 'The Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 1930),
+    (215, 'en', 'upper-intermediate', 'The Call of the Wild', 'Jack London', 1916),
+    (45814, 'en', 'upper-intermediate', 'An Advanced English Grammar with Exercises', 'G. L. Kittredge & F. E. Farley', 1941),
+    (16751, 'en', 'advanced', "McGuffey's Sixth Eclectic Reader", 'William H. McGuffey', 1873),
+    (120, 'en', 'advanced', 'Treasure Island', 'Robert Louis Stevenson', 1894),
+    (43, 'en', 'advanced', 'The Strange Case of Dr Jekyll and Mr Hyde', 'Robert Louis Stevenson', 1894),
+    (46, 'en', 'advanced', 'A Christmas Carol', 'Charles Dickens', 1870),
+    (1342, 'en', 'proficiency', 'Pride and Prejudice', 'Jane Austen', 1817),
+    (174, 'en', 'proficiency', 'The Picture of Dorian Gray', 'Oscar Wilde', 1900),
+    (844, 'en', 'proficiency', 'The Importance of Being Earnest', 'Oscar Wilde', 1900),
+]
+CHAP = re.compile(r'^(CHAPTER|Chapter|KAPITEL|Kapitel|LESSON|Lesson|STORY|Erstes|Zweites|Drittes|Viertes|Fünftes|Sechstes|Siebentes|Achtes|Neuntes|Zehntes|ACT|Act|Scene|SCENE|Szene|[IVXLC]+\.?\s|[0-9]{1,3}\.\s+[A-ZÄÖÜ])')
+
+
+def gutenberg_text(n: int) -> str:
+    raw = fetch(f'https://www.gutenberg.org/cache/epub/{n}/pg{n}.txt')
+    raw = raw.replace('\r\n', '\n')
+    a = re.search(r'\*\*\* ?START OF (THE|THIS) PROJECT GUTENBERG[^\n]*\n', raw)
+    b = re.search(r'\*\*\* ?END OF (THE|THIS) PROJECT GUTENBERG', raw)
+    return raw[a.end() if a else 0:b.start() if b else len(raw)]
+
+
+def build_gutenberg():
+    res = []
+    for n, lang, lv, title, author, died in GUTENBERG:
+        if died > 1955:
+            continue
+        body = gutenberg_text(n)
+        paras = [re.sub(r'\s+', ' ', x).strip() for x in re.split(r'\n\s*\n', body)]
+        paras = [re.sub(r'_([^_]+)_', r'\1', x) for x in paras if x and not re.match(r'^\[(Illustration|Ilustration|Abbildung)[^\]]*\]?$', x)]
+        paras = [x for x in paras if not re.match(r'^(Produced by|E-text prepared|Transcriber|This e-?book|Updated editions|Note:)', x, re.I)]
+        if len(paras) < 5:
+            continue
+        bk = Book(f'{lang}-pg-{n}', lang, lv, 'bacaan', title, f'{author} · bacaan domain publik', author,
+                  'Project Gutenberg', f'https://www.gutenberg.org/ebooks/{n}', 'Public domain', PG_PD,
+                  f'„{title}“ karya {author} — teks domain publik dari Project Gutenberg, dibaca per halaman: dengarkan setiap '
+                  'paragraf, ketuk kata untuk mendengar dan menyimpannya, lalu lanjutkan ke bab berikutnya.')
+        cur, w, page_title = [], 0, title
+        bk.chapter(title if not paras or not CHAP.match(paras[0]) else paras[0][:70])
+
+        def flush():
+            nonlocal cur, w
+            if cur:
+                bk.add(page_title, cur, limit=99999)
+            cur, w = [], 0
+        for x in paras:
+            heading = len(x) < 80 and not x.endswith(('.', ',', ';', '!', '?', '“', '"', '«', '»')) and (CHAP.match(x) or (x.isupper() and len(x) > 3))
+            if heading:
+                flush()
+                page_title = x.title() if x.isupper() else x
+                if len(bk.toc) < 120 and bk.pages:
+                    bk.chapter(page_title[:80])
+                cur.append({'k': 'h', 't': page_title})
+                continue
+            # Paragraf sangat panjang dibagi per kalimat agar satu halaman tetap nyaman dibaca.
+            for chunk in (re.findall(r'.{1,1400}(?:[.!?]["“”»]?\s+|$)', x) if len(x) > 1500 else [x]):
+                chunk = chunk.strip()
+                if not chunk:
+                    continue
+                if w + len(chunk) > 1700 and cur:
+                    flush()
+                cur.append({'k': 'p', 't': chunk})
+                w += len(chunk)
+        flush()
+        res.append(bk.save())
+    return res
+
+
+# ───────────────────────────── Aozora Bunko (domain publik Jepang) ─────────────────────────────
+AOZORA = [
+    # (folder penulis, nomor kartu, jenjang, judul, penulis, wafat)
+    ('000121', 628, 'n3', 'ごんぎつね', '新美南吉 (Niimi Nankichi)', 1943),
+    ('000121', 637, 'n3', '手袋を買いに', '新美南吉 (Niimi Nankichi)', 1943),
+    ('000081', 43754, 'n3', '注文の多い料理店', '宮沢賢治 (Miyazawa Kenji)', 1933),
+    ('000081', 46605, 'n3', 'やまなし', '宮沢賢治 (Miyazawa Kenji)', 1933),
+    ('000879', 92, 'n3', '蜘蛛の糸', '芥川龍之介 (Akutagawa Ryūnosuke)', 1927),
+    ('000879', 170, 'n2', '杜子春', '芥川龍之介 (Akutagawa Ryūnosuke)', 1927),
+    ('000879', 42, 'n2', '鼻', '芥川龍之介 (Akutagawa Ryūnosuke)', 1927),
+    ('000879', 127, 'n2', '羅生門', '芥川龍之介 (Akutagawa Ryūnosuke)', 1927),
+    ('000035', 1567, 'n2', '走れメロス', '太宰治 (Dazai Osamu)', 1948),
+    ('000148', 799, 'n2', '夢十夜', '夏目漱石 (Natsume Sōseki)', 1916),
+    ('000081', 456, 'n1', '銀河鉄道の夜', '宮沢賢治 (Miyazawa Kenji)', 1933),
+    ('000148', 752, 'n1', '坊っちゃん', '夏目漱石 (Natsume Sōseki)', 1916),
+    ('000148', 773, 'n1', 'こころ', '夏目漱石 (Natsume Sōseki)', 1916),
+]
+
+
+def aozora_html(folder: str, card: int) -> str:
+    cp = fetch(f'https://www.aozora.gr.jp/cards/{folder}/card{card}.html')
+    m = re.search(r'\./files/(\d+_\d+)\.html', cp)
+    if not m:
+        raise RuntimeError(f'Aozora card{card}: berkas XHTML tidak ditemukan')
+    return fetch(f'https://www.aozora.gr.jp/cards/{folder}/files/{m.group(1)}.html', binary=True).decode('cp932', 'replace')
+
+
+def build_aozora():
+    res = []
+    for folder, card, lv, title, author, died in AOZORA:
+        if died > 1955:
+            continue
+        h = aozora_html(folder, card)
+        a = h.find('<div class="main_text">')
+        b = h.find('<div class="bibliographical_information">')
+        body = h[a:b if b > 0 else len(h)]
+        body = re.sub(r'<ruby><rb>(.*?)</rb><rp>.*?</rp><rt>(.*?)</rt><rp>.*?</rp></ruby>', lambda m: f'｜{text(m.group(1))}《{text(m.group(2))}》', body, flags=re.S)
+        body = re.sub(r'<h[3-5][^>]*>(.*?)</h[3-5]>', lambda m: '\n\x01' + text(m.group(1)) + '\n', body, flags=re.S)
+        body = re.sub(r'<br\s*/?>', '\n', body)
+        body = html.unescape(re.sub(r'<[^>]+>', '', body))
+        lines = [ln.strip().replace('　', '') for ln in body.split('\n')]
+        bk = Book(f'ja-aozora-{card}', 'ja', lv, 'bacaan', title, f'{author} · berfurigana', author, 'Aozora Bunko (青空文庫)',
+                  f'https://www.aozora.gr.jp/cards/{folder}/card{card}.html', 'Public domain', PG_PD,
+                  f'「{title}」 karya {author} — karya domain publik dari Aozora Bunko dengan furigana asli. Dengarkan setiap '
+                  'paragraf, ketuk kalimat untuk mendengar ulang dan simpan ungkapan baru.')
+        bk.chapter(title)
+        cur, w, pt = [], 0, title
+        for ln in lines:
+            if not ln:
+                continue
+            if ln.startswith('\x01'):
+                if cur:
+                    bk.add(pt, cur, limit=99999)
+                cur, w, pt = [], 0, ln[1:] or title
+                if bk.pages:
+                    bk.chapter(pt)
+                cur.append({'k': 'h', 't': pt})
+                continue
+            plain = len(re.sub(r'《[^》]*》|｜', '', ln))
+            if w + plain > 700 and cur:
+                bk.add(pt, cur, limit=99999)
+                cur, w = [], 0
+            cur.append({'k': 'p', 't': ln})
+            w += plain
+        if cur:
+            bk.add(pt, cur, limit=99999)
+        res.append(bk.save())
+    return res
+
+
+# ───────────────────────────── JLPT: kosakata & kanji N5–N1 ─────────────────────────────
+JLPT_VOC = 'https://raw.githubusercontent.com/jamsinclair/open-anki-jlpt-decks/main/src/n{}.csv'
+KANJI_JSON = 'https://raw.githubusercontent.com/davidluzgouveia/kanji-data/master/kanji.json'
+KA_CSV = 'https://raw.githubusercontent.com/kanjialive/kanji-data-media/master/language-data/ka_data.csv'
+
+
+def build_jlpt():
+    import csv as _csv
+    import io as _io
+    res = []
+    pairs = tatoeba_pairs('jpn')
+    for n in (5, 4, 3, 2, 1):
+        rows = list(_csv.DictReader(_io.StringIO(fetch(JLPT_VOC.format(n)))))
+        words = []
+        seen = set()
+        for r in rows:
+            e, rd, m = r['expression'].strip(), r['reading'].strip(), r['meaning'].strip()
+            if e and m and e not in seen:
+                seen.add(e)
+                words.append([e, m, rd if rd != e else ''])
+        bk = Book(f'ja-jlpt-vocab-n{n}', 'ja', f'n{n}', 'wortschatz', f'Kosakata JLPT N{n}', f'{len(words)} kata dengan bacaan, arti dan contoh kalimat',
+                  'Jonathan Waller (tanos.co.uk) · JMdict/EDRDG · open-anki-jlpt-decks',
+                  'Daftar kosakata JLPT Jonathan Waller (CC BY) dengan arti dari JMdict (EDRDG, CC BY-SA 4.0), disusun open-anki-jlpt-decks (MIT)',
+                  'https://github.com/jamsinclair/open-anki-jlpt-decks', 'CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/',
+                  f'Kosakata yang lazim diujikan di JLPT N{n}: setiap kata dengan bacaan kana, arti dan contoh kalimat asli ber-terjemahan '
+                  'Indonesia (Tatoeba). Dengarkan, uji diri dengan menyembunyikan arti, lalu latih dengan kartu hafalan.')
+        for p0 in range(0, len(words), 20):
+            chunk = words[p0:p0 + 20]
+            if p0 % 200 == 0:
+                bk.chapter(f'Kata {p0 + 1}–{min(p0 + 200, len(words))}')
+            ex = []
+            for e, _, _ in chunk:
+                if len(ex) >= 3 or len(e) < 2:
+                    continue
+                hit = next((p for p in pairs if e in p[1] and len(p[1]) <= 40 and p[1] not in [x['t'] for x in ex]), None)
+                if hit:
+                    ex.append({'k': 'sen', 't': hit[1], 'id': hit[2], 'n': int(hit[0])})
+            bk.add(f'N{n} · kata {p0 + 1}–{p0 + len(chunk)}', [{'k': 'voc', 'a': None, 'i': chunk}] + ex, limit=99999)
+        res.append(bk.save())
+    kj = json.loads(fetch(KANJI_JSON))
+    ka = {r['kanji']: r for r in _csv.DictReader(_io.StringIO(fetch(KA_CSV)))}
+    for n in (5, 4, 3, 2, 1):
+        items = sorted([(c, v) for c, v in kj.items() if v.get('jlpt_new') == n], key=lambda x: (x[1].get('freq') or 9999, x[1].get('strokes') or 99))
+        bk = Book(f'ja-kanji-n{n}', 'ja', f'n{n}', 'kamus', f'Kanji JLPT N{n}', f'{len(items)} kanji: arti, bacaan on/kun, jumlah goresan, contoh kata',
+                  'KANJIDIC (EDRDG) · Kanji alive · Jonathan Waller (JLPT)',
+                  'KANJIDIC2 (EDRDG, CC BY-SA 4.0), Kanji alive (CC BY 4.0), tingkat JLPT Jonathan Waller (CC BY) lewat kanji-data (MIT)',
+                  'https://www.edrdg.org/wiki/index.php/KANJIDIC_Project', 'CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/',
+                  f'Semua kanji tingkat JLPT N{n}, diurutkan dari yang paling sering dipakai: arti, bacaan on & kun, jumlah goresan dan '
+                  'contoh kata bersuara — lalu kuis kecil di setiap halaman.')
+        for p0 in range(0, len(items), 5):
+            chunk = items[p0:p0 + 5]
+            if p0 % 50 == 0:
+                bk.chapter(f'Kanji {p0 + 1}–{min(p0 + 50, len(items))}')
+            blocks = []
+            for c, v in chunk:
+                exs = []
+                if c in ka:
+                    try:
+                        exs = [[x[0].split('（')[0], (x[0].split('（')[1].rstrip('）') if '（' in x[0] else ''), x[1]] for x in json.loads(ka[c]['examples'])][:4]
+                    except Exception:  # noqa: BLE001
+                        exs = []
+                blocks.append({'k': 'kj', 'c': c, 'm': ', '.join(m for m in v.get('meanings') or [] if 'Radical' not in m)[:120],
+                               'on': '、'.join(v.get('readings_on') or []), 'kun': '、'.join(v.get('readings_kun') or []),
+                               's': v.get('strokes') or 0, 'ex': exs})
+            pool = [v for v in items]
+            for j, (c, v) in enumerate(chunk[:3]):
+                right = ', '.join(m for m in v.get('meanings') or [] if 'Radical' not in m)[:60]
+                wrong = []
+                for k in range(1, 40):
+                    o = pool[(p0 + j * 7 + k * 11) % len(pool)][1]
+                    om = ', '.join(m for m in o.get('meanings') or [] if 'Radical' not in m)[:60]
+                    if om and om != right and om not in wrong:
+                        wrong.append(om)
+                    if len(wrong) == 3:
+                        break
+                if right and len(wrong) == 3:
+                    pos = (p0 + j) % 4
+                    opts = wrong[:pos] + [right] + wrong[pos:]
+                    blocks.append({'k': 'mc', 'n': j + 1, 'q': f'「{c}」 = ?', 'o': opts, 'a': pos})
+            bk.add(f'N{n} · {" ".join(c for c, _ in chunk)}', blocks, limit=99999)
+        res.append(bk.save())
+    return res
+
+
+# ───────────────────────────── VOA Learning English (domain publik) ─────────────────────────────
+VOA = 'https://learningenglish.voanews.com'
+VOA_LIC = ('Public domain', 'https://learningenglish.voanews.com/p/6861.html')
+
+
+def pdf_columns(pdf: bytes, first: int, last: int):
+    """Teks dua kolom (kiri lalu kanan) per halaman PDF, memakai potongan area pdftotext."""
+    import tempfile
+    out = []
+    with tempfile.NamedTemporaryFile(suffix='.pdf') as f:
+        f.write(pdf)
+        f.flush()
+        info = subprocess.run(['pdfinfo', f.name], capture_output=True, text=True).stdout
+        w, h = [float(x) for x in re.search(r'Page size:\s+([\d.]+) x ([\d.]+)', info).groups()]
+        for pg in range(first, last + 1):
+            for x0 in (0, w / 2):
+                r = subprocess.run(['pdftotext', '-f', str(pg), '-l', str(pg), '-x', str(int(x0)), '-y', '0', '-W', str(int(w / 2)), '-H', str(int(h)), '-enc', 'UTF-8', f.name, '-'], capture_output=True)
+                out.append(r.stdout.decode('utf-8', 'replace'))
+    return out
+
+
+def build_voa():
+    res = []
+    # 1) VOA Learning English Word Book: ±1.500 kata dasar dengan definisi bahasa Inggris sederhana.
+    pdf = fetch('https://docs.voanews.eu/en-US-LEARN/2022/06/07/c4dbd6af-5f63-4f28-bc42-0bd175f4e4b4.pdf', binary=True)
+    cols = pdf_columns(pdf, 12, 87)
+    entries = []
+    for col in cols:
+        for ln in col.splitlines():
+            ln = ln.strip()
+            if not ln or re.match(r'^(learningenglish\.voanews\.com|\d+|[A-Z])$', ln):
+                continue
+            m = re.match(r"^([a-zA-Z][a-zA-Z'()\- ]{0,40}?) [–—-] (n\.|v\.|ad\.|adj\.|adv\.|prep\.|pro\.|conj\.)\s*(.*)$", ln)
+            if m:
+                entries.append([m.group(1).strip(), f'{m.group(2)} {m.group(3)}'.strip()])
+            elif entries:
+                entries[-1][1] = (entries[-1][1] + ' ' + ln).replace('- ', '').strip()
+    entries = [[a, re.sub(r'\s+', ' ', b).replace(' .', '.').strip()] for a, b in entries if len(b) > 4]
+    bk = Book('en-voa-wordbook', 'en', 'beginner', 'kamus', 'VOA Learning English Word Book', f'{len(entries)} kata inti bahasa Inggris dengan definisi sederhana',
+              'VOA Learning English', 'VOA Learning English (Voice of America)', 'https://learningenglish.voanews.com', *VOA_LIC,
+              'Kamus kata inti VOA Learning English: setiap kata dengan jenis kata dan definisi bahasa Inggris yang sangat sederhana — '
+              'cocok untuk belajar memahami arti langsung dalam bahasa Inggris. Dengarkan, uji diri, dan pakai kartu hafalan.')
+    for p0 in range(0, len(entries), 20):
+        chunk = entries[p0:p0 + 20]
+        if p0 % 200 == 0:
+            bk.chapter(f'{chunk[0][0]} – …')
+        bk.add(f'{chunk[0][0]} – {chunk[-1][0]}', [{'k': 'voc', 'a': None, 'i': chunk}], limit=99999)
+    res.append(bk.save())
+    # 2) Let's Learn English Level 1 & 2: video percakapan, latihan bicara & lafal, audio.
+    for lv, level, start, total in (('beginner', 1, '/a/lets-learn-english-lesson-one/3111026.html', 52), ('elementary', 2, '/a/lets-learn-english-level-2-lesson1/3960391.html', 30)):
+        bk = Book(f'en-voa-lle-{level}', 'en', lv, 'video', f"Let's Learn English · Level {level}", f'{total} pelajaran video VOA bersama Anna',
+                  'VOA Learning English', 'VOA Learning English (Voice of America)', f'{VOA}{start}', *VOA_LIC,
+                  f"Kursus video Let's Learn English Level {level} dari VOA: setiap pelajaran berisi video percakapan, latihan berbicara, "
+                  'latihan lafal dan audio. Tonton, tirukan, lalu lanjutkan ke pelajaran berikutnya.')
+        url, done = start, set()
+        for i in range(1, total + 1):
+            if not url or url in done:
+                break
+            done.add(url)
+            try:
+                page = fetch(VOA + url)
+            except RuntimeError:
+                break
+            t = text((re.search(r'<title>(.*?)</title>', page, re.S) or [None, f'Lesson {i}'])[1])
+            # Satu video bisa muncul dalam beberapa resolusi (_240p, _360p, _720p, _hq, _mobile): ambil satu per video.
+            mp4, keys = [], []
+            for v in re.findall(r'https://voa-video-ns\.akamaized\.net/[^"\s]+?\.mp4', page):
+                key = re.sub(r'(_(\d+p|hq|mobile))?\.mp4$', '', v)
+                pref = re.sub(r'\.mp4$', '', v).endswith(('_360p', '_720p'))
+                if key not in keys:
+                    keys.append(key)
+                    mp4.append(v)
+                elif pref and not mp4[keys.index(key)].endswith('_360p.mp4'):
+                    mp4[keys.index(key)] = v
+            mp3 = next(iter(re.findall(r'https://voa-audio(?:-ns)?\.voanews\.eu/[^"\s]+?(?<!_hq)\.mp3', page)), None)
+            blocks = [{'k': 'vid', 'src': v, 't': ['Conversation', 'Speaking practice', 'Pronunciation', 'Video'][min(j, 3)]} for j, v in enumerate(mp4[:4])]
+            if mp3:
+                blocks.append({'k': 'aud', 'src': mp3, 't': 'Audio lesson'})
+            if blocks:
+                bk.chapter(t)
+                bk.add(t, blocks, limit=99999)
+            nxt = (re.search(r'href="(/a/[^"]+)"[^>]*>(?:\s*<[^>]+>)*\s*Lesson %d\b' % (i + 1), page)
+                   or re.search(r'href="(/a/[^"]+)"[^>]*>(?:\s*<[^>]+>)*\s*Let.s Learn English[^<]{0,30}Lesson %d\b' % (i + 1), page))
+            url = nxt.group(1) if nxt else None
+        res.append(bk.save())
+    return res
+
+
 # ───────────────────────────── Katalog ─────────────────────────────
 def write_catalog(entries):
     entries = [e for e in entries if e]
@@ -439,4 +806,9 @@ if __name__ == '__main__':
     cat += build_grimm()
     cat += build_dib(pdf_dir)
     cat += build_tatoeba()
+    for fn in (build_gutenberg, build_aozora, build_jlpt, build_voa):
+        try:
+            cat += fn()
+        except Exception as e:  # noqa: BLE001 — satu sumber gagal tidak menggagalkan yang lain; dilaporkan
+            print(f'PERINGATAN {fn.__name__}: {e}')
     write_catalog(cat)
