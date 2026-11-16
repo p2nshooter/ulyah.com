@@ -148,6 +148,39 @@ try {
     ok('pengelola: tambah/hapus metode bayar, halaman Stripe/Xendit/Midtrans, portal member akses penuh');
     await a.c.close();
   }
+  // 4c. Tiga bahasa: pemilih bahasa, halaman Inggris & Jepang (desktop + ponsel), teks klien ikut bahasa
+  {
+    const { c, p } = await ctx();
+    await p.goto(BASE + '/');
+    await p.click('.site-head .lang-switch a[lang="en"]');
+    await p.waitForURL(/\/en\/$/);
+    if ((await p.getAttribute('html', 'lang')) !== 'en') fail('pemilih bahasa: halaman tidak berbahasa Inggris');
+    await p.goto(BASE + '/harga');
+    await p.waitForURL(/\/en\/harga$/);
+    if (!(await p.content()).includes('US$')) fail('harga Inggris tidak dalam USD');
+    await p.goto(BASE + '/en/latihan/de-a1-p1');
+    if (!(await p.textContent('[data-left]')).includes('unanswered')) fail('teks latihan tidak berbahasa Inggris');
+    await p.click('.site-head .lang-switch a[lang="ja"]');
+    await p.waitForURL(/\/ja\/latihan\/de-a1-p1$/);
+    await p.waitForSelector('[data-questions] .pq');
+    if (!(await p.textContent('[data-left]')).includes('未解答')) fail('teks latihan tidak berbahasa Jepang');
+    await p.goto(BASE + '/ja/belajar/ja-n5-m01-l01');
+    if (!(await p.textContent('[data-toggle-tr]')).includes('訳を隠す')) fail('tombol pelajaran tidak berbahasa Jepang');
+    await p.setViewportSize({ width: 360, height: 780 });
+    for (const path of ['/ja/', '/en/', '/ja/harga', '/en/jepang']) {
+      await p.goto(BASE + path);
+      if (await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)) fail(`${path}: bergeser ke samping di ponsel`);
+    }
+    await p.goto(BASE + '/ja/');
+    await p.screenshot({ path: `${OUT}/beranda-ja-ponsel.png`, fullPage: true });
+    await p.setViewportSize({ width: 1280, height: 860 });
+    await p.goto(BASE + '/en/');
+    await p.screenshot({ path: `${OUT}/beranda-en-desktop.png` });
+    await p.click('.site-head .lang-switch a[lang="id"]');
+    await p.waitForURL((u) => new URL(u).pathname === '/');
+    ok('tiga bahasa: pemilih ID/EN/日本語 konsisten, harga & teks klien ikut bahasa, ponsel tanpa geser samping');
+    await c.close();
+  }
   // 5. Logo diketuk 5 kali → pintu pengelola
   {
     const { c, p } = await ctx();

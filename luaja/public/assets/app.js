@@ -2,6 +2,8 @@
 (function () {
   'use strict';
   var d = document, root = d.documentElement, $ = function (s, c) { return (c || d).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
+  var T = function (k, v) { var s = (window.LJ && window.LJ.t && window.LJ.t[k]) || k; if (v) for (var x in v) s = s.split('{' + x + '}').join(v[x]); return s; };
+  window.ljT = T;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   window.ljToast = function (msg, ms) { var t = $('#toast'); if (!t) return; t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, ms || 2600); };
@@ -45,12 +47,12 @@
   /* salin ke papan klip */
   /* konfirmasi sebelum tindakan yang menghapus (panel pengelola) */
   $$('form[data-confirm]').forEach(function (f) { f.addEventListener('submit', function (e) { if (!window.confirm(f.getAttribute('data-confirm'))) e.preventDefault(); }); });
-  $$('[data-copy]').forEach(function (b) { b.addEventListener('click', function () { var v = b.getAttribute('data-copy'); if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { window.ljToast('Disalin: ' + v); }); }); });
+  $$('[data-copy]').forEach(function (b) { b.addEventListener('click', function () { var v = b.getAttribute('data-copy'); if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () { window.ljToast(T('common.copied', { v: v })); }); }); });
 
   /* suara: tombol [data-say] membacakan teks dengan locale */
   var synth = window.speechSynthesis;
   function pickVoice(lang) { if (!synth) return null; var vs = synth.getVoices(); var exact = vs.filter(function (v) { return v.lang.replace('_', '-').toLowerCase() === lang.toLowerCase(); }); var pre = vs.filter(function (v) { return v.lang.toLowerCase().indexOf(lang.slice(0, 2).toLowerCase()) === 0; }); var pool = exact.length ? exact : pre; if (!pool.length) return null; var fav = pool.filter(function (v) { return /Google|Natural|Premium|Siri|Enhanced/i.test(v.name); }); return (fav[0] || pool[0]); }
-  window.ljSay = function (text, lang, rate, onEnd) { if (!synth) { window.ljToast('Peramban ini belum mendukung suara.'); return; } synth.cancel(); var u = new SpeechSynthesisUtterance(text); u.lang = lang; var v = pickVoice(lang); if (v) u.voice = v; u.rate = rate || 1; if (onEnd) u.onend = onEnd; synth.speak(u); };
+  window.ljSay = function (text, lang, rate, onEnd) { if (!synth) { window.ljToast(T('js.noVoice')); return; } synth.cancel(); var u = new SpeechSynthesisUtterance(text); u.lang = lang; var v = pickVoice(lang); if (v) u.voice = v; u.rate = rate || 1; if (onEnd) u.onend = onEnd; synth.speak(u); };
   d.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-say]'); if (!b) return; e.preventDefault(); window.ljSay(b.getAttribute('data-say'), b.getAttribute('data-lang') || 'de-DE', parseFloat(b.getAttribute('data-rate') || '1')); });
   if (synth && synth.onvoiceschanged !== undefined) synth.onvoiceschanged = function () {};
 

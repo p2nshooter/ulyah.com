@@ -442,3 +442,135 @@ test('gerbang Stripe/Xendit/Midtrans: tersembunyi sampai dikonfigurasi, webhook 
     globalThis.fetch = realFetch;
   }
 });
+
+/* ── tiga bahasa: awalan URL, bahasa awal dari negara, pilihan manual, hreflang, kamus lengkap ─────── */
+import { KEYS, t as tr, LANGS } from '../src/lib/i18n.ts';
+import { recordQuiz } from '../src/data/progress.ts';
+import { Store } from '../src/lib/store.ts';
+
+const BROWSER = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36', accept: 'text/html,application/xhtml+xml' };
+
+test('kamus antarmuka: setiap kunci punya teks Indonesia, Inggris dan Jepang dengan penanda {…} yang sama', () => {
+  for (const k of KEYS) {
+    const vals = LANGS.map((L) => tr(L, k));
+    vals.forEach((v, i) => assert.ok(v.trim().length > 0, `${k} kosong untuk ${LANGS[i]}`));
+    const marks = vals.map((v) => (v.match(/\{[a-z]+\}/g) ?? []).sort().join(','));
+    assert.ok(marks.every((m) => m === marks[0]), `${k}: penanda berbeda ${marks.join(' | ')}`);
+  }
+  assert.ok(KEYS.length > 300);
+});
+
+test('tiga bahasa: /en dan /ja dirender dalam bahasanya, tautan berawalan, hreflang & kanonik benar', async () => {
+  const e = env();
+  for (const [path, lang, word] of [['/', 'id', 'Pilih bahasamu'], ['/en/', 'en', 'Choose your language'], ['/ja/', 'ja', '学ぶ言語を選ぶ']] as const) {
+    const r = await req(e, path);
+    assert.equal(r.status, 200, path);
+    assert.equal(r.headers.get('content-language'), lang);
+    const h = await r.text();
+    assert.ok(h.includes(`<html lang="${lang}"`), `${path}: html lang`);
+    assert.ok(h.includes(word), `${path}: teks ${word}`);
+    for (const L of ['id', 'en', 'ja']) assert.ok(h.includes(`hreflang="${L}" href="https://luaja.com${L === 'id' ? '' : `/${L}`}/"`), `${path}: hreflang ${L}`);
+    assert.ok(h.includes('hreflang="x-default" href="https://luaja.com/"'));
+    assert.ok(h.includes(`<link rel="canonical" href="https://luaja.com${path}">`), `${path}: kanonik`);
+    if (lang !== 'id') {
+      assert.ok(h.includes(`href="/${lang}/harga"`) && h.includes(`href="/${lang}/jerman"`), `${path}: tautan publik berawalan`);
+      assert.ok(h.includes('href="/masuk"') && !h.includes(`href="/${lang}/masuk"`), `${path}: tautan akun tanpa awalan`);
+      // Kamus klien (window.LJ) ada di <head>; isi <body> tidak boleh memuat kunci kamus mentah.
+      assert.ok(!/\b(js|auth|inv|plan|home|price)\.[a-zA-Z0-9.]+/.test(h.slice(h.indexOf('<body'))), `${path}: kunci kamus bocor`);
+    }
+  }
+  // harga mengikuti bahasa: Rupiah, dolar AS, yen
+  assert.ok((await (await req(e, '/harga')).text()).includes('Rp500.000'));
+  assert.ok((await (await req(e, '/en/harga')).text()).includes('US$32.00'));
+  assert.ok((await (await req(e, '/ja/harga')).text()).includes('¥4,800'));
+  // halaman jalur, jenjang, pelajaran gratis, latihan, info — semuanya tersedia di /en dan /ja
+  for (const p of ['/jerman', '/inggris/beginner', '/belajar/ja-n5-m01-l01', '/latihan?bahasa=de', '/latihan/de-a1-p1', '/coba', '/tentang', '/privasi', '/syarat', '/kontak', '/kredit']) {
+    for (const L of ['en', 'ja']) {
+      const r = await req(e, `/${L}${p}`);
+      assert.equal(r.status, 200, `/${L}${p}`);
+      assert.ok((await r.text()).includes(`<html lang="${L}"`), `/${L}${p}`);
+    }
+  }
+  // /en → /en/ ; /en/portal → /portal ; header bahasa dari luar diabaikan
+  assert.equal((await req(e, '/en')).headers.get('location'), 'https://luaja.com/en/');
+  assert.equal((await req(e, '/ja/portal')).headers.get('location'), '/portal');
+  assert.ok((await (await req(e, '/', { headers: { 'x-luaja-ui': 'ja' } })).text()).includes('<html lang="id"'));
+  // sitemap: setiap halaman dalam tiga bahasa dengan alternatif
+  const sm = await (await req(e, '/sitemap.xml')).text();
+  assert.ok(sm.includes('<loc>https://luaja.com/ja/harga</loc>') && sm.includes('<loc>https://luaja.com/en/jerman</loc>') && sm.includes('hreflang="x-default"'));
+});
+
+test('bahasa awal dari negara (ID→id, JP→ja, lainnya→en); pilihan manual tersimpan dan selalu menang; perayap tidak dialihkan', async () => {
+  const e = env();
+  const go = (path: string, cc: string, extra: Record<string, string> = {}) => req(e, path, { headers: { ...BROWSER, 'cf-ipcountry': cc, ...extra } });
+  let r = await go('/', 'JP');
+  assert.equal(r.status, 302);
+  assert.equal(r.headers.get('location'), '/ja/');
+  assert.match(r.headers.get('set-cookie') ?? '', /lj_lang=ja/);
+  r = await go('/harga', 'US');
+  assert.equal(r.headers.get('location'), '/en/harga');
+  r = await go('/', 'ID');
+  assert.equal(r.status, 200);
+  r = await go('/ja/', 'ID');
+  assert.equal(r.headers.get('location'), '/', 'pengunjung Indonesia di /ja/ tanpa pilihan → Indonesia');
+  // perayap & permintaan non-HTML tidak dialihkan
+  assert.equal((await req(e, '/', { headers: { 'user-agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', accept: 'text/html', 'cf-ipcountry': 'JP' } })).status, 200);
+  assert.equal((await req(e, '/', { headers: { accept: '*/*', 'cf-ipcountry': 'JP' } })).status, 200);
+  // pilihan manual menang atas negara
+  r = await go('/en/harga?lang=ja', 'ID');
+  assert.equal(r.headers.get('location'), '/ja/harga');
+  assert.match(r.headers.get('set-cookie') ?? '', /lj_lang=ja/);
+  r = await go('/harga', 'ID', { cookie: 'lj_lang=en' });
+  assert.equal(r.headers.get('location'), '/en/harga');
+  r = await go('/en/harga', 'ID', { cookie: 'lj_lang=en' });
+  assert.equal(r.status, 200);
+  // jalur dengan garis miring ganda tidak pernah dialihkan ke host lain
+  for (const p of ['/en//evil.example/x', '//evil.example/x', '/ja//evil.example']) {
+    for (const extra of [{}, { cookie: 'lj_lang=id' }]) {
+      const loc = (await go(`${p}?lang=id`, 'ID', extra)).headers.get('location') ?? '';
+      assert.ok(loc === '' || (loc.startsWith('/') && !loc.startsWith('//')) || loc.startsWith('https://luaja.com/'), `${p}: ${loc}`);
+      const loc2 = (await go(p, 'ID', extra)).headers.get('location') ?? '';
+      assert.ok(loc2 === '' || (loc2.startsWith('/') && !loc2.startsWith('//')) || loc2.startsWith('https://luaja.com/'), `${p}: ${loc2}`);
+    }
+  }
+  // pilihan disimpan di akun dan dipakai portal di perangkat lain
+  r = await req(e, '/daftar', { method: 'POST', headers: { cookie: 'lj_lang=ja' }, body: form({ name: 'Yuki', email: 'yuki@contoh.jp', password: 'rahasia123', setuju: 'on' }) });
+  const session = cookieOf(r);
+  let h = await (await req(e, '/portal', { cookie: session })).text();
+  assert.ok(h.includes('<html lang="ja"') && h.includes('こんにちは'), 'portal dalam bahasa Jepang dari akun');
+  await req(e, '/harga?lang=en', { cookie: session });
+  h = await (await req(e, '/portal/paket', { cookie: session })).text();
+  assert.ok(h.includes('<html lang="en"') && h.includes('Choose a plan') && h.includes('value="USD" checked'), 'akun berpindah ke Inggris, USD terpilih');
+});
+
+test('urutan pelajaran: member membuka pelajaran berikutnya hanya setelah lulus kuis sebelumnya; pengelola selalu terbuka', async () => {
+  const e = env();
+  let r = await req(e, '/daftar', { method: 'POST', body: form({ name: 'Urut', email: 'urut@contoh.id', password: 'rahasia123', setuju: 'on' }) });
+  const member = cookieOf(r);
+  // berlangganan Jerman lewat admin
+  r = await req(e, '/admin/masuk', { method: 'POST', body: form({ email: 'owner@luaja.test', password: 'owner-pass-123' }) });
+  const owner = cookieOf(r);
+  let h = await (await req(e, '/portal/paket', { cookie: member })).text();
+  r = await req(e, '/portal/paket', { method: 'POST', cookie: member, body: new URLSearchParams({ _csrf: csrfIn(h), kategori: 'umum', mata_uang: 'IDR', bahasa: 'de' }) });
+  const invId = new URL(r.headers.get('location')!, 'https://luaja.com').pathname.split('/').pop()!;
+  h = await (await req(e, `/portal/tagihan/${invId}`, { cookie: member })).text();
+  const png = new File([new Uint8Array([137, 80, 78, 71])], 'bukti.png', { type: 'image/png' });
+  const fd = new FormData(); fd.set('_csrf', csrfIn(h)); fd.set('bukti', png);
+  await req(e, `/portal/tagihan/${invId}/bukti`, { method: 'POST', cookie: member, body: fd });
+  h = await (await req(e, '/admin/pembayaran', { cookie: owner })).text();
+  await req(e, `/admin/pembayaran/${invId}/setujui`, { method: 'POST', cookie: owner, body: form({ _csrf: csrfIn(h) }) });
+  // l02 terbuka (sebelumnya pelajaran gratis), l03 terkunci sampai l02 lulus
+  assert.ok((await (await req(e, '/belajar/de-a1-m01-l02', { cookie: member })).text()).includes('data-lesson'));
+  h = await (await req(e, '/belajar/de-a1-m01-l03', { cookie: member })).text();
+  assert.ok(!h.includes('data-lesson') && h.includes('Selesaikan pelajaran sebelumnya'), 'l03 terkunci urutan');
+  assert.equal((await req(e, '/api/pelajaran/de-a1-m01-l03/cek', { method: 'POST', cookie: member, headers: { 'content-type': 'application/json' }, body: JSON.stringify({ part: 'practice', i: 0, answer: 0 }) })).status, 403);
+  const uid = (await new Store(e.DATA).get<{ id: string }>(`u/email/${await sha(('urut@contoh.id'))}`))?.id;
+  assert.ok(uid);
+  await recordQuiz(new Store(e.DATA), uid!, 'de-a1-m01-l02', 0.9);
+  assert.ok((await (await req(e, '/belajar/de-a1-m01-l03', { cookie: member })).text()).includes('data-lesson'), 'l03 terbuka setelah l02 lulus');
+  // pengelola: semua terbuka tanpa tagihan
+  assert.ok((await (await req(e, '/belajar/de-a1-m01-l05', { cookie: owner })).text()).includes('data-lesson'));
+});
+async function sha(s: string) {
+  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)))].map((b) => b.toString(16).padStart(2, '0')).join('');
+}

@@ -11,6 +11,7 @@
 import type { Store } from '../lib/store.ts';
 import { seal, unseal, timingSafeEqual, type Sealed } from '../lib/crypto.ts';
 import type { Currency, Invoice } from './model.ts';
+import type { Tri } from '../lib/i18n.ts';
 
 export type GwId = 'stripe' | 'xendit' | 'midtrans';
 export const GATEWAYS: GwId[] = ['stripe', 'xendit', 'midtrans'];
@@ -22,9 +23,9 @@ export class GwError extends Error {}
 
 interface Meta {
   name: string;
-  /** Kalimat untuk pembeli di halaman tagihan. */
-  buyer: string;
-  button: string;
+  /** Kalimat untuk pembeli di halaman tagihan (tiga bahasa). */
+  buyer: Tri;
+  button: Tri;
   /** Mata uang yang didukung gerbang; pengelola memilih sebagian. */
   supports: Currency[];
   pub: { label: string; required: boolean; pattern: Record<GwMode, RegExp>; example: Record<GwMode, string> };
@@ -37,7 +38,7 @@ interface Meta {
 
 export const GW_META: Record<GwId, Meta> = {
   stripe: {
-    name: 'Stripe', buyer: 'Visa, Mastercard, American Express, JCB dan dompet digital yang didukung, melalui halaman aman Stripe.', button: 'Bayar dengan kartu (Stripe)',
+    name: 'Stripe', buyer: { id: 'Visa, Mastercard, American Express, JCB dan dompet digital yang didukung, melalui halaman aman Stripe.', en: 'Visa, Mastercard, American Express, JCB and supported wallets, on Stripe\'s secure page.', ja: 'Visa、Mastercard、American Express、JCB、対応ウォレットをStripeの安全なページで。' }, button: { id: 'Bayar dengan kartu (Stripe)', en: 'Pay by card (Stripe)', ja: 'カードで支払う（Stripe）' },
     supports: ['USD', 'JPY', 'IDR'],
     pub: { label: 'Publishable key', required: false, pattern: { live: /^pk_live_/, test: /^pk_test_/ }, example: { live: 'pk_live_…', test: 'pk_test_…' } },
     secret: { label: 'Secret key', pattern: { live: /^(sk|rk)_live_/, test: /^(sk|rk)_test_/ }, example: { live: 'sk_live_… / rk_live_…', test: 'sk_test_… / rk_test_…' } },
@@ -46,7 +47,7 @@ export const GW_META: Record<GwId, Meta> = {
     setup: 'Dasbor Stripe → Developers → API keys. Webhook dapat didaftarkan otomatis dari halaman ini.',
   },
   xendit: {
-    name: 'Xendit', buyer: 'Virtual account bank, QRIS, e-wallet (OVO, DANA, ShopeePay, LinkAja) dan kartu, melalui halaman aman Xendit.', button: 'Bayar via Xendit (VA, QRIS, e-wallet, kartu)',
+    name: 'Xendit', buyer: { id: 'Virtual account bank, QRIS, e-wallet (OVO, DANA, ShopeePay, LinkAja) dan kartu, melalui halaman aman Xendit.', en: 'Indonesian bank virtual accounts, QRIS, e-wallets (OVO, DANA, ShopeePay, LinkAja) and cards, on Xendit\'s secure page.', ja: 'インドネシアの銀行バーチャル口座、QRIS、電子ウォレット（OVO、DANA、ShopeePay、LinkAja）、カードをXenditの安全なページで。' }, button: { id: 'Bayar via Xendit (VA, QRIS, e-wallet, kartu)', en: 'Pay via Xendit (VA, QRIS, e-wallet, card)', ja: 'Xenditで支払う（VA・QRIS・電子ウォレット・カード）' },
     supports: ['IDR', 'USD'],
     pub: { label: 'Public key (opsional)', required: false, pattern: { live: /^xnd_public_production_/, test: /^xnd_public_development_/ }, example: { live: 'xnd_public_production_…', test: 'xnd_public_development_…' } },
     secret: { label: 'Secret API key', pattern: { live: /^xnd_production_/, test: /^xnd_development_/ }, example: { live: 'xnd_production_…', test: 'xnd_development_…' } },
@@ -55,7 +56,7 @@ export const GW_META: Record<GwId, Meta> = {
     setup: 'Dasbor Xendit → Settings → API keys (izin Write untuk Money-in). Isi URL webhook „Invoices paid“ di Settings → Webhooks.',
   },
   midtrans: {
-    name: 'Midtrans', buyer: 'GoPay, QRIS, ShopeePay, virtual account bank dan kartu, melalui halaman aman Midtrans.', button: 'Bayar via Midtrans (GoPay, QRIS, VA, kartu)',
+    name: 'Midtrans', buyer: { id: 'GoPay, QRIS, ShopeePay, virtual account bank dan kartu, melalui halaman aman Midtrans.', en: 'GoPay, QRIS, ShopeePay, Indonesian bank virtual accounts and cards, on Midtrans\'s secure page.', ja: 'GoPay、QRIS、ShopeePay、インドネシアの銀行バーチャル口座、カードをMidtransの安全なページで。' }, button: { id: 'Bayar via Midtrans (GoPay, QRIS, VA, kartu)', en: 'Pay via Midtrans (GoPay, QRIS, VA, card)', ja: 'Midtransで支払う（GoPay・QRIS・VA・カード）' },
     supports: ['IDR'],
     pub: { label: 'Client key', required: false, pattern: { live: /^Mid-client-/, test: /^SB-Mid-client-/ }, example: { live: 'Mid-client-…', test: 'SB-Mid-client-…' } },
     secret: { label: 'Server key', pattern: { live: /^Mid-server-/, test: /^SB-Mid-server-/ }, example: { live: 'Mid-server-…', test: 'SB-Mid-server-…' } },

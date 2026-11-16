@@ -5,12 +5,11 @@
 import { html, raw, esc, type Raw } from '../lib/html.ts';
 import { ADSENSE_LOADER, ADSENSE_METAS } from '../lib/adsense.ts';
 import { COURSE_META, COURSES, type SiteContent } from '../data/model.ts';
-import type { Lang } from '../lib/i18n.ts';
-import { tr } from '../lib/i18n.ts';
+import { clientDict, LANGS, LANG_NAME, PREFIX, UI_LOCALE, t, type Lang } from '../lib/i18n.ts';
 import type { Country, Mood } from './scene.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '2';
+export const ASSET_V = '3';
 
 const ICON: Record<string, string> = {
   tangga: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
@@ -56,7 +55,12 @@ export function logoMark(size = 40, animate = true): Raw {
 
 export interface PageOpts {
   origin: string;
+  /** Jalur kanonik halaman ini (sudah berawalan bahasa). */
   path: string;
+  /** Jalur tanpa awalan bahasa (untuk tautan hreflang). */
+  barePath?: string;
+  /** Pasang <link rel="alternate" hreflang> ke tiga bahasa (halaman publik terindeks). */
+  alternates?: boolean;
   title: string;
   desc: string;
   site: SiteContent;
@@ -80,6 +84,8 @@ export interface PageOpts {
   headExtra?: string;
 }
 
+export const OG_LOCALE: Record<Lang, string> = { id: 'id_ID', en: 'en_GB', ja: 'ja_JP' };
+
 export function orgJsonLd(origin: string, s: SiteContent): unknown {
   const same = Object.values(s.social).filter(Boolean);
   return {
@@ -96,28 +102,38 @@ export function orgJsonLd(origin: string, s: SiteContent): unknown {
     ...(same.length ? { sameAs: same } : {}),
   };
 }
-export const webSiteJsonLd = (origin: string, s: SiteContent) => ({ '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${origin}/#website`, url: `${origin}/`, name: s.name, inLanguage: 'id', publisher: { '@id': `${origin}/#org` } });
-export function crumbs(origin: string, items: [string, string][]): unknown {
-  return { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [['Beranda', '/'] as [string, string], ...items].map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${origin}${path}` })) };
+export const webSiteJsonLd = (origin: string, s: SiteContent, L: Lang = 'id') => ({ '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${origin}/#website`, url: `${origin}${PREFIX[L]}/`, name: s.name, inLanguage: L, publisher: { '@id': `${origin}/#org` } });
+/** Remah roti JSON-LD; `base` sudah berawalan bahasa. */
+export function crumbs(base: string, items: [string, string][], L: Lang = 'id'): unknown {
+  return { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [[t(L, 'crumb.home'), '/'] as [string, string], ...items].map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${base}${path === '/' && base.endsWith('/') ? '' : path}` })) };
 }
 export const faqJsonLd = (faq: { q: string; a: string }[]) => ({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
-export function courseJsonLd(origin: string, s: SiteContent, code: 'de' | 'en' | 'ja', priceOne: number): unknown {
+export function courseJsonLd(base: string, s: SiteContent, code: 'de' | 'en' | 'ja', priceOne: number, L: Lang = 'id'): unknown {
   const m = COURSE_META[code];
-  return { '@context': 'https://schema.org', '@type': 'Course', name: `${m.name} (${m.native}) — ${m.levels[0]!.name} sampai ${m.levels[m.levels.length - 1]!.name}`, description: `Kursus ${m.name} interaktif berurutan untuk penutur Indonesia: ${m.levels.map((l) => l.name).join(', ')}.`, provider: { '@type': 'EducationalOrganization', name: s.name, url: `${origin}/` }, inLanguage: code, url: `${origin}/${m.slug}`, offers: { '@type': 'Offer', price: priceOne, priceCurrency: 'IDR', category: 'Langganan tahunan', availability: 'https://schema.org/InStock', url: `${origin}/harga` }, hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT5H' } };
+  const name = m.names[L];
+  const first = m.levels[0]!.name, last = m.levels[m.levels.length - 1]!.name;
+  const desc = L === 'en' ? `Ordered interactive ${name} course: ${m.levels.map((l) => l.name).join(', ')}.` : L === 'ja' ? `順序立てたインタラクティブな${name}講座: ${m.levels.map((l) => l.name).join('、')}。` : `Kursus ${name} interaktif berurutan untuk penutur Indonesia: ${m.levels.map((l) => l.name).join(', ')}.`;
+  return { '@context': 'https://schema.org', '@type': 'Course', name: `${name} (${m.native}) — ${first}–${last}`, description: desc, provider: { '@type': 'EducationalOrganization', name: s.name, url: `${base}/` }, inLanguage: code, url: `${base}/${m.slug}`, offers: { '@type': 'Offer', price: priceOne, priceCurrency: 'IDR', category: L === 'en' ? 'Annual subscription' : L === 'ja' ? '年間プラン' : 'Langganan tahunan', availability: 'https://schema.org/InStock', url: `${base}/harga` }, hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: 'PT5H' } };
 }
 const ld = (v: unknown) => `<script type="application/ld+json">${JSON.stringify(v).replace(/</g, '\\u003c')}</script>`;
 
-export function breadcrumbs(items: [string, string][]): Raw {
-  return html`<nav class="breadcrumbs" aria-label="Jejak"><ol><li><a href="/">Beranda</a></li>${items.map(([n, p], i) => (i === items.length - 1 ? html`<li aria-current="page">${n}</li>` : html`<li><a href="${p}">${n}</a></li>`))}</ol></nav>`;
+export function breadcrumbs(items: [string, string][], L: Lang = 'id'): Raw {
+  return html`<nav class="breadcrumbs" aria-label="${t(L, 'crumb.label')}"><ol><li><a href="/">${t(L, 'crumb.home')}</a></li>${items.map(([n, p], i) => (i === items.length - 1 ? html`<li aria-current="page">${n}</li>` : html`<li><a href="${p}">${n}</a></li>`))}</ol></nav>`;
 }
 
 export const MENU = (L: Lang): { id: string; label: string; href: string }[] => [
-  { id: 'jerman', label: tr(L, 'Jerman', 'German'), href: '/jerman' },
-  { id: 'inggris', label: tr(L, 'Inggris', 'English'), href: '/inggris' },
-  { id: 'jepang', label: tr(L, 'Jepang', 'Japanese'), href: '/jepang' },
-  { id: 'latihan', label: tr(L, 'Latihan soal', 'Practice tests'), href: '/latihan' },
-  { id: 'harga', label: tr(L, 'Harga', 'Pricing'), href: '/harga' },
+  { id: 'jerman', label: t(L, 'menu.de'), href: '/jerman' },
+  { id: 'inggris', label: t(L, 'menu.en'), href: '/inggris' },
+  { id: 'jepang', label: t(L, 'menu.ja'), href: '/jepang' },
+  { id: 'latihan', label: t(L, 'menu.practice'), href: '/latihan' },
+  { id: 'harga', label: t(L, 'menu.pricing'), href: '/harga' },
 ];
+
+/** Tautan alternatif tiga bahasa (hreflang) untuk halaman publik; x-default = Indonesia. */
+function alternates(origin: string, bare: string): string {
+  const href = (L: Lang) => `${origin}${PREFIX[L]}${bare === '/' ? '/' : bare}`;
+  return `${LANGS.map((L) => `<link rel="alternate" hreflang="${L}" href="${esc(href(L))}">`).join('\n')}\n<link rel="alternate" hreflang="x-default" href="${esc(href('id'))}">`;
+}
 
 export function page(o: PageOpts): string {
   const s = o.site, L = o.lang ?? 'id';
@@ -126,6 +142,10 @@ export function page(o: PageOpts): string {
   const v = ASSET_V;
   const menu = MENU(L);
   const ads = !o.noAds && s.adsEnabled;
+  const bare = o.barePath ?? o.path;
+  // Pilihan bahasa manual: ?lang= menyimpan cookie (+ akun) lalu kembali ke halaman yang sama dalam bahasa itu.
+  const switchHref = (x: Lang) => `?lang=${x}`;
+  const dict = JSON.stringify({ lang: L, locale: UI_LOCALE[L], t: clientDict(L) }).replace(/</g, '\\u003c');
   const head = `<!doctype html>
 <html lang="${L}" data-theme="${esc(o.theme ?? 'id')}"${o.mood ? ` data-mood="${esc(o.mood)}"` : ''}>
 <head>
@@ -138,7 +158,8 @@ ${o.noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" co
 <meta name="theme-color" content="#0b1f4d">
 <meta property="og:type" content="${esc(o.ogType ?? 'website')}">
 <meta property="og:site_name" content="${esc(s.name)}">
-<meta property="og:locale" content="${L === 'en' ? 'en_GB' : 'id_ID'}">
+<meta property="og:locale" content="${OG_LOCALE[L]}">
+${o.alternates ? alternates(o.origin, bare) : ''}
 <meta property="og:title" content="${esc(o.title)}">
 <meta property="og:description" content="${esc(o.desc)}">
 <meta property="og:url" content="${esc(url)}">
@@ -154,20 +175,21 @@ ${ADSENSE_METAS}
 <link rel="stylesheet" href="/assets/app.css?v=${v}">
 <script>try{var d=localStorage.getItem('lj_dark');if(d)document.documentElement.setAttribute('data-dark',d);var f=localStorage.getItem('lj_fs');if(f)document.documentElement.style.setProperty('--base-size',f+'%')}catch(e){}</script>
 ${ads ? ADSENSE_LOADER : ''}
-${[orgJsonLd(o.origin, s), webSiteJsonLd(o.origin, s), ...(o.jsonLd ?? [])].map(ld).join('\n')}
+${[orgJsonLd(o.origin, s), webSiteJsonLd(o.origin, s, L), ...(o.jsonLd ?? [])].map(ld).join('\n')}
+<script>window.LJ=${dict}</script>
 ${o.headExtra ?? ''}
 </head>
 <body class="${esc(o.bodyClass ?? '')}">
-<a class="skip" href="#isi">${tr(L, 'Langsung ke isi', 'Skip to content')}</a>`;
+<a class="skip" href="#isi">${t(L, 'skip')}</a>`;
   if (o.bare) return `${head}<main id="isi">${o.body.s}</main><div class="toast" id="toast" role="status" aria-live="polite"></div><script src="/assets/app.js?v=${v}" defer></script></body></html>`;
   const header = `<header class="site-head" id="atas">
 <div class="wrap">
-<a class="logo" href="/" data-logo aria-label="${esc(s.name)} — beranda">${logoMark(40).s}<span class="word">${esc(s.name)}<small>${tr(L, 'Belajar bahasa tanpa batas', 'Learn without limits')}</small></span></a>
-<button class="btn btn-ghost btn-icon nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-nav-toggle>${icon('menu').s}</button>
-<nav class="nav" id="nav" aria-label="Utama">
+<a class="logo" href="/" data-logo aria-label="${esc(t(L, 'logo.home', { name: s.name }))}">${logoMark(40).s}<span class="word">${esc(s.name)}<small>${esc(t(L, 'logo.sub'))}</small></span></a>
+<button class="btn btn-ghost btn-icon nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="${esc(t(L, 'nav.menu'))}" data-nav-toggle>${icon('menu').s}</button>
+<nav class="nav" id="nav" aria-label="${esc(t(L, 'menu.label'))}">
 ${menu.map((m) => `<a href="${m.href}"${o.active === m.id ? ' aria-current="page"' : ''}>${esc(m.label)}</a>`).join('')}
-<span class="lang-switch" aria-label="Bahasa antarmuka"><a href="?lang=id"${L === 'id' ? ' aria-current="true"' : ''}>ID</a><a href="?lang=en"${L === 'en' ? ' aria-current="true"' : ''}>EN</a></span>
-${o.user ? `<a class="btn btn-ghost btn-sm" href="/portal">${icon('masuk').s}${esc(o.user.name.split(' ')[0] ?? '')}</a>${o.user.admin ? `<a class="btn btn-ghost btn-sm" href="/admin">${tr(L, 'Panel', 'Admin')}</a>` : ''}` : `<a class="btn btn-ghost btn-sm" href="/masuk">${tr(L, 'Masuk', 'Sign in')}</a><a class="btn btn-gold btn-sm" href="/daftar">${tr(L, 'Mulai', 'Start')}</a>`}
+<span class="lang-switch" role="group" aria-label="${esc(t(L, 'lang.label'))}">${LANGS.map((x) => `<a href="${switchHref(x)}" lang="${x}" hreflang="${x}" title="${esc(LANG_NAME[x])}"${L === x ? ' aria-current="true"' : ''}>${x === 'ja' ? '日本語' : x.toUpperCase()}</a>`).join('')}</span>
+${o.user ? `<a class="btn btn-ghost btn-sm" href="/portal">${icon('masuk').s}${esc(o.user.name.split(' ')[0] ?? '')}</a>${o.user.admin ? `<a class="btn btn-ghost btn-sm" href="/admin">${esc(t(L, 'nav.admin'))}</a>` : ''}` : `<a class="btn btn-ghost btn-sm" href="/masuk">${esc(t(L, 'nav.signin'))}</a><a class="btn btn-gold btn-sm" href="/daftar">${esc(t(L, 'nav.start'))}</a>`}
 </nav>
 </div>
 </header>`;
@@ -175,12 +197,12 @@ ${o.user ? `<a class="btn btn-ghost btn-sm" href="/portal">${icon('masuk').s}${e
   const footer = `<footer class="site-foot">
 <div class="wrap">
 <div class="foot-grid">
-<div><a class="logo" href="/">${logoMark(36, false).s}<span class="word">${esc(s.name)}<small>${esc(s.tagline)}</small></span></a><p style="margin-top:14px;color:#c9d2ec;font-size:var(--fs-1)">${esc(s.description)}</p><p><a class="btn btn-white btn-sm" href="/daftar">${tr(L, 'Mulai belajar', 'Start learning')}</a></p></div>
-<div><h4>${tr(L, 'Belajar', 'Learn')}</h4><ul>${COURSES.map((c) => `<li><a href="/${COURSE_META[c].slug}">${esc(COURSE_META[c].name)}</a></li>`).join('')}<li><a href="/coba">${tr(L, 'Pelajaran gratis', 'Free lessons')}</a></li></ul></div>
-<div><h4>${tr(L, 'Latihan soal', 'Practice tests')}</h4><ul><li><a href="/latihan?bahasa=de">Goethe A1–B1</a></li><li><a href="/latihan?bahasa=en#toefl">TOEFL ITP</a></li><li><a href="/latihan?bahasa=en#ielts">IELTS Academic</a></li><li><a href="/latihan?bahasa=ja">JLPT N5–N4</a></li><li><a href="/harga">${tr(L, 'Harga & promo', 'Pricing & offers')}</a></li></ul></div>
-<div><h4>LUAJA</h4><ul><li><a href="/tentang">${tr(L, 'Tentang', 'About')}</a></li><li><a href="/kontak">${tr(L, 'Kontak', 'Contact')}</a></li><li><a href="/privasi">${tr(L, 'Privasi', 'Privacy')}</a></li><li><a href="/syarat">${tr(L, 'Syarat & ketentuan', 'Terms')}</a></li><li><a href="/kredit">${tr(L, 'Sumber & lisensi', 'Sources & licences')}</a></li><li><a href="/portal">${tr(L, 'Portal member', 'Member portal')}</a></li></ul></div>
+<div><a class="logo" href="/">${logoMark(36, false).s}<span class="word">${esc(s.name)}<small>${esc(s.tagline)}</small></span></a><p style="margin-top:14px;color:#c9d2ec;font-size:var(--fs-1)">${esc(s.description)}</p><p><a class="btn btn-white btn-sm" href="/daftar">${esc(t(L, 'foot.start'))}</a></p></div>
+<div><h4>${esc(t(L, 'foot.learn'))}</h4><ul>${COURSES.map((c) => `<li><a href="/${COURSE_META[c].slug}">${esc(COURSE_META[c].names[L])}</a></li>`).join('')}<li><a href="/coba">${esc(t(L, 'foot.free'))}</a></li></ul></div>
+<div><h4>${esc(t(L, 'menu.practice'))}</h4><ul><li><a href="/latihan?bahasa=de">Goethe A1–B1</a></li><li><a href="/latihan?bahasa=en#toefl">TOEFL ITP</a></li><li><a href="/latihan?bahasa=en#ielts">IELTS Academic</a></li><li><a href="/latihan?bahasa=ja">JLPT N5–N4</a></li><li><a href="/harga">${esc(t(L, 'foot.pricing'))}</a></li></ul></div>
+<div><h4>${esc(s.name)}</h4><ul><li><a href="/tentang">${esc(t(L, 'foot.about'))}</a></li><li><a href="/kontak">${esc(t(L, 'foot.contact'))}</a></li><li><a href="/privasi">${esc(t(L, 'foot.privacy'))}</a></li><li><a href="/syarat">${esc(t(L, 'foot.terms'))}</a></li><li><a href="/kredit">${esc(t(L, 'foot.credits'))}</a></li><li><a href="/portal">${esc(t(L, 'foot.portal'))}</a></li></ul></div>
 </div>
-<div class="foot-bottom"><span>© ${year} ${esc(s.name)} · luaja.com</span><span class="a11y-bar"><button type="button" data-fs="-" aria-label="Perkecil huruf">A−</button><button type="button" data-fs="+" aria-label="Perbesar huruf">A+</button><button type="button" data-dark aria-label="Mode gelap">◐</button></span><span>${esc(s.slogan)}</span></div>
+<div class="foot-bottom"><span>© ${year} ${esc(s.name)} · luaja.com</span><span class="a11y-bar"><button type="button" data-fs="-" aria-label="${esc(t(L, 'a11y.smaller'))}">A−</button><button type="button" data-fs="+" aria-label="${esc(t(L, 'a11y.larger'))}">A+</button><button type="button" data-dark aria-label="${esc(t(L, 'a11y.dark'))}">◐</button></span><span class="lang-switch foot-lang" role="group" aria-label="${esc(t(L, 'lang.label'))}">${LANGS.map((x) => `<a href="${switchHref(x)}" lang="${x}"${L === x ? ' aria-current="true"' : ''}>${esc(LANG_NAME[x])}</a>`).join('')}</span><span>${esc(s.slogan)}</span></div>
 </div>
 </footer>`;
   return `${head}

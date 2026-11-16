@@ -270,7 +270,7 @@ admin.get('/admin/konten', async (c) => {
   const { updatedAt: _u, ...editable } = s;
   const csrf = await csrfToken(c, c.get('user')!);
   return shell(c, '/admin/konten', 'Konten situs', html`
-  <h1 style="font-size:var(--fs-5)">Konten situs</h1><p class="muted">Semua teks beranda, sapaan, keunggulan, langkah, FAQ dan kontak. Simpan untuk langsung tayang. Format JSON — struktur kunci jangan diubah.</p>
+  <h1 style="font-size:var(--fs-5)">Konten situs</h1><p class="muted">Semua teks beranda, sapaan, keunggulan, langkah, FAQ dan kontak. Teks utama dalam bahasa Indonesia; terjemahan manual bahasa Inggris dan Jepang ada di <code>i18n.en</code> dan <code>i18n.ja</code>; halaman wajib dapat ditimpa per bahasa lewat <code>pages</code> (<code>tentang</code>, <code>tentang.en</code>, <code>tentang.ja</code>, …). Simpan untuk langsung tayang. Format JSON — struktur kunci jangan diubah.</p>
   <form method="post" class="stack"><input type="hidden" name="_csrf" value="${csrf}"><textarea name="json" class="json-edit" spellcheck="false">${JSON.stringify(editable, null, 2)}</textarea><button class="btn btn-gold" type="submit">Simpan konten</button></form>`);
 });
 admin.post('/admin/konten', async (c) => {
@@ -389,7 +389,7 @@ admin.get('/admin/gerbang', async (c) => {
   return shell(c, '/admin/gerbang', 'Gerbang otomatis', html`
   <h1 style="font-size:var(--fs-5)">Gerbang pembayaran otomatis</h1>
   <p class="muted">Setiap gerbang <b>tersembunyi</b> dari member sampai kuncinya diisi dan diaktifkan. Begitu pembayaran dikonfirmasi gerbang, tagihan lunas dan langganan aktif tanpa verifikasi manual. PayPal diatur di tab PayPal.</p>
-  <div class="grid g3" style="margin-top:18px">${GATEWAYS.map((g) => { const k = gws[g], on = gwReady(k) && Boolean(c.env.MASTER_KEY); return html`<a class="card lift" href="/admin/gerbang/${g}" style="text-decoration:none;color:inherit"><h3 style="margin:0 0 6px">${GW_META[g].name}</h3><p class="small muted" style="margin:0 0 10px">${GW_META[g].buyer}</p><span class="pill ${on ? 'pill-ok' : 'pill-line'}">${on ? `Tayang · ${k.mode === 'live' ? 'LIVE' : 'uji'} · ${k.currencies.join(', ')}` : 'Tersembunyi'}</span></a>`; })}</div>`);
+  <div class="grid g3" style="margin-top:18px">${GATEWAYS.map((g) => { const k = gws[g], on = gwReady(k) && Boolean(c.env.MASTER_KEY); return html`<a class="card lift" href="/admin/gerbang/${g}" style="text-decoration:none;color:inherit"><h3 style="margin:0 0 6px">${GW_META[g].name}</h3><p class="small muted" style="margin:0 0 10px">${GW_META[g].buyer.id}</p><span class="pill ${on ? 'pill-ok' : 'pill-line'}">${on ? `Tayang · ${k.mode === 'live' ? 'LIVE' : 'uji'} · ${k.currencies.join(', ')}` : 'Tersembunyi'}</span></a>`; })}</div>`);
 });
 
 admin.get('/admin/gerbang/:gw', async (c) => {
@@ -406,7 +406,7 @@ admin.get('/admin/gerbang/:gw', async (c) => {
   return shell(c, '/admin/gerbang', meta.name, html`
   <p><a href="/admin/gerbang">← Semua gerbang</a></p>
   <h1 style="font-size:var(--fs-5)">${meta.name}</h1>
-  <p class="muted">${meta.buyer} ${meta.setup}</p>
+  <p class="muted">${meta.buyer.id} ${meta.setup}</p>
   ${c.env.MASTER_KEY ? '' : html`<div class="alert alert-bad">Kunci induk (MASTER_KEY) belum terpasang di server — kunci belum bisa disimpan.</div>`}
   <div class="kpi" style="margin-bottom:18px"><div class="card"><b>${cfg.mode === 'live' ? 'LIVE' : 'Uji'}</b><span>mode aktif</span></div><div class="card"><b>${gwReady(cfg) && c.env.MASTER_KEY ? 'Tayang' : 'Tersembunyi'}</b><span>status di halaman tagihan</span></div>${meta.hook ? html`<div class="card"><b>${cfg[cfg.mode].hook ? 'Terpasang' : 'Belum'}</b><span>webhook ${cfg.mode}</span></div>` : ''}</div>
   <form method="post" class="stack"><input type="hidden" name="_csrf" value="${csrf}">

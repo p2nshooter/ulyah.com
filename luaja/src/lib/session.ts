@@ -6,9 +6,9 @@ import { b64url, fromB64url, hmac, timingSafeEqual } from './crypto.ts';
 import { Store } from './store.ts';
 import { getSubs, getUser } from '../data/users.ts';
 import type { Subs, User } from '../data/model.ts';
-import type { Lang } from './i18n.ts';
+import { isLang, type Lang } from './i18n.ts';
 
-export type HonoEnv = { Bindings: Env; Variables: { user: User | null; subs: Subs; store: Store; lang: Lang } };
+export type HonoEnv = { Bindings: Env; Variables: { user: User | null; subs: Subs; store: Store; lang: Lang; /** Bahasa dari cookie/akun (sebelum awalan URL). */ langPref: Lang | null } };
 export type Ctx = Context<HonoEnv>;
 
 interface SessionPayload {
@@ -69,7 +69,8 @@ export async function loadSession(c: Ctx): Promise<void> {
   c.set('user', null);
   c.set('subs', {});
   const ui = getCookie(c, 'lj_lang');
-  c.set('lang', ui === 'en' ? 'en' : 'id');
+  c.set('lang', isLang(ui) ? ui : 'id');
+  c.set('langPref', isLang(ui) ? ui : null);
   let p: SessionPayload | null = null;
   try {
     p = await verify<SessionPayload>(c.env, getCookie(c, COOKIE));
@@ -80,7 +81,8 @@ export async function loadSession(c: Ctx): Promise<void> {
   const user = await getUser(store, p.u);
   if (!user || user.sv !== p.v || user.suspended) return;
   c.set('user', user);
-  if (user.ui) c.set('lang', user.ui);
+  // Pilihan bahasa yang tersimpan di akun mengikuti member ke perangkat mana pun.
+  if (isLang(user.ui)) { c.set('lang', user.ui); c.set('langPref', user.ui); }
   c.set('subs', await getSubs(store, user.id));
 }
 

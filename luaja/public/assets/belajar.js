@@ -7,6 +7,7 @@
   var loc = L.locale, lang2 = loc.slice(0, 2), rate = 1, d = document;
   var $ = function (s, c) { return (c || d).querySelector(s); }, $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
   var toast = function (m) { if (window.ljToast) window.ljToast(m); };
+  var T = function (k, v) { var s = (window.LJ && window.LJ.t && window.LJ.t[k]) || k; if (v) for (var x in v) s = s.split('{' + x + '}').join(v[x]); return s; };
   function h(tag, attrs) {
     var el = d.createElement(tag), k;
     if (attrs) for (k in attrs) { if (attrs[k] === null || attrs[k] === undefined || attrs[k] === false) continue; if (k === 'class') el.className = attrs[k]; else el.setAttribute(k, attrs[k] === true ? '' : String(attrs[k])); }
@@ -24,9 +25,9 @@
     (function next() { $$('.line.playing').forEach(function (x) { x.classList.remove('playing'); }); if (i >= lines.length) return; var ln = lines[i++]; ln.classList.add('playing'); ln.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); window.ljSay(ln.querySelector('.fo').textContent, loc, rate, function () { setTimeout(next, 350); }); })();
   });
   var trBtn = $('[data-toggle-tr]'), trOn = true;
-  if (trBtn) trBtn.addEventListener('click', function () { trOn = !trOn; $$('[data-tr]').forEach(function (x) { x.style.visibility = trOn ? '' : 'hidden'; }); trBtn.textContent = trOn ? 'Sembunyikan terjemahan' : 'Tampilkan terjemahan'; });
+  if (trBtn) trBtn.addEventListener('click', function () { trOn = !trOn; $$('[data-tr]').forEach(function (x) { x.style.visibility = trOn ? '' : 'hidden'; }); trBtn.textContent = trOn ? T('lesson.hideTr') : T('lesson.showTr'); });
   var focusBtn = $('[data-focus]');
-  if (focusBtn) focusBtn.addEventListener('click', function () { d.body.classList.toggle('focus-mode'); focusBtn.textContent = d.body.classList.contains('focus-mode') ? 'Keluar mode fokus' : 'Mode fokus'; });
+  if (focusBtn) focusBtn.addEventListener('click', function () { d.body.classList.toggle('focus-mode'); focusBtn.textContent = d.body.classList.contains('focus-mode') ? T('lesson.focusOff') : T('lesson.focus'); });
   $$('.prose .s').forEach(function (s) { s.addEventListener('click', function () { $$('.prose .s.on').forEach(function (x) { x.classList.remove('on'); }); s.classList.add('on'); }); });
 
   /* penanda langkah aktif */
@@ -40,20 +41,20 @@
   function render(ex, part, i) {
     var box = h('div', { class: 'exercise', 'data-part': part, 'data-i': i, id: part + '-' + i }, h('div', { class: 'q' }, ex.prompt, ex.promptId ? h('small', null, ex.promptId) : null));
     if (ex.type === 'choice') box.appendChild(h('div', { class: 'opts' }, ex.options.map(function (o, k) { return h('button', { type: 'button', class: 'opt', 'data-k': k }, h('span', { class: 'k' }, String.fromCharCode(65 + k)), h('span', { lang: lang2 }, o)); })));
-    if (ex.type === 'gap') box.appendChild(h('div', { class: 'gapline', lang: lang2 }, ex.before, ' ', textInput('', 'Isian'), ' ', ex.after));
-    if (ex.type === 'translate') { box.appendChild(h('div', { class: 'src' }, ex.source)); box.appendChild(textInput('input', 'Terjemahan')); }
+    if (ex.type === 'gap') box.appendChild(h('div', { class: 'gapline', lang: lang2 }, ex.before, ' ', textInput('', T('js.fill')), ' ', ex.after));
+    if (ex.type === 'translate') { box.appendChild(h('div', { class: 'src' }, ex.source)); box.appendChild(textInput('input', T('js.translation'))); }
     if (ex.type === 'dictation') {
-      box.appendChild(h('div', { class: 'row' }, h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': ex.say, 'data-lang': loc }, '▶ Putar'), h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': ex.say, 'data-lang': loc, 'data-rate': '0.7', 'data-fixed-rate': true }, '▶ Lambat')));
-      var inp = textInput('input', 'Yang Anda dengar'); inp.style.marginTop = '10px'; box.appendChild(inp);
+      box.appendChild(h('div', { class: 'row' }, h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': ex.say, 'data-lang': loc }, '▶ ' + T('common.play')), h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': ex.say, 'data-lang': loc, 'data-rate': '0.7', 'data-fixed-rate': true }, '▶ ' + T('common.slow'))));
+      var inp = textInput('input', T('js.heard')); inp.style.marginTop = '10px'; box.appendChild(inp);
     }
     if (ex.type === 'order') { box.appendChild(h('div', { class: 'chips target', 'data-target': true })); box.appendChild(h('div', { class: 'chips', 'data-pool': true }, ex.words.map(function (w, k) { return h('button', { type: 'button', class: 'chip', 'data-w': k }, w); }))); }
     if (ex.type === 'match') box.appendChild(h('div', { class: 'match' }, ex.left.map(function (a, k) { return [h('button', { type: 'button', class: 'm', 'data-side': 'l', 'data-v': a }, a), h('button', { type: 'button', class: 'm', 'data-side': 'r', 'data-v': ex.right[k] }, ex.right[k])]; })));
     if (ex.type === 'speak') {
       box.appendChild(h('div', { class: 'src', lang: lang2 }, ex.say));
       box.appendChild(h('p', { class: 'small muted', style: 'margin:0 0 10px' }, ex.id));
-      box.appendChild(h('div', { class: 'row' }, h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': ex.say, 'data-lang': loc }, '▶ Contoh'), h('button', { class: 'mic', type: 'button', 'data-mic': true, 'aria-label': 'Rekam ucapan' }, '🎤'), h('span', { class: 'heard', 'data-heard': true })));
+      box.appendChild(h('div', { class: 'row' }, h('button', { class: 'btn btn-ghost btn-sm', type: 'button', 'data-say': ex.say, 'data-lang': loc }, '▶ ' + T('js.example')), h('button', { class: 'mic', type: 'button', 'data-mic': true, 'aria-label': T('js.record') }, '🎤'), h('span', { class: 'heard', 'data-heard': true })));
     }
-    if (part !== 'quiz' && ex.type !== 'choice' && ex.type !== 'match') box.appendChild(h('div', { class: 'ex-actions' }, h('button', { class: 'btn btn-sm', type: 'button', 'data-check': true }, 'Periksa')));
+    if (part !== 'quiz' && ex.type !== 'choice' && ex.type !== 'match') box.appendChild(h('div', { class: 'ex-actions' }, h('button', { class: 'btn btn-sm', type: 'button', 'data-check': true }, T('js.check'))));
     box.appendChild(h('div', { class: 'fb', 'data-fb': true }));
     return box;
   }
@@ -69,14 +70,14 @@
   }
   function check(box) {
     var part = box.getAttribute('data-part'), i = Number(box.getAttribute('data-i')), ex = L[part][i], v = valueOf(box, ex);
-    if (v === null || v === '' || (ex.type === 'match' && Object.keys(v).length < ex.left.length)) { toast('Jawab dulu, lalu periksa.'); return; }
+    if (v === null || v === '' || (ex.type === 'match' && Object.keys(v).length < ex.left.length)) { toast(T('js.answerFirst')); return; }
     fetch('/api/pelajaran/' + encodeURIComponent(L.code) + '/cek', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ part: part, i: i, answer: v }) })
       .then(function (r) { return r.json(); }).then(function (j) {
         if (j.error) return toast(j.error);
         box.classList.remove('ok', 'bad'); void box.offsetWidth; box.classList.add(j.ok ? 'ok' : 'bad');
-        setText(box.querySelector('[data-fb]'), j.ok ? [h('b', null, 'Tepat! '), j.why || ''] : [h('b', null, 'Belum tepat. '), 'Jawaban: ', h('b', null, j.shown), '. ', j.why || '']);
+        setText(box.querySelector('[data-fb]'), j.ok ? [h('b', null, T('js.correct')), h('span', { lang: 'id' }, j.why || '')] : [h('b', null, T('js.incorrect')), T('js.answer'), h('b', null, j.shown), '. ', h('span', { lang: 'id' }, j.why || '')]);
         if (ex.type === 'choice') $$('.opt', box).forEach(function (b) { b.classList.remove('ok', 'bad'); if (Number(b.getAttribute('data-k')) === Number(v)) b.classList.add(j.ok ? 'ok' : 'bad'); });
-      }).catch(function () { toast('Koneksi terputus. Coba lagi.'); });
+      }).catch(function () { toast(T('common.offline')); });
   }
 
   wrap.addEventListener('click', function (e) {
@@ -103,29 +104,29 @@
   /* pengenal suara peramban */
   function listen(box) {
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { toast('Peramban ini belum mendukung pengenal suara. Coba Chrome di Android/desktop.'); return; }
+    if (!SR) { toast(T('js.noSR')); return; }
     var rec = new SR(), mic = box.querySelector('[data-mic]'); rec.lang = loc; rec.interimResults = false; rec.maxAlternatives = 1;
     mic.classList.add('on'); rec.onresult = function (ev) { box._heard = ev.results[0][0].transcript; box.querySelector('[data-heard]').textContent = '„' + box._heard + '“'; check(box); };
-    rec.onend = function () { mic.classList.remove('on'); }; rec.onerror = function () { mic.classList.remove('on'); toast('Suara tidak tertangkap. Coba lagi.'); };
+    rec.onend = function () { mic.classList.remove('on'); }; rec.onerror = function () { mic.classList.remove('on'); toast(T('js.notHeard')); };
     rec.start();
   }
 
   /* kuis */
   var qBtn = $('[data-quizsubmit]'), qLeft = $('[data-quizleft]');
-  function quizPaint() { var n = L.quiz.length, c = 0; for (var k = 0; k < n; k++) { var v = quizAns[k]; if (v !== undefined && v !== null && String(v).trim() !== '') c++; } qBtn.disabled = c < n; qLeft.textContent = c < n ? (n - c) + ' soal lagi — kunci terbuka setelah semua dijawab.' : 'Semua soal terjawab.'; }
+  function quizPaint() { var n = L.quiz.length, c = 0; for (var k = 0; k < n; k++) { var v = quizAns[k]; if (v !== undefined && v !== null && String(v).trim() !== '') c++; } qBtn.disabled = c < n; qLeft.textContent = c < n ? T('js.quizLeft', { n: n - c }) : T('js.allAnswered'); }
   quizPaint();
   qBtn.addEventListener('click', function () {
-    qBtn.disabled = true; qBtn.textContent = 'Menilai…';
+    qBtn.disabled = true; qBtn.textContent = T('common.grading');
     var answers = L.quiz.map(function (_, k) { return quizAns[k]; });
     fetch('/api/pelajaran/' + encodeURIComponent(L.code) + '/kuis', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ answers: answers }) })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (res) {
-        if (!res.ok) throw new Error(res.j.error || 'Gagal menilai');
+        if (!res.ok) throw new Error(res.j.error || T('common.gradeFail'));
         var g = res.j, pct = Math.round(g.pct * 100);
         $('[data-quizbar]').hidden = true;
         g.items.forEach(function (it, k) {
           var box = d.getElementById('quiz-' + k); box.classList.add('locked', it.ok ? 'ok' : 'bad');
-          setText(box.querySelector('[data-fb]'), [h('b', null, it.ok ? 'Benar. ' : 'Kunci: ' + it.shown + '. '), it.why]);
+          setText(box.querySelector('[data-fb]'), [h('b', null, it.ok ? T('js.right') : T('js.key') + it.shown + '. '), h('span', { lang: 'id' }, it.why)]);
           $$('input,button', box).forEach(function (x) { x.disabled = true; });
           if (L.quiz[k].type === 'choice') $$('.opt', box).forEach(function (b) { if (b.getAttribute('aria-pressed') === 'true') b.classList.add(it.ok ? 'ok' : 'bad'); });
         });
@@ -133,10 +134,10 @@
         var out = $('[data-quizresult]'); out.hidden = false;
         setText(out, h('div', { class: 'score' + (g.passed ? ' pass' : '') },
           h('div', { class: 'ring', style: '--p:' + pct }, h('span', null, pct + '%')),
-          h('div', null, h('h3', { style: 'margin:0' }, g.passed ? 'Lulus! Pelajaran berikutnya terbuka.' : 'Belum mencapai 80 %'), h('p', { style: 'margin:6px 0 0' }, g.message),
-            L.loggedIn ? null : h('p', { class: 'small muted', style: 'margin:6px 0 0' }, h('a', { href: '/masuk' }, 'Masuk'), ' agar kemajuan tersimpan.'),
-            h('div', { class: 'row', style: 'margin-top:12px' }, g.passed ? (nextLink ? h('a', { class: 'btn btn-gold', href: nextLink.getAttribute('href') }, 'Pelajaran berikutnya →') : null) : h('a', { class: 'btn btn-gold', href: location.pathname }, 'Ulangi pelajaran')))));
+          h('div', null, h('h3', { style: 'margin:0' }, g.passed ? T('js.passed') : T('js.notPassed')), h('p', { style: 'margin:6px 0 0' }, g.message),
+            L.loggedIn ? null : h('p', { class: 'small muted', style: 'margin:6px 0 0' }, h('a', { href: '/masuk' }, T('practice.guest.login')), ' ', T('js.loginSave')),
+            h('div', { class: 'row', style: 'margin-top:12px' }, g.passed ? (nextLink ? h('a', { class: 'btn btn-gold', href: nextLink.getAttribute('href') }, T('js.nextLesson')) : null) : h('a', { class: 'btn btn-gold', href: location.pathname }, T('js.retryLesson'))))));
         out.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }).catch(function (err) { qBtn.disabled = false; qBtn.textContent = 'Kumpulkan kuis'; toast(err.message); });
+      }).catch(function (err) { qBtn.disabled = false; qBtn.textContent = T('lesson.quizSubmit'); toast(err.message); });
   });
 })();

@@ -20,7 +20,7 @@ export const getUser = (store: Store, id: string) => store.get<User>(userKey(id)
 
 export class EmailTakenError extends Error {}
 
-export async function createUser(store: Store, input: { email: string; name: string; password: string; role?: Role }): Promise<User> {
+export async function createUser(store: Store, input: { email: string; name: string; password: string; role?: Role; ui?: User['ui'] }): Promise<User> {
   const id = newId('usr');
   const email = input.email.trim().toLowerCase();
   const won = await store.createOnce(await emailGuardKey(email), { id });
@@ -33,6 +33,7 @@ export async function createUser(store: Store, input: { email: string; name: str
     pass: await hashPassword(input.password),
     sv: 1,
     createdAt: Date.now(),
+    ...(input.ui ? { ui: input.ui } : {}),
   };
   await store.put(userKey(id), user);
   await store.createOnce(`i/users/${invTs(user.createdAt)}~${id}`, {}, { email, name: user.name, role: user.role });

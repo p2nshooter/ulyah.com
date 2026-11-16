@@ -17,6 +17,8 @@
  *   l/audit/<hari>/…                  jejak audit; l/events/<hari>/… kejadian (statistik dihitung dari sini)
  */
 
+import type { Lang, Tri } from '../lib/i18n.ts';
+
 /* ── bahasa yang diajarkan ───────────────────────────────────────────────── */
 
 export type Course = 'de' | 'en' | 'ja';
@@ -24,55 +26,58 @@ export const COURSES: readonly Course[] = ['de', 'en', 'ja'];
 
 export interface CourseMeta {
   code: Course;
-  /** Nama Indonesia dan nama asli. */
+  /** Nama Indonesia (bawaan), nama dalam tiga bahasa antarmuka, dan nama asli. */
   name: string;
+  names: Tri;
   native: string;
   slug: string;
   /** Locale untuk suara peramban. */
   locale: string;
   flag: string;
   /** Jenjang berurutan. */
-  levels: { id: string; name: string; sub: string; hours: string }[];
+  levels: { id: string; name: string; sub: Tri; hours: Tri }[];
   accent: string;
 }
 
 export const COURSE_META: Record<Course, CourseMeta> = {
   de: {
-    code: 'de', name: 'Bahasa Jerman', native: 'Deutsch', slug: 'jerman', locale: 'de-DE', flag: 'de', accent: '#d61f26',
+    code: 'de', name: 'Bahasa Jerman', names: { id: 'Bahasa Jerman', en: 'German', ja: 'ドイツ語' }, native: 'Deutsch', slug: 'jerman', locale: 'de-DE', flag: 'de', accent: '#d61f26',
     levels: [
-      { id: 'a1', name: 'A1', sub: 'Anfänger · Pemula', hours: '80–100 jam' },
-      { id: 'a2', name: 'A2', sub: 'Grundlegende Kenntnisse · Dasar', hours: '100–150 jam' },
-      { id: 'b1', name: 'B1', sub: 'Fortgeschrittene Sprachverwendung · Menengah', hours: '150–200 jam' },
-      { id: 'b2', name: 'B2', sub: 'Selbstständige Sprachverwendung · Menengah-atas', hours: '200–250 jam' },
-      { id: 'c1', name: 'C1', sub: 'Fachkundige Sprachkenntnisse · Mahir', hours: '250–300 jam' },
-      { id: 'c2', name: 'C2', sub: 'Annähernd muttersprachlich · Nyaris penutur asli', hours: '300+ jam' },
+      { id: 'a1', name: 'A1', sub: { id: 'Anfänger · Pemula', en: 'Anfänger · Beginner', ja: 'Anfänger · 入門' }, hours: { id: '80–100 jam', en: '80–100 hours', ja: '80〜100時間' } },
+      { id: 'a2', name: 'A2', sub: { id: 'Grundlegende Kenntnisse · Dasar', en: 'Grundlegende Kenntnisse · Elementary', ja: 'Grundlegende Kenntnisse · 基礎' }, hours: { id: '100–150 jam', en: '100–150 hours', ja: '100〜150時間' } },
+      { id: 'b1', name: 'B1', sub: { id: 'Fortgeschrittene Sprachverwendung · Menengah', en: 'Fortgeschrittene Sprachverwendung · Intermediate', ja: 'Fortgeschrittene Sprachverwendung · 中級' }, hours: { id: '150–200 jam', en: '150–200 hours', ja: '150〜200時間' } },
+      { id: 'b2', name: 'B2', sub: { id: 'Selbstständige Sprachverwendung · Menengah-atas', en: 'Selbstständige Sprachverwendung · Upper-intermediate', ja: 'Selbstständige Sprachverwendung · 中上級' }, hours: { id: '200–250 jam', en: '200–250 hours', ja: '200〜250時間' } },
+      { id: 'c1', name: 'C1', sub: { id: 'Fachkundige Sprachkenntnisse · Mahir', en: 'Fachkundige Sprachkenntnisse · Advanced', ja: 'Fachkundige Sprachkenntnisse · 上級' }, hours: { id: '250–300 jam', en: '250–300 hours', ja: '250〜300時間' } },
+      { id: 'c2', name: 'C2', sub: { id: 'Annähernd muttersprachlich · Nyaris penutur asli', en: 'Annähernd muttersprachlich · Near-native', ja: 'Annähernd muttersprachlich · ネイティブに近い' }, hours: { id: '300+ jam', en: '300+ hours', ja: '300時間以上' } },
     ],
   },
   en: {
-    code: 'en', name: 'Bahasa Inggris', native: 'English', slug: 'inggris', locale: 'en-GB', flag: 'gb', accent: '#1746b8',
+    code: 'en', name: 'Bahasa Inggris', names: { id: 'Bahasa Inggris', en: 'English', ja: '英語' }, native: 'English', slug: 'inggris', locale: 'en-GB', flag: 'gb', accent: '#1746b8',
     levels: [
-      { id: 'beginner', name: '01 Beginner', sub: 'Pengenalan bahasa Inggris dari nol', hours: '60–80 jam' },
-      { id: 'elementary', name: '02 Elementary', sub: 'Kosakata dan percakapan sederhana', hours: '80–100 jam' },
-      { id: 'pre-intermediate', name: '03 Pre-Intermediate', sub: 'Mulai memahami percakapan dan teks', hours: '100–120 jam' },
-      { id: 'intermediate', name: '04 Intermediate', sub: 'Komunikasi sehari-hari lebih lancar', hours: '120–150 jam' },
-      { id: 'upper-intermediate', name: '05 Upper-Intermediate', sub: 'Komunikasi kompleks dan profesional', hours: '150–200 jam' },
-      { id: 'advanced', name: '06 Advanced', sub: 'Bahasa Inggris tingkat lanjut', hours: '200–250 jam' },
-      { id: 'proficiency', name: '07 Proficiency', sub: 'Penguasaan bahasa tingkat sangat tinggi', hours: '250+ jam' },
+      { id: 'beginner', name: '01 Beginner', sub: { id: 'Pengenalan bahasa Inggris dari nol', en: 'English from zero', ja: 'ゼロから始める英語' }, hours: { id: '60–80 jam', en: '60–80 hours', ja: '60〜80時間' } },
+      { id: 'elementary', name: '02 Elementary', sub: { id: 'Kosakata dan percakapan sederhana', en: 'Basic vocabulary and simple conversation', ja: '基本語彙と簡単な会話' }, hours: { id: '80–100 jam', en: '80–100 hours', ja: '80〜100時間' } },
+      { id: 'pre-intermediate', name: '03 Pre-Intermediate', sub: { id: 'Mulai memahami percakapan dan teks', en: 'Understanding everyday conversation and texts', ja: '日常会話と文章の理解' }, hours: { id: '100–120 jam', en: '100–120 hours', ja: '100〜120時間' } },
+      { id: 'intermediate', name: '04 Intermediate', sub: { id: 'Komunikasi sehari-hari lebih lancar', en: 'Fluent everyday communication', ja: 'より流暢な日常コミュニケーション' }, hours: { id: '120–150 jam', en: '120–150 hours', ja: '120〜150時間' } },
+      { id: 'upper-intermediate', name: '05 Upper-Intermediate', sub: { id: 'Komunikasi kompleks dan profesional', en: 'Complex and professional communication', ja: '複雑で専門的なコミュニケーション' }, hours: { id: '150–200 jam', en: '150–200 hours', ja: '150〜200時間' } },
+      { id: 'advanced', name: '06 Advanced', sub: { id: 'Bahasa Inggris tingkat lanjut', en: 'Advanced English', ja: '上級英語' }, hours: { id: '200–250 jam', en: '200–250 hours', ja: '200〜250時間' } },
+      { id: 'proficiency', name: '07 Proficiency', sub: { id: 'Penguasaan bahasa tingkat sangat tinggi', en: 'Near-native mastery', ja: 'ネイティブに近い習熟' }, hours: { id: '250+ jam', en: '250+ hours', ja: '250時間以上' } },
     ],
   },
   ja: {
-    code: 'ja', name: 'Bahasa Jepang', native: '日本語', slug: 'jepang', locale: 'ja-JP', flag: 'jp', accent: '#bc002d',
+    code: 'ja', name: 'Bahasa Jepang', names: { id: 'Bahasa Jepang', en: 'Japanese', ja: '日本語' }, native: '日本語', slug: 'jepang', locale: 'ja-JP', flag: 'jp', accent: '#bc002d',
     levels: [
-      { id: 'n5', name: 'N5', sub: 'Dasar · hiragana, katakana, 100 kanji', hours: '150–200 jam' },
-      { id: 'n4', name: 'N4', sub: 'Percakapan sehari-hari · 300 kanji', hours: '200–300 jam' },
-      { id: 'n3', name: 'N3', sub: 'Menengah · 650 kanji', hours: '300–450 jam' },
-      { id: 'n2', name: 'N2', sub: 'Menengah-atas · 1.000 kanji', hours: '450–600 jam' },
-      { id: 'n1', name: 'N1', sub: 'Mahir · 2.000 kanji', hours: '600+ jam' },
+      { id: 'n5', name: 'N5', sub: { id: 'Dasar · hiragana, katakana, ±100 kanji', en: 'Basic · hiragana, katakana, ≈100 kanji', ja: '基礎 · ひらがな・カタカナ・漢字約100字' }, hours: { id: '150–200 jam', en: '150–200 hours', ja: '150〜200時間' } },
+      { id: 'n4', name: 'N4', sub: { id: 'Percakapan sehari-hari · ±300 kanji', en: 'Everyday conversation · ≈300 kanji', ja: '日常会話 · 漢字約300字' }, hours: { id: '200–300 jam', en: '200–300 hours', ja: '200〜300時間' } },
+      { id: 'n3', name: 'N3', sub: { id: 'Menengah · ±650 kanji', en: 'Intermediate · ≈650 kanji', ja: '中級 · 漢字約650字' }, hours: { id: '300–450 jam', en: '300–450 hours', ja: '300〜450時間' } },
+      { id: 'n2', name: 'N2', sub: { id: 'Menengah-atas · ±1.000 kanji', en: 'Upper-intermediate · ≈1,000 kanji', ja: '中上級 · 漢字約1,000字' }, hours: { id: '450–600 jam', en: '450–600 hours', ja: '450〜600時間' } },
+      { id: 'n1', name: 'N1', sub: { id: 'Mahir · ±2.000 kanji', en: 'Advanced · ≈2,000 kanji', ja: '上級 · 漢字約2,000字' }, hours: { id: '600+ jam', en: '600+ hours', ja: '600時間以上' } },
     ],
   },
 };
 
 export const courseBySlug = (slug: string): CourseMeta | undefined => COURSES.map((c) => COURSE_META[c]).find((m) => m.slug === slug);
+/** Nama jalur dalam bahasa antarmuka. */
+export const courseName = (L: Lang, c: Course): string => COURSE_META[c].names[L];
 
 /* ── harga & promo ───────────────────────────────────────────────────────── */
 
@@ -213,7 +218,7 @@ export interface User {
   lastLoginAt?: number;
   suspended?: boolean;
   /** Bahasa antarmuka pilihan. */
-  ui?: 'id' | 'en';
+  ui?: Lang;
 }
 
 /** Masa aktif per bahasa (ms epoch). Akses = sekarang < until. */
@@ -271,74 +276,167 @@ export interface Faq {
   a: string;
 }
 
-export interface SiteContent {
-  name: string;
-  tagline: string;
-  slogan: string;
+/** Salinan beranda yang diterjemahkan manual per bahasa antarmuka (Inggris & Jepang). */
+export interface SiteCopy {
   description: string;
   hero: { kicker: string; title: string; em: string; lead: string; cta: string; cta2: string };
-  /** Kalimat sapaan yang berganti di hero: [bahasa, teks, terjemahan] */
-  greetings: { lang: Course; text: string; id: string }[];
   why: { title: string; items: { icon: string; title: string; text: string }[] };
   steps: { title: string; items: { n: string; title: string; text: string }[] };
   faq: Faq[];
+}
+
+export interface SiteContent extends SiteCopy {
+  name: string;
+  tagline: string;
+  slogan: string;
+  /** Kalimat sapaan yang berganti di hero: bahasa, teks, terjemahan tiga bahasa. */
+  greetings: { lang: Course; text: string; tr: Tri }[];
   contact: { email: string; whatsapp: string; address: string };
   social: { youtube?: string; instagram?: string; tiktok?: string; facebook?: string };
-  /** Teks halaman wajib dalam Markdown. */
+  /** Teks halaman wajib dalam Markdown; kunci `<slug>` (Indonesia), `<slug>.en`, `<slug>.ja`. */
   pages: Record<string, { title: string; body: string; updated: string }>;
+  /** Terjemahan manual salinan beranda. Pemilik, 15 Nov 2026: „jgn gunakan autotranslate, wajib di translate manual“. */
+  i18n: { en: SiteCopy; ja: SiteCopy };
   adsEnabled: boolean;
   updatedAt: number;
 }
+
+/** Konten situs dalam bahasa antarmuka L (Indonesia = teks utama; en/ja dari terjemahan manual). */
+export function siteFor(site: SiteContent, L: Lang): SiteContent {
+  if (L === 'id') return site;
+  const c = site.i18n?.[L];
+  return c ? { ...site, description: c.description, hero: c.hero, why: c.why, steps: c.steps, faq: c.faq } : site;
+}
+
+const WHY_ICONS = ['tangga', 'suara', 'buku', 'ujian', 'kartu', 'ujian'];
+const why = (title: string, items: [string, string][]) => ({ title, items: items.map(([t, x], i) => ({ icon: WHY_ICONS[i]!, title: t, text: x })) });
+const steps = (title: string, items: [string, string][]) => ({ title, items: items.map(([t, x], i) => ({ n: String(i + 1), title: t, text: x })) });
+const faq = (items: [string, string][]): Faq[] => items.map(([q, a]) => ({ q, a }));
+
+const COPY_ID: SiteCopy = {
+  description:
+    'LUAJA adalah kursus online bahasa Jerman, Inggris dan Jepang untuk penutur Indonesia: pelajaran interaktif berurutan dari nol dengan penjelasan Indonesia dan audio berlogat asli, serta bank latihan soal format Goethe, Cambridge, TOEFL, IELTS dan JLPT lengkap dengan kunci, pembahasan dan prediksi nilai.',
+  hero: {
+    kicker: 'Jerman · Inggris · Jepang · TOEFL · IELTS',
+    title: 'Belajar bahasa tanpa batas,',
+    em: 'satu langkah yang runtut setiap hari.',
+    lead: 'Jalur A1–C2, Beginner–Proficiency dan N5–N1 yang diterbitkan bertahap: pelajaran interaktif sepuluh langkah dengan penjelasan Indonesia dan audio berlogat asli, ditambah bank ratusan soal format ujian resmi dengan kunci jawaban, pembahasan dan prediksi nilai.',
+    cta: 'Ikuti pelajaran gratis',
+    cta2: 'Lihat harga & promo',
+  },
+  why: why('Mengapa LUAJA berbeda', [
+    ['Satu jalur yang runtut', 'Jenjang → modul → pelajaran → langkah. Pelajaran berikutnya terbuka setelah kuis ≥ 80 %, sehingga fondasi selalu kokoh.'],
+    ['Audio berlogat asli di setiap baris', 'Setiap dialog, kalimat dan kosakata dibacakan dengan suara digital berlogat Jerman, Inggris atau Jepang dari perangkat Anda; dapat diperlambat hingga 0,8×.'],
+    ['Bank latihan soal format ujian', 'Ratusan soal mengikuti format Goethe-Zertifikat, Cambridge, TOEFL ITP, IELTS dan JLPT — disusun per jenjang, dari simulasi hingga seri penguatan.'],
+    ['Kunci dibuka setelah selesai', 'Kunci jawaban dan pembahasan terbuka setelah seluruh soal dikumpulkan — melatih kejujuran dan ketelitian seperti ujian sungguhan.'],
+    ['Prediksi nilai & laporan', 'Setiap hasil dikonversi ke skala ujian sebenarnya — Goethe 0–100, TOEFL ITP, IELTS band, JLPT — dan laporannya dapat diunduh.'],
+    ['Persiapan TOEFL & IELTS termasuk', 'Paket Bahasa Inggris mencakup latihan TOEFL ITP dan IELTS Academic dengan kunci, pembahasan dan prediksi skor.'],
+  ]),
+  steps: steps('Cara mulai', [
+    ['Ikuti pelajaran gratis', 'Pelajaran pertama setiap jalur terbuka untuk semua, tanpa registrasi.'],
+    ['Pilih bahasa & paket', 'Satu bahasa atau tiga bahasa sekaligus, dalam IDR, USD atau JPY; pelajar dan juara kelas memperoleh harga khusus.'],
+    ['Bayar & mulai belajar', 'Bayar otomatis (PayPal, kartu, QRIS/VA bila tersedia) dan akses terbuka seketika, atau transfer bank lalu unggah bukti. Seluruh materi terbuka satu tahun penuh.'],
+  ]),
+  faq: faq([
+    ['Apakah sesuai untuk pemula yang benar-benar dari nol?', 'Ya. Jenjang pertama setiap bahasa (A1, Beginner, N5) dimulai dari alfabet, bunyi dan sapaan, dengan penjelasan berbahasa Indonesia pada setiap langkah.'],
+    ['Materi apa yang sudah tersedia sekarang?', 'Modul pertama Jerman A1, Inggris Beginner dan Jepang N5 (masing-masing lima pelajaran sepuluh langkah) serta bank latihan soal: Goethe A1–B1, Cambridge A1–A2, TOEFL ITP, IELTS Academic Reading, JLPT N5–N4 dan seri penguatan. Modul dan jenjang berikutnya terbit bertahap; jumlah terkini selalu tampil di halaman jalur dan latihan.'],
+    ['Apa yang termasuk dalam satu paket bahasa?', 'Seluruh materi bahasa tersebut yang tersedia dan yang terbit selama masa aktif — pelajaran, kosakata, latihan, kuis dan seluruh paket latihan soal — selama satu tahun. Paket Bahasa Inggris juga mencakup latihan TOEFL dan IELTS.'],
+    ['Bagaimana cara membayar?', 'Pilih paket di portal, lalu tagihan menampilkan semua cara bayar yang tersedia: pembayaran otomatis (PayPal, kartu, QRIS/VA bila aktif) membuka akses seketika; transfer bank diikuti unggah bukti dan akses terbuka setelah terverifikasi. Pembayaran dapat dalam IDR, USD atau JPY dan setiap tagihan memiliki invoice.'],
+    ['Bagaimana memperoleh harga pelajar atau juara kelas?', 'Pilih kategori yang sesuai saat memesan, lalu unggah surat keterangan pelajar terbaru atau bukti juara kelas tahun berjalan bersama bukti pembayaran. Harga khusus berlaku satu tahun; perpanjangan memerlukan dokumen terbaru.'],
+    ['Bagaimana latihan soal dinilai?', 'Jawab seluruh soal dalam satu paket, lalu kumpulkan. Sistem menampilkan nilai, kunci jawaban, pembahasan berbahasa Indonesia dan prediksi nilai pada skala ujian sebenarnya. Laporan latihan dapat diunduh dan, bagi member, tersimpan di portal.'],
+    ['Dari mana suara pelafalannya?', 'Suara dihasilkan mesin suara perangkat Anda (Web Speech) dengan logat Jerman, Inggris atau Jepang; kualitasnya bergantung pada suara yang terpasang di perangkat. Di Chrome, Edge dan Safari modern hasilnya jernih dan dapat diperlambat.'],
+    ['Apakah tersedia aplikasi ponsel?', 'LUAJA dapat dipasang sebagai aplikasi dari peramban ponsel (ketuk „Pasang aplikasi“). Pelajaran yang pernah dibuka tetap dapat dibaca saat koneksi terbatas.'],
+  ]),
+};
+
+const COPY_EN: SiteCopy = {
+  description:
+    'LUAJA is an online German, English and Japanese course built for Indonesian speakers: ordered interactive lessons from zero with native-accent audio, plus a bank of Goethe, Cambridge, TOEFL, IELTS and JLPT-format practice tests with answer keys, explanations and predicted scores. Interface in Indonesian, English and Japanese; lesson explanations are currently in Indonesian.',
+  hero: {
+    kicker: 'German · English · Japanese · TOEFL · IELTS',
+    title: 'Learn languages without limits,',
+    em: 'one well-ordered step every day.',
+    lead: 'A1–C2, Beginner–Proficiency and N5–N1 paths published step by step: ten-step interactive lessons with native-accent audio, plus hundreds of official-format practice questions with answer keys, explanations and predicted scores. Explanations are currently written in Indonesian.',
+    cta: 'Take a free lesson',
+    cta2: 'See pricing & offers',
+  },
+  why: why('Why LUAJA is different', [
+    ['One well-ordered path', 'Level → module → lesson → step. The next lesson unlocks after a quiz score of ≥ 80 %, so your foundation is always solid.'],
+    ['Native-accent audio on every line', 'Every dialogue, sentence and word is read by your device\'s speech engine with a German, English or Japanese accent; slow it down to 0.8×.'],
+    ['Exam-format practice bank', 'Hundreds of questions follow the Goethe-Zertifikat, Cambridge, TOEFL ITP, IELTS and JLPT formats — organised by level, from mock exams to reinforcement series.'],
+    ['Keys open when you finish', 'Answer keys and explanations open only after every question is submitted — training honesty and care, just like a real exam.'],
+    ['Predicted scores & reports', 'Every result is converted to the real exam scale — Goethe 0–100, TOEFL ITP, IELTS band, JLPT — and the report can be downloaded.'],
+    ['TOEFL & IELTS preparation included', 'The English plan includes TOEFL ITP and IELTS Academic practice with keys, explanations and predicted scores.'],
+  ]),
+  steps: steps('How to start', [
+    ['Take a free lesson', 'The first lesson of every path is open to everyone, no registration.'],
+    ['Choose a language & plan', 'One language or all three, in IDR, USD or JPY; students and class champions get special prices.'],
+    ['Pay & start learning', 'Pay instantly (PayPal, card, QRIS/VA where available) and access opens at once, or transfer by bank and upload proof. All material stays open for a full year.'],
+  ]),
+  faq: faq([
+    ['Is it suitable for complete beginners?', 'Yes. The first level of every language (A1, Beginner, N5) starts with the alphabet, sounds and greetings, with an explanation at every step.'],
+    ['What language are the explanations in?', 'Lesson explanations, translations and answer discussions are currently written in Indonesian, the language of our core audience. The interface, portal, pricing and payments are available in English and Japanese; English and Japanese explanations are being prepared.'],
+    ['What is available right now?', 'The first module of German A1, English Beginner and Japanese N5 (five ten-step lessons each) and the practice bank: Goethe A1–B1, Cambridge A1–A2, TOEFL ITP, IELTS Academic Reading, JLPT N5–N4 plus reinforcement series. Further modules and levels are published in stages; current counts always show on the path and practice pages.'],
+    ['What does one language plan include?', 'All material of that language available now and published during your subscription — lessons, vocabulary, practice, quizzes and every practice set — for one year. The English plan also includes TOEFL and IELTS practice.'],
+    ['How do I pay?', 'Choose a plan in the portal; the invoice then shows every available method: instant payment (PayPal, card, QRIS/VA where active) opens access immediately; a bank transfer followed by an uploaded proof opens access once verified. Pay in IDR, USD or JPY; every invoice has a downloadable document.'],
+    ['How do I get the student or class-champion price?', 'Pick the matching category when ordering, then upload a current student certificate or this year\'s class-ranking proof together with your payment proof. Special prices are valid for one year; renewals need fresh documents.'],
+    ['How are practice tests graded?', 'Answer every question in a set and submit. You then see your score, the answer key, explanations (in Indonesian) and a predicted score on the real exam scale. Reports can be downloaded and, for members, are saved in the portal.'],
+    ['Where does the pronunciation audio come from?', 'Audio is produced by your device\'s speech engine (Web Speech) with a German, English or Japanese accent; quality depends on the voices installed on your device. Modern Chrome, Edge and Safari sound clear and can be slowed down.'],
+    ['Is there a mobile app?', 'LUAJA can be installed as an app from your phone\'s browser (tap “Install app”). Lessons you have opened remain readable with a limited connection.'],
+  ]),
+};
+
+const COPY_JA: SiteCopy = {
+  description:
+    'LUAJAはインドネシア語話者向けに作られたドイツ語・英語・日本語のオンライン講座です。ゼロから順を追って学ぶインタラクティブなレッスンとネイティブ発音の音声、Goethe・Cambridge・TOEFL・IELTS・JLPT形式の模擬問題（解答・解説・予想スコア付き）。表示はインドネシア語・英語・日本語に対応。レッスンの解説は現在インドネシア語です。',
+  hero: {
+    kicker: 'ドイツ語 · 英語 · 日本語 · TOEFL · IELTS',
+    title: '限界なく言葉を学ぶ、',
+    em: '毎日ひとつ、順を追って。',
+    lead: 'A1〜C2、Beginner〜Proficiency、N5〜N1のコースを段階的に公開中。ネイティブ発音の音声付き10ステップのインタラクティブなレッスンと、本番形式の数百問の模擬問題（解答・解説・予想スコア付き）。解説は現在インドネシア語で書かれています。',
+    cta: '無料レッスンを受ける',
+    cta2: '料金と割引を見る',
+  },
+  why: why('LUAJAが違う理由', [
+    ['順序立てたひとつの道', 'レベル → モジュール → レッスン → ステップ。クイズで80％以上を取ると次のレッスンが開くので、土台が常にしっかりします。'],
+    ['すべての行にネイティブ発音の音声', '会話・文・単語はお使いの端末の音声エンジンがドイツ語・英語・日本語のアクセントで読み上げます。0.8倍速にもできます。'],
+    ['本番形式の模擬問題バンク', 'Goethe-Zertifikat、Cambridge、TOEFL ITP、IELTS、JLPTの形式に沿った数百問。レベル別に、模擬試験から強化シリーズまで。'],
+    ['終わってから開く解答', '解答と解説は全問を提出した後にだけ開きます。本番と同じように、誠実さと注意深さが身につきます。'],
+    ['予想スコアとレポート', '結果はGoethe 0〜100、TOEFL ITP、IELTSバンド、JLPTなど実際の試験スケールに換算され、レポートをダウンロードできます。'],
+    ['TOEFL・IELTS対策込み', '英語プランにはTOEFL ITPとIELTS Academicの練習（解答・解説・予想スコア付き）が含まれます。'],
+  ]),
+  steps: steps('始め方', [
+    ['無料レッスンを受ける', '各コースの最初のレッスンは登録不要で誰でも受講できます。'],
+    ['言語とプランを選ぶ', '1言語または3言語を、IDR・USD・JPYで。学生と学年上位者には特別料金。'],
+    ['支払って学習開始', '自動決済（PayPal、カード、利用可能な場合はQRIS/VA）ならすぐに利用開始。銀行振込の場合は証明をアップロード。教材は1年間すべて利用できます。'],
+  ]),
+  faq: faq([
+    ['まったくの初心者でも大丈夫ですか？', 'はい。各言語の最初のレベル（A1、Beginner、N5）はアルファベット、発音、あいさつから始まり、各ステップに解説が付きます。'],
+    ['解説は何語ですか？', 'レッスンの解説・訳・答えの説明は、主な受講者に合わせて現在インドネシア語で書かれています。表示、ポータル、料金、支払いは英語と日本語に対応しており、英語・日本語の解説は準備中です。'],
+    ['今利用できる教材は？', 'ドイツ語A1・英語Beginner・日本語N5の最初のモジュール（各10ステップのレッスン5回）と模擬問題バンク（Goethe A1〜B1、Cambridge A1〜A2、TOEFL ITP、IELTS Academic Reading、JLPT N5〜N4、強化シリーズ）。以降のモジュールとレベルは順次公開され、最新の数はコースと模擬問題のページに表示されます。'],
+    ['1言語プランには何が含まれますか？', 'その言語の公開済み教材と受講期間中に公開される教材すべて（レッスン、語彙、演習、クイズ、模擬問題）を1年間。英語プランにはTOEFLとIELTSの練習も含まれます。'],
+    ['支払い方法は？', 'ポータルでプランを選ぶと、請求書に利用できる支払い方法が表示されます。自動決済（PayPal、カード、有効な場合はQRIS/VA）ならすぐに利用開始。銀行振込は証明をアップロードし、確認後に利用開始。IDR・USD・JPYで支払え、請求書ごとに書類をダウンロードできます。'],
+    ['学生割引・学年上位者割引を受けるには？', '注文時に該当する区分を選び、最新の在学証明書または今年度のクラス順位の証明を支払い証明と一緒にアップロードしてください。特別料金は1年間有効で、更新時には新しい書類が必要です。'],
+    ['模擬問題はどう採点されますか？', 'セットの全問に答えて提出すると、得点、解答、解説（インドネシア語）、実際の試験スケールでの予想スコアが表示されます。レポートはダウンロードでき、会員はポータルに保存されます。'],
+    ['発音の音声はどこから？', '音声はお使いの端末の音声エンジン（Web Speech）がドイツ語・英語・日本語のアクセントで生成します。品質は端末にインストールされた音声に依存し、最新のChrome・Edge・Safariでは明瞭で、速度も落とせます。'],
+    ['スマートフォンアプリはありますか？', 'LUAJAはスマートフォンのブラウザからアプリとしてインストールできます（「アプリをインストール」をタップ）。一度開いたレッスンは通信が不安定でも読めます。'],
+  ]),
+};
 
 export const DEFAULT_SITE: SiteContent = {
   name: 'LUAJA',
   tagline: 'Learning Universal for Achievement, Journey & Advancement',
   slogan: 'Learn Without Limits.',
-  description:
-    'LUAJA adalah kursus online bahasa Jerman, Inggris dan Jepang untuk penutur Indonesia: pelajaran interaktif berurutan dari nol sampai mahir dengan audio penutur asli, serta bank latihan soal format Goethe, TOEFL, IELTS dan JLPT lengkap dengan kunci, pembahasan dan prediksi nilai.',
-  hero: {
-    kicker: 'Jerman · Inggris · Jepang · TOEFL · IELTS',
-    title: 'Belajar bahasa tanpa batas,',
-    em: 'satu langkah yang runtut setiap hari.',
-    lead: 'Pelajaran interaktif A1–C2, Beginner–Proficiency dan N5–N1 dengan penjelasan Indonesia dan audio penutur asli — dilengkapi bank latihan soal format ujian resmi, kunci jawaban, pembahasan dan prediksi nilai.',
-    cta: 'Ikuti pelajaran gratis',
-    cta2: 'Lihat harga & promo',
-  },
+  ...COPY_ID,
   greetings: [
-    { lang: 'de', text: 'Hallo! Schön, dich kennenzulernen.', id: 'Halo! Senang berkenalan denganmu.' },
-    { lang: 'en', text: 'Hello! Nice to meet you.', id: 'Halo! Senang bertemu denganmu.' },
-    { lang: 'ja', text: 'こんにちは！はじめまして。', id: 'Halo! Senang berkenalan.' },
-  ],
-  why: {
-    title: 'Mengapa LUAJA berbeda',
-    items: [
-      { icon: 'tangga', title: 'Satu jalur yang runtut', text: 'Jenjang → modul → pelajaran → langkah. Pelajaran berikutnya terbuka setelah kuis ≥ 80 %, sehingga fondasi selalu kokoh.' },
-      { icon: 'suara', title: 'Audio penutur asli di setiap baris', text: 'Setiap dialog, kosakata dan buku dibacakan dengan suara berlogat Jerman, Inggris atau Jepang; dapat diperlambat hingga 0,8×.' },
-      { icon: 'buku', title: 'Bank latihan soal format ujian', text: 'Ratusan soal mengikuti format Goethe-Zertifikat, Cambridge, TOEFL ITP, IELTS dan JLPT — disusun per jenjang, dari simulasi hingga seri penguatan.' },
-      { icon: 'ujian', title: 'Kunci dibuka setelah selesai', text: 'Kunci jawaban dan pembahasan berbahasa Indonesia terbuka setelah seluruh soal dikumpulkan — melatih kejujuran dan ketelitian seperti ujian sungguhan.' },
-      { icon: 'kartu', title: 'Prediksi nilai & laporan', text: 'Setiap hasil dikonversi ke skala ujian sebenarnya — Goethe 0–100, TOEFL ITP 310–677, IELTS band, JLPT — dan laporannya dapat diunduh.' },
-      { icon: 'ujian', title: 'Persiapan TOEFL & IELTS termasuk', text: 'Paket Bahasa Inggris mencakup persiapan TOEFL dan IELTS: strategi per bagian, latihan berjangka waktu dan simulasi.' },
-    ],
-  },
-  steps: {
-    title: 'Cara mulai',
-    items: [
-      { n: '1', title: 'Ikuti pelajaran gratis', text: 'Pelajaran pertama setiap jenjang terbuka untuk semua, tanpa registrasi.' },
-      { n: '2', title: 'Pilih bahasa & paket', text: 'Satu bahasa atau tiga bahasa sekaligus; pelajar dan juara kelas memperoleh harga khusus.' },
-      { n: '3', title: 'Transfer & konfirmasi', text: 'Transfer ke rekening resmi yang tertera di portal, unggah bukti pembayaran, dan akses terbuka satu tahun penuh setelah terverifikasi.' },
-    ],
-  },
-  faq: [
-    { q: 'Apakah sesuai untuk pemula yang benar-benar dari nol?', a: 'Ya. Jenjang pertama setiap bahasa (A1, Beginner, N5) dimulai dari alfabet, bunyi dan sapaan, dengan penjelasan berbahasa Indonesia pada setiap langkah.' },
-    { q: 'Apa yang termasuk dalam satu paket bahasa?', a: 'Seluruh jenjang bahasa tersebut (misalnya A1 sampai C2), seluruh paket latihan soal, kosakata, latihan dan kuis, selama satu tahun. Paket Bahasa Inggris juga mencakup persiapan TOEFL dan IELTS.' },
-    { q: 'Bagaimana cara membayar?', a: 'Setelah memilih paket di portal, rekening resmi LUAJA ditampilkan beserta nominal tagihan. Transfer sesuai nominal, unggah bukti pembayaran, dan tim kami memverifikasinya — akses terbuka segera setelah terverifikasi.' },
-    { q: 'Bagaimana memperoleh harga pelajar atau juara kelas?', a: 'Pilih kategori yang sesuai saat memesan, lalu unggah surat keterangan pelajar terbaru atau bukti juara kelas tahun berjalan bersama bukti pembayaran. Harga khusus berlaku satu tahun; perpanjangan memerlukan dokumen terbaru.' },
-    { q: 'Bagaimana latihan soal dinilai?', a: 'Jawab seluruh soal dalam satu paket, lalu kumpulkan. Sistem menampilkan nilai, kunci jawaban, pembahasan berbahasa Indonesia dan prediksi nilai pada skala ujian sebenarnya. Laporan latihan dapat diunduh dan, bagi member, tersimpan di portal.' },
-    { q: 'Apakah tersedia aplikasi ponsel?', a: 'LUAJA dapat dipasang sebagai aplikasi dari peramban ponsel (ketuk „Pasang aplikasi“). Pelajaran dan kosakata yang pernah dibuka tetap dapat dibaca saat koneksi terbatas.' },
+    { lang: 'de', text: 'Hallo! Schön, dich kennenzulernen.', tr: { id: 'Halo! Senang berkenalan denganmu.', en: 'Hello! Nice to meet you.', ja: 'こんにちは！はじめまして。' } },
+    { lang: 'en', text: 'Hello! Nice to meet you.', tr: { id: 'Halo! Senang bertemu denganmu.', en: 'Hello! Nice to meet you.', ja: 'こんにちは！はじめまして。' } },
+    { lang: 'ja', text: 'こんにちは！はじめまして。', tr: { id: 'Halo! Senang berkenalan.', en: 'Hello! Nice to meet you.', ja: 'こんにちは！はじめまして。' } },
   ],
   contact: { email: 'halo@luaja.com', whatsapp: '', address: 'Indonesia' },
   social: {},
   pages: {},
+  i18n: { en: COPY_EN, ja: COPY_JA },
   adsEnabled: true,
   updatedAt: 0,
 };
