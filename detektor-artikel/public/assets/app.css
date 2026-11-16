@@ -836,3 +836,9 @@ details.more summary { cursor: pointer; font-weight: 700; color: var(--brand); }
   .page-app { padding-bottom: 96px; }
 }
 @media print { .tabbar { display: none !important; } }
+
+/* Laporan cetak paling banyak dua lembar: lampiran teks lengkap & baris paragraf di luar 10 teratas hanya di layar. */
+.hanya-cetak { display: none; }
+@media print { .ptable tr.baris-lebih { display: none; } .hanya-cetak { display: block; } .paper.appendix.noprint { display: none !important; } .paper { break-inside: avoid-page; } }
+/* Tiap halaman laporan dirapatkan agar muat tepat satu lembar A4 (ringkasan + rubrik = 2 lembar). */
+@media print { .report .paper { zoom: .74; } .report .paper:last-of-type, .report .paper:nth-last-of-type(2):has(+ .appendix.noprint) { break-after: auto; } }

@@ -31,6 +31,8 @@ export interface ReportView {
   sample?: boolean;
   letterhead?: string;
   checker?: string;
+  /** Cetak lampiran teks lengkap juga. Bawaan: tidak — laporan cetak paling banyak dua lembar (pemilik, 17 Nov 2026). */
+  appendix?: boolean;
 }
 
 function verdictTone(key: string): string {
@@ -66,6 +68,9 @@ export function reportPages(v: ReportView): Raw {
   const wm = s.free ? html`<div class="wm" aria-hidden="true"></div>` : '';
 
   const excerptPar = [...s.paragraphs].sort((a, b) => b.p - a.p)[0];
+  // Di kertas hanya 10 paragraf paling bernada AI yang dicetak, supaya ringkasan muat satu lembar; di layar semua tampil.
+  const MAKS_PAR = 10;
+  const batasPar = new Set([...s.paragraphs].sort((a, b) => b.p - a.p).slice(0, MAKS_PAR).map((p) => p.i));
   const excerpt = d && excerptPar
     ? d.sentences.filter((x) => x.par === excerptPar.i).map((x) => (x.cls === 'ai' ? html`<mark class="s-ai">${x.text}</mark> ` : x.cls === 'mix' ? html`<mark class="s-mix">${x.text}</mark> ` : html`${x.text} `))
     : null;
@@ -90,8 +95,9 @@ export function reportPages(v: ReportView): Raw {
   <h5>${tr(L, 'Rincian per paragraf', 'Per-paragraph detail')}</h5>
   <table class="ptable">
     <thead><tr><th>${tr(L, 'Par.', 'Par.')}</th><th class="r">${tr(L, 'Kata', 'Words')}</th><th class="r">${tr(L, 'Peluang AI', 'AI prob.')}</th><th>Label</th><th>${tr(L, 'Alasan utama', 'Main reasons')}</th></tr></thead>
-    <tbody>${s.paragraphs.map((p) => html`<tr><td>P${p.i + 1}</td><td class="r">${fmtNum(L, p.words)}</td><td class="r"><span class="minibar"><i style="--w:${Math.round(p.p * 100)}%" class="t-${p.cls}"></i></span>${Math.round(p.p * 100)}%</td><td>${L === 'en' ? CLASS_NAMES[p.cls].en : CLASS_NAMES[p.cls].id}</td><td>${p.reasons.map((r) => reason(L, r)).join(', ') || '—'}</td></tr>`)}</tbody>
+    <tbody>${s.paragraphs.map((p) => html`<tr${raw(batasPar.has(p.i) ? '' : ' class="baris-lebih"')}><td>P${p.i + 1}</td><td class="r">${fmtNum(L, p.words)}</td><td class="r"><span class="minibar"><i style="--w:${Math.round(p.p * 100)}%" class="t-${p.cls}"></i></span>${Math.round(p.p * 100)}%</td><td>${L === 'en' ? CLASS_NAMES[p.cls].en : CLASS_NAMES[p.cls].id}</td><td>${p.reasons.map((r) => reason(L, r)).join(', ') || '—'}</td></tr>`)}</tbody>
   </table>
+  ${s.paragraphs.length > MAKS_PAR ? html`<p class="pnote hanya-cetak">${tr(L, `Dicetak ${MAKS_PAR} paragraf dengan peluang AI tertinggi dari ${s.paragraphs.length}; rincian lengkap ada di laporan daring (pindai kode QR).`, `The ${MAKS_PAR} paragraphs with the highest AI probability out of ${s.paragraphs.length} are printed; the full detail is in the online report (scan the QR code).`)}</p>` : ''}
   ${excerpt ? html`<h5>${tr(L, `Kutipan teks bertanda (P${excerptPar!.i + 1})`, `Marked text excerpt (P${excerptPar!.i + 1})`)}</h5><div class="excerpt">${excerpt}</div>` : s.purged ? html`<p class="muted">${tr(L, 'Teks naskah sudah dihapus sesuai masa simpan; angka tetap tersimpan.', 'The text was deleted per its retention period; the numbers remain.')}</p>` : ''}
   ${d?.styleNote ? html`<h5>${tr(L, 'Catatan gaya', 'Style note')}</h5><p class="pnote">${d.styleNote}</p>` : ''}
   ${pages === 1 ? sign : ''}
@@ -120,7 +126,7 @@ export function reportPages(v: ReportView): Raw {
     })}</tbody>
   </table>
   <h5>${tr(L, 'Kesalahan bahasa', 'Language errors')} — ${fmtNum(L, s.rubric.langErrors)} (${fmtScore(L, s.rubric.per1k)} ${tr(L, 'per 1.000 kata', 'per 1,000 words')})</h5>
-  ${d.rubric.errors.length ? html`<table class="ptable"><thead><tr><th>#</th><th>${tr(L, 'Tertulis', 'Written')}</th><th>${tr(L, 'Seharusnya', 'Should be')}</th><th>${tr(L, 'Jenis', 'Type')}</th></tr></thead><tbody>${d.rubric.errors.slice(0, 25).map((e, k) => html`<tr><td>${k + 1}</td><td>${e.wrong}</td><td>${e.right}</td><td>${ERR_TYPE[e.type] ? (L === 'en' ? ERR_TYPE[e.type]!.en : ERR_TYPE[e.type]!.id) : e.type}</td></tr>`)}</tbody></table>${d.rubric.errors.length > 25 ? html`<p class="muted">+ ${d.rubric.errors.length - 25} ${tr(L, 'lainnya di lampiran', 'more in the appendix')}</p>` : ''}` : html`<p class="muted">${tr(L, 'Tidak ditemukan kesalahan.', 'No errors found.')}</p>`}` : ''}
+  ${d.rubric.errors.length ? html`<table class="ptable"><thead><tr><th>#</th><th>${tr(L, 'Tertulis', 'Written')}</th><th>${tr(L, 'Seharusnya', 'Should be')}</th><th>${tr(L, 'Jenis', 'Type')}</th></tr></thead><tbody>${d.rubric.errors.slice(0, 12).map((e, k) => html`<tr><td>${k + 1}</td><td>${e.wrong}</td><td>${e.right}</td><td>${ERR_TYPE[e.type] ? (L === 'en' ? ERR_TYPE[e.type]!.en : ERR_TYPE[e.type]!.id) : e.type}</td></tr>`)}</tbody></table>${d.rubric.errors.length > 25 ? html`<p class="muted">+ ${d.rubric.errors.length - 25} ${tr(L, 'lainnya di lampiran', 'more in the appendix')}</p>` : ''}` : html`<p class="muted">${tr(L, 'Tidak ditemukan kesalahan.', 'No errors found.')}</p>`}` : ''}
   <h5>${tr(L, 'Metodologi & batasan', 'Methodology & limits')}</h5>
   <p class="pnote">${tr(L, 'Naskah diperiksa dengan lima cara: pola gaya tulisan, sisa salin-tempel dari chatbot, uji apakah AI bisa menebak kalimat berikutnya, pemeriksaan AI bertingkat (Essential → Advanced → Expert), dan kemiripan dengan naskah lain. Persentase adalah perkiraan statistik.', 'The text is checked in five ways: writing-style patterns, chatbot paste traces, a test of whether AI can guess the next sentence, tiered AI checks (Essential → Advanced → Expert), and similarity with other texts. Percentages are statistical estimates.')} ${tr(L, 'Versi pemeriksa', 'Checker version')} ${s.engine.version}.</p>
   ${sign}
@@ -129,7 +135,7 @@ export function reportPages(v: ReportView): Raw {
   }
 
   const appendix = d
-    ? html`<article class="paper appendix" aria-label="${tr(L, 'Lampiran teks bertanda', 'Marked-text appendix')}">${wm}
+    ? html`<article class="paper appendix${v.appendix ? '' : ' noprint'}" aria-label="${tr(L, 'Lampiran teks bertanda', 'Marked-text appendix')}">${wm}
   <h5 class="first">${tr(L, 'Lampiran — teks lengkap bertanda per kalimat', 'Appendix — full text marked per sentence')}</h5>
   <div class="legend"><span><i class="lg-ai"></i>AI ≥ 80%</span><span><i class="lg-mix"></i>${tr(L, 'Campuran 20–80%', 'Mixed 20–80%')}</span><span><i class="lg-hum"></i>${tr(L, 'Manusia ≤ 20%', 'Human ≤ 20%')}</span><span><i class="lg-exc"></i>${tr(L, 'Dikecualikan', 'Excluded')}</span></div>
   <div class="fulltext">${d.paragraphs.map((p) => {
