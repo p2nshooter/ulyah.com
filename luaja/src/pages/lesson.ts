@@ -6,11 +6,13 @@
 import { html, jsonScript, raw, type Raw } from '../lib/html.ts';
 import { renderMarkdown } from '../lib/markdown.ts';
 import { COURSE_META, type Course } from '../data/model.ts';
-import { t, tri, type Lang } from '../lib/i18n.ts';
+import { fmtNum, t, tri, type Lang } from '../lib/i18n.ts';
 import { icon, breadcrumbs } from './layout.ts';
 import { clientLesson, type Lesson } from '../course/schema.ts';
 import { getLesson, modulesOf, OUTLINE } from '../course/index.ts';
 import { setsOf } from '../practice/index.ts';
+import { booksOf } from '../library/index.ts';
+import { cover, catLabel } from './library.ts';
 import { scene, autoMood } from './scene.ts';
 import type { Progress } from '../data/progress.ts';
 
@@ -45,6 +47,7 @@ export function levelPage(o: { course: Course; level: string; unlocked: boolean;
     <ol class="lesson-list">${mod.lessons.map((code) => { const l = getLesson(code)!; const st = o.state(code); return html`<li><a href="/belajar/${code}" class="${st === 'passed' ? 'done' : ''}"><span class="num">${l.index}</span><span class="t"><b>${l.title}</b><small>${l.native} · ${t(L, 'common.minutes', { n: l.minutes })}</small></span>${pill(st)}</a></li>`; })}</ol>
   </div>`) : html`<div class="notice">${t(L, 'level.empty', { level: lv.name })}</div>`}
   ${outline.length > mods.length ? html`<div class="card reveal" style="margin-top:18px"><h3 style="margin-top:0">${t(L, 'level.map', { level: lv.name })}</h3><ol class="outline">${outline.map((x) => html`<li class="${mods.some((mm) => mm.n === x.n) ? 'live' : ''}"><b>${t(L, 'common.module')} ${x.n}</b> ${x.title} <span class="muted">· ${x.native}</span>${mods.some((mm) => mm.n === x.n) ? html` <span class="pill pill-ok">${t(L, 'level.available')}</span>` : html` <span class="pill pill-line">${t(L, 'level.coming')}</span>`}</li>`)}</ol></div>` : ''}
+  ${levelHub(o.course, o.level, lv.name, L)}
   ${sets.length ? html`<div class="cta-band reveal" style="margin-top:28px"><div><h2>${t(L, 'level.practice.title', { level: lv.name })}</h2><p>${t(L, 'level.practice.text', { packs: t(L, 'common.packs', { n: sets.length }), questions: t(L, 'common.questions', { n: sets.reduce((n, s) => n + s.questions.length, 0) }) })}</p><div class="row" style="margin-top:16px"><a class="btn btn-gold" href="/latihan?bahasa=${o.course}#${o.level}">${t(L, 'level.practice.btn')}</a></div></div></div>` : ''}
 </div></section>`;
 }
@@ -116,4 +119,22 @@ export function lessonPage(o: { lesson: Lesson; state: LessonState; loggedIn: bo
 ${jsonScript('lesson', { ...clientLesson(l), locale: loc, loggedIn: o.loggedIn, passed: Boolean(o.passed) })}
 </section>
 <script src="/assets/belajar.js?v=3" defer></script>`;
+}
+
+/** Pusat jenjang (pemilik, 16 Nov 2026: „Level nya yg jelas … beserta bukunya, audio, video, simulasi“): buku, audio & video
+ *  dan simulasi ujian jenjang ini dalam satu tempat. */
+function levelHub(course: Course, level: string, levelName: string, L: Lang): Raw {
+  const books = booksOf(course, level);
+  if (!books.length) return html``;
+  const media = books.filter((b) => b.cat === 'video' || b.media > 0);
+  const reading = books.filter((b) => !media.includes(b));
+  const pages = books.reduce((n, b) => n + b.pages, 0);
+  const card = (b: (typeof books)[number]) => html`<a class="bk-card lift" href="/pustaka/${b.id}">${cover(b, L)}<span class="bk-meta"><span class="pill pill-line">${catLabel(L, b.cat)}</span><b>${b.title}</b><small>${t(L, 'lib.pages', { n: fmtNum(L, b.pages) })}</small></span></a>`;
+  return html`<link rel="stylesheet" href="/assets/pustaka.css?v=2">
+  <div class="level-hub reveal" id="pustaka">
+    <div class="shelf-head"><h2>📚 ${t(L, 'level.hub.books', { level: levelName })}</h2><span class="muted small">${books.length} ${t(L, 'lib.stat.books')} · ${t(L, 'lib.pages', { n: fmtNum(L, pages) })}</span></div>
+    <div class="bk-grid">${reading.slice(0, 8).map(card)}</div>
+    ${media.length ? html`<div class="shelf-head"><h2>🎧 ${t(L, 'level.hub.media', { level: levelName })}</h2><span class="muted small">${t(L, 'lib.media', { n: fmtNum(L, media.reduce((n, b) => n + b.media, 0)) })}</span></div><div class="bk-grid">${media.slice(0, 8).map(card)}</div>` : ''}
+    <p><a class="btn btn-ghost" href="/pustaka?bahasa=${course}&jenjang=${level}">${t(L, 'level.hub.all', { n: books.length, level: levelName })} →</a></p>
+  </div>`;
 }

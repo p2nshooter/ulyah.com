@@ -18,7 +18,7 @@ export const pathFor = (L: Lang, path: string): string => (L === 'id' ? path : `
 export const base = (c: Ctx) => origin(c) + PREFIX[c.get('lang')];
 
 /** Jalur yang tidak pernah diberi awalan bahasa (bukan halaman publik atau bukan HTML). */
-const NO_PREFIX = /^\/(assets\/|api\/|portal|admin|masuk|daftar|keluar|lupa-sandi|favicon|manifest\.webmanifest|sw\.js|robots\.txt|sitemap\.xml|ads\.txt|en\/|ja\/|en"|ja")/;
+const NO_PREFIX = /^\/(assets\/|api\/|portal|admin|masuk|daftar|keluar|lupa-sandi|favicon|manifest\.webmanifest|sw\.js|robots\.txt|sitemap\.xml|ads\.txt|p\/|baca\/|en\/|ja\/|en"|ja")/;
 export const isPublicPath = (path: string): boolean => !NO_PREFIX.test(`${path}"`);
 
 /** Beri awalan bahasa pada setiap href="/..." dan action="/..." halaman publik di HTML yang sudah jadi. */

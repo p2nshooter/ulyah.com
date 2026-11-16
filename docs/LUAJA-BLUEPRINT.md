@@ -35,6 +35,13 @@ Folder kode: `luaja/` (Cloudflare Worker `luaja-com`). Aturan tetap pemilik berl
 | 15 Nov 2026 | „Masih banyak yg belum di kerjakan, tolong kerjakan dengan teliti, profesional, hati2 tapi kerjakan secara cepat tanpa agen … Cek ulang penggunaan kata2 di seluruh website ini agar seluruhnya sesuai tanpa miss informasi“ | ✅ salinan diperiksa ulang: klaim yang belum ada dihapus/ditandai „terbit bertahap“ (bukan „A1–C2 lengkap“, bukan „rekam & bandingkan“, bukan „TOEFL iBT Speaking/Writing“), audio disebut jujur sebagai mesin suara perangkat, jumlah pelajaran & soal dihitung otomatis, urutan „lulus kuis ≥ 80 % membuka pelajaran berikutnya“ kini **benar-benar ditegakkan** di server, FAQ menjelaskan materi yang sudah tersedia |
 | 15 Nov 2026 | „Domain luaja.com masih blm bisa ke buka“ | ✅ record lama (A → parkir Namecheap, CNAME www → parkingpage.namecheap.com, diproksi) menghalangi custom domain (100117); deploy kini memasang **Worker route** `luaja.com/*` & `www.luaja.com/*` di record itu tanpa menghapus DNS — luaja.com menjawab dari Worker sejak 15 Nov 19:35 UTC (`scripts/cf-attach.sh`) |
 | 15 Nov 2026 | „Lu baca panduan blueprint klo sudah hampir hilang ingatan untuk nyempurnain pembelajaran member, baik dr buku, voice, audio, KAMus dll, cari sumber dr github atau situs manapun, klo yg lu dpt PDF urai text nya dan jadikan lebih interaktif di portal member, pastikan admin punya link portal member full akses untuk admin sendiri menikmati layanan member... Jgn lupa film2 dr youtube dan situs manapun dll untuk menunjang pembelajaran member“ | ✅ admin: tautan „Portal member (akses penuh)“ di panel & kepala situs, semua materi terbuka untuk pengelola · ⏳ §4, §6.2–§6.4: pustaka interaktif (PDF/teks diurai jadi bacaan interaktif, tanpa unduhan), suara/audio, kamus, film/video (sematan resmi + kosakata) dari sumber berlisensi sah |
+| 15 Nov 2026 | „Masih blm kumplit, g ada buku pelajaran yg sy minta setiap jenjang, bank soal juga bukan simulasi total soal saat mengambil sertifikat“ · „Lu cari dulu buku digitalnya, contoh soal latihan yg simulasi real setiap jenjang yg di ambil dari github, google dan dr situs manapun, lu cari listening, video, dll“ | 🔄 sumber terbuka diriset & diimpor (§4.1, §6.2); simulasi ujian penuh §6.5 |
+| 16 Nov 2026 | „Tarik semua datanya, klo bentuk PDF lu urai kata2nya, ubah bentuk nya supaya enak di pelajarin di portal member, ubah warna CSS make yg terang tp indah aja, jgn gelap begitu“ | ✅ pustaka: **128 buku · 14.470 halaman · 2.332 soal berkunci · 1.127 audio/video · 11.430 kosakata · 32.577 kalimat ber-terjemahan Indonesia** (Grimm Grammar, Deutsch im Blick + 10 buku kerja PDF diurai, Tatoeba, Project Gutenberg, Aozora Bunko berfurigana, kosakata & kanji JLPT N5–N1, VOA Word Book + Let's Learn English) di pembaca interaktif `/pustaka` → `/baca/<id>`; ✅ tampilan **terang** (tanpa mode gelap otomatis, kepala halaman & kaki situs terang, suasana otomatis selalu siang cerah) |
+| 16 Nov 2026 | „Klo ga lu bikinin bukunya, covernya daftar isi, minimal 50 halaman dan minimal 20 buku per jenjang, lu pelajarin dulu bagaimana panduan bertingkatnya, isinya apa aja setiap jenjang, dan lu bikinin simulasi soalnya, mulai dari total soal dll sampai penilaian dan kebijakan yang sesuai blueprint“ | ⏳ §6.4 — dikerjakan **setelah** sumber terbuka habis diserap (perintah berikut) |
+| 16 Nov 2026 | „Bikin puluhan simulasi soal, satu simulasi wajib sesuai dengan total soal yg bakal di hadapi setiap siswa untuk mendapatkan sertifikat jenjang resminya“ | ⏳ §6.5 (jumlah soal, waktu, bagian, penilaian & batas lulus resmi tiap ujian) |
+| 16 Nov 2026 | „Level nya yg jelas, contoh Jerman A1, A2, B1, B2, C1, C2 beserta bukunya, audio, video, Simulasi Bank Soal yg real bakal di hadapi ketika mengambil sertifikat resminya“ | ✅ halaman setiap jenjang memuat buku, audio & video jenjang itu (Jerman A1–C2 kini semuanya berisi buku) · ⏳ simulasi ujian penuh per sertifikat §6.5 |
+| 16 Nov 2026 | „Kerjain dulu hasil yg lu download, cari dulu sebanyak mungkin dari sumber2 buku terbuka dan contoh2 soal, klo itu sudah selesai baru yg lu bikin“ | ✅ urutan kerja: (1) impor sumber terbuka sebanyak mungkin, (2) baru buku & simulasi buatan LUAJA |
+| 16 Nov 2026 | „Lu wajib inget satu hal, bikin yg interaktif, menyenangkan dan siswa betah lama2 belajar“ | ✅ aturan tetap desain (§8): setiap halaman belajar punya interaksi (dengar, ketuk kata, uji diri, kartu hafalan, latihan langsung dinilai), umpan balik positif, XP & runtun harian |
 
 Kode AdSense `pub-6701063918838796` (akun ke-22) sudah masuk `adsense-stack.json` pada 14 Nov 2026 (PR #427), sehingga
 luaja.com membawanya sejak deploy pertama bersama 21 akun lainnya.
@@ -154,6 +161,24 @@ domain publik Internet Archive ditambahkan pada fase lanjut), Jepang belasan rib
 halaman pustaka selalu angka nyata hasil impor, bukan klaim. Kekurangan di jenjang pemula ditutup dengan **konten
 orisinal** (Zona A), bukan dengan menyalin buku berhak cipta (Hueber, Klett, Cornelsen, Cambridge, Minna no Nihongo …).
 
+### 4.1 Sumber yang sudah diimpor (angka nyata dari `luaja/scripts/pustaka/build.py`)
+
+| Sumber | Lisensi | Isi di LUAJA | Jenjang |
+|---|---|---|---|
+| Grimm Grammar (COERLL, UT Austin) | CC BY 4.0 | 3 buku tata bahasa Jerman (A1, A2, B1): ±90 topik, contoh bersuara penutur asli, **1.002 latihan isian & pilihan ganda** dari kunci jawaban resminya | A1–B1 |
+| Deutsch im Blick (COERLL, UT Austin) | CC BY 4.0 | Kosakata 10 bab (audio penutur asli per bagian), 268 video asli, 10 buku kerja PDF yang diurai per halaman | A1–A2 |
+| Tatoeba | CC BY 2.0 FR | 31.583 kalimat Jerman/Inggris/Jepang ↔ Indonesia, 4 tingkat panjang kalimat, tautan ke kalimat asli | semua |
+| Project Gutenberg | Domain publik (penulis wafat ≤ 1955) | 49 buku bacaan & tata bahasa: Jerman A1–C2 (Guerber, Spyri, Storm, Heyse, Kafka, Eichendorff, Hauff, Grimm, Fontane, Thomas Mann, Heine, Goethe, Schiller, Wustmann), Inggris Beginner–Proficiency (McGuffey Primer–Sixth Reader, Potter, Aesop, Baum, Carroll, Kipling, Doyle, London, Stevenson, Dickens, Austen, Wilde, Reed & Kellogg, Kittredge) | semua |
+| Aozora Bunko | Domain publik | 13 karya berfurigana asli (Niimi Nankichi, Miyazawa Kenji, Akutagawa, Dazai, Natsume Sōseki) | N3–N1 |
+| JLPT: daftar Jonathan Waller + JMdict, KANJIDIC2 + Kanji alive | CC BY / CC BY-SA 4.0 / CC BY 4.0 | Kosakata JLPT N5–N1 (bacaan, arti, contoh kalimat Tatoeba ber-terjemahan Indonesia) dan kanji N5–N1 (arti, on/kun, goresan, contoh kata, kuis per halaman) | N5–N1 |
+| VOA Learning English | Domain publik (karya Pemerintah AS) | Word Book (±1.500 kata inti + definisi sederhana), Let's Learn English Level 1 (52 pelajaran video + audio) dan Level 2 (7 pelajaran pertama; sisanya menyusul) | Beginner–Elementary |
+
+Antrean berikutnya: VOA Let's Learn English Level 2 pelajaran 8–30 dan seri video VOA (English in a Minute, Everyday Grammar
+TV, English @ the Movies, News Words), FSI/DLI Japanese (domain publik AS), Wikibooks (CC BY-SA), kamus JMdict & Wiktionary.
+Setiap halaman jenjang (mis. `/jerman/a1` … `/jerman/c2`) kini menampilkan **buku jenjang itu, audio & video, dan simulasi
+ujiannya** di satu tempat. Soal ujian resmi (Goethe,
+JLPT, ETS, IELTS, Cambridge) hanya **ditautkan** — tidak disalin.
+
 ---
 
 ## 5. Peta situs dan standar setiap menu
@@ -242,7 +267,15 @@ pemilik sama dengan ulyah.com / axto.io (hanya *hash* sandi di kode, pola yang s
 
 Setiap buku di pustaka: dibacakan kalimat demi kalimat dengan sorot (suara sesuai bahasa buku), **terjemahan Indonesia per
 kalimat** (ketuk kalimat), **ketuk kata** → arti + tambah ke *Kosakata saya*, mode dua bahasa berdampingan, ukuran huruf,
-tema terang/gelap, lanjut otomatis ke bab berikutnya. Terjemahan mesin dibuat sekali lalu disimpan di R2 (tidak dihitung
+tema terang/gelap, lanjut otomatis ke bab berikutnya.
+
+**Sudah berjalan (16 Nov 2026):** rak per bahasa → jenjang → kategori dengan angka nyata; halaman buku (sampul, daftar isi
+bernomor halaman, sumber & lisensi, JSON-LD `Book`); pembaca `/baca/<id>`: halaman berbalik (tombol, panah, geser), bacakan
+seluruh halaman dengan sorot, 🔊 per paragraf/kalimat/kata, ketuk kata → dengar · simpan · kamus (Wiktionary / jisho),
+**uji diri** (arti diburamkan, ketuk untuk melihat), **kartu hafalan** per kelompok kosakata, latihan isian & pilihan ganda
+langsung dinilai dengan skor halaman, audio & video asli, XP (+2 halaman baru, +3 jawaban benar) dan runtun harian tersimpan
+di R2 (`c/reading/<uid>.json`). Tiga halaman pertama gratis; seluruh halaman untuk member bahasa itu dan pengelola — data
+`/p/b/<id>.json` selalu lewat Worker (`assets.run_worker_first`). Terjemahan mesin dibuat sekali lalu disimpan di R2 (tidak dihitung
 ulang); terjemahan pelajaran inti ditulis tangan.
 
 ### 6.3 Video dan mesin kosakata
@@ -279,7 +312,11 @@ Setiap video punya halaman dengan pemutar dan **teks di bawahnya**:
   tangga jenjang yang bisa dijelajahi, mini-latihan langsung di beranda, harga yang menghitung sendiri saat memilih bahasa
   dan kategori, angka yang naik saat terlihat.
 - **Mobile dulu:** 360 px tanpa gulir samping; navigasi bawah di portal; PWA bisa dipasang.
-- **Tema terang dan gelap**, `prefers-reduced-motion`, kontras AA.
+- **Terang dan indah** (pemilik, 16 Nov 2026: „make yg terang tp indah aja, jgn gelap“): tidak ada mode gelap otomatis; kepala
+  halaman, kaki situs dan kartu memakai warna pastel cerah; suasana otomatis selalu siang. Mode gelap hanya lewat tombol ◐.
+  `prefers-reduced-motion` dihormati, kontras AA.
+- **Interaktif, menyenangkan, bikin betah** (pemilik, 16 Nov 2026): setiap halaman belajar punya interaksi, umpan balik
+  langsung yang positif, dan kemajuan yang terlihat (XP, runtun, progres bab).
 
 ---
 

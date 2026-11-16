@@ -3,6 +3,7 @@
  * Teks dapat ditimpa admin lewat site.pages (`<slug>` untuk Indonesia, `<slug>.en`, `<slug>.ja`).
  */
 import { html, raw, type Raw } from '../lib/html.ts';
+import { sources } from '../library/index.ts';
 import { renderMarkdown } from '../lib/markdown.ts';
 import { COURSE_META, COURSES, money, unitPrices, type Pricing, type SiteContent, type Tier } from '../data/model.ts';
 import { t, type Lang } from '../lib/i18n.ts';
@@ -92,6 +93,11 @@ export function infoPage(site: SiteContent, slug: string, L: Lang = 'id'): { tit
   const md = over?.body ?? base!.body;
   return {
     title, desc: base?.desc ?? title,
-    body: html`<section class="section"><div class="wrap-narrow">${breadcrumbs([[title, `/${slug}`]], L)}<h1 style="font-size:var(--fs-6)">${title}</h1><div class="article">${raw(renderMarkdown(md))}</div>${over?.updated ? html`<p class="small muted">${t(L, 'common.update', { d: over.updated })}</p>` : ''}</div></section>`,
+    body: html`<section class="section"><div class="wrap-narrow">${breadcrumbs([[title, `/${slug}`]], L)}<h1 style="font-size:var(--fs-6)">${title}</h1><div class="article">${raw(renderMarkdown(md))}</div>${slug === 'kredit' ? libraryCredits(L) : ''}${over?.updated ? html`<p class="small muted">${t(L, 'common.update', { d: over.updated })}</p>` : ''}</div></section>`,
   };
+}
+
+/** Daftar sumber pustaka (dihitung dari katalog impor) — atribusi wajib CC BY / CC BY-SA. */
+function libraryCredits(L: Lang): Raw {
+  return html`<div class="article"><h2>${t(L, 'credit.library')}</h2><p>${t(L, 'credit.libraryText')}</p><ul>${sources().map((s) => html`<li><a href="${s.url}" rel="noopener" target="_blank">${s.source}</a> — <a href="${s.licenceUrl}" rel="noopener license" target="_blank">${s.licence}</a> · ${t(L, 'lib.stat.books')}: ${s.books}</li>`)}</ul></div>`;
 }
