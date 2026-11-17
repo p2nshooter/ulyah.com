@@ -92,3 +92,16 @@
 .bs-riwayat a{display:flex;gap:.8rem;align-items:center;padding:.6rem .8rem;border-radius:12px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none;font-size:.9rem}
 .bs-riwayat span{flex:1;min-width:0}
 .bs-riwayat time{font-size:.78rem;color:var(--redup)}
+/* ── Panduan siswa (/siswa/panduan) ── */
+.sw-panduan-taut{display:block;margin-top:.9rem;padding:.7rem .9rem;border-radius:14px;border:1px dashed var(--e500);color:var(--z700);font-weight:700;text-decoration:none;text-align:center}
+.sw-panduan-taut:hover{background:color-mix(in srgb,var(--e400) 14%,transparent)}
+[data-tema="malam"] .sw-panduan-taut{color:var(--e300)}
+.psw{display:grid;gap:1rem}
+.psw-daftar{display:flex;flex-wrap:wrap;gap:.4rem}
+.psw-daftar a{display:inline-flex;gap:.35rem;align-items:center;padding:.4rem .75rem;border-radius:999px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none;font-weight:600;font-size:.86rem}
+.psw-bagian{scroll-margin-top:5rem}
+.psw-bagian h2{display:flex;align-items:center;gap:.5rem}
+.psw-no{display:inline-grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:50%;background:linear-gradient(150deg,var(--z600),var(--z900));color:#fff8e2;font-size:.95rem;flex:none}
+.psw-langkah{margin:.2rem 0 .6rem;padding-left:1.3rem;line-height:1.7}
+.psw-langkah li{margin:0 0 .45rem}
+.psw-catatan{margin:.4rem 0 0;padding:.7rem .9rem;border-radius:14px;background:color-mix(in srgb,var(--e400) 13%,var(--permukaan));font-size:.92rem}

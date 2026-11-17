@@ -21,6 +21,7 @@ export function masukSiswaPage(o: { galat?: string; nomor?: string; pesan?: stri
       <button class="tbl tbl-emas" type="submit">Masuk</button>
     </form>
     <p class="sw-kecil">Belum bisa masuk? Hubungi wali kelas atau admin madrasah — data siswa diisi oleh lembaga. Siswa yang sudah lulus, pindah, atau keluar tidak dapat masuk lagi.</p>
+    <a class="sw-panduan-taut" href="/siswa/panduan">📘 Panduan siswa: cara masuk &amp; mengerjakan latihan soal →</a>
   </div>
 </section>`;
 }
@@ -57,7 +58,7 @@ export function berandaSiswa(o: {
       ${o.penghargaan.length ? html`<ul class="sw-prestasi">${o.penghargaan.map((x) => html`<li>${x.s === 'tayang' && x.sl ? raw(`<a href="/prestasi/${encodeURIComponent(x.sl)}">`) : raw('<div>')}<span class="sw-medali" aria-hidden="true">🏅</span><b>${labelJenis(x.x.jenis)}</b><span>${[x.x.capaian, x.x.predikat].filter(Boolean).join(' · ')}</span><small>${String(x.x.tahun ?? tanggal(x.t))}</small>${raw(x.s === 'tayang' && x.sl ? '</a>' : '</div>')}</li>`)}</ul>` : html`<p class="sw-kosong">Belum ada penghargaan — terus semangat belajar! 🌱</p>`}
     </section>
     <section class="sw-kartu" id="soal"><h2>Bank soal ${o.p.tingkat}</h2>
-      <ol class="sw-cara-soal"><li><b>Pilih</b> paket mata pelajaran</li><li><b>Jawab</b> semua soal — tersimpan otomatis</li><li><b>Serahkan</b> → nilai, kunci &amp; pembahasan</li><li><b>Unduh</b> hasilnya (PDF)</li></ol>
+      <ol class="sw-cara-soal"><li><b>Pilih</b> paket mata pelajaran</li><li><b>Jawab</b> semua soal — tersimpan otomatis</li><li><b>Serahkan</b> → nilai, kunci &amp; pembahasan</li><li><b>Unduh</b> hasilnya (PDF)</li></ol><p class="sw-kecil"><a href="/siswa/panduan#latihan">Panduan lengkap mengerjakan latihan →</a></p>
       ${o.soal?.kelasku.length ? html`<ul class="sw-soal">${o.soal.kelasku.slice(0, 8).map((p) => { const r = o.soal!.riwayat.find((x) => x.p === p.id); return html`<li><a href="/siswa/bank-soal/${p.id}"><b>${p.mapel}</b><span>${p.jenjang === 'ra' ? 'Permainan' : `${p.jenis.toUpperCase()} ${p.semester === 'ganjil' ? 'Ganjil' : 'Genap'}`} · ${p.jumlah} soal</span>${r ? html`<em class="${r.v >= 70 ? 'sw-lulus' : 'sw-ulang'}">Nilai ${r.v}</em>` : html`<em>Kerjakan →</em>`}</a></li>`; })}</ul>` : html`<p class="sw-kosong">Paket soal untuk ${o.p.tingkat} sedang disiapkan para guru${o.soal?.jumlahLain ? ` — sementara itu ada ${o.soal.jumlahLain} paket latihan kelas lain` : ''}.</p>`}
       <p class="sw-aksi-soal"><a class="tbl tbl-emas tbl-kecil" href="/siswa/bank-soal">Buka bank soal</a>${o.soal?.riwayat.length ? html` <span class="sw-ket">${o.soal.riwayat.length} latihan sudah dikerjakan</span>` : ''}${o.rak ? html` <a class="tbl tbl-garis tbl-kecil" href="${o.rak.href}">${o.rak.nama}</a>` : ''}</p>
     </section>

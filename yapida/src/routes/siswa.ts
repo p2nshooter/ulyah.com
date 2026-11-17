@@ -24,6 +24,7 @@ import { RAK } from '../data/buku.ts';
 import { riwayatKelas } from '../data/kesiswaan.ts';
 import { halamanCetak, kwitansiHtml } from '../pages/cetak.ts';
 import { berandaSiswa, masukSiswaPage } from '../pages/siswa.ts';
+import { panduanSiswaPage } from '../pages/panduan.ts';
 import { paketSiswa, riwayatSiswa } from '../data/soal.ts';
 import { biodataSiswa, kopLembaga } from './kesiswaan.ts';
 
@@ -63,6 +64,11 @@ export async function sesiSiswa(c: Ctx): Promise<Dok | null> {
 const ipDari = (c: Ctx) => c.req.header('cf-connecting-ip') ?? 'lokal';
 const halamanMasuk = (c: Ctx, o: { galat?: string; nomor?: string; pesan?: string } = {}, status: 200 | 400 | 429 = 200) =>
   render(c, { path: '/siswa', title: 'Portal Siswa — Yayasan Al-Huda Yapida', desc: 'Masuk Portal Siswa Yayasan Al-Huda Yapida dengan NISN atau NIS dan tanggal lahir.', body: masukSiswaPage(o), noindex: true, noAds: true, noStore: true, kelas: 'hal-siswa', css: ['siswa.css'] }, status);
+
+siswa.get('/siswa/panduan', async (c) => {
+  const d = await sesiSiswa(c);
+  return render(c, { path: '/siswa/panduan', title: 'Panduan Portal Siswa — cara masuk & mengerjakan latihan soal | Yapida', desc: 'Cara masuk Portal Siswa Yayasan Al-Huda Yapida dengan NISN/NIS dan tanggal lahir, mengerjakan latihan soal sampai melihat pembahasan, membaca buku pelajaran, serta melihat tagihan dan sertifikat.', body: panduanSiswaPage({ masuk: Boolean(d) }), noAds: true, noStore: Boolean(d), kelas: 'hal-siswa', css: ['siswa.css'] });
+});
 
 siswa.get('/siswa', async (c) => {
   const d = await sesiSiswa(c);
