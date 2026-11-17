@@ -245,6 +245,84 @@ ok(papanAcak.length === 2 && papanAcak[0] !== papanAcak[1], 'letak angka berubah
   await ctx.close();
 }
 
+/* ── 6. panduan interaktif: tur langsung di halaman asli, langkah satu per satu, kemajuan; panduan siswa dengan simulasi ── */
+{
+  // seperti orang sungguhan (bukan peramban otomatis): tur dasbor diputar sendiri sekali
+  const { ctx, page } = await buka();
+  await ctx.addInitScript(() => Object.defineProperty(Navigator.prototype, 'webdriver', { get: () => false }));
+  await page.goto(BASE + '/masuk');
+  await page.selectOption('[data-pin-akun]', { label: 'Admin MI Al Huda' });
+  await ketukPin(page, '40917');
+  await page.waitForURL(/\/portal$/);
+  await page.locator('.tur.buka').waitFor({ timeout: 5000 });
+  const n = await page.locator('.tur-titik i').count();
+  ok(n >= 6, 'tur dasbor diputar sendiri saat pertama masuk', n);
+  ok(await page.locator('.tur-sorot').isHidden() && /Selamat datang/.test(await page.locator('.tur-judul').innerText()), 'langkah 1: kartu sambutan di tengah');
+  await page.click('.tur-lanjut');
+  await page.waitForTimeout(700);
+  const r = await page.locator('.tur-sorot').boundingBox();
+  const s = await page.locator('.p-sambut').boundingBox();
+  ok(r && s && Math.abs(r.x - (s.x - 8)) < 3 && Math.abs(r.width - (s.width + 16)) < 4, 'langkah 2: sorotan tepat di kartu jalan pintas', JSON.stringify({ r, s }));
+  for (let i = 1; i < n; i++) await page.click('.tur-lanjut');
+  await page.locator('.tur').waitFor({ state: 'hidden' });
+  ok(true, 'tur selesai dengan tombol Selesai');
+  await page.reload();
+  await page.waitForTimeout(1500);
+  ok((await page.locator('.tur.buka').count()) === 0, 'tur otomatis tidak diulang di perangkat yang sama');
+  await page.goto(BASE + '/portal/panduan');
+  ok((await page.locator('[data-pd-kartu]').count()) >= 10 && (await page.locator('[data-pd-paham]').innerText()) === '1', 'panduan: kartu menu + kemajuan (dasbor sudah dipelajari)');
+  await page.click('#bank-soal .pd-pelajari');
+  ok(/Langkah 1 dari/.test(await page.locator('#bank-soal [data-pd-no]').innerText()) && (await page.locator('#bank-soal [data-pd-li].aktif').count()) === 1, 'langkah ditampilkan satu per satu');
+  await page.fill('[data-pd-cari]', 'sertifikat');
+  ok((await page.locator('[data-pd-kartu]:visible').count()) >= 1 && (await page.locator('#bank-soal').isHidden()), 'cari menyaring kartu');
+  await page.goto(BASE + '/portal/bank-soal?tur=1');
+  await page.locator('.tur.buka').waitFor({ timeout: 5000 });
+  await page.waitForTimeout(600);
+  ok(await page.locator('.tur-sorot').isVisible(), 'Tur langsung (?tur=1) menyorot elemen bank soal');
+  await page.keyboard.press('Escape');
+  await page.locator('.tur').waitFor({ state: 'hidden' });
+  ok(true, 'Esc menutup tur');
+  await page.screenshot({ path: `${OUT}/portal-panduan.png` });
+  await ctx.close();
+}
+{
+  // ponsel: langkah menu samping membuka menu ☰ sendiri lalu menutupnya
+  const { ctx, page } = await buka({ viewport: { width: 412, height: 860 }, isMobile: true, hasTouch: true });
+  await page.goto(BASE + '/masuk');
+  await page.selectOption('[data-pin-akun]', { label: 'Admin MI Al Huda' });
+  await ketukPin(page, '40917');
+  await page.waitForURL(/\/portal$/);
+  await page.click('[data-tur-mulai]');
+  await page.locator('.tur.buka').waitFor();
+  let terbuka = false;
+  for (let i = 0; i < 6 && !terbuka; i++) { await page.click('.tur-lanjut'); await page.waitForTimeout(600); terbuka = await page.evaluate(() => document.querySelector('[data-sisi]').classList.contains('buka')); }
+  ok(terbuka, 'HP: tur membuka menu samping untuk langkah menu');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(400);
+  ok(!(await page.evaluate(() => document.querySelector('[data-sisi]').classList.contains('buka'))), 'HP: menu samping tertutup lagi setelah tur');
+  await ctx.close();
+}
+{
+  const { ctx, page } = await buka({ viewport: { width: 412, height: 860 } });
+  await page.goto(BASE + '/siswa/panduan');
+  await page.fill('[data-sim-nomor]', '0151234567');
+  await page.fill('[data-sim-tgl]', '300415');
+  ok(/30 April 2015/.test(await page.locator('[data-sim-tgl-ket]').innerText()), 'simulasi masuk membaca 300415 sebagai 30 April 2015');
+  await page.click('[data-sim-coba]');
+  ok(/Format sudah benar/.test(await page.locator('[data-sim-hasil]').innerText()), 'simulasi masuk: format benar');
+  await page.check('input[name="c1"][value="1"]');
+  await page.fill('[name="c2"]', 'lima');
+  await page.fill('[name="c3"]', 'membaca basmalah dan berkumur');
+  await page.click('[data-contoh-serah]');
+  await page.click('.psw-nilai-sendiri button:has-text("Sesuai")');
+  ok((await page.locator('.psw-nilai-angka').innerText()) === '100' && (await page.locator('[data-contoh-serah]').isHidden()), 'soal contoh: serahkan → nilai, pembahasan, nilai sendiri uraian');
+  await page.goto(BASE + '/siswa');
+  await page.click('[data-tur-mulai]');
+  await page.locator('.tur.buka').waitFor();
+  ok(/NISN/.test(await page.locator('.tur-judul').innerText()), 'tur cara masuk di halaman masuk siswa');
+  await ctx.close();
+}
+
 await browser.close();
 ok(galat.length === 0, 'tanpa galat konsol / HTTP 5xx', galat.join(' | '));
 const gagal = hasil.filter((x) => !x).length;

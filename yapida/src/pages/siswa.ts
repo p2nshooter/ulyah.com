@@ -21,7 +21,8 @@ export function masukSiswaPage(o: { galat?: string; nomor?: string; pesan?: stri
       <button class="tbl tbl-emas" type="submit">Masuk</button>
     </form>
     <p class="sw-kecil">Belum bisa masuk? Hubungi wali kelas atau admin madrasah — data siswa diisi oleh lembaga. Siswa yang sudah lulus, pindah, atau keluar tidak dapat masuk lagi.</p>
-    <a class="sw-panduan-taut" href="/siswa/panduan">📘 Panduan siswa: cara masuk &amp; mengerjakan latihan soal →</a>
+    <div class="sw-bantu"><button class="tbl-tur" type="button" data-tur-mulai aria-label="Mulai tur cara masuk"><span aria-hidden="true">▶</span> Tur cara masuk</button></div>
+    <a class="sw-panduan-taut" href="/siswa/panduan">📘 Panduan siswa: simulasi masuk, soal contoh, dan cara mengerjakan latihan →</a>
   </div>
 </section>`;
 }
@@ -40,7 +41,7 @@ export function berandaSiswa(o: {
     <div class="sw-hero-isi">
       <div class="sw-foto">${o.foto ? html`<img src="${o.mediaUrl(o.foto)}" alt="">` : html`<span aria-hidden="true">${o.nama.charAt(0)}</span>`}</div>
       <div><p class="kicker">Assalamu’alaikum,</p><h1>${o.nama}</h1><p class="sw-kelas"><b>${o.p.tingkat}</b>${o.p.rombel ? html` · Rombel <b>${o.p.rombel}</b>` : ''} · ${o.lembaga} · Tahun Pelajaran ${o.p.tp}</p></div>
-      <form method="post" action="/siswa/keluar" class="sw-keluar"><button class="tbl tbl-kaca tbl-kecil" type="submit">Keluar</button></form>
+      <div class="sw-keluar"><button class="tbl-tur" type="button" data-tur-mulai aria-label="Mulai tur Portal Siswa"><span aria-hidden="true">▶</span><span class="tur-label">Tur</span></button><form method="post" action="/siswa/keluar"><button class="tbl tbl-kaca tbl-kecil" type="submit">Keluar</button></form></div>
     </div>
     <div class="sw-ubin">
       <a href="#tagihan" class="sw-u ${sisa ? 'sw-u-awas' : 'sw-u-baik'}"><span>Tagihan</span><strong>${sisa ? rupiah(sisa) : 'Lunas ✓'}</strong><small>${sisa ? `${belum.length} belum lunas` : o.tagihan.length ? 'semua sudah dibayar' : 'belum ada tagihan'}</small></a>

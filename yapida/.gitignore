@@ -5,7 +5,8 @@ e2e-out/
 # Katalog & bab perpustakaan bawaan: dibuat ulang dari sumber di repo (npm run pustaka) saat uji, dev, dan deploy.
 public/assets/pustaka/b/
 public/assets/pustaka/katalog.json
-# bundel pembaca file master di peramban (npm run klien)
+# bundel peramban buatan `npm run klien`: pembaca file master dan simulasi panduan siswa
 public/assets/impor.js
+public/assets/panduan-siswa.js
 # Bank soal bawaan: dibuat dari soal/**/*.txt (npm run pustaka); paket berkunci hanya dibaca Worker.
 public/assets/soal/

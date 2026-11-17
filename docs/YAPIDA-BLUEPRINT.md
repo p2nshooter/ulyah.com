@@ -213,6 +213,13 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     rasm Utsmani, kitabah, nagham, ujian tahsin), **Nahwu Sharaf** (kalam, i'rab, marfu'at–manshubat–makhfudhat, tawabi',
     kana–inna–zhanna, tsulatsi mujarrad & mazid) kelas 7–9. Buku Pelajaran Yapida MTs 7–9 untuk semua mapel PAI, Bahasa Arab,
     Bahasa Inggris, Seni Budaya & Prakarya (8–9), dan ketiga muatan lokal — 29 buku; setiap semester ≥ 6 kuis → latihan siswa.
+44. „Masih berantakan bangat panduanya, kurang interaktif“ (17 Nov 2026, dengan tangkapan layar /portal/panduan tanpa gaya) —
+    akar masalah: ASSET_V tidak dinaikkan sehingga service worker di ponsel memakai portal.css lama. Kini **ASSET_V = sidik isi
+    CSS/JS** (`npm run versi`, dijaga `test/aset-versi.test.ts`). Panduan dibuat interaktif: **tur langsung** di setiap halaman
+    portal (tombol ▶ Tur di kepala; menyorot tombol/menu asli satu per satu, menu ☰ dibuka sendiri di ponsel; tur dasbor
+    diputar sekali otomatis), /portal/panduan berupa kartu menu dengan langkah satu per satu, saringan kelompok, cari, dan
+    lingkaran kemajuan „sudah dipelajari“; /siswa/panduan dengan **simulasi masuk** (pembaca tanggal yang sama dengan halaman
+    masuk) dan **soal contoh** yang bisa diserahkan, dinilai, dan dibahas; tur cara masuk dan tur beranda siswa.
 
 ## 1. Aturan yang berlaku
 
@@ -465,7 +472,7 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 | Y5b | Buku BSE: teks PDF disalin → buku interaktif (§5f) | ⏳ |
 | Y5c | Kop surat, sertifikat penghargaan, menu Prestasi (§5g) | ✅ |
 | Y6 | Bank soal (guru PTS/PAS vs latihan siswa, bagikan sesudah ujian, peta kelengkapan) dan Buku Pelajaran Yapida MI 1–6 & MTs 7–9 (81 buku, 162 latihan) | 🔄 17 Nov (PR #452, #453) |
-| Y6b | Panduan interaktif: /portal/panduan (setiap menu, menurut peran, tombol ? di setiap halaman portal, cari) + /siswa/panduan (cara masuk, mengerjakan latihan, buku, tagihan, sertifikat) | ✅ 17 Nov |
+| Y6b | Panduan interaktif: tur langsung di setiap halaman portal & Portal Siswa, /portal/panduan (kartu langkah satu per satu, saringan, cari, kemajuan), /siswa/panduan (simulasi masuk, soal contoh), ASSET_V otomatis | ✅ 17 Nov (PR #454 + lanjutan) |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
 | Y8 | Al-Qur'an mushaf Utsmani 604 halaman + terjemah + tafsir Kemenag + murottal per ayat | ✅ 15 Nov (PR #432) |
 | Y8b | Radio Qur'an LIVE 24 jam: mesin di server, qari acak sedunia, hitung khatam (§5c) | ✅ 15 Nov (PR #433) |

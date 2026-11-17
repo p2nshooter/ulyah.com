@@ -63,7 +63,7 @@ const kilatDari = (c: Ctx): Kilat => {
 };
 
 export function tampil(c: Ctx, o: { judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; status?: 200 | 400 | 403 | 404 | 429 }, hitung?: Record<string, number>) {
-  return c.html(portalPage({ user: c.get('user')!, judul: o.judul, aktif: o.aktif, body: o.body, kilat: o.kilat ?? kilatDari(c), aksi: o.aksi, hitung }), o.status ?? 200, tanpaCache);
+  return c.html(portalPage({ user: c.get('user')!, judul: o.judul, aktif: o.aktif, body: o.body, kilat: o.kilat ?? kilatDari(c), aksi: o.aksi, hitung, path: c.req.path }), o.status ?? 200, tanpaCache);
 }
 export const tolak = (c: Ctx, pesan = 'Anda tidak berhak membuka halaman ini.') => tampil(c, { judul: 'Tidak diizinkan', aktif: '', body: html`<div class="p-kartu"><p>${pesan}</p><a class="tbl tbl-garis" href="/portal">Ke dasbor</a></div>`, status: 403 });
 

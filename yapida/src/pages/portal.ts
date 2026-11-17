@@ -1,6 +1,7 @@
 /** Tampilan portal: masuk (daftar akun + papan PIN acak), kerangka, formulir dari definisi bidang, tabel. Tanpa iklan. */
 import { html, raw, esc, type Raw } from '../lib/html.ts';
 import { jangkarPanduan } from './panduan.ts';
+import { dataTur, turPortal } from './tur.ts';
 import { ASSET_V, icon } from './layout.ts';
 import { PERAN, tingkat, type Peran, type User, type UserItem } from '../data/users.ts';
 import { STATUS, type Bidang, type Dok, type FotoGaleri, type IxItem, type Koleksi, type Status } from '../data/koleksi.ts';
@@ -23,6 +24,7 @@ function kepalaDok(judul: string, ekstra = ''): string {
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="stylesheet" href="/assets/app.css?v=${ASSET_V}">
 <link rel="stylesheet" href="/assets/portal.css?v=${ASSET_V}">
+<link rel="stylesheet" href="/assets/tur.css?v=${ASSET_V}">
 <script src="/assets/tema.js?v=${ASSET_V}"></script>
 ${ekstra}
 </head>`;
@@ -91,8 +93,9 @@ const NAV_ISI = ['sdm', 'kabar', 'galeri', 'video', 'agenda', 'dokumen', 'karya'
 const NAV_DOK = ['penghargaan', 'kwitansi', 'surat', 'kop'];
 const IKON_DOK: Record<string, string> = { penghargaan: 'bintang', kwitansi: 'niaga', surat: 'surat', kop: 'kubah' };
 
-export function portalPage(o: { user: User; judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; hitung?: Record<string, number> }): string {
+export function portalPage(o: { user: User; judul: string; aktif: string; body: Raw; kilat?: Kilat; aksi?: Raw; hitung?: Record<string, number>; path?: string }): string {
   const t = tingkat(o.user);
+  const tur = o.aktif ? turPortal(o.path ?? o.aktif, o.aktif) : undefined;
   const tautan = (href: string, label: string, ik: string, badge?: number) => `<a href="${href}"${o.aktif === href ? ' aria-current="page"' : ''}>${icon(ik).s}<span>${esc(label)}</span>${badge ? `<b class="p-lencana">${badge}</b>` : ''}</a>`;
   const isi = NAV_ISI.map((k) => KOLEKSI[k]!).filter((k) => t >= (k.tingkat ?? 0));
   const dok = NAV_DOK.map((k) => KOLEKSI[k]!).filter((k) => t >= (k.tingkat ?? 0));
@@ -124,11 +127,12 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
   </nav>
 </aside>
 <main class="p-isi">
-  <header class="p-kepala"><button class="tbl-ikon p-buka" type="button" data-sisi-buka aria-label="Buka menu">${icon('menu').s}</button><h1>${esc(o.judul)}</h1><div class="p-aksi">${o.aksi?.s ?? ''}</div>${o.aktif === '/portal/panduan' ? '' : `<a class="tbl-ikon p-bantu" href="/portal/panduan${jangkarPanduan(o.aktif) ? `#${jangkarPanduan(o.aktif)}` : ''}" title="Panduan menu ini" aria-label="Panduan menu ini">?</a>`}<form method="post" action="/keluar" class="p-kepala-keluar"><button class="tbl tbl-garis tbl-kecil" type="submit" data-keluar aria-label="Keluar dari portal">${icon('masuk').s}<span>Keluar</span></button></form></header>
+  <header class="p-kepala"><button class="tbl-ikon p-buka" type="button" data-sisi-buka aria-label="Buka menu">${icon('menu').s}</button><h1>${esc(o.judul)}</h1><div class="p-aksi">${o.aksi?.s ?? ''}</div>${tur ? `<button class="tbl-tur" type="button" data-tur-mulai title="Tur interaktif halaman ini" aria-label="Mulai tur interaktif halaman ini"><span aria-hidden="true">▶</span><span class="tur-label">Tur</span></button>` : ''}${o.aktif === '/portal/panduan' ? '' : `<a class="tbl-ikon p-bantu" href="/portal/panduan${jangkarPanduan(o.aktif) ? `#${jangkarPanduan(o.aktif)}` : ''}" title="Panduan menu ini" aria-label="Panduan menu ini">?</a>`}<form method="post" action="/keluar" class="p-kepala-keluar"><button class="tbl tbl-garis tbl-kecil" type="submit" data-keluar aria-label="Keluar dari portal">${icon('masuk').s}<span>Keluar</span></button></form></header>
   ${o.kilat?.ok ? `<p class="p-kilat p-kilat-ok" role="status">${esc(o.kilat.ok)}</p>` : ''}${o.kilat?.galat ? `<p class="p-kilat p-kilat-galat" role="alert">${esc(o.kilat.galat)}</p>` : ''}
   ${o.body.s}
 </main>
 <script src="/assets/portal.js?v=${ASSET_V}" defer></script>
+${tur ? `${dataTur(tur).s}<script src="/assets/tur.js?v=${ASSET_V}" defer></script>` : ''}
 </body>
 </html>`;
 }
