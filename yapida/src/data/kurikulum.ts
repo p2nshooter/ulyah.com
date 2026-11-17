@@ -52,6 +52,8 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
       { slug: 'seni-budaya', nama: 'Seni Budaya', ket: 'Seni rupa, musik, tari, dan kerajinan.', ikon: '🎵', kelas: MI, bse: ['Seni Budaya & Prakarya'] },
       { slug: 'pjok', nama: 'PJOK', ket: 'Pendidikan jasmani, olahraga, dan kesehatan.', ikon: '⚽', kelas: MI, bse: ['PJOK'] },
       { slug: 'bahasa-inggris', nama: 'Bahasa Inggris', ket: 'Kosakata dan percakapan sederhana — dilafalkan dengan logat Inggris.', ikon: '🔤', kelas: MI, bse: ['Bahasa Inggris'], dukung: { rak: ['anak-en'] } },
+      { slug: 'bahasa-sunda', nama: 'Bahasa Sunda (muatan lokal)', ket: 'Muatan lokal Jawa Barat: kosakata, undak-usuk basa, aksara, dan sastra Sunda.', ikon: '🗣️', kelas: MI },
+      { slug: 'btq-tahfidz', nama: 'BTQ & Tahfidz (muatan lokal)', ket: 'Muatan lokal madrasah: baca tulis Al-Qur’an, tajwid dasar, dan hafalan surah pendek juz 30.', ikon: '📿', kelas: MI, taut: [['Al-Qur’an digital, tafsir & murottal', '/quran']] },
     ],
   },
   mts: {
@@ -71,6 +73,8 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
       { slug: 'informatika', nama: 'Informatika', ket: 'Berpikir komputasional, TIK, dan dasar pemrograman.', ikon: '💻', kelas: MTS, bse: ['TIK'] },
       { slug: 'seni-prakarya', nama: 'Seni Budaya & Prakarya', ket: 'Seni rupa, musik, kerajinan, rekayasa, dan pengolahan.', ikon: '🎨', kelas: MTS, bse: ['Seni Budaya & Prakarya'] },
       { slug: 'pjok', nama: 'PJOK', ket: 'Pendidikan jasmani, olahraga, dan kesehatan.', ikon: '⚽', kelas: MTS, bse: ['PJOK'] },
+      { slug: 'bahasa-sunda', nama: 'Bahasa Sunda (muatan lokal)', ket: 'Muatan lokal Jawa Barat: undak-usuk basa, aksara, dan sastra Sunda.', ikon: '🗣️', kelas: MTS },
+      { slug: 'btq-tahfidz', nama: 'BTQ & Tahfidz (muatan lokal)', ket: 'Muatan lokal madrasah: tahsin, tajwid, dan hafalan Al-Qur’an.', ikon: '📿', kelas: MTS, taut: [['Al-Qur’an digital, tafsir & murottal', '/quran']] },
     ],
   },
 };

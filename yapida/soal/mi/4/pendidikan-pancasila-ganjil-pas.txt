@@ -1,0 +1,148 @@
+@jenjang mi
+@kelas 4
+@mapel Pendidikan Pancasila
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Hari Lahir Pancasila diperingati setiap tanggal ....
+a. 17 Agustus
+*b. 1 Juni
+c. 18 Agustus
+d. 22 Juni
+> Hari Lahir Pancasila diperingati setiap 1 Juni, hari ketika Ir. Soekarno menyampaikan pidato tentang Pancasila (1945).
+
+2. Istilah "Pancasila" sebagai nama dasar negara pertama kali diusulkan oleh ....
+a. Mr. Muhammad Yamin
+b. Mr. Soepomo
+*c. Ir. Soekarno
+d. Drs. Moh. Hatta
+> Ir. Soekarno mengusulkan nama Pancasila dalam sidang BPUPK pada 1 Juni 1945.
+
+3. Sidang pertama BPUPK (BPUPKI) yang membahas dasar negara berlangsung pada tanggal ....
+*a. 29 Mei – 1 Juni 1945
+b. 10 – 17 Juli 1945
+c. 17 – 18 Agustus 1945
+d. 1 – 5 Juni 1945
+> Sidang pertama BPUPK berlangsung 29 Mei sampai 1 Juni 1945.
+
+4. Rumusan dasar negara yang disusun Panitia Sembilan pada 22 Juni 1945 disebut ....
+a. Teks Proklamasi
+*b. Piagam Jakarta
+c. Sumpah Pemuda
+d. Dekrit Presiden
+> Rumusan Panitia Sembilan dikenal sebagai Piagam Jakarta.
+
+5. Pancasila disahkan sebagai dasar negara oleh PPKI pada tanggal ....
+a. 17 Agustus 1945
+*b. 18 Agustus 1945
+c. 1 Juni 1945
+d. 22 Juni 1945
+> PPKI mengesahkan UUD 1945 beserta Pancasila di dalam Pembukaannya pada 18 Agustus 1945.
+
+6. Lambang negara Indonesia adalah ....
+a. bendera Merah Putih
+*b. Garuda Pancasila
+c. pohon beringin
+d. bintang emas
+> Garuda Pancasila adalah lambang negara Indonesia.
+
+7. Lambang bintang pada perisai Garuda Pancasila melambangkan sila ke- ....
+*a. 1
+b. 2
+c. 3
+d. 5
+> Bintang melambangkan sila pertama, Ketuhanan Yang Maha Esa.
+
+8. Lambang rantai melambangkan sila ....
+a. Ketuhanan Yang Maha Esa
+*b. Kemanusiaan yang adil dan beradab
+c. Persatuan Indonesia
+d. Keadilan sosial bagi seluruh rakyat Indonesia
+> Rantai melambangkan sila kedua.
+
+9. Lambang pohon beringin melambangkan sila ke- ....
+a. 1
+b. 2
+*c. 3
+d. 4
+> Pohon beringin melambangkan sila ketiga, Persatuan Indonesia.
+
+10. Lambang sila keempat adalah ....
+a. padi dan kapas
+*b. kepala banteng
+c. rantai
+d. bintang
+> Kepala banteng melambangkan sila keempat.
+
+11. Semboyan Bhinneka Tunggal Ika artinya ....
+a. bersatu kita teguh
+*b. berbeda-beda tetapi tetap satu jua
+c. bersama kita bisa
+d. bergotong royong
+> Bhinneka Tunggal Ika berarti berbeda-beda tetapi tetap satu jua.
+
+12. Aturan yang berasal dari Tuhan Yang Maha Esa disebut norma ....
+*a. agama
+b. kesopanan
+c. kesusilaan
+d. hukum
+> Norma agama bersumber dari ajaran Tuhan.
+
+13. Menggunakan bahasa yang sopan ketika berbicara dengan orang yang lebih tua adalah contoh menaati norma ....
+a. hukum
+*b. kesopanan
+c. agama
+d. adat
+> Norma kesopanan mengatur sikap dan tutur kata dalam pergaulan.
+
+14. Sanksi bagi orang yang melanggar norma hukum adalah ....
+a. dikucilkan masyarakat
+b. merasa malu
+*c. dihukum sesuai peraturan, misalnya denda atau penjara
+d. mendapat dosa
+> Pelanggaran norma hukum mendapat sanksi tegas dari negara.
+
+15. Sesuatu yang harus dilakukan dengan penuh tanggung jawab disebut ....
+a. hak
+*b. kewajiban
+c. aturan
+d. sanksi
+> Kewajiban adalah sesuatu yang harus dilaksanakan; hak adalah sesuatu yang patut kita terima.
+
+[MENJODOHKAN]
+1. Ketuhanan Yang Maha Esa = bintang
+2. Kemanusiaan yang adil dan beradab = rantai
+3. Persatuan Indonesia = pohon beringin
+4. Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan = kepala banteng
+5. Keadilan sosial bagi seluruh rakyat Indonesia = padi dan kapas
+~ burung merpati
+
+[ISIAN]
+1. BPUPK dibentuk untuk menyelidiki usaha-usaha persiapan .... Indonesia. = kemerdekaan
+2. Mr. Muhammad Yamin menyampaikan usulan dasar negara pada tanggal .... 1945. = 29 Mei
+3. Mr. Soepomo menyampaikan usulan dasar negara pada tanggal .... 1945. = 31 Mei
+4. Panitia Sembilan diketuai oleh .... = Ir. Soekarno | Soekarno | Sukarno | Bung Karno
+5. Rumusan Pancasila terdapat dalam Pembukaan UUD 1945 alinea ke- .... = 4 | empat | keempat
+6. Burung Garuda mencengkeram pita bertuliskan .... = Bhinneka Tunggal Ika | Bhineka Tunggal Ika
+7. Norma yang bersumber dari hati nurani manusia disebut norma .... = kesusilaan
+8. Mendapatkan pendidikan merupakan .... setiap anak. = hak
+9. Padi dan kapas melambangkan kebutuhan pokok, yaitu pangan dan .... = sandang | pakaian
+10. Jumlah sila dalam Pancasila ada .... = 5 | lima
+
+[URAIAN]
+1. Sebutkan tiga tokoh yang mengusulkan rumusan dasar negara dalam sidang BPUPK!
+= Mr. Muhammad Yamin, Mr. Soepomo, dan Ir. Soekarno.
+
+2. Tuliskan bunyi sila ketiga Pancasila dan lambangnya!
+= Persatuan Indonesia; lambangnya pohon beringin.
+
+3. Sebutkan dua contoh penerapan sila pertama di madrasah!
+= Berdoa sebelum dan sesudah belajar, melaksanakan salat berjamaah, menghormati teman yang berbeda agama, dan merayakan hari besar agama dengan tertib.
+
+4. Sebutkan empat macam norma yang berlaku di masyarakat!
+= Norma agama, norma kesusilaan, norma kesopanan, dan norma hukum.
+
+5. Jelaskan perbedaan hak dan kewajiban, lalu berikan masing-masing satu contoh!
+= Hak adalah sesuatu yang patut kita terima, misalnya mendapat pendidikan dan kasih sayang. Kewajiban adalah sesuatu yang harus kita lakukan, misalnya belajar dengan rajin dan menaati tata tertib madrasah.

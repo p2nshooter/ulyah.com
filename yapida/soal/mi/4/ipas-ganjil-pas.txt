@@ -1,0 +1,148 @@
+@jenjang mi
+@kelas 4
+@mapel IPAS
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Bagian tumbuhan yang berfungsi menyerap air dan mineral dari tanah adalah ....
+*a. akar
+b. batang
+c. daun
+d. bunga
+> Akar menyerap air dan mineral dari tanah serta menopang tumbuhan.
+
+2. Proses tumbuhan membuat makanannya sendiri disebut ....
+a. respirasi
+*b. fotosintesis
+c. penguapan
+d. penyerbukan
+> Fotosintesis: tumbuhan membuat makanan dengan bantuan cahaya matahari.
+
+3. Fotosintesis terutama berlangsung di bagian ....
+a. akar
+b. batang
+*c. daun
+d. buah
+> Daun mengandung klorofil, tempat terjadinya fotosintesis.
+
+4. Zat hijau daun yang membantu fotosintesis disebut ....
+a. stomata
+*b. klorofil
+c. xilem
+d. floem
+> Klorofil menangkap cahaya matahari untuk fotosintesis.
+
+5. Selain makanan, fotosintesis menghasilkan gas ....
+a. karbon dioksida
+*b. oksigen
+c. nitrogen
+d. hidrogen
+> Fotosintesis menghasilkan glukosa (makanan) dan oksigen.
+
+6. Bagian bunga yang menjadi alat perkembangbiakan tumbuhan adalah ....
+a. kelopak dan mahkota
+*b. benang sari dan putik
+c. tangkai dan kelopak
+d. mahkota dan tangkai
+> Benang sari (alat kelamin jantan) dan putik (alat kelamin betina) berperan dalam penyerbukan.
+
+7. Perkembangbiakan tumbuhan dengan memotong batang lalu menanamnya disebut ....
+*a. stek
+b. cangkok
+c. okulasi
+d. merunduk
+> Stek dilakukan dengan menanam potongan batang, misalnya pada singkong.
+
+8. Perubahan wujud dari padat menjadi cair disebut ....
+a. membeku
+*b. mencair
+c. menguap
+d. mengembun
+> Contoh mencair: es batu berubah menjadi air.
+
+9. Air yang dimasukkan ke dalam lemari pembeku berubah menjadi es. Peristiwa ini disebut ....
+a. mencair
+*b. membeku
+c. menyublim
+d. menguap
+> Membeku adalah perubahan wujud dari cair menjadi padat.
+
+10. Kapur barus yang lama-kelamaan habis di dalam lemari pakaian adalah contoh peristiwa ....
+a. membeku
+b. mencair
+*c. menyublim
+d. mengembun
+> Menyublim adalah perubahan wujud dari padat langsung menjadi gas.
+
+11. Titik-titik air di bagian luar gelas berisi es terjadi karena peristiwa ....
+a. menguap
+*b. mengembun
+c. mencair
+d. membeku
+> Uap air di udara mendingin dan berubah menjadi titik air (mengembun).
+
+12. Zat yang bentuknya selalu mengikuti wadahnya adalah zat ....
+a. padat
+*b. cair
+c. es batu
+d. kayu
+> Zat cair bentuknya berubah sesuai wadah, tetapi volumenya tetap.
+
+13. Tarikan atau dorongan pada suatu benda disebut ....
+*a. gaya
+b. energi
+c. massa
+d. kecepatan
+> Gaya adalah tarikan atau dorongan.
+
+14. Buah mangga yang matang jatuh ke tanah karena adanya gaya ....
+a. magnet
+b. pegas
+*c. gravitasi
+d. otot
+> Gaya gravitasi menarik benda ke arah pusat bumi.
+
+15. Ban sepeda dibuat beralur agar gaya .... cukup besar sehingga tidak mudah tergelincir.
+a. magnet
+*b. gesek
+c. pegas
+d. listrik
+> Alur pada ban memperbesar gaya gesek dengan jalan.
+
+[MENJODOHKAN]
+1. Akar = menyerap air dan mineral dari tanah
+2. Batang = mengangkut air dan makanan ke seluruh bagian tumbuhan
+3. Daun = tempat terjadinya fotosintesis
+4. Bunga = alat perkembangbiakan tumbuhan
+5. Buah = tempat menyimpan biji
+~ alat gerak tumbuhan
+
+[ISIAN]
+1. Fotosintesis membutuhkan bantuan cahaya .... = matahari
+2. Gas yang diserap tumbuhan untuk fotosintesis adalah .... = karbon dioksida | karbondioksida | CO2
+3. Lubang kecil pada daun tempat keluar masuknya udara disebut .... = stomata | mulut daun
+4. Perkembangbiakan tumbuhan dengan biji disebut perkembangbiakan .... = generatif | kawin
+5. Kentang berkembang biak dengan .... batang. = umbi
+6. Perubahan wujud dari cair menjadi gas disebut .... = menguap | penguapan
+7. Perubahan wujud dari gas menjadi padat disebut .... = mengkristal | menghablur | deposisi
+8. Gaya yang dihasilkan oleh tenaga manusia atau hewan disebut gaya .... = otot
+9. Benda yang dapat menarik paku dan benda dari besi disebut .... = magnet | magnit
+10. Gaya yang terjadi karena dua permukaan benda bergesekan disebut gaya .... = gesek | gesekan
+
+[URAIAN]
+1. Sebutkan bahan-bahan yang dibutuhkan dan hasil dari fotosintesis!
+= Bahan: air, karbon dioksida, dan cahaya matahari dengan bantuan klorofil. Hasil: makanan (glukosa) dan oksigen.
+
+2. Sebutkan tiga cara perkembangbiakan vegetatif buatan pada tumbuhan!
+= Stek, cangkok, okulasi (menempel), merunduk, dan menyambung.
+
+3. Sebutkan masing-masing satu contoh peristiwa menguap dan mengembun dalam kehidupan sehari-hari!
+= Menguap: air mendidih atau pakaian basah yang menjadi kering. Mengembun: embun pagi di daun atau titik air di luar gelas berisi es.
+
+4. Sebutkan tiga pengaruh gaya terhadap benda!
+= Gaya dapat membuat benda diam menjadi bergerak, mengubah arah gerak, mengubah kecepatan, dan mengubah bentuk benda.
+
+5. Mengapa kita perlu menjaga tumbuhan di sekitar kita?
+= Karena tumbuhan menghasilkan oksigen dan makanan, menjadi tempat hidup hewan, menyerap air hujan, serta menjaga udara tetap sejuk dan bersih.

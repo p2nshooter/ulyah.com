@@ -1,0 +1,149 @@
+@font-face{font-family:"Uthmani Hafs";src:url("/assets/quran/uthmani-hafs.ttf") format("truetype");font-display:swap}
+/* yapida.sch.id — Bank Soal: indeks, lembar mengerjakan, hasil & pembahasan, permainan RA (desain Mihrab Zamrud). */
+.bs-cara{padding:1.4rem 1.5rem;border-radius:24px;border:1px solid var(--e400);background:linear-gradient(180deg,var(--permukaan),var(--gading));box-shadow:var(--bayang);margin-bottom:2rem}
+.bs-cara h2{margin:0 0 1rem;font-size:1.3rem}
+.bs-langkah{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+.bs-langkah li{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem;line-height:1.45}
+.bs-langkah b{flex:none;display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--emas-grad);color:#241a00;font-family:var(--f-judul)}
+.bs-catatan{margin:1rem 0 0;font-size:.88rem;color:var(--redup)}
+.bs-saring-kelas{margin-top:-1.2rem}
+.bs-kelompok{margin:0 0 2rem}
+.bs-kelompok>h2{font-size:1.25rem;margin:0 0 .9rem}
+.bs-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.9rem}
+.bs-kartu{position:relative;display:flex;gap:.85rem;align-items:center;padding:1rem 1.1rem;border-radius:20px;border:1px solid var(--garis);background:var(--permukaan);box-shadow:var(--bayang);color:var(--tinta);text-decoration:none;transition:transform .25s,border-color .25s,box-shadow .25s;overflow:hidden}
+.bs-kartu::after{content:"";position:absolute;inset:auto -30% -60% auto;width:9rem;height:9rem;border-radius:50%;background:radial-gradient(circle,rgba(220,191,98,.22),transparent 70%);pointer-events:none}
+.bs-kartu:hover{transform:translateY(-3px);border-color:var(--e500);box-shadow:var(--bayang-besar)}
+.bs-ikon{flex:none;display:grid;place-items:center;width:3rem;height:3rem;border-radius:16px;background:linear-gradient(150deg,var(--z600),var(--z900));color:var(--e300);font-size:1.45rem;box-shadow:0 10px 22px -14px rgba(4,40,27,.8)}
+.bs-ikon-besar{width:4.2rem;height:4.2rem;border-radius:22px;font-size:2rem}
+.bs-kartu-isi{flex:1;min-width:0;display:flex;flex-direction:column;gap:.1rem}
+.bs-kartu-isi b{font-size:1rem}
+.bs-kartu-isi small{color:var(--redup);font-size:.8rem}
+.bs-jumlah,.bs-nilai-akhir{font-size:.76rem;font-weight:700;color:var(--z700)}
+.bs-mulai{flex:none;font-size:.8rem;font-weight:800;color:var(--e700)}
+.bs-tuntas{color:#0b6b3f}.bs-belum{color:#b3261e}
+.bs-kosong{padding:1.5rem;border-radius:18px;border:1px dashed var(--e400);text-align:center;color:var(--redup)}
+/* kepala halaman mengerjakan */
+.bs-kepala{background:linear-gradient(160deg,var(--z700),var(--z950));color:#fdf8e6;padding:clamp(1.2rem,4vw,2.4rem) 0 clamp(1.4rem,4vw,2.2rem)}
+.bs-remah a{color:var(--e300);text-decoration:none;font-weight:600;font-size:.9rem}
+.bs-judul{display:flex;gap:1rem;align-items:center;margin-top:.6rem}
+.bs-judul h1{margin:.1rem 0;font-size:clamp(1.6rem,4vw,2.4rem);color:#fff8e2}
+.bs-judul .kicker{color:var(--e300);margin:0}
+.bs-sub{margin:0;color:#d8e8de;font-size:.92rem}
+.bs-siswa{margin:.5rem 0 0;display:inline-block;padding:.3rem .8rem;border-radius:999px;background:rgba(255,255,255,.1);font-size:.85rem;color:#fff3c9}
+.bs-ruang{padding-top:1.4rem}
+.bs-wadah{max-width:860px}
+.bs-muat{text-align:center;color:var(--redup)}
+#soal-app.bs-memuat{opacity:.55;pointer-events:none}
+/* pita kemajuan */
+.bs-pita{position:sticky;top:var(--atas,0);z-index:20;margin:0 0 1.2rem;border-radius:0 0 18px 18px;background:rgba(255,253,248,.94);backdrop-filter:blur(8px);border:1px solid var(--garis);border-top:0;box-shadow:0 10px 24px -18px rgba(4,40,27,.6)}
+.bs-pita-isi{display:flex;align-items:center;gap:.8rem;padding:.6rem .9rem}
+.bs-hitung{font-weight:800;font-size:.9rem;color:var(--z700)}
+.bs-waktu{flex:1;font-size:.82rem;color:var(--redup);font-variant-numeric:tabular-nums}
+.bs-maju{height:5px;background:var(--z100);border-radius:0 0 18px 18px;overflow:hidden}
+.bs-maju i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--z500),var(--e500));transition:width .4s ease}
+/* soal */
+.bs-bagian{margin:0 0 1.6rem}
+.bs-bagian>h2{font-size:1.2rem;margin:0 0 .3rem;padding-bottom:.4rem;border-bottom:2px solid var(--e300)}
+.bs-ket{margin:0 0 .9rem;color:var(--redup);font-size:.88rem}
+.bs-soal{display:flex;gap:.8rem;align-items:flex-start;padding:1rem 1.05rem;margin:0 0 .75rem;border-radius:18px;border:1px solid var(--garis);background:var(--permukaan);box-shadow:0 1px 2px rgba(4,40,27,.05)}
+.bs-no{flex:none;display:grid;place-items:center;min-width:2rem;height:2rem;padding:0 .3rem;border-radius:10px;background:var(--z100);color:var(--z700);font-weight:800;font-size:.85rem}
+.bs-soal-isi{flex:1;min-width:0}
+.bs-tanya{margin:.2rem 0 .7rem;line-height:1.65;font-size:1rem}
+.bs-arab{display:block;font-family:"Uthmani Hafs",var(--f-arab);font-size:1.75rem;line-height:2.2;text-align:right;color:var(--z800);margin:.3rem 0}
+.bs-opsi{display:grid;gap:.45rem}
+.bs-pilih{display:flex;gap:.65rem;align-items:center;width:100%;text-align:left;padding:.65rem .8rem;border-radius:14px;border:1.5px solid var(--garis);background:var(--gading);color:var(--tinta);font:inherit;font-size:.95rem;cursor:pointer;transition:border-color .2s,background .2s,transform .15s}
+.bs-pilih b{flex:none;display:grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:var(--permukaan);border:1px solid var(--garis);font-size:.82rem}
+.bs-pilih:hover{border-color:var(--e500)}
+.bs-pilih:active{transform:scale(.99)}
+.bs-pilih[aria-checked="true"]{border-color:var(--z600);background:var(--z100)}
+.bs-pilih[aria-checked="true"] b{background:var(--z600);border-color:var(--z600);color:#fff}
+.bs-kotak-kanan{padding:.9rem 1rem;border-radius:16px;background:var(--e100);border:1px solid var(--e300);margin:0 0 .9rem}
+.bs-kotak-kanan p{margin:0 0 .4rem;font-weight:800;font-size:.85rem;color:var(--e700)}
+.bs-kanan{margin:0;padding-left:1.4rem;columns:2;column-gap:1.4rem}
+.bs-kanan li{margin:0 0 .25rem;break-inside:avoid}
+.bs-pilih-jodoh,.bs-isian,.bs-uraian{width:100%;padding:.7rem .85rem;border-radius:12px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);font:inherit;font-size:.97rem}
+.bs-uraian{resize:vertical;line-height:1.6}
+.bs-pilih-jodoh:focus,.bs-isian:focus,.bs-uraian:focus{outline:0;border-color:var(--e500);box-shadow:0 0 0 3px rgba(220,191,98,.28)}
+.bs-akhir{text-align:center;padding:1.4rem 1rem;border-radius:20px;background:var(--gading);border:1px dashed var(--e400)}
+.bs-akhir p{margin:0 0 .8rem;color:var(--redup);font-size:.9rem}
+.bs-serahkan{font-size:1.05rem;padding:.95rem 2rem}
+/* hasil */
+.bs-ringkas{display:flex;gap:1.4rem;align-items:center;padding:1.4rem;border-radius:24px;background:linear-gradient(160deg,var(--permukaan),var(--gading));border:1px solid var(--e400);box-shadow:var(--bayang-besar);margin:0 0 1.6rem}
+.bs-ringkas h2{margin:0 0 .2rem}
+.bs-cincin{--p:0;--w:var(--z600);flex:none;position:relative;display:grid;place-items:center;align-content:center;width:8.5rem;height:8.5rem;border-radius:50%;background:conic-gradient(var(--w) calc(var(--p)*1%),var(--z100) 0)}
+.bs-cincin::before{content:"";position:absolute;inset:.6rem;border-radius:50%;background:var(--permukaan)}
+.bs-cincin>*{position:relative}
+.bs-cincin-emas{--w:var(--e500)}.bs-cincin-hijau{--w:var(--z500)}.bs-cincin-merah{--w:#d9534f}
+.bs-nilai-angka{font-family:var(--f-judul);font-size:2.6rem;line-height:1;color:var(--tinta)}
+.bs-cincin span{font-size:.75rem;color:var(--redup);text-transform:uppercase;letter-spacing:.12em}
+.bs-pesan{margin:0 0 .6rem;font-weight:700}
+.bs-skor{list-style:none;margin:0 0 .9rem;padding:0;display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-size:.9rem;color:var(--redup)}
+.bs-skor b{color:var(--tinta)}
+.bs-tombol{display:flex;flex-wrap:wrap;gap:.5rem}
+.bs-tinjau.bs-ok{border-left:4px solid #2e9d63}
+.bs-tinjau.bs-salah{border-left:4px solid #d9534f}
+.bs-opsi-tinjau{list-style:none;margin:0 0 .5rem;padding:0;display:grid;gap:.3rem}
+.bs-opsi-tinjau li{display:flex;gap:.5rem;align-items:center;padding:.4rem .6rem;border-radius:10px;font-size:.92rem}
+.bs-opsi-tinjau li b{flex:none;display:grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--gading);font-size:.75rem}
+.bs-opsi-tinjau li.kunci{background:#e3f6ea;color:#0b5132;font-weight:700}
+.bs-opsi-tinjau li.dipilih{background:#fde8e8;color:#8b1d1d}
+.bs-opsi-tinjau em{font-style:normal;font-size:.78rem;font-weight:800}
+.bs-jwbmu{margin:.2rem 0;font-size:.92rem}
+.bs-model{margin:.4rem 0;padding:.6rem .8rem;border-radius:12px;background:#e3f6ea;color:#0b5132;font-size:.92rem;line-height:1.55}
+.bs-bahas{margin:.4rem 0 0;padding:.55rem .8rem;border-radius:12px;background:var(--e100);border-left:3px solid var(--e500);font-size:.9rem;line-height:1.55}
+.bs-diri-tombol{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.bs-diri-tombol button{padding:.5rem .9rem;border-radius:999px;border:1.5px solid var(--garis);background:var(--permukaan);font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;color:var(--tinta)}
+.bs-diri-tombol .bs-diri-2[aria-checked="true"]{background:#2e9d63;border-color:#2e9d63;color:#fff}
+.bs-diri-tombol .bs-diri-1[aria-checked="true"]{background:var(--e500);border-color:var(--e500);color:#241a00}
+.bs-diri-tombol .bs-diri-0[aria-checked="true"]{background:#d9534f;border-color:#d9534f;color:#fff}
+/* RA */
+.ra-kartu{position:relative;text-align:center;padding:clamp(1rem,4vw,2rem);border-radius:28px;background:radial-gradient(circle at 50% 0,#fffbe8,#fff 60%);border:2px solid var(--e300);box-shadow:var(--bayang-besar);overflow:hidden}
+.ra-kemajuan{display:flex;justify-content:center;gap:.35rem;margin:0 0 .8rem}
+.ra-kemajuan i{width:.7rem;height:.7rem;border-radius:50%;background:var(--z100)}
+.ra-kemajuan i.sudah{background:var(--z500)}.ra-kemajuan i.kini{background:var(--e500);transform:scale(1.3)}
+.ra-tanya{font-size:clamp(1.3rem,4vw,1.8rem);margin:0 0 .8rem;color:var(--z800)}
+.ra-adegan{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:.4rem;min-height:9rem;padding:1rem;border-radius:22px;background:linear-gradient(180deg,#dff3ff 0,#eaf8ee 70%,#c9ecc8 70%);margin:0 0 1rem}
+.ra-benda{border:0;background:none;padding:0;cursor:pointer;width:clamp(4.2rem,16vw,6rem);animation:ra-masuk .6s backwards cubic-bezier(.34,1.56,.64,1)}
+.ra-g{width:100%;height:auto;display:block}
+.ra-goyang{animation:ra-goyang 2.6s ease-in-out infinite;transform-origin:50% 90%}
+.ra-lompat .ra-g{animation:ra-lompat .55s ease}
+.ra-tokoh{width:clamp(8rem,34vw,11rem)}
+.ra-huruf{border:0;cursor:pointer;display:grid;place-items:center;width:clamp(8rem,34vw,11rem);height:clamp(8rem,34vw,11rem);border-radius:50%;background:radial-gradient(circle,#fff,#fff3c9);box-shadow:0 0 0 6px var(--e300),0 18px 30px -18px rgba(0,0,0,.4);font:700 clamp(4rem,16vw,6rem)/1 var(--f-arab);color:var(--z800);animation:ra-denyut 2.4s ease-in-out infinite}
+.ra-pohon-bicara{position:relative;width:clamp(8rem,32vw,11rem);cursor:pointer}
+.ra-mata{position:absolute;left:30%;right:30%;top:30%;display:flex;justify-content:space-between}
+.ra-mata i{width:12%;aspect-ratio:1;border-radius:50%;background:#1d2b1f;animation:ra-kedip 4s infinite}
+.ra-mulut{position:absolute;left:44%;width:12%;top:44%;height:4%;border-radius:0 0 999px 999px;background:#5a1d1d}
+.ra-berbicara .ra-mulut{animation:ra-bicara .28s ease-in-out infinite alternate}
+.ra-cerita{flex:1 1 100%;margin:.4rem 0 0;font-size:1.05rem;line-height:1.6;color:var(--z800)}
+.ra-teman{width:clamp(4rem,14vw,5.5rem)}
+.ra-opsi{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin:0 0 .6rem}
+.ra-pilih{min-width:6rem;padding:.9rem 1.4rem;border-radius:20px;border:3px solid var(--e300);background:#fff;font:800 1.35rem var(--f-isi);color:var(--z800);cursor:pointer;box-shadow:0 8px 0 var(--e300);transition:transform .12s,box-shadow .12s}
+.ra-pilih:active{transform:translateY(5px);box-shadow:0 3px 0 var(--e300)}
+.ra-pilih.benar{background:#2e9d63;border-color:#2e9d63;color:#fff;box-shadow:0 8px 0 #1d6b42}
+.ra-pilih.salah{border-color:#f2b8b8}
+.ra-pilih.goyang{animation:ra-geleng .45s}
+.ra-umpan{min-height:1.6em;margin:.2rem 0 .6rem;font-weight:800;font-size:1.1rem;color:var(--z700)}
+.ra-bintang{position:absolute;left:50%;top:60%;pointer-events:none}
+.ra-bintang span{position:absolute;font-size:1.8rem;animation:ra-bintang 1.2s ease-out forwards}
+.ra-selesai{text-align:center;padding:2rem 1rem;border-radius:28px;background:radial-gradient(circle at 50% 0,#fffbe8,#fff 60%);border:2px solid var(--e300)}
+.ra-piala{width:9rem;margin:0 auto}
+@keyframes ra-masuk{from{transform:translateY(30px) scale(.4);opacity:0}}
+@keyframes ra-goyang{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-3px)}}
+@keyframes ra-lompat{40%{transform:translateY(-26px) scale(1.08)}}
+@keyframes ra-denyut{50%{transform:scale(1.05)}}
+@keyframes ra-kedip{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes ra-bicara{to{height:11%;border-radius:0 0 999px 999px}}
+@keyframes ra-geleng{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes ra-bintang{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+@media (max-width:720px){.bs-langkah{grid-template-columns:1fr 1fr}.bs-ringkas{flex-direction:column;text-align:center}.bs-skor,.bs-tombol{justify-content:center}.bs-kanan{columns:1}}
+@media (max-width:460px){.bs-langkah{grid-template-columns:1fr}.bs-soal{padding:.85rem .8rem;gap:.6rem}.bs-pita-isi{flex-wrap:wrap}}
+@media (prefers-reduced-motion:reduce){.ra-benda,.ra-goyang,.ra-huruf,.ra-mata i,.ra-berbicara .ra-mulut,.ra-pilih.goyang,.bs-kartu{animation:none!important;transition:none}}
+[data-tema="malam"] .bs-pita{background:rgba(5,28,19,.92)}
+[data-tema="malam"] .bs-opsi-tinjau li.kunci,[data-tema="malam"] .bs-model{background:#0b3323;color:#bfe3cf}
+[data-tema="malam"] .bs-opsi-tinjau li.dipilih{background:#3a1212;color:#f6c9c9}
+[data-tema="malam"] .bs-kotak-kanan,[data-tema="malam"] .bs-bahas{background:#2a2410;border-color:#4d4216}
+[data-tema="malam"] .ra-kartu,[data-tema="malam"] .ra-selesai{background:#0a2b1e}
+[data-tema="malam"] .ra-adegan{background:linear-gradient(180deg,#123b55 0,#14402d 70%,#0f3523 70%)}
+[data-tema="malam"] .ra-tanya,[data-tema="malam"] .ra-cerita{color:#f2ecd9}
+/* cetak hasil tamu langsung dari halaman */
+@media print{.kepala-situs,.kaki,.bs-pita,.bs-tombol,.tasbih-tombol,.rm,.bs-diri-tombol,header.kepala{display:none!important}.bs-soal{break-inside:avoid;box-shadow:none}.bs-kepala{background:none;color:#000}.bs-kepala h1{color:#000}}

@@ -1,0 +1,20 @@
+@jenjang ra
+@kelas 2
+@mapel Mengenal Huruf Hijaiyah
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[RA]
+1. hijaiyah | ب | Huruf apakah ini? | Alif ; *Ba ; Ta
+2. hijaiyah | ت | Huruf apakah ini? | Ba ; *Ta ; Tsa
+3. hijaiyah | ج | Huruf apakah ini? | Ha ; Kha ; *Jim
+4. hitung | ikan | 6 | Ada berapa ikan? | 5 ; *6 ; 7
+5. hitung | kupu | 5 | Ada berapa kupu-kupu? | 4 ; *5 ; 6
+6. pilih | unta | Hewan ini kuat berjalan jauh di padang pasir. Hewan apakah ini? | Kambing ; *Unta ; Kucing
+7. cerita | pohon | Halo, aku pohon yang bisa bercerita. Sebelum makan, kita mencuci tangan lalu membaca bismillah. Sesudah makan, kita mengucapkan alhamdulillah. | Sebelum makan kita membaca apa? | *Bismillah ; Alhamdulillah ; Subhanallah
+8. hitung | jeruk | 7 | Ada berapa jeruk? | *7 ; 8 ; 9
+9. pilih | bulan | Benda apa yang tampak di langit pada malam hari? | Matahari ; *Bulan ; Pelangi
+10. hijaiyah | س | Huruf apakah ini? | Syin ; *Sin ; Shad
+11. hitung | telur | 8 | Ada berapa telur? | 7 ; *8 ; 10
+12. cerita | pohon | Aku pohon yang rindang. Allah menciptakan aku agar udara tetap segar. Kalau membuang sampah, buanglah di tempat sampah agar bumi tetap bersih. | Di mana kita membuang sampah? | Di sungai ; *Di tempat sampah ; Di jalan

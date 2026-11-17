@@ -9,7 +9,7 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit -p .",
-    "pustaka": "tsx scripts/buat-pustaka.ts && npm run klien --silent",
+    "pustaka": "tsx scripts/buat-pustaka.ts && tsx scripts/buat-soal.ts && npm run klien --silent",
     "pretest": "npm run pustaka --silent",
     "test": "node --import tsx --test test/*.test.ts",
     "e2e": "bash test/run-e2e.sh",

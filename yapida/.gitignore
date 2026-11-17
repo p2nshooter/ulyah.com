@@ -7,3 +7,5 @@ public/assets/pustaka/b/
 public/assets/pustaka/katalog.json
 # bundel pembaca file master di peramban (npm run klien)
 public/assets/impor.js
+# Bank soal bawaan: dibuat dari soal/**/*.txt (npm run pustaka); paket berkunci hanya dibaca Worker.
+public/assets/soal/

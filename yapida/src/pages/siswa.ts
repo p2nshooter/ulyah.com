@@ -1,5 +1,6 @@
 /** Tampilan Portal Siswa: masuk (NISN/NIS + tanggal lahir) dan beranda siswa. Tanpa iklan, tidak diindeks. */
 import { html, raw, type Raw } from '../lib/html.ts';
+import type { IndeksPaket } from '../data/soal.ts';
 import { rupiah, tanggal } from '../lib/text.ts';
 import { labelStatus, samarkan, type Posisi } from '../data/siswa.ts';
 import { statusTagihan } from '../data/kait.ts';
@@ -29,6 +30,7 @@ interface Terkait { id: string; j: string; t: string; u: string; s: string; sl: 
 export function berandaSiswa(o: {
   nama: string; foto?: string; lembaga: string; p: Posisi; d: Record<string, unknown>; riwayat: { tp: string; tingkat: string; rombel: string }[];
   tagihan: Terkait[]; kwitansi: Terkait[]; penghargaan: Terkait[]; hari: string; rak?: { href: string; nama: string }; mediaUrl: (f: string) => string;
+  soal?: { kelasku: IndeksPaket[]; jumlahLain: number; riwayat: { p: string; j: string; v: number; t: number; h: string }[] };
 }): Raw {
   const t = (k: string) => String(o.d[k] ?? '');
   const belum = o.tagihan.filter((x) => statusTagihan(x.x, o.hari).kode !== 'lunas');
@@ -55,8 +57,9 @@ export function berandaSiswa(o: {
       ${o.penghargaan.length ? html`<ul class="sw-prestasi">${o.penghargaan.map((x) => html`<li>${x.s === 'tayang' && x.sl ? raw(`<a href="/prestasi/${encodeURIComponent(x.sl)}">`) : raw('<div>')}<span class="sw-medali" aria-hidden="true">🏅</span><b>${labelJenis(x.x.jenis)}</b><span>${[x.x.capaian, x.x.predikat].filter(Boolean).join(' · ')}</span><small>${String(x.x.tahun ?? tanggal(x.t))}</small>${raw(x.s === 'tayang' && x.sl ? '</a>' : '</div>')}</li>`)}</ul>` : html`<p class="sw-kosong">Belum ada penghargaan — terus semangat belajar! 🌱</p>`}
     </section>
     <section class="sw-kartu" id="soal"><h2>Bank soal ${o.p.tingkat}</h2>
-      <p class="sw-kosong">Paket soal latihan untuk ${o.p.tingkat} sedang disiapkan para guru. Setelah satu sesi selesai, kunci jawaban & pembahasan langsung tampil dan hasilnya bisa diunduh.</p>
-      ${o.rak ? html`<p><a class="tbl tbl-garis tbl-kecil" href="${o.rak.href}">Buka ${o.rak.nama}</a></p>` : ''}
+      <ol class="sw-cara-soal"><li><b>Pilih</b> paket mata pelajaran</li><li><b>Jawab</b> semua soal — tersimpan otomatis</li><li><b>Serahkan</b> → nilai, kunci &amp; pembahasan</li><li><b>Unduh</b> hasilnya (PDF)</li></ol>
+      ${o.soal?.kelasku.length ? html`<ul class="sw-soal">${o.soal.kelasku.slice(0, 8).map((p) => { const r = o.soal!.riwayat.find((x) => x.p === p.id); return html`<li><a href="/siswa/bank-soal/${p.id}"><b>${p.mapel}</b><span>${p.jenjang === 'ra' ? 'Permainan' : `${p.jenis.toUpperCase()} ${p.semester === 'ganjil' ? 'Ganjil' : 'Genap'}`} · ${p.jumlah} soal</span>${r ? html`<em class="${r.v >= 70 ? 'sw-lulus' : 'sw-ulang'}">Nilai ${r.v}</em>` : html`<em>Kerjakan →</em>`}</a></li>`; })}</ul>` : html`<p class="sw-kosong">Paket soal untuk ${o.p.tingkat} sedang disiapkan para guru${o.soal?.jumlahLain ? ` — sementara itu ada ${o.soal.jumlahLain} paket latihan kelas lain` : ''}.</p>`}
+      <p class="sw-aksi-soal"><a class="tbl tbl-emas tbl-kecil" href="/siswa/bank-soal">Buka bank soal</a>${o.soal?.riwayat.length ? html` <span class="sw-ket">${o.soal.riwayat.length} latihan sudah dikerjakan</span>` : ''}${o.rak ? html` <a class="tbl tbl-garis tbl-kecil" href="${o.rak.href}">${o.rak.nama}</a>` : ''}</p>
     </section>
     <section class="sw-kartu"><h2>Biodataku</h2>
       <dl class="sw-data">
