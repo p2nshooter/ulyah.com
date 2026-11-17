@@ -12,14 +12,11 @@ const waktu = (t: number) => (tanggal(t) === tanggal(Date.now()) ? jamWib(t) : `
 export function berandaPesan(o: {
   grup: { belum: number; terakhir: Pesan[] }; japri: (Kotak & { belum: boolean })[]; tiketMasuk: (Kotak & { belum: boolean; dn?: string; b?: number })[]; tiketSaya: (Kotak & { belum: boolean; b?: number })[];
   akun: UserItem[]; namaTujuan: (t: string) => string; tujuan: [string, string][]; saya: string;
-  /** Pesan dari formulir kontak situs (pengunjung): hanya untuk pengelola lembaga ke atas. */
-  pengunjung?: { baru: number; terakhir: { id: string; nama: string; cuplikan: string; kapan: string; baru: boolean }[] };
+  /** Kartu Pesan & Saran pengunjung (src/pages/saran.ts kartuSaranPesan): hanya untuk pengelola lembaga ke atas. */
+  pengunjung?: Raw;
 }): Raw {
   return html`<div class="ps-beranda">
-  ${o.pengunjung ? html`<section class="p-kartu ps-pengunjung"><div class="ps-kepala"><h2>Pesan pengunjung${o.pengunjung.baru ? html` <b class="ps-belum">${o.pengunjung.baru}</b>` : ''}</h2><a class="tbl tbl-garis tbl-kecil" href="/portal/k/pesan">Lihat semua →</a></div>
-      <p class="p-kecil">Pesan yang dikirim masyarakat lewat formulir „Hubungi kami“ di situs — untuk lembaga Anda.</p>
-      ${o.pengunjung.terakhir.length ? html`<ul class="ps-daftar">${o.pengunjung.terakhir.map((k) => html`<li${raw(k.baru ? ' class="belum"' : '')}><a href="/portal/k/pesan/${k.id}"><span class="ps-av ps-av-tamu" aria-hidden="true">✉</span><span class="ps-isi"><strong>${k.nama}</strong><small>${k.cuplikan}</small></span><time>${k.kapan}</time></a></li>`)}</ul>` : html`<p class="p-kecil">Belum ada pesan dari pengunjung.</p>`}
-    </section>` : ''}
+  ${o.pengunjung ?? ''}
   <a class="ps-grup p-kartu" href="/portal/pesan/grup">
     <span class="ps-grup-ikon" aria-hidden="true">💬</span>
     <span class="ps-grup-teks"><strong>Grup seluruh lembaga</strong><small>Obrolan bersama semua pengelola Yayasan Al-Huda Yapida · bersih setiap hari, riwayat 14 hari</small>

@@ -1,11 +1,13 @@
 /** Rute publik isi lembaga (kabar, galeri, video, agenda, dokumen, karya, PPDB + formulir, struktur & guru) dan berkas media. */
 import { Hono } from 'hono';
 import type { Ctx, HonoEnv } from '../lib/session.ts';
+import { asalSama } from '../lib/session.ts';
+import { bersihTeks, kirimSaran, MAKS_ISI, URUT_KATEGORI, type KategoriSaran } from '../data/saran.ts';
 import { crumbs } from '../pages/layout.ts';
 import { kecil, media, origin, render, tidakAda } from '../lib/render.ts';
 import { getSitus, getUnit, listUnits } from '../data/site.ts';
 import { ambilSlug, bacaBidang, daftar, simpan, type Dok, type IxItem } from '../data/koleksi.ts';
-import { PENDAFTAR, PESAN } from '../data/defs.ts';
+import { PENDAFTAR } from '../data/defs.ts';
 import { BERKAS_RE } from '../data/koleksi.ts';
 import { videoKanal } from '../data/yt.ts';
 import { limit } from '../lib/ratelimit.ts';
@@ -200,19 +202,21 @@ konten.get('/profil/pendiri', async (c) => {
 /* ── pesan dari halaman kontak ─────────────────────────────────────────── */
 
 konten.post('/kontak', async (c) => {
+  // Formulir kontak lama (halaman tersimpan di peramban): pesannya kini masuk Pesan & Saran (src/data/saran.ts).
+  if (!asalSama(c)) return c.text('Asal permintaan tidak sah.', 403);
   const f = await c.req.parseBody();
-  const ip = c.req.header('cf-connecting-ip') ?? 'lokal';
   const kembali = (k: string) => c.redirect(`/kontak?pesan=${k}#tulis`, 303);
-  if (String(f.situsweb ?? '')) return kembali('terkirim');
-  if (!(await limit(c.env, `pesan:${ip}`, 6, 3600))) return kembali('batas');
-  const nama = String(f.nama ?? '').replace(/\s+/g, ' ').trim().slice(0, 100);
-  const unitMinta = String(f.unit ?? 'yayasan');
+  if (String(f.situsweb ?? '')) return c.redirect('/kontak', 303);
   const units = await listUnits(c.get('store'));
+  const unitMinta = String(f.unit ?? 'yayasan');
   const unit = units.some((u) => u.slug === unitMinta) ? unitMinta : 'yayasan';
-  const { d, galat } = bacaBidang(PESAN, { kontak: f.kontak, isi: f.isi });
-  if (nama.length < 2 || Object.keys(galat).length) return kembali('kurang');
-  await simpan(c.get('store'), PESAN, { unit, status: 'tinjau', judul: nama, d, penulis: 'publik', penulisNama: 'Formulir kontak' });
-  return kembali('terkirim');
+  const nama = bersihTeks(f.nama, 80).replace(/\s+/g, ' ');
+  const isi = bersihTeks(f.isi, MAKS_ISI);
+  if (nama.length < 2 || isi.length < 10) return kembali('kurang');
+  if (!(await limit(c.env, `saran:${c.req.header('cf-connecting-ip') ?? 'lokal'}`, 5, 3600))) return kembali('batas');
+  const kat = String(f.kategori ?? 'pertanyaan');
+  const s = await kirimSaran(c.get('store'), { unit, kategori: (URUT_KATEGORI as string[]).includes(kat) ? (kat as KategoriSaran) : 'pertanyaan', nama, anonim: f.anonim === '1', kontak: bersihTeks(f.kontak, 120), sebagai: 'lainnya', isi });
+  return c.redirect(`/saran/lacak/${s.id}/${s.kode}?baru=1`, 303);
 });
 
 /* ── berkas media (foto, sampul, PDF) dari R2 ──────────────────────────── */

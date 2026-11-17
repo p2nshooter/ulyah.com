@@ -4,6 +4,7 @@
  * Super admin mengelola semuanya; peran lembaga hanya lembaganya (src/data/users.ts).
  */
 import { Hono } from 'hono';
+import { hitungSaranBaru } from '../data/saran.ts';
 import { html, raw, type Raw } from '../lib/html.ts';
 import { hmac, verifyPassword } from '../lib/crypto.ts';
 import { limit } from '../lib/ratelimit.ts';
@@ -188,9 +189,9 @@ async function hitungMasuk(c: Ctx): Promise<Record<string, number>> {
   const scope = lingkupSemua(u) ? undefined : u.units;
   const [daf, pesan] = await Promise.all([
     daftar(store, 'pendaftar', { unit: scope, limit: 999, saring: (it) => (it.x?.tahap ?? 'baru') === 'baru' }),
-    daftar(store, 'pesan', { unit: scope, limit: 999, status: 'tinjau' }),
+    hitungSaranBaru(store, u),
   ]);
-  return { pendaftar: daf.length, pesan: pesan.length };
+  return { pendaftar: daf.length, pesan };
 }
 
 portal.get('/portal', async (c) => {
@@ -198,7 +199,8 @@ portal.get('/portal', async (c) => {
   const store = c.get('store');
   const units = await unitsBoleh(c);
   const scope = lingkupSemua(u) ? undefined : u.units;
-  const defs = Object.values(KOLEKSI).filter((d) => bolehDef(u, d));
+  // koleksi „pesan“ (formulir kontak lama) sudah pindah ke Pesan & Saran — tidak dihitung lagi di dasbor
+  const defs = Object.values(KOLEKSI).filter((d) => d.id !== 'pesan' && bolehDef(u, d));
   const isi = await Promise.all(defs.map(async (d) => ({ d, items: await daftar(store, d.id, { unit: scope, limit: 999 }) })));
   const tinjau = isi.flatMap(({ d, items }) => (d.privat ? [] : items.filter((it) => it.s === 'tinjau').map((it) => ({ d, it }))));
   const hitung = await hitungMasuk(c);
@@ -207,7 +209,7 @@ portal.get('/portal', async (c) => {
   <section class="p-sambut p-kartu"><div><p class="kicker">Assalamu’alaikum</p><h2>${u.nama}</h2><p>${PERAN[u.peran].ket}</p></div>
     <div class="p-sambut-aksi"><a class="tbl tbl-emas" href="/portal/k/kabar/baru">Tulis kabar</a><a class="tbl tbl-garis" href="/portal/k/galeri/baru">Unggah foto kegiatan</a>${tingkat(u) >= PERAN.lembaga.tingkat ? html`<a class="tbl tbl-garis" href="/portal/k/penghargaan/baru">Buat sertifikat</a><a class="tbl tbl-garis" href="/portal/k/kwitansi/baru">Buat kwitansi</a>` : ''}</div></section>
   ${hitung.pendaftar ? html`<a class="p-sorot" href="/portal/k/pendaftar">${hitung.pendaftar} pendaftar PPDB baru menunggu diperiksa →</a>` : ''}
-  ${hitung.pesan ? html`<a class="p-sorot" href="/portal/k/pesan">${hitung.pesan} pesan masuk belum dibaca →</a>` : ''}
+  ${hitung.pesan ? html`<a class="p-sorot" href="/portal/saran?status=baru">${hitung.pesan} pesan &amp; saran pengunjung belum dibaca →</a>` : ''}
   ${tinjau.length && bolehTayang(u) ? html`<div class="p-kartu"><h2>Menunggu tinjauan</h2><ul class="p-daftar">${tinjau.slice(0, 12).map(({ d, it }) => html`<li><a href="/portal/k/${d.id}/${it.id}"><strong>${it.j}</strong><span>${d.satu} · ${nama(it.u)}</span></a></li>`)}</ul></div>` : ''}
   <div class="p-kisi-angka">${isi.map(({ d, items }) => html`<a class="p-angka" href="/portal/k/${d.id}"><strong>${items.length}</strong><span>${d.nama}</span></a>`)}</div>
   ${tingkat(u) >= PERAN.lembaga.tingkat ? html`<div class="p-kartu"><h2>Lembaga ${lingkupSemua(u) ? 'di bawah yayasan' : 'Anda'}</h2><div class="p-lembaga">${units.map((x) => html`<a href="/portal/lembaga/${x.slug}"><strong>${x.singkat}</strong><span>${KELOMPOK[x.kelompok].nama}${x.aktif ? '' : ' · nonaktif'}</span></a>`)}</div></div>` : ''}`;
@@ -549,6 +551,7 @@ async function bolehDok(c: Ctx, def: Koleksi, d: Pick<Dok, 'unit' | 'penulis' | 
 }
 
 portal.get('/portal/k/:kol', async (c) => {
+  if (c.req.param('kol') === 'pesan') return c.redirect('/portal/saran');
   const u = c.get('user')!;
   const def = koleksi(c.req.param('kol'));
   if (!def) return c.notFound();
@@ -628,6 +631,7 @@ portal.get('/portal/k/:kol/baru', async (c) => {
 });
 
 portal.get('/portal/k/:kol/:id', async (c) => {
+  if (c.req.param('kol') === 'pesan') return c.redirect(`/portal/saran/${encodeURIComponent(c.req.param('id'))}`);
   const def = koleksi(c.req.param('kol'));
   if (!def) return c.notFound();
   const d = await ambil(c.get('store'), def.id, c.req.param('id'));

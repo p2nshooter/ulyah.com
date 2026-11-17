@@ -357,9 +357,13 @@ test('PPDB: formulir hanya diterima saat gelombang dibuka; pesan kontak tersimpa
   assert.equal(daf[0]!.u, 'mi-al-huda');
   assert.equal(daf[0]!.x?.tahap, 'baru');
   assert.equal((await daftar(store, 'pendaftar', { tayang: true })).length, 0, 'data pendaftar tidak pernah masuk indeks publik');
-  const pesan = await worker.fetch(new Request('https://yapida.sch.id/kontak', { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: 'nama=Warga&kontak=0812&unit=mi-al-huda&isi=Halo' }) as never, e, {} as ExecutionContext);
+  // formulir kontak kini masuk Pesan & Saran (perintah 39): tersimpan untuk lembaga tujuan, pengirim diarahkan ke tautan pribadinya
+  const pesan = await worker.fetch(new Request('https://yapida.sch.id/kontak', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded', 'sec-fetch-site': 'same-origin' }, body: 'nama=Warga&kontak=0812&unit=mi-al-huda&isi=Halo, mohon info pendaftaran.' }) as never, e, {} as ExecutionContext);
   assert.equal(pesan.status, 303);
-  const ps = await daftar(store, 'pesan', {});
-  assert.equal(ps.length, 1);
-  assert.equal(ps[0]!.u, 'mi-al-huda');
+  assert.match(pesan.headers.get('location') ?? '', /^\/saran\/lacak\/srn_/);
+  const ps = await store.list<{ u: string }>('i/saran/a/');
+  assert.equal(ps.items.length, 1);
+  assert.equal(ps.items[0]!.meta.u, 'mi-al-huda');
+  const lintas = await worker.fetch(new Request('https://yapida.sch.id/kontak', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded', 'sec-fetch-site': 'cross-site' }, body: 'nama=Warga&unit=mi-al-huda&isi=Halo dari situs lain.' }) as never, e, {} as ExecutionContext);
+  assert.equal(lintas.status, 403, 'kiriman dari situs lain ditolak');
 });

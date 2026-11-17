@@ -338,6 +338,8 @@
         .then(function (j) {
           if (!j) return;
           lencana.hidden = !j.total; lencana.textContent = j.total > 99 ? '99+' : String(j.total);
+          var ls = $('[data-lencana-saran]');
+          if (ls) { ls.hidden = !j.saran; ls.textContent = j.saran > 99 ? '99+' : String(j.saran || ''); }
           d.title = (j.total ? '(' + j.total + ') ' : '') + judulAsli;
           if (terakhir >= 0 && j.total > terakhir && j.terbaru && bisaNotif && Notification.permission === 'granted' && d.hidden) {
             try { var n = new Notification('Pesan ' + j.terbaru.jenis + ' — ' + j.terbaru.dari, { body: j.terbaru.cuplikan, icon: '/assets/icon-192.png', tag: 'yapida-pesan' }); n.onclick = function () { window.focus(); location.href = j.terbaru.href; }; } catch (e) { /* abaikan */ }

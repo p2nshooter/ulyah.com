@@ -212,6 +212,7 @@ ${u.angka?.length ? html`<section class="angka angka-unit" aria-label="${u.singk
       ${ko.email ? html`<a class="pil" href="mailto:${ko.email}">${icon('surat')}${ko.email}</a>` : ''}
       ${tautSosmed('YouTube', so.youtube)}${tautSosmed('Facebook', so.facebook)}${tautSosmed('Instagram', so.instagram)}${tautSosmed('TikTok', so.tiktok)}${tautSosmed('Situs', so.situs)}
     </p></div>` : ''}
+    <div class="panel muncul sr-ajak"><h2>Pesan &amp; saran</h2><p>Punya saran, pertanyaan, atau kesan untuk ${u.singkat}? Pesan Anda langsung diterima pengelolanya.</p><p class="pil-baris"><a class="tbl tbl-emas tbl-kecil" href="/saran?untuk=${u.slug}#tulis">Kirim pesan</a><a class="pil" href="/saran?lembaga=${u.slug}#dinding">Lihat pesan &amp; balasan</a></p></div>
   </aside>
 </div></section>
 ${isi}
@@ -251,7 +252,7 @@ export function kontakPage(s: Situs, form: Raw = raw('')): Raw {
     </p>
   </div>
   ${form}
-  <div class="panel muncul"><h2>Menghubungi lembaga</h2><p>Setiap lembaga mencantumkan kontaknya sendiri di halaman profilnya. Pilih lembaganya di <a href="/lembaga">daftar lembaga</a>.</p></div>
+  <div class="panel muncul"><h2>Menghubungi lembaga</h2><p>Setiap lembaga mencantumkan kontaknya sendiri di halaman profilnya. Pilih lembaganya di <a href="/lembaga">daftar lembaga</a>, atau baca <a href="/saran#dinding">pesan &amp; saran pengunjung beserta balasannya</a>.</p></div>
 </div></section>`;
 }
 

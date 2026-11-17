@@ -104,6 +104,7 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     <p>Utama</p>
     ${tautan('/portal', 'Dasbor', 'bintang')}
     <a href="/portal/pesan"${o.aktif === '/portal/pesan' ? ' aria-current="page"' : ''}>${icon('surat').s}<span>Pesan</span><b class="p-lencana" data-lencana-pesan hidden></b></a>
+    ${t >= PERAN.lembaga.tingkat ? `<a href="/portal/saran"${o.aktif === '/portal/saran' ? ' aria-current="page"' : ''}>${icon('pena').s}<span>Pesan &amp; Saran</span><b class="p-lencana" data-lencana-saran hidden></b></a>` : ''}
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/lembaga', 'Profil lembaga', 'kubah') : ''}
     <p>Isi</p>
     ${isi.map((k) => tautan(`/portal/k/${k.id}`, k.nama, k.privat ? 'surat' : 'pena', o.hitung?.[k.id])).join('')}

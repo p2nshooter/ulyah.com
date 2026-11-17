@@ -223,8 +223,8 @@ ok(papanAcak.length === 2 && papanAcak[0] !== papanAcak[1], 'letak angka berubah
   await page.selectOption('#tulis [name="unit"]', 'mi-al-huda');
   await page.fill('#tulis [name="isi"]', 'Assalamu’alaikum, kapan pendaftaran gelombang kedua?');
   await page.click('button:has-text("Kirim pesan")');
-  await page.waitForURL(/pesan=terkirim/);
-  ok((await page.locator('#tulis .p-kilat-ok').count()) === 1, 'pesan kontak terkirim');
+  await page.waitForURL(/\/saran\/lacak\//);
+  ok((await page.locator('.sr-terkirim').count()) === 1 && /Pesan terkirim/.test(await page.locator('.sr-terkirim').innerText()), 'pesan kontak terkirim ke Pesan & Saran, tautan pribadi tampil');
   await ctx.close();
 }
 
@@ -235,7 +235,7 @@ ok(papanAcak.length === 2 && papanAcak[0] !== papanAcak[1], 'letak angka berubah
   await page.selectOption('[data-pin-akun]', { label: 'Admin MI Al Huda' });
   await ketukPin(page, '40917');
   await page.waitForURL(/\/portal$/);
-  ok((await page.locator('.p-sorot', { hasText: 'pendaftar PPDB baru' }).count()) === 1 && (await page.locator('.p-sorot', { hasText: 'pesan masuk' }).count()) === 1, 'dasbor admin MI: 1 pendaftar baru dan 1 pesan');
+  ok((await page.locator('.p-sorot', { hasText: 'pendaftar PPDB baru' }).count()) === 1 && (await page.locator('.p-sorot', { hasText: 'pesan & saran' }).count()) === 1, 'dasbor admin MI: 1 pendaftar baru dan 1 pesan');
   await page.goto(BASE + '/portal/k/pendaftar');
   ok(await page.locator('td', { hasText: 'Ahmad Fauzan' }).isVisible(), 'pendaftar tampil di portal lembaganya');
   const [unduh] = await Promise.all([page.waitForEvent('download'), page.click('text=Unduh CSV')]);
