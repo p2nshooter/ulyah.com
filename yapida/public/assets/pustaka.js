@@ -68,6 +68,11 @@
       bk.addEventListener('pointerleave', function () { bk.style.removeProperty('--rx'); bk.style.removeProperty('--ry'); });
     });
   }
+  /* Ilustrasi sampul buku pelajaran bergerak hanya saat bukunya terlihat di layar (hemat baterai, terasa hidup di HP). */
+  if (!tenang && 'IntersectionObserver' in window) {
+    var hidupkan = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle('hidup', e.isIntersecting); }); }, { threshold: 0.55 });
+    $$('.buku3d').forEach(function (bk) { if (bk.querySelector('.ilu')) hidupkan.observe(bk); });
+  }
   $$('[data-kirim-otomatis]').forEach(function (s) { s.addEventListener('change', function () { if (s.form) s.form.submit(); }); });
 
   /* ── suka ── */
