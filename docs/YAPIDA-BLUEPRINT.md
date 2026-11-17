@@ -471,7 +471,7 @@ terpasang; muncul lagi bila aplikasinya dihapus. Di iPhone (Safari) spanduk memb
 | Y5 | Perpustakaan: rak per jenjang & bahasa, buku 3D, pembaca bersuara multibahasa, peringkat 10 besar, aktivitas ala Wordwall dan adegan interaktif di dalam buku, tanpa PDF (§5f) | ✅ 15 Nov |
 | Y5b | Buku BSE: teks PDF disalin → buku interaktif (§5f) | ⏳ |
 | Y5c | Kop surat, sertifikat penghargaan, menu Prestasi (§5g) | ✅ |
-| Y6 | Bank soal (guru PTS/PAS vs latihan siswa, bagikan sesudah ujian, peta kelengkapan) dan Buku Pelajaran Yapida MI 1–6 & MTs 7–9 (81 buku, 162 latihan) | 🔄 17 Nov (PR #452, #453) |
+| Y6 | Bank soal (guru PTS/PAS vs latihan siswa, bagikan sesudah ujian, peta kelengkapan) dan Buku Pelajaran Yapida MI 1–6 & MTs 7–9 (81 buku, 162 latihan). Bank soal guru PAS Ganjil: Fikih & Akidah Akhlak MI 1–6 & MTs 7–9 (+ 5 mapel MI 4) — 23 paket; berikutnya Al-Qur'an Hadis, SKI, lalu PTS/PAS Genap | 🔄 17 Nov (PR #452, #453, lanjutan) |
 | Y6b | Panduan interaktif: tur langsung di setiap halaman portal & Portal Siswa, /portal/panduan (kartu langkah satu per satu, saringan, cari, kemajuan), /siswa/panduan (simulasi masuk, soal contoh), ASSET_V otomatis | ✅ 17 Nov (PR #454 + lanjutan) |
 | Y7 | Katalog besar sumber terbuka, cadangan harian, audit | ⏳ |
 | Y8 | Al-Qur'an mushaf Utsmani 604 halaman + terjemah + tafsir Kemenag + murottal per ayat | ✅ 15 Nov (PR #432) |

@@ -1,0 +1,149 @@
+@jenjang mts
+@kelas 7
+@mapel Fikih
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Bersuci (thaharah) merupakan syarat ....
+a. wajib puasa
+*b. sah salat
+c. wajib zakat
+d. sah jual beli
+> Thaharah dari hadas dan najis adalah syarat sahnya salat.
+
+2. Air yang suci dan menyucikan disebut air ....
+*a. mutlak
+b. musta'mal
+c. mutanajis
+d. musyammas
+> Air mutlak (air hujan, sumur, sungai, laut, salju, embun) suci dan menyucikan.
+
+3. Air sedikit yang sudah dipakai untuk bersuci disebut air ....
+a. mutlak
+*b. musta'mal
+c. mutanajis
+d. musyammas
+> Air musta'mal suci, tetapi tidak dapat dipakai lagi untuk bersuci.
+
+4. Hukum memakai air musyammas untuk bersuci adalah ....
+a. haram
+b. wajib
+*c. makruh
+d. tidak sah
+> Air musyammas (dipanaskan matahari dalam bejana logam) suci dan menyucikan, tetapi makruh dipakai.
+
+5. Hadas besar disucikan dengan ....
+a. wudu
+b. istinja
+*c. mandi wajib
+d. dipercik air
+> Hadas kecil disucikan dengan wudu (atau tayamum), hadas besar dengan mandi wajib (atau tayamum bila ada uzur).
+
+6. Najis mughallazhah contohnya ....
+a. air kencing bayi laki-laki yang hanya minum ASI
+b. darah
+*c. air liur anjing
+d. kotoran ayam
+> Najis berat (mughallazhah) adalah najis anjing dan babi.
+
+7. Berikut yang termasuk syarat wajib salat adalah ....
+a. menghadap kiblat
+*b. berakal
+c. menutup aurat
+d. masuk waktu
+> Syarat wajib: Islam, balig, berakal, suci dari haid dan nifas, sampai dakwah. Menghadap kiblat, menutup aurat, dan masuk waktu termasuk syarat sah.
+
+8. Menurut mazhab Syafi'i, rukun salat berjumlah ....
+a. 7
+b. 10
+*c. 13
+d. 17
+> Mazhab Syafi'i menghitung rukun salat sebanyak 13.
+
+9. Diam sejenak sampai anggota tubuh tenang pada rukuk dan sujud disebut ....
+a. tertib
+*b. tumakninah
+c. iktidal
+d. iftirasy
+> Tumakninah adalah berhenti sejenak sampai tenang pada setiap gerakan rukun.
+
+10. Melaksanakan rukun salat secara berurutan disebut ....
+*a. tertib
+b. tumakninah
+c. khusyuk
+d. muwalat
+> Tertib berarti mengerjakan rukun sesuai urutannya.
+
+11. Perbuatan berikut yang membatalkan salat adalah ....
+a. membaca surah pendek
+*b. berbicara dengan sengaja
+c. mengangkat tangan saat takbir
+d. membaca doa iftitah
+> Berbicara dengan sengaja, makan, minum, berhadas, dan banyak bergerak tanpa uzur membatalkan salat.
+
+12. Hukum salat berjamaah menurut pendapat yang kuat dalam mazhab Syafi'i adalah ....
+a. wajib 'ain
+*b. sunah muakkad
+c. mubah
+d. makruh
+> Salat berjamaah sunah muakkad; sebagian ulama berpendapat fardu kifayah.
+
+13. Orang yang paling berhak menjadi imam adalah yang ....
+a. paling kaya
+b. paling tinggi badannya
+*c. paling baik bacaan Al-Qur'annya
+d. paling muda
+> Rasulullah ﷺ: yang menjadi imam adalah yang paling baik bacaannya, lalu yang paling paham sunah (HR. Muslim).
+
+14. Makmum yang tertinggal rakaat atau tidak sempat membaca Al-Fatihah bersama imam disebut makmum ....
+a. muwafiq
+*b. masbuk
+c. munfarid
+d. mukim
+> Makmum masbuk adalah makmum yang tertinggal dari imam.
+
+15. Makmum masbuk mendapat satu rakaat apabila ....
+a. datang ketika imam salam
+b. datang ketika imam tasyahud akhir
+*c. sempat rukuk bersama imam dengan tumakninah
+d. datang ketika imam sujud kedua
+> Bila masih sempat rukuk bersama imam dengan tumakninah, makmum mendapat rakaat itu.
+
+[MENJODOHKAN]
+1. Air suci dan menyucikan = air mutlak
+2. Air bekas bersuci yang sedikit = air musta'mal
+3. Air yang terkena najis dan berubah = air mutanajis
+4. Najis anjing dan babi = mughallazhah
+5. Makmum yang tertinggal dari imam = masbuk
+~ air musyammas
+~ mukhaffafah
+
+[ISIAN]
+1. Hadas kecil disucikan dengan wudu atau .... = tayamum
+2. Air sedikit adalah air yang kurang dari dua .... = kulah | qullah
+3. Najis sedang disebut juga najis .... = mutawassithah | mutawasitah
+4. Rukun salat yang pertama adalah .... = niat
+5. Rukun salat yang mengakhiri salat adalah .... = salam | salam pertama
+6. Salat yang dikerjakan sendirian disebut salat .... = munfarid | sendiri
+7. Orang yang diikuti dalam salat berjamaah disebut .... = imam
+8. Orang yang mengikuti imam disebut .... = makmum
+9. Tertawa .... dapat membatalkan salat. = terbahak-bahak | terbahak bahak
+10. Salah satu syarat imam adalah mampu membaca .... dengan baik. = Al-Fatihah | Al Fatihah | Fatihah | Alfatihah
+
+[URAIAN]
+1. Sebutkan empat macam air beserta hukumnya untuk bersuci!
+= Air mutlak: suci dan menyucikan. Air musta'mal: suci tetapi tidak menyucikan. Air mutanajis: tidak suci dan tidak menyucikan. Air musyammas: suci dan menyucikan tetapi makruh.
+
+2. Jelaskan perbedaan syarat wajib dan syarat sah salat, beserta masing-masing dua contohnya!
+= Syarat wajib menentukan seseorang wajib salat atau tidak (misalnya Islam, balig, berakal). Syarat sah menentukan salat sah atau tidak (misalnya suci dari hadas dan najis, menutup aurat, menghadap kiblat, masuk waktu).
+
+3. Sebutkan lima rukun salat!
+= Lima di antara: niat, takbiratul ihram, berdiri bagi yang mampu, membaca Al-Fatihah, rukuk, iktidal, sujud, duduk di antara dua sujud, tasyahud akhir, selawat, salam, tumakninah, tertib.
+
+4. Sebutkan empat hal yang membatalkan salat!
+= Empat di antara: berhadas, terkena najis, berbicara dengan sengaja, makan dan minum, banyak bergerak tanpa uzur, membelakangi kiblat, tertawa terbahak-bahak.
+
+5. Apa yang harus dilakukan makmum masbuk sesudah imam salam?
+= Ia berdiri (tanpa ikut salam) lalu menyempurnakan rakaat yang tertinggal sendiri, kemudian salam.

@@ -1,0 +1,149 @@
+@jenjang mts
+@kelas 8
+@mapel Fikih
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Salat sunah yang sangat dianjurkan disebut sunah ....
+*a. muakkad
+b. ghairu muakkad
+c. mubah
+d. nafilah biasa
+> Sunah muakkad adalah sunah yang sangat dianjurkan, seperti witir dan rawatib muakkad.
+
+2. Salat sunah yang dikerjakan pada malam hari setelah tidur adalah salat ....
+a. duha
+*b. tahajud
+c. istisqa
+d. tahiyatul masjid
+> Tahajud dikerjakan pada malam hari setelah tidur, paling utama pada sepertiga malam terakhir.
+
+3. Salat untuk memohon pilihan terbaik kepada Allah adalah salat ....
+a. kusuf
+b. witir
+*c. istikharah
+d. tarawih
+> Istikharah artinya meminta pilihan yang terbaik kepada Allah.
+
+4. Salat sunah ketika terjadi gerhana matahari disebut salat ....
+*a. kusuf
+b. khusuf
+c. istisqa
+d. hajat
+> Kusuf = gerhana matahari; khusuf = gerhana bulan.
+
+5. Salat istisqa dikerjakan untuk ....
+a. memohon ampunan
+*b. memohon turunnya hujan
+c. menyambut tamu
+d. menghormati masjid
+> Istisqa adalah salat memohon hujan ketika kemarau panjang.
+
+6. Salat sunah dua rakaat sebelum Asar termasuk sunah ....
+a. muakkad
+*b. ghairu muakkad
+c. wajib
+d. kifayah
+> Rawatib sebelum Asar, Magrib, dan Isya termasuk ghairu muakkad.
+
+7. Berikut yang termasuk puasa wajib adalah puasa ....
+a. Senin dan Kamis
+b. Arafah
+*c. nazar
+d. Syawal
+> Puasa wajib: Ramadan, nazar, kafarat, dan qada Ramadan.
+
+8. Puasa Ayyamul Bidh dikerjakan setiap tanggal ....
+a. 1, 2, 3 bulan Hijriah
+*b. 13, 14, 15 bulan Hijriah
+c. 20, 21, 22 bulan Hijriah
+d. 27, 28, 29 bulan Hijriah
+> Ayyamul Bidh (hari-hari putih) jatuh pada 13, 14, dan 15 setiap bulan Hijriah.
+
+9. Puasa Arafah disunahkan bagi orang yang tidak berhaji pada tanggal ....
+a. 1 Muharam
+b. 10 Muharam
+*c. 9 Zulhijah
+d. 10 Zulhijah
+> Puasa Arafah jatuh pada 9 Zulhijah.
+
+10. Puasa yang dikerjakan sehari puasa dan sehari tidak disebut puasa ....
+a. Syawal
+*b. Daud
+c. Tasu'a
+d. Asyura
+> Puasa Daud dilakukan berselang-seling: sehari puasa, sehari berbuka.
+
+11. Puasa diharamkan pada ....
+a. hari Senin
+*b. hari raya dan hari tasyrik
+c. bulan Rajab
+d. hari Jumat saja
+> Puasa haram pada dua hari raya dan hari tasyrik (11–13 Zulhijah).
+
+12. Orang tua renta yang tidak mampu berpuasa Ramadan wajib membayar ....
+a. qada
+*b. fidyah
+c. kafarat
+d. zakat mal
+> Orang tua renta dan orang sakit menahun yang tidak mampu berpuasa membayar fidyah.
+
+13. Batas minimal harta yang wajib dizakati disebut ....
+*a. nisab
+b. haul
+c. kadar
+d. sha'
+> Nisab adalah batas minimal harta wajib zakat; haul adalah masa kepemilikan satu tahun.
+
+14. Nisab zakat emas adalah ....
+a. 20 gram
+*b. 85 gram
+c. 595 gram
+d. 653 kilogram
+> Nisab emas 85 gram dengan kadar zakat 2,5%.
+
+15. Zakat hasil pertanian yang diairi dengan air hujan kadarnya ....
+a. 2,5%
+b. 5%
+*c. 10%
+d. 20%
+> Pertanian yang diairi hujan 10%, diairi dengan biaya 5%.
+
+[MENJODOHKAN]
+1. Salat gerhana bulan = khusuf
+2. Salat minta hujan = istisqa
+3. Masa kepemilikan harta satu tahun = haul
+4. Tebusan bagi yang tidak mampu berpuasa = fidyah
+5. Puasa 13, 14, 15 bulan Hijriah = Ayyamul Bidh
+~ kusuf
+~ qada
+
+[ISIAN]
+1. Salat tahajud paling utama dikerjakan pada sepertiga malam yang .... = terakhir | akhir
+2. Salat penutup salat malam yang jumlah rakaatnya ganjil disebut salat .... = witir | witr
+3. Puasa Tasu'a dan Asyura jatuh pada tanggal 9 dan 10 bulan .... = Muharam | Muharram
+4. Puasa sunah enam hari dikerjakan pada bulan .... = Syawal
+5. Musafir yang tidak berpuasa Ramadan wajib mengganti dengan .... = qada | qadha | mengqada
+6. Zakat fitrah dibayar sebelum salat .... = Idulfitri | Idul Fitri | Id
+7. Besar zakat fitrah adalah satu sha' atau kira-kira .... kg makanan pokok. = 2,5 | 2.5 | dua setengah
+8. Nisab perak adalah .... gram. = 595
+9. Kadar zakat emas, perak, dan perdagangan adalah .... persen. = 2,5 | 2.5 | dua setengah
+10. Nisab hasil pertanian adalah 5 wasaq atau kira-kira .... kg gabah. = 653
+
+[URAIAN]
+1. Sebutkan perbedaan salat sunah muakkad dan ghairu muakkad beserta contohnya!
+= Muakkad sangat dianjurkan (contoh: witir, tahajud, duha, rawatib sebelum Subuh, dua salat Id); ghairu muakkad dianjurkan tetapi tidak sekuat itu (contoh: rawatib sebelum Asar, Magrib, Isya, tahiyatul masjid).
+
+2. Sebutkan empat macam puasa sunah beserta waktunya!
+= Contoh: Senin dan Kamis; Ayyamul Bidh 13–15 Hijriah; enam hari Syawal; Arafah 9 Zulhijah; Tasu'a dan Asyura 9–10 Muharam; puasa Daud. Empat yang benar diterima.
+
+3. Siapa saja yang boleh tidak berpuasa Ramadan dan apa kewajibannya?
+= Orang sakit dan musafir (wajib qada); perempuan haid dan nifas (wajib qada); orang tua renta atau sakit menahun yang tidak mampu (membayar fidyah).
+
+4. Jelaskan pengertian nisab dan haul dalam zakat mal!
+= Nisab adalah batas minimal harta yang wajib dizakati; haul adalah harta itu sudah dimiliki selama satu tahun (kecuali hasil pertanian yang dizakati setiap panen).
+
+5. Pak Ahmad memiliki tabungan emas 100 gram selama satu tahun. Apakah wajib zakat? Berapa zakatnya?
+= Wajib, karena 100 gram melebihi nisab 85 gram dan sudah satu tahun. Zakatnya 2,5% × 100 gram = 2,5 gram emas (atau uang senilainya).
