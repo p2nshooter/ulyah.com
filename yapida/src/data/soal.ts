@@ -477,8 +477,14 @@ export async function paketSiswa(env: EnvAset, store: Store, d: Pick<Dok, 'd' | 
   const [bawaan, milik, bagi] = await Promise.all([indeksBawaan(env), daftarPaketLembaga(store, [d.unit]), dibagikan(store, d.unit)]);
   // latihan (bank soal siswa) + soal ujian yang sudah dibagikan guru lembaganya
   const semua = [...milik.filter((p) => p.st === 'tayang' && (p.jenis === 'latihan' || bagi.has(p.id))), ...bawaan.filter((p) => p.jenis === 'latihan' || bagi.has(p.id))].filter((p) => p.jenjang === k.jenjang);
-  return { kelasku: semua.filter((p) => p.kelas === k.kelas), lain: semua.filter((p) => p.kelas !== k.kelas), kelas: k.nama };
+  // semester berjalan lebih dulu (Juli–Desember Ganjil, Januari–Juni Genap), lalu soal ujian yang dibagikan guru, lalu mapel
+  const kini = semesterKini();
+  const urut = (a: IndeksPaket, b: IndeksPaket) => Number(b.semester === kini) - Number(a.semester === kini) || Number(untukGuru(b)) - Number(untukGuru(a)) || a.mapel.localeCompare(b.mapel, 'id');
+  return { kelasku: semua.filter((p) => p.kelas === k.kelas).sort(urut), lain: semua.filter((p) => p.kelas !== k.kelas), kelas: k.nama };
 }
+
+/** Semester berjalan menurut kalender pelajaran (WIB): Juli–Desember Ganjil, Januari–Juni Genap. */
+export const semesterKini = (t = Date.now()): Semester => (new Date(t + 7 * 3600_000).getUTCMonth() >= 6 ? 'ganjil' : 'genap');
 
 /* ── bank soal guru vs latihan siswa (pemilik, 17 Nov 2026: „bedain antara bank soal siswa dan guru“) ─────────────── */
 

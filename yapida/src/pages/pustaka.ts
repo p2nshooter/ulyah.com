@@ -294,8 +294,10 @@ export function blokHtml(b: Blok): string {
     }
     case 'img': return b.x.startsWith('/pustaka/m/') ? `<figure class="b-img"><img src="${attr(b.x)}" alt="${attr(b.a ?? '')}" loading="lazy" decoding="async"></figure>` : '';
     case 'kuis': {
-      const [tanya, ...pil] = b.x.split('|').map((s) => s.trim());
-      return `<div class="akt akt-kuis" data-akt="kuis" data-pilihan="${attr(JSON.stringify(pil))}"><p class="akt-label">❓ Tebak!</p><p class="akt-tanya" data-b>${sebaris(tanya ?? '')}</p><div class="akt-pilihan" data-akt-isi></div></div>`;
+      // „Soal? | *benar | pengecoh >> pembahasan“ — pembahasan baru tampil sesudah dijawab benar (pustaka.js)
+      const [isi, bahas] = b.x.split(/\s*>>\s*/);
+      const [tanya, ...pil] = (isi ?? '').split('|').map((s) => s.trim());
+      return `<div class="akt akt-kuis" data-akt="kuis" data-pilihan="${attr(JSON.stringify(pil))}"${bahas ? ` data-bahas="${attr(bahas.trim())}"` : ''}><p class="akt-label">❓ Tebak!</p><p class="akt-tanya" data-b>${sebaris(tanya ?? '')}</p><div class="akt-pilihan" data-akt-isi></div></div>`;
     }
     case 'kartu': {
       const [depan, belakang] = b.x.split('|').map((s) => s.trim());

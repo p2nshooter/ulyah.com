@@ -247,22 +247,22 @@ function petaSoal(semua: IndeksPaket[], f: { jenjang: string; kelas: string; map
     return html`${ringkas}${pilihKelas}
   <section class="p-kartu"><h2>${kur.nama} — ${kur.mapel.length} mata pelajaran</h2>
     <p class="p-kecil">Angka = slot terisi dari 6 (PTS/PAS Ganjil-Genap + Latihan Ganjil-Genap). Ketuk kelas untuk melihat rinciannya. Jumlah mapel per kelas: ${kur.kelas.map((k) => `kelas ${k}: ${jumlahMapel(k)}`).join(' · ')}.</p>
-    <div class="p-tabel-gulir"><table class="p-tabel bs-peta"><thead><tr><th scope="col">Mata pelajaran</th>${kur.kelas.map((k) => html`<th scope="col"><a href="${qs('peta', { jenjang: j, kelas: String(k), mapel: '' })}">Kelas ${k}</a></th>`)}</tr></thead>
+    <div class="bs-peta-gulir"><table class="bs-peta bs-peta-kelas"><thead><tr><th scope="col">Mata pelajaran</th>${kur.kelas.map((k) => html`<th scope="col"><a href="${qs('peta', { jenjang: j, kelas: String(k), mapel: '' })}">Kelas ${k}</a></th>`)}</tr></thead>
     <tbody>${kur.mapel.map((m) => html`<tr><th scope="row"><span aria-hidden="true">${m.ikon}</span> ${namaMapelSoal(m.nama)}</th>${kur.kelas.map((k) => { if (!m.kelas.includes(k)) return html`<td class="bs-sel-tidak" title="Tidak diajarkan di kelas ${k}">—</td>`; const n = isi(m, k); return html`<td class="bs-sel bs-sel-${n === 0 ? 0 : n === SLOT_SOAL.length ? 2 : 1}"><a href="${qs('peta', { jenjang: j, kelas: String(k), mapel: '' })}#m-${m.slug}">${n}/${SLOT_SOAL.length}</a></td>`; })}</tr>`)}</tbody></table></div>
   </section>`;
   }
   const mapelKelas = kur.mapel.filter((m) => m.kelas.includes(kelasOk));
   const sel = (m: Mapel, s: (typeof SLOT_SOAL)[number]) => {
     const n = hitung.get(kunciSlot({ jenjang: j, kelas: kelasOk, mapel: m.slug, jenis: s.jenis, semester: s.semester })) ?? 0;
-    if (n) return html`<td class="bs-sel bs-sel-2"><a href="${qs(s.jenis === 'latihan' ? 'siswa' : 'guru', { jenjang: j, kelas: String(kelasOk), mapel: m.slug })}" title="${n} paket">✓ ${n}</a></td>`;
+    if (n) return html`<td class="bs-sel bs-sel-2" data-slot="${s.nama}"><a href="${qs(s.jenis === 'latihan' ? 'siswa' : 'guru', { jenjang: j, kelas: String(kelasOk), mapel: m.slug })}" title="${n} paket">✓ ${n}</a></td>`;
     const buat = `/portal/bank-soal/baru?${new URLSearchParams({ jenjang: j, kelas: String(kelasOk), mapel: namaMapelSoal(m.nama), semester: s.semester, jenis: s.jenis })}`;
-    return html`<td class="bs-sel bs-sel-0">${bolehBuat ? html`<a href="${buat}" title="Buat ${s.nama} ${namaMapelSoal(m.nama)} kelas ${kelasOk}">+ Buat</a>` : '—'}</td>`;
+    return html`<td class="bs-sel bs-sel-0" data-slot="${s.nama}">${bolehBuat ? html`<a href="${buat}" title="Buat ${s.nama} ${namaMapelSoal(m.nama)} kelas ${kelasOk}">+ Buat</a>` : '—'}</td>`;
   };
   const a = mapelKelas.reduce((n, m) => n + isi(m, kelasOk), 0), b = mapelKelas.length * SLOT_SOAL.length;
   return html`${ringkas}${pilihKelas}
   <section class="p-kartu"><h2>${NAMA_JENJANG[j]} Kelas ${kelasOk} — ${mapelKelas.length} mata pelajaran <small>(${a}/${b} slot · ${persen(a, b)}%)</small></h2>
     <p class="p-kecil">✓ = paket sudah ada (ketuk untuk membuka daftarnya). <b>+ Buat</b> = slot kosong: editor terbuka dengan kepala paket dan kerangka soal yang sudah terisi.</p>
-    <div class="p-tabel-gulir"><table class="p-tabel bs-peta"><thead><tr><th scope="col">Mata pelajaran</th>${SLOT_SOAL.map((s) => html`<th scope="col" class="${s.jenis === 'latihan' ? 'bs-kol-siswa' : 'bs-kol-guru'}">${s.nama}<small>${s.jenis === 'latihan' ? 'siswa' : 'guru'}</small></th>`)}</tr></thead>
+    <div class="bs-peta-gulir"><table class="bs-peta bs-peta-6"><thead><tr><th scope="col">Mata pelajaran</th>${SLOT_SOAL.map((s) => html`<th scope="col" class="${s.jenis === 'latihan' ? 'bs-kol-siswa' : 'bs-kol-guru'}">${s.nama}<small>${s.jenis === 'latihan' ? 'siswa' : 'guru'}</small></th>`)}</tr></thead>
     <tbody>${mapelKelas.map((m) => html`<tr id="m-${m.slug}"><th scope="row"><span aria-hidden="true">${m.ikon}</span> ${namaMapelSoal(m.nama)}</th>${SLOT_SOAL.map((s) => sel(m, s))}</tr>`)}</tbody></table></div>
   </section>`;
 }
@@ -348,7 +348,7 @@ export function rekapSoalPage(o: { p: Paket; hasil: (MetaHasil & { key: string }
     <h3>B. Menjodohkan</h3>${o.rinci.jodoh.map((x, i) => bar(x, `${i + 1}`))}
     <h3>C. Isian</h3>${o.rinci.isian.map((x, i) => bar(x, `${i + 1}`))}</section>` : ''}
   <section class="p-kartu"><h2>Daftar pengerjaan</h2>
-    ${n ? html`<div class="p-tabel-gulir"><table class="p-tabel"><thead><tr><th>Nama</th><th>Lembaga</th><th>Kelas</th><th>Nilai</th><th>Waktu</th></tr></thead><tbody>${o.hasil.map((x) => html`<tr><td>${x.n}</td><td>${o.unitNama(x.u)}</td><td>${x.k}${x.r ? ` · ${x.r}` : ''}</td><td><b class="${x.v >= 70 ? 'bs-tuntas' : 'bs-belum'}">${x.v}</b></td><td>${tglWaktu(x.t)}</td></tr>`)}</tbody></table></div>` : html`<p class="p-kecil">Belum ada siswa yang mengerjakan paket ini. Siswa mengerjakannya dari <b>Portal Siswa → Bank soal</b>.</p>`}
+    ${n ? html`<div class="bs-peta-gulir"><table class="bs-peta bs-rekap"><thead><tr><th>Nama</th><th>Lembaga</th><th>Kelas</th><th>Nilai</th><th>Waktu</th></tr></thead><tbody>${o.hasil.map((x) => html`<tr><td>${x.n}</td><td>${o.unitNama(x.u)}</td><td>${x.k}${x.r ? ` · ${x.r}` : ''}</td><td><b class="${x.v >= 70 ? 'bs-tuntas' : 'bs-belum'}">${x.v}</b></td><td>${tglWaktu(x.t)}</td></tr>`)}</tbody></table></div>` : html`<p class="p-kecil">Belum ada siswa yang mengerjakan paket ini. Siswa mengerjakannya dari <b>Portal Siswa → Bank soal</b>.</p>`}
   </section>
 </div>`;
 }
