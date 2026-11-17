@@ -31,10 +31,36 @@
   var keep = function () { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* abaikan */ } };
   var chapterStarts = (B.toc || []).map(function (x) { return x[1]; });
 
+  /* ── terjemahan seluruh buku (mesin MADLAD-400 lewat workflow terjemah-luaja.yml; berkas per potongan halaman di R2) ── */
+  var UIL = (window.LJ && window.LJ.lang) || 'id';
+  var MTL = UIL !== B.lang ? UIL : null, MT = {}, mtLoad = {}, mtDone = {}, PREV = B.preview || 3, CH = B.mtChunk || 25, touched = false;
+  var mtChunkOf = function (p) { return p < PREV ? 0 : 1 + Math.floor((p - PREV) / CH); };
+  var ENC = window.TextEncoder ? new TextEncoder() : null;
+  /** FNV-1a 32-bit atas byte UTF-8 — sama dengan scripts/pustaka/mesin.py, agar terjemahan hanya dipakai untuk teks yang sama. */
+  function fnv(str) {
+    var bytes = ENC ? ENC.encode(str) : unescape(encodeURIComponent(str)).split('').map(function (ch) { return ch.charCodeAt(0); });
+    var hh = 0x811c9dc5;
+    for (var i = 0; i < bytes.length; i++) { hh ^= bytes[i]; hh = Math.imul(hh, 0x01000193) >>> 0; }
+    return ('0000000' + hh.toString(16)).slice(-8);
+  }
+  function loadMT(n) {
+    // potongan setelah pratinjau hanya untuk member (B.open) — tamu tidak meminta berkas yang pasti ditolak
+    if (!MTL || n < 0 || (n > 0 && !B.open)) return Promise.resolve();
+    if (!mtLoad[n]) {
+      mtLoad[n] = fetch('/p/t/' + encodeURIComponent(B.id) + '/' + MTL + '/' + n + '.json', { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { if (j && j.u) for (var k in j.u) MT[k] = j.u[k]; mtDone[n] = true; })
+        .catch(function () { delete mtLoad[n]; });
+    }
+    return mtLoad[n];
+  }
+  /** Terjemahan butir `key` bila teks sumbernya masih sama. */
+  function mt(key, src) { var x = MT[key]; return x && src && x[0] === fnv(src) ? x[1] : ''; }
+
   /* ── kata yang bisa diketuk: arti langsung dari Kamus LUAJA dalam bahasa antarmuka ─────────────── */
   var pop = $('[data-pop]');
   var UI = (window.LJ && window.LJ.lang) || 'id', kcache = {};
-  function closePop() { pop.hidden = true; pop.textContent = ''; }
+  function closePop() { pop.hidden = true; pop.textContent = ''; markOn([]); }
   function place(anchor) {
     var r = anchor.getBoundingClientRect(), pw = Math.min(360, window.innerWidth - 24), ph = pop.offsetHeight || 140;
     pop.style.width = pw + 'px';
@@ -57,100 +83,124 @@
     var list = h('ol', { class: 'pop-m', lang: hit.ml || UI }, (hit.m || []).map(function (x) { return h('li', null, x); }));
     return [head, list, hit.ml && hit.ml !== UI ? h('small', { class: 'pop-note' }, T('js.kamus.enNote')) : null];
   }
-  function openPop(word, l, anchor) {
+  /** Sorot kata yang diketuk saja (satu kata, bukan seluruh paragraf). */
+  function markOn(els) { $$('.w.on', pageEl).forEach(function (x) { x.classList.remove('on'); }); (els || []).forEach(function (x) { x.classList.add('on'); }); }
+  /**
+   * Popup arti satu kata. Jepang (`ja`): kata hasil pemotong peramban + konteks kalimatnya; Kamus LUAJA memecah konteks itu
+   * dengan pencocokan terpanjang (mengenali bentuk berubah: あった → ある), lalu yang ditampilkan hanya kata di titik ketukan.
+   */
+  function openPop(word, l, anchor, ja) {
     var clean = word.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '');
     if (!clean) return;
     pop.textContent = '';
     var body = h('div', { class: 'pop-body', 'aria-live': 'polite' }, h('span', { class: 'pop-wait' }, T('js.kamus.loading')));
     var listen = h('button', { type: 'button', class: 'pop-btn' }, '🔊 ' + T('js.lib.listen'));
     var full = h('a', { class: 'pop-btn pop-full', href: '/kamus?l=' + l + '&q=' + encodeURIComponent(clean) }, T('js.kamus.full') + ' →');
-    var lemma = clean, meaning = '';
+    var lemma = clean, meaning = '', spoken = clean;
     var saveBtn = h('button', { type: 'button', class: 'pop-btn' }, savedHas(clean, l) ? T('js.lib.saved') : T('js.lib.save'));
     saveBtn.addEventListener('click', function () { saveWord(lemma, l, meaning); saveBtn.textContent = T('js.lib.saved'); });
-    listen.addEventListener('click', function () { say(clean, l); });
-    var wordHead = l === 'ja' ? null : h('div', { class: 'pop-word' }, h('b', { lang: l }, clean));
+    listen.addEventListener('click', function () { say(spoken, l); });
+    var wordHead = h('div', { class: 'pop-word' }, h('b', { lang: l }, clean));
     add(pop, [wordHead, body, h('div', { class: 'pop-row' }, listen, saveBtn, full)]);
     pop.hidden = false;
     place(anchor);
     say(clean, l);
     if (navigator.onLine === false) { body.textContent = T('js.kamus.offline'); place(anchor); return; }
-    if (l === 'ja') {
-      kfetch('/api/kamus/pecah?l=ja&ui=' + UI + '&q=' + encodeURIComponent(clean)).then(function (d) {
-        body.textContent = '';
-        var detail = h('div', { class: 'pop-detail' });
-        var chips = h('div', { class: 'pop-chips', role: 'group', 'aria-label': T('js.kamus.words') });
-        var first = null;
-        function pick(b, tk, speak) {
-          $$('.pop-chip', chips).forEach(function (x) { x.classList.toggle('on', x === b); });
-          detail.textContent = '';
-          add(detail, meaningBlock({ w: tk.w, r: tk.r, m: tk.m }, 'ja'));
-          lemma = tk.w; meaning = (tk.m || []).join(', ');
-          full.setAttribute('href', tk.url);
-          saveBtn.textContent = savedHas(tk.w, 'ja') ? T('js.lib.saved') : T('js.lib.save');
-          if (speak) say(tk.t, 'ja');
-          place(anchor);
-        }
-        (d.tokens || []).forEach(function (tk) {
-          if (!tk.w) { if (/\S/.test(tk.t)) add(chips, h('span', { class: 'pop-sep', lang: 'ja' }, tk.t)); return; }
-          var b = h('button', { type: 'button', class: 'pop-chip', lang: 'ja' }, tk.t);
-          b.addEventListener('click', function (e) { e.stopPropagation(); pick(b, tk, true); });
-          if (!first) first = { b: b, tk: tk };
-          add(chips, b);
-        });
-        add(body, [h('small', { class: 'pop-note' }, T('js.kamus.words')), chips, detail]);
-        if (first) pick(first.b, first.tk, false);
-        else { body.textContent = T('js.kamus.none'); place(anchor); }
-      }).catch(function (er) { body.textContent = T(er && er.status === 503 ? 'js.kamus.updating' : 'js.kamus.none'); place(anchor); });
-      return;
-    }
-    kfetch('/api/kamus/cari?l=' + l + '&ui=' + UI + '&q=' + encodeURIComponent(clean)).then(function (d) {
+    var fail = function (er) { body.textContent = T(er && er.status === 503 ? 'js.kamus.updating' : 'js.kamus.none'); place(anchor); };
+    /** Tampilkan satu entri: lema, cara baca, arti dalam bahasa antarmuka; catatan „bentuk dari …“ bila kata diketuk berubah bentuk. */
+    function showEntry(top, extra) {
       body.textContent = '';
-      var hits = d.hits || [];
-      if (!hits.length) { body.textContent = T('js.kamus.none'); place(anchor); return; }
-      var top = hits[0];
       lemma = top.w; meaning = (top.m || []).slice(0, 3).join(', ');
       full.setAttribute('href', top.url);
       if (top.w.toLowerCase() !== clean.toLowerCase()) add(body, h('small', { class: 'pop-note' }, T('js.kamus.formOf', { w: top.w })));
-      else if (wordHead && wordHead.parentNode) wordHead.parentNode.removeChild(wordHead);
+      else if (wordHead.parentNode) wordHead.parentNode.removeChild(wordHead);
       add(body, meaningBlock(top, l));
-      hits.slice(1, 3).forEach(function (x) {
+      (extra || []).forEach(function (x) {
         add(body, h('a', { class: 'pop-more', href: x.url }, h('b', { lang: l }, (x.art ? x.art + ' ' : '') + x.w), ' — ' + (x.m || []).slice(0, 2).join(', ')));
       });
       saveBtn.textContent = savedHas(top.w, l) || savedHas(clean, l) ? T('js.lib.saved') : T('js.lib.save');
       place(anchor);
-    }).catch(function (er) { body.textContent = T(er && er.status === 503 ? 'js.kamus.updating' : 'js.kamus.none'); place(anchor); });
+    }
+    function search(q) {
+      return kfetch('/api/kamus/cari?l=' + l + '&ui=' + UI + '&q=' + encodeURIComponent(q)).then(function (d) {
+        var hits = d.hits || [];
+        if (!hits.length) { body.textContent = T('js.kamus.none'); place(anchor); return; }
+        showEntry(hits[0], hits.slice(1, 3));
+      });
+    }
+    if (l === 'ja' && ja && ja.win) {
+      kfetch('/api/kamus/pecah?l=ja&ui=' + UI + '&q=' + encodeURIComponent(ja.win)).then(function (d) {
+        var pos = 0, hit = null, at = 0;
+        (d.tokens || []).some(function (tk) { var n = Array.from(tk.t).length; if (ja.rel >= pos && ja.rel < pos + n) { hit = tk; at = pos; return true; } pos += n; return false; });
+        if (!hit || !hit.w) return search(clean);
+        // kata kamus bisa melewati batas potongan peramban (mis. 待って = 待っ + て): sorot seluruh kata itu, tetap satu kata
+        if (ja.jp) {
+          var a = ja.start + Array.from(ja.win).slice(0, at).join('').length, z = a + hit.t.length;
+          markOn($$('.w', ja.jp).filter(function (x) { var o = Number(x.getAttribute('data-o')); return o >= a && o < z; }).concat([anchor]));
+        }
+        spoken = hit.t;
+        showEntry({ w: hit.w, r: hit.r, m: hit.m, ml: hit.ml, lv: hit.lv, url: hit.url });
+      }).catch(fail);
+      return;
+    }
+    search(clean).catch(fail);
   }
   d.addEventListener('click', function (e) { if (!pop.hidden && !pop.contains(e.target) && !e.target.classList.contains('w')) closePop(); });
   window.addEventListener('scroll', closePop, { passive: true });
 
-  /** Kalimat Jepang di titik ketukan (paragraf panjang dipotong di 。！？ agar kamus memecah kalimat itu saja). */
-  function sentenceAt(w, ev) {
-    var full = w.getAttribute('data-w') || '', idx = -1;
-    try {
-      var r = d.caretRangeFromPoint ? d.caretRangeFromPoint(ev.clientX, ev.clientY) : null;
-      var pos = !r && d.caretPositionFromPoint ? d.caretPositionFromPoint(ev.clientX, ev.clientY) : null;
-      var node = r ? r.startContainer : pos ? pos.offsetNode : null, off = r ? r.startOffset : pos ? pos.offset : 0;
-      if (node && w.contains(node)) {
-        var walker = d.createTreeWalker(w, NodeFilter.SHOW_TEXT), n, count = 0;
-        while ((n = walker.nextNode())) { if (n.parentNode && n.parentNode.nodeName === 'RT') continue; if (n === node) { idx = count + off; break; } count += n.nodeValue.length; }
-      }
-    } catch (x) { idx = -1; }
-    if (idx < 0) idx = 0;
-    var start = idx, end = idx, stop = /[。！？!?\n]/;
-    while (start > 0 && !stop.test(full.charAt(start - 1))) start--;
-    while (end < full.length && !stop.test(full.charAt(end))) end++;
-    var s = full.slice(start, Math.min(full.length, end + 1)).trim();
-    return (s || full).slice(0, 100);
+  /* ── kata Jepang: dipotong per kata di peramban; furigana (ruby) selalu menempel utuh pada satu kata ─────── */
+  var JSEG = null;
+  try { if (window.Intl && Intl.Segmenter) JSEG = new Intl.Segmenter('ja', { granularity: 'word' }); } catch (e) { JSEG = null; }
+  var JWORD = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}ー々〆0-9A-Za-zＡ-Ｚａ-ｚ０-９]/u;
+  var JFALL = /[\p{Script=Han}々〆]+\p{Script=Hiragana}{0,2}|[\p{Script=Katakana}ー]+|\p{Script=Hiragana}+|[0-9A-Za-zＡ-Ｚａ-ｚ０-９]+|[\s\S]/gu;
+  var JSTOP = /[。！？!?\n]/;
+  /** Batas kata [awal, akhir, berisi huruf?] dalam teks polos. */
+  function segJa(p) {
+    var out = [], m;
+    if (JSEG) { Array.from(JSEG.segment(p)).forEach(function (g) { out.push([g.index, g.index + g.segment.length, JWORD.test(g.segment)]); }); return out; }
+    JFALL.lastIndex = 0;
+    while ((m = JFALL.exec(p))) out.push([m.index, m.index + m[0].length, JWORD.test(m[0])]);
+    return out;
   }
-
-  /** Teks bahasa sasaran → kata yang bisa diketuk (Jepang: per kalimat). */
-  function words(text, l) {
-    if (l === 'ja') {
-      var parts = [], last = 0, m; RUBY.lastIndex = 0;
-      while ((m = RUBY.exec(text))) { if (m.index > last) parts.push(text.slice(last, m.index)); parts.push(h('ruby', null, m[1], h('rt', null, m[2]))); last = m.index + m[0].length; }
-      if (last < text.length) parts.push(text.slice(last));
-      return [h('span', { class: 'w', lang: 'ja', 'data-w': plain(text) }, parts)];
+  function wordsJa(text) {
+    var parts = [], P = '', last = 0, m; RUBY.lastIndex = 0;
+    while ((m = RUBY.exec(text))) {
+      if (m.index > last) { parts.push({ s: P.length, t: text.slice(last, m.index) }); P += text.slice(last, m.index); }
+      parts.push({ s: P.length, t: m[1], rt: m[2] }); P += m[1];
+      last = m.index + m[0].length;
     }
+    if (last < text.length) { parts.push({ s: P.length, t: text.slice(last) }); P += text.slice(last); }
+    var merged = [];
+    segJa(P).forEach(function (g) {
+      var prev = merged[merged.length - 1];
+      var inRuby = parts.some(function (x) { return x.rt && x.s < g[0] && g[0] < x.s + x.t.length; });
+      if (prev && inRuby) { prev[1] = g[1]; prev[2] = prev[2] || g[2]; } else merged.push(g.slice());
+    });
+    var wrap = h('span', { class: 'jp', lang: 'ja', 'data-jt': P });
+    merged.forEach(function (g) {
+      var kids = [];
+      parts.forEach(function (x) {
+        var xe = x.s + x.t.length;
+        if (xe <= g[0] || x.s >= g[1]) return;
+        kids.push(x.rt ? h('ruby', null, x.t, h('rt', null, x.rt)) : x.t.slice(Math.max(0, g[0] - x.s), Math.min(x.t.length, g[1] - x.s)));
+      });
+      if (g[2]) add(wrap, h('span', { class: 'w', 'data-o': g[0], 'data-w': P.slice(g[0], g[1]) }, kids));
+      else add(wrap, kids);
+    });
+    return [wrap];
+  }
+  /** Ketuk satu kata Jepang: konteks = kalimatnya sampai sedikit sesudah kata itu (maks. ±70 huruf). */
+  function tapJa(w) {
+    var jp = w.closest('.jp'), P = jp ? jp.getAttribute('data-jt') : w.getAttribute('data-w'), word = w.getAttribute('data-w') || '';
+    var o = jp ? Number(w.getAttribute('data-o')) || 0 : 0, s = o;
+    while (s > 0 && !JSTOP.test(P.charAt(s - 1)) && o - s < 60) s--;
+    if (s > 0 && /[\uDC00-\uDFFF]/.test(P.charAt(s))) s--;
+    markOn([w]);
+    openPop(word, 'ja', w, { jp: jp, start: s, win: P.slice(s, Math.min(P.length, o + word.length + 8)), rel: Array.from(P.slice(s, o)).length });
+  }
+  /** Teks bahasa sasaran → kata yang bisa diketuk satu per satu. */
+  function words(text, l) {
+    if (l === 'ja') return wordsJa(text);
     var out = [];
     text.split(/(\s+)/).forEach(function (part) {
       if (!part) return;
@@ -159,9 +209,16 @@
     });
     return out;
   }
+  pageEl.addEventListener('input', function () { touched = true; });
   pageEl.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('button,input')) touched = true;
     var w = e.target.closest && e.target.closest('.w');
-    if (w && pageEl.contains(w)) { e.stopPropagation(); var l = (w.closest('[data-l]') || {}).getAttribute ? w.closest('[data-l]').getAttribute('data-l') : B.lang; l = l || B.lang; openPop(l === 'ja' ? sentenceAt(w, e) : w.getAttribute('data-w'), l, w); return; }
+    if (w && pageEl.contains(w)) {
+      e.stopPropagation();
+      if (w.closest('.jp')) { tapJa(w); return; }
+      var host = w.closest('[data-l]'), l = (host && host.getAttribute('data-l')) || B.lang;
+      markOn([w]); openPop(w.getAttribute('data-w'), l, w); return;
+    }
     var tr = e.target.closest && e.target.closest('.tr');
     if (tr && d.body.classList.contains('rd-hide-tr')) tr.classList.toggle('shown');
   });
@@ -201,9 +258,9 @@
     inputs.forEach(function (inp) { inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); check(); } }); });
     return h('div', { class: 'ex-item' }, b.n ? h('span', { class: 'ex-n' }, String(b.n)) : null, line, h('div', { class: 'row' }, btn, fb));
   }
-  function mcBlock(b) {
+  function mcBlock(b, key) {
     var opts = h('div', { class: 'mc-opts' }), done = false;
-    var oo = UI === 'id' && b.o_id && b.o_id.length === b.o.length ? b.o_id : b.o;
+    var oo = UI === 'id' && b.o_id && b.o_id.length === b.o.length ? b.o_id : b.o.map(function (o, n) { return (key && mt(key + '.o' + n, o)) || o; });
     oo.forEach(function (o, i) {
       var btn = h('button', { type: 'button', class: 'mc-opt' }, h('span', { class: 'k' }, String.fromCharCode(65 + i)), o);
       btn.addEventListener('click', function () {
@@ -215,7 +272,7 @@
       });
       add(opts, btn);
     });
-    return h('div', { class: 'ex-item' }, b.n ? h('span', { class: 'ex-n' }, String(b.n)) : null, UI === 'id' && b.q_id ? h('p', { class: 'mc-q', lang: 'id' }, b.q_id) : h('p', { class: 'mc-q', 'data-l': B.lang }, words(b.q, B.lang)), opts);
+    return h('div', { class: 'ex-item' }, b.n ? h('span', { class: 'ex-n' }, String(b.n)) : null, UI === 'id' && b.q_id ? h('p', { class: 'mc-q', lang: 'id' }, b.q_id) : key && mt(key + '.q', b.q) ? h('p', { class: 'mc-q', lang: UI }, mt(key + '.q', b.q)) : h('p', { class: 'mc-q', 'data-l': B.lang }, words(b.q, B.lang)), opts);
   }
   /** Pilihan ganda dengar: naskah dibacakan; teksnya baru tampil setelah dijawab. */
   function lmcBlock(b) {
@@ -252,56 +309,70 @@
   /* ── bahasa antarmuka: penjelasan & arti dalam bahasa pelajar ─────────── */
   /** Teks blok dalam bahasa antarmuka bila terjemahannya ada (t_id, g_id, q_id, o_id …), selain itu teks asli. */
   var loc = function (b, f) { return UI === 'id' && b[f + '_id'] ? b[f + '_id'] : b[f]; };
-  /** Arti butir kosakata/tabel/kanji dalam bahasa antarmuka; arti Inggris asli tetap terlihat kecil di bawahnya. */
-  function meaningCell(b, i, en) {
-    var t = b.tr && b.tr[UI] && b.tr[UI][i];
-    if (!t || t === en) return en;
-    return [h('span', { lang: UI }, t), UI !== 'en' && en ? h('small', { class: 'tr-en', lang: 'en' }, en) : null];
+  /** Arti butir kosakata/tabel/kanji dalam bahasa antarmuka saja (pemilik: „bukan campur-campur“). */
+  function meaningCell(b, i, en, key) {
+    var t = (key && mt(key, en)) || (b.tr && b.tr[UI] && b.tr[UI][i]);
+    return t ? h('span', { lang: UI }, t) : en;
   }
-  var meaningText = function (b, i, en) { return (b.tr && b.tr[UI] && b.tr[UI][i]) || en; };
+  var meaningText = function (b, i, en, key) { return (key && mt(key, en)) || (b.tr && b.tr[UI] && b.tr[UI][i]) || en; };
   /** Paragraf penjelasan: terjemahan Indonesia (tidak diketuk sebagai kata asing) atau teks asli. */
-  function explain(b, l, cls) {
-    if (UI === 'id' && b.t_id) { var e = h(cls === 'p' ? 'p' : 'div', { class: cls === 'p' ? 'rd-p rd-expl' : 'rd-tip', 'data-l': 'id', 'data-rs': b.t_id, lang: 'id' }); add(e, [speakBtn(b.t_id, 'id', e), ' ', b.t_id]); return e; }
-    if (cls === 'p') { var p = h('p', { class: 'rd-p', 'data-l': l, 'data-rs': b.t }); add(p, [speakBtn(b.t, l, p), ' ', l === B.lang ? words(b.t, l) : b.t]); return p; }
-    return h('div', { class: 'rd-tip', 'data-l': l, 'data-rs': b.t }, speakBtn(b.t, l), ' ', b.t);
+  function explain(b, l, cls, key) {
+    var hum = UI === 'id' && b.t_id ? b.t_id : '', auto = hum ? '' : mt(key, b.t);
+    // penjelasan berbahasa Inggris di buku Jerman/Jepang: diganti terjemahan bahasa antarmuka
+    if (hum || (auto && l !== B.lang)) { var x = hum || auto, e = h(cls === 'p' ? 'p' : 'div', { class: cls === 'p' ? 'rd-p rd-expl' : 'rd-tip', 'data-l': UI, 'data-rs': x, lang: UI }); add(e, [speakBtn(x, UI, e), ' ', x]); return e; }
+    // teks bahasa sasaran: kata bisa diketuk satu per satu, terjemahannya langsung di bawah
+    var trn = auto ? h('span', { class: 'tr tr-mt', lang: MTL }, auto) : null;
+    if (cls === 'p') { var p = h('p', { class: 'rd-p', 'data-l': l, 'data-rs': b.t }); add(p, [speakBtn(b.t, l, p), ' ', l === B.lang ? words(b.t, l) : b.t, trn]); return p; }
+    return h('div', { class: 'rd-tip', 'data-l': l, 'data-rs': b.t }, speakBtn(b.t, l), ' ', l === B.lang ? words(b.t, l) : b.t, trn);
   }
 
   /* ── blok halaman ──────────────────────────────────────────────────── */
-  function block(b) {
+  function block(b, key) {
     var l = b.l || B.lang;
     switch (b.k) {
-      case 'h': return h('h2', { class: 'rd-h' }, loc(b, 't'));
-      case 'p': return explain(b, l, 'p');
-      case 'tip': return explain(b, l, 'tip');
-      case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) add(ex, h('span', { class: 'tr', lang: UI === 'id' && b.g_id ? 'id' : 'en' }, loc(b, 'g'))); return ex; }
+      case 'h': { var ht = UI === 'id' && b.t_id ? b.t_id : '', hm = ht ? '' : mt(key, b.t); return h('h2', { class: 'rd-h' }, ht || b.t, hm ? h('small', { class: 'tr tr-mt rd-h-tr', lang: MTL }, hm) : null); }
+      case 'p': return explain(b, l, 'p', key);
+      case 'tip': return explain(b, l, 'tip', key);
+      case 'ex': { var ex = h('div', { class: 'rd-ex', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('span', { class: 'tgt' }, words(b.t, B.lang))); if (b.g) { var gx = UI === 'id' && b.g_id ? b.g_id : mt(key + '.g', b.g); add(ex, h('span', { class: 'tr', lang: gx ? UI : 'en' }, gx || b.g)); } return ex; }
       case 'voc': {
         var list = h('ul', { class: 'voc-list' });
-        b.i.forEach(function (it, n) { var li = h('li', { 'data-l': B.lang, 'data-rs': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, meaningCell(b, n, it[1]))); add(list, li); });
+        b.i.forEach(function (it, n) { var li = h('li', { 'data-l': B.lang, 'data-rs': it[0] }, speakBtn(it[0], B.lang), h('span', { class: 'tgt' }, words(it[0], B.lang), it[2] ? h('small', { class: 'rd', lang: B.lang }, it[2]) : null), h('span', { class: 'tr' }, meaningCell(b, n, it[1], key + '.i' + n))); add(list, li); });
         var fc = h('button', { type: 'button', class: 'btn btn-gold btn-sm' }, '🃏 ' + T('js.lib.cards') + ' (' + b.i.length + ')');
-        fc.addEventListener('click', function () { cards(b.i.map(function (x, n) { var m = meaningText(b, n, x[1]); return [x[0], x[2] ? x[2] + ' — ' + m : m]; }), B.lang); });
+        fc.addEventListener('click', function () { cards(b.i.map(function (x, n) { var m = meaningText(b, n, x[1], key + '.i' + n); return [x[0], x[2] ? x[2] + ' — ' + m : m]; }), B.lang); });
         return h('section', { class: 'voc' }, h('div', { class: 'voc-head' }, b.a ? h('div', { class: 'native' }, h('small', null, '🎧 ' + T('js.lib.native')), h('audio', { controls: true, preload: 'none', src: b.a })) : null, fc), list);
       }
       case 'tbl': {
         var tb = h('table', { class: 'rd-tbl' });
-        b.r.forEach(function (r, ri) { var tr = h('tr', { 'data-l': B.lang, 'data-rs': r[0] }); r.forEach(function (c, j) { add(tr, h('td', j === 0 ? null : { class: 'tr-cell' }, j === 0 ? [speakBtn(c, B.lang), ' ', words(c, B.lang)] : j === 1 ? meaningCell(b, ri, c) : c)); }); add(tb, tr); });
+        // b.ri: sel berbahasa Inggris di kolom 0 (label tata bahasa, judul) dan kolom ≥ 2 dalam bahasa antarmuka
+        var cellUi = function (ri, j) { return (UI === 'id' && b.ri && b.ri[ri] && b.ri[ri][j]) || mt(key + '.r' + ri + '.' + j, b.r[ri][j]); };
+        b.r.forEach(function (r, ri) {
+          var lbl = cellUi(ri, 0);
+          var tr = h('tr', lbl ? { class: 'rd-tbl-lbl' } : { 'data-l': B.lang, 'data-rs': r[0] });
+          r.forEach(function (c, j) {
+            var t = j > 1 ? cellUi(ri, j) : '';
+            add(tr, h('td', j === 0 ? null : { class: 'tr-cell' }, j === 0 ? (lbl ? h('span', { lang: UI }, lbl) : [speakBtn(c, B.lang), ' ', words(c, B.lang)]) : j === 1 ? meaningCell(b, ri, c, key + '.r' + ri + '.1') : t ? h('span', { lang: UI }, t) : c));
+          });
+          add(tb, tr);
+        });
         return h('div', { class: 'table-wrap' }, tb);
       }
       case 'aud': return h('div', { class: 'rd-aud' }, h('small', null, '🎧 ' + (b.t || T('js.lib.native'))), h('audio', { controls: true, preload: 'none', src: b.src }));
       case 'vid': return h('figure', { class: 'rd-vid' }, h('video', { controls: true, preload: 'metadata', playsinline: true, src: b.src }), h('figcaption', null, '🎬 ' + b.t + (b.d ? ' · ' + b.d : '')));
       case 'sen': {
-        var c = h('div', { class: 'sen', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('div', null, h('p', { class: 'tgt' }, words(b.t, B.lang)), h('p', { class: 'tr', lang: 'id' }, b.id)));
+        var st = UI === 'id' ? b.id : mt(key, b.t);
+        var c = h('div', { class: 'sen', 'data-l': B.lang, 'data-rs': b.t }, speakBtn(b.t, B.lang), h('div', null, h('p', { class: 'tgt' }, words(b.t, B.lang)), st ? h('p', { class: 'tr', lang: UI === 'id' ? 'id' : MTL }, st) : null));
         if (b.n) add(c, h('a', { class: 'src', href: 'https://tatoeba.org/sentences/show/' + b.n, target: '_blank', rel: 'noopener' }, '#' + b.n));
         return c;
       }
       case 'kj': {
         var exl = h('ul', { class: 'kj-ex' });
-        (b.ex || []).forEach(function (x) { add(exl, h('li', { 'data-l': 'ja', 'data-rs': x[0] }, speakBtn(x[0], 'ja'), h('b', { lang: 'ja' }, x[0]), x[1] ? h('small', { lang: 'ja' }, x[1]) : null, h('span', { class: 'tr' }, x[2]))); });
+        (b.ex || []).forEach(function (x, xi) { var xm = mt(key + '.x' + xi, x[2]) || (UI === 'id' && x[3]) || ''; add(exl, h('li', { 'data-l': 'ja', 'data-rs': x[0] }, speakBtn(x[0], 'ja'), h('b', { lang: 'ja' }, x[0]), x[1] ? h('small', { lang: 'ja' }, x[1]) : null, h('span', { class: 'tr', lang: xm ? UI : 'en' }, xm || x[2]))); });
         var big = h('button', { type: 'button', class: 'kj-char', lang: 'ja', 'aria-label': T('js.lib.listen') }, b.c);
         big.addEventListener('click', function () { say((b.kun || b.on || b.c).split('、')[0].replace(/[.-]/g, ''), 'ja'); });
-        return h('div', { class: 'kj' }, big, h('div', { class: 'kj-info' }, h('p', { class: 'kj-m tr' }, meaningCell(b, 0, b.m)), b.on ? h('p', null, h('span', { class: 'kj-tag' }, 'ON'), ' ', h('span', { lang: 'ja' }, b.on)) : null, b.kun ? h('p', null, h('span', { class: 'kj-tag kun' }, 'KUN'), ' ', h('span', { lang: 'ja' }, b.kun)) : null, b.s ? h('p', { class: 'small muted' }, '✍️ ' + b.s) : null, exl));
+        return h('div', { class: 'kj' }, big, h('div', { class: 'kj-info' }, h('p', { class: 'kj-m tr' }, meaningCell(b, 0, b.m, key + '.m')), b.on ? h('p', null, h('span', { class: 'kj-tag' }, 'ON'), ' ', h('span', { lang: 'ja' }, b.on)) : null, b.kun ? h('p', null, h('span', { class: 'kj-tag kun' }, 'KUN'), ' ', h('span', { lang: 'ja' }, b.kun)) : null, b.s ? h('p', { class: 'small muted' }, '✍️ ' + b.s) : null, exl));
       }
       case 'gap': return gapBlock(b);
-      case 'mc': return mcBlock(b);
+      case 'mc': return mcBlock(b, key);
       case 'lmc': return lmcBlock(b);
       default: return null;
     }
@@ -330,6 +401,17 @@
       h('div', { class: 'row', style: 'justify-content:center;gap:10px' }, h('a', { class: 'btn btn-gold', href: '/harga' }, T('js.lib.join')), B.loggedIn ? null : h('a', { class: 'btn btn-ghost', href: '/masuk?lanjut=' + encodeURIComponent(location.pathname + location.search) }, T('practice.guest.login'))));
     return box;
   }
+  /** Isi halaman (dipanggil ulang saat terjemahan potongan halaman ini baru tiba). */
+  function paint(pg) {
+    pageEl.textContent = '';
+    scoreEl = null;
+    add(pageEl, h('h1', { class: 'rd-pt' }, pg.t));
+    var used = false, cur0 = cur;
+    pg.b.forEach(function (b, bi) { var el = block(b, cur0 + '.' + bi); if (el) add(pageEl, el); });
+    for (var k in MT) { if (k.indexOf(cur0 + '.') === 0) { used = true; break; } }
+    if (pg.b.some(function (b) { return b.k === 'gap' || b.k === 'mc'; })) { scoreEl = h('p', { class: 'rd-score' }, T('js.lib.score', { ok: pageScore.ok, n: pageScore.tried })); add(pageEl, scoreEl); }
+    if (used) add(pageEl, h('p', { class: 'rd-mt-note' }, T('js.lib.mtNote')));
+  }
   function show(n, dir) {
     stopSpeech(); reading = false; closePop();
     cur = Math.max(0, Math.min(total - 1, n));
@@ -337,11 +419,13 @@
     pageEl.classList.remove('turn-l', 'turn-r'); void pageEl.offsetWidth; pageEl.classList.add(dir < 0 ? 'turn-l' : 'turn-r');
     pageScore = { ok: 0, tried: 0 }; scoreEl = null;
     var pg = doc.pages[cur];
+    touched = false;
     if (!pg) add(pageEl, lockedView());
     else {
-      add(pageEl, h('h1', { class: 'rd-pt' }, pg.t));
-      pg.b.forEach(function (b) { var el = block(b); if (el) add(pageEl, el); });
-      if (pg.b.some(function (b) { return b.k === 'gap' || b.k === 'mc'; })) { scoreEl = h('p', { class: 'rd-score' }, T('js.lib.score', { ok: 0, n: 0 })); add(pageEl, scoreEl); }
+      paint(pg);
+      var shown = cur, ch = mtChunkOf(cur);
+      if (MTL && !mtDone[ch]) loadMT(ch).then(function () { if (cur === shown && !touched && mtDone[ch] && Object.keys(MT).some(function (k) { return k.indexOf(shown + '.') === 0; })) { var y = window.scrollY; paint(doc.pages[cur]); window.scrollTo(0, y); } });
+      if (MTL && cur + 8 >= PREV + ch * CH) loadMT(ch + 1);
       if (st.seen.indexOf(cur) < 0) { st.seen.push(cur); keep(); if (B.loggedIn) bump(2, true); }
       if (cur === total - 1) toast('🏆 ' + T('js.lib.bookDone'), 3200);
       else if (chapterStarts.indexOf(cur + 1) >= 0 && dir > 0) toast('🎉 ' + T('js.lib.chapterDone'), 2600);
@@ -398,6 +482,10 @@
 
   fetch('/p/b/' + encodeURIComponent(B.id) + '.json', { credentials: 'same-origin' })
     .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
-    .then(function (j) { doc = j; total = j.total || j.pages.length; show(cur, 1); })
+    .then(function (j) {
+      doc = j; total = j.total || j.pages.length;
+      var first = MTL ? Promise.race([loadMT(mtChunkOf(cur)), new Promise(function (r) { setTimeout(r, 2500); })]) : Promise.resolve();
+      first.then(function () { show(cur, 1); });
+    })
     .catch(function () { pageEl.textContent = ''; add(pageEl, h('p', { class: 'notice' }, T('js.lib.error'))); });
 })();

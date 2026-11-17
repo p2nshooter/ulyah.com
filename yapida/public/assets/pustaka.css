@@ -427,3 +427,49 @@
 .kartu-buku:hover .b3-ikon-mapel{animation:mapel-angguk .9s ease}
 @keyframes mapel-angguk{0%,100%{transform:rotate(0) scale(1)}35%{transform:rotate(-10deg) scale(1.08)}70%{transform:rotate(8deg) scale(1.04)}}
 @media (prefers-reduced-motion:reduce){.kartu-buku:hover .b3-ikon-mapel{animation:none}}
+
+/* ── sampul buku pelajaran: ilustrasi garis emas per mapel yang bergerak saat buku terlihat atau disentuh ── */
+.b3-ilu{display:grid;place-items:center;width:54%;aspect-ratio:1;color:color-mix(in srgb,var(--emas) 92%,#fff 8%);filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));margin-top:.2em}
+.b3-ilu .ilu{width:100%;height:100%;overflow:visible}
+.b3-sub{font-size:.6em;letter-spacing:.04em;opacity:.8;text-transform:none}
+.b3-mapel{font-size:1.05em}
+.ilu *{animation-play-state:paused}
+.buku3d:hover .ilu *,.buku3d:focus-visible .ilu *,.buku3d.hidup .ilu *,.pel-ikon .ilu *{animation-play-state:running}
+.ilu .putar{transform-origin:30px 30px;animation:ilu-putar 9s linear infinite}
+.ilu .putar.lambat{animation-duration:13s}
+.ilu .putar.balik{animation-duration:11s;animation-direction:reverse}
+.ilu .melayang{animation:ilu-melayang 3.2s ease-in-out infinite}
+.ilu .d2{animation-delay:-.8s}.ilu .d3{animation-delay:-1.6s}.ilu .d4{animation-delay:-2.4s}
+.ilu .gores{stroke-dashoffset:0;animation:ilu-gores 5s ease-in-out infinite}
+.ilu .geleng{transform-origin:28px 33px;animation:ilu-geleng 4s ease-in-out infinite}
+.ilu .mantul{animation:ilu-mantul 1.8s cubic-bezier(.45,0,.55,1) infinite}
+.ilu .mantul-bola{transform-origin:32px 31px;animation:ilu-bola 1.3s cubic-bezier(.5,0,.5,1) infinite}
+.ilu .bayang{transform-origin:32px 57px;animation:ilu-bayang 1.3s cubic-bezier(.5,0,.5,1) infinite}
+.ilu .halaman{transform-origin:32px 38px;animation:ilu-halaman 4.5s ease-in-out infinite}
+.ilu .letup{transform-origin:24px 18px;animation:ilu-letup 3s ease-in-out infinite}
+.ilu .letup.d2{transform-origin:41px 42px;animation-delay:-1.5s}
+.ilu .muncul{animation:ilu-muncul 3.6s ease-in-out infinite}
+.ilu .kibar{transform-origin:13px 20px;animation:ilu-kibar 2.4s ease-in-out infinite}
+.ilu .kelip{animation:ilu-kelip 2.2s ease-in-out infinite}
+.ilu .goyang{transform-origin:50px 56px;animation:ilu-goyang 2.6s ease-in-out infinite}
+.ilu .kuas{transform-origin:46px 56px}
+.ilu .kedip{animation:ilu-kedip 1s steps(1) infinite}
+.ilu .sinyal path{animation:ilu-kelip 1.8s ease-in-out infinite}
+.ilu .geser{animation:ilu-geser 3.4s cubic-bezier(.3,.7,.3,1) infinite}
+@keyframes ilu-putar{to{transform:rotate(360deg)}}
+@keyframes ilu-melayang{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(-3px);opacity:1}}
+@keyframes ilu-gores{0%{stroke-dashoffset:114}45%,100%{stroke-dashoffset:0}}
+@keyframes ilu-geleng{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.25)}}
+@keyframes ilu-mantul{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes ilu-bola{0%,100%{transform:translateY(0) scale(1,1)}45%{transform:translateY(24px) scale(1,1)}52%{transform:translateY(25px) scale(1.12,.86)}60%{transform:translateY(22px) scale(.96,1.04)}}
+@keyframes ilu-bayang{0%,100%{transform:scale(.55);opacity:.35}50%{transform:scale(1.05);opacity:.9}}
+@keyframes ilu-halaman{0%,30%{transform:scaleX(1)}55%,75%{transform:scaleX(-1)}100%{transform:scaleX(1)}}
+@keyframes ilu-letup{0%,100%{transform:scale(1)}20%{transform:scale(1.08)}40%{transform:scale(1)}}
+@keyframes ilu-muncul{0%,10%{opacity:.15;transform:translateY(4px)}30%,85%{opacity:1;transform:none}100%{opacity:.15}}
+@keyframes ilu-kibar{0%,100%{transform:skewY(0) scaleX(1)}50%{transform:skewY(-6deg) scaleX(.94)}}
+@keyframes ilu-kelip{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes ilu-goyang{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
+@keyframes ilu-kedip{50%{opacity:0}}
+@keyframes ilu-geser{0%,15%{transform:translate(10px,10px);opacity:.3}45%,85%{transform:none;opacity:1}100%{transform:translate(10px,10px);opacity:.3}}
+@media (prefers-reduced-motion:reduce){.ilu *{animation:none!important}}
+.pel-ikon .ilu{width:2rem;height:2rem;color:#fff3c4}

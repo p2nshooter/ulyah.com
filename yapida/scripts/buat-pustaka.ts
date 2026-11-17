@@ -291,6 +291,9 @@ for (const f of readdirSync(BSE, { withFileTypes: true }).filter((x) => x.isFile
   const { bab: _b, kata: _k, menit: _m, ...m } = meta;
   // Nama penulis yang salah terbaca dari halaman hak cipta (potongan kalimat, „Naskah“, „/penerbit …“) → nama umum.
   if (!/^\p{Lu}[\p{L}.' -]{2,}/u.test(m.penulis) || /penerbit|hak cipta|naskah|diterbitkan|dilindungi|undang|^ilustrasi|^tim penulis bse/i.test(m.penulis)) m.penulis = 'Tim Penulis Buku Sekolah Elektronik';
+  m.penulis = m.penulis.replace(/\s*;\s*Editor.*$/i, '').replace(/[,;\s]+$/, '');
+  // Singkatan mapel & jenjang ditulis kapital („Ips 4 Kelas 4 Sd“ → „IPS 4 Kelas 4 SD“).
+  m.judul = m.judul.replace(/\b(Ipa|Ips|Pkn|Ppkn|Tik|Pjok|Sd|Smp|Mi|Mts)\b/g, (s) => (s === 'Mts' ? 'MTs' : s.toUpperCase()));
   tambah(m, bab);
 }
 

@@ -7,7 +7,7 @@ import { COURSE_META, COURSES, type Course } from '../data/model.ts';
 import { fmtNum, t, type Key, type Lang } from '../lib/i18n.ts';
 import { breadcrumbs, icon } from './layout.ts';
 import { scene } from './scene.ts';
-import { booksOf, coverStyle, libStats, PREVIEW_PAGES, sources, type BookMeta } from '../library/index.ts';
+import { booksOf, coverStyle, libStats, MT_CHUNK, PREVIEW_PAGES, sources, type BookMeta } from '../library/index.ts';
 import { JUDUL_ID } from '../library/judul-id.gen.ts';
 
 /** Judul bab dalam bahasa antarmuka (judul berbahasa Inggris di sumber diterjemahkan ke Indonesia). */
@@ -150,7 +150,7 @@ export function readerPage(o: { book: BookMeta; open: boolean; start: number; lo
   <dialog class="rd-toc" data-toc><form method="dialog"><h2>${t(L, 'lib.toc')}</h2><ol>${b.toc.map(([title, page]) => html`<li><button type="submit" value="${page}" data-jump="${page}"><span>${judul(L, title)}</span><span class="toc-pg">${page + 1}</span></button></li>`)}</ol><button class="btn btn-ghost" value="close">✕</button></form></dialog>
   <div class="rd-pop" data-pop hidden></div>
   <div class="rd-toast" data-rd-toast hidden></div>
-  ${jsonScript('book', { id: b.id, lang: b.lang, locale: m.locale, pages: b.pages, toc: b.toc, start: o.start, open: o.open, loggedIn: o.loggedIn, preview: PREVIEW_PAGES })}
+  ${jsonScript('book', { id: b.id, lang: b.lang, locale: m.locale, pages: b.pages, toc: b.toc, start: o.start, open: o.open, loggedIn: o.loggedIn, preview: PREVIEW_PAGES, mtChunk: MT_CHUNK })}
 </section>
 <script src="/assets/pustaka.js?v=5" defer></script>`;
 }

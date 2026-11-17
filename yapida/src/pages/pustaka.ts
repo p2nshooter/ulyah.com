@@ -8,6 +8,7 @@ import type { Suara } from '../data/model.ts';
 import { hiasan, icon } from './layout.ts';
 import { kepalaHalaman } from './public.ts';
 import { bukuMapel, KURIKULUM, namaKelas, type JenjangPel, type Mapel } from '../data/kurikulum.ts';
+import { ilustrasiMapel } from './ilustrasi.ts';
 
 export type Media = (f: string | undefined | null) => string;
 export interface PCtx { media: Media; kecil: (f: string | undefined | null) => string; units: UnitItem[] }
@@ -38,8 +39,12 @@ function gaya(b: { id: string; rak: string[] }): { w: [string, string, string]; 
 const tautBuku = (id: string) => `/pustaka/b/${encodeURIComponent(id)}`;
 
 /** Buku 3D: sampul tipografi berornamen (atau sampul unggahan), punggung, dan tepi halaman. Miring mengikuti kursor. */
-/* Sampul buku pelajaran (BSE): ikon mata pelajaran, pita kelas, nama mapel besar — satu gaya untuk semua kelas. */
-const IKON_MAPEL: Record<string, string> = { Matematika: '➗', 'Bahasa Indonesia': '✍️', IPA: '🔬', IPS: '🌏', PPKn: '🇮🇩', PJOK: '⚽', 'Seni Budaya & Prakarya': '🎨', TIK: '💻', 'Pendidikan Agama Islam': '🕌', 'Bahasa Inggris': '🔤', 'Bahasa Arab': 'ع', Tematik: '🧩' };
+/* Sampul buku pelajaran (BSE): ilustrasi garis emas sesuai mata pelajaran (bergerak saat terlihat), pita kelas, nama mapel. */
+/** Judul buku tanpa pengulangan nama mapel & kelas (sudah tampil besar di sampul): „Asyiknya Belajar … 2 Kelas 2 SD“ → „Asyiknya Belajar“. */
+function judulPendek(judul: string, mapel: string): string {
+  const t = judul.replace(/\s*Kelas\s+\d+\s*(SD|SMP|MI|MTs)?\s*$/i, '').replace(/\s+(I{1,3}|IV|V|VI|\d)$/, '').trim();
+  return t.toLowerCase() === mapel.toLowerCase() ? 'Buku Sekolah Elektronik' : t;
+}
 
 export function sampul3d(b: Pick<KartuBuku, 'id' | 'judul' | 'judulAr' | 'penulis' | 'rak' | 'sampul' | 'sampulUrl'> & { kelas?: string; mapel?: string }, x: PCtx, o: { besar?: boolean; href?: string | null } = {}): Raw {
   const g = gaya(b);
@@ -47,12 +52,12 @@ export function sampul3d(b: Pick<KartuBuku, 'id' | 'judul' | 'judulAr' | 'penuli
   const gambar = b.sampul ? x.media(o.besar ? b.sampul : x.kecil(b.sampul)) : b.sampulUrl && (b.sampulUrl.startsWith('/pustaka/m/')) ? b.sampulUrl : '';
   const isi = html`<span class="b3-badan">
     <span class="b3-depan motif-${g.motif}${gambar ? ' b3-bergambar' : ''}">
-      ${gambar ? html`<img src="${gambar}" alt="" loading="lazy" decoding="async">` : b.id.startsWith('s-') && b.mapel ? html`<span class="b3-bingkai" aria-hidden="true"></span>
-      <span class="b3-pita" aria-hidden="true">${(b.kelas ?? '').replace('Kelas ', 'Kelas ')}</span>
-      <span class="b3-ikon b3-ikon-mapel" aria-hidden="true">${IKON_MAPEL[b.mapel] ?? '📘'}</span>
-      <span class="b3-judul b3-mapel">${b.mapel}</span>
-      <span class="b3-penulis">${b.judul}</span>
-      <span class="b3-cap" aria-hidden="true">Buku Pelajaran · Pustaka Yapida</span>` : html`<span class="b3-bingkai" aria-hidden="true"></span>
+      ${gambar ? html`<img src="${gambar}" alt="" loading="lazy" decoding="async">` : b.id.startsWith('s-') && b.mapel && ilustrasiMapel(b.mapel) ? html`<span class="b3-bingkai" aria-hidden="true"></span>
+      ${b.kelas ? html`<span class="b3-pita" aria-hidden="true">${b.kelas}</span>` : ''}
+      <span class="b3-ilu" aria-hidden="true">${raw(ilustrasiMapel(b.mapel))}</span>
+      <span class="b3-judul b3-mapel">${b.mapel === 'PPKn' ? 'Pendidikan Pancasila' : b.mapel}</span>
+      <span class="b3-penulis b3-sub">${judulPendek(b.judul, b.mapel)}</span>
+      <span class="b3-cap" aria-hidden="true">Pustaka Yapida</span>` : html`<span class="b3-bingkai" aria-hidden="true"></span>
       <span class="b3-ikon" aria-hidden="true">${rak?.ikon ?? '📖'}</span>
       ${b.judulAr ? html`<span class="b3-ar" lang="ar" dir="rtl">${b.judulAr}</span>` : ''}
       <span class="b3-judul">${b.judul}</span>

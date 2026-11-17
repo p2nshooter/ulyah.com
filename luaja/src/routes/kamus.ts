@@ -20,7 +20,7 @@ const ip = (c: Ctx) => c.req.header('cf-connecting-ip') ?? 'local';
 
 /** Ringkasan entri untuk popup pembaca. */
 function brief(l: KLang, e: Entry, ui: UiLang) {
-  const m = meaningOf(e, ui, 4);
+  const m = meaningOf(e, ui, 6);
   return { w: e.w, ipa: e.ipa, art: l === 'de' && e.g ? ARTICLE[e.g] : undefined, pl: e.pl, r: e.r?.[0], lv: e.lv, pos: e.b.map((b) => b.p).slice(0, 3), m: m.m, ml: m.ml, url: entryPath(l, e.w) };
 }
 
@@ -112,5 +112,11 @@ kamus.get('/api/kamus/awal', (c) => api(c, async (k, l, q) => ({ items: (await k
 
 kamus.get('/api/kamus/pecah', (c) => api(c, async (k, _l, q) => {
   const ui = uiOf(c);
-  return { tokens: (await k.segment(q)).map((x) => (x.e ? { t: x.t, w: x.w, r: x.e.r?.[0], m: meaningOf(x.e, ui, 2).m, url: entryPath('ja', x.e.w) } : { t: x.t })) };
+  return {
+    tokens: (await k.segment(q)).map((x) => {
+      if (!x.e) return { t: x.t };
+      const mm = meaningOf(x.e, ui, 6);
+      return { t: x.t, w: x.w, r: x.e.r?.[0], lv: x.e.lv, m: mm.m, ml: mm.ml, url: entryPath('ja', x.e.w) };
+    }),
+  };
 }));

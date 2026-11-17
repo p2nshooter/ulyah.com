@@ -9,7 +9,7 @@ import { clientDict, LANGS, LANG_NAME, PREFIX, UI_LOCALE, t, type Lang } from '.
 import type { Country, Mood } from './scene.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '5';
+export const ASSET_V = '6';
 
 const ICON: Record<string, string> = {
   tangga: '<path d="M4 20h4v-4h4v-4h4V8h4V4"/>',
@@ -207,7 +207,7 @@ ${o.user ? `<details class="user-menu"><summary aria-label="${esc(t(L, 'portal.n
   const footer = `<footer class="site-foot">
 <div class="wrap">
 <div class="foot-grid">
-<div><a class="logo" href="/">${logoMark(36, false).s}<span class="word">${esc(s.name)}<small>${esc(s.tagline)}</small></span></a><p style="margin-top:14px;color:#c9d2ec;font-size:var(--fs-1)">${esc(s.description)}</p><p><a class="btn btn-white btn-sm" href="/daftar">${esc(t(L, 'foot.start'))}</a></p></div>
+<div><a class="logo" href="/">${logoMark(36, false).s}<span class="word">${esc(s.name)}<small>${esc(s.tagline)}</small></span></a><p class="foot-desc">${esc(s.description)}</p><p><a class="btn btn-white btn-sm" href="/daftar">${esc(t(L, 'foot.start'))}</a></p></div>
 <div><h4>${esc(t(L, 'foot.learn'))}</h4><ul>${COURSES.map((c) => `<li><a href="/${COURSE_META[c].slug}">${esc(COURSE_META[c].names[L])}</a></li>`).join('')}<li><a href="/coba">${esc(t(L, 'foot.free'))}</a></li></ul></div>
 <div><h4>${esc(t(L, 'menu.practice'))}</h4><ul><li><a href="/latihan?bahasa=de">Goethe A1–B1</a></li><li><a href="/latihan?bahasa=en#toefl">TOEFL ITP</a></li><li><a href="/latihan?bahasa=en#ielts">IELTS Academic</a></li><li><a href="/latihan?bahasa=ja">JLPT N5–N4</a></li><li><a href="/harga">${esc(t(L, 'foot.pricing'))}</a></li></ul></div>
 <div><h4>${esc(s.name)}</h4><ul><li><a href="/tentang">${esc(t(L, 'foot.about'))}</a></li><li><a href="/kontak">${esc(t(L, 'foot.contact'))}</a></li><li><a href="/privasi">${esc(t(L, 'foot.privacy'))}</a></li><li><a href="/syarat">${esc(t(L, 'foot.terms'))}</a></li><li><a href="/kredit">${esc(t(L, 'foot.credits'))}</a></li><li><a href="/portal">${esc(t(L, 'foot.portal'))}</a></li></ul></div>

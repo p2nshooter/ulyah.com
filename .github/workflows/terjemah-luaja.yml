@@ -1,0 +1,255 @@
+name: Terjemah pustaka luaja.com (MADLAD-400 → R2)
+
+# Mesin terjemah gratis (perintah pemilik 22: „mesin terjemah gratis di GitHub Actions … jalan otomatis 01.00, mutu baik,
+# tanpa kuota Claude“; 17 Nov 2026: „Harusnya seluruh buku langsung di terjemahin di bawahnya“).
+# 1. rencana  — baca status di R2, bagi potongan halaman yang belum selesai ke beberapa pecahan (urut prioritas).
+# 2. model    — unduh MADLAD-400 3B (Google, Apache-2.0) format CTranslate2 int8 sekali, simpan di cache Actions.
+# 3. terjemah — tiap pecahan menerjemahkan bagiannya di CPU (melanjutkan hasil lama), unggah ke R2 luaja-media
+#               pustaka/terjemah/<bahasa>/<buku>/<potongan>.json. Pembaca luaja menampilkannya di bawah tiap paragraf.
+# 4. selesai  — gabungkan laporan pecahan ke pustaka/terjemah/<bahasa>/_status.json (jalan berikutnya melanjutkan sisanya).
+# Aturan tetap pemilik: penyimpanan hanya R2 (tidak pernah D1). Pecahan dibatasi agar runner tetap tersedia untuk deploy.
+
+on:
+  schedule:
+    - cron: '7 18 * * *'   # 01.07 WIB
+  workflow_dispatch:
+    inputs:
+      bahasa:
+        description: 'Bahasa tujuan: id, en, atau ja'
+        default: 'id'
+      buku:
+        description: 'Hanya buku tertentu (id dipisah koma); kosong = semua'
+        default: ''
+      pecahan:
+        description: 'Jumlah pekerjaan paralel (maks. 12)'
+        default: '12'
+      menit:
+        description: 'Batas menit menerjemahkan per pecahan'
+        default: '300'
+  push:
+    branches: [main]
+    paths:
+      - 'luaja/scripts/pustaka/mesin.py'
+      - 'luaja/scripts/pustaka/terjemah.py'
+      - '.github/workflows/terjemah-luaja.yml'
+
+concurrency:
+  group: terjemah-luaja
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  BUCKET: luaja-media
+  LANG_TGT: ${{ github.event.inputs.bahasa || 'id' }}
+  BOOKS: ${{ github.event.inputs.buku || '' }}
+  SHARDS: ${{ github.event.inputs.pecahan || '12' }}
+  MINUTES: ${{ github.event.inputs.menit || '300' }}
+  MODEL_KEY: madlad400-3b-ct2-int8-v1
+
+jobs:
+  rencana:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      ada: ${{ steps.plan.outputs.ada }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Verify Cloudflare secrets are present
+        run: |
+          set -eu
+          for name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name:-}" ]; then echo "::error::Secret GitHub yang belum diisi: $name"; exit 1; fi
+          done
+          case "$LANG_TGT" in id|en|ja) ;; *) echo "::error::bahasa harus id, en, atau ja"; exit 1;; esac
+      - name: Install wrangler
+        working-directory: luaja
+        run: npm ci
+      - name: Read progress from R2
+        working-directory: luaja
+        run: |
+          set -u
+          npx wrangler r2 object get "$BUCKET/pustaka/terjemah/$LANG_TGT/_status.json" --pipe --remote > "$RUNNER_TEMP/status.json" 2>/dev/null || true
+          python3 -I -c "import json,sys; json.load(open(sys.argv[1]))" "$RUNNER_TEMP/status.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/status.json"
+      - name: Plan shards
+        id: plan
+        run: |
+          set -euo pipefail
+          n="$SHARDS"; [ "$n" -gt 12 ] && n=12; [ "$n" -lt 1 ] && n=1
+          m="$(python3 -I luaja/scripts/pustaka/mesin.py rencana luaja "$LANG_TGT" "$n" "$RUNNER_TEMP/status.json" "$BOOKS")"
+          echo "matrix=$m" >> "$GITHUB_OUTPUT"
+          if [ "$(python3 -I -c "import json,sys;print(len(json.loads(sys.argv[1])['include']))" "$m")" -gt 0 ]; then echo "ada=1" >> "$GITHUB_OUTPUT"; else echo "ada=0" >> "$GITHUB_OUTPUT"; fi
+          echo "$m"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: status-awal
+          path: ${{ runner.temp }}/status.json
+          retention-days: 3
+
+  model:
+    needs: rencana
+    if: needs.rencana.outputs.ada == '1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/mesin-model
+          key: ${{ env.MODEL_KEY }}
+          lookup-only: true
+      - name: Download MADLAD-400 3B (CTranslate2)
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          python3 -m venv ~/venv && ~/venv/bin/pip install -q 'huggingface_hub>=0.26,<1' hf_transfer
+          HF_HUB_ENABLE_HF_TRANSFER=1 ~/venv/bin/python -I - <<'PY'
+          import os, re, sys
+          from huggingface_hub import HfApi, snapshot_download
+          api = HfApi()
+          cands = ['santhosh/madlad400-3b-ct2', 'Nextcloud-AI/madlad400-3b-mt-ct2-int8_float32', 'Nextcloud-AI/madlad400-3b-mt-ct2-int8']
+          try:
+              for m in api.list_models(search='madlad400-3b', limit=200):
+                  if re.search(r'ct2|ctranslate', m.id, re.I) and m.id not in cands:
+                      cands.append(m.id)
+          except Exception as e:
+              print('pencarian model gagal:', e)
+          dest = os.path.expanduser('~/mesin-model')
+          for repo in cands:
+              try:
+                  files = api.list_repo_files(repo)
+              except Exception as e:
+                  print('lewati', repo, e)
+                  continue
+              bins = [f for f in files if f.endswith('model.bin')]
+              if not bins:
+                  continue
+              sub = os.path.dirname(sorted(bins, key=lambda f: ('int8' not in f, len(f)))[0])
+              pat = [f'{sub}/*' if sub else '*']
+              snapshot_download(repo, local_dir=dest, allow_patterns=pat)
+              open(os.path.join(dest, 'PATH'), 'w').write(os.path.join(dest, sub))
+              print('model:', repo, sub or '(akar)')
+              sys.exit(0)
+          sys.exit('Model MADLAD-400 CTranslate2 tidak ditemukan')
+          PY
+          du -sh ~/mesin-model
+      - if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/mesin-model
+          key: ${{ env.MODEL_KEY }}
+
+  terjemah:
+    needs: [rencana, model]
+    if: needs.rencana.outputs.ada == '1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix: ${{ fromJSON(needs.rencana.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Install wrangler
+        working-directory: luaja
+        run: npm ci
+      - uses: actions/cache/restore@v4
+        with:
+          path: ~/mesin-model
+          key: ${{ env.MODEL_KEY }}
+          fail-on-cache-miss: true
+      - name: Install CTranslate2
+        run: |
+          python3 -m venv ~/venv
+          ~/venv/bin/pip install -q 'ctranslate2>=4.4,<5' 'transformers>=4.44,<5' 'sentencepiece>=0.2' 'protobuf>=4' 'huggingface_hub>=0.26,<1'
+      - uses: actions/download-artifact@v4
+        with:
+          name: status-awal
+          path: ${{ runner.temp }}/awal
+      - name: Fetch earlier translations for this shard
+        working-directory: luaja
+        run: |
+          set -u
+          python3 -I scripts/pustaka/mesin.py tugas . "$LANG_TGT" "${{ matrix.pecahan }}" "$RUNNER_TEMP/awal/status.json" "$BOOKS" > "$RUNNER_TEMP/keys.txt"
+          echo "$(wc -l < "$RUNNER_TEMP/keys.txt") potongan"
+          mkdir -p "$RUNNER_TEMP/lama"
+          export RUNNER_TEMP BUCKET
+          xargs -P 6 -I{} bash -c 'mkdir -p "$RUNNER_TEMP/lama/$(dirname "{}")"; npx wrangler r2 object get "$BUCKET/{}" --pipe --remote > "$RUNNER_TEMP/lama/{}" 2>/dev/null || rm -f "$RUNNER_TEMP/lama/{}"' < "$RUNNER_TEMP/keys.txt"
+          find "$RUNNER_TEMP/lama" -name '*.json' -size -10c -delete || true
+          echo "$(find "$RUNNER_TEMP/lama" -name '*.json' | wc -l) berkas lama"
+      - name: Translate
+        working-directory: luaja
+        run: |
+          set -euo pipefail
+          export MESIN_MODEL="$(cat ~/mesin-model/PATH)" MESIN_TOKENIZER=google/madlad400-3b-mt TOKENIZERS_PARALLELISM=false
+          ~/venv/bin/python -I scripts/pustaka/mesin.py jalan . "$LANG_TGT" "${{ matrix.pecahan }}" "$RUNNER_TEMP/awal/status.json" "$RUNNER_TEMP/lama/pustaka/terjemah" "$RUNNER_TEMP/keluar" "$MINUTES" "$BOOKS"
+      - name: Upload to R2
+        if: always()
+        working-directory: luaja
+        run: |
+          set -u
+          [ -d "$RUNNER_TEMP/keluar/$LANG_TGT" ] || { echo "tidak ada keluaran"; exit 0; }
+          export RUNNER_TEMP BUCKET
+          (cd "$RUNNER_TEMP/keluar" && find "$LANG_TGT" -name '*.json' | sort) > "$RUNNER_TEMP/up.txt"
+          put() {
+            for i in 1 2 3 4 5; do
+              if npx wrangler r2 object put "$BUCKET/pustaka/terjemah/$1" --file "$RUNNER_TEMP/keluar/$1" --content-type "application/json; charset=utf-8" --remote >/dev/null 2>&1; then return 0; fi
+              sleep $((i * 4))
+            done
+            echo "::warning::Gagal mengunggah $1"; return 1
+          }
+          export -f put
+          xargs -P 6 -I{} bash -c 'put "{}"' < "$RUNNER_TEMP/up.txt" || true
+          echo "$(wc -l < "$RUNNER_TEMP/up.txt") potongan diunggah"
+      - name: Keep shard report
+        if: always()
+        run: |
+          i="$(echo '${{ matrix.pecahan }}' | cut -d/ -f1)"
+          mkdir -p "$RUNNER_TEMP/laporan"
+          cp "$RUNNER_TEMP/keluar/laporan-$i.json" "$RUNNER_TEMP/laporan/" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/laporan/laporan-$i.json"
+          echo "LAP_I=$i" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: laporan-${{ env.LAP_I }}
+          path: ${{ runner.temp }}/laporan
+          retention-days: 3
+
+  selesai:
+    needs: [rencana, terjemah]
+    if: always() && needs.rencana.outputs.ada == '1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Install wrangler
+        working-directory: luaja
+        run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: status-awal
+          path: ${{ runner.temp }}/awal
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: laporan-*
+          path: ${{ runner.temp }}/laporan
+      - name: Save progress to R2
+        working-directory: luaja
+        run: |
+          set -euo pipefail
+          python3 -I scripts/pustaka/mesin.py gabung "$RUNNER_TEMP/awal/status.json" "$RUNNER_TEMP/laporan" "$RUNNER_TEMP/status.json" | tee "$RUNNER_TEMP/ringkas.txt"
+          npx wrangler r2 object put "$BUCKET/pustaka/terjemah/$LANG_TGT/_status.json" --file "$RUNNER_TEMP/status.json" --content-type "application/json" --remote
+          { echo "### Terjemahan pustaka luaja → $LANG_TGT"; cat "$RUNNER_TEMP/ringkas.txt"; } >> "$GITHUB_STEP_SUMMARY"

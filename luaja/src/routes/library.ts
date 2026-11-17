@@ -12,7 +12,7 @@ import { hasAccess } from '../data/users.ts';
 import { COURSE_META, COURSES, type Course } from '../data/model.ts';
 import { crumbs } from '../pages/layout.ts';
 import { bookPage, libraryIndexPage, levelLabel, readerPage } from '../pages/library.ts';
-import { getBook, PREVIEW_PAGES } from '../library/index.ts';
+import { getBook, MT_LANGS, PREVIEW_PAGES } from '../library/index.ts';
 import type { BookDoc } from '../library/types.ts';
 import { getReading, recordReading, streak } from '../data/reading.ts';
 
@@ -82,6 +82,25 @@ library.get('/p/b/:file', async (c) => {
   if (can(c, b.lang)) return new Response(res.body, { headers });
   const doc = (await res.json()) as BookDoc;
   return new Response(JSON.stringify({ ...doc, pages: doc.pages.slice(0, PREVIEW_PAGES), total: doc.pages.length, locked: true }), { headers });
+});
+
+/**
+ * Terjemahan mesin satu potongan halaman buku (R2 MEDIA, ditulis workflow terjemah-luaja.yml). Potongan 0 berisi halaman
+ * pratinjau dan terbuka; potongan berikutnya mengikuti akses buku. Hash setiap butir dicocokkan pembaca dengan teks sumbernya.
+ */
+library.get('/p/t/:book/:lang/:file', async (c) => {
+  const b = getBook(c.req.param('book'));
+  const lang = c.req.param('lang');
+  const m = /^(\d{1,4})\.json$/.exec(c.req.param('file'));
+  if (!b || !m || !(MT_LANGS as readonly string[]).includes(lang) || lang === b.lang) return c.json({ ok: false }, 404);
+  const chunk = Number(m[1]);
+  if (chunk > 0 && !can(c, b.lang)) return c.json({ ok: false, locked: true }, 403, { 'cache-control': 'private, no-store' });
+  const o = await c.env.MEDIA.get(`pustaka/terjemah/${lang}/${b.id}/${chunk}.json`);
+  const priv = chunk > 0;
+  if (!o) return c.json({ ok: false }, 404, { 'cache-control': priv ? 'private, max-age=300' : 'public, max-age=300' });
+  return new Response(o.body, {
+    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': priv ? 'private, max-age=900' : 'public, max-age=900', 'x-robots-tag': 'noindex', ...(priv ? { vary: 'Cookie' } : {}) },
+  });
 });
 
 /** Progres membaca (member yang masuk). Halaman di luar pratinjau hanya dicatat bila punya akses bahasa itu. */

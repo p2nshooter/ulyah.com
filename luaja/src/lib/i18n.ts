@@ -827,6 +827,7 @@ const D = {
   'kamus.tag.idiomatic': ['idiom', 'idiomatic', '慣用'],
   'kamus.tag.godan': ['godan', 'godan', '五段'],
   'kamus.tag.ichidan': ['ichidan', 'ichidan', '一段'],
+  'js.lib.mtNote': ['Terjemahan di bawah paragraf dibuat mesin terjemah (MADLAD-400) dan diperiksa bertahap · ketuk kata untuk arti lengkap dari Kamus LUAJA', 'Translations under each paragraph are machine-made (MADLAD-400) and reviewed over time · tap a word for its full LUAJA Dictionary entry', '各段落の下の訳は機械翻訳（MADLAD-400）で、順次確認しています · 単語をタップするとLUAJA辞書の詳しい意味が見られます'],
   'js.kamus.loading': ['Mencari arti…', 'Looking up…', '意味を検索中…'],
   'js.kamus.none': ['Arti kata ini belum ada di kamus.', 'This word is not in the dictionary yet.', 'この単語はまだ辞書にありません。'],
   'js.kamus.full': ['Kamus lengkap', 'Full entry', '辞書で詳しく'],
