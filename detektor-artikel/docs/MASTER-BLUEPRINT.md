@@ -1428,3 +1428,18 @@ Mengganti aturan lama „Gagal = tidak ditagih“ (semua teks publik, panduan, k
    „Lanjutan“; rekap member/admin (§27) menghitung token gagal yang ditagih; penjaga rugi tetap aktif.
 5. Batas yang tidak berubah: batas harian member (Admin → Kendali biaya) dan batas per pemeriksaan tetap menolak di awal;
    tombol darurat admin tetap menghentikan tanpa panggilan AI baru (pemakaian sebelum berhenti ditagih, bisa dilanjutkan).
+
+
+## 31. Laporan ringkas dua lembar & portal ramah HP (pemilik, 16–17 Nov 2026)
+
+> „laporannya terlalu panjang, padahal cukup maximal 2 lembar, bukan 32 lembar begitu“ · „css d portal member dan portal
+> admin masih susah di mengerti kurang user friendly“
+
+- **Laporan cetak/PDF paling banyak 2 lembar A4**: lembar 1 ringkasan (label, komposisi, 10 paragraf dengan peluang AI
+  tertinggi, kutipan bertanda), lembar 2 rubrik + 12 kesalahan bahasa teratas + metodologi + tanda tangan. Lampiran teks
+  lengkap per kalimat hanya tampil di layar (interaktif) dan hanya ikut tercetak bila member memilih „+ Lampiran teks
+  lengkap“ (`/app/laporan/:id/cetak?lampiran=1`).
+- **Portal member & admin**: tidak ada halaman yang lebih lebar dari layar HP (audit 26 halaman di 390 px), menu
+  dikelompokkan menurut pekerjaan dengan ikon garis satu gaya, bilah bawah di HP (Dasbor · Periksa · Laporan · Token · Menu).
+- VVIP (§28.6, §29) tetap seperti tertulis: ambang total pembayaran ≥ Rp100 jt, semua mesin dengan nama publik, tanpa batas
+  token harian, 3× pemeriksaan bersamaan; Studio VVIP (§29) masih berstatus direncanakan.

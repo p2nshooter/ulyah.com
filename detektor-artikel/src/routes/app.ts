@@ -528,7 +528,8 @@ app.get('/app/laporan/:id/cetak', async (c) => {
   const L = portalLang(c);
   const r = await loadReport(c, c.req.param('id'));
   if (!r) return c.notFound();
-  const body = html`<div class="print-bar noprint"><button class="btn btn-primary" type="button" data-print>🖨 ${tr(L, 'Cetak / simpan PDF', 'Print / save PDF')}</button><a class="btn btn-ghost" href="/app/laporan/${r.s.id}">← ${tr(L, 'Kembali', 'Back')}</a></div>${reportPages({ L: r.s.reportLang ?? L, s: r.s, d: r.d, verifyUrl: `${origin(c)}/v/${r.s.verifyCode}` })}`;
+  const lampiran = c.req.query('lampiran') === '1';
+  const body = html`<div class="print-bar noprint"><button class="btn btn-primary" type="button" data-print>🖨 ${tr(L, 'Cetak / simpan PDF', 'Print / save PDF')}</button><a class="btn btn-ghost" href="/app/laporan/${r.s.id}">← ${tr(L, 'Kembali', 'Back')}</a>${lampiran ? html`<a class="btn btn-ghost" href="/app/laporan/${r.s.id}/cetak">${tr(L, 'Ringkas (2 lembar)', 'Short (2 pages)')}</a>` : html`<a class="btn btn-ghost" href="/app/laporan/${r.s.id}/cetak?lampiran=1">${tr(L, '+ Lampiran teks lengkap', '+ Full-text appendix')}</a>`}<span class="muted small">${lampiran ? tr(L, 'Dengan lampiran: jumlah lembar mengikuti panjang naskah.', 'With appendix: page count follows the text length.') : tr(L, 'Laporan ringkas: paling banyak 2 lembar.', 'Short report: at most 2 pages.')}</span></div>${reportPages({ L: r.s.reportLang ?? L, s: r.s, d: r.d, verifyUrl: `${origin(c)}/v/${r.s.verifyCode}`, appendix: lampiran })}`;
   return c.html(page({ L, title: r.s.title, body, user: c.get('user'), area: 'print' }));
 });
 

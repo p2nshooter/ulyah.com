@@ -419,3 +419,11 @@
 @keyframes pel-buka{from{opacity:0;transform:translateY(-6px)}}
 @media (max-width:560px){.pel-lipat .pel-kisi{grid-template-columns:1fr;padding:.2rem .7rem .9rem}.pel-sisip-kepala .tbl{width:100%;justify-content:center}}
 @media (prefers-reduced-motion:reduce){.pel-lipat .pel-kisi{animation:none}.pel-lipat-panah{transition:none}}
+
+/* sampul buku pelajaran: pita kelas emas, ikon mapel dalam medali, nama mapel besar */
+.b3-pita{position:absolute;top:.55rem;right:-.2rem;padding:.18rem .6rem .18rem .7rem;background:var(--emas-grad,linear-gradient(135deg,#e9c46a,#b08a1e));color:#241a00;font:800 .62rem/1.2 var(--f-teks,inherit);letter-spacing:.08em;text-transform:uppercase;border-radius:6px 0 0 6px;box-shadow:0 4px 10px -4px rgba(0,0,0,.5)}
+.b3-ikon-mapel{display:grid;place-items:center;width:2.6em;height:2.6em;margin-inline:auto;border-radius:50%;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.28),rgba(255,255,255,.06) 60%);box-shadow:inset 0 0 0 1.5px rgba(255,240,190,.55)}
+.b3-mapel{font-size:1.02em;line-height:1.15;letter-spacing:.01em}
+.kartu-buku:hover .b3-ikon-mapel{animation:mapel-angguk .9s ease}
+@keyframes mapel-angguk{0%,100%{transform:rotate(0) scale(1)}35%{transform:rotate(-10deg) scale(1.08)}70%{transform:rotate(8deg) scale(1.04)}}
+@media (prefers-reduced-motion:reduce){.kartu-buku:hover .b3-ikon-mapel{animation:none}}

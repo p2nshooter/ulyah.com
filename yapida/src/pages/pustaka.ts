@@ -38,13 +38,21 @@ function gaya(b: { id: string; rak: string[] }): { w: [string, string, string]; 
 const tautBuku = (id: string) => `/pustaka/b/${encodeURIComponent(id)}`;
 
 /** Buku 3D: sampul tipografi berornamen (atau sampul unggahan), punggung, dan tepi halaman. Miring mengikuti kursor. */
-export function sampul3d(b: Pick<KartuBuku, 'id' | 'judul' | 'judulAr' | 'penulis' | 'rak' | 'sampul' | 'sampulUrl'>, x: PCtx, o: { besar?: boolean; href?: string | null } = {}): Raw {
+/* Sampul buku pelajaran (BSE): ikon mata pelajaran, pita kelas, nama mapel besar — satu gaya untuk semua kelas. */
+const IKON_MAPEL: Record<string, string> = { Matematika: '➗', 'Bahasa Indonesia': '✍️', IPA: '🔬', IPS: '🌏', PPKn: '🇮🇩', PJOK: '⚽', 'Seni Budaya & Prakarya': '🎨', TIK: '💻', 'Pendidikan Agama Islam': '🕌', 'Bahasa Inggris': '🔤', 'Bahasa Arab': 'ع', Tematik: '🧩' };
+
+export function sampul3d(b: Pick<KartuBuku, 'id' | 'judul' | 'judulAr' | 'penulis' | 'rak' | 'sampul' | 'sampulUrl'> & { kelas?: string; mapel?: string }, x: PCtx, o: { besar?: boolean; href?: string | null } = {}): Raw {
   const g = gaya(b);
   const rak = RAK_ID[b.rak[0] ?? ''];
   const gambar = b.sampul ? x.media(o.besar ? b.sampul : x.kecil(b.sampul)) : b.sampulUrl && (b.sampulUrl.startsWith('/pustaka/m/')) ? b.sampulUrl : '';
   const isi = html`<span class="b3-badan">
     <span class="b3-depan motif-${g.motif}${gambar ? ' b3-bergambar' : ''}">
-      ${gambar ? html`<img src="${gambar}" alt="" loading="lazy" decoding="async">` : html`<span class="b3-bingkai" aria-hidden="true"></span>
+      ${gambar ? html`<img src="${gambar}" alt="" loading="lazy" decoding="async">` : b.id.startsWith('s-') && b.mapel ? html`<span class="b3-bingkai" aria-hidden="true"></span>
+      <span class="b3-pita" aria-hidden="true">${(b.kelas ?? '').replace('Kelas ', 'Kelas ')}</span>
+      <span class="b3-ikon b3-ikon-mapel" aria-hidden="true">${IKON_MAPEL[b.mapel] ?? '📘'}</span>
+      <span class="b3-judul b3-mapel">${b.mapel}</span>
+      <span class="b3-penulis">${b.judul}</span>
+      <span class="b3-cap" aria-hidden="true">Buku Pelajaran · Pustaka Yapida</span>` : html`<span class="b3-bingkai" aria-hidden="true"></span>
       <span class="b3-ikon" aria-hidden="true">${rak?.ikon ?? '📖'}</span>
       ${b.judulAr ? html`<span class="b3-ar" lang="ar" dir="rtl">${b.judulAr}</span>` : ''}
       <span class="b3-judul">${b.judul}</span>

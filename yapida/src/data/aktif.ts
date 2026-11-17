@@ -151,7 +151,11 @@ export function hidupkanBab(bab: Bab, m: Pick<BukuMeta, 'id' | 'suara' | 'bahasa
   const blok = [...bab.blok];
   if (!blok.some((b) => b.t === 'adegan')) {
     // Buku pelajaran (BSE, s-…): adegan hanya bila tema babnya cocok; buku cerita: selalu (dengan adegan cadangan).
-    const nama = m.id.startsWith('s-') ? suasanaBab(bab) : adeganBab(bab, m);
+    // Adegan cadangan (acak-tetap) hanya untuk buku cerita berbahasa Indonesia tanpa gambar sendiri. Buku berbahasa
+    // Inggris/Arab dan buku bergambar (Book Dash) hanya mendapat adegan bila temanya benar-benar cocok — pemilik, 17 Nov
+    // 2026: „buku ra jg animasinya banyak yg ga nyambung antar text, bahasa dan animasinya“.
+    const sendiri = m.bahasa !== 'id' || bab.blok.some((b) => b.t === 'img');
+    const nama = m.id.startsWith('s-') || sendiri ? suasanaBab(bab) : adeganBab(bab, m);
     if (nama) blok.unshift({ t: 'adegan', x: `${nama} | Mainkan gambarnya: seret, ketuk dua kali untuk memutar, lalu tekan ↺ Kembalikan` });
   }
   if (!blok.some((b) => b.t !== 'adegan' && AKTIVITAS.includes(b.t))) {
