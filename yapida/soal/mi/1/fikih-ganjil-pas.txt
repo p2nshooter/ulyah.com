@@ -1,0 +1,150 @@
+@jenjang mi
+@kelas 1
+@mapel Fikih
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Rukun Islam ada ....
+a. tiga
+b. empat
+*c. lima
+d. enam
+> Rukun Islam ada lima: syahadat, salat, zakat, puasa Ramadan, dan haji bagi yang mampu.
+
+2. Rukun Islam yang pertama adalah ....
+*a. membaca dua kalimat syahadat
+b. salat lima waktu
+c. puasa Ramadan
+d. membayar zakat
+> Rukun Islam pertama adalah membaca dua kalimat syahadat.
+
+3. Rukun Islam yang kedua adalah ....
+a. zakat
+*b. salat
+c. haji
+d. puasa
+> Sesudah syahadat, rukun Islam kedua adalah mendirikan salat lima waktu.
+
+4. Puasa wajib dilakukan pada bulan ....
+a. Syawal
+b. Rajab
+*c. Ramadan
+d. Muharam
+> Puasa yang termasuk rukun Islam adalah puasa di bulan Ramadan.
+
+5. Haji wajib bagi orang yang ....
+a. masih kecil
+*b. mampu
+c. sedang sakit
+d. tidak punya bekal
+> Haji wajib sekali seumur hidup bagi muslim yang mampu.
+
+6. Ibadah haji dilaksanakan di kota ....
+a. Madinah
+b. Jakarta
+*c. Makkah
+d. Kairo
+> Haji dilaksanakan di Makkah, tempat Ka'bah (Baitullah) berada.
+
+7. Rukun Islam yang terakhir adalah ....
+a. salat
+b. zakat
+c. puasa
+*d. haji
+> Urutan rukun Islam: syahadat, salat, zakat, puasa, lalu haji.
+
+8. Kotoran yang menghalangi sahnya salat disebut ....
+a. debu
+*b. najis
+c. lumpur
+d. keringat
+> Najis adalah kotoran yang membuat salat tidak sah bila mengenai badan, pakaian, atau tempat salat.
+
+9. Contoh najis adalah ....
+a. air hujan
+b. daun kering
+*c. air kencing
+d. pasir
+> Air kencing termasuk najis. Air hujan, daun, dan pasir tidak najis.
+
+10. Air kencing bayi laki-laki yang hanya minum ASI termasuk najis ....
+*a. ringan (mukhaffafah)
+b. sedang (mutawassithah)
+c. berat (mughallazhah)
+d. sangat berat
+> Air kencing bayi laki-laki yang belum makan apa pun selain ASI adalah najis ringan.
+
+11. Najis ringan disucikan dengan cara ....
+a. dicuci tujuh kali
+*b. dipercik air
+c. dijemur saja
+d. ditaburi tanah
+> Najis ringan cukup dipercik air sampai rata.
+
+12. Air liur anjing termasuk najis ....
+a. ringan
+b. sedang
+*c. berat
+d. biasa
+> Air liur anjing dan babi termasuk najis berat (mughallazhah).
+
+13. Najis berat disucikan dengan dicuci tujuh kali, salah satunya dengan ....
+a. sabun
+*b. tanah
+c. pasir pantai
+d. minyak
+> Najis berat dicuci tujuh kali, salah satu basuhannya dicampur tanah.
+
+14. Membersihkan kotoran setelah buang air kecil atau besar disebut ....
+a. wudu
+b. tayamum
+*c. istinja
+d. mandi
+> Istinja adalah membersihkan tempat keluarnya kotoran sesudah buang air.
+
+15. Masuk kamar mandi didahului dengan kaki ....
+*a. kiri
+b. kanan
+c. dua kaki bersama
+d. mana saja
+> Masuk kamar mandi dengan kaki kiri dan keluar dengan kaki kanan.
+
+[MENJODOHKAN]
+1. Rukun Islam pertama = syahadat
+2. Rukun Islam kedua = salat
+3. Najis ringan = mukhaffafah
+4. Najis berat = mughallazhah
+5. Membersihkan kotoran sesudah buang air = istinja
+~ tayamum
+~ mutawassithah
+
+[ISIAN]
+1. Rukun Islam ada .... perkara. = 5 | lima
+> Syahadat, salat, zakat, puasa Ramadan, dan haji.
+2. Rukun Islam yang ketiga adalah membayar .... = zakat
+3. Ibadah haji dilakukan di Baitullah yang berada di kota .... = Makkah | Mekah | Mekkah
+4. Darah dan kotoran manusia termasuk najis .... = sedang | mutawassithah
+5. Najis sedang dicuci dengan air sampai hilang warna, bau, dan .... = rasa | rasanya
+6. Najis berat dicuci sebanyak .... kali. = 7 | tujuh
+7. Istinja paling baik dilakukan dengan air yang .... = bersih | suci | bersih dan suci
+8. Bila tidak ada air, istinja boleh memakai benda keras yang suci seperti .... = batu | tisu | batu atau tisu
+9. Beristinja menggunakan tangan .... = kiri
+10. Keluar dari kamar mandi didahului kaki .... = kanan
+
+[URAIAN]
+1. Sebutkan rukun Islam secara berurutan!
+= Membaca dua kalimat syahadat, mendirikan salat, membayar zakat, berpuasa di bulan Ramadan, dan menunaikan haji bagi yang mampu.
+
+2. Sebutkan tiga contoh benda najis!
+= Contoh: air kencing, kotoran manusia atau hewan, darah, bangkai, air liur anjing. Tiga contoh yang benar diterima.
+
+3. Bagaimana cara menyucikan pakaian yang terkena air kencing (najis sedang)?
+= Pakaian dicuci dengan air bersih sampai hilang warna, bau, dan rasa najisnya.
+
+4. Apa yang dimaksud dengan istinja?
+= Istinja adalah membersihkan tempat keluarnya kotoran sesudah buang air kecil atau buang air besar, dengan air bersih atau benda keras yang suci.
+
+5. Sebutkan dua adab ketika buang air!
+= Contoh: masuk kamar mandi dengan kaki kiri sambil membaca doa, tidak menghadap atau membelakangi kiblat di tempat terbuka, beristinja dengan tangan kiri, keluar dengan kaki kanan sambil membaca doa. Dua adab yang benar diterima.

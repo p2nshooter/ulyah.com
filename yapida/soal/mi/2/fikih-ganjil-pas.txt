@@ -1,0 +1,149 @@
+@jenjang mi
+@kelas 2
+@mapel Fikih
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Salat wajib dalam sehari semalam ada .... waktu.
+a. tiga
+b. empat
+*c. lima
+d. tujuh
+> Salat fardu ada lima waktu: Subuh, Zuhur, Asar, Magrib, dan Isya.
+
+2. Salat disebut tiang ....
+a. rumah
+*b. agama
+c. masjid
+d. madrasah
+> Salat adalah tiang agama; siapa yang menegakkannya berarti menegakkan agama.
+
+3. Salat Subuh dikerjakan sebanyak .... rakaat.
+*a. dua
+b. tiga
+c. empat
+d. lima
+> Subuh 2 rakaat, Zuhur 4, Asar 4, Magrib 3, Isya 4.
+
+4. Salat yang jumlahnya tiga rakaat adalah salat ....
+a. Subuh
+b. Zuhur
+*c. Magrib
+d. Isya
+> Salat Magrib berjumlah tiga rakaat.
+
+5. Berikut yang termasuk syarat sah salat adalah ....
+a. memakai baju baru
+*b. menghadap kiblat
+c. salat di masjid
+d. membawa sajadah
+> Syarat sah salat: suci dari hadas dan najis, menutup aurat, menghadap kiblat, dan sudah masuk waktu.
+
+6. Anak-anak mulai dilatih salat sejak usia .... tahun.
+a. tiga
+b. lima
+*c. tujuh
+d. dua belas
+> Rasulullah ﷺ memerintahkan agar anak dilatih salat sejak usia tujuh tahun.
+
+7. Salat dimulai dengan ....
+*a. takbiratul ihram
+b. salam
+c. rukuk
+d. sujud
+> Salat diawali takbiratul ihram (Allahu akbar) dan diakhiri salam.
+
+8. Bacaan ketika rukuk adalah ....
+a. Subhāna rabbiyal a‘lā
+*b. Subhāna rabbiyal ‘aẓīm
+c. Sami‘allāhu liman ḥamidah
+d. Allāhu akbar
+> Ketika rukuk dibaca Subhāna rabbiyal ‘aẓīm (Mahasuci Tuhanku Yang Mahaagung).
+
+9. Bacaan "Sami‘allāhu liman ḥamidah" dibaca ketika ....
+a. sujud
+b. rukuk
+*c. bangkit untuk iktidal
+d. salam
+> Saat bangkit dari rukuk menuju iktidal dibaca Sami‘allāhu liman ḥamidah.
+
+10. Bacaan ketika sujud adalah ....
+*a. Subhāna rabbiyal a‘lā
+b. Subhāna rabbiyal ‘aẓīm
+c. Rabbighfirlī
+d. Assalāmu‘alaikum
+> Ketika sujud dibaca Subhāna rabbiyal a‘lā (Mahasuci Tuhanku Yang Mahatinggi).
+
+11. Surah yang wajib dibaca pada setiap rakaat salat adalah ....
+a. An-Nas
+b. Al-Ikhlas
+*c. Al-Fatihah
+d. Al-Kautsar
+> Al-Fatihah wajib dibaca pada setiap rakaat.
+
+12. Salat diakhiri dengan ....
+a. takbir
+b. rukuk
+c. sujud
+*d. salam
+> Salam ke kanan dan ke kiri menandai selesainya salat.
+
+13. Bacaan istighfar sesudah salat adalah ....
+*a. Astagfirullāh
+b. Subḥānallāh
+c. Alḥamdulillāh
+d. Allāhu akbar
+> Sesudah salat kita membaca istighfar Astagfirullāh tiga kali.
+
+14. Bacaan "Subḥānallāh" disebut ....
+a. tahmid
+*b. tasbih
+c. takbir
+d. tahlil
+> Subḥānallāh = tasbih; Alḥamdulillāh = tahmid; Allāhu akbar = takbir.
+
+15. Sesudah salat, sebaiknya kita ....
+a. langsung bermain
+*b. berzikir dan berdoa
+c. tidur di masjid
+d. bercanda dengan teman
+> Sesudah salat kita berzikir dan berdoa untuk diri sendiri dan kedua orang tua.
+
+[MENJODOHKAN]
+1. Subḥānallāh = tasbih
+2. Alḥamdulillāh = tahmid
+3. Allāhu akbar = takbir
+4. Astagfirullāh = istighfar
+5. Subhāna rabbiyal ‘aẓīm = bacaan rukuk
+~ bacaan sujud
+~ tahlil
+
+[ISIAN]
+1. Salat Zuhur berjumlah .... rakaat. = 4 | empat
+2. Salat Isya berjumlah .... rakaat. = 4 | empat
+3. Salah satu syarat wajib salat adalah beragama .... = Islam
+4. Sebelum salat kita harus suci dari hadas dan .... = najis
+5. Ketika salat kita menghadap ke arah .... = kiblat | Ka'bah | kakbah
+6. Gerakan berdiri tegak sesudah rukuk disebut .... = iktidal | i'tidal
+7. Bacaan tasyahud disebut juga bacaan .... = tahiyat | tahiyyat | attahiyat
+8. Tasbih sesudah salat dibaca sebanyak .... kali. = 33 | tiga puluh tiga
+9. Bacaan "Allāhu akbar" disebut .... = takbir
+10. Sesudah berzikir, kita mendoakan diri sendiri dan kedua .... = orang tua | orangtua
+
+[URAIAN]
+1. Sebutkan nama salat fardu lima waktu!
+= Subuh, Zuhur, Asar, Magrib, dan Isya.
+
+2. Sebutkan empat syarat sah salat!
+= Suci dari hadas dan najis, menutup aurat, menghadap kiblat, dan sudah masuk waktu salat.
+
+3. Urutkan gerakan salat dari takbiratul ihram sampai salam!
+= Takbiratul ihram, membaca Al-Fatihah dan surah pendek, rukuk, iktidal, sujud, duduk di antara dua sujud, sujud kedua, (rakaat berikutnya), tasyahud, lalu salam.
+
+4. Tuliskan bacaan ketika rukuk dan ketika sujud!
+= Rukuk: Subhāna rabbiyal ‘aẓīm. Sujud: Subhāna rabbiyal a‘lā.
+
+5. Sebutkan tiga zikir yang dibaca sesudah salat beserta jumlahnya!
+= Istighfar Astagfirullāh 3 kali, tasbih Subḥānallāh 33 kali, tahmid Alḥamdulillāh 33 kali, takbir Allāhu akbar 33 kali. Tiga yang benar diterima.

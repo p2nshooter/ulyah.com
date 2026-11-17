@@ -1,0 +1,149 @@
+@jenjang mts
+@kelas 9
+@mapel Fikih
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Jual beli adalah pertukaran harta dengan harta atas dasar ....
+a. paksaan
+*b. suka sama suka
+c. undian
+d. warisan
+> Jual beli sah bila dilakukan atas dasar saling rida (suka sama suka).
+
+2. Allah menghalalkan jual beli dan mengharamkan riba, sebagaimana dalam QS. Al-Baqarah ayat ....
+a. 183
+b. 255
+*c. 275
+d. 286
+> QS. Al-Baqarah: 275 — "Allah telah menghalalkan jual beli dan mengharamkan riba."
+
+3. Penjual dan pembeli dalam jual beli disebut ....
+*a. 'aqidain
+b. ma'qud 'alaih
+c. shighat
+d. khiyar
+> 'Aqidain = dua pihak yang berakad (penjual dan pembeli).
+
+4. Ucapan serah terima dalam jual beli disebut ....
+a. 'aqidain
+b. ma'qud 'alaih
+*c. shighat (ijab kabul)
+d. haul
+> Shighat adalah ijab dan kabul.
+
+5. Berikut syarat barang yang diperjualbelikan, kecuali ....
+a. suci
+b. bermanfaat
+c. milik penjual
+*d. belum jelas wujudnya
+> Barang harus suci, bermanfaat, milik penjual, dapat diserahkan, dan jelas.
+
+6. Hak memilih untuk melanjutkan atau membatalkan jual beli disebut ....
+a. riba
+*b. khiyar
+c. rahn
+d. ijarah
+> Khiyar adalah hak memilih melanjutkan atau membatalkan akad.
+
+7. Khiyar yang berlaku selama penjual dan pembeli masih berada di tempat akad adalah khiyar ....
+*a. majelis
+b. syarat
+c. 'aib
+d. ru'yah
+> Khiyar majelis berlaku selama keduanya belum berpisah dari tempat akad.
+
+8. Pembeli menemukan cacat pada barang yang dibelinya. Ia berhak atas khiyar ....
+a. majelis
+b. syarat
+*c. 'aib
+d. nasi'ah
+> Khiyar 'aib adalah hak membatalkan karena barang cacat.
+
+9. Khiyar syarat berlaku paling lama ....
+a. satu hari
+*b. tiga hari
+c. satu minggu
+d. satu bulan
+> Khiyar syarat berlaku dalam waktu yang disepakati, paling lama tiga hari.
+
+10. Menukar 1 kg beras bagus dengan 2 kg beras biasa termasuk riba ....
+*a. fadhl
+b. nasi'ah
+c. qardh
+d. yad
+> Riba fadhl: pertukaran barang ribawi sejenis dengan takaran berbeda.
+
+11. Tambahan pembayaran karena penundaan waktu termasuk riba ....
+a. fadhl
+*b. nasi'ah
+c. yad
+d. mudharabah
+> Riba nasi'ah adalah tambahan karena penangguhan waktu.
+
+12. Pinjaman tanpa bunga yang ditawarkan Islam disebut ....
+a. riba qardh
+*b. qardhul hasan
+c. rahn
+d. khiyar
+> Qardhul hasan adalah pinjaman kebajikan tanpa tambahan.
+
+13. Menjadikan barang sebagai jaminan utang disebut ....
+a. qardh
+*b. rahn
+c. ijarah
+d. hibah
+> Rahn (gadai) adalah barang jaminan utang; dikembalikan setelah utang lunas.
+
+14. Akad mengambil manfaat barang atau jasa dengan imbalan disebut ....
+a. rahn
+b. qardh
+*c. ijarah
+d. 'ariyah
+> Ijarah meliputi sewa-menyewa dan upah-mengupah.
+
+15. "Berikanlah upah pekerja sebelum keringatnya kering." Hadis ini mengajarkan agar upah dibayar ....
+a. ditunda
+*b. segera dan tepat waktu
+c. dikurangi
+d. dicicil sampai lunas
+> Upah pekerja harus dibayar segera dan tidak ditunda-tunda (HR. Ibnu Majah).
+
+[MENJODOHKAN]
+1. Barang dan harga dalam jual beli = ma'qud 'alaih
+2. Hak membatalkan karena barang cacat = khiyar 'aib
+3. Gadai = rahn
+4. Sewa-menyewa dan upah = ijarah
+5. Bagi hasil = mudharabah
+~ qardh
+~ khiyar majelis
+
+[ISIAN]
+1. Hukum riba adalah .... = haram
+2. Rukun jual beli ada tiga: 'aqidain, ma'qud 'alaih, dan .... = shighat | sighat | ijab kabul | ijab qabul
+3. Khiyar yang ditetapkan dengan syarat waktu tertentu disebut khiyar .... = syarat
+4. Tambahan yang disyaratkan dalam utang disebut riba .... = qardh | qard
+5. Berpisah dari tempat akad sebelum serah terima barang ribawi disebut riba .... = yad
+6. Perintah mencatat utang terdapat dalam QS. Al-Baqarah ayat .... = 282
+7. Barang gadai adalah .... yang harus dijaga penerima gadai. = amanah | amanat
+8. Barang gadai dikembalikan setelah utang .... = lunas | dilunasi
+9. Orang yang menyewakan atau memberi upah disebut mu'jir, dan yang menerima disebut .... = musta'jir | mustajir
+10. Salah satu jalan halal pengganti riba adalah kerja sama bagi hasil yang disebut .... = mudharabah | mudarabah
+
+[URAIAN]
+1. Sebutkan rukun jual beli dan dua syarat barang yang diperjualbelikan!
+= Rukun: penjual dan pembeli ('aqidain), barang dan harga (ma'qud 'alaih), ijab kabul (shighat). Syarat barang (dua di antara): suci, bermanfaat, milik penjual, dapat diserahkan, jelas.
+
+2. Jelaskan tiga macam khiyar!
+= Khiyar majelis: selama penjual dan pembeli masih di tempat akad. Khiyar syarat: dalam waktu yang disepakati, paling lama tiga hari. Khiyar 'aib: bila ditemukan cacat pada barang.
+
+3. Sebutkan empat macam riba dan berikan satu contoh!
+= Riba fadhl, riba nasi'ah, riba qardh, dan riba yad. Contoh: meminjam Rp100.000 dengan syarat mengembalikan Rp120.000 (riba qardh), atau menukar 1 kg beras bagus dengan 2 kg beras biasa (riba fadhl).
+
+4. Apa perbedaan qardh, rahn, dan ijarah?
+= Qardh: memberi pinjaman yang dikembalikan senilai. Rahn: barang sebagai jaminan utang. Ijarah: mengambil manfaat barang atau jasa dengan imbalan (sewa/upah).
+
+5. Mengapa Islam melarang riba? Sebutkan dua alasan!
+= Riba menzalimi pihak yang lemah, menimbulkan permusuhan, membuat harta hanya beredar pada orang kaya, dan menghilangkan semangat tolong-menolong. Dua alasan yang benar diterima.
