@@ -1,5 +1,6 @@
 /** Tampilan portal: masuk (daftar akun + papan PIN acak), kerangka, formulir dari definisi bidang, tabel. Tanpa iklan. */
 import { html, raw, esc, type Raw } from '../lib/html.ts';
+import { jangkarPanduan } from './panduan.ts';
 import { ASSET_V, icon } from './layout.ts';
 import { PERAN, tingkat, type Peran, type User, type UserItem } from '../data/users.ts';
 import { STATUS, type Bidang, type Dok, type FotoGaleri, type IxItem, type Koleksi, type Status } from '../data/koleksi.ts';
@@ -117,12 +118,13 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     ${t >= PERAN.ketua.tingkat ? tautan('/portal/log', 'Log aktivitas', 'tasbih') : ''}
     <p>Akun</p>
     ${tautan('/portal/akun', 'Ganti PIN', 'masuk')}
+    ${tautan('/portal/panduan', 'Panduan', 'buku')}
     <a href="/" target="_blank" rel="noopener">${icon('panah').s}<span>Lihat situs</span></a>
     <form method="post" action="/keluar"><button type="submit">${icon('tutup').s}<span>Keluar</span></button></form>
   </nav>
 </aside>
 <main class="p-isi">
-  <header class="p-kepala"><button class="tbl-ikon p-buka" type="button" data-sisi-buka aria-label="Buka menu">${icon('menu').s}</button><h1>${esc(o.judul)}</h1><div class="p-aksi">${o.aksi?.s ?? ''}</div><form method="post" action="/keluar" class="p-kepala-keluar"><button class="tbl tbl-garis tbl-kecil" type="submit" data-keluar aria-label="Keluar dari portal">${icon('masuk').s}<span>Keluar</span></button></form></header>
+  <header class="p-kepala"><button class="tbl-ikon p-buka" type="button" data-sisi-buka aria-label="Buka menu">${icon('menu').s}</button><h1>${esc(o.judul)}</h1><div class="p-aksi">${o.aksi?.s ?? ''}</div>${o.aktif === '/portal/panduan' ? '' : `<a class="tbl-ikon p-bantu" href="/portal/panduan${jangkarPanduan(o.aktif) ? `#${jangkarPanduan(o.aktif)}` : ''}" title="Panduan menu ini" aria-label="Panduan menu ini">?</a>`}<form method="post" action="/keluar" class="p-kepala-keluar"><button class="tbl tbl-garis tbl-kecil" type="submit" data-keluar aria-label="Keluar dari portal">${icon('masuk').s}<span>Keluar</span></button></form></header>
   ${o.kilat?.ok ? `<p class="p-kilat p-kilat-ok" role="status">${esc(o.kilat.ok)}</p>` : ''}${o.kilat?.galat ? `<p class="p-kilat p-kilat-galat" role="alert">${esc(o.kilat.galat)}</p>` : ''}
   ${o.body.s}
 </main>

@@ -31,6 +31,7 @@ import { posisi } from '../data/siswa.ts';
 import { ATUR_KEY, katalogBawaan, type AturPustaka } from '../data/pustaka.ts';
 import { RAK_ID } from '../data/buku.ts';
 import { JENIS_PENGHARGAAN, PILIHAN_DESAIN, nomorBerikut } from '../data/dokumen.ts';
+import { panduanPortalPage } from '../pages/panduan.ts';
 
 /** Hash PBKDF2 kode pemasangan pertama. Kodenya sendiri diserahkan kepada pemilik di luar repo; berlaku sampai akun pertama ada. */
 const KODE_PASANG = 'pbkdf2$100000$B7x_sC9Sre2rAXgNJK1ZsQ$cZwWLl0YbxuvtZijAscs20iSaGZ8ToBV1ym1v16bj_8';
@@ -964,6 +965,11 @@ portal.post('/portal/pengguna/:id/buka', async (c) => {
 });
 
 /* ── log ────────────────────────────────────────────────────────────────── */
+
+portal.get('/portal/panduan', async (c) => {
+  const u = c.get('user')!;
+  return tampil(c, { judul: 'Panduan', aktif: '/portal/panduan', body: panduanPortalPage({ tingkat: tingkat(u), semua: c.req.query('semua') === '1' }) });
+});
 
 portal.get('/portal/log', async (c) => {
   if (tingkat(c.get('user')!) < PERAN.ketua.tingkat) return tolak(c);
