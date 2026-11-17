@@ -35,7 +35,8 @@ export function ayatSurah(n: number): { basmalah: boolean; ayat: Ayat[] } {
   return surahCache.get(n)!;
 }
 const ANGKA_AR = (n: number) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[Number(d)]!);
-const bersihTr = (s: string) => s.replace(/\s+/g, ' ').replace(/<[^>]+>/g, '').trim();
+/** Terjemah mushaf (teks polos, tanpa tag) dirapikan spasinya. */
+const bersihTr = (s: string) => s.replace(/\s+/g, ' ').trim();
 export const namaSurah = (n: number) => { const m = surahInfo(n); return `QS. ${m.lt}`; };
 
 /** ::surah 105 | ::surah 2:183-184 → blok Arab (dengan nomor ayat) + terjemah per ayat. */
@@ -82,6 +83,12 @@ function sambungAyat(arg: string, berkas: string): string[] {
   });
 }
 
+/** „isi >> pembahasan“ → [isi, pembahasan] tanpa regex (indexOf) agar aman untuk teks panjang. */
+export function pisahBahas(x: string): [string, string] {
+  const i = x.indexOf('>>');
+  return i < 0 ? [x.trim(), ''] : [x.slice(0, i).trim(), x.slice(i + 2).trim()];
+}
+
 export interface BabPelajaran { judul: string; judulAr?: string; smt: 'ganjil' | 'genap'; teks: string }
 export interface NaskahPelajaran { berkas: string; jenjang: 'mi' | 'mts'; kelas: number; slug: string; meta: Record<string, string>; bab: BabPelajaran[] }
 
@@ -108,6 +115,12 @@ export function bacaNaskah(file: string): NaskahPelajaran {
       continue;
     }
     if (!kini) { if (baris.trim()) throw new Error(`${rel}: teks sebelum bab pertama („${baris.slice(0, 40)}“)`); continue; }
+    // kuis wajib rapi: ≥ 3 pilihan, tidak ada pilihan kosong, tepat satu jawaban benar bertanda *
+    const kz = /^::kuis\s+(.+)$/.exec(baris.trim());
+    if (kz) {
+      const opsi = pisahBahas(kz[1]!)[0].split('|').slice(1).map((x) => x.trim());
+      if (opsi.length < 3 || opsi.some((x) => !x || x === '*') || opsi.filter((x) => x.startsWith('*')).length !== 1) throw new Error(`${rel}: kuis tidak rapi („${kz[1]!.slice(0, 60)}…“) — perlu ≥ 3 pilihan terisi dan tepat satu jawaban bertanda *`);
+    }
     const p = /^::(surah|sambung)\s+(.+)$/.exec(baris.trim());
     const isi = p ? (p[1] === 'surah' ? bukaSurah(p[2]!, rel) : sambungAyat(p[2]!, rel)).join('\n\n') : baris;
     kini.teks += `${isi}\n`;
@@ -135,8 +148,8 @@ export function bahanLatihan(n: NaskahPelajaran, smt: 'ganjil' | 'genap'): { pg:
     for (const l of b.teks.split('\n')) {
       const k = /^::kuis\s+(.+)$/.exec(l.trim());
       if (k) {
-        const [isi, bahas] = k[1]!.split(/\s*>>\s*/);
-        const bag = isi!.split('|').map((x) => x.trim()).filter(Boolean);
+        const [isi, bahas] = pisahBahas(k[1]!);
+        const bag = isi.split('|').map((x) => x.trim()).filter(Boolean);
         const o = bag.slice(1);
         const benar = o.findIndex((x) => x.startsWith('*'));
         if (o.length >= 3 && benar >= 0) pg.push({ t: bag[0]!, o: o.map((x) => x.replace(/^\*/, '').trim()), k: benar, ...(bahas ? { b: bahas.trim() } : {}) });

@@ -308,7 +308,7 @@
       return x;
     }
     if (b.t === 'kuis') {
-      var kx = b.x.split(/\s*>>\s*/), bag = kx[0].split('|').map(function (s) { return s.trim(); });
+      var ki = b.x.indexOf('>>'), kx = ki < 0 ? [b.x, ''] : [b.x.slice(0, ki), b.x.slice(ki + 2).trim()], bag = kx[0].split('|').map(function (s) { return s.trim(); });
       x = el('div', 'akt akt-kuis'); x.setAttribute('data-akt', 'kuis'); x.setAttribute('data-pilihan', JSON.stringify(bag.slice(1)));
       if (kx[1]) x.setAttribute('data-bahas', kx[1]);
       x.appendChild(el('p', 'akt-label', '❓ Tebak!')); var tq = el('p', 'akt-tanya'); tq.setAttribute('data-b', ''); sebaris(tq, bag[0] || '', true); x.appendChild(tq);
