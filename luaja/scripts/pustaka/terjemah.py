@@ -14,6 +14,7 @@ Pembaca menampilkan terjemahan Indonesia bila bahasa antarmuka Indonesia; teks a
 """
 import glob
 import json
+import math
 import os
 import re
 import sys
@@ -34,10 +35,94 @@ def english(text):
     return en >= 2 and en > de * 1.5
 
 
+def _kata(name):
+    """20.000 kata terbanyak (FrequencyWords, Hermit Dave, CC BY-SA 4.0) → peringkat; untuk memilah sel Inggris dan Jerman."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
+    with open(path, encoding='utf-8') as fh:
+        return {w.strip(): i + 1 for i, w in enumerate(fh) if w.strip()}
+
+
+RANK_EN, RANK_DE = _kata('kata-en.txt'), _kata('kata-de.txt')
+TAK_ADA = 60000
+IPA = re.compile(r'^\s*[/\[][^/\]]+[/\]]\s*$|[ːəɛɪʊʏøœɐçʃʒŋ]')
+
+
+LABEL_EN = set('''masculine feminine neuter plural singular nominative accusative dative genitive infinitive present past perfect
+future imperative subjunctive participle pronoun pronouns verb verbs noun nouns adjective adjectives adverb adverbs article articles
+definite indefinite preposition prepositions conjunction conjunctions ending endings stem tense case cases gender number person
+meaning example examples english german translation formal informal question answer statement negation subject object possessive
+reflexive modal auxiliary separable inseparable prefix suffix first second third 1st 2nd 3rd word order the a an of and or with
+without in on for to used use when where how what which who after before time place reason positive comparative superlative
+masc fem neut pl sg nom acc dat gen sing infin pres part'''.split())
+
+
+def skor_en(text):
+    ws = re.findall(r"[a-zäöüß']+", text.lower())
+    return sum(math.log(RANK_DE.get(w, TAK_ADA)) - math.log(RANK_EN.get(w, TAK_ADA)) for w in ws) - 3 * len(re.findall('[äöüßÄÖÜ]', text))
+
+
+def label_en(text):
+    """Label tata bahasa Inggris di kolom kata (mis. „masculine“, „1st person singular“, „definite article“)."""
+    ws = re.findall(r"[a-z0-9']+", text.lower().replace('.', ' '))
+    return bool(ws) and all(w in LABEL_EN for w in ws) and any(w not in {'the', 'a', 'an', 'of', 'and', 'or', 'in', 'on', 'to', 'for', 'with'} for w in ws)
+
+
+def en_cell(text, kolom=1):
+    """Sel berbahasa Inggris (bukan Jerman, bukan Jepang, bukan lambang bunyi)? Kolom 0 tabel Jerman = kata Jerman, jadi
+    perlu bukti lebih kuat; kolom arti (1) memang biasanya Inggris."""
+    if not text or not re.search(r'[A-Za-z]', text) or re.search(r'[぀-ヿ一-鿿]', text) or IPA.search(text):
+        return False
+    ws = re.findall(r"[a-zäöüß']+", text.lower())
+    # huruf/abjad („A a“, „qu“) dan kata yang tidak dikenal di kedua daftar (mis. „siebzehn“) bukan bukti bahasa Inggris
+    if not ws or all(len(w) < 3 for w in ws) or not any(w in RANK_EN or w in RANK_DE for w in ws):
+        return False
+    skor = sum(math.log(RANK_DE.get(w, TAK_ADA)) - math.log(RANK_EN.get(w, TAK_ADA)) for w in ws) - 3 * len(re.findall('[äöüßÄÖÜ]', text))
+    hanya_en = all(w in RANK_EN and w not in RANK_DE for w in ws)
+    if kolom == 1:
+        return skor > -1.5 or hanya_en
+    return skor > (2.5 if kolom == 0 else 1.0) or hanya_en
+
+
+def tr_id(b, n):
+    t = (b.get('tr') or {}).get('id') or []
+    return t[n] if n < len(t) else ''
+
+
 def units(doc):
     """(blok, medan, teks Inggris) yang perlu terjemahan Indonesia."""
     if doc['lang'] == 'en':
         return
+    for pg in doc['pages']:
+        for b in pg['b']:
+            k = b['k']
+            # arti kosakata, tabel kata dan kanji (pemilik, 17 Nov 2026: „penjelasan dan terjemahan beserta kamusnya jg wajib
+            # bahasa Indonesia, bukan campur2“) — arti dari Kamus LUAJA yang sudah ada tidak ditimpa
+            if k == 'voc':
+                for n, it in enumerate(b['i']):
+                    if len(it) > 1 and it[1] and not tr_id(b, n) and en_cell(it[1], 1):
+                        yield b, ('tr', n), it[1]
+            elif k == 'tbl':
+                for n, r in enumerate(b['r']):
+                    for j, c in enumerate(r):
+                        if not c or (j == 0 and (doc['lang'] == 'ja' or len(r) < 2)) or (j == 1 and tr_id(b, n)):
+                            continue
+                        lain = r[1] if j == 0 else r[0]
+                        if c.strip().lower() == lain.strip().lower():
+                            continue
+                        if j == 0:
+                            # kolom kata Jerman: hanya label tata bahasa Inggris atau baris judul yang seluruhnya Inggris
+                            judul = n == 0 and all(en_cell(x, 2) for x in r[1:] if x) and skor_en(c) > 0
+                            if not (en_cell(c, 0) or label_en(c) or judul):
+                                continue
+                        elif not en_cell(c, min(j, 2)):
+                            continue
+                        yield b, (('tr', n) if j == 1 else ('ri', n, j)), c
+            elif k == 'kj':
+                if not tr_id(b, 0) and b.get('m'):
+                    yield b, ('tr', 0), b['m']
+                for i, x in enumerate(b.get('ex') or []):
+                    if len(x) > 2 and x[2] and (len(x) < 4 or not x[3]):
+                        yield b, ('kjx', i), x[2]
     for pg in doc['pages']:
         for b in pg['b']:
             k = b['k']
@@ -91,8 +176,18 @@ def terapkan(root):
     for f in glob.glob(os.path.join(root, 'public', 'p', 'b', 'ja-kanji-*.json')):
         for pg in json.load(open(f, encoding='utf-8'))['pages']:
             for b in pg['b']:
-                if b['k'] == 'kj' and b.get('tr', {}).get('id', [''])[0]:
-                    kanji[b['m']] = b['tr']['id'][0]
+                if b['k'] == 'kj' and b.get('m'):
+                    t = (b.get('tr', {}).get('id') or [''])[0] or tr.get(b['m'], '')
+                    if t:
+                        kanji[b['m']] = t
+
+    def kanji_id(o):
+        """Pilihan ganda kanji memotong arti di 60 huruf: cocokkan juga dengan awalan."""
+        if o in kanji:
+            return kanji[o]
+        cut = o.rstrip(', ').strip()
+        hits = [v for k, v in kanji.items() if k.startswith(cut)] if len(cut) >= 12 else []
+        return hits[0] if len(hits) == 1 or (hits and all(h == hits[0] for h in hits)) else tr.get(o, '')
     n_set = n_miss = 0
     for f in sorted(glob.glob(os.path.join(root, 'public', 'p', 'b', '*.json'))):
         doc = json.load(open(f, encoding='utf-8'))
@@ -102,7 +197,21 @@ def terapkan(root):
             if not t:
                 n_miss += 1
                 continue
-            if isinstance(field, tuple):
+            if isinstance(field, tuple) and field[0] == 'tr':
+                lst = b.setdefault('tr', {}).setdefault('id', [])
+                n = field[1]
+                while len(lst) <= n:
+                    lst.append('')
+                lst[n] = t
+            elif isinstance(field, tuple) and field[0] == 'ri':
+                rows = b.setdefault('ri', [[''] * len(r) for r in b['r']])
+                rows[field[1]][field[2]] = t
+            elif isinstance(field, tuple) and field[0] == 'kjx':
+                x = b['ex'][field[1]]
+                while len(x) < 4:
+                    x.append('')
+                x[3] = t
+            elif isinstance(field, tuple):
                 b.setdefault('o_id', list(b['o']))[field[1]] = t
             else:
                 b[f'{field}_id'] = t
@@ -111,9 +220,11 @@ def terapkan(root):
         if doc['id'].startswith('ja-kanji'):
             for pg in doc['pages']:
                 for b in pg['b']:
-                    if b['k'] == 'mc' and b.get('o') and all(o in kanji for o in b['o']):
-                        b['o_id'] = [kanji[o] for o in b['o']]
-                        changed = True
+                    if b['k'] == 'mc' and b.get('o'):
+                        ids = [kanji_id(o) for o in b['o']]
+                        if all(ids) and ids != b.get('o_id'):
+                            b['o_id'] = ids
+                            changed = True
         if changed:
             json.dump(doc, open(f, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print(f'terjemahan dipasang: {n_set}; belum ada terjemahan: {n_miss}')

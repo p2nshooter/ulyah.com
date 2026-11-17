@@ -10,6 +10,16 @@ export type { BookMeta, BookCat };
 /** Halaman yang terbuka untuk semua orang (pratinjau); sisanya untuk member bahasa itu dan pengelola. */
 export const PREVIEW_PAGES = 3;
 
+/**
+ * Terjemahan mesin seluruh buku (pemilik, 17 Nov 2026: „seluruh buku langsung di terjemahin di bawahnya“): dibuat workflow
+ * terjemah-luaja.yml (MADLAD-400) dan disimpan di R2 MEDIA `pustaka/terjemah/<bahasa>/<buku>/<potongan>.json`.
+ * Potongan 0 = halaman pratinjau (terbuka); potongan berikutnya masing-masing MT_CHUNK halaman (hanya member & pengelola).
+ * scripts/pustaka/mesin.py memakai rumus yang sama.
+ */
+export const MT_CHUNK = 25;
+export const MT_LANGS = ['id', 'en', 'ja'] as const;
+export const mtChunkOf = (page: number): number => (page < PREVIEW_PAGES ? 0 : 1 + Math.floor((page - PREVIEW_PAGES) / MT_CHUNK));
+
 const BY_ID = new Map(BOOKS.map((b) => [b.id, b]));
 export const getBook = (id: string): BookMeta | undefined => BY_ID.get(id);
 

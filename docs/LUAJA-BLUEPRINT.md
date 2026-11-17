@@ -340,6 +340,23 @@ kamus nya agar lebih banyak arti“ dan „Sy berikan ke keluasan 100gb R2“.
 | API | `/api/kamus/cari` (popup pembaca), `/api/kamus/awal` (isian otomatis), `/api/kamus/pecah` (kalimat Jepang → kata) — batas laju per IP di KV |
 | Pembangunan | `scripts/kamus/fetch.sh` + `build.py` + `verify.ts` (pemeriksaan dengan pembaca Worker yang sama; gagal = tidak diunggah) di workflow `kamus-luaja.yml` (saat skrip berubah, bulanan, manual) |
 
+### 6.7 Ketuk per kata & terjemahan seluruh buku (perintah pemilik 17 Nov 2026)
+
+„Di klik malah aktif semua bukan per kosa kata“; „di klik cukup per kata biar bisa di cari kamusnya, bukan di klik ngikut
+semua“; „klo bahasa website nya Indonesia maka penjelasan dan terjemahan beserta kamusnya jg wajib bahasa Indonesia, bukan
+campur2“; „Harusnya seluruh buku langsung di terjemahin di bawahnya, ketuk per kosa kata itu di arahin ke kamus agar
+mendapatkan arti yg lebih banyak“; „Brp lama klo d terjemahin lewat runner github … sampai 100%“.
+
+| Bagian | Aturan |
+|---|---|
+| Ketuk kata Jepang | teks dipotong per kata di peramban (`Intl.Segmenter`, furigana menempel utuh); yang tersorot hanya kata yang diketuk; Kamus LUAJA memecah konteks kalimatnya (bentuk berubah → lema, mis. あった → ある) dan popup hanya berisi kata itu, sampai 6 arti, tombol „Kamus lengkap“ ke halaman lema (bukan kalimat) |
+| Arti dalam satu bahasa | antarmuka Indonesia → arti kanji, contoh kata kanji, kosakata, tabel, soal pilihan ganda dan penjelasan dalam Bahasa Indonesia saja; baris arti Inggris di bawahnya dihapus |
+| Terjemahan seluruh buku | setiap paragraf buku (Jepang, Jerman, Inggris) diterjemahkan dan tampil **langsung di bawahnya** (bisa disembunyikan untuk uji diri); arti kosakata/kanji/tabel/soal ikut diterjemahkan dari arti Inggris aslinya (lebih tepat daripada padanan WordNet) |
+| Mesin | MADLAD-400 3B (Google, Apache-2.0) format CTranslate2 int8, dijalankan workflow `terjemah-luaja.yml` di runner GitHub (gratis, tanpa kuota Claude): tiap malam 01.07 WIB, saat skrip berubah, dan manual; 12 pekerjaan paralel; melanjutkan hasil lama (hash FNV per butir) |
+| Penyimpanan | R2 `luaja-media/pustaka/terjemah/<bahasa>/<buku>/<potongan>.json` (potongan 0 = 3 halaman pratinjau, terbuka; potongan berikutnya 25 halaman, hanya member — rute `/p/t/<buku>/<bahasa>/<potongan>.json`) + `_status.json` (kemajuan) |
+| Perkiraan waktu | ±93 ribu butir, ±14,2 juta huruf; Bahasa Indonesia 100 % ±3–6 jam (1 malam, paling lambat 2 malam); buku Jepang selesai pertama; antarmuka Inggris & Jepang menyusul (+1–2 malam masing-masing) |
+| Atribusi | `/kredit` (MADLAD-400, Apache-2.0); catatan kecil di akhir halaman pembaca |
+
 ### 6.3 Video dan mesin kosakata
 
 Setiap video punya halaman dengan pemutar dan **teks di bawahnya**:
