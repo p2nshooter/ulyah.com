@@ -13,7 +13,8 @@
     "pretest": "npm run pustaka --silent",
     "test": "node --import tsx --test test/*.test.ts",
     "e2e": "bash test/run-e2e.sh",
-    "klien": "esbuild src/klien/impor.ts --bundle --format=iife --minify --target=es2020 --log-level=warning --outfile=public/assets/impor.js"
+    "klien": "esbuild src/klien/impor.ts --bundle --format=iife --minify --target=es2020 --log-level=warning --outfile=public/assets/impor.js && esbuild src/klien/panduan-siswa.ts --bundle --format=iife --minify --target=es2020 --log-level=warning --outfile=public/assets/panduan-siswa.js",
+    "versi": "tsx scripts/versi-aset.ts"
   },
   "dependencies": {
     "hono": "4.13.16"
