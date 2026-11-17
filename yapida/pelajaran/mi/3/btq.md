@@ -63,3 +63,5 @@ Latihan membaca lancar:
 ::kuis Huruf yang dibaca ghunnah adalah …? | *نّ dan مّ | ب dan ت | ق dan ط | ا dan و >> Nun dan mim bertasydid.
 ::kuis Kata ثُمَّ dibaca dengan …? | *dengung | panjang enam harakat | memantul | tanpa tasydid >> Mim bertasydid berdengung.
 ::cocok Ghunnah = dengung; نّ = nun bertasydid; مّ = mim bertasydid; Huruf sambung = huruf yang dirangkai
+::kuis Bacaan إِنَّا dibaca …? | *dengan dengung karena nun bertasydid | tanpa dengung | panjang enam harakat | memantul >> Nun bertasydid dibaca ghunnah.
+::kuis Huruf ا د ذ ر ز و termasuk huruf yang …? | *tidak bisa disambung dengan huruf sesudahnya | tidak bisa dibaca | selalu berdengung | selalu panjang >> Hanya bisa disambung dari sebelah kanan.

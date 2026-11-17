@@ -208,6 +208,11 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     paket Latihan Ganjil/Genap bank soal siswa. Buku PAI umum (BSE SD/SMP) hanya bacaan pendukung mapel PAI madrasah;
     bacaan pendukung sesuai usia (kitab dewasa tidak muncul di MI). Tombol emas terbaca di mode gelap, ikon emoji judul tidak
     menjadi siluet, sisi halaman buku 3D tidak lagi terlepas dari bukunya.
+43. „Buatin jg nahwu shorof, tahfidz btq kelas 7,8,9“ — muatan lokal MTs: **Tahfidz** (kelas 7 menuntaskan juz 30, kelas 8–9
+    juz 29), **BTQ** (makharijul huruf, sifat huruf, idgham, hukum ra, mad lazim/shilah/badal, waqaf-ibtida', bacaan gharib,
+    rasm Utsmani, kitabah, nagham, ujian tahsin), **Nahwu Sharaf** (kalam, i'rab, marfu'at–manshubat–makhfudhat, tawabi',
+    kana–inna–zhanna, tsulatsi mujarrad & mazid) kelas 7–9. Buku Pelajaran Yapida MTs 7–9 untuk semua mapel PAI, Bahasa Arab,
+    Bahasa Inggris, Seni Budaya & Prakarya (8–9), dan ketiga muatan lokal — 29 buku; setiap semester ≥ 6 kuis → latihan siswa.
 
 ## 1. Aturan yang berlaku
 

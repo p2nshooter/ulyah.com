@@ -28,6 +28,7 @@ Birama adalah ketukan yang berulang secara teratur dalam lagu:
 ::kuis Ketukan yang berulang teratur dalam lagu disebut …? | *birama | tempo | dinamika | melodi >> Contoh: 2/4, 3/4, 4/4.
 ::kuis Birama 4/4 artinya dalam satu birama ada … ketukan. | *4 | 2 | 3 | 1 >> Angka atas menunjukkan jumlah ketukan.
 ::cocok Birama 2/4 = dua ketukan; Birama 3/4 = tiga ketukan; Birama 4/4 = empat ketukan; Flora = tumbuhan
+::kuis Lagu "Aku Anak Saleh" termasuk lagu anak bertema …? | *islami | kemerdekaan | daerah | olahraga >> Lagu anak islami mengajarkan akhlak.
 
 # Semester Genap
 
@@ -50,3 +51,4 @@ Alat dan bahan: gunting, lem, kertas karton, dan bahan tempel. Gunakan gunting d
 ::kuis Karya dari tempelan potongan gambar atau foto disebut …? | *montase | mozaik | relief | batik >> Montase memakai potongan gambar.
 ::kuis Alat untuk memotong kertas adalah …? | *gunting | lem | penggaris | pensil >> Gunakan gunting dengan hati-hati.
 ::cocok Kolase = tempelan bahan; Montase = tempelan gambar; Imitatif = meniru; Fauna = hewan
+::kuis Bahan yang aman dipakai untuk kolase adalah …? | *daun kering dan kertas warna | pecahan kaca | paku | pasir panas >> Pilih bahan yang aman dan bersih.

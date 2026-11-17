@@ -24,16 +24,23 @@ test('kurikulum MI: Tahfidz 1–6, BTQ 1–5 (tidak di kelas 6), Nahwu Sharaf 4�
   assert.ok(!mi.some((m) => /sunda/.test(m.slug)), 'tidak menambah mapel yang tidak diminta');
 });
 
-test('setiap mapel MI kelas 1–6 punya buku pelajaran (tidak ada „sedang disusun“), PAI umum hanya pendukung', () => {
-  for (const k of KURIKULUM.mi.kelas) {
-    for (const m of KURIKULUM.mi.mapel.filter((x) => x.kelas.includes(k))) {
-      const isi = bukuMapel(katalog as KartuBuku[], 'mi', k, m);
-      assert.ok(isi.pelajaran.length > 0, `${m.nama} kelas ${k}: belum ada buku pelajaran`);
-      if (m.bseDukung) {
-        assert.ok(isi.pelajaran.every((b) => b.mapel !== 'Pendidikan Agama Islam'), `${m.nama} kelas ${k}: buku PAI umum bukan buku pelajaran utama`);
-        assert.ok(isi.pelajaran.some((b) => (b as { kur?: string }).kur === `mi-${k}-${m.slug}`), `${m.nama} kelas ${k}: Buku Pelajaran Yapida`);
+test('kurikulum MTs: Tahfidz, BTQ, dan Nahwu Sharaf kelas 7–9', () => {
+  const mts = KURIKULUM.mts.mapel;
+  for (const slug of ['tahfidz', 'btq', 'nahwu-sharaf']) assert.deepEqual(mts.find((m) => m.slug === slug)?.kelas, [7, 8, 9], slug);
+});
+
+test('setiap mapel MI 1–6 dan MTs 7–9 punya buku pelajaran (tidak ada „sedang disusun“), PAI umum hanya pendukung', () => {
+  for (const j of ['mi', 'mts'] as const) {
+    for (const k of KURIKULUM[j].kelas) {
+      for (const m of KURIKULUM[j].mapel.filter((x) => x.kelas.includes(k))) {
+        const isi = bukuMapel(katalog as KartuBuku[], j, k, m);
+        assert.ok(isi.pelajaran.length > 0, `${m.nama} kelas ${k} ${j}: belum ada buku pelajaran`);
+        if (m.bseDukung || ['tahfidz', 'btq', 'nahwu-sharaf'].includes(m.slug)) {
+          assert.ok(isi.pelajaran.every((b) => b.mapel !== 'Pendidikan Agama Islam'), `${m.nama} kelas ${k}: buku PAI umum bukan buku pelajaran utama`);
+          assert.ok(isi.pelajaran.some((b) => (b as { kur?: string }).kur === `${j}-${k}-${m.slug}`), `${m.nama} kelas ${k} ${j}: Buku Pelajaran Yapida`);
+        }
+        if (j === 'mi') assert.ok(isi.dukung.every((b) => b.suara !== 'dewasa' || b.rak.includes('mi')), `${m.nama} kelas ${k}: bacaan pendukung sesuai usia`);
       }
-      assert.ok(isi.dukung.every((b) => b.suara !== 'dewasa' || b.rak.includes('mi')), `${m.nama} kelas ${k}: bacaan pendukung sesuai usia`);
     }
   }
 });
@@ -52,5 +59,5 @@ test('buku pelajaran tampil sama di peta Pelajaran Madrasah dan rak MI; latihan 
   const buku = await minta(e, '/pustaka/b/k-pel-mi-4-tahfidz');
   assert.equal(buku.status, 200);
   const indeks = (JSON.parse(fs.readFileSync(`${PUB}assets/soal/indeks.json`, 'utf8')) as { paket: { id: string }[] }).paket.map((x) => x.id);
-  for (const id of ['b-mi1-fikih-ganjil-latihan', 'b-mi1-fikih-genap-latihan', 'b-mi4-tahfidz-ganjil-latihan', 'b-mi6-nahwu-sharaf-genap-latihan', 'b-mi5-btq-ganjil-latihan']) assert.ok(indeks.includes(id), `${id} ada`);
+  for (const id of ['b-mi1-fikih-ganjil-latihan', 'b-mi1-fikih-genap-latihan', 'b-mi4-tahfidz-ganjil-latihan', 'b-mi6-nahwu-sharaf-genap-latihan', 'b-mi5-btq-ganjil-latihan', 'b-mts7-tahfidz-ganjil-latihan', 'b-mts8-btq-genap-latihan', 'b-mts9-nahwu-sharaf-genap-latihan', 'b-mts9-fikih-ganjil-latihan']) assert.ok(indeks.includes(id), `${id} ada`);
 });

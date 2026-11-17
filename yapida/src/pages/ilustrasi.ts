@@ -95,6 +95,65 @@ const ILUSTRASI: Record<string, string> = {
     <circle class="kelip d3" cx="48" cy="9" r="1.1" fill="currentColor" stroke="none" />
     <circle class="kelip" cx="56" cy="18" r="1" fill="currentColor" stroke="none" />`),
 
+  // mapel madrasah — Buku Pelajaran Yapida (pelajaran/<jenjang>/<kelas>/<slug>.md)
+  'quran-hadis': svg('quran-hadis', `
+    <path d="M32 21c-7-5-15-6-22-3v26c7-3 15-2 22 3z" fill="currentColor" fill-opacity=".14" />
+    <path class="halaman" d="M32 21c7-5 15-6 22-3v26c-7-3-15-2-22 3z" />
+    <path d="M15 25.5h11M15 30.5h11M15 35.5h8M38 25.5h11M38 30.5h11M38 35.5h8" stroke-width="1.3" opacity=".7" />
+    <path d="M15 47l34 12M49 47L15 59" stroke-width="2.2" />
+    <path class="melayang" d="M32 4l1.5 3 3.3.5-2.4 2.3.6 3.3-3-1.6-3 1.6.6-3.3-2.4-2.3 3.3-.5z" fill="currentColor" stroke="none" />
+    <circle class="kelip" cx="11" cy="10" r="1.3" fill="currentColor" stroke="none" />
+    <circle class="kelip d2" cx="53" cy="9" r="1.1" fill="currentColor" stroke="none" />`),
+
+  fikih: svg('fikih', `
+    <path class="kelip" d="M35 9a4.5 4.5 0 1 1-4.6-5.3 3.6 3.6 0 0 0 4.6 5.3z" fill="currentColor" stroke="none" />
+    <path d="M32 19v-6" />
+    <path d="M20 34c0-8 5-13 12-16 7 3 12 8 12 16z" fill="currentColor" fill-opacity=".16" />
+    <path d="M17 34h30v14H17z" />
+    <path d="M28 48v-6a4 4 0 0 1 8 0v6" />
+    <path d="M10 55h44l-4 5H14z" fill="currentColor" fill-opacity=".2" />
+    <g class="melayang"><path d="M7 25c0 3 2.2 5 4.5 5S16 28 16 25c0-3.4-4.5-8.6-4.5-8.6S7 21.6 7 25z" fill="currentColor" fill-opacity=".3" /></g>
+    <g class="melayang d2"><path d="M50 22c0 2.6 1.7 4.3 3.6 4.3s3.6-1.7 3.6-4.3c0-2.9-3.6-7.2-3.6-7.2S50 19.1 50 22z" fill="currentColor" fill-opacity=".3" /></g>`),
+
+  'akidah-akhlak': svg('akidah-akhlak', `
+    <g class="mantul"><path d="M32 55S9 42 9 26c0-7.2 5.3-12.5 11.6-12.5 5.2 0 9.2 3.1 11.4 7.3 2.2-4.2 6.2-7.3 11.4-7.3C49.7 13.5 55 18.8 55 26c0 16-23 29-23 29z" fill="currentColor" fill-opacity=".14" />
+    <path d="M37 32a7.5 7.5 0 1 1-7.6-8.8 6 6 0 0 0 7.6 8.8z" fill="currentColor" stroke="none" /></g>
+    <circle class="kelip" cx="9" cy="8" r="1.3" fill="currentColor" stroke="none" />
+    <circle class="kelip d2" cx="56" cy="7" r="1.2" fill="currentColor" stroke="none" />
+    <circle class="kelip d3" cx="58" cy="44" r="1" fill="currentColor" stroke="none" />`),
+
+  ski: svg('ski', `
+    <path d="M12 58V37h24v21" />
+    <path d="M12 37c0-8 5.5-13.5 12-15.5 6.5 2 12 7.5 12 15.5z" fill="currentColor" fill-opacity=".16" />
+    <path d="M20 58v-7a4 4 0 0 1 8 0v7" />
+    <path d="M44 58V27h7v31M43 27l4.5-7 4.5 7" />
+    <path d="M47.5 20v-4" /><circle cx="47.5" cy="14" r="1.6" fill="currentColor" stroke="none" />
+    <path d="M4 58h56" opacity=".45" />
+    <g class="melayang"><path d="M5 9h19v9H5z" fill="currentColor" fill-opacity=".14" /><path d="M5 9c-2.4 0-2.4 9 0 9M24 9c2.4 0 2.4 9 0 9M9 12.5h11M9 15h8" stroke-width="1.3" /></g>`),
+
+  tahfidz: svg('tahfidz', `
+    <path d="M32 32c-6.5-4.5-14-5.5-20-2.5v23c6-3 13.5-2 20 2.5z" fill="currentColor" fill-opacity=".14" />
+    <path d="M32 32c6.5-4.5 14-5.5 20-2.5v23c-6-3-13.5-2-20 2.5z" />
+    <path d="M32 32v23" />
+    <g class="sinyal"><path d="M24 20a11 11 0 0 1 16 0" /><path class="d2" d="M18.5 14a19 19 0 0 1 27 0" /><path class="d3" d="M13 8a27 27 0 0 1 38 0" /></g>
+    <circle class="kelip" cx="9" cy="40" r="1.2" fill="currentColor" stroke="none" />
+    <circle class="kelip d2" cx="55" cy="40" r="1.2" fill="currentColor" stroke="none" />`),
+
+  btq: svg('btq', `
+    ${huruf(24, 40, 'ب', { uk: 26, kelas: 'muncul', font: 'Amiri, serif' })}
+    <path class="gores" d="M6 50c8 4 16 4 26 0s18-4 26 0" stroke-dasharray="70" />
+    <g class="goyang kuas"><path d="M44 46l13-30" stroke-width="2.4" /><path d="M42.6 49.5l1.4-3.5 2.4 1-1.6 3.6z" fill="currentColor" stroke="none" /><path d="M55 20l3 1.3" /></g>
+    <circle class="kelip" cx="33" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    <circle class="kelip d2" cx="12" cy="16" r="1.2" fill="currentColor" stroke="none" />`),
+
+  'nahwu-sharaf': svg('nahwu-sharaf', `
+    ${huruf(32, 40, 'نَحْو', { uk: 20, kelas: 'muncul', font: 'Amiri, serif' })}
+    <path class="melayang" d="M14 14l8-3" stroke-width="2.2" />
+    <path class="melayang d2" d="M30 10c2-2 5-2 6 0" stroke-width="2" />
+    <circle class="melayang d3" cx="46" cy="12" r="2.6" />
+    <path d="M8 52h48" opacity=".5" />
+    <path d="M12 58h10M27 58h10M42 58h10" stroke-width="1.6" opacity=".7" />`),
+
   tematik: svg('tematik', `
     <rect x="9" y="9" width="21" height="21" rx="3" fill="currentColor" fill-opacity=".14" />
     <rect x="34" y="9" width="21" height="21" rx="3" />
@@ -108,7 +167,8 @@ const KUNCI: Record<string, string> = {
   Matematika: 'matematika', IPA: 'ipa', IPAS: 'ipa', IPS: 'ips', 'Bahasa Indonesia': 'bahasa-indonesia', 'Bahasa Inggris': 'bahasa-inggris',
   'Bahasa Arab': 'bahasa-arab', PPKn: 'ppkn', 'Pendidikan Pancasila': 'ppkn', PJOK: 'pjok', 'Seni Budaya & Prakarya': 'seni-budaya-prakarya',
   'Seni Budaya': 'seni-budaya-prakarya', TIK: 'tik', Informatika: 'tik', 'Pendidikan Agama Islam': 'pendidikan-agama-islam', Tematik: 'tematik',
-  Fikih: 'pendidikan-agama-islam', 'Akidah Akhlak': 'pendidikan-agama-islam', 'Al-Qur’an Hadis': 'pendidikan-agama-islam', 'Sejarah Kebudayaan Islam': 'pendidikan-agama-islam',
+  Fikih: 'fikih', 'Akidah Akhlak': 'akidah-akhlak', 'Al-Qur’an Hadis': 'quran-hadis', 'Sejarah Kebudayaan Islam': 'ski',
+  Tahfidz: 'tahfidz', BTQ: 'btq', 'Nahwu Sharaf': 'nahwu-sharaf',
 };
 
 /** SVG ilustrasi untuk sebuah mata pelajaran, atau string kosong bila tidak dikenal. */
