@@ -79,6 +79,10 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
       { slug: 'informatika', nama: 'Informatika', ket: 'Berpikir komputasional, TIK, dan dasar pemrograman.', ikon: '💻', kelas: MTS, bse: ['TIK'] },
       { slug: 'seni-prakarya', nama: 'Seni Budaya & Prakarya', ket: 'Seni rupa, musik, kerajinan, rekayasa, dan pengolahan.', ikon: '🎨', kelas: MTS, bse: ['Seni Budaya & Prakarya'] },
       { slug: 'pjok', nama: 'PJOK', ket: 'Pendidikan jasmani, olahraga, dan kesehatan.', ikon: '⚽', kelas: MTS, bse: ['PJOK'] },
+      // muatan lokal MTs Al Huda (pemilik, 17 Nov 2026: „Buatin jg nahwu shorof, tahfidz btq kelas 7,8,9“)
+      { slug: 'tahfidz', nama: 'Tahfidz', ar: 'تَحْفِيظُ الْقُرْآنِ', ket: 'Menuntaskan juz 30 lalu menghafal juz 29 — murajaah, sambung ayat, dan tasmi’.', ikon: '📿', kelas: MTS, taut: [['Al-Qur’an digital & murottal', '/quran']] },
+      { slug: 'btq', nama: 'BTQ (Baca Tulis Al-Qur’an)', ar: 'قِرَاءَةُ الْقُرْآنِ وَكِتَابَتُهُ', ket: 'Tahsin: makharijul huruf, sifat huruf, mad, waqaf, bacaan gharib, rasm utsmani, dan kitabah.', ikon: '✍🏽', kelas: MTS, dukung: { rak: ['tpq'] } },
+      { slug: 'nahwu-sharaf', nama: 'Nahwu Sharaf', ar: 'النَّحْوُ وَالصَّرْفُ', ket: 'Kalam, i’rab, marfu’at–manshubat–makhfudhat, dan tashrif — menurut Al-Jurumiyyah dan Al-Amtsilah At-Tashrifiyyah.', ikon: '🧩', kelas: MTS, dukung: { id: ['k-jurumiyah', 'k-imrithi', 'k-alfiyah'] } },
     ],
   },
 };
