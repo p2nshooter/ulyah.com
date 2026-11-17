@@ -455,3 +455,33 @@ a.g-tautan:hover .g-label{text-decoration:underline}
 /* Pesan pengunjung (formulir kontak) di dalam menu Pesan — satu pintu untuk semua pesan */
 .ps-pengunjung{margin-bottom:1rem}
 .ps-av-tamu{background:linear-gradient(150deg,#b08a1e,#7a5a12);color:#fff9e3}
+
+/* ── Pesan & Saran di portal (/portal/saran) ── */
+.sr-p-ket{margin:0 0 1rem}
+.p-tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+.p-tab{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .85rem;border-radius:999px;border:1px solid var(--garis);background:var(--permukaan);font-weight:600;font-size:.86rem;color:var(--tinta);text-decoration:none}
+.p-tab b{display:inline-grid;place-items:center;min-width:1.35rem;height:1.35rem;padding:0 .3rem;border-radius:999px;background:var(--e400);color:#241a00;font-size:.72rem}
+.p-tab[aria-current="page"]{background:linear-gradient(160deg,var(--z600),var(--z800));border-color:var(--z700);color:#fff8e2}
+.sr-p-saring{max-width:22rem;margin:0 0 1rem}
+.sr-p-daftar{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.sr-p-daftar a{display:flex;gap:.8rem;align-items:flex-start;padding:.85rem 1rem;border-radius:16px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none;transition:border-color .2s,transform .2s}
+.sr-p-daftar a:hover{border-color:var(--e500);transform:translateY(-1px)}
+.sr-p-daftar li.baru a{border-left:4px solid var(--e500);background:linear-gradient(90deg,var(--e100),var(--permukaan) 40%)}
+.sr-p-ikon{flex:none;display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:12px;background:var(--gading);font-size:1.2rem}
+.sr-p-isi{flex:1;min-width:0;display:flex;flex-direction:column;gap:.15rem}
+.sr-p-isi small{color:var(--redup);font-size:.8rem}
+.sr-p-isi>span{color:var(--redup);font-size:.88rem;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.sr-p-meta{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:.25rem;font-size:.78rem;color:var(--redup)}
+.sr-p-kosong p{margin:0}
+.sr-p-detail{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+.sr-p-detail .p-kartu{margin-bottom:1rem}
+.sr-p-detail h2{font-size:1.05rem;margin:0 0 .6rem}
+.sr-p-baris-tbl{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.sr-p-dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem .8rem;margin:0 0 .8rem;font-size:.9rem}
+.sr-p-dl dt{color:var(--redup)}
+.sr-p-dl dd{margin:0;overflow-wrap:anywhere}
+.sr-p-riwayat{list-style:none;margin:0;padding:0;display:grid;gap:.4rem;font-size:.84rem}
+.sr-p-riwayat time{color:var(--redup);margin-left:.3rem}
+.sr-tbl-bahaya{color:#9b1c1c;border-color:#e6b4b4}
+@media (max-width:900px){.sr-p-detail{grid-template-columns:1fr}.sr-p-daftar a{flex-wrap:wrap}.sr-p-meta{flex-direction:row;align-items:center;width:100%;justify-content:flex-start;padding-left:3.2rem}}
+.sr-p-detail .p-kecil,.sr-p .p-kecil{font-size:.86rem;color:var(--redup);line-height:1.5}

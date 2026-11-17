@@ -7,8 +7,9 @@ import { Hono } from 'hono';
 import type { Ctx, HonoEnv } from '../lib/session.ts';
 import { limit } from '../lib/ratelimit.ts';
 import { hariIni, tanggal } from '../lib/text.ts';
-import { getUser, lingkupSemua, listUsers, tingkat, PERAN } from '../data/users.ts';
-import { daftar } from '../data/koleksi.ts';
+import { getUser, listUsers, tingkat, PERAN } from '../data/users.ts';
+import { daftarSaran, hitungSaranBaru } from '../data/saran.ts';
+import { kartuSaranPesan } from '../pages/saran.ts';
 import { listUnits } from '../data/site.ts';
 import {
   ambilTiket, anggotaTujuan, balasTiket, percakapanDm, bacaDm, bacaGrup, bacaPenanda, bacaTiketPesan, bersihkanGrup, bolehTiket, buatTiket, hariGrup, hitungBelum, kirimDm,
@@ -44,7 +45,7 @@ pesan.get('/portal/pesan', async (c) => {
   await bersihkanGrup(store);
   const [baca, grupHariIni, kotak, masuk, akun] = await Promise.all([bacaPenanda(store, u.id), bacaGrup(store, hariIni()), kotakMasuk(store, u.id), tiketMasuk(store, u), listUsers(store)]);
   // Satu pintu „Pesan“: pesan pengunjung (formulir kontak) ikut tampil di sini untuk pengelola lembaga ke atas.
-  const tamu = tingkat(u) >= PERAN.lembaga.tingkat ? await daftar(store, 'pesan', { unit: lingkupSemua(u) ? undefined : u.units, limit: 200 }) : null;
+  const tamu = tingkat(u) >= PERAN.lembaga.tingkat ? await daftarSaran(store, u, { limit: 300 }) : null;
   return tampil(c, {
     judul: 'Pesan', aktif: '/portal/pesan',
     body: berandaPesan({
@@ -53,12 +54,16 @@ pesan.get('/portal/pesan', async (c) => {
       tiketMasuk: masuk.filter((k) => !kotak.some((x) => x.id === k.id && x.j === 'tiket')).map((k) => ({ ...k, belum: k.d !== u.id && k.t > (baca.tiket[k.id] ?? 0) })),
       tiketSaya: kotak.filter((k) => k.j === 'tiket').map((k) => ({ ...k, belum: k.d !== u.id && k.t > (baca.tiket[k.id] ?? 0) })),
       akun, namaTujuan: (t) => namaTujuan(t, units), tujuan: PILIHAN_TUJUAN(units), saya: u.id,
-      ...(tamu ? { pengunjung: { baru: tamu.filter((x) => x.s === 'tinjau').length, terakhir: tamu.slice(0, 5).map((x) => ({ id: x.id, nama: x.j, cuplikan: String(x.r ?? '').slice(0, 90), kapan: Number.isFinite(Date.parse(x.t)) ? tanggal(Date.parse(x.t)).replace(/ \d{4}$/, '') : '', baru: x.s === 'tinjau' })) } } : {}),
+      ...(tamu ? { pengunjung: kartuSaranPesan({ baru: tamu.filter((x) => x.s === 'baru').length, terakhir: tamu.slice(0, 5).map((x) => ({ ...x, unitNama: x.u === 'yayasan' ? 'Yayasan' : units.find((y) => y.slug === x.u)?.singkat ?? x.u })) }) } : {}),
     }),
   });
 });
 
-pesan.get('/portal/pesan/hitung', async (c) => json(c, await hitungBelum(c.get('store'), c.get('user')!)));
+pesan.get('/portal/pesan/hitung', async (c) => {
+  const u = c.get('user')!;
+  const [h, saranBaru] = await Promise.all([hitungBelum(c.get('store'), u), hitungSaranBaru(c.get('store'), u)]);
+  return json(c, { ...h, saran: saranBaru });
+});
 
 /* ── grup seluruh lembaga ─────────────────────────────────────────────── */
 

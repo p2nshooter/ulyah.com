@@ -341,7 +341,11 @@ def run(root, tgt, part, status_path, old_dir, out_dir, minutes, only=None, mode
             path = os.path.join(out_dir, tgt, bid, f'{c}.json')
             os.makedirs(os.path.dirname(path), exist_ok=True)
             ordered = {k: keep[k] for k, _, _ in ch['units'] if k in keep}
-            json.dump({'v': 1, 'm': MODEL_NAME, 'l': tgt, 'b': bid, 'c': c, 'u': ordered}, open(path, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+            # tulis lalu ganti nama (atomik): pengunggah berkala tidak pernah membaca berkas setengah jadi
+            tmp = path + '.tmp'
+            with open(tmp, 'w', encoding='utf-8') as fh:
+                json.dump({'v': 1, 'm': MODEL_NAME, 'l': tgt, 'b': bid, 'c': c, 'u': ordered}, fh, ensure_ascii=False, separators=(',', ':'))
+            os.replace(tmp, path)
         done_chars = sum(len(t) for k, t, _ in ch['units'] if k in keep)
         report[f'{bid}/{c}'] = {'sig': ch['sig'], 'total': len(ch['units']), 'done': len(keep), 'chars': ch['chars'], 'chars_done': done_chars}
         el = time.time() - t0

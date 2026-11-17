@@ -177,6 +177,21 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     semua unduhan; laporan detektor artikel mempromosikan www.xscan.es dan www.luaja.com (kursus 3 bahasa).
     „kerjakan semua yg blm d kerjakan“.
 
+**17 Nov 2026**
+
+39. „Buatkan pesan dan saran untuk pengunjung, dan saran masuk ke lembaga yg di arahkan pengunjung, tapi super admin dan
+    yayasan mengetahui itu dan bisa membalas sebagai lembaga yg d tuju, bisa di show hidden oleh super admin jika ingin
+    menampilkan“ — /saran (formulir: lembaga tujuan, jenis saran/pertanyaan/kesan/keluhan, kontak opsional, samarkan
+    nama) + dinding pesan yang ditampilkan beserta balasan lembaga; tautan pribadi /saran/lacak/<id>/<kode> untuk membaca
+    balasan dan menanggapi; /portal/saran: pengelola lembaga tujuan + super admin + yayasan melihat & membalas (tanda
+    tangan selalu nama lembaga tujuan), teruskan (yayasan), tampil/sembunyi & hapus (super admin saja); formulir /kontak
+    dan pesan kontak lama (disalin sekali dengan id yang sama) masuk ke sini. Data: R2 c/saran, i/saran/a, i/saran/t.
+40. „Kerjain jg yapida sampai 100% selesai semua dan 100% siap d gunakan, termasuk panduanya dan 1 panduan gambar besar /
+    banner besar dengan PIN masuk“; „Termasuk bank soal dan portal siswa dan cara login siswa … bagaimana siswa mengisi
+    latihan soal dan seterusnya“; „Jgn pernah ninggalin merge & PR, kerjain sampai live dan bersih“ — panduan interaktif
+    setiap menu portal pengelola dan portal siswa (dibaca langsung di portal), Bank Soal lengkap (perintah 37), gambar
+    panduan besar berisi akun & PIN diserahkan langsung kepada pemilik (tidak pernah masuk repo).
+
 ## 1. Aturan yang berlaku
 
 - **R2 saja, tidak pernah D1.** Dokumen di `yapida-data`, berkas unggahan di `yapida-media`, cadangan harian 35 hari di

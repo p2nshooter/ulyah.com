@@ -187,30 +187,46 @@ jobs:
           xargs -P 6 -I{} bash -c 'mkdir -p "$RUNNER_TEMP/lama/$(dirname "{}")"; npx wrangler r2 object get "$BUCKET/{}" --pipe --remote > "$RUNNER_TEMP/lama/{}" 2>/dev/null || rm -f "$RUNNER_TEMP/lama/{}"' < "$RUNNER_TEMP/keys.txt"
           find "$RUNNER_TEMP/lama" -name '*.json' -size -10c -delete || true
           echo "$(find "$RUNNER_TEMP/lama" -name '*.json' | wc -l) berkas lama"
-      - name: Translate
+      - name: Prepare uploader
         working-directory: luaja
         run: |
-          set -euo pipefail
-          export MESIN_MODEL="$(cat ~/mesin-model/PATH)" MESIN_TOKENIZER=google/madlad400-3b-mt TOKENIZERS_PARALLELISM=false
-          ~/venv/bin/python -I scripts/pustaka/mesin.py jalan . "$LANG_TGT" "${{ matrix.pecahan }}" "$RUNNER_TEMP/awal/status.json" "$RUNNER_TEMP/lama/pustaka/terjemah" "$RUNNER_TEMP/keluar" "$MINUTES" "$BOOKS"
-      - name: Upload to R2
-        if: always()
-        working-directory: luaja
-        run: |
+          # unggah potongan yang selesai/berubah sejak unggahan terakhir (dipakai berkala selama menerjemahkan dan di akhir)
+          cat > "$RUNNER_TEMP/unggah.sh" <<'SH'
+          #!/usr/bin/env bash
           set -u
-          [ -d "$RUNNER_TEMP/keluar/$LANG_TGT" ] || { echo "tidak ada keluaran"; exit 0; }
-          export RUNNER_TEMP BUCKET
-          (cd "$RUNNER_TEMP/keluar" && find "$LANG_TGT" -name '*.json' | sort) > "$RUNNER_TEMP/up.txt"
+          cd "$RUNNER_TEMP/keluar" 2>/dev/null || exit 0
+          [ -d "$LANG_TGT" ] || exit 0
+          touch "$RUNNER_TEMP/stempel.baru"
+          if [ -f "$RUNNER_TEMP/stempel" ]; then find "$LANG_TGT" -name '*.json' -newer "$RUNNER_TEMP/stempel" | sort > "$RUNNER_TEMP/up.txt"; else find "$LANG_TGT" -name '*.json' | sort > "$RUNNER_TEMP/up.txt"; fi
           put() {
             for i in 1 2 3 4 5; do
-              if npx wrangler r2 object put "$BUCKET/pustaka/terjemah/$1" --file "$RUNNER_TEMP/keluar/$1" --content-type "application/json; charset=utf-8" --remote >/dev/null 2>&1; then return 0; fi
+              if (cd "$GITHUB_WORKSPACE/luaja" && npx wrangler r2 object put "$BUCKET/pustaka/terjemah/$1" --file "$RUNNER_TEMP/keluar/$1" --content-type "application/json; charset=utf-8" --remote >/dev/null 2>&1); then return 0; fi
               sleep $((i * 4))
             done
             echo "::warning::Gagal mengunggah $1"; return 1
           }
           export -f put
           xargs -P 6 -I{} bash -c 'put "{}"' < "$RUNNER_TEMP/up.txt" || true
-          echo "$(wc -l < "$RUNNER_TEMP/up.txt") potongan diunggah"
+          mv "$RUNNER_TEMP/stempel.baru" "$RUNNER_TEMP/stempel"
+          echo "$(date -u +%H:%M) · $(wc -l < "$RUNNER_TEMP/up.txt") potongan diunggah"
+          SH
+          chmod +x "$RUNNER_TEMP/unggah.sh"
+      - name: Translate
+        working-directory: luaja
+        run: |
+          set -euo pipefail
+          export MESIN_MODEL="$(cat ~/mesin-model/PATH)" MESIN_TOKENIZER=google/madlad400-3b-mt TOKENIZERS_PARALLELISM=false
+          export RUNNER_TEMP BUCKET LANG_TGT GITHUB_WORKSPACE
+          # potongan yang selesai langsung terlihat di luaja.com (tiap ±4 menit), tidak menunggu pecahan selesai
+          ( while sleep 240; do "$RUNNER_TEMP/unggah.sh" || true; done ) &
+          UP=$!
+          ~/venv/bin/python -I scripts/pustaka/mesin.py jalan . "$LANG_TGT" "${{ matrix.pecahan }}" "$RUNNER_TEMP/awal/status.json" "$RUNNER_TEMP/lama/pustaka/terjemah" "$RUNNER_TEMP/keluar" "$MINUTES" "$BOOKS"
+          kill "$UP" 2>/dev/null || true
+      - name: Upload to R2
+        if: always()
+        run: |
+          export RUNNER_TEMP BUCKET LANG_TGT GITHUB_WORKSPACE
+          "$RUNNER_TEMP/unggah.sh" || true
       - name: Keep shard report
         if: always()
         run: |

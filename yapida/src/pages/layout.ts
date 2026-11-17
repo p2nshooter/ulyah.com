@@ -199,7 +199,7 @@ ${o.body.s}
   </div>
   <div class="wadah kaki-bawah">
     <p>© <span data-tahun>2026</span> ${esc(s.nama)} · Akta No. ${esc(s.legal.akta.nomor)}, SK Menkumham ${esc(s.legal.sk.nomor)}</p>
-    <p class="kaki-taut">${MENU.slice(1).map((m) => `<a href="${m.href}">${m.label}</a>`).join('')}${s.donasi.tampil ? '<a href="/donasi">Donasi</a>' : ''}<a href="/siswa">Portal Siswa</a>${kaki.map(([l, h]) => `<a href="${h}">${l}</a>`).join('')}</p>
+    <p class="kaki-taut">${MENU.slice(1).map((m) => `<a href="${m.href}">${m.label}</a>`).join('')}${s.donasi.tampil ? '<a href="/donasi">Donasi</a>' : ''}<a href="/saran">Pesan &amp; Saran</a><a href="/siswa">Portal Siswa</a>${kaki.map(([l, h]) => `<a href="${h}">${l}</a>`).join('')}</p>
   </div>
 </footer>
 <button class="tasbih-tombol" type="button" data-tasbih-buka aria-label="Buka tasbih digital">${icon('tasbih').s}<span>Tasbih</span></button>
