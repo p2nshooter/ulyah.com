@@ -35,7 +35,7 @@ html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96p
 body{margin:0;font-family:var(--f-isi);font-size:17px;line-height:1.7;color:var(--tinta);background:var(--kertas);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;overflow-x:clip}
 img,svg{max-width:100%;height:auto;display:block}
 a{color:var(--z600);text-decoration-thickness:1px;text-underline-offset:3px}
-[data-tema="malam"] a{color:var(--e400)}
+[data-tema="malam"] a:not(.tbl-emas):not(.tbl-kaca){color:var(--e400)}
 h1,h2,h3,h4{font-family:var(--f-judul);font-weight:600;line-height:1.18;letter-spacing:-.012em;margin:0 0 .5em;font-optical-sizing:auto}
 p{margin:0 0 1.1em}
 button{font:inherit;color:inherit;cursor:pointer}
@@ -232,6 +232,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .kepala-hal-tinggi{padding-bottom:6rem}
 .kepala-hal h1{font-size:clamp(2.1rem,4.8vw,3.5rem);max-width:22ch;background:linear-gradient(180deg,#fffbea 20%,#ecd990 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .kepala-hal .tengah h1,.kepala-hal.tengah h1{margin-inline:auto}
+/* ikon emoji di judul bergradasi: digambar dengan warnanya sendiri, bukan siluet gradasi */
+.kepala-hal h1 .h1-ikon{-webkit-text-fill-color:initial;color:initial;background:none;-webkit-background-clip:border-box;background-clip:border-box;display:inline-block;margin-inline-end:.18em}
 .kepala-hal .lead{max-width:62ch;color:#c6dccd}
 .kepala-hal .tengah .lead{margin-inline:auto}
 .remah{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.4rem;font-size:.84rem}

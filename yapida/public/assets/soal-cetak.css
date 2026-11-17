@@ -1,0 +1,55 @@
+/* yapida.sch.id — lembar soal, kunci, dan hasil latihan di kertas legal (8,5 × 14 inci): kop lembaga, dua kolom, maks. 2
+   halaman untuk paket baku PG 15 · menjodohkan 5 · isian 10 · uraian 5. Margin cetak diatur @page di dokumen. */
+@font-face{font-family:"Uthmani Hafs";src:url("/assets/quran/uthmani-hafs.ttf") format("truetype");font-display:block}
+body.cetak-legal{background:#e7e3d9}
+.panggung-legal{display:block;padding:24px 12px 40px}
+.ls-kertas{width:8.5in;max-width:100%;margin:0 auto 24px;padding:12mm 13mm;background:#fff;box-shadow:0 18px 40px -18px rgba(0,0,0,.45);font:400 10.2pt/1.36 var(--f-isi);color:#151515}
+.ls-kertas .kop-logo{width:17mm;height:17mm}
+.ls-kertas .kop-nama{font-size:14pt}
+.ls-kertas .kop-garis{margin-bottom:3mm}
+.ls-judul{margin:0 0 2mm;text-align:center;font:800 12pt/1.25 var(--f-cap);letter-spacing:.05em;color:#0b5a3c}
+.ls-judul span{font:600 9pt var(--f-isi);letter-spacing:.06em;color:#333}
+.ls-identitas{width:100%;border-collapse:collapse;margin:0 0 2mm;font-size:9.6pt}
+.ls-identitas td{padding:.6mm 1.5mm;border:.25mm solid #b8b0a0}
+.ls-identitas td:nth-child(odd){width:17%;color:#444;background:#faf6ea}
+.ls-petunjuk{margin:0 0 2mm;padding:1.4mm 2.5mm;border-left:1mm solid #b8902a;background:#fbf6e6;font-size:9pt}
+.ls-bagian{margin:2.6mm 0 1.4mm;padding:.8mm 2mm;border-radius:1.2mm;background:#0b5a3c;color:#fff;font:700 9.6pt/1.3 var(--f-isi)}
+.ls-pg,.ls-isian{margin:0;padding-left:6mm;columns:2;column-gap:7mm}
+.ls-pg>li{break-inside:avoid;margin:0 0 1.6mm}
+.ls-pg>li>p{margin:0 0 .4mm}
+.ls-opsi{list-style:lower-alpha;margin:0;padding-left:5mm}
+.ls-opsi li{margin:0}
+.ls-isian>li{break-inside:avoid;margin:0 0 1.3mm}
+.ls-jodoh{display:grid;grid-template-columns:1.25fr 1fr;gap:6mm}
+.ls-jodoh ol{margin:0;padding-left:6mm}
+.ls-jodoh li{margin:0 0 1mm}
+.ls-kanan{list-style:upper-alpha;padding:1.5mm 2mm 1.5mm 7mm!important;border:.3mm dashed #b8902a;border-radius:1.5mm;background:#fffdf4}
+.ls-isi-titik{white-space:nowrap;color:#666}
+.ls-uraian{margin:0;padding-left:6mm}
+.ls-uraian li{margin:0 0 1.4mm;break-inside:avoid}
+.ls-uraian li p{margin:0}
+.ls-promo{margin:4mm 0 0;padding-top:1.5mm;border-top:.3mm solid #d8cfb8;text-align:center;font-size:8pt;color:#555;letter-spacing:.02em}
+.ls-arab{display:block;margin:.6mm 0 1mm;font:400 16pt/1.9 "Uthmani Hafs","Amiri",serif;text-align:right;direction:rtl;color:#0b3a28}
+.ls-kertas span[dir="auto"]{unicode-bidi:plaintext}
+/* kunci */
+.ls-kunci-pg,.ls-kunci-isian{margin:0;padding-left:6mm;columns:2;column-gap:7mm;font-size:9.4pt}
+.ls-kunci-pg li,.ls-kunci-isian li{break-inside:avoid;margin:0 0 1mm}
+.ls-bahas{margin:.4mm 0 0;font-size:8.8pt;color:#333}
+.ls-rumus{margin:3mm 0 0;font-size:9pt;padding:1.4mm 2.5mm;background:#f2f7f4;border-left:1mm solid #0b5a3c}
+/* hasil siswa */
+.ls-nilai{display:flex;gap:5mm;align-items:center;margin:2mm 0 3mm;padding:2.5mm 3mm;border:.4mm solid #b8902a;border-radius:2mm;background:#fffdf4}
+.ls-nilai ul{margin:0;padding-left:5mm}
+.ls-nilai-besar{display:grid;place-items:center;width:24mm;height:24mm;border-radius:50%;border:1mm solid #0b5a3c;text-align:center}
+.ls-nilai-besar span{font-size:7.5pt;text-transform:uppercase;letter-spacing:.1em;color:#555}
+.ls-nilai-besar b{font:800 20pt/1 var(--f-cap);color:#0b5a3c}
+.ls-hasil-daftar{margin:0;padding-left:6mm}
+.ls-hasil-daftar li{margin:0 0 1.6mm;break-inside:avoid}
+.ls-hasil-daftar li p{margin:0}
+.ls-hasil-daftar li.ok{border-left:.8mm solid #2e9d63;padding-left:2mm}
+.ls-hasil-daftar li.salah{border-left:.8mm solid #d9534f;padding-left:2mm}
+.ls-jwb{font-size:9.4pt;color:#333}
+@media print{
+  body.cetak-legal{background:none}
+  .panggung-legal{padding:0}
+  .ls-kertas{width:auto;margin:0;padding:0;box-shadow:none}
+}

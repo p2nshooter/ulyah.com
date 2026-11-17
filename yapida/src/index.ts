@@ -29,6 +29,8 @@ import { videoKanal } from './data/yt.ts';
 import { bagianUnit, beritaBeranda, organYayasan } from './pages/sisipan.ts';
 import { formSaran } from './pages/saran.ts';
 import { saran } from './routes/saran.ts';
+import { soal } from './routes/soal.ts';
+import { indeksBawaan } from './data/soal.ts';
 import { ADS_TXT } from './lib/adsense.ts';
 import { ensureSeed, getHalaman, getSitus, getUnit, listHalaman, listUnits } from './data/site.ts';
 import { ASSET_V, crumbs } from './pages/layout.ts';
@@ -79,7 +81,7 @@ app.get('/sitemap.xml', async (c) => {
   const o = origin(c);
   const store2 = c.get('store');
   const isi = await Promise.all(['kabar', 'galeri', 'karya', 'ppdb', 'sdm', 'penghargaan'].map(async (k) => (await daftar(store2, k, { tayang: true, limit: 900, ...(k === 'penghargaan' ? { saring: tampilDiPrestasi } : {}) })).filter((it) => it.u === 'yayasan' || units.some((u) => u.slug === it.u)).map((it) => publikDok(k, it.sl))));
-  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/prestasi', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...(Object.keys(KURIKULUM) as (keyof typeof KURIKULUM)[]).flatMap((j) => [`/pustaka/pelajaran/${j}`, ...KURIKULUM[j].kelas.flatMap((k) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(k)).map((m) => `/pustaka/pelajaran/${j}/${k}/${m.slug}`))]), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', '/saran', ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
+  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/prestasi', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...(Object.keys(KURIKULUM) as (keyof typeof KURIKULUM)[]).flatMap((j) => [`/pustaka/pelajaran/${j}`, ...KURIKULUM[j].kelas.flatMap((k) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(k)).map((m) => `/pustaka/pelajaran/${j}/${k}/${m.slug}`))]), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', '/saran', '/bank-soal', ...['ra', 'mi', 'mts'].map((j) => `/bank-soal?jenjang=${j}`), ...(await indeksBawaan(c.env)).filter((p) => p.jenis === 'latihan').map((p) => `/bank-soal/${p.id}`), ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${o}${u}</loc></url>`).join('\n')}\n</urlset>`;
   return c.body(xml, 200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=3600' });
 });
@@ -258,6 +260,7 @@ app.route('/', siswa);
 app.route('/', guru);
 app.route('/', pesan);
 app.route('/', saran);
+app.route('/', soal);
 
 app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({ error: 'not found' }, 404) : tidakAda(c as Ctx)));
 

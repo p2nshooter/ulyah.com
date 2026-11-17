@@ -11,6 +11,9 @@
  * Tidak ada teks yang diingat-ingat: semua diambil apa adanya dari berkas sumber di repositori ini.
  */
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { KURIKULUM } from '../src/data/kurikulum.ts';
+import { KURIKULUM_SOAL } from '../src/data/soal.ts';
+import { naskahKeMd, semuaNaskah } from './pelajaran.ts';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { hitungKata, menitBaca, pecahPanjang, ringkasBab, uraiNaskah, type Bab, type Blok, type BukuMeta } from '../src/data/buku.ts';
@@ -280,6 +283,25 @@ for (const [kol, info] of Object.entries(KITAB_HADITS)) {
     id: `k-hadits-${kol}`, judul: info.judul, judulAr: info.judulAr, penulis: info.penulis, rak: info.rak, suara: 'dewasa', mapel: 'Hadits', bahasa: 'ar',
     ringkasan: `${info.judul} lengkap: ${rows.length.toLocaleString('id-ID')} hadits dengan teks Arab dan terjemah Indonesia, dibagi per ${PER_BAB} hadits agar nyaman dibaca dan dibacakan.`,
     sumber: 'Pustaka hadits ulyah.com (data yang sama dengan ulyah.com)', sumberUrl: 'https://ulyah.com', lisensi: diterjemahkan ? 'Matan hadits domain publik · terjemah Indonesia disusun pustaka Yapida dari terjemah Inggris hadith-api (domain publik) dengan glosarium istilah syariat' : 'Matan hadits domain publik · terjemah dari pustaka ulyah.com', tag: ['hadits', kol],
+  }, bab);
+}
+
+/* ── Buku Pelajaran Yapida: satu buku per mapel per kelas (pelajaran/<jenjang>/<kelas>/<slug>.md, scripts/pelajaran.ts) ── */
+
+for (const n of semuaNaskah()) {
+  const m = KURIKULUM[n.jenjang].mapel.find((x) => x.slug === n.slug);
+  if (!m) throw new Error(`${n.berkas}: mapel „${n.slug}“ tidak ada di src/data/kurikulum.ts (${n.jenjang})`);
+  if (!m.kelas.includes(n.kelas)) throw new Error(`${n.berkas}: ${m.nama} tidak diajarkan di kelas ${n.kelas}`);
+  const nama = m.nama.replace(/\s*\(.*\)\s*$/, '');
+  const jj = n.jenjang === 'mts' ? 'MTs' : 'MI';
+  const { bab } = uraiNaskah(naskahKeMd(n));
+  const ganjil = n.bab.filter((b) => b.smt === 'ganjil').map((b) => b.judul), genap = n.bab.filter((b) => b.smt === 'genap').map((b) => b.judul);
+  tambah({
+    id: `k-pel-${n.jenjang}-${n.kelas}-${n.slug}`, judul: `${nama} Kelas ${n.kelas} ${jj}`, ...(n.meta.judulAr ?? m.ar ? { judulAr: n.meta.judulAr ?? m.ar } : {}), penulis: 'Tim Pustaka Yayasan Al-Huda Yapida',
+    rak: [n.jenjang === 'mts' ? 'mts' : 'mi'], suara: n.jenjang === 'mts' ? 'remaja' : 'anak', kelas: `Kelas ${n.kelas}`, mapel: nama, kur: `${n.jenjang}-${n.kelas}-${n.slug}`, bahasa: 'id',
+    ringkasan: n.meta.ringkasan ?? `Buku pelajaran ${nama} kelas ${n.kelas} ${jj} (${KURIKULUM_SOAL}). Semester ganjil: ${ganjil.join(', ') || '—'}. Semester genap: ${genap.join(', ') || '—'}. Dibacakan, berpenanda kata, dengan kuis di setiap bab.`,
+    sumber: 'Karya Tim Pustaka Yayasan Al-Huda Yapida' + (/::surah|﴿/.test(n.bab.map((b) => b.teks).join('')) ? ' · teks ayat dari mushaf Utsmani dan terjemah Kemenag RI di pustaka Yapida' : ''),
+    lisensi: 'CC BY-SA 4.0', lisensiUrl: 'https://creativecommons.org/licenses/by-sa/4.0/deed.id', tag: ['buku pelajaran', jj, `kelas ${n.kelas}`, nama.toLowerCase()],
   }, bab);
 }
 

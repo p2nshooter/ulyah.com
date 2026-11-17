@@ -191,6 +191,23 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     latihan soal dan seterusnya“; „Jgn pernah ninggalin merge & PR, kerjain sampai live dan bersih“ — panduan interaktif
     setiap menu portal pengelola dan portal siswa (dibaca langsung di portal), Bank Soal lengkap (perintah 37), gambar
     panduan besar berisi akun & PIN diserahkan langsung kepada pemilik (tidak pernah masuk repo).
+41. „Rata2 mata pelajaran madrasah kelas 4,5 & 6 adalah 14 pelajaran … bikin PTS genap ganjil Dan PAS genap Ganjil, lu
+    bikin setiap pelajaran paling ga 5-10 bank soal setiap genap dan ganjil untuk latihan siswa dan untuk bank soal guru, tp
+    bedain antara bank soal siswa dan guru … Cari berapa pelajaran di madrasah dari kelas 1-9“ — **bank soal guru** = PTS &
+    PAS Ganjil/Genap (format baku 15/5/10/5, cetak legal berkop) hanya di portal; tidak tampil di /bank-soal maupun Portal
+    Siswa sampai admin lembaga **membagikannya** sesudah ujian (/portal/bank-soal/:id/bagikan, R2 i/soal-bagi/<unit>/<id>).
+    **Bank soal siswa** = Latihan Ganjil/Genap (/bank-soal publik + Portal Siswa, semester berjalan didahulukan). Portal:
+    tab Soal ujian guru · Latihan siswa · **Peta kelengkapan** (6 slot per mapel per kelas: PTS/PAS Ganjil-Genap + Latihan
+    Ganjil-Genap; slot kosong → editor dengan kerangka soal terisi). Jumlah mapel per kelas mengikuti src/data/kurikulum.ts.
+42. „Tolong cek ulang, masih ga konsiten dan g ada bukunya saat di klik, pelajaran dari kelas 1-6 tahfidz dan BTQ (Btq di
+    kelas 6 g ada) dan kelas 4,5,6 Nahwu Shorof juga belum ada. Tolong yg bener bukunya, yg antara menu pelajaran madrasah
+    dengan rak“ — muatan lokal MI: **Tahfidz** kelas 1–6, **BTQ** kelas 1–5, **Nahwu Sharaf** kelas 4–6 (MI 1–2: 12 mapel,
+    3: 14, 4–5: 15, 6: 14). **Buku Pelajaran Yapida**: satu naskah per mapel per kelas di `pelajaran/<jenjang>/<kelas>/<slug>.md`
+    (scripts/pelajaran.ts) → buku `k-pel-*` yang sama di peta Pelajaran Madrasah dan rak MI/MTs (`kur` = jenjang-kelas-mapel),
+    teks ayat dari mushaf (`::surah`, `::sambung`), kuis berpembahasan (`::kuis … >> pembahasan`) yang sekaligus menjadi
+    paket Latihan Ganjil/Genap bank soal siswa. Buku PAI umum (BSE SD/SMP) hanya bacaan pendukung mapel PAI madrasah;
+    bacaan pendukung sesuai usia (kitab dewasa tidak muncul di MI). Tombol emas terbaca di mode gelap, ikon emoji judul tidak
+    menjadi siluet, sisi halaman buku 3D tidak lagi terlepas dari bukunya.
 
 ## 1. Aturan yang berlaku
 

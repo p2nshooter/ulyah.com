@@ -24,6 +24,7 @@ import { RAK } from '../data/buku.ts';
 import { riwayatKelas } from '../data/kesiswaan.ts';
 import { halamanCetak, kwitansiHtml } from '../pages/cetak.ts';
 import { berandaSiswa, masukSiswaPage } from '../pages/siswa.ts';
+import { paketSiswa, riwayatSiswa } from '../data/soal.ts';
 import { biodataSiswa, kopLembaga } from './kesiswaan.ts';
 
 export const siswa = new Hono<HonoEnv>();
@@ -45,7 +46,7 @@ async function mulaiSesi(c: Ctx, d: Dok): Promise<void> {
   setCookie(c, KUE, `${body}.${await hmac(rahasia(c), body)}`, { path: '/', secure: true, httpOnly: true, sameSite: 'Lax', maxAge: JAM * 3600 });
 }
 
-async function sesiSiswa(c: Ctx): Promise<Dok | null> {
+export async function sesiSiswa(c: Ctx): Promise<Dok | null> {
   const token = getCookie(c, KUE);
   if (!token || !token.includes('.')) return null;
   const [body, mac] = token.split('.');
@@ -68,13 +69,13 @@ siswa.get('/siswa', async (c) => {
   if (!d) return halamanMasuk(c, { pesan: c.req.query('ok') === 'keluar' ? 'Anda sudah keluar. Sampai jumpa!' : undefined });
   const store = c.get('store');
   const nomor = [String(d.d.nisn ?? ''), String(d.d.nis ?? '')].filter(Boolean);
-  const [tagihan, kwitansi, penghargaan, units] = await Promise.all([milikSiswa(store, nomor, 'tagihan'), milikSiswa(store, nomor, 'kwitansi'), milikSiswa(store, nomor, 'penghargaan'), listUnits(store, true)]);
+  const [tagihan, kwitansi, penghargaan, units, soal, riwayat] = await Promise.all([milikSiswa(store, nomor, 'tagihan'), milikSiswa(store, nomor, 'kwitansi'), milikSiswa(store, nomor, 'penghargaan'), listUnits(store, true), paketSiswa(c.env, store, d), riwayatSiswa(store, d.id)]);
   const p = posisi(d.d, d.unit);
   const j = jenjangUnit(d.unit);
   const rak = RAK.find((r) => r.id === (j === 'RA' ? 'ra' : j === 'MI' ? 'mi' : j === 'MTs' ? 'mts' : ''));
   const res = await render(c, {
     path: '/siswa', title: `${d.judul} — Portal Siswa Yapida`, desc: 'Portal Siswa Yayasan Al-Huda Yapida.', noindex: true, noAds: true, noStore: true, kelas: 'hal-siswa', css: ['siswa.css'],
-    body: berandaSiswa({ nama: d.judul, foto: typeof d.d.foto === 'string' ? d.d.foto : undefined, lembaga: units.find((u) => u.slug === d.unit)?.singkat ?? d.unit, p, d: d.d, riwayat: riwayatKelas(d.d, d.unit), tagihan, kwitansi, penghargaan: penghargaan.filter((x) => x.s !== 'arsip'), hari: hariIni(), rak: rak ? { href: `/pustaka/rak/${rak.id}`, nama: `Rak ${rak.nama}` } : undefined, mediaUrl: (f) => media(c)(f) }),
+    body: berandaSiswa({ nama: d.judul, foto: typeof d.d.foto === 'string' ? d.d.foto : undefined, lembaga: units.find((u) => u.slug === d.unit)?.singkat ?? d.unit, p, d: d.d, riwayat: riwayatKelas(d.d, d.unit), tagihan, kwitansi, penghargaan: penghargaan.filter((x) => x.s !== 'arsip'), hari: hariIni(), rak: rak ? { href: `/pustaka/rak/${rak.id}`, nama: `Rak ${rak.nama}` } : undefined, soal: { kelasku: soal.kelasku, jumlahLain: soal.lain.length, riwayat }, mediaUrl: (f) => media(c)(f) }),
   });
   res.headers.set('x-robots-tag', 'noindex, nofollow');
   return res;

@@ -1,0 +1,18 @@
+@jenjang ra
+@kelas 1
+@mapel Mengenal Alam
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[RA]
+1. hitung | ayam | 3 | Ada berapa ayam? | 2 ; *3 ; 4
+2. pilih | kucing | Hewan apakah ini? | Ayam ; *Kucing ; Ikan
+3. hitung | apel | 2 | Ada berapa buah apel? | *2 ; 3 ; 5
+4. pilih | ikan | Hewan apa yang hidup di air? | *Ikan ; Kucing ; Ayam
+5. cerita | pohon | Assalamu'alaikum, adik-adik! Aku pohon mangga. Aku memberi buah yang manis dan tempat berteduh. Ayo sayangi pohon, jangan dipatahkan dahannya, ya! | Pohon memberi kita apa? | Batu ; *Buah ; Mainan
+6. hijaiyah | ا | Huruf apakah ini? | *Alif ; Ba ; Ta
+7. hitung | bintang | 4 | Ada berapa bintang? | 3 ; *4 ; 5
+8. pilih | matahari | Benda apa yang bersinar terang di siang hari? | Bulan ; *Matahari ; Bintang
+9. hitung | balok | 3 | Ada berapa balok? | 2 ; *3 ; 4
+10. pilih | bebek | Hewan ini berbunyi kwek-kwek. Hewan apakah ini? | *Bebek ; Kambing ; Burung

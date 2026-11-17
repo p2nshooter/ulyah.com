@@ -9,7 +9,8 @@
   "workers_dev": true,
   // Domain sendiri disisipkan saat deploy, hanya bila zonanya sudah aktif — lihat .github/workflows/deploy-yapida.yml.
   // __CUSTOM_DOMAIN_ROUTES__
-  "assets": { "directory": "./public", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none" },
+  "assets": { "directory": "./public", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none", "run_worker_first": ["/assets/soal/p/*"] },
+  // Paket bank soal berkunci (/assets/soal/p/*) selalu lewat Worker → 404 bagi peramban; server membacanya lewat binding ASSETS.
   "observability": { "enabled": true },
   // Aturan tetap pemilik: SEMUA data di R2, tidak pernah D1.
   "r2_buckets": [

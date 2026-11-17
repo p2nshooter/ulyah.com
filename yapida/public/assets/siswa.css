@@ -74,3 +74,21 @@
 [data-tema="malam"] .ks-tg{background:transparent;color:var(--tinta)}
 @media (max-width:560px){.sw-data{grid-template-columns:1fr}.sw-keluar{margin-left:0}}
 @media (prefers-reduced-motion:reduce){.sw-u,.sw-u:hover{transition:none;transform:none}}
+
+/* Bank soal di beranda siswa */
+.sw-cara-soal{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:0 0 .9rem;padding:0;counter-reset:cs}
+.sw-cara-soal li{counter-increment:cs;display:flex;align-items:center;gap:.4rem;padding:.35rem .75rem;border-radius:999px;background:var(--gading);border:1px solid var(--garis);font-size:.82rem}
+.sw-cara-soal li::before{content:counter(cs);display:grid;place-items:center;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--emas-grad);color:#241a00;font-weight:800;font-size:.72rem}
+.sw-soal{list-style:none;margin:0 0 .9rem;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem}
+.sw-soal a{display:flex;flex-direction:column;gap:.1rem;padding:.75rem .9rem;border-radius:14px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none}
+.sw-soal a:hover{border-color:var(--e500)}
+.sw-soal span{font-size:.8rem;color:var(--redup)}
+.sw-soal em{font-style:normal;font-weight:800;font-size:.8rem;color:var(--e700)}
+.sw-soal em.sw-lulus{color:#0b6b3f}.sw-soal em.sw-ulang{color:#b3261e}
+.sw-aksi-soal{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.sw-ket{font-size:.82rem;color:var(--redup)}
+.sw-hero-kecil .sw-hero-isi{align-items:center;justify-content:space-between}
+.bs-riwayat{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.bs-riwayat a{display:flex;gap:.8rem;align-items:center;padding:.6rem .8rem;border-radius:12px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none;font-size:.9rem}
+.bs-riwayat span{flex:1;min-width:0}
+.bs-riwayat time{font-size:.78rem;color:var(--redup)}

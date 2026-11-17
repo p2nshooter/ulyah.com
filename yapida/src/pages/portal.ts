@@ -108,6 +108,7 @@ export function portalPage(o: { user: User; judul: string; aktif: string; body: 
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/lembaga', 'Profil lembaga', 'kubah') : ''}
     <p>Isi</p>
     ${isi.map((k) => tautan(`/portal/k/${k.id}`, k.nama, k.privat ? 'surat' : 'pena', o.hitung?.[k.id])).join('')}
+    <p>Pembelajaran</p>${tautan('/portal/bank-soal', 'Bank soal', 'buku')}
     ${t >= PERAN.lembaga.tingkat ? `<p>Kesiswaan</p>${tautan('/portal/siswa', 'Data siswa', 'tangan')}${tautan('/portal/siswa/impor', 'Impor file master', 'buku')}${tautan('/portal/tagihan', 'Tagihan & pembayaran', 'niaga')}${tautan('/portal/laporan', 'Laporan & grafik', 'bintang')}${tautan('/portal/guru/impor', 'Impor data guru', 'tangan')}` : ''}
     ${dok.length ? `<p>Dokumen &amp; cetak</p>${dok.map((k) => tautan(`/portal/k/${k.id}`, k.nama, IKON_DOK[k.id] ?? 'pena')).join('')}${t >= PERAN.lembaga.tingkat ? tautan('/portal/penghargaan/massal', 'Sertifikat massal', 'bintang') : ''}` : ''}
     ${t >= PERAN.lembaga.tingkat ? tautan('/portal/halaman', 'Halaman', 'buku') : ''}

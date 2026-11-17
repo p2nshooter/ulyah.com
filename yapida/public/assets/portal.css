@@ -485,3 +485,87 @@ a.g-tautan:hover .g-label{text-decoration:underline}
 .sr-tbl-bahaya{color:#9b1c1c;border-color:#e6b4b4}
 @media (max-width:900px){.sr-p-detail{grid-template-columns:1fr}.sr-p-daftar a{flex-wrap:wrap}.sr-p-meta{flex-direction:row;align-items:center;width:100%;justify-content:flex-start;padding-left:3.2rem}}
 .sr-p-detail .p-kecil,.sr-p .p-kecil{font-size:.86rem;color:var(--redup);line-height:1.5}
+
+/* ── Bank Soal di portal (/portal/bank-soal) ── */
+.bs-p .bs-ikon{flex:none;display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:12px;background:linear-gradient(150deg,var(--z600),var(--z900));color:var(--e300);font-size:1.15rem}
+.bs-p-kepala{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+.bs-p-kepala h2{margin:.1rem 0 .3rem}
+.bs-p-saring{display:flex;flex-wrap:wrap;gap:.8rem;margin:0 0 1rem}
+.bs-p-saring .p-bidang{min-width:11rem}
+.bs-p-daftar{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.5rem}
+.bs-p-daftar a{display:flex;gap:.7rem;align-items:center;padding:.7rem .85rem;border-radius:14px;border:1px solid var(--garis);background:var(--permukaan);color:var(--tinta);text-decoration:none}
+.bs-p-daftar a:hover{border-color:var(--e500)}
+.bs-p-isi{flex:1;min-width:0;display:flex;flex-direction:column}
+.bs-p-isi small{color:var(--redup);font-size:.78rem}
+.bs-aksi-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.7rem;margin:0 0 1rem}
+.bs-aksi{display:flex;flex-direction:column;gap:.2rem;text-decoration:none;color:var(--tinta);transition:transform .2s,border-color .2s}
+.bs-aksi:hover{transform:translateY(-2px);border-color:var(--e500)}
+.bs-aksi span{font-size:1.5rem}
+.bs-aksi small{color:var(--redup);font-size:.8rem}
+.bs-p-kop{max-width:26rem}
+.bs-pratinjau ol{padding-left:1.4rem}
+.bs-pratinjau li{margin:0 0 .5rem}
+.bs-pratinjau p{margin:0}
+.bs-kunci{font-weight:800;color:#0b6b3f}
+.bs-editor{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:1rem;align-items:start}
+.bs-editor textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;line-height:1.55}
+.bs-editor-status{min-height:1.4em;margin:.3rem 0 .8rem;font-size:.86rem;font-weight:600}
+.bs-st-ok{color:#0b6b3f}.bs-st-awas{color:#8d6b12}.bs-st-galat{color:#9b1c1c}
+.bs-peringatan{background:#fff6dc;color:#5a4507;border:1px solid #ecd990}
+.bs-bantu{margin:0 0 .8rem;padding-left:1.1rem;font-size:.86rem;line-height:1.55}
+.bs-bantu li{margin:0 0 .45rem}
+.bs-contoh{white-space:pre-wrap;font-size:.78rem;background:var(--gading);padding:.8rem;border-radius:12px;max-height:24rem;overflow:auto}
+.bs-angka-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.6rem;margin:0 0 1rem}
+.bs-angka-kisi .p-kartu{margin:0;text-align:center}
+.bs-angka-kisi span{display:block;font-size:.78rem;color:var(--redup)}
+.bs-angka-kisi b{font-family:var(--f-judul);font-size:1.7rem}
+.bs-sebaran{display:flex;align-items:flex-end;gap:.8rem;height:11rem;padding:.4rem 0}
+.bs-kolom{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:.2rem}
+.bs-kolom i{display:block;width:100%;max-width:3.4rem;min-height:2px;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--e400),var(--z600))}
+.bs-kolom small{font-size:.75rem;color:var(--redup)}
+.bs-bar{display:grid;grid-template-columns:2rem 1fr 3rem;gap:.5rem;align-items:center;margin:0 0 .3rem;font-size:.82rem}
+.bs-bar-jalur{height:.7rem;border-radius:999px;background:var(--gading);overflow:hidden}
+.bs-bar-jalur i{display:block;height:100%;border-radius:999px}
+.bs-bar-jalur i.mudah{background:#2e9d63}.bs-bar-jalur i.sedang{background:var(--e500)}.bs-bar-jalur i.sulit{background:#d9534f}
+.bs-tuntas{color:#0b6b3f}.bs-belum{color:#b3261e}
+@media (max-width:900px){.bs-editor{grid-template-columns:1fr}}
+/* ── Bank Soal: jenis paket, bagikan ke siswa, peta kelengkapan ── */
+.bs-p,.bs-p>*{min-width:0}
+.bs-jenis{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.02em;text-transform:none}
+.bs-jenis-guru{background:#fde8e6;color:#9b1c1c}.bs-jenis-siswa{background:#dff3e6;color:#0b6b3f}
+.bs-bagi-daftar{list-style:none;margin:.6rem 0 0;padding:0;display:grid;gap:.5rem}
+.bs-bagi-daftar li{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;padding:.6rem .8rem;border:1px solid var(--garis);border-radius:14px;background:var(--permukaan)}
+.bs-bagi-daftar span{display:flex;flex-direction:column}.bs-bagi-daftar small{color:var(--redup);font-size:.8rem}
+.bs-angka-kisi small{display:block;font-size:.76rem;color:var(--redup)}
+a.bs-peta-jj{text-decoration:none;color:var(--tinta);transition:border-color .2s,transform .2s}
+a.bs-peta-jj:hover{border-color:var(--e500);transform:translateY(-2px)}
+a.bs-peta-jj.aktif{border-color:var(--z600);box-shadow:inset 0 0 0 1px var(--z600)}
+.bs-peta-gulir{max-width:100%;overflow-x:auto;border-radius:16px;border:1px solid var(--garis);background:var(--permukaan);margin-top:.6rem}
+.bs-peta{width:100%;border-collapse:collapse;font-size:.88rem}
+.bs-peta th,.bs-peta td{padding:.5rem .55rem;border-bottom:1px solid var(--garis);text-align:center;vertical-align:middle}
+.bs-peta tr:last-child th,.bs-peta tr:last-child td{border-bottom:0}
+.bs-peta thead th{font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--redup);background:var(--gading);font-weight:700}
+.bs-peta thead th small{display:block;text-transform:none;letter-spacing:0;font-weight:600;font-size:.68rem}
+.bs-peta thead th a{color:inherit}
+.bs-peta tbody th{text-align:left;font-weight:700;color:var(--tinta);font-size:.86rem;min-width:9rem}
+.bs-kol-guru{box-shadow:inset 0 -3px 0 #f2b8b2}.bs-kol-siswa{box-shadow:inset 0 -3px 0 #9fd8b4}
+.bs-sel a{display:inline-block;min-width:3rem;padding:.25rem .55rem;border-radius:999px;text-decoration:none;font-weight:700;white-space:nowrap}
+.bs-sel-0 a{border:1px dashed var(--e500);color:var(--z700)}
+.bs-sel-1 a{background:#fff3cd;color:#7a5a00}
+.bs-sel-2 a{background:#dff3e6;color:#0b6b3f}
+.bs-sel-tidak{color:var(--redup)}
+.bs-rekap th,.bs-rekap td{text-align:left}
+[data-tema="malam"] .bs-sel-1 a{background:#4a3b0c;color:#ffe08a}
+[data-tema="malam"] .bs-sel-2 a,[data-tema="malam"] .bs-jenis-siswa{background:#123d27;color:#9fe3bb}
+[data-tema="malam"] .bs-jenis-guru{background:#4a1714;color:#ffb4ac}
+@media (max-width:640px){
+  .bs-peta-6 thead{display:none}
+  .bs-peta-6,.bs-peta-6 tbody,.bs-peta-6 tr{display:block}
+  .bs-peta-6 tr{padding:.55rem .5rem;border-bottom:1px solid var(--garis)}
+  .bs-peta-6 tbody th{display:block;border:0;padding:.15rem .3rem .45rem;min-width:0}
+  .bs-peta-6 td{display:inline-block;border:0;padding:.2rem .15rem;text-align:left;width:32%}
+  .bs-peta-6 td::before{content:attr(data-slot);display:block;font-size:.64rem;color:var(--redup);margin-bottom:.1rem}
+  .bs-peta-kelas th,.bs-peta-kelas td{padding:.4rem .3rem;font-size:.8rem}
+  .bs-peta-kelas tbody th{min-width:7.5rem}
+}
+@media (max-width:640px){.bs-aksi-kisi{grid-template-columns:1fr 1fr;gap:.55rem}.bs-aksi{padding:.8rem}.bs-aksi span{font-size:1.25rem}}
