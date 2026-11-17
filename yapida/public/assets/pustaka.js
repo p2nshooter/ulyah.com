@@ -132,6 +132,7 @@
           ucap(o.t, bahasaBuku);
           if (o.benar) {
             selesai = true; b.classList.add('benar'); k.classList.add('selesai'); bunyi('benar'); percik(e.clientX, e.clientY);
+            var bh = k.getAttribute('data-bahas'); if (bh && !$('.akt-bahas', k)) { var pb = el('p', 'akt-bahas'); pb.appendChild(el('b', '', '💡 ')); pb.appendChild(document.createTextNode(bh)); k.appendChild(pb); }
             k.dispatchEvent(new CustomEvent('yp:skor', { bubbles: true, detail: { benar: salah === 0 } }));
           } else {
             salah += 1; b.classList.add('salah'); b.disabled = true; bunyi('salah');
@@ -307,8 +308,9 @@
       return x;
     }
     if (b.t === 'kuis') {
-      var bag = b.x.split('|').map(function (s) { return s.trim(); });
+      var kx = b.x.split(/\s*>>\s*/), bag = kx[0].split('|').map(function (s) { return s.trim(); });
       x = el('div', 'akt akt-kuis'); x.setAttribute('data-akt', 'kuis'); x.setAttribute('data-pilihan', JSON.stringify(bag.slice(1)));
+      if (kx[1]) x.setAttribute('data-bahas', kx[1]);
       x.appendChild(el('p', 'akt-label', '❓ Tebak!')); var tq = el('p', 'akt-tanya'); tq.setAttribute('data-b', ''); sebaris(tq, bag[0] || '', true); x.appendChild(tq);
       var wi = el('div', 'akt-pilihan'); wi.setAttribute('data-akt-isi', ''); x.appendChild(wi); return x;
     }

@@ -16,10 +16,14 @@ export interface Mapel {
   ikon: string;
   /** Kelas yang mempelajarinya (RA: 0 = kelompok A–B). */
   kelas: number[];
-  /** Mapel buku pelajaran per kelas di katalog (BSE). */
+  /** Nama Arab mata pelajaran (sampul Buku Pelajaran Yapida). */
+  ar?: string;
+  /** Mapel buku pelajaran per kelas di katalog (BSE) — buku utama mapel umum. */
   bse?: string[];
+  /** Buku BSE kelas itu yang hanya menjadi bacaan pendukung (PAI umum SD/SMP untuk mapel PAI madrasah). */
+  bseDukung?: string[];
   /** Bacaan pendukung: mapel buku bawaan atau rak. */
-  dukung?: { mapel?: string[]; rak?: string[] };
+  dukung?: { mapel?: string[]; rak?: string[]; id?: string[] };
   /** Tautan khusus (mis. Al-Qur’an digital). */
   taut?: [string, string][];
 }
@@ -40,11 +44,11 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
   mi: {
     nama: 'MI (Madrasah Ibtidaiyah)', ringkas: 'Kelas 1–6: mata pelajaran PAI & Bahasa Arab khas madrasah ditambah mata pelajaran umum.', kelas: MI,
     mapel: [
-      { slug: 'quran-hadis', nama: 'Al-Qur’an Hadis', ket: 'Membaca, menghafal, dan memahami surat pendek serta hadits pilihan.', ikon: '📖', kelas: MI, bse: PAI, dukung: { rak: ['hadits'], mapel: ['Hadits', 'Hadits & akhlak'] }, taut: [['Al-Qur’an digital & murottal', '/quran']] },
-      { slug: 'akidah-akhlak', nama: 'Akidah Akhlak', ket: 'Rukun iman, asmaul husna, akhlak terpuji, dan adab sehari-hari.', ikon: '🤲', kelas: MI, bse: PAI, dukung: { mapel: ['Akidah', 'Akhlak'], rak: ['kisah'] } },
-      { slug: 'fikih', nama: 'Fikih', ket: 'Thaharah, shalat, puasa, zakat, dan ibadah sehari-hari.', ikon: '🧎', kelas: MI, bse: PAI, dukung: { mapel: ['Fikih'], rak: ['doa'] }, taut: [['Jadwal sholat & arah kiblat', '/jadwal-sholat']] },
-      { slug: 'ski', nama: 'Sejarah Kebudayaan Islam', ket: 'Kisah para nabi, Rasulullah ﷺ, sahabat, dan peradaban Islam.', ikon: '🏛️', kelas: [3, 4, 5, 6], bse: PAI, dukung: { rak: ['kisah'] } },
-      { slug: 'bahasa-arab', nama: 'Bahasa Arab', ket: 'Kosakata, percakapan, dan kaidah dasar — dilafalkan dengan logat Arab.', ikon: 'ع', kelas: MI, bse: ['Bahasa Arab'], dukung: { rak: ['anak-ar', 'bahasa'] } },
+      { slug: 'quran-hadis', nama: 'Al-Qur’an Hadis', ar: 'الْقُرْآنُ وَالْحَدِيثُ', ket: 'Membaca, menghafal, dan memahami surat pendek serta hadits pilihan.', ikon: '📖', kelas: MI, bseDukung: PAI, dukung: { rak: ['hadits'], mapel: ['Hadits', 'Hadits & akhlak'] }, taut: [['Al-Qur’an digital & murottal', '/quran']] },
+      { slug: 'akidah-akhlak', nama: 'Akidah Akhlak', ar: 'الْعَقِيدَةُ وَالْأَخْلَاقُ', ket: 'Rukun iman, asmaul husna, akhlak terpuji, dan adab sehari-hari.', ikon: '🤲', kelas: MI, bseDukung: PAI, dukung: { mapel: ['Akidah', 'Akhlak'], rak: ['kisah'] } },
+      { slug: 'fikih', nama: 'Fikih', ar: 'الْفِقْهُ', ket: 'Thaharah, shalat, puasa, zakat, dan ibadah sehari-hari.', ikon: '🧎', kelas: MI, bseDukung: PAI, dukung: { mapel: ['Fikih'], rak: ['doa'] }, taut: [['Jadwal sholat & arah kiblat', '/jadwal-sholat']] },
+      { slug: 'ski', nama: 'Sejarah Kebudayaan Islam', ar: 'تَارِيخُ الثَّقَافَةِ الْإِسْلَامِيَّةِ', ket: 'Kisah para nabi, Rasulullah ﷺ, sahabat, dan peradaban Islam.', ikon: '🏛️', kelas: [3, 4, 5, 6], bseDukung: PAI, dukung: { rak: ['kisah'] } },
+      { slug: 'bahasa-arab', nama: 'Bahasa Arab', ar: 'اللُّغَةُ الْعَرَبِيَّةُ', ket: 'Kosakata, percakapan, dan kaidah dasar — dilafalkan dengan logat Arab.', ikon: 'ع', kelas: MI, bse: ['Bahasa Arab'], dukung: { rak: ['anak-ar', 'bahasa'] } },
       { slug: 'pendidikan-pancasila', nama: 'Pendidikan Pancasila', ket: 'Nilai Pancasila, norma, keberagaman, dan cinta tanah air.', ikon: '🇮🇩', kelas: MI, bse: ['PPKn'] },
       { slug: 'bahasa-indonesia', nama: 'Bahasa Indonesia', ket: 'Membaca, menulis, menyimak, dan berbicara.', ikon: '✍️', kelas: MI, bse: ['Bahasa Indonesia', 'Tematik'], dukung: { rak: ['cerita'] } },
       { slug: 'matematika', nama: 'Matematika', ket: 'Bilangan, pengukuran, geometri, dan data.', ikon: '➗', kelas: MI, bse: ['Matematika'] },
@@ -52,18 +56,20 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
       { slug: 'seni-budaya', nama: 'Seni Budaya', ket: 'Seni rupa, musik, tari, dan kerajinan.', ikon: '🎵', kelas: MI, bse: ['Seni Budaya & Prakarya'] },
       { slug: 'pjok', nama: 'PJOK', ket: 'Pendidikan jasmani, olahraga, dan kesehatan.', ikon: '⚽', kelas: MI, bse: ['PJOK'] },
       { slug: 'bahasa-inggris', nama: 'Bahasa Inggris', ket: 'Kosakata dan percakapan sederhana — dilafalkan dengan logat Inggris.', ikon: '🔤', kelas: MI, bse: ['Bahasa Inggris'], dukung: { rak: ['anak-en'] } },
-      { slug: 'bahasa-sunda', nama: 'Bahasa Sunda (muatan lokal)', ket: 'Muatan lokal Jawa Barat: kosakata, undak-usuk basa, aksara, dan sastra Sunda.', ikon: '🗣️', kelas: MI },
-      { slug: 'btq-tahfidz', nama: 'BTQ & Tahfidz (muatan lokal)', ket: 'Muatan lokal madrasah: baca tulis Al-Qur’an, tajwid dasar, dan hafalan surah pendek juz 30.', ikon: '📿', kelas: MI, taut: [['Al-Qur’an digital, tafsir & murottal', '/quran']] },
+      // muatan lokal MI Al Huda (pemilik, 17 Nov 2026: „kelas 1-6 tahfidz dan BTQ (BTQ di kelas 6 g ada) dan kelas 4,5,6 Nahwu Shorof“)
+      { slug: 'tahfidz', nama: 'Tahfidz', ar: 'تَحْفِيظُ الْقُرْآنِ', ket: 'Hafalan Al-Qur’an juz 30 bertahap tiap kelas — dengan murajaah, sambung ayat, dan murottal.', ikon: '📿', kelas: MI, taut: [['Al-Qur’an digital & murottal', '/quran']] },
+      { slug: 'btq', nama: 'BTQ (Baca Tulis Al-Qur’an)', ar: 'قِرَاءَةُ الْقُرْآنِ وَكِتَابَتُهُ', ket: 'Huruf hijaiyah, harakat, menulis huruf Arab, dan tajwid dasar sampai lancar membaca mushaf.', ikon: '✍🏽', kelas: [1, 2, 3, 4, 5], dukung: { id: ['k-hijaiyah'], rak: ['tpq'] } },
+      { slug: 'nahwu-sharaf', nama: 'Nahwu Sharaf', ar: 'النَّحْوُ وَالصَّرْفُ', ket: 'Tata bahasa Arab dasar: kalimah, i’rab, jumlah, dan tashrif fi’il.', ikon: '🧩', kelas: [4, 5, 6], dukung: { id: ['k-jurumiyah', 'k-imrithi'] } },
     ],
   },
   mts: {
     nama: 'MTs (Madrasah Tsanawiyah)', ringkas: 'Kelas 7–9: PAI & Bahasa Arab khas madrasah, IPA, IPS, Informatika, Prakarya, dan lainnya.', kelas: MTS,
     mapel: [
-      { slug: 'quran-hadis', nama: 'Al-Qur’an Hadis', ket: 'Tajwid, hafalan, dan pemahaman ayat serta hadits.', ikon: '📖', kelas: MTS, bse: PAI, dukung: { rak: ['hadits'], mapel: ['Hadits', 'Hadits & akhlak'] }, taut: [['Al-Qur’an digital, tafsir & murottal', '/quran']] },
-      { slug: 'akidah-akhlak', nama: 'Akidah Akhlak', ket: 'Ilmu tauhid, akhlak kepada Allah, Rasul, diri, dan sesama.', ikon: '🤲', kelas: MTS, bse: PAI, dukung: { mapel: ['Akidah', 'Akhlak', 'Adab menuntut ilmu'] } },
-      { slug: 'fikih', nama: 'Fikih', ket: 'Ibadah, muamalah, makanan-minuman, dan hukum Islam dasar.', ikon: '🧎', kelas: MTS, bse: PAI, dukung: { mapel: ['Fikih', 'Fikih & Tasawuf'] } },
-      { slug: 'ski', nama: 'Sejarah Kebudayaan Islam', ket: 'Dinasti Islam, tokoh, dan Islam di Nusantara.', ikon: '🏛️', kelas: MTS, bse: PAI, dukung: { rak: ['kisah'] } },
-      { slug: 'bahasa-arab', nama: 'Bahasa Arab', ket: 'Qira’ah, kitabah, hiwar, dan qawa’id (nahwu-sharaf dasar).', ikon: 'ع', kelas: MTS, bse: ['Bahasa Arab'], dukung: { rak: ['bahasa'], mapel: ['Nahwu', 'Nahwu & Sharaf'] } },
+      { slug: 'quran-hadis', nama: 'Al-Qur’an Hadis', ar: 'الْقُرْآنُ وَالْحَدِيثُ', ket: 'Tajwid, hafalan, dan pemahaman ayat serta hadits.', ikon: '📖', kelas: MTS, bseDukung: PAI, dukung: { rak: ['hadits'], mapel: ['Hadits', 'Hadits & akhlak'] }, taut: [['Al-Qur’an digital, tafsir & murottal', '/quran']] },
+      { slug: 'akidah-akhlak', nama: 'Akidah Akhlak', ar: 'الْعَقِيدَةُ وَالْأَخْلَاقُ', ket: 'Ilmu tauhid, akhlak kepada Allah, Rasul, diri, dan sesama.', ikon: '🤲', kelas: MTS, bseDukung: PAI, dukung: { mapel: ['Akidah', 'Akhlak', 'Adab menuntut ilmu'] } },
+      { slug: 'fikih', nama: 'Fikih', ar: 'الْفِقْهُ', ket: 'Ibadah, muamalah, makanan-minuman, dan hukum Islam dasar.', ikon: '🧎', kelas: MTS, bseDukung: PAI, dukung: { mapel: ['Fikih', 'Fikih & Tasawuf'] } },
+      { slug: 'ski', nama: 'Sejarah Kebudayaan Islam', ar: 'تَارِيخُ الثَّقَافَةِ الْإِسْلَامِيَّةِ', ket: 'Dinasti Islam, tokoh, dan Islam di Nusantara.', ikon: '🏛️', kelas: MTS, bseDukung: PAI, dukung: { rak: ['kisah'] } },
+      { slug: 'bahasa-arab', nama: 'Bahasa Arab', ar: 'اللُّغَةُ الْعَرَبِيَّةُ', ket: 'Qira’ah, kitabah, hiwar, dan qawa’id (nahwu-sharaf dasar).', ikon: 'ع', kelas: MTS, bse: ['Bahasa Arab'], dukung: { rak: ['bahasa'], mapel: ['Nahwu', 'Nahwu & Sharaf'] } },
       { slug: 'pendidikan-pancasila', nama: 'Pendidikan Pancasila', ket: 'Pancasila, UUD 1945, Bhinneka Tunggal Ika, dan NKRI.', ikon: '🇮🇩', kelas: MTS, bse: ['PPKn'] },
       { slug: 'bahasa-indonesia', nama: 'Bahasa Indonesia', ket: 'Teks, sastra, dan keterampilan berbahasa.', ikon: '✍️', kelas: MTS, bse: ['Bahasa Indonesia'] },
       { slug: 'matematika', nama: 'Matematika', ket: 'Aljabar, geometri, statistika, dan peluang.', ikon: '➗', kelas: MTS, bse: ['Matematika'] },
@@ -73,8 +79,6 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
       { slug: 'informatika', nama: 'Informatika', ket: 'Berpikir komputasional, TIK, dan dasar pemrograman.', ikon: '💻', kelas: MTS, bse: ['TIK'] },
       { slug: 'seni-prakarya', nama: 'Seni Budaya & Prakarya', ket: 'Seni rupa, musik, kerajinan, rekayasa, dan pengolahan.', ikon: '🎨', kelas: MTS, bse: ['Seni Budaya & Prakarya'] },
       { slug: 'pjok', nama: 'PJOK', ket: 'Pendidikan jasmani, olahraga, dan kesehatan.', ikon: '⚽', kelas: MTS, bse: ['PJOK'] },
-      { slug: 'bahasa-sunda', nama: 'Bahasa Sunda (muatan lokal)', ket: 'Muatan lokal Jawa Barat: undak-usuk basa, aksara, dan sastra Sunda.', ikon: '🗣️', kelas: MTS },
-      { slug: 'btq-tahfidz', nama: 'BTQ & Tahfidz (muatan lokal)', ket: 'Muatan lokal madrasah: tahsin, tajwid, dan hafalan Al-Qur’an.', ikon: '📿', kelas: MTS, taut: [['Al-Qur’an digital, tafsir & murottal', '/quran']] },
     ],
   },
 };
@@ -82,10 +86,26 @@ export const KURIKULUM: Record<JenjangPel, { nama: string; ringkas: string; kela
 export const namaKelas = (j: JenjangPel, k: number) => (j === 'ra' ? 'Kelompok A & B' : `Kelas ${k}`);
 const rakJenjang = (j: JenjangPel) => (j === 'mts' ? 'mts' : 'mi');
 
-/** Buku pelajaran kelas itu (BSE) dan bacaan pendukungnya. */
+/** Bacaan pendukung sesuai usia: RA & MI hanya buku anak; MTs buku anak–remaja; buku yang memang ditaruh di rak jenjang itu selalu boleh. */
+const SUARA_JENJANG: Record<JenjangPel, string[]> = { ra: ['balita', 'anak'], mi: ['balita', 'anak'], mts: ['anak', 'remaja'] };
+
+/**
+ * Buku pelajaran kelas itu dan bacaan pendukungnya — sumber yang sama untuk peta Pelajaran Madrasah dan rak MI/MTs:
+ *   1. Buku Pelajaran Yapida mapel & kelas itu (kur = <jenjang>-<kelas>-<slug>, pelajaran/…/*.md);
+ *   2. buku BSE mapel umum kelas itu (Matematika, Bahasa Indonesia, IPA/IPS, PPKn, PJOK, …);
+ *   3. pendukung: BSE PAI umum (untuk mapel PAI madrasah), lalu buku bawaan yang sesuai usia jenjangnya.
+ */
 export function bukuMapel(semua: KartuBuku[], j: JenjangPel, kelas: number, m: Mapel): { pelajaran: KartuBuku[]; dukung: KartuBuku[] } {
-  const pelajaran = j === 'ra' || !m.bse ? [] : semua.filter((b) => b.rak.includes(rakJenjang(j)) && b.kelas === `Kelas ${kelas}` && m.bse!.includes(b.mapel ?? '') && b.id.startsWith('s-'));
+  const kur = `${j}-${kelas}-${m.slug}`;
+  const bseKelas = (daftar?: string[]) => (j === 'ra' || !daftar ? [] : semua.filter((b) => b.id.startsWith('s-') && b.rak.includes(rakJenjang(j)) && b.kelas === `Kelas ${kelas}` && daftar.includes(b.mapel ?? '')));
+  const pelajaran = [...semua.filter((b) => b.kur === kur), ...bseKelas(m.bse)];
   const sudah = new Set(pelajaran.map((b) => b.id));
-  const dukung = semua.filter((b) => !sudah.has(b.id) && !b.id.startsWith('s-') && ((m.dukung?.mapel ?? []).includes(b.mapel ?? '') || (m.dukung?.rak ?? []).some((r) => b.rak.includes(r))));
+  const usia = (b: KartuBuku) => b.rak.includes(rakJenjang(j)) || (j === 'ra' && b.rak.includes('ra')) || SUARA_JENJANG[j].includes(b.suara);
+  const pilihan = new Set(m.dukung?.id ?? []);
+  const dukung = [
+    ...bseKelas(m.bseDukung),
+    ...semua.filter((b) => pilihan.has(b.id)),
+    ...semua.filter((b) => !b.id.startsWith('s-') && !b.kur && !pilihan.has(b.id) && usia(b) && ((m.dukung?.mapel ?? []).includes(b.mapel ?? '') || (m.dukung?.rak ?? []).some((r) => b.rak.includes(r)))),
+  ].filter((b) => !sudah.has(b.id) && (sudah.add(b.id), true));
   return { pelajaran, dukung: dukung.slice(0, 24) };
 }

@@ -123,13 +123,20 @@ export function berandaPage(s: Situs, units: UnitItem[], sisip: Raw = raw('')): 
 }
 
 /** Kepala halaman dalam (bukan beranda): remah roti + judul di atas pola bintang. */
+/** Emoji di awal judul dipisah ke <span> agar tidak menjadi siluet gradasi (judul memakai background-clip:text). */
+const EMOJI_AWAL = /^(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic}\uFE0F?)*)\s*/u;
+function ikonJudul(judul: string): Raw {
+  const m = EMOJI_AWAL.exec(judul);
+  return m ? html`<span class="h1-ikon" aria-hidden="true">${m[1]}</span>${judul.slice(m[0].length)}` : html`${judul}`;
+}
+
 export function kepalaHalaman(judul: string, lead: string, remah: [string, string][], kicker?: string): Raw {
   return html`<section class="kepala-hal">
   <div class="pola-bintang" aria-hidden="true"></div>
   <div class="wadah">
     <nav class="remah" aria-label="Remah roti"><a href="/">Beranda</a>${remah.map(([l, h], i) => (i === remah.length - 1 ? html`<span aria-current="page">${l}</span>` : html`<a href="${h}">${l}</a>`))}</nav>
     ${kicker ? html`<p class="kicker kicker-emas">${kicker}</p>` : ''}
-    <h1>${judul}</h1>
+    <h1>${ikonJudul(judul)}</h1>
     <p class="lead">${lead}</p>
   </div>
   <svg class="hero-lengkung" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 90V52c120 0 120-40 240-40s120 40 240 40 120-40 240-40 120 40 240 40 120-40 240-40 120 40 240 40v38Z"/></svg>

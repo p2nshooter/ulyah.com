@@ -22,6 +22,7 @@ export interface KartuBuku {
   suara: Suara;
   kelas?: string;
   mapel?: string;
+  kur?: string;
   unit?: string;
   bahasa: string;
   menit?: number;
@@ -59,7 +60,7 @@ async function babBawaan(env: Env, id: string, n: number): Promise<Bab | null> {
 
 const kartuDariMeta = (m: BukuMeta, asal: AsalBuku): KartuBuku => ({
   id: m.id, judul: m.judul, ...(m.judulAr ? { judulAr: m.judulAr } : {}), penulis: m.penulis, rak: m.rak, suara: m.suara,
-  ...(m.kelas ? { kelas: m.kelas } : {}), ...(m.mapel ? { mapel: m.mapel } : {}), ...(m.unit ? { unit: m.unit } : {}),
+  ...(m.kelas ? { kelas: m.kelas } : {}), ...(m.mapel ? { mapel: m.mapel } : {}), ...(m.kur ? { kur: m.kur } : {}), ...(m.unit ? { unit: m.unit } : {}),
   bahasa: m.bahasa, menit: m.menit, bab: m.bab.length, ...(m.sampul ? { sampul: m.sampul } : {}), ...(m.sampulLuar ? { sampulUrl: m.sampulLuar } : {}), asal,
 });
 

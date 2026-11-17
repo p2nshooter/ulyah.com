@@ -9,7 +9,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { FORMAT, idBawaan, ringkasPaket, uraiSoal, type IndeksPaket, type Paket } from '../src/data/soal.ts';
+import { FORMAT, idBawaan, namaMapelSoal, ringkasPaket, uraiSoal, type IndeksPaket, type Paket } from '../src/data/soal.ts';
+import { KURIKULUM } from '../src/data/kurikulum.ts';
+import { bahanLatihan, semuaNaskah } from './pelajaran.ts';
 
 const AKAR = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const SUMBER = path.join(AKAR, 'soal');
@@ -59,8 +61,32 @@ for (const f of berkas) {
   indeks.push(r);
   butir += r.jumlah;
 }
+/* Latihan siswa dari Buku Pelajaran Yapida: kuis & pasangan tiap bab satu semester → paket „Latihan Ganjil/Genap“. */
+let dariBuku = 0;
+for (const n of semuaNaskah()) {
+  const m = KURIKULUM[n.jenjang].mapel.find((x) => x.slug === n.slug);
+  if (!m) { console.error(`✗ ${n.berkas}: mapel tidak ada di kurikulum`); galat += 1; continue; }
+  for (const smt of ['ganjil', 'genap'] as const) {
+    const { pg, jodoh } = bahanLatihan(n, smt);
+    if (pg.length < 5) continue;
+    const teks = [`@jenjang ${n.jenjang}`, `@kelas ${n.kelas}`, `@mapel ${namaMapelSoal(m.nama)}`, `@semester ${smt}`, '@jenis latihan', '', '[PILIHAN GANDA]',
+      ...pg.flatMap((q, i) => [`${i + 1}. ${q.t.replace(/\s+([\u0600-\u06FF][^A-Za-z]*)$/, '\n$1')}`, ...q.o.slice(0, 5).map((o, j) => `${j === q.k ? '*' : ''}${'abcde'[j]}. ${o}`), ...(q.b ? [`> ${q.b}`] : []), '']),
+      ...(jodoh.length >= 3 ? ['[MENJODOHKAN]', ...jodoh.slice(0, 5).map(([a, z], i) => `${i + 1}. ${a} = ${z}`)] : [])].join('\n');
+    const h = uraiSoal(teks);
+    if (!h.paket) { console.error(`✗ ${n.berkas} (latihan ${smt})\n  ${h.galat.join('\n  ')}`); galat += 1; continue; }
+    const p: Paket = { ...h.paket, id: idBawaan(h.paket), status: 'tayang' };
+    if (id.has(p.id)) { console.error(`✗ ${n.berkas}: paket ganda ${p.id} (sudah ada di soal/)`); galat += 1; continue; }
+    id.add(p.id);
+    fs.writeFileSync(path.join(KELUAR, 'p', `${p.id}.json`), JSON.stringify(p));
+    const r = ringkasPaket(p);
+    delete r.st;
+    indeks.push(r);
+    butir += r.jumlah;
+    dariBuku += 1;
+  }
+}
 if (galat) { console.error(`buat-soal: ${galat} paket galat`); process.exit(1); }
 const urut = { ra: 0, mi: 1, mts: 2 } as const;
 indeks.sort((a, b) => urut[a.jenjang] - urut[b.jenjang] || a.kelas - b.kelas || a.mapel.localeCompare(b.mapel, 'id') || a.semester.localeCompare(b.semester) || a.jenis.localeCompare(b.jenis));
 fs.writeFileSync(path.join(KELUAR, 'indeks.json'), JSON.stringify({ dibuat: new Date().toISOString().slice(0, 10), paket: indeks }));
-console.log(`bank soal: ${indeks.length} paket, ${butir} butir`);
+console.log(`bank soal: ${indeks.length} paket (${dariBuku} latihan dari buku pelajaran), ${butir} butir`);

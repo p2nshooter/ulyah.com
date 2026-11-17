@@ -20,7 +20,7 @@ const HURUF = 'abcde';
 const IKON: Record<string, string> = {
   fikih: '🕌', 'al-quran-hadis': '📖', 'al-quran-hadits': '📖', 'akidah-akhlak': '🤲', ski: '🏛️', 'sejarah-kebudayaan-islam': '🏛️', 'bahasa-arab': 'ع',
   'pendidikan-pancasila': '🦅', ppkn: '🦅', 'bahasa-indonesia': '✍️', ipas: '🔬', ipa: '🔬', ips: '🌏', matematika: '➗', 'bahasa-inggris': '🇬🇧',
-  pjok: '⚽', 'seni-budaya': '🎨', 'seni-rupa': '🎨', informatika: '💻', 'mengenal-angka': '🔢', 'mengenal-huruf-hijaiyah': 'ب', 'mengenal-alam': '🌳', 'hewan-dan-alam': '🐔',
+  pjok: '⚽', 'seni-budaya': '🎨', 'seni-rupa': '🎨', informatika: '💻', tahfidz: '📿', btq: '✍🏽', 'nahwu-sharaf': '🧩', 'seni-budaya-prakarya': '🎨', 'mengenal-angka': '🔢', 'mengenal-huruf-hijaiyah': 'ب', 'mengenal-alam': '🌳', 'hewan-dan-alam': '🐔',
 };
 export const ikonMapel = (m: string) => IKON[slugMapel(m)] ?? '📝';
 /** Baris soal; baris berhuruf Arab (ayat) ditulis kanan-ke-kiri dengan huruf mushaf Utsmani. */

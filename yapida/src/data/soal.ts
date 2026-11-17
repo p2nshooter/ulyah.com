@@ -501,7 +501,8 @@ const ALIAS: Record<string, string> = {
   'al-quran-hadis': 'quran-hadis', 'al-quran-hadits': 'quran-hadis', 'quran-hadis': 'quran-hadis', 'sejarah-kebudayaan-islam': 'ski', ski: 'ski',
   'ipas-ilmu-pengetahuan-alam-sosial': 'ipas', ipas: 'ipas', pkn: 'pendidikan-pancasila', ppkn: 'pendidikan-pancasila', 'pendidikan-pancasila': 'pendidikan-pancasila',
   'seni-budaya-prakarya': 'seni-prakarya', 'seni-dan-prakarya': 'seni-prakarya', 'seni-budaya': 'seni-budaya', 'seni-dan-budaya': 'seni-budaya',
-  'bahasa-sunda-muatan-lokal': 'bahasa-sunda', 'bahasa-sunda': 'bahasa-sunda', 'btq-tahfidz-muatan-lokal': 'btq-tahfidz', 'btq-tahfidz': 'btq-tahfidz', 'btq-dan-tahfidz': 'btq-tahfidz', tahfidz: 'btq-tahfidz',
+  tahfidz: 'tahfidz', tahfiz: 'tahfidz', 'tahfidz-quran': 'tahfidz', 'tahfidzul-quran': 'tahfidz', btq: 'btq', 'btq-baca-tulis-al-quran': 'btq', 'baca-tulis-al-quran': 'btq', 'baca-tulis-quran': 'btq',
+  'nahwu-sharaf': 'nahwu-sharaf', 'nahwu-shorof': 'nahwu-sharaf', 'nahwu-saraf': 'nahwu-sharaf', 'nahwu-dan-sharaf': 'nahwu-sharaf', informatika: 'informatika', tik: 'informatika',
 };
 export const slugKurikulum = (mapel: string) => { const s = slugMapel(mapel); return ALIAS[s] ?? s; };
 

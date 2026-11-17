@@ -30,6 +30,8 @@ export interface BukuMeta {
   suara: Suara;
   kelas?: string;
   mapel?: string;
+  /** Buku Pelajaran Yapida: <jenjang>-<kelas>-<slug mapel kurikulum> (pelajaran/<jenjang>/<kelas>/<slug>.md). */
+  kur?: string;
   /** Lembaga pemilik (buku portal) — rak lembaganya menampilkannya lebih dulu. */
   unit?: string;
   bahasa: string;
