@@ -47,6 +47,7 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
+  // 22 Nov 2026 (owner): only three accounts remain everywhere — "sisakan 3 adsense saja" (adsense-stack.json).
   // 7 Nov 2026 (owner): every owner site stacks the accounts in STACK below (16 on 7 Nov, 17 since 8 Nov 2026). The account here is the PRIMARY one —
   // the only loader on the page. xad.es keeps its existing account as primary ("kode adsense yg sudah ada biarkan
   // saja, jgn di hapus, tambahin dengan kode adsense baru"); the others follow the new list (adsense-stack.json).
@@ -55,14 +56,14 @@ const AD_CLIENT_BY_TENANT: Record<string, string> = {
   // "pub-9354298681597606"; "1fr.fr jd ini … pub-4548005919629272"; "Tilawa.de …
   // pub-5944786950535069". Before, all four were on ca-pub-8991272269211824
   // (26 Oct, with axto.io and xaa.es).
-  ulyah: "ca-pub-5092800160376210",
+  ulyah: "ca-pub-6560360898389273",
   "1fr": "ca-pub-5928074389292014",
   tilawa: "ca-pub-6560360898389273",
   dawa: ORIGINAL_ACCOUNT,
   // dawa.im, the owner's Spanish member: Auto ads only — SHOWS_AD_UNITS below
   // stays false for it.
-  dawaim: "ca-pub-9354298681597606",
-  xad: "ca-pub-5517446616694631",
+  dawaim: "ca-pub-6560360898389273",
+  xad: "ca-pub-6560360898389273",
 };
 
 /**
@@ -79,28 +80,9 @@ export const AD_CLIENT_ID = AD_CLIENT_BY_TENANT[TENANT.id] ?? ORIGINAL_ACCOUNT;
  * the two differ.
  */
 export const STACK = [
-  "ca-pub-9915280882234592",
-  "ca-pub-9354298681597606",
   "ca-pub-6560360898389273",
-  "ca-pub-5928074389292014",
-  "ca-pub-1480130604232181",
-  "ca-pub-5092800160376210",
-  "ca-pub-7250589269548267",
-  "ca-pub-6381187608934514",
-  "ca-pub-4304267428455702",
-  "ca-pub-6293576511807510",
-  "ca-pub-9221781326457936",
   "ca-pub-4906992051458194",
-  "ca-pub-9433622530024776",
-  "ca-pub-6146217038829045",
-  "ca-pub-2493615451319531",
-  "ca-pub-5693981744147503",
-  "ca-pub-8212039662308316",
-  "ca-pub-4504974645924459",
-  "ca-pub-6284085719914185",
-  "ca-pub-7345352440829958",
-  "ca-pub-5254913739159445",
-  "ca-pub-6701063918838796",
+  "ca-pub-5928074389292014",
 ] as const;
 
 /**

@@ -2014,3 +2014,15 @@ dalam bisa ditambahkan nanti dari sesi yang jaringannya mengizinkan pemeriksaan.
 | dawo.es | ✅ 4 calculadoras ES+EN: ritmo de carrera (Riegel; 5 km en 32:00 → 6:24/km), zonas de frecuencia cardiaca (Tanaka + Karvonen), sudoración (prueba de peso de la guía: 0,5 kg + 0,5 l → 1 l/h), gasto energético por actividad (MET del Compendio) + `/herramientas/` (& `/en/tools/` siap untuk edisi Inggris), menu, pita beranda, kotak di 40 artikel | ✅ 2–3 per artikel (OMS, Sanidad, CSD, AESAN, AEMET, RFEA, RFET, FEP, RFEF, SEMED, AEP, SEN, DGT, Vías Verdes, FEDME), `"sources": "required"` | ✅ `updated: 2026-11-09` | ✅ „Sobre DAWO“ ES+EN: bantuan AI disebut | 🔄 |
 | 17 situs lain | ⏳ satu situs per PR, urutan: yang sedang ditinjau AdSense dulu | ⏳ | ⏳ | ⏳ | — |
 
+
+
+### 23.8 — 22 Nov 2026: hanya 3 akun
+
+Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya di seluruh website d seluruh repo, sisakan 3 adsense
+saja, masukan ke 3 kode ini jg ke axto.io“. `adsense-stack.json`: `stack` = `ca-pub-6560360898389273`,
+`ca-pub-4906992051458194`, `ca-pub-5928074389292014`; `keep` kosong; `primary` setiap domain diganti ke salah satu dari
+ketiganya (domain yang sudah memakai salah satunya tetap; sisanya dibagi bergiliran urut abjad). Salinan diperbarui:
+`apps/web/src/lib/ad-config.ts`, `detektor-artikel/src/pages/ui.ts` + `src/brand.ts`, `jenius/src/lib/adsense.ts`,
+`sites/*/site.json` + `ADSENSE.txt`, tes, dan uji asap deploy ascan/xscan. luaja.com dan yapida.sch.id membaca
+`adsense-stack.json` langsung. Audit (`site-audit.yml`) kini gagal bila akun lama masih tersisa di tag meta, ads.txt,
+atau loader.

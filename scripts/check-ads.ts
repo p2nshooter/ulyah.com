@@ -81,14 +81,15 @@ console.log("\n=== each site declares the account the owner gave it ===");
 // owner moved to its own account on 2026-10-11. dawa.es is detached and not the
 // owner's any more: it keeps its original account, untouched (§10).
 const EXPECTED: Record<string, string> = {
+  // 22 Nov 2026 (owner): only three accounts remain everywhere — "sisakan 3 adsense saja" (adsense-stack.json).
   // 31 Oct 2026 (owner): each to its own account (before: ca-pub-8991272269211824).
   // 7 Nov 2026 (owner): primary accounts of the stacked list (adsense-stack.json); xad.es keeps its own.
-  ulyah: "ca-pub-5092800160376210",
+  ulyah: "ca-pub-6560360898389273",
   "1fr": "ca-pub-5928074389292014",
   tilawa: "ca-pub-6560360898389273",
-  xad: "ca-pub-5517446616694631",
+  xad: "ca-pub-6560360898389273",
   // dawa.im, the owner's Spanish member: Auto ads only.
-  dawaim: "ca-pub-9354298681597606",
+  dawaim: "ca-pub-6560360898389273",
 };
 for (const [tenant, pub] of Object.entries(EXPECTED)) {
   const key = tenant === "1fr" ? '"1fr"' : tenant;

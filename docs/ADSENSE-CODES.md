@@ -10,6 +10,25 @@ Situs di `sites/` juga punya salinan di `sites/<domain>/ADSENSE.txt`.
 karakter saja dari file itu. Situs lain diperiksa di browser oleh
 `.github/workflows/site-audit.yml`.
 
+> **22 Nov 2026 — BERLAKU SEKARANG: HANYA 3 AKUN.** Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya
+> di seluruh website d seluruh repo, sisakan 3 adsense saja, masukan ke 3 kode ini jg ke axto.io“ —
+> `pub-6560360898389273`, `pub-4906992051458194`, `pub-5928074389292014`.
+>
+> - Setiap domain sekarang: **3 tag meta, 3 baris ads.txt, 1 loader** (akun utama domain itu, salah satu dari ketiganya).
+>   Semua akun lain (termasuk akun "keep" lama) **dihapus** dari semua situs. Daftar `keep` di `adsense-stack.json` kosong.
+> - Akun utama per domain: `adsense-stack.json` → `primary`; cuplikan lengkap per domain: `docs/ADSENSE-SEMUA-DOMAIN.txt`.
+> - Cuplikan ketiga akun:
+>   - `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6560360898389273" crossorigin="anonymous"></script>`
+>     · `<meta name="google-adsense-account" content="ca-pub-6560360898389273">` · `google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0`
+>   - `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4906992051458194" crossorigin="anonymous"></script>`
+>     · `<meta name="google-adsense-account" content="ca-pub-4906992051458194">` · `google.com, pub-4906992051458194, DIRECT, f08c47fec0942fa0`
+>   - `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5928074389292014" crossorigin="anonymous"></script>`
+>     · `<meta name="google-adsense-account" content="ca-pub-5928074389292014">` · `google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0`
+> - `scripts/site-audit.mjs` kini juga menandai **WRONG** bila masih ada tag meta, baris ads.txt, atau loader akun lama.
+> - dawa.es bukan milik pemilik — tidak disentuh. Repositori mitra (guardian-ai, xaa, axtodev, oldco.in, profity.in, Jai,
+>   Lie, axto.us) membawa salinan sendiri dan harus diubah di repositorinya masing-masing.
+> - Bagian di bawah ini adalah **riwayat**.
+
 > **7 Nov 2026 — BERLAKU SEKARANG: 16 AKUN DITUMPUK DI SETIAP DOMAIN.** Pemilik: „Tolong kode2 adsense ini di
 > tumpuk aja di dusun yg rapih agar tidak saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website
 > memakai beberapa kode adsense dari akun yg berbeda buatkan cuplikan adsense, ads.txt dan tag metanya“, „Untuk kode

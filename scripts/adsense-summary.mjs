@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const S = JSON.parse(readFileSync(new URL("../adsense-stack.json", import.meta.url), "utf8"));
 const REPO = {
-  "axto.io": "guardian-ai · dashboard/lib/site.ts + public/ads.txt",
+  "axto.io": "axto · worker (Worker axto-web; ads.txt & tag meta dari adsense-stack.json)",
   "xaa.es": "xaa · src/lib/site.ts + public/ads.txt",
   "xscan.es": "ulyah.com · detektor-artikel/src/pages/ui.ts",
   "ulyah.com": "ulyah.com · apps/web (tenant ulyah) · src/lib/ad-config.ts",
