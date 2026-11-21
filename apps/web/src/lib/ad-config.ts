@@ -47,7 +47,7 @@ import { TENANT } from "./tenant";
  */
 const ORIGINAL_ACCOUNT = "ca-pub-6371903555702163";
 const AD_CLIENT_BY_TENANT: Record<string, string> = {
-  // 22 Nov 2026 (owner): only three accounts remain everywhere — "sisakan 3 adsense saja" (adsense-stack.json).
+  // 21 Nov 2026 (owner): only three accounts remain everywhere — "sisakan 3 adsense saja" (adsense-stack.json).
   // 7 Nov 2026 (owner): every owner site stacks the accounts in STACK below (16 on 7 Nov, 17 since 8 Nov 2026). The account here is the PRIMARY one —
   // the only loader on the page. xad.es keeps its existing account as primary ("kode adsense yg sudah ada biarkan
   // saja, jgn di hapus, tambahin dengan kode adsense baru"); the others follow the new list (adsense-stack.json).

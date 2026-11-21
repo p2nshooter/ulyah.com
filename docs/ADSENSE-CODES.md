@@ -10,7 +10,7 @@ Situs di `sites/` juga punya salinan di `sites/<domain>/ADSENSE.txt`.
 karakter saja dari file itu. Situs lain diperiksa di browser oleh
 `.github/workflows/site-audit.yml`.
 
-> **22 Nov 2026 — BERLAKU SEKARANG: HANYA 3 AKUN.** Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya
+> **21 Nov 2026 — BERLAKU SEKARANG: HANYA 3 AKUN.** Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya
 > di seluruh website d seluruh repo, sisakan 3 adsense saja, masukan ke 3 kode ini jg ke axto.io“ —
 > `pub-6560360898389273`, `pub-4906992051458194`, `pub-5928074389292014`.
 >

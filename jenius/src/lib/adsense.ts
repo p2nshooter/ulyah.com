@@ -1,6 +1,6 @@
 /**
  * AdSense jenius.es (docs/JENIUS-BLUEPRINT.md §11; docs/ADSENSE-BLUEPRINT.md §23): akun utama
- * ca-pub-6560360898389273 (satu-satunya loader; 22 Nov 2026: hanya 3 akun tersisa) + akun tumpukan dari adsense-stack.json di akar repo — satu tag meta dan
+ * ca-pub-6560360898389273 (satu-satunya loader; 21 Nov 2026: hanya 3 akun tersisa) + akun tumpukan dari adsense-stack.json di akar repo — satu tag meta dan
  * satu baris ads.txt per akun. Urutan & isi diperiksa uji unit terhadap adsense-stack.json.
  * Iklan hanya di halaman dewasa (beranda, artikel, alat, panduan, guru); pembaca buku dan halaman anak tanpa loader.
  */
