@@ -145,7 +145,7 @@ for (const path of ['/', '/en', '/cara-kerja', '/en/how-it-works', '/harga', '/e
 {
   const r = await p.goto(BASE + '/');
   ok(!r.headers()['x-robots-tag'], 'tidak ada X-Robots-Tag yang menghambat Google');
-  // 21 Nov 2026: 3 akun saja (sebelumnya 16–22 akun ditumpuk) (adsense-stack.json) — satu tag meta per akun, akun utama lebih dulu; satu loader.
+  // 22 Nov 2026: 3 akun saja (sebelumnya 16–22 akun ditumpuk) (adsense-stack.json) — satu tag meta per akun, akun utama lebih dulu; satu loader.
   const metas = await p.locator('meta[name="google-adsense-account"]').evaluateAll((els) => els.map((e) => e.getAttribute('content')));
   ok(metas.length === 3 && metas[0] === 'ca-pub-5928074389292014' && new Set(metas).size === 3 && metas.includes('ca-pub-4906992051458194'), 'AdSense: tag meta per akun (3)');
   ok((await p.locator('script[src*="adsbygoogle.js?client="]').count()) === 1, 'AdSense: tepat satu loader');

@@ -2016,7 +2016,7 @@ dalam bisa ditambahkan nanti dari sesi yang jaringannya mengizinkan pemeriksaan.
 
 
 
-### 23.8 — 21 Nov 2026: hanya 3 akun
+### 23.8 — 22 Nov 2026: hanya 3 akun
 
 Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya di seluruh website d seluruh repo, sisakan 3 adsense
 saja, masukan ke 3 kode ini jg ke axto.io“. `adsense-stack.json`: `stack` = `ca-pub-6560360898389273`,
