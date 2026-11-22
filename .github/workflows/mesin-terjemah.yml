@@ -1,0 +1,152 @@
+name: Mesin Penerjemah (R2)
+
+# The translation engine (scripts/mesin-terjemah.ts, docs/TRANSLATION-ENGINE.md).
+#
+# Owner, 22 Nov 2026: "Bikinin engine penerjemah bahasa … biar semuanya 100% setiap bahasa, tolong hati2 saat
+# menerjemahkan alquran, kitab2 dan hadits2" — and "Jgn ke D1, pindah ke R2, jgn pernah memakai D1 sebagai
+# database". It replaces the old warm job, which wrote D1 and had been switched off for exactly that reason.
+#
+# Every pass: hand-written translations → R2 (they beat the machine), the Worker's wants join the corpus, then
+# every language that is not yet 100% is translated — live sites first, then the least complete — into the R2
+# shards the Worker reads, with compare-and-swap. The measured coverage is committed back so the readiness table
+# and the admin portal show the real numbers, and the pass chains into the next while work remains.
+#
+# `move: true` (once): copies the old D1 translation rows and the corpus into R2, then reads every row back to
+# check it arrived. After that, nothing here touches D1.
+
+on:
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: "Comma-separated target languages (blank = every language not yet at 100%)"
+        required: false
+        default: ""
+      minutes:
+        description: "Translate for at most this many minutes, then bank the work"
+        required: false
+        default: "240"
+      move:
+        description: "ONE-TIME: move the old D1 rows into R2 (copy + verify every row), then stop"
+        required: false
+        type: boolean
+        default: false
+      chain:
+        description: "Start the next pass when this one ends with work left"
+        required: false
+        type: boolean
+        default: true
+  schedule:
+    # A safety net; the passes chain on their own while work remains.
+    - cron: "17 */3 * * *"
+
+# One lane. The store is safe with two writers (compare-and-swap), but two passes on the same language would
+# only translate the same texts twice.
+concurrency:
+  group: mesin-terjemah
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ulyah-media
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: R2 credentials present
+        run: |
+          if [ -z "${R2_ACCESS_KEY_ID:-}" ] || [ -z "${R2_SECRET_ACCESS_KEY:-}" ] || [ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
+            echo "::error::R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY / CLOUDFLARE_ACCOUNT_ID are not set — the engine stores in R2 only."
+            exit 1
+          fi
+
+      # ── One-time move ─────────────────────────────────────────────────────────────────────────────────────
+      - name: Resolve the legacy database id (move only)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.move }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+      - name: Move the old translation rows and the corpus out of D1 (copy, verify every row)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.move }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -o pipefail
+          npx tsx scripts/mesin-terjemah.ts --move | tee /tmp/move.log
+
+      # ── A pass ────────────────────────────────────────────────────────────────────────────────────────────
+      - name: Translate
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.move }}
+        env:
+          KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
+        run: |
+          set -o pipefail
+          npx tsx scripts/mesin-terjemah.ts --langs="${{ inputs.langs }}" --minutes="${{ inputs.minutes || '240' }}" | tee /tmp/mt.log
+
+      - name: Readiness table from the measurement
+        if: ${{ !cancelled() }}
+        run: |
+          npx tsx scripts/generate-locale-readiness.ts
+          npx tsx scripts/generate-ui-i18n.ts
+
+      - name: Commit the measurement
+        if: ${{ !cancelled() }}
+        run: |
+          set -eu
+          files="scripts/locale-content.json packages/shared/src/locale-readiness.gen.ts scripts/ui-i18n-full.json apps/web/src/lib/ui-i18n.gen.ts"
+          if git diff --quiet -- $files; then echo "No change in language readiness."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -- apps/worker-api/wrangler.toml 2>/dev/null || true
+          git add $files
+          git commit -m "chore(i18n): coverage measured by the translation engine"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase FETCH_HEAD || { git rebase --abort; echo "rebase conflict — the next pass re-measures anyway"; exit 0; }
+            if git push origin HEAD:main; then echo "pushed on attempt ${attempt}"; exit 0; fi
+            sleep $(( (RANDOM % 8) + attempt * 3 ))
+          done
+
+      - name: Chain the next pass
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || (inputs.chain && !inputs.move)) }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -eu
+          next=$(sed -n 's/^WARM_NEXT=//p' /tmp/mt.log 2>/dev/null | tail -1)
+          did=$(sed -n 's/^WARM_TRANSLATED=//p' /tmp/mt.log 2>/dev/null | tail -1)
+          did=${did:--1}
+          if [ -z "$next" ]; then
+            echo "Every language is at 100% — nothing left to translate."
+          elif [ "$did" -ge 0 ] && [ "$did" -lt 50 ]; then
+            echo "::warning::This pass translated ${did} text(s); not chaining into a stall. The schedule retries in ≤3 h."
+          else
+            echo "Still below 100%: ${next}. Starting the next pass."
+            gh workflow run mesin-terjemah.yml --ref main -f langs= -f chain=true
+          fi

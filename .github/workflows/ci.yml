@@ -156,11 +156,14 @@ jobs:
       - name: Check the translation pool's failover logic
         run: pnpm check:translate
 
-      # A warm run that translates nothing and exits 0 is indistinguishable
-      # from a corpus that was already finished, so the parity arithmetic that
-      # decides "is there work here" gets its own check.
-      - name: Check the warm job's parity decision
-        run: node scripts/check-warm-parity.mjs
+      # The translation engine (owner 22 Nov 2026: every language to 100%, R2
+      # only, careful with Qur'an/kitab/hadith). Runs against an in-memory R2
+      # that honours If-Match / If-None-Match, so it proves: two writers on one
+      # shard lose nothing, a re-run overwrites nothing, a person's translation
+      # beats the machine's, and Arabic scripture comes back byte for byte while
+      # any answer that touched it is refused. No network, no keys.
+      - name: Check the translation engine (R2 store, scripture guards)
+        run: npx tsx scripts/check-mesin-terjemah.ts
 
       # The pool is optional by design — no keys means gtx does the work. That
       # promise was broken silently: with an empty pool the parallel runner
@@ -177,13 +180,6 @@ jobs:
       # its length, and this pins that down.
       - name: Check when an unchanged translation may be stored
         run: npx tsx scripts/check-echo-faithful.mjs
-
-      # A workflow input that never reaches the script is invisible from both
-      # ends: the UI offers it, the script defaults it away, and the run
-      # reports success having ignored it. That happened to `skip` — the line
-      # passing it was written at the wrong indentation and matched nothing.
-      - name: Check every warm workflow input reaches the script
-        run: node scripts/check-warm-inputs.mjs
 
       # The @@n@@ sentinels are what stop a hadith's matn being paraphrased, and
       # gtx mangles them: a Spanish pass had gtx answer 394 of 401 batches and

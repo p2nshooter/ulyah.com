@@ -14,6 +14,7 @@ import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { registerAdopsAdmin } from "./adops.js";
 import { registerSiteSaleAdmin } from "./site-sale.js";
 import { registerPromoAdmin } from "./site-promo.js";
+import { registerTranslationEngineAdmin } from "./translation-engine.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 import { edgeMemo, memoResponse } from "../lib/edge-memo.js";
 import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
@@ -27,6 +28,8 @@ registerSiteSaleAdmin(adminRoute);
 // Each site's own promotions + the demo logins (docs/ADSENSE-BLUEPRINT.md §18). The shared
 // lists are read through the helpers below (function declarations, hoisted).
 registerPromoAdmin(adminRoute, { liveRows: listLiveStreamRows, kidsRows: listKidsChannelRows });
+// The translation engine's measured progress, from R2 (docs/TRANSLATION-ENGINE.md).
+registerTranslationEngineAdmin(adminRoute);
 
 // GET /admin/dashboard — summary tiles for wireframe §23.1
 adminRoute.get("/dashboard", async (c) => {

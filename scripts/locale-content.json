@@ -1,36 +1,119 @@
 {
-  "_comment": "Measured content coverage per language: rows in D1 mt_cache whose TARGET is that language, as a percentage of the best-covered language. Refresh with `pnpm gen:locale-content` (queries D1 through the same Cloudflare credentials the warm job uses) and re-run `pnpm gen:locale-readiness`. Source languages carry no mt_cache rows because nothing is translated INTO them: Indonesian is what the site is written in, and Arabic is the Qur'an and hadith themselves.",
-  "_measuredAt": "2026-07-27",
+  "_comment": "Content coverage per language, MEASURED by the translation engine (scripts/mesin-terjemah.ts): of every text in the R2 corpus (mt/_corpus/<src>.json) whose source language differs from the target, how many have a stored translation in R2. done/total, never an estimate and never relative to another language. Indonesian is the language the site is written in and Arabic is the Qur'an and hadith themselves, so neither is a target. total 0 = not measured yet (the engine's first pass writes it).",
+  "_measuredAt": "",
   "_sourceLanguages": [
     "id",
     "ar"
   ],
-  "rows": {
-    "es": 87916,
-    "en": 85788,
-    "fr": 83512,
-    "de": 82241,
-    "hi": 16403,
-    "ja": 3959,
-    "ru": 1507,
-    "bn": 1483,
-    "sw": 1455,
-    "zh": 1390,
-    "uz": 1381,
-    "ps": 1191,
-    "fa": 1144,
-    "ur": 964,
-    "pl": 957,
-    "nl": 956,
-    "pt": 946,
-    "vi": 914,
-    "ta": 905,
-    "ms": 872,
-    "tr": 837,
-    "so": 834,
-    "ko": 832,
-    "it": 813,
-    "th": 773,
-    "ha": 714
+  "corpus": {},
+  "langs": {
+    "en": {
+      "done": 0,
+      "total": 0
+    },
+    "ru": {
+      "done": 0,
+      "total": 0
+    },
+    "de": {
+      "done": 0,
+      "total": 0
+    },
+    "fr": {
+      "done": 0,
+      "total": 0
+    },
+    "es": {
+      "done": 0,
+      "total": 0
+    },
+    "zh": {
+      "done": 0,
+      "total": 0
+    },
+    "ja": {
+      "done": 0,
+      "total": 0
+    },
+    "ur": {
+      "done": 0,
+      "total": 0
+    },
+    "hi": {
+      "done": 0,
+      "total": 0
+    },
+    "bn": {
+      "done": 0,
+      "total": 0
+    },
+    "tr": {
+      "done": 0,
+      "total": 0
+    },
+    "fa": {
+      "done": 0,
+      "total": 0
+    },
+    "ms": {
+      "done": 0,
+      "total": 0
+    },
+    "sw": {
+      "done": 0,
+      "total": 0
+    },
+    "pt": {
+      "done": 0,
+      "total": 0
+    },
+    "nl": {
+      "done": 0,
+      "total": 0
+    },
+    "it": {
+      "done": 0,
+      "total": 0
+    },
+    "ta": {
+      "done": 0,
+      "total": 0
+    },
+    "ha": {
+      "done": 0,
+      "total": 0
+    },
+    "ps": {
+      "done": 0,
+      "total": 0
+    },
+    "th": {
+      "done": 0,
+      "total": 0
+    },
+    "ko": {
+      "done": 0,
+      "total": 0
+    },
+    "vi": {
+      "done": 0,
+      "total": 0
+    },
+    "uz": {
+      "done": 0,
+      "total": 0
+    },
+    "so": {
+      "done": 0,
+      "total": 0
+    },
+    "pl": {
+      "done": 0,
+      "total": 0
+    },
+    "id": {
+      "done": 0,
+      "total": 0
+    }
   }
 }
