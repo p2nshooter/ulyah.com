@@ -51,6 +51,16 @@ export const SALE_DEFAULTS: SaleSettings = {
   updatedBy: "",
 };
 
+/**
+ * Sites that show NO price — only "make an offer" to the owner's WhatsApp (owner, 22 Nov 2026: "ubah harga jual
+ * di 1fr.fr tilawa.de dawa.im xad.es menjadi ajukan penawaran ke +6285691234561", then "ulyah.com juga mode
+ * jualnya di ganti"). Their public terms carry no price and no minimum, and any serious amount is accepted as an
+ * offer. Every site on sale is offer-only now; the list stays so one can be given a price again.
+ */
+export const OFFER_ONLY_SITES: readonly SiteId[] = ["ulyah", "1fr", "tilawa", "dawaim", "xad"];
+export const OFFER_WHATSAPP = "+6285691234561";
+export const isOfferOnly = (site: SiteId): boolean => OFFER_ONLY_SITES.includes(site);
+
 export type OfferStatus = "new" | "contacted" | "negotiating" | "declined" | "accepted";
 export const OFFER_STATUSES: OfferStatus[] = ["new", "contacted", "negotiating", "declined", "accepted"];
 
@@ -133,21 +143,27 @@ export function isYoutubeUrl(v: string): boolean {
   }
 }
 
-/** What a visitor may know: no internal fields. */
-export function publicSettings(s: SaleSettings) {
-  return { visible: s.visible, priceUsd: s.priceUsd, minOfferUsd: s.minOfferUsd, negotiable: s.negotiable, whatsapp: s.whatsapp, email: s.email, makkahLiveUrl: s.makkahLiveUrl };
+/** What a visitor may know: no internal fields — and, on an offer-only site, no price at all. */
+export function publicSettings(s: SaleSettings, site?: SiteId) {
+  if (site && isOfferOnly(site)) {
+    return { visible: s.visible, offerOnly: true, priceUsd: null, minOfferUsd: null, negotiable: true, whatsapp: OFFER_WHATSAPP, email: s.email, makkahLiveUrl: s.makkahLiveUrl };
+  }
+  return { visible: s.visible, offerOnly: false, priceUsd: s.priceUsd, minOfferUsd: s.minOfferUsd, negotiable: s.negotiable, whatsapp: s.whatsapp, email: s.email, makkahLiveUrl: s.makkahLiveUrl };
 }
+
+/** The minimum an offer must reach: the published minimum, or any serious amount on an offer-only site. */
+export const minimumOffer = (s: SaleSettings, site?: SiteId): number => (site && isOfferOnly(site) ? 1 : s.minOfferUsd);
 
 export type OfferProblem = "hidden" | "name" | "email" | "amount" | "country";
 export interface OfferInput { site?: unknown; name?: unknown; email?: unknown; whatsapp?: unknown; company?: unknown; country?: unknown; amountUsd?: unknown; message?: unknown }
 
-export function offerProblem(i: OfferInput, s: SaleSettings): OfferProblem | null {
+export function offerProblem(i: OfferInput, s: SaleSettings, site?: SiteId): OfferProblem | null {
   if (!s.visible) return "hidden";
   if (clean(i.name, 120).length < 2) return "name";
   if (!isEmail(clean(i.email, 254))) return "email";
   if (clean(i.country, 80).length < 2) return "country";
   const a = money(i.amountUsd);
-  if (!Number.isFinite(a) || a < s.minOfferUsd || a > 100_000_000) return "amount";
+  if (!Number.isFinite(a) || a < minimumOffer(s, site) || a > 100_000_000) return "amount";
   return null;
 }
 

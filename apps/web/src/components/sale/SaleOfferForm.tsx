@@ -9,7 +9,7 @@ import { fillSale, type SaleCopy } from "@/lib/sale-copy";
  * The offer form of a site's sale page, in the site's language: stored by the API in R2
  * (POST /sale/offers, with the site), seen by the owner in Admin → Situs dijual on ulyah.com.
  */
-export function SaleOfferForm({ site, locale, words: w, minOfferUsd, email }: { site: string; locale: string; words: SaleCopy["form"]; minOfferUsd: number; email: string }) {
+export function SaleOfferForm({ site, locale, words: w, minOfferUsd, email, offerOnly = false }: { site: string; locale: string; words: SaleCopy["form"]; minOfferUsd: number; email: string; offerOnly?: boolean }) {
   const [f, setF] = useState({ name: "", email: "", whatsapp: "", company: "", country: "", amountUsd: "", message: "", website: "" });
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
@@ -63,8 +63,8 @@ export function SaleOfferForm({ site, locale, words: w, minOfferUsd, email }: { 
       <label className="block text-sm font-medium">{w.country}<input className={field} value={f.country} onChange={set("country")} autoComplete="country-name" required maxLength={80} /></label>
       <label className="block text-sm font-medium">
         {w.amount}
-        <input className={field} inputMode="numeric" value={f.amountUsd} onChange={set("amountUsd")} placeholder={String(minOfferUsd)} required data-testid="sale-offer-amount" />
-        <span className="mt-1 block text-xs text-text-secondary">{w.minimum} {usd(minOfferUsd, locale)}{amount ? ` · ${w.youOffer} ${usd(amount, locale)}` : ""}</span>
+        <input className={field} inputMode="numeric" value={f.amountUsd} onChange={set("amountUsd")} placeholder={offerOnly ? "" : String(minOfferUsd)} required data-testid="sale-offer-amount" />
+        <span className="mt-1 block text-xs text-text-secondary">{offerOnly ? (amount ? `${w.youOffer} ${usd(amount, locale)}` : "") : `${w.minimum} ${usd(minOfferUsd, locale)}${amount ? ` · ${w.youOffer} ${usd(amount, locale)}` : ""}`}</span>
       </label>
       <label className="block text-sm font-medium sm:col-span-2">
         {w.message}

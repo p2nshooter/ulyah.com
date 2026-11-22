@@ -45,7 +45,8 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
   // owner hides the sale in Admin → Situs dijual (docs/ADSENSE-BLUEPRINT.md §17).
   const sale = useSaleTerms();
   const direct = nav.direct.filter((it) => !(IS_SALE_SITE && it.path === "/acquisition" && !sale.visible));
-  const saleLabel = (label: string) => (IS_SALE_SITE ? `${label} · ${usdShort(sale.priceUsd)}` : label);
+  // Offer-only (owner, 22 Nov 2026): the menu says the site is for sale, never a price.
+  const saleLabel = (label: string) => (IS_SALE_SITE && !sale.offerOnly ? `${label} · ${usdShort(sale.priceUsd)}` : label);
 
   // Close dropdown + mobile menu on any outside tap and on route change.
   useEffect(() => {

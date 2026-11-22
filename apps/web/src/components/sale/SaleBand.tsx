@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { routePath } from "@/lib/paths";
-import { saleContext, usd, type SaleTerms } from "@/lib/site-sale";
-import { saleCopy } from "@/lib/sale-copy";
+import { saleContext, usd, waDisplay, waLink, type SaleTerms } from "@/lib/site-sale";
+import { offerWord, saleCopy } from "@/lib/sale-copy";
 
 /**
  * The very first thing on the home page of a site that is for sale (owner, 28 Oct 2026: "di
@@ -11,7 +11,8 @@ import { saleCopy } from "@/lib/sale-copy";
  */
 export function SaleBand({ terms, locale }: { terms: SaleTerms; locale: string }) {
   if (!terms.visible) return null;
-  const b = saleCopy(locale, saleContext(terms, locale)).band;
+  const copy = saleCopy(locale, saleContext(terms, locale));
+  const b = copy.band;
   return (
     <section aria-label={b.aria} className="relative overflow-hidden border-b border-accent/40 bg-primary text-[#f4efe3]" data-testid="sale-band">
       <div aria-hidden className="pattern-islamic pointer-events-none absolute inset-0 opacity-15" />
@@ -23,12 +24,26 @@ export function SaleBand({ terms, locale }: { terms: SaleTerms; locale: string }
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <div className="rounded-2xl border border-accent/50 bg-black/20 px-4 py-2 text-center">
-            <div className="font-heading text-2xl font-bold leading-none text-(--color-accent-xl)" data-testid="sale-band-price">{usd(terms.priceUsd, locale)}</div>
-            <div className="mt-1 text-[11px] text-[#f4efe3]/80">
-              {terms.negotiable ? b.nego : ""}{b.minimum} <b className="text-(--color-accent-light)">{usd(terms.minOfferUsd, locale)}</b>
+          {terms.offerOnly ? (
+            // Offer-only (owner, 22 Nov 2026): no price — the offer, straight to the owner's WhatsApp.
+            <a
+              href={waLink(terms.whatsapp, copy.waText)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl border border-accent/50 bg-black/20 px-4 py-2 text-center transition hover:border-accent"
+              data-testid="sale-band-price"
+            >
+              <div className="font-heading text-xl font-bold leading-none text-(--color-accent-xl)">{offerWord(locale)}</div>
+              <div className="mt-1 text-[11px] text-[#f4efe3]/85">💬 WhatsApp <b className="text-(--color-accent-light)">{waDisplay(terms.whatsapp)}</b></div>
+            </a>
+          ) : (
+            <div className="rounded-2xl border border-accent/50 bg-black/20 px-4 py-2 text-center">
+              <div className="font-heading text-2xl font-bold leading-none text-(--color-accent-xl)" data-testid="sale-band-price">{usd(terms.priceUsd, locale)}</div>
+              <div className="mt-1 text-[11px] text-[#f4efe3]/80">
+                {terms.negotiable ? b.nego : ""}{b.minimum} <b className="text-(--color-accent-light)">{usd(terms.minOfferUsd, locale)}</b>
+              </div>
             </div>
-          </div>
+          )}
           <Link
             href={routePath(locale, "/acquisition")}
             className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-primary shadow-lg transition hover:brightness-110"

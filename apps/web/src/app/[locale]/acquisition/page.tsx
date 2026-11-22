@@ -218,7 +218,8 @@ export default async function AcquisitionPage({ params }: { params: Promise<{ lo
       description: copy.meta.ldDescription,
       url,
       brand: { "@type": "Brand", name: TENANT.siteName },
-      offers: { "@type": "Offer", price: terms.priceUsd, priceCurrency: "USD", availability: "https://schema.org/InStock", url },
+      // Offer-only (owner, 22 Nov 2026): no price is published, so the structured data carries none either.
+      ...(terms.offerOnly ? {} : { offers: { "@type": "Offer", price: terms.priceUsd, priceCurrency: "USD", availability: "https://schema.org/InStock", url } }),
     };
     return (
       <>

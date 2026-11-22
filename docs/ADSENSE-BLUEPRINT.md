@@ -1418,6 +1418,19 @@ ulyah.com, semua terkoneksi ke ulyah.com".
 | PR #382, deploy 560 | ✅ 29 Okt (`0ceac5b8`) |
 | Cek live (`admin-live-check.yml`, run 2) | ✅ 29 Okt — `/acquisition` 200 di kelima situs: ulyah.com US$250.000, 1fr.fr 250 000 $ US, tilawa.de 250.000 US$, dawa.im 250.000 US$, xad.es US$250,000; login demo dan portal admin setiap situs lulus |
 
+### 17.4 Tanpa harga — ajukan penawaran (pemilik, 22 Nov 2026)
+
+Perintah: „ubah harga jual di 1fr.fr tilawa.de dawa.im xad.es menjadi ajukan penawaran ke +6285691234561", lalu
+„ulyah.com juga mode jualnya di ganti".
+
+- Kelima situs (`OFFER_ONLY_SITES` di `apps/worker-api/src/lib/site-sale.ts`): API publik tidak lagi memuat harga maupun
+  penawaran minimum (`offerOnly: true`, `priceUsd: null`); setiap nilai penawaran yang serius diterima.
+- Web: menu header hanya „Situs dijual" (tanpa harga); pita beranda dan kartu harga di /acquisition menampilkan
+  „Ajukan penawaran / Make an offer / Faire une offre / Angebot machen / Hacer una oferta" + tombol WhatsApp
+  +62 856-9123-4561; kalimat yang dulu menyebut harga/minimum (langkah, tanya jawab, meta, pesan WhatsApp) diganti versi
+  penawaran dalam bahasa situsnya; JSON-LD tidak memuat harga; daftar „situs lain yang dijual" tanpa harga.
+- Dicek `scripts/check-site-sale.ts`.
+
 ## 18. Portal admin setiap situs: mandiri, demo hanya-lihat, mudah untuk promosi (pemilik, 29 Okt 2026)
 
 Perintah pemilik: „Aktifin admin panel mereka masing2, agar mandiri, kasih cara masuk admin panel nya dengan username dan

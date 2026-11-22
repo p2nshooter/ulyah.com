@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { routePath } from "@/lib/paths";
-import { usd, waLink, type SaleDemo, type SaleSiteSummary, type SaleTerms } from "@/lib/site-sale";
-import type { SaleCopy } from "@/lib/sale-copy";
+import { usd, waDisplay, waLink, type SaleDemo, type SaleSiteSummary, type SaleTerms } from "@/lib/site-sale";
+import { offerNoMinimum, offerWord, type SaleCopy } from "@/lib/sale-copy";
 import { MakkahLive } from "./MakkahLive";
 import { SaleOfferForm } from "./SaleOfferForm";
 
@@ -22,8 +22,9 @@ export function SiteSale({
   demo: SaleDemo | null;
   network: SaleSiteSummary[];
 }) {
-  const price = usd(terms.priceUsd, locale);
-  const min = usd(terms.minOfferUsd, locale);
+  // Offer-only (owner, 22 Nov 2026): no price and no minimum anywhere — the card shows the offer and the WhatsApp.
+  const price = terms.offerOnly ? offerWord(locale) : usd(terms.priceUsd, locale);
+  const min = terms.offerOnly ? "" : usd(terms.minOfferUsd, locale);
   const wa = terms.whatsapp ? waLink(terms.whatsapp, copy.waText) : "";
   const p = (path: string) => routePath(locale, path);
   const others = network.filter((n) => n.site !== site);
@@ -51,12 +52,23 @@ export function SiteSale({
           </div>
           <div className="hero-entrance rounded-3xl border border-accent/50 bg-black/25 p-7 text-center shadow-2xl backdrop-blur-sm" style={{ animationDelay: "160ms" }} data-testid="sale-price-card">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-(--color-accent-light)">{copy.priceLabel}</p>
-            <p className="mt-2 font-heading text-5xl font-bold text-(--color-accent-xl) sm:text-6xl" data-testid="sale-price">{price}</p>
-            {terms.negotiable && <p className="mt-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-(--color-accent-xl)">{copy.nego}</p>}
-            <div className="mt-5 border-t border-[#f4efe3]/15 pt-5">
-              <p className="text-sm text-[#f4efe3]/75">{copy.minLabel}</p>
-              <p className="mt-1 font-heading text-3xl text-[#f4efe3]" data-testid="sale-min">{min}</p>
-            </div>
+            <p className={`mt-2 font-heading font-bold text-(--color-accent-xl) ${terms.offerOnly ? "text-3xl sm:text-4xl" : "text-5xl sm:text-6xl"}`} data-testid="sale-price">{price}</p>
+            {terms.offerOnly ? (
+              <div className="mt-5 border-t border-[#f4efe3]/15 pt-5">
+                <p className="text-sm text-[#f4efe3]/75">{offerNoMinimum(locale)} · WhatsApp</p>
+                <a href={wa || waLink(terms.whatsapp, copy.waText)} target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-accent mt-3" data-testid="sale-wa">
+                  💬 {waDisplay(terms.whatsapp)}
+                </a>
+              </div>
+            ) : (
+              <>
+                {terms.negotiable && <p className="mt-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-(--color-accent-xl)">{copy.nego}</p>}
+                <div className="mt-5 border-t border-[#f4efe3]/15 pt-5">
+                  <p className="text-sm text-[#f4efe3]/75">{copy.minLabel}</p>
+                  <p className="mt-1 font-heading text-3xl text-[#f4efe3]" data-testid="sale-min">{min}</p>
+                </div>
+              </>
+            )}
             <p className="mt-5 text-xs text-[#f4efe3]/70">
               {copy.emailLabel}: <a href={`mailto:${terms.email}`} className="font-semibold text-(--color-accent-light) hover:underline">{terms.email}</a>
             </p>
@@ -185,7 +197,7 @@ export function SiteSale({
           <h2 className="text-center font-heading text-2xl sm:text-3xl">{copy.offerTitle}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-text-secondary">{copy.offerLead}</p>
           <div className="card-premium-static mt-8 rounded-3xl p-6 sm:p-8">
-            <SaleOfferForm site={site} locale={locale} words={copy.form} minOfferUsd={terms.minOfferUsd} email={terms.email} />
+            <SaleOfferForm site={site} locale={locale} words={copy.form} minOfferUsd={terms.offerOnly ? 1 : terms.minOfferUsd} email={terms.email} offerOnly={terms.offerOnly} />
           </div>
           <p className="mt-4 text-center text-sm text-text-secondary">
             {copy.offerDirect} <a href={`mailto:${terms.email}`} className="font-semibold text-accent hover:underline">{terms.email}</a>
@@ -218,8 +230,10 @@ export function SiteSale({
                 <a key={n.site} href={`https://${n.domain}/acquisition`} target="_blank" rel="noopener" className="card-premium flex flex-col rounded-2xl p-5" data-testid="sale-network-site">
                   <span className="text-xs font-semibold uppercase tracking-[0.2em] text-text-secondary">{n.domain}</span>
                   <span className="mt-1 font-heading text-lg">{n.name}</span>
-                  <span className="mt-3 font-heading text-2xl text-primary dark:text-accent">{usd(n.priceUsd, locale)}</span>
-                  <span className="text-xs text-text-secondary">{n.negotiable ? `${copy.network.nego} · ` : ""}{copy.network.minimum} {usd(n.minOfferUsd, locale)}</span>
+                  <span className="mt-3 font-heading text-2xl text-primary dark:text-accent">{n.offerOnly ? offerWord(locale) : usd(n.priceUsd, locale)}</span>
+                  {!n.offerOnly && (
+                    <span className="text-xs text-text-secondary">{n.negotiable ? `${copy.network.nego} · ` : ""}{copy.network.minimum} {usd(n.minOfferUsd, locale)}</span>
+                  )}
                   <span className="mt-4 text-sm font-semibold text-accent">{copy.network.view}</span>
                 </a>
               ))}
@@ -236,9 +250,20 @@ export function SiteSale({
             <p className="mt-3 text-sm leading-relaxed text-text-secondary">
               ULYAH.COM — a complete Islamic platform (the Qur&apos;an with audio, translation and tafsir, a classical kitab library,
               hadith, stories, children&apos;s learning, daily-worship tools, 24-hour Makkah and Madinah live, an AI assistant and an
-              admin portal) — is for sale with its domain, source code, content and income channels. Asking price{" "}
-              <b>{usd(terms.priceUsd, "en")}</b>{terms.negotiable ? ", negotiable" : ""}; offers from <b>{usd(terms.minOfferUsd, "en")}</b>. Use the form above or write
-              to <a href={`mailto:${terms.email}`} className="font-semibold text-accent hover:underline">{terms.email}</a>.
+              admin portal) — is for sale with its domain, source code, content and income channels.{" "}
+              {terms.offerOnly ? (
+                <>
+                  No fixed price: make an offer on WhatsApp{" "}
+                  <a href={waLink(terms.whatsapp, copy.waText)} className="font-semibold text-accent hover:underline">{waDisplay(terms.whatsapp)}</a>, with the form above or
+                  by e-mail to
+                </>
+              ) : (
+                <>
+                  Asking price <b>{usd(terms.priceUsd, "en")}</b>{terms.negotiable ? ", negotiable" : ""}; offers from <b>{usd(terms.minOfferUsd, "en")}</b>. Use the form above or write
+                  to
+                </>
+              )}{" "}
+              <a href={`mailto:${terms.email}`} className="font-semibold text-accent hover:underline">{terms.email}</a>.
             </p>
           </div>
         </section>

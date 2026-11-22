@@ -18,6 +18,10 @@ export interface SaleCtx {
   price: string;
   min: string;
   negotiable: boolean;
+  /** No price is published: "make an offer" to the owner's WhatsApp (owner, 22 Nov 2026). */
+  offerOnly?: boolean;
+  /** The WhatsApp number written for people ("+62 856-9123-4561"). */
+  wa?: string;
   kitabTotal: number;
   kitabCats: number;
   iqroLevels: number;
@@ -486,10 +490,110 @@ function sibling(L: Lang, c: SaleCtx): SaleCopy {
   };
 }
 
+/* ─────────────── Offer-only: no price anywhere (owner, 22 Nov 2026) ───────────────
+   "ubah harga jual di 1fr.fr tilawa.de dawa.im xad.es menjadi ajukan penawaran ke +6285691234561" and "ulyah.com
+   juga mode jualnya di ganti". Every sentence that quoted a price or a minimum is replaced by its offer wording,
+   in the site's own language; nothing else of the sale page changes. */
+interface OfferWords {
+  word: string; waText: string; step0: string; step2: string; lead: string; faqQ: string; faqA: string;
+  errAmount: string; title: string; description: string; noMinimum: string;
+}
+const OFFER: Record<string, OfferWords> = {
+  id: {
+    word: "Ajukan penawaran",
+    waText: "Assalamu'alaikum, saya ingin mengajukan penawaran untuk {name}.",
+    step0: "Lewat WhatsApp {wa}, e-mail, atau formulir di halaman ini.",
+    step2: "Harga disepakati bersama pemilik dari penawaran Anda; syarat serah terima dituangkan dalam perjanjian jual beli.",
+    lead: "Tidak ada harga patokan: ajukan penawaran Anda lewat WhatsApp {wa} atau formulir ini. Pemilik membalas lewat WhatsApp atau e-mail.",
+    faqQ: "Berapa harganya?",
+    faqA: "Tidak ada harga patokan yang dipublikasikan. Ajukan penawaran lewat WhatsApp {wa} — setiap penawaran yang serius dipertimbangkan.",
+    errAmount: "Mohon isi nilai penawaran Anda (US$).",
+    title: "{name} dijual — ajukan penawaran",
+    description: "Akuisisi {name}: Al-Qur'an dengan suara, tafsir & hadits, perpustakaan kitab klasik, live Makkah–Madinah 24 jam dan portal admin. Ajukan penawaran lewat WhatsApp {wa}.",
+    noMinimum: "Tanpa harga patokan",
+  },
+  en: {
+    word: "Make an offer",
+    waText: "Assalamu alaikum, I would like to make an offer for {name}.",
+    step0: "On WhatsApp {wa}, by e-mail or with the form on this page.",
+    step2: "The price is agreed with the owner from your offer; the handover terms are set out in a sale agreement.",
+    lead: "No fixed price: make your offer on WhatsApp {wa} or with this form. The owner replies by WhatsApp or e-mail.",
+    faqQ: "What is the price?",
+    faqA: "No fixed price is published. Make an offer on WhatsApp {wa} — every serious offer is considered.",
+    errAmount: "Please enter your offer (US$).",
+    title: "{name} is for sale — make an offer",
+    description: "Acquire {name}: the Qur'an with audio, tafsir & hadith, a classical kitab library, the 24-hour Makkah–Madinah live and an admin portal. Make an offer on WhatsApp {wa}.",
+    noMinimum: "No fixed price",
+  },
+  fr: {
+    word: "Faire une offre",
+    waText: "Assalamou alaykoum, je souhaite faire une offre pour {name}.",
+    step0: "Sur WhatsApp {wa}, par e-mail ou avec le formulaire de cette page.",
+    step2: "Le prix est convenu avec le propriétaire à partir de votre offre ; les conditions de cession figurent dans un contrat de vente.",
+    lead: "Pas de prix fixe : faites votre offre sur WhatsApp {wa} ou avec ce formulaire. Le propriétaire répond par WhatsApp ou e-mail.",
+    faqQ: "Quel est le prix ?",
+    faqA: "Aucun prix fixe n'est publié. Faites une offre sur WhatsApp {wa} — toute offre sérieuse est étudiée.",
+    errAmount: "Veuillez indiquer votre offre (US$).",
+    title: "{name} est à vendre — faites une offre",
+    description: "Acquérir {name} : le Coran en audio, tafsir et hadiths, une bibliothèque de kitab classiques, le direct de La Mecque et Médine 24 h/24 et un portail d'administration. Faites une offre sur WhatsApp {wa}.",
+    noMinimum: "Pas de prix fixe",
+  },
+  de: {
+    word: "Angebot machen",
+    waText: "Assalamu alaikum, ich möchte ein Angebot für {name} machen.",
+    step0: "Per WhatsApp {wa}, per E-Mail oder über das Formular auf dieser Seite.",
+    step2: "Der Preis wird ausgehend von Ihrem Angebot mit dem Eigentümer vereinbart; die Übergabebedingungen stehen im Kaufvertrag.",
+    lead: "Kein Festpreis: Machen Sie Ihr Angebot per WhatsApp {wa} oder über dieses Formular. Der Eigentümer antwortet per WhatsApp oder E-Mail.",
+    faqQ: "Was kostet die Seite?",
+    faqA: "Es wird kein Festpreis veröffentlicht. Machen Sie ein Angebot per WhatsApp {wa} — jedes ernsthafte Angebot wird geprüft.",
+    errAmount: "Bitte geben Sie Ihr Angebot ein (US$).",
+    title: "{name} steht zum Verkauf — Angebot machen",
+    description: "{name} übernehmen: der Koran mit Audio, Tafsir & Hadithe, eine Bibliothek klassischer Kitab, der 24-Stunden-Livestream aus Mekka und Medina und ein Admin-Portal. Angebot per WhatsApp {wa}.",
+    noMinimum: "Kein Festpreis",
+  },
+  es: {
+    word: "Hacer una oferta",
+    waText: "Assalamu alaikum, quiero hacer una oferta por {name}.",
+    step0: "Por WhatsApp {wa}, por correo o con el formulario de esta página.",
+    step2: "El precio se acuerda con el propietario a partir de su oferta; las condiciones de la entrega constan en un contrato de compraventa.",
+    lead: "Sin precio fijo: haga su oferta por WhatsApp {wa} o con este formulario. El propietario responde por WhatsApp o correo.",
+    faqQ: "¿Cuál es el precio?",
+    faqA: "No se publica un precio fijo. Haga una oferta por WhatsApp {wa}: se estudia toda oferta seria.",
+    errAmount: "Indique su oferta (US$).",
+    title: "{name} está en venta — haga una oferta",
+    description: "Adquiera {name}: el Corán con audio, tafsir y hadices, una biblioteca de kitab clásicos, La Meca y Medina en directo las 24 horas y un portal de administración. Haga una oferta por WhatsApp {wa}.",
+    noMinimum: "Sin precio fijo",
+  },
+};
+
+/** The offer word for a language ("Ajukan penawaran", "Make an offer", …). */
+export function offerWord(locale: string): string {
+  return (OFFER[locale] ?? OFFER.en!).word;
+}
+export function offerNoMinimum(locale: string): string {
+  return (OFFER[locale] ?? OFFER.en!).noMinimum;
+}
+
+function offerOnly(copy: SaleCopy, locale: string, c: SaleCtx): SaleCopy {
+  const o = OFFER[locale] ?? OFFER.en!;
+  const v = { name: c.name, wa: c.wa ?? "" };
+  const f = (x: string) => fill(x, v);
+  const steps = copy.steps.map((st, i): Item => (i === 0 ? [st[0], f(o.step0)] : i === 2 ? [st[0], f(o.step2)] : st));
+  return {
+    ...copy,
+    waText: f(o.waText),
+    steps,
+    offerLead: f(o.lead),
+    faq: [[o.faqQ, f(o.faqA)], ...copy.faq.slice(1)],
+    form: { ...copy.form, errAmount: o.errAmount },
+    meta: { ...copy.meta, title: f(o.title), description: f(o.description) },
+  };
+}
+
 /** The sale words for a site in a language; Indonesian is ulyah.com's, English the fallback. */
 export function saleCopy(locale: string, c: SaleCtx): SaleCopy {
-  if (locale === "id") return id(c);
-  return sibling(LANGS[locale] ?? EN, c);
+  const copy = locale === "id" ? id(c) : sibling(LANGS[locale] ?? EN, c);
+  return c.offerOnly ? offerOnly(copy, locale, c) : copy;
 }
 
 /** Fill the {amount} / {email} placeholders the form fills at the moment it needs them. */

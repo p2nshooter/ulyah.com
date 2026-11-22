@@ -77,7 +77,7 @@ export function LanguagesTab() {
       .get<{ state: EngineState | null }>("/admin/translation-engine")
       .then((r) => {
         if (!alive) return;
-        setState(r.state);
+        setState(r.state ?? null);
         setLive(r.state ? "ok" : "off");
       })
       .catch(() => alive && setLive("off"));

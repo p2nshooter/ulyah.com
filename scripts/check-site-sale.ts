@@ -77,6 +77,18 @@ async function main() {
   assert.equal(offerProblem(good, { ...d, visible: false }), "hidden", "no offers while the sale is hidden");
   ok("offers below the minimum, incomplete or while hidden are refused");
 
+  // Offer-only (owner, 22 Nov 2026: "ubah harga jual … menjadi ajukan penawaran ke +6285691234561", "ulyah.com juga")
+  for (const site of ["ulyah", "1fr", "tilawa", "dawaim", "xad"] as const) {
+    const p = publicSettings(d, site);
+    assert.equal(p.offerOnly, true, `${site} is offer-only`);
+    assert.equal(p.priceUsd, null, `${site} publishes no price`);
+    assert.equal(p.minOfferUsd, null, `${site} publishes no minimum`);
+    assert.equal(p.whatsapp, "+6285691234561", `${site} sends offers to the owner's WhatsApp`);
+    assert.equal(offerProblem({ ...good, amountUsd: 5_000 }, d, site), null, `${site}: any serious amount is an offer`);
+    assert.equal(offerProblem({ ...good, amountUsd: 0 }, d, site), "amount", `${site}: an offer still needs an amount`);
+  }
+  ok("every site on sale shows no price: make an offer to +6285691234561");
+
   // Create-once
   const o1 = await buildOffer(good, "203.0.113.9", Date.UTC(2026, 9, 29, 9));
   const o2 = await buildOffer(good, "203.0.113.9", Date.UTC(2026, 9, 29, 9, 0, 3));
@@ -123,9 +135,10 @@ async function main() {
     call(saleRoute as never, "/offers", { method: "POST", headers: { "Content-Type": "application/json", "cf-connecting-ip": ip }, body: JSON.stringify(body) });
 
   const pub = await (await call(saleRoute as never, "/")).json() as Record<string, unknown>;
-  assert.deepEqual([pub.visible, pub.priceUsd, pub.minOfferUsd], [true, 250_000, 50_000]);
+  // Offer-only since 22 Nov 2026: the public terms carry no price and no minimum.
+  assert.deepEqual([pub.visible, pub.offerOnly, pub.priceUsd, pub.minOfferUsd, pub.whatsapp], [true, true, null, null, "+6285691234561"]);
   assert.ok(!("updatedBy" in pub));
-  const low = await post({ ...good, amountUsd: 10_000 });
+  const low = await post({ ...good, amountUsd: 0 });
   assert.equal(low.status, 400);
   assert.equal(((await low.json()) as { code?: string }).code, "amount");
   const sent = await post(good);
@@ -135,7 +148,7 @@ async function main() {
   assert.equal(((await (await post({ ...good, website: "spam.example" })).json()) as { created?: boolean }).created, false, "the honeypot records nothing");
   for (let i = 0; i < 6; i++) await post({ ...good, email: `r${i}@example.com` }, "192.0.2.50");
   assert.equal((await post({ ...good, email: "r9@example.com" }, "192.0.2.50")).status, 429, "five offers an hour per address");
-  ok("routes: public terms, minimum, double submit, honeypot, rate limit");
+  ok("routes: public terms (offer-only), an amount is required, double submit, honeypot, rate limit");
 
   // Admin: the ulyah owner only.
   const adminApp = (session: Record<string, unknown>) => {
@@ -181,9 +194,9 @@ async function main() {
   ok("siblings: US$250,000 each, own terms, ulyah.com's contacts, own offers");
 
   const env2 = { MEDIA_R2: new FakeR2(), CACHE_KV: { get: async () => null, put: async () => {}, delete: async () => {} } } as never;
-  const net = await (await saleRoute.request("/network", {}, env2, ctx)).json() as { sites: { site: string; priceUsd: number }[] };
+  const net = await (await saleRoute.request("/network", {}, env2, ctx)).json() as { sites: { site: string; priceUsd: number | null; offerOnly: boolean }[] };
   assert.deepEqual(net.sites.map((x) => x.site), ["ulyah", "1fr", "tilawa", "dawaim", "xad"]);
-  assert.ok(net.sites.every((x) => x.priceUsd === 250_000));
+  assert.ok(net.sites.every((x) => x.offerOnly && x.priceUsd === null), "no site on sale publishes a price");
   const ownerApp2 = (() => {
     const a = new Hono();
     a.use("*", async (c, next) => { c.set("admin" as never, { subject: "admin", id: 1, email: "owner@ulyah.com", role: "owner", tenant: null } as never); await next(); });
@@ -198,12 +211,13 @@ async function main() {
   assert.deepEqual([xadTerms.visible, xadTerms.site], [false, "xad"]);
   const postTo = (site: string, amountUsd: number) => saleRoute.request("/offers", { method: "POST", headers: { "Content-Type": "application/json", "cf-connecting-ip": `198.51.100.${amountUsd % 200}` }, body: JSON.stringify({ ...good, site, amountUsd }) }, env2, ctx);
   assert.equal((await postTo("xad", 80_000)).status, 404, "no offers for a hidden site");
-  assert.equal((await postTo("tilawa", 49_000)).status, 400, "the site's minimum applies");
+  assert.equal((await postTo("tilawa", 0)).status, 400, "an offer needs an amount");
+  assert.equal((await postTo("tilawa", 49_000)).status, 200, "offer-only: no minimum is enforced");
   assert.equal((await postTo("tilawa", 120_000)).status, 200);
   const view2 = await (await ownerApp2.request("/site-sale", {}, env2, ctx)).json() as { sites: { site: string }[]; offers: { site: string; amountUsd: number }[] };
   assert.equal(view2.sites.length, 5, "the owner sees all five sites in one place");
-  assert.deepEqual(view2.offers.map((x) => [x.site, x.amountUsd]), [["tilawa", 120_000]], "each offer says which site it is for");
-  ok("routes: network of sites, per-site hide, per-site minimum, offers with their site");
+  assert.deepEqual(view2.offers.map((x) => [x.site, x.amountUsd]).sort((a, b) => Number(b[1]) - Number(a[1])), [["tilawa", 120_000], ["tilawa", 49_000]], "each offer says which site it is for");
+  ok("routes: network of sites, per-site hide, offer-only amounts, offers with their site");
 
   console.log(`\nALL OK (${passed} checks)`);
 }
