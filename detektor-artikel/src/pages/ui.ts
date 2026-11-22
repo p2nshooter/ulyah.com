@@ -40,28 +40,9 @@ export const ADSENSE_CLIENT = `ca-pub-${ADSENSE_PUB}`;
  * akun utama di atas, karena Google mengabaikan tag kepala AdSense kedua di halaman yang sama.
  */
 export const ADSENSE_STACK = [
-  'ca-pub-9915280882234592',
-  'ca-pub-9354298681597606',
   'ca-pub-6560360898389273',
-  'ca-pub-5928074389292014',
-  'ca-pub-1480130604232181',
-  'ca-pub-5092800160376210',
-  'ca-pub-7250589269548267',
-  'ca-pub-6381187608934514',
-  'ca-pub-4304267428455702',
-  'ca-pub-6293576511807510',
-  'ca-pub-9221781326457936',
   'ca-pub-4906992051458194',
-  'ca-pub-9433622530024776',
-  'ca-pub-6146217038829045',
-  'ca-pub-2493615451319531',
-  'ca-pub-5693981744147503',
-  'ca-pub-8212039662308316',
-  'ca-pub-4504974645924459', // 8 Nov 2026 (pemilik): akun tumpukan ke-18
-  'ca-pub-6284085719914185', // 8 Nov 2026 (pemilik): akun tumpukan ke-19
-  'ca-pub-7345352440829958', // 8 Nov 2026 (pemilik): akun tumpukan ke-20
-  'ca-pub-5254913739159445', // 8 Nov 2026 (pemilik): akun tumpukan ke-21
-  'ca-pub-6701063918838796', // 14 Nov 2026 (pemilik): akun tumpukan ke-22
+  'ca-pub-5928074389292014',
 ];
 export const ADSENSE_ACCOUNTS: readonly string[] = [...new Set([ADSENSE_CLIENT, ...ADSENSE_STACK])];
 export const ADS_TXT = `${ADSENSE_ACCOUNTS.map((a) => `google.com, ${a.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0`).join('\n')}\n`;

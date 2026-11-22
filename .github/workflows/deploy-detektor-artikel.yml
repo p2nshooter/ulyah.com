@@ -143,12 +143,12 @@ jobs:
             echo "$home" | grep -q "name=\"google-adsense-account\" content=\"$c\"" || { echo "::error::tag meta AdSense $c hilang"; exit 1; }
           done
           [ "$(echo "$home" | grep -o 'adsbygoogle.js?client=' | wc -l)" = "1" ] || { echo "::error::harus tepat satu loader AdSense"; exit 1; }
-          echo "$home" | grep -q 'adsbygoogle.js?client=ca-pub-9354298681597606' || { echo "::error::loader AdSense hilang"; exit 1; }
+          echo "$home" | grep -q 'adsbygoogle.js?client=ca-pub-5928074389292014' || { echo "::error::loader AdSense hilang"; exit 1; }
           if curl -sf "$URL/robots.txt" | grep -qx 'Disallow: /'; then echo "::error::robots.txt menutup situs"; exit 1; fi
           {
             echo "## AI Content Analyzer online"
             echo ""
             echo "- Situs publik: $URL"
             [ -n "$WORKERS_URL" ] && [ "$WORKERS_URL" != "$URL" ] && echo "- Alamat cadangan: $WORKERS_URL"
-            echo "- AdSense: loader ca-pub-9354298681597606 + tag meta dan ads.txt untuk semua akun di adsense-stack.json ✅"
+            echo "- AdSense: loader ca-pub-5928074389292014 + tag meta dan ads.txt untuk semua akun di adsense-stack.json ✅"
           } >> "$GITHUB_STEP_SUMMARY"

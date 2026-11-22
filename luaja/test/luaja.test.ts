@@ -30,7 +30,7 @@ const csrfIn = (h: string) => /name="_csrf" value="([^"]+)"/.exec(h)?.[1] ?? '';
 test('AdSense: akun utama luaja.com dan tumpukan persis adsense-stack.json', () => {
   assert.equal(DOMAIN, 'luaja.com');
   assert.equal(ADSENSE_CLIENT, stack.primary['luaja.com']);
-  assert.equal(ADSENSE_CLIENT, 'ca-pub-6701063918838796');
+  assert.equal(ADSENSE_CLIENT, 'ca-pub-5928074389292014');
   assert.deepEqual([...ADSENSE_ACCOUNTS], [...new Set([stack.primary['luaja.com']!, ...stack.stack])]);
   assert.equal(ADS_TXT.trim().split('\n').length, ADSENSE_ACCOUNTS.length);
 });

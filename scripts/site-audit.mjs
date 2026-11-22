@@ -111,6 +111,7 @@ Object.assign(EXPECTED, {
 Object.assign(EXPECTED, {
   "xscan.es": "9354298681597606",
 });
+// 22 Nov 2026 (owner): only three accounts remain (adsense-stack.json); older accounts must be gone from every site.
 // 7 Nov 2026 (owner): sixteen accounts stacked on every listed site ("kode2 adsense ini di tumpuk aja di dusun yg rapih
 // agar tidak saling bentrok dan tidak melanggar kebijakan adsense"). adsense-stack.json is the one list: the primary
 // account (the only loader) replaces EXPECTED, and every account must have its meta tag in the server HTML and its line in
@@ -235,6 +236,17 @@ for (const domain of domains) {
     if (!(out.adsenseLoader || []).includes(`ca-pub-${pub}`)) wrong.push(`loader=${JSON.stringify(out.adsenseLoader)}`);
     if ((out.rawLoader || []).length > 1) wrong.push(`${out.rawLoader.length} loaders — one per page`);
     if (adsMiss.length) wrong.push(`ads.txt missing ${adsMiss.length}/${all.length}`);
+    // 22 Nov 2026 (owner): "hapus seluruh kode adsense tumpuk dan meta tag nya … sisakan 3 adsense saja" — any account
+    // outside the list (an old stacked meta tag, ads.txt line or loader) means the site is not clean yet.
+    if (STACK.primary[domain]) {
+      const allowed = new Set(all.map((p) => `ca-pub-${p}`));
+      const extraMeta = [...new Set([...(out.rawMetas || []), ...(out.adsenseMetas || [])])].filter((c) => !allowed.has(c));
+      const extraAds = (out.adsTxtLines || []).filter((l) => /^google\.com,\s*pub-\d+/i.test(l) && !allowed.has(`ca-${l.split(",")[1].trim()}`));
+      const extraLoader = (out.rawLoader || []).filter((c) => !allowed.has(c));
+      if (extraMeta.length) wrong.push(`old meta tag(s) still present: ${extraMeta.slice(0, 3).join(",")}${extraMeta.length > 3 ? "…" : ""} (${extraMeta.length})`);
+      if (extraAds.length) wrong.push(`old ads.txt line(s) still present (${extraAds.length})`);
+      if (extraLoader.length) wrong.push(`old loader still present: ${extraLoader.join(",")}`);
+    }
     if (rawMetaMiss.length) wrong.push(`meta missing from server HTML ${rawMetaMiss.length}/${all.length}`);
     if (!(out.rawLoader || []).includes(`ca-pub-${pub}`)) wrong.push("loader missing from server HTML");
     if ((out.adsterraRequests || []).length || out.htmlAdsterra) wrong.push("adsterra");
