@@ -253,17 +253,12 @@ export function AdhanReminder({ locale }: { locale: string }) {
         onClick={() => setEnabled(!enabled)}
         aria-label={enabled ? t.on : t.off}
         title={enabled ? t.disable : t.enable}
-        className="fixed bottom-16 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur-sm transition hover:border-accent hover:bg-primary"
+        aria-pressed={enabled}
+        className="fab fab-slot-left-2"
       >
         <span aria-hidden>🕌</span>
-        {enabled ? (
-          <span className="flex items-center gap-1">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
-            <span className="tabular-nums">ON</span>
-          </span>
-        ) : (
-          <span className="text-[#f4efe3]/70">OFF</span>
-        )}
+        {enabled ? <span aria-hidden className="fab-dot" /> : null}
+        <span className={enabled ? "fab-label" : "fab-label fab-off"}>{enabled ? "ON" : "OFF"}</span>
       </button>
     </>
   );

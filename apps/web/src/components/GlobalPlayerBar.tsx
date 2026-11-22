@@ -266,6 +266,27 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
   useEffect(() => () => cancelAll(), [cancelAll]);
 
   const hasTrack = Boolean(current || storyTrack);
+
+  // The floating dock (radio, adhan, read-all, AI — styles/core/ui.css) rises above this bar while it is
+  // open, instead of sitting on top of its controls. The bar publishes its own height; 0 when it closes.
+  const barRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const root = document.documentElement;
+    const el = barRef.current;
+    if (!hasTrack || !el) {
+      root.style.setProperty("--dock-lift", "0px");
+      return;
+    }
+    const set = () => root.style.setProperty("--dock-lift", `${Math.ceil(el.getBoundingClientRect().height)}px`);
+    set();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(set) : null;
+    ro?.observe(el);
+    return () => {
+      ro?.disconnect();
+      root.style.setProperty("--dock-lift", "0px");
+    };
+  }, [hasTrack]);
+
   if (!hasTrack) return null;
 
   const title = storyTrack?.title ?? (current ? `${current.surahName} · ${dict.reader.ayahLabel} ${current.number}` : "");
@@ -279,7 +300,7 @@ export function GlobalPlayerBar({ dict }: { dict: Dictionary }) {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-accent/20 bg-[color-mix(in_srgb,var(--color-primary-dark)_97%,transparent)] px-3 py-2 text-[#f4efe3] backdrop-blur-md sm:px-6">
+    <div ref={barRef} className="fixed bottom-0 left-0 right-0 z-40 border-t border-accent/20 bg-[color-mix(in_srgb,var(--color-primary-dark)_97%,transparent)] px-3 py-2 text-[#f4efe3] backdrop-blur-md sm:px-6">
       <audio
         ref={audioRef}
         onTimeUpdate={(e) => {

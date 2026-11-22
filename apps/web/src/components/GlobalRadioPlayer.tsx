@@ -304,17 +304,12 @@ export function GlobalRadioPlayer() {
         onClick={() => (playing ? useRadioStore.getState().stop() : useRadioStore.getState().start())}
         aria-label={playing ? "Radio Qur'an: OFF" : "Radio Qur'an: ON"}
         title={playing ? "Matikan Radio Qur'an" : "Nyalakan Radio Qur'an"}
-        className="fixed bottom-4 left-4 z-40 flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-3 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur-sm transition hover:border-accent hover:bg-primary"
+        aria-pressed={playing}
+        className="fab fab-slot-left"
       >
         <span aria-hidden>📻</span>
-        {playing ? (
-          <span className="flex items-center gap-1">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
-            <span className="tabular-nums">ON</span>
-          </span>
-        ) : (
-          <span className="text-[#f4efe3]/70">OFF</span>
-        )}
+        {playing ? <span aria-hidden className="fab-dot" /> : null}
+        <span className={playing ? "fab-label" : "fab-label fab-off"}>{playing ? "ON" : "OFF"}</span>
       </button>
     </>
   );
