@@ -2026,3 +2026,12 @@ ketiganya (domain yang sudah memakai salah satunya tetap; sisanya dibagi bergili
 `sites/*/site.json` + `ADSENSE.txt`, tes, dan uji asap deploy ascan/xscan. luaja.com dan yapida.sch.id membaca
 `adsense-stack.json` langsung. Audit (`site-audit.yml`) kini gagal bila akun lama masih tersisa di tag meta, ads.txt,
 atau loader.
+
+### 23.9 — 22 Nov 2026: akun ke-4 `pub-6701063918838796`
+
+Pemilik (setelah 23.8): „Tamabahin kode adsense ini di semua web google.com, pub-6701063918838796, DIRECT,
+f08c47fec0942fa0“. `adsense-stack.json` → `stack` kini 4 akun (6560360898389273, 4906992051458194, 5928074389292014,
+6701063918838796). Setiap domain: 4 tag meta, 4 baris ads.txt, tetap 1 loader (akun utama tidak berubah). Salinan diperbarui:
+apps/web `ad-config.ts`, detektor-artikel `ui.ts` (+ uji e2e 4 akun), jenius `adsense.ts`, 26 `sites/*/ADSENSE.txt`,
+`docs/ADSENSE-SEMUA-DOMAIN.txt`; axto.io dan delapan repositori mitra mengikuti. `scripts/site-audit.mjs` membaca daftar yang
+sama, jadi domain tanpa akun ke-4 dilaporkan **WRONG** sampai live.

@@ -10,7 +10,19 @@ Situs di `sites/` juga punya salinan di `sites/<domain>/ADSENSE.txt`.
 karakter saja dari file itu. Situs lain diperiksa di browser oleh
 `.github/workflows/site-audit.yml`.
 
-> **22 Nov 2026 — BERLAKU SEKARANG: HANYA 3 AKUN.** Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya
+> **22 Nov 2026 (lanjutan) — BERLAKU SEKARANG: 4 AKUN.** Pemilik: „Tamabahin kode adsense ini di semua web
+> google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0“ → `ca-pub-6701063918838796` menjadi akun tumpukan ke-4.
+>
+> - Setiap domain sekarang: **4 tag meta, 4 baris ads.txt, 1 loader** (akun utama domain itu tidak berubah).
+> - Cuplikan akun ke-4:
+>   - `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6701063918838796" crossorigin="anonymous"></script>`
+>     · `<meta name="google-adsense-account" content="ca-pub-6701063918838796">` · `google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0`
+>   (loader di atas hanya dipakai bila akun ini dijadikan akun utama sebuah domain; saat ini tidak ada).
+> - Berlaku juga di axto.io dan semua repositori mitra (guardian-ai, xaa, axtodev, oldco.in, profity.in, Jai, Lie, axto.us).
+> - Pemilik, hari yang sama: „Hapus yg tadi adsense tumpuk yg belum sempet d hapus, sisakan 4 kode adsense“ → hanya 4 akun ini
+>   yang boleh ada di situs mana pun; akun lain yang masih tersisa di live dihapus (site-audit menandainya **WRONG**).
+
+> **22 Nov 2026 — (riwayat) HANYA 3 AKUN.** Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya
 > di seluruh website d seluruh repo, sisakan 3 adsense saja, masukan ke 3 kode ini jg ke axto.io“ —
 > `pub-6560360898389273`, `pub-4906992051458194`, `pub-5928074389292014`.
 >
