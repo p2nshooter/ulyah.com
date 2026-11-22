@@ -1,5 +1,6 @@
 {
   "_comment": [
+    "22 Nov 2026 (owner, after the three-account clean-up): 'Tamabahin kode adsense ini di semua web google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0' — ca-pub-6701063918838796 joins as the 4th stacked account: its own meta tag and ads.txt line on every domain (axto.io and the partner repositories included). Loaders unchanged: one per page, the domain's primary.",
     "22 Nov 2026 (owner): 'Tolong hapus seluruh kode adsense tumpuk dan meta tag nya di seluruh website d seluruh repo, sisakan 3 adsense saja, masukan ke 3 kode ini jg ke axto.io' — only pub-6560360898389273, pub-4906992051458194 and pub-5928074389292014 remain. Every domain: three meta tags, three ads.txt lines, one loader (its primary, one of the three). The keep list is empty; every older account is removed everywhere. dawa.es is not the owner's and is not in this file.",
     "AdSense stack — the ONE list of publisher accounts per domain (owner, 7 Nov 2026: 'kode2 adsense ini di tumpuk aja di dusun yg rapih agar tidak saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 website memakai beberapa kode adsense dari akun yg berbeda').",
     "How a domain uses it (docs/ADSENSE-BLUEPRINT.md §23): every account in accounts(domain) gets its own google-adsense-account meta tag and its own ads.txt line, so each account can verify the site by meta tag or by ads.txt. Exactly ONE loader script per page, the domain's primary account: Google ignores a second AdSense head tag on the same page ('Only one AdSense head tag supported per page'), so stacking loaders would only add console errors.",
@@ -15,7 +16,8 @@
   "stack": [
     "ca-pub-6560360898389273",
     "ca-pub-4906992051458194",
-    "ca-pub-5928074389292014"
+    "ca-pub-5928074389292014",
+    "ca-pub-6701063918838796"
   ],
   "keep": [],
   "primary": {
