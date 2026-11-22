@@ -4,6 +4,7 @@ import { LiveHub } from "@/components/LiveHub";
 import { TENANT } from "@/lib/tenant";
 import { routePath } from "@/lib/paths";
 import { fillLabels } from "@/lib/fill-labels";
+import { MAKKAH_LIVE_URL, makkahLiveLabel } from "@/lib/makkah-live";
 
 // Native per-locale copy — siblings render their own language (fr/de), never
 // an English or Indonesian fallback. `{site}` becomes the tenant brand.
@@ -104,6 +105,10 @@ export default async function LivePage({ params }: { params: Promise<{ locale: s
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-text-secondary">
             {t.desc}
           </p>
+          {/* Straight to the 24-hour Masjidil Haram live on YouTube (owner, 22 Nov 2026). */}
+          <a href={MAKKAH_LIVE_URL} target="_blank" rel="noopener noreferrer" className="btn btn-lg btn-accent mt-6" data-testid="live-makkah-youtube">
+            {makkahLiveLabel(locale)} · YouTube ↗
+          </a>
         </div>
 
         <div className="mt-10">

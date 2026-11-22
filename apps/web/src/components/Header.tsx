@@ -13,6 +13,7 @@ import { InstallAppButton } from "@/components/InstallAppButton";
 import { navLabels, applyPageOverrides } from "@/lib/nav-labels";
 import { useSaleTerms } from "@/components/sale/useSaleTerms";
 import { IS_SALE_SITE, usdShort } from "@/lib/site-sale";
+import { MAKKAH_LIVE_URL, makkahLiveLabel } from "@/lib/makkah-live";
 import { usePageOverrides } from "@/lib/site-pages";
 import { WorldCup2026, WorldCup2026Stripe } from "@/components/WorldCup2026";
 import { EcoTopLine, UlyahWordmark } from "@/components/EcosystemDecor";
@@ -261,6 +262,16 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               {it.path === "/acquisition" ? saleLabel(it.label) : it.label}
             </Link>
           ))}
+          {/* The 24-hour Masjidil Haram live on YouTube (owner, 22 Nov 2026), on every Muslim site. */}
+          <a
+            href={MAKKAH_LIVE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="nav-makkah-live"
+            className="whitespace-nowrap rounded-full border border-accent/40 px-2 py-1.5 text-xs font-medium text-accent transition hover:bg-accent/10 xl:px-2.5 xl:text-[13px] min-[88rem]:px-3.5 min-[88rem]:text-sm"
+          >
+            {makkahLiveLabel(locale)} ↗
+          </a>
         </div>
 
       </nav>
@@ -330,6 +341,15 @@ export function Header({ locale, dict }: { locale: string; dict: Dictionary }) {
               ) : it.path === "/ekosistem" ? <span className="eco-promo text-accent">{it.label}</span> : <>{it.path === "/widget" ? "🧩" : "ℹ️"} {it.label}</>}
             </Link>
           ))}
+          <a
+            href={MAKKAH_LIVE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="block border-t border-(--color-border)/60 rounded-sm px-2 py-2.5 text-sm font-semibold text-accent hover:bg-black/5"
+          >
+            {makkahLiveLabel(locale)} ↗
+          </a>
         </nav>
       )}
     </header>

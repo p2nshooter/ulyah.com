@@ -12,6 +12,7 @@ import { usePageOverrides } from "@/lib/site-pages";
 import { routePath } from "@/lib/paths";
 import { legalNav } from "@/lib/legal-pages";
 import { ecosystemCopy } from "@/lib/ecosystem";
+import { MAKKAH_LIVE_URL, makkahLiveLabel } from "@/lib/makkah-live";
 
 /**
  * Footer columns mirror the header's grouped navigation exactly (both read
@@ -46,6 +47,16 @@ export function Footer({ locale, dict }: { locale: string; dict: Dictionary }) {
           </div>
           <p className="mt-2 text-xs text-[#f4efe3]/50">{dict.common.tagline}</p>
           <p className="mt-3 max-w-xs text-sm text-[#f4efe3]/70">{dict.footer.desc}</p>
+          {/* The 24-hour Masjidil Haram live on YouTube (owner, 22 Nov 2026). */}
+          <a
+            href={MAKKAH_LIVE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-accent mt-4"
+            data-testid="footer-makkah-live"
+          >
+            {makkahLiveLabel(locale)} ↗
+          </a>
           <div className="mt-4">
             <p className="mb-2 text-xs font-semibold text-accent">{dict.footer.followUs}</p>
             <ShareButtons
