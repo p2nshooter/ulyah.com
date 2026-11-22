@@ -19,6 +19,8 @@ karakter saja dari file itu. Situs lain diperiksa di browser oleh
 >     · `<meta name="google-adsense-account" content="ca-pub-6701063918838796">` · `google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0`
 >   (loader di atas hanya dipakai bila akun ini dijadikan akun utama sebuah domain; saat ini tidak ada).
 > - Berlaku juga di axto.io dan semua repositori mitra (guardian-ai, xaa, axtodev, oldco.in, profity.in, Jai, Lie, axto.us).
+> - Pemilik, hari yang sama: „Hapus yg tadi adsense tumpuk yg belum sempet d hapus, sisakan 4 kode adsense“ → hanya 4 akun ini
+>   yang boleh ada di situs mana pun; akun lain yang masih tersisa di live dihapus (site-audit menandainya **WRONG**).
 
 > **22 Nov 2026 — (riwayat) HANYA 3 AKUN.** Pemilik: „Tolong hapus seluruh kode adsense tumpuk dan meta tag nya
 > di seluruh website d seluruh repo, sisakan 3 adsense saja, masukan ke 3 kode ini jg ke axto.io“ —
