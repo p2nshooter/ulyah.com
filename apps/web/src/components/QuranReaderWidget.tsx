@@ -12,6 +12,7 @@ import { NahwuShorofPanel } from "@/components/NahwuShorofPanel";
 import type { Dictionary } from "@/dictionaries";
 import { fillLabels } from "@/lib/fill-labels";
 import { routePath } from "@/lib/paths";
+import { followReading, resumeFollow } from "@/lib/follow-reading";
 
 interface SurahMeta {
   id: number;
@@ -136,31 +137,53 @@ function emptyStates(locale: string): { translation: string; tafsir: string; asb
 /** Word-by-word Arabic highlight synced to the qori's actual audio progress
  * (current/duration ratio, so it self-corrects — no fixed-timer drift). Only
  * active while this ayah's recitation is the thing currently playing. */
+/** How long a word takes to recite, roughly: its letters, not its marks. Harakat, tanwin, shadda, the small
+ *  madd and waqf signs take no time of their own; a long word takes longer than a short one. Dividing the
+ *  recitation evenly by word count (the old way) put the pointer a word or two off on every long ayah. */
+function wordWeight(w: string): number {
+  const letters = w.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g, "").replace(/[^\u0600-\u06FF]/g, "");
+  return Math.max(1, letters.length) + 1.5; // + the breath between words
+}
+
 function HighlightedArabic({ text, active }: { text: string; active: boolean }) {
   const progress = usePlayerStore((s) => s.audioProgress);
-  const words = useMemo(() => text.split(/\s+/).filter(Boolean), [text]);
+  // Words AND the exact spacing between them, so lighting a word never changes the line (no added spaces).
+  const tokens = useMemo(() => text.split(/(\s+)/).filter((x) => x !== ""), [text]);
+  const cumulative = useMemo(() => {
+    let sum = 0;
+    const ends = tokens.map((t) => (/^\s+$/.test(t) ? sum : (sum += wordWeight(t))));
+    return { ends, total: sum || 1 };
+  }, [tokens]);
+  const nowRef = useRef<HTMLSpanElement | null>(null);
 
-  if (!active || !progress.duration) return <>{text}</>;
+  const ratio = active && progress.duration ? Math.min(progress.current / progress.duration, 1) : -1;
+  const at = ratio < 0 ? -1 : ratio * cumulative.total;
+  let target = -1;
+  if (at >= 0) {
+    target = tokens.findIndex((t, i) => !/^\s+$/.test(t) && cumulative.ends[i]! >= at);
+    if (target < 0) target = tokens.length - 1;
+  }
 
-  const ratio = Math.min(progress.current / progress.duration, 1);
-  const targetIdx = Math.min(Math.floor(ratio * words.length), words.length - 1);
+  useEffect(() => {
+    if (target >= 0 && nowRef.current) followReading(nowRef.current);
+  }, [target]);
 
+  if (target < 0) return <>{text}</>;
   return (
     <>
-      {words.map((w, i) => (
-        <span
-          key={i}
-          className={
-            i === targetIdx
-              ? "rounded-sm bg-accent/30 px-0.5 text-accent"
-              : i < targetIdx
-                ? "text-text-secondary"
-                : ""
-          }
-        >
-          {w}{" "}
-        </span>
-      ))}
+      {tokens.map((tok, i) =>
+        /^\s+$/.test(tok) ? (
+          tok
+        ) : (
+          <span
+            key={i}
+            ref={i === target ? nowRef : undefined}
+            className={i === target ? "rd-word rd-word-now" : i < target ? "rd-word rd-word-done" : "rd-word"}
+          >
+            {tok}
+          </span>
+        )
+      )}
     </>
   );
 }
@@ -390,28 +413,49 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   // Keep the block that is currently being narrated in view and marked, so a
   // long tafsir/penjelasan auto-scrolls to follow the voice ("penjelasan kasih
   // penanda text yg sedang di baca, auto scroll klo panjang").
+  //
+  // One rule for every reader (lib/follow-reading.ts): the block's TOP is brought into the reading band only
+  // when it has left it — no re-centring on every change, which kept the page moving and, for a long tafsir,
+  // put the words being read above the screen.
   useEffect(() => {
     if (!isPlaying || !activeLayer) return;
-    // The Arabic recitation layer scrolls back UP to the ayah text — so when
-    // an ayah's tafsir finishes and the next ayah starts, the view returns to
-    // the verse being recited instead of staying stuck on the old explanation
-    // (owner: "tidak langsung auto naik pindah ke text ayat yg sedang dibaca").
+    // The Arabic recitation layer returns to the ayah text — so when an ayah's tafsir finishes and the next
+    // ayah starts, the view is back on the verse being recited (owner: "tidak langsung auto naik pindah ke text
+    // ayat yg sedang dibaca").
     if (activeLayer === "ayah") {
-      arabicRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      followReading(arabicRef.current, { force: true });
       return;
     }
-    const el = explRefs.current.get(activeLayer);
-    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReading(explRefs.current.get(activeLayer));
   }, [activeLayer, isPlaying]);
 
-  // When the reader advances to a new ayah mid-session (even in text-only
-  // modes that never activate the "ayah" layer), snap the view back up to the
-  // verse first — each ayah's reading starts at its own text.
+  // When the reader advances to a new ayah mid-session (even in text-only modes that never activate the "ayah"
+  // layer), land on the verse first — each ayah's reading starts at its own text.
   useEffect(() => {
     if (!isPlaying) return;
-    arabicRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReading(arabicRef.current, { force: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus]);
+
+  // Carry on into the next surah when this one has been read to its end (owner, 22 Nov 2026: "auto pindah").
+  // The surah after An-Nas is Al-Fatihah again, like the radio. Repeat-surah and repeat-ayah still repeat.
+  const queueEnded = usePlayerStore((s) => s.queueEnded);
+  const autoContinueRef = useRef(false);
+  useEffect(() => {
+    if (!queueEnded || !selectedSurah || queueEnded.surahId !== selectedSurah.id || surahs.length === 0) return;
+    const next = surahs.find((x) => x.id === (selectedSurah.id >= 114 ? 1 : selectedSurah.id + 1));
+    if (!next) return;
+    autoContinueRef.current = true;
+    pendingAyahRef.current = 1;
+    setSelectedSurah(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queueEnded]);
+  useEffect(() => {
+    if (!autoContinueRef.current || loadingAyat || ayat.length === 0 || !selectedSurah) return;
+    autoContinueRef.current = false;
+    buildQueue(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ayat, loadingAyat]);
 
   const focusRow = useMemo(() => ayat.find((a) => a.number === focus) ?? null, [ayat, focus]);
 
@@ -445,12 +489,14 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
    * navigating to it) should never leave the player silent ("diem aja"). */
   function focusAndPlay(n: number) {
     setFocus(n);
+    resumeFollow();
     buildQueue(n);
   }
 
   /** One of the three listening modes: pick the narration layers, then play. */
   function playVoiceMode(layerSet: Layer[]) {
     setLayers(layerSet);
+    resumeFollow();
     buildQueue(focus);
   }
 
@@ -600,7 +646,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
               tabIndex={0}
               onKeyDown={(e) => e.key === "Enter" && focusRow && buildQueue(focus)}
               title={dict.reader.voiceAll}
-              className={`mt-6 cursor-pointer rounded-2xl px-2 py-6 text-center transition hover:bg-accent/5 ${isThisAyahActive && activeLayer === "ayah" ? "ayah-active-highlight" : ""}`}
+              className={`rd-block mt-6 cursor-pointer rounded-2xl px-2 py-6 text-center hover:bg-accent/5 ${isThisAyahActive && activeLayer === "ayah" ? "rd-block-now" : ""}`}
             >
               {loadingAyat ? (
                 <p className="py-8 text-sm text-text-secondary">{dict.common.loading}</p>

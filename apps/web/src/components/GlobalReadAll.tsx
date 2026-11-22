@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { useRadioStore } from "@/lib/radio-store";
 import { fillLabels } from "@/lib/fill-labels";
+import { followReading } from "@/lib/follow-reading";
 
 type Mode = "all" | "translation" | "arabic";
 
@@ -106,7 +107,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
     el.style.boxShadow = "0 0 0 3px var(--color-accent, #c9a24a)";
     el.style.backgroundColor = "color-mix(in srgb, var(--color-accent, #c9a24a) 12%, transparent)";
     activeElRef.current = el;
-    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReading(el);
   }
 
   /** Collect the page's readable "leaf" text blocks, in document order. */

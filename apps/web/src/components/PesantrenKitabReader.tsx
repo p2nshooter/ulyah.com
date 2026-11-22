@@ -13,6 +13,7 @@ import { useRadioStore } from "@/lib/radio-store";
 import { api } from "@/lib/api";
 import { fillLabels } from "@/lib/fill-labels";
 import LeafPager from "@/components/LeafPager";
+import { followReadingId, resumeFollow } from "@/lib/follow-reading";
 import { routePath } from "@/lib/paths";
 
 interface QuranRef {
@@ -497,7 +498,10 @@ export function PesantrenKitabReader({
       } catch {
         /* non-fatal */
       }
-      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+      // A bab chosen by hand opens at its top. While the voice is reading, the follow (below) lands the
+      // passage being read instead — jumping to the top of the page here is what threw the reader off the
+      // words at every new bab.
+      if (typeof window !== "undefined" && !readingRef.current) window.scrollTo({ top: 0, behavior: "smooth" });
     }, 180);
   }
 
@@ -540,11 +544,17 @@ export function PesantrenKitabReader({
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
-  // Follow the voice: keep the sentence being read in the middle of the view.
+  // Follow the voice: land the passage being read in the reading band (lib/follow-reading.ts). Its top, never
+  // its centre — a long matn centred on its middle put the words being read above the screen. The words
+  // themselves are followed by SpokenText. (Leaf view: LeafPager follows its own passages.)
   useEffect(() => {
     if (!readingPos) return;
-    document.getElementById(`matn-${readingPos.matnId}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReadingId(`matn-${readingPos.matnId}`);
   }, [readingPos?.matnId, readingPos?.part]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // The first passage of the leaf on screen: pressing play reads from the page the visitor is looking at, not
+  // from the top of the bab (which turned the book back to its first leaf).
+  const leafStartRef = useRef<number | null>(null);
 
   const sleepMs = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -604,8 +614,9 @@ export function PesantrenKitabReader({
     stopAutoRead();
   }
 
-  async function startAutoRead(mode: AudioMode) {
+  async function startAutoRead(mode: AudioMode, fromMatnId: number | null = view === "leaf" ? leafStartRef.current : null) {
     if (readingRef.current) return;
+    resumeFollow();
     // The radio and the narration voice must never sound together — stop the
     // always-on radio the moment auto-read begins (it only resumes on a manual
     // press, matching the existing "other audio stops the radio" rule).
@@ -627,7 +638,10 @@ export function PesantrenKitabReader({
         goToBab(bab.id);
         await sleepMs(500);
       }
-      for (const m of bab.matn) {
+      // Start inside the first bab at the passage asked for (the leaf on screen, or a tapped passage).
+      const from = fromMatnId != null ? bab.matn.findIndex((m) => m.id === fromMatnId) : -1;
+      fromMatnId = null;
+      for (const m of from > 0 ? bab.matn.slice(from) : bab.matn) {
         const ok = await readMatn(m, mode);
         if (!ok) return;
       }
@@ -868,6 +882,14 @@ export function PesantrenKitabReader({
                   <LeafPager
                     items={current.matn}
                     activeId={readingPos?.matnId ?? null}
+                    onLeafChange={(_i, _n, firstId) => {
+                      leafStartRef.current = firstId;
+                    }}
+                    onSelect={(m) => {
+                      // Tap a passage: read from it.
+                      if (readingRef.current) stopAutoRead();
+                      setTimeout(() => void startAutoRead(audioMode, m.id), 150);
+                    }}
                     activePart={
                       readingPos?.part === "ar" || readingPos?.part === "tr" ? readingPos.part : null
                     }

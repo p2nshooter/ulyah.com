@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { routePath } from "@/lib/paths";
 import { ayahAudioSourcesSync } from "@/lib/qori-cdn";
+import { followReading } from "@/lib/follow-reading";
 
 export interface KidsAyah {
   number: number;
@@ -166,7 +167,7 @@ export function KidsSurahPlayer({
       return;
     }
     const node = document.getElementById(`kids-ayah-${ayat[current]?.number}`);
-    node?.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReading(node);
   }, [current, ayat]);
 
   return (

@@ -9,6 +9,7 @@ import { mushafLabels } from "@/lib/mushaf-labels";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 import { routePath } from "@/lib/paths";
+import { followReadingId } from "@/lib/follow-reading";
 
 interface MushafAyahDTO {
   surahId: number;
@@ -151,9 +152,8 @@ export function MushafReader({ locale }: { locale: string }) {
   // Keep the recited ayah in view as recitation proceeds down the page.
   useEffect(() => {
     if (!activeKey) return;
-    document
-      .getElementById(`mushaf-ayah-${activeKey.replace(":", "-")}`)
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // The reading band (lib/follow-reading.ts): moves only when the ayah has left it.
+    followReadingId(`mushaf-ayah-${activeKey.replace(":", "-")}`);
   }, [activeKey]);
 
   const translationLang = resolveTranslationLang(translationLocale);

@@ -280,6 +280,12 @@ jobs:
       - name: Check the kitab leaves never split a passage
         run: npx tsx apps/web/src/lib/leaf.test.mjs
 
+      # Every reader follows the voice by one rule (lib/follow-reading.ts): nothing moves while the word is in
+      # the reading band, and a passage is landed by its top — never its centre, which threw the words being
+      # read above the screen (owner, 22 Nov 2026: "penunjuk kata langsung pindah ke atas").
+      - name: Check the reading band keeps the spoken word on screen
+        run: npx tsx apps/web/src/lib/follow-reading.test.mjs
+
       # The radio tries a whole-surah recording before the per-ayah stitch, and
       # the two advance differently. If a missing surah file were still treated
       # as "a surah played", one 404 on Al-Baqarah would play ayah 1 and skip

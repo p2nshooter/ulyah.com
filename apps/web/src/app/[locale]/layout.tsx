@@ -25,6 +25,7 @@ import "../globals.css";
 import "@/styles/core/animations.css";
 import "@/styles/components/mushaf.css";
 import "@/styles/components/leaf.css";
+import "@/styles/components/reading.css";
 import "@/styles/components/kitab-cover.css";
 import "@/styles/components/kids.css";
 import "@/styles/components/sanad.css";
