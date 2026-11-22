@@ -9,8 +9,6 @@ import {
 } from "@ulyah/shared/i18n";
 import { localizedRoute, routeLocales } from "@ulyah/shared/routes";
 import { TENANT } from "@/lib/tenant";
-import { TENANT_MARKETPLACE } from "@/lib/store";
-import { shelvesWithPages } from "@/lib/store-data";
 
 /**
  * THE list of pages this site announces to search engines.
@@ -70,7 +68,6 @@ export const ROUTES = [
   // The Amazon shelf — only on a site that has an Amazon to point at. ulyah.com
   // does not (Amazon has no Indonesian marketplace), and the page 404s there,
   // so announcing it would be advertising a page that does not exist.
-  ...(TENANT_MARKETPLACE ? ["/toko"] : []),
 ];
 
 // The hadith collections, the story slugs and the kitab catalogue all come from
@@ -332,12 +329,6 @@ export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRout
   const content = await contentPaths();
   const all = ownLocales();
   const locales = group ? all.filter((l) => l.code === group.locale) : all;
-  // Store category pages are per-MARKETPLACE, not per-content-database: their
-  // slugs are this site's own words (hiyabs-y-panuelos on dawa.es), so they
-  // come from the store rather than from /content/sitemap, which is shared by
-  // all five. Only categories that carry a buying guide have a page at all.
-  const storePaths = TENANT_MARKETPLACE ? (await shelvesWithPages()).map((s) => `/toko/${s.slug}`) : [];
-
   for (const l of locales) {
     // Section routes carry the full hreflang graph: they are the pages a reader
     // lands on from search, and the ones that exist in every language.
@@ -363,15 +354,6 @@ export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRout
     // would multiply the file for no gain, and each one already declares its
     // canonical in the page head. lastModified appears only where the database
     // actually recorded one.
-    // The store's category pages ride in the "utama" group with the section
-    // routes: they belong to the site's own structure, not to the shared
-    // content database that kisah/kitab/hadits come from.
-    if (!group || group.section === "utama") {
-      for (const path of storePaths) {
-        entries.push({ url: urlFor(l.code, path), changeFrequency: "weekly", priority: 0.6 });
-      }
-    }
-
     for (const p of content) {
       if (group && SECTIONS.find((s) => s.match(p.path))!.key !== group.section) continue;
       entries.push({

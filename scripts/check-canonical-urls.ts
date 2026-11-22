@@ -183,41 +183,29 @@ for (const { host, locale } of SITES) {
 
 // ── 6. A route that does not exist everywhere never claims it does ─────────
 //
-// /toko is the Amazon shelf. Amazon does not operate in Indonesia, so the page
-// 404s on ulyah.com — and an hreflang pointing at a 404 is worse than no
-// hreflang at all. Every site with the page must name exactly the four sites
-// that have it, and no more.
+// /syukur and /nasakh exist on ulyah.com only; an hreflang pointing at a 404 is worse than no hreflang at all.
+// The Amazon store (/toko) was removed entirely (owner, 22 Nov 2026: "hapus total iklan penjualan dr Amazon dll"):
+// it is no route on any site any more, and no site keeps a localized slug for it.
 console.log("\n=== a partial route only names the sites that have it ===");
 bad = 0;
-for (const route of Object.keys({ "/toko": 1 })) {
+for (const route of ["/syukur", "/nasakh"]) {
   const only = routeLocales(route);
-  if (!only) {
-    fail(`${route} is expected to be a partial route but has no locale list`);
+  if (!only || only.join(",") !== "id") {
+    fail(`${route} must be announced by ulyah.com only`);
     bad++;
-    continue;
   }
-  for (const { host, locale } of SITES) {
-    const has = only.includes(locale);
-    // The hub must NOT be in the list — that is the whole point.
-    if (locale === "id" && has) {
-      fail(`${route} claims to exist on ${host}, which has no Amazon marketplace`);
-      bad++;
-    }
-    if (!has) continue;
-    // And where it does exist, the slug must be that site's own word.
-    const slug = localizedRoute(route, locale);
-    if (slug === route) {
-      fail(`${host} would serve ${route} — no ${locale} slug for it`);
-      bad++;
-    }
-    if (canonicalRoute(slug, locale) !== route) {
-      fail(`${host}${slug} does not resolve back to ${route}`);
-      bad++;
-    }
-  }
-  const urls = only.map((l) => localizedRoute(route, l));
-  console.log(`  ${bad === 0 ? "ok  " : "FAIL"}  ${route} → ${only.map((l, i) => `${l}${urls[i]}`).join("  ")}`);
 }
+if (routeLocales("/toko")) {
+  fail("/toko is still a partial route — the store was removed");
+  bad++;
+}
+for (const { host, locale } of SITES) {
+  if (localizedRoute("/toko", locale) !== "/toko") {
+    fail(`${host} still has a localized slug for the removed store`);
+    bad++;
+  }
+}
+console.log(`  ${bad === 0 ? "ok  " : "FAIL"}  /syukur, /nasakh: ulyah.com only; the removed store has no route anywhere`);
 
 console.log(failed === 0 ? "\nALL OK" : `\n${failed} FAILED`);
 process.exit(failed === 0 ? 0 : 1);

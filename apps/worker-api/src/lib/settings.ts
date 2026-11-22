@@ -2,22 +2,9 @@ import { encryptApiKey, decryptApiKey } from "@ulyah/shared/crypto";
 import type { Env } from "../env.js";
 
 /** Which panel a credential belongs under in the admin portal. */
-export type SettingGroup = "payment" | "affiliate" | "admanager";
+export type SettingGroup = "payment" | "admanager";
 
-/**
- * The AliExpress fields are BUILT but not shown yet.
- *
- * Owner: "siapin dulu posisinya biar tepat, tp di hide dulu semua, siapin aja
- * dulu". The app is still under review, so there is nothing to paste in and a
- * visible-but-empty panel is just three boxes nobody can fill. Everything is
- * in place behind this one switch: the keys, the encryption, the group, the
- * heading and its position in the panel.
- *
- * Flip this to `true` the day the key and secret are issued, and the panel
- * appears. Nothing else needs changing, and no deploy of the web app is
- * needed to then enter the values.
- */
-export const ALIEXPRESS_READY = false;
+// AliExpress affiliate settings were removed entirely (owner, 22 Nov 2026: "hapus total iklan penjualan dr Amazon dll").
 
 interface SettingDef {
   key: string;
@@ -51,22 +38,6 @@ export const MANAGED_SETTINGS: SettingDef[] = [
   { key: "NOWPAYMENTS_API_KEY", label: "NOWPayments API Key", secret: true, group: "payment", envFallback: (e) => e.NOWPAYMENTS_API_KEY },
   { key: "NOWPAYMENTS_IPN_SECRET", label: "NOWPayments IPN Secret", secret: true, group: "payment", envFallback: (e) => e.NOWPAYMENTS_IPN_SECRET },
 
-  // AliExpress affiliate. Listed here BEFORE anything reads them, on purpose:
-  // the app is still under review, and this is what "prepare it so I can fill
-  // it in from the portal later" means in code. A setting in this list is
-  // CRUD-able immediately — encrypted into admin_settings, masked in the UI,
-  // no deploy — so when the key and secret are finally issued they can be
-  // pasted in and are live at once.
-  //
-  // All three are masked, the tracking id included ("di encrypt, termasuk id
-  // nya"). The key and the tracking id do travel in plain sight inside an
-  // affiliate URL, so masking them protects nothing from the outside — but it
-  // costs nothing either, and it keeps them off the screen in a panel that
-  // may be open on a shared display. Encryption at rest was never in
-  // question: setSetting encrypts every value regardless of this flag.
-  { key: "ALIEXPRESS_APP_KEY", label: "AliExpress App Key", secret: true, group: "affiliate", hidden: !ALIEXPRESS_READY, envFallback: (e) => e.ALIEXPRESS_APP_KEY },
-  { key: "ALIEXPRESS_APP_SECRET", label: "AliExpress App Secret", secret: true, group: "affiliate", hidden: !ALIEXPRESS_READY, envFallback: (e) => e.ALIEXPRESS_APP_SECRET },
-  { key: "ALIEXPRESS_TRACKING_ID", label: "AliExpress Tracking ID", secret: true, group: "affiliate", hidden: !ALIEXPRESS_READY, envFallback: (e) => e.ALIEXPRESS_TRACKING_ID },
 
   // Ad Manager + AdSense automation (docs/ADMANAGER-BLUEPRINT.md §11). Owner:
   // "full otomatis tanpa pengendali setelah sy input api admanager". Entering
