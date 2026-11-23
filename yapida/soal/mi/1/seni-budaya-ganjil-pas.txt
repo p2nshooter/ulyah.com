@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Seni Budaya
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Bunyi yang teratur dan enak didengar disebut ....
+*a. musik
+b. kebisingan
+c. teriakan
+d. tangisan
+> Musik bunyi teratur.
+2. Bunyi yang berasal dari tubuh, misalnya tepuk tangan, disebut bunyi ....
+*a. tubuh
+b. mesin
+c. alam
+d. hewan
+> Bunyi dari anggota tubuh.
+3. Contoh bunyi alam adalah ....
+*a. gemericik air hujan
+b. suara mobil
+c. bel sekolah
+d. suara televisi
+> Bunyi dari alam.
+4. Suara ayam berkokok terdengar pada waktu ....
+*a. pagi
+b. siang
+c. sore
+d. malam
+> Ayam berkokok pagi.
+5. Lagu "Pelangi-pelangi" menceritakan tentang ....
+*a. pelangi
+b. bintang
+c. bulan
+d. hujan deras
+> Pelangi ciptaan Tuhan.
+6. Tempo lagu artinya ....
+*a. cepat lambatnya lagu
+b. tinggi rendahnya nada
+c. kata-kata lagu
+d. alat musik
+> Tempo: cepat lambat.
+7. Lagu untuk menidurkan bayi biasanya bertempo ....
+a. cepat
+*b. lambat
+c. sangat cepat
+d. berteriak
+> Lagu nina bobo lambat.
+8. Bertepuk tangan mengikuti irama lagu disebut ....
+*a. bertepuk sesuai ketukan
+b. berteriak
+c. melompat
+d. menari
+> Mengikuti ketukan.
+9. Garis lurus mendatar disebut garis ....
+*a. horizontal
+b. vertikal
+c. lengkung
+d. zig-zag
+> Horizontal.
+10. Alat musik yang dipukul adalah ....
+*a. rebana
+b. seruling
+c. gitar
+d. biola
+> Rebana dipukul.
+11. Alat musik yang ditiup adalah ....
+a. rebana
+*b. seruling
+c. gendang
+d. angklung
+> Seruling ditiup.
+12. Angklung dimainkan dengan cara ....
+*a. digoyang
+b. ditiup
+c. dipetik
+d. digesek
+> Angklung digoyang.
+13. Warna hijau berasal dari campuran ....
+*a. biru dan kuning
+b. merah dan biru
+c. merah dan kuning
+d. hitam dan putih
+> Biru + kuning.
+14. Ketika bernyanyi bersama, suara kita harus ....
+*a. kompak dan tidak berteriak
+b. paling keras
+c. sambil tertawa
+d. berbeda-beda
+> Bernyanyi kompak.
+15. Bunyi bel sekolah termasuk bunyi ....
+a. alam
+b. hewan
+*c. buatan (benda)
+d. tubuh
+> Bunyi benda buatan.
+[MENJODOHKAN]
+1. Rebana = dipukul
+2. Seruling = ditiup
+3. Gitar = dipetik
+4. Angklung = digoyang
+5. Biola = digesek
+~ diinjak
+[ISIAN]
+1. Cepat lambatnya lagu disebut .... = tempo
+2. Bunyi tepuk tangan termasuk bunyi .... = tubuh
+3. Bunyi hujan termasuk bunyi .... = alam
+4. Rebana dimainkan dengan cara .... = dipukul
+5. Seruling dimainkan dengan cara .... = ditiup
+6. Angklung berasal dari daerah Jawa .... = Barat
+7. Lagu nina bobo bertempo .... = lambat | pelan
+8. Bunyi yang teratur dan indah disebut .... = musik
+9. Gitar dimainkan dengan cara .... = dipetik
+10. Warna jingga berasal dari merah dan .... = kuning
+[URAIAN]
+1. Sebutkan dua contoh bunyi alam!
+= Bunyi hujan, angin, ombak, petir, gemericik air.
+2. Sebutkan dua contoh bunyi tubuh!
+= Tepuk tangan, menjentikkan jari, menghentakkan kaki.
+3. Apa yang dimaksud tempo lagu?
+= Cepat atau lambatnya lagu dinyanyikan.
+4. Sebutkan tiga alat musik dan cara memainkannya!
+= Rebana dipukul, seruling ditiup, gitar dipetik, angklung digoyang.
+5. Bagaimana sikap yang baik ketika bernyanyi bersama?
+= Bernyanyi kompak, tidak berteriak, dan mengikuti aba-aba guru.

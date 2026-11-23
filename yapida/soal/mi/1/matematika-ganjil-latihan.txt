@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Matematika
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Bilangan setelah 7 adalah ....
+*a. 8
+b. 6
+c. 9
+d. 10
+> 7, 8.
+2. 3 + 3 = ....
+a. 5
+*b. 6
+c. 7
+d. 9
+> 3 + 3 = 6.
+3. 8 – 5 = ....
+*a. 3
+b. 4
+c. 13
+d. 2
+> 8 – 5 = 3.
+4. Angka 6 dibaca ....
+*a. enam
+b. sembilan
+c. tujuh
+d. lima
+> Enam.
+5. Bilangan terbesar dari 4, 8, 1, 6 adalah ....
+*a. 8
+b. 6
+c. 4
+d. 1
+> 8.
+6. 2 + 7 = ....
+a. 8
+*b. 9
+c. 10
+d. 5
+> 2 + 7 = 9.
+7. 10 – 4 = ....
+a. 5
+*b. 6
+c. 7
+d. 14
+> 10 – 4 = 6.
+8. Bangun yang bulat tanpa sudut adalah ....
+*a. lingkaran
+b. segitiga
+c. persegi
+d. persegi panjang
+> Lingkaran.
+9. Kaki sapi ada ....
+a. 2
+*b. 4
+c. 6
+d. 8
+> Empat.
+10. ... + 2 = 6
+*a. 4
+b. 3
+c. 5
+d. 8
+> 4 + 2 = 6.
+11. Bilangan sebelum 1 adalah ....
+*a. 0
+b. 2
+c. 10
+d. 11
+> 0, 1.
+12. Siti punya 5 kue, diberikan 2 kepada adik. Sisa kue Siti ....
+*a. 3
+b. 7
+c. 2
+d. 4
+> 5 – 2 = 3.
+13. 4 + 5 = ....
+a. 8
+*b. 9
+c. 10
+d. 1
+> 4 + 5 = 9.
+14. Bingkai foto biasanya berbentuk ....
+*a. persegi panjang
+b. lingkaran
+c. segitiga
+d. bulat
+> Persegi panjang.
+15. Urutan dari terkecil: 6, 2, 9, 4 adalah ....
+*a. 2, 4, 6, 9
+b. 9, 6, 4, 2
+c. 2, 6, 4, 9
+d. 4, 2, 6, 9
+> Naik.
+[MENJODOHKAN]
+1. 1 + 1 = 2
+2. 2 + 4 = 6
+3. 7 – 3 = 4
+4. 9 – 1 = 8
+5. 5 + 0 = 5
+~ 11
+[ISIAN]
+1. 4 + 3 hasilnya .... = 7 | tujuh
+2. 9 – 2 hasilnya .... = 7 | tujuh
+3. Bilangan setelah 9 adalah .... = 10 | sepuluh
+4. Angka 8 dibaca .... = delapan
+5. Bangun bersisi tiga adalah .... = segitiga
+6. 6 + 4 hasilnya .... = 10 | sepuluh
+7. 7 – 7 hasilnya .... = 0 | nol
+8. Bilangan di antara 4 dan 6 adalah .... = 5 | lima
+9. Uang logam berbentuk .... = lingkaran
+10. 3 + 5 hasilnya .... = 8 | delapan
+[URAIAN]
+1. Rudi punya 4 bola, Ayah membelikan 5 bola lagi. Berapa bola Rudi?
+= 4 + 5 = 9 bola.
+2. Ada 7 ikan di kolam, 2 ikan diambil. Berapa ikan yang tersisa?
+= 7 – 2 = 5 ikan.
+3. Urutkan dari terbesar: 3, 8, 5, 1!
+= 8, 5, 3, 1.
+4. Sebutkan nama bangun pada papan tulis dan uang logam!
+= Papan tulis persegi panjang, uang logam lingkaran.
+5. Hitung: 6 + 3 dan 9 – 5!
+= 9 dan 4.

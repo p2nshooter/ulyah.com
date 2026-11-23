@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Seni Budaya
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Warna pokok adalah ....
+*a. merah, kuning, biru
+b. hijau, ungu, jingga
+c. hitam, putih, coklat
+d. merah muda, abu-abu, hitam
+> Warna primer.
+2. Garis tegak disebut garis ....
+*a. vertikal
+b. horizontal
+c. lengkung
+d. zig-zag
+> Vertikal.
+3. Biru dicampur kuning menjadi ....
+*a. hijau
+b. ungu
+c. jingga
+d. coklat
+> Hijau.
+4. Alat musik rebana dimainkan dengan cara ....
+*a. dipukul
+b. ditiup
+c. dipetik
+d. digesek
+> Dipukul.
+5. Bunyi hujan termasuk bunyi ....
+*a. alam
+b. tubuh
+c. mesin
+d. alat musik
+> Alam.
+6. Krayon digunakan untuk ....
+*a. mewarnai
+b. menghapus
+c. menggaris
+d. menggunting
+> Mewarnai.
+7. Tempo lagu adalah ....
+*a. cepat lambatnya lagu
+b. syair lagu
+c. judul lagu
+d. alat musik
+> Tempo.
+8. Seruling dimainkan dengan cara ....
+*a. ditiup
+b. dipukul
+c. digoyang
+d. dipetik
+> Ditiup.
+9. Merah dicampur biru menjadi ....
+*a. ungu
+b. hijau
+c. jingga
+d. kuning
+> Ungu.
+10. Gambar atap rumah biasanya berbentuk ....
+*a. segitiga
+b. lingkaran
+c. bintang
+d. hati
+> Segitiga.
+11. Tepuk tangan termasuk bunyi ....
+*a. tubuh
+b. alam
+c. hewan
+d. mesin
+> Tubuh.
+12. Angklung terbuat dari ....
+*a. bambu
+b. besi
+c. plastik
+d. kaca
+> Bambu.
+13. Garis seperti pelangi disebut garis ....
+*a. lengkung
+b. lurus
+c. zig-zag
+d. putus
+> Lengkung.
+14. Gitar dimainkan dengan cara ....
+*a. dipetik
+b. ditiup
+c. dipukul
+d. digoyang
+> Dipetik.
+15. Merah dicampur kuning menjadi ....
+*a. jingga
+b. hijau
+c. ungu
+d. biru
+> Jingga.
+[MENJODOHKAN]
+1. Merah + kuning = jingga
+2. Biru + kuning = hijau
+3. Merah + biru = ungu
+4. Rebana = dipukul
+5. Seruling = ditiup
+~ dipetik
+[ISIAN]
+1. Warna primer ada .... = tiga | 3
+2. Garis mendatar disebut garis .... = horizontal
+3. Angklung terbuat dari .... = bambu
+4. Gitar dimainkan dengan cara .... = dipetik
+5. Cepat lambat lagu disebut .... = tempo
+6. Bunyi tepuk tangan termasuk bunyi .... = tubuh
+7. Alat mewarnai adalah .... = krayon | pensil warna
+8. Biru dicampur kuning menjadi .... = hijau
+9. Seruling dimainkan dengan cara .... = ditiup
+10. Garis seperti gigi gergaji disebut garis .... = zig-zag | zigzag
+[URAIAN]
+1. Sebutkan tiga warna primer!
+= Merah, kuning, biru.
+2. Sebutkan dua alat musik yang dipukul!
+= Rebana, gendang, bedug, drum.
+3. Sebutkan dua contoh bunyi alam!
+= Hujan, angin, petir, ombak.
+4. Warna apa hasil campuran merah dan biru?
+= Ungu.
+5. Sebutkan macam-macam garis!
+= Lurus, lengkung, zig-zag, bergelombang, horizontal, vertikal.

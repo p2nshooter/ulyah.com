@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Matematika
+@semester genap
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Benda yang lebih panjang adalah ....
+*a. penggaris
+b. penghapus
+c. tutup botol
+d. kancing
+> Penggaris paling panjang.
+2. Mengukur panjang meja dengan jengkal termasuk satuan ....
+*a. tidak baku
+b. baku
+c. berat
+d. waktu
+> Jengkal, depa, langkah: tidak baku.
+3. Pensil lebih ... dari penghapus.
+*a. panjang
+b. pendek
+c. berat
+d. ringan
+> Pensil lebih panjang.
+4. Waktu matahari terbit adalah ....
+*a. pagi hari
+b. siang hari
+c. sore hari
+d. malam hari
+> Matahari terbit pagi.
+5. Kita tidur pada waktu ....
+a. pagi
+b. siang
+*c. malam
+d. subuh
+> Tidur malam.
+6. Jarum pendek menunjuk 7 dan jarum panjang menunjuk 12. Jam menunjukkan pukul ....
+a. 12.00
+*b. 7.00
+c. 7.12
+d. 12.07
+> Jarum pendek menunjukkan jam.
+7. Jarum panjang pada jam menunjukkan ....
+a. jam
+*b. menit
+c. hari
+d. bulan
+> Jarum panjang untuk menit.
+8. Pukul 12.00 siang kita biasanya ....
+a. sarapan
+*b. salat zuhur
+c. tidur malam
+d. salat subuh
+> Waktu zuhur siang hari.
+9. Bola berbentuk ....
+*a. bola (bulat)
+b. kubus
+c. balok
+d. tabung
+> Bangun ruang bola.
+10. Dadu berbentuk ....
+a. bola
+*b. kubus
+c. tabung
+d. kerucut
+> Dadu kubus.
+11. Kaleng susu berbentuk ....
+a. kubus
+b. balok
+*c. tabung
+d. bola
+> Tabung.
+12. Pola: 2, 4, 6, 8, ... Bilangan selanjutnya adalah ....
+*a. 10
+b. 9
+c. 12
+d. 11
+> Bertambah 2.
+13. Pola: ●▲●▲●... Gambar berikutnya adalah ....
+*a. ▲
+b. ●
+c. ■
+d. ★
+> Berselang-seling.
+14. Kotak kapur tulis berbentuk ....
+*a. balok
+b. bola
+c. tabung
+d. kerucut
+> Balok.
+15. Pola: 5, 10, 15, ... Bilangan berikutnya adalah ....
+*a. 20
+b. 16
+c. 25
+d. 18
+> Bertambah 5.
+[MENJODOHKAN]
+1. Bola = bulat
+2. Dadu = kubus
+3. Kaleng susu = tabung
+4. Kotak kapur = balok
+5. Topi ulang tahun = kerucut
+~ segitiga
+[ISIAN]
+1. Jengkal adalah satuan panjang tidak .... = baku
+2. Matahari terbit pada pagi .... = hari
+3. Jarum pendek jam menunjukkan .... = jam
+4. Jarum panjang jam menunjukkan .... = menit
+5. Pola 3, 6, 9, .... = 12
+6. Dadu berbentuk .... = kubus
+7. Kaleng berbentuk .... = tabung
+8. Pukul 7.00 jarum panjang menunjuk angka .... = 12 | dua belas
+9. Penggaris lebih .... dari penghapus. = panjang
+10. Pola 1, 3, 5, 7, .... = 9
+[URAIAN]
+1. Sebutkan tiga satuan panjang tidak baku!
+= Jengkal, depa, langkah, hasta.
+2. Apa yang kamu lakukan pada pukul 05.00 pagi?
+= Bangun tidur dan salat subuh.
+3. Lanjutkan pola: 2, 4, 6, 8, ..., ...!
+= 10, 12.
+4. Sebutkan dua benda berbentuk tabung!
+= Kaleng susu, gelas, drum, pipa.
+5. Gambarkan jam yang menunjukkan pukul 3.00 (jelaskan letak jarumnya)!
+= Jarum pendek menunjuk angka 3, jarum panjang menunjuk angka 12.

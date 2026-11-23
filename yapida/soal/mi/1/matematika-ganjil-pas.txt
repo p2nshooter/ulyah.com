@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Matematika
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. 2 + 3 = ....
+a. 4
+*b. 5
+c. 6
+d. 1
+> Dua tambah tiga sama dengan lima.
+2. 4 + 4 = ....
+a. 6
+b. 7
+*c. 8
+d. 9
+> 4 + 4 = 8.
+3. 5 + 1 = ....
+*a. 6
+b. 4
+c. 7
+d. 5
+> 5 + 1 = 6.
+4. 7 – 2 = ....
+a. 4
+*b. 5
+c. 6
+d. 9
+> 7 – 2 = 5.
+5. 9 – 3 = ....
+*a. 6
+b. 5
+c. 7
+d. 12
+> 9 – 3 = 6.
+6. 10 – 5 = ....
+a. 4
+*b. 5
+c. 6
+d. 15
+> 10 – 5 = 5.
+7. Ibu membeli 3 jeruk lalu membeli 2 jeruk lagi. Jeruk ibu sekarang ....
+a. 4
+*b. 5
+c. 6
+d. 1
+> 3 + 2 = 5.
+8. Ali punya 8 permen, dimakan 3. Sisa permen Ali ....
+*a. 5
+b. 6
+c. 11
+d. 4
+> 8 – 3 = 5.
+9. 6 + ... = 9
+a. 2
+*b. 3
+c. 4
+d. 5
+> 6 + 3 = 9.
+10. ... – 4 = 4
+a. 6
+b. 7
+*c. 8
+d. 9
+> 8 – 4 = 4.
+11. 3 + 3 + 3 = ....
+a. 6
+*b. 9
+c. 8
+d. 12
+> 3 + 3 + 3 = 9.
+12. Bentuk bangun pada uang logam adalah ....
+*a. lingkaran
+b. segitiga
+c. persegi
+d. persegi panjang
+> Uang logam berbentuk lingkaran.
+13. Bangun yang memiliki 3 sisi adalah ....
+a. persegi
+*b. segitiga
+c. lingkaran
+d. persegi panjang
+> Segitiga bersisi tiga.
+14. Papan tulis berbentuk ....
+a. lingkaran
+b. segitiga
+*c. persegi panjang
+d. bulat
+> Persegi panjang.
+15. 0 + 7 = ....
+a. 0
+*b. 7
+c. 8
+d. 70
+> Bilangan ditambah nol tetap.
+[MENJODOHKAN]
+1. 2 + 2 = 4
+2. 3 + 4 = 7
+3. 9 – 4 = 5
+4. 10 – 1 = 9
+5. 5 + 5 = 10
+~ 3
+[ISIAN]
+1. 3 + 4 hasilnya .... = 7 | tujuh
+2. 8 – 2 hasilnya .... = 6 | enam
+3. 5 + 2 hasilnya .... = 7 | tujuh
+4. 10 – 3 hasilnya .... = 7 | tujuh
+5. Bangun yang tidak memiliki sudut adalah .... = lingkaran
+6. Bangun dengan 4 sisi sama panjang adalah .... = persegi
+7. 1 + 8 hasilnya .... = 9 | sembilan
+8. 6 – 6 hasilnya .... = 0 | nol
+9. Ani punya 4 buku, diberi 3 lagi. Buku Ani sekarang .... = 7 | tujuh
+10. Segitiga memiliki .... sisi. = 3 | tiga
+[URAIAN]
+1. Dina punya 5 pensil. Ibu memberi 4 pensil lagi. Berapa pensil Dina sekarang?
+= 5 + 4 = 9 pensil.
+2. Di pohon ada 9 burung. 6 burung terbang. Berapa burung yang masih di pohon?
+= 9 – 6 = 3 burung.
+3. Hitunglah: 2 + 5 dan 8 – 4!
+= 2 + 5 = 7, 8 – 4 = 4.
+4. Sebutkan dua benda berbentuk lingkaran!
+= Uang logam, jam dinding, piring, roda.
+5. Sebutkan nama bangun yang memiliki tiga sisi dan tiga sudut!
+= Segitiga.
