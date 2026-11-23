@@ -108,7 +108,7 @@ const NAMA_DIRI = /^(Allah|Nabi|Rasul|Al-|Islam|Indonesia|Pancasila|Tuhan|Bung|I
 const hurufAwalOpsi = (x: string) => (x.charAt(0).toLowerCase() === x.charAt(0) || /^[A-Z]{2}/.test(x) || NAMA_DIRI.test(x) || /^[A-Z][a-z]+ [A-Z]/.test(x) ? x : x.charAt(0).toLowerCase() + x.slice(1));
 
 /** Rapikan tampilan pokok soal (setelah sidik dihitung — sidik tidak berubah): „…. .“ → „….“. */
-const rapiTampil = (t: string) => t.replace(/\.\.\.\.\s*\.\s*$/, '....').replace(/\s{2,}/g, ' ').trim();
+const rapiTampil = (t: string) => t.replace(/\s*⁄\.?/g, ' ....').replace(/\.\.\.\.(\s*\.\.\.\.)+/g, '....').replace(/\.\.\.\.\s*\.\s*$/, '....').replace(/\s{2,}/g, ' ').trim();
 
 function rapikanOpsi(o: string) {
   return o.replace(/^[\s:–-]+/, '')
