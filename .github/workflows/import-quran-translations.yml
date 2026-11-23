@@ -1,0 +1,61 @@
+name: Terjemah & Tafsir Al-Qur'an Tepercaya (QuranEnc → R2)
+
+# Owner, 22 Nov 2026: "Klo Al-quran mah jgn di terjemah sembarangan, cari langsung tafsir2 dari setiap negara … yg
+# tafsirnya sholeh" and "Jgn ke D1, pindah ke R2". One reviewed translation per site language (Indonesian Ministry of
+# Religious Affairs, Saheeh International, King Fahd Complex, Rowwad Translation Center …) and Al-Mukhtasar fi Tafsir
+# al-Qur'an where it exists, from QuranEnc.com, stored in R2 exactly as published (scripts/import-quran-translations.ts).
+# Weekly, because QuranEnc's terms ask republishers to follow its latest version: an unchanged version costs one
+# request per language, a new one is re-imported and checked ayah by ayah before anything is written.
+
+on:
+  workflow_dispatch:
+    inputs:
+      langs:
+        description: "Comma-separated languages (blank = every site language)"
+        required: false
+        default: ""
+      prefer:
+        description: "Override a choice, e.g. tr:turkish_shaban,ru:russian_rwwad"
+        required: false
+        default: ""
+      force:
+        description: "Re-import even when the version has not changed"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    - cron: "23 3 * * 1"
+
+concurrency:
+  group: import-quran-translations
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ulyah-media
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Import (checked: 114 surahs, 6,236 ayat, numbered, non-empty — or nothing is written)
+        run: |
+          set -o pipefail
+          npx tsx scripts/import-quran-translations.ts \
+            --langs="${{ inputs.langs }}" \
+            --prefer="${{ inputs.prefer }}" \
+            ${{ inputs.force && '--force' || '' }} | tee /tmp/quran-import.log

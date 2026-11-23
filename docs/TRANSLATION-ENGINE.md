@@ -6,6 +6,7 @@
 |---|---|
 | 22 Nov 2026 | „Bikinin engine penerjemah bahasa, cek di portal admin ulyah.com, bahasa apa aja yg blm di kerjakan, tolong bikin engine penerjemah nya, biar semuanya 100% setiap bahasa, tolong hati2 saat menerjemahkan alquran, kitab2 dan hadits2" |
 | 22 Nov 2026 | „Jgn ke D1, pindah ke R2, jgn pernah memakai D1 sebagai database" |
+| 22 Nov 2026 | „Klo Al-quran mah jgn di terjemah sembarangan, cari langsung tafsir2 dari setiap negara dari sumber manapun termasuk github yg tafsirnya sholeh agar tidak salah menerjemahkan" — „Berlaku jg untu axto.io" |
 
 Perintah ini menggantikan „terjemahin aja manual jgn make mesin" (job penghangat lama dimatikan karena itu dan karena
 ia menulis ke D1).
@@ -58,6 +59,21 @@ dihapus.
 
 Dibuktikan oleh `scripts/check-mesin-terjemah.ts` (CI) terhadap R2 tiruan yang menghormati If-Match/If-None-Match.
 
+## 4a. Terjemah & tafsir Al-Qur'an: hanya dari sumber tepercaya
+
+Al-Qur'an **tidak pernah** diterjemahkan oleh mesin ini. Setiap bahasa mendapat satu terjemahan karya ulama/lembaga
+bernama dari **QuranEnc.com** (Ensiklopedia Terjemah Makna Al-Qur'an — Ruwwad Translation Center & Markaz Tafsir):
+Indonesia = Kementerian Agama RI, Inggris = Saheeh International, lalu edisi yang ditinjau Ruwwad / Kompleks Raja Fahd
+untuk bahasa lain; plus **Al-Mukhtashar fi Tafsir Al-Qur'an** (manhaj Ahlus Sunnah wal Jama'ah) dalam bahasa yang
+tersedia. `scripts/import-quran-translations.ts` (workflow mingguan) mengambilnya di GitHub Actions, memeriksa 114 surah
+/ 6.236 ayat (bernomor urut, tidak kosong) sebelum menulis apa pun ke R2 (`quran/tr/<bahasa>/…`,
+`quran/mukhtasar/<bahasa>/…`), menyimpan teks dan catatan kakinya **tanpa diubah**, dan selalu menampilkan penerjemah,
+sumber (QuranEnc.com) dan versinya di bawah teks — syarat penerbitan ulang QuranEnc, termasuk memperbarui ke versi
+terbaru. Bahasa tanpa terjemahan tepercaya tidak diberi terjemahan mesin. Dicek `scripts/check-quran-translations.ts`.
+
+> Catatan untuk pemilik: syarat QuranEnc juga meminta agar terjemahan makna Al-Qur'an tidak ditampilkan berdampingan
+> dengan iklan yang tidak pantas. Kategori iklan sensitif (judi, kencan, alkohol, dll.) sebaiknya diblokir di AdSense.
+
 ## 5. Pindahan sekali dari D1
 
 `Mesin Penerjemah (R2)` → *Run workflow* → `move: true`: korpus dari tabel konten lama dan setiap baris `mt_cache`
@@ -76,3 +92,4 @@ tabel `mt_cache` dikosongkan/dihapus 7 hari kemudian (`docs/R2-DATA-BLUEPRINT.md
 | Pindahan sekali dari D1 (`move: true`) | ⏳ setelah tayang |
 | Pool kunci AI di R2 (`c/ai_key_pool/`) | ⏳ — sampai pindah, mesin memakai gtx |
 | Semua bahasa 100% | ⏳ berjalan sendiri, pass demi pass |
+| Terjemah & tafsir Al-Qur'an tepercaya (QuranEnc → R2), kredit + catatan kaki di pembaca | ✅ kode 22 Nov · ⏳ impor pertama setelah tayang |

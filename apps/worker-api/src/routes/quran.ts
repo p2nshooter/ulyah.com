@@ -9,6 +9,21 @@ import { isBotUA } from "../lib/bot.js";
 import { checkRateLimitLocal } from "../lib/rate-limit.js";
 import { globalAyahNumber } from "../lib/murottal-sources.js";
 import { translateText } from "../lib/mt.js";
+import { trustedSurah, creditLine, type TrustedSurah } from "../lib/quran-r2.js";
+
+/**
+ * The trusted translation for a request (lib/quran-r2.ts): the reader's OWN language when QuranEnc has a reviewed
+ * translation for it, else the language the fallback rules resolved to. Never a machine translation.
+ */
+async function trustedFor(env: Env, requested: string, lang: string | null, surah: number): Promise<{ lang: string; t: TrustedSurah } | null> {
+  if (requested === "ar") return null;
+  for (const l of [...new Set([requested, lang].filter((x): x is string => Boolean(x)))]) {
+    const t = await trustedSurah(env, "tr", l, surah);
+    if (t) return { lang: l, t };
+  }
+  return null;
+}
+const trustedTag = (t: { lang: string; t: TrustedSurah } | null) => (t ? `${t.lang}.${t.t.meta.key}@${t.t.meta.version}` : "none");
 
 export const quranRoute = new Hono<{ Bindings: Env }>();
 
@@ -39,8 +54,10 @@ quranRoute.get("/surah/:id", async (c) => {
     return c.json({ error: "Invalid surah id (1-114)" }, 400);
   }
   const { lang, requested } = langParam(c);
+  const trusted = await trustedFor(c.env, requested, lang, id);
 
-  const cacheKey = `quran:surah:${id}:full:${requested}`;
+  // The trusted edition and its version are part of the key: a new QuranEnc version reaches readers at once.
+  const cacheKey = `quran:surah:${id}:full:v2:${requested}:${trustedTag(trusted)}`;
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
@@ -63,7 +80,16 @@ quranRoute.get("/surah/:id", async (c) => {
         .bind(id)
         .all();
 
-  const body = JSON.stringify({ surah, ayat, lang: requested, translationLang: lang });
+  // A trusted translation replaces the old one ayah by ayah, word for word as published, with its footnotes,
+  // and its credit travels with it (QuranEnc's terms: source and version are shown with the text).
+  const rows = trusted
+    ? (ayat as { number: number; translation: string | null }[]).map((a) => {
+        const x = trusted.t.byAyah.get(a.number);
+        return x ? { ...a, translation: x.t, translation_footnotes: x.f ?? null } : a;
+      })
+    : ayat;
+  const translationSource = trusted ? { ...trusted.t.meta, credit: creditLine(trusted.t.meta), lang: trusted.lang } : null;
+  const body = JSON.stringify({ surah, ayat: rows, lang: requested, translationLang: trusted?.lang ?? lang, translationSource });
   await safeKvPut(c.env, cacheKey, body, { expirationTtl: 60 * 60 * 24 * 30 });
   return c.body(body, 200, { "Content-Type": "application/json" });
 });
@@ -147,7 +173,9 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
   // DAYS, so every ayah whose asbabun translation happened to fail is holding a
   // month-long "no specific occasion is narrated" — a sentence that is not
   // true. The old keys are abandoned rather than waited out.
-  const cacheKey = `quran:ayah:v8:${surahId}:${number}:${requested}`;
+  const trusted = await trustedFor(c.env, requested, lang, surahId);
+  const mukhtasar = requested === "ar" ? null : await trustedSurah(c.env, "mukhtasar", trusted?.lang ?? requested, surahId);
+  const cacheKey = `quran:ayah:v9:${surahId}:${number}:${requested}:${trustedTag(trusted)}:${mukhtasar ? mukhtasar.meta.version : "-"}`;
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
@@ -188,12 +216,20 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
       .all(),
   ]);
 
+  // Trusted translation first (lib/quran-r2.ts); the old row only where QuranEnc has none for this language.
+  const tx = trusted?.t.byAyah.get(number);
+  const trustedTranslation = tx
+    ? { ayah_id: (ayah as { id: number }).id, lang: trusted!.lang, text: tx.t, footnotes: tx.f ?? null, source: creditLine(trusted!.t.meta), url: trusted!.t.meta.url }
+    : null;
+  // Al-Mukhtasar fi Tafsir al-Qur'an in the reader's language, when it exists, alongside the classical tafsir.
+  const mx = mukhtasar?.byAyah.get(number);
+  const mukhtasarHit = mx ? { text: mx.f ? `${mx.t}\n\n${mx.f}` : mx.t, source: creditLine(mukhtasar!.meta), lang: trusted?.lang ?? requested } : null;
   const body = JSON.stringify({
     ayah,
-    translation,
+    translation: trustedTranslation ?? translation,
     lang: requested,
-    translationLang: lang,
-    tafsir: tafsirHit ? [tafsirHit] : [],
+    translationLang: trustedTranslation ? trusted!.lang : lang,
+    tafsir: [tafsirHit, mukhtasarHit].filter(Boolean),
     asbabun_nuzul: asbabHit ? [asbabHit] : [],
     hadits: hadits.results,
     stories: stories.results,
@@ -210,8 +246,17 @@ quranRoute.get("/ayah/:surah/:number", async (c) => {
 // "pilih tafsir" picker should offer for this UI language. Cheap, static-ish
 // (derived from the bundled editions registry), cached a day.
 quranRoute.get("/tafsir-editions", async (c) => {
-  const { lang } = langParam(c);
-  const editions = listTafsirEditions(lang);
+  const { lang, requested } = langParam(c);
+  const editions: { slug: string; name: string; author: string; lang: string }[] = listTafsirEditions(lang);
+  // Al-Mukhtasar in the reader's own language, when QuranEnc has it (checked on Al-Fatihah: the import writes all
+  // 114 surahs or none).
+  for (const l of [...new Set([requested, lang].filter((x): x is string => Boolean(x) && x !== "ar"))]) {
+    const m = await trustedSurah(c.env, "mukhtasar", l, 1);
+    if (m) {
+      editions.unshift({ slug: `mukhtasar-${l}`, name: m.meta.title, author: "Tafsir Center for Quranic Studies · QuranEnc.com", lang: l });
+      break;
+    }
+  }
   return c.json({ editions });
 });
 
@@ -233,7 +278,15 @@ quranRoute.get("/tafsir/:edition/:surah/:number", async (c) => {
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
-  const hit = await fetchTafsirByEdition(c.env, edition, surahId, number, lang);
+  const mk = /^mukhtasar-([a-z]{2})$/.exec(edition);
+  let hit: { text: string; source: string; lang?: string } | null;
+  if (mk) {
+    const m = await trustedSurah(c.env, "mukhtasar", mk[1]!, surahId);
+    const x = m?.byAyah.get(number);
+    hit = x && m ? { text: x.f ? `${x.t}\n\n${x.f}` : x.t, source: creditLine(m.meta), lang: mk[1]! } : null;
+  } else {
+    hit = await fetchTafsirByEdition(c.env, edition, surahId, number, lang);
+  }
   const body = JSON.stringify({ edition, tafsir: hit });
   // Cache a real hit for 30 days (classical text never changes); cache a miss
   // only briefly so a transient upstream failure self-heals.
@@ -394,7 +447,7 @@ quranRoute.get("/mushaf/page/:number", async (c) => {
   }
   const { lang, requested } = langParam(c);
 
-  const cacheKey = `quran:mushaf-page:v1:${pageNumber}:${requested}`;
+  const cacheKey = `quran:mushaf-page:v2:${pageNumber}:${requested}:${trustedTag(await trustedFor(c.env, requested, lang, 1))}`;
   const cached = await safeKvGet(c.env, cacheKey);
   if (cached) return c.body(cached, 200, { "Content-Type": "application/json" });
 
@@ -423,6 +476,14 @@ quranRoute.get("/mushaf/page/:number", async (c) => {
       ).results
     : [];
   const translationByKey = new Map(translationRows.map((r) => [`${r.surah_id}:${r.number}`, r.translation]));
+  // Trusted translations override, surah by surah (lib/quran-r2.ts).
+  let pageSource: string | null = null;
+  for (const sid of surahIds) {
+    const t = await trustedFor(c.env, requested, lang, sid);
+    if (!t) continue;
+    pageSource = creditLine(t.t.meta);
+    for (const [n, x] of t.t.byAyah) translationByKey.set(`${sid}:${n}`, x.t);
+  }
 
   let lastSurah = -1;
   const ayahs = mushafAyat.map((a) => {
@@ -447,6 +508,7 @@ quranRoute.get("/mushaf/page/:number", async (c) => {
     ayahs,
     lang: requested,
     translationLang: lang,
+    translationSource: pageSource,
   });
   await safeKvPut(c.env, cacheKey, body, { expirationTtl: 60 * 60 * 24 * 30 });
   return c.body(body, 200, { "Content-Type": "application/json" });

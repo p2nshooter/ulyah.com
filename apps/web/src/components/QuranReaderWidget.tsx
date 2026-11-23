@@ -29,6 +29,14 @@ interface AyatRow {
   text_ar: string;
   text_translit: string | null;
   translation: string | null;
+  /** The translator's own footnotes, kept with the text (QuranEnc: nothing removed). */
+  translation_footnotes?: string | null;
+}
+
+/** Who translated the text on screen — shown under it, always (owner, 22 Nov 2026; QuranEnc's terms). */
+interface TranslationSource {
+  credit: string;
+  url?: string;
 }
 
 interface Bundle {
@@ -223,6 +231,7 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
   const [surahFilter, setSurahFilter] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<SurahMeta | null>(null);
   const [ayat, setAyat] = useState<AyatRow[]>([]);
+  const [translationSource, setTranslationSource] = useState<TranslationSource | null>(null);
   const [focus, setFocus] = useState(1); // focused ayah number (1-based)
   const [bundle, setBundle] = useState<Bundle | null>(null);
   const [loadingAyat, setLoadingAyat] = useState(true);
@@ -334,11 +343,12 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
     pendingAyahRef.current = null;
     setFocus(Math.max(1, landing));
     api
-      .get<{ ayat: AyatRow[]; surah: { id: number } }>(`/quran/surah/${wantId}?lang=${locale}`)
+      .get<{ ayat: AyatRow[]; surah: { id: number }; translationSource?: TranslationSource | null }>(`/quran/surah/${wantId}?lang=${locale}`)
       .then((r) => {
         // Ignore a response for a surah the user already navigated away from.
         if (cancelled || r.surah?.id !== wantId) return;
         setAyat(r.ayat ?? []);
+        setTranslationSource(r.translationSource && typeof r.translationSource.credit === "string" ? r.translationSource : null);
       })
       .catch(() => {
         if (!cancelled) setLoadError(true);
@@ -701,9 +711,27 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
                     </div>
                   )}
                   {focusRow?.translation ? (
-                    <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-text-secondary">
-                      {focusRow.translation}
-                    </p>
+                    <>
+                      <p className="mx-auto mt-5 max-w-2xl whitespace-pre-line text-[15px] leading-relaxed text-text-secondary">
+                        {focusRow.translation}
+                      </p>
+                      {focusRow.translation_footnotes ? (
+                        <p className="mx-auto mt-2 max-w-2xl whitespace-pre-line text-[12px] leading-relaxed text-text-secondary/80" onClick={(ev) => ev.stopPropagation()}>
+                          {focusRow.translation_footnotes}
+                        </p>
+                      ) : null}
+                      {translationSource ? (
+                        <p className="mx-auto mt-2 max-w-2xl text-[10px] text-text-secondary/70" onClick={(ev) => ev.stopPropagation()}>
+                          {translationSource.url ? (
+                            <a href={translationSource.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent hover:underline">
+                              {translationSource.credit}
+                            </a>
+                          ) : (
+                            translationSource.credit
+                          )}
+                        </p>
+                      ) : null}
+                    </>
                   ) : (
                     <p className="mt-5 text-sm text-text-secondary">{dict.reader.translationNotAvailable}</p>
                   )}

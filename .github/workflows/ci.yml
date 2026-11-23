@@ -165,6 +165,12 @@ jobs:
       - name: Check the translation engine (R2 store, scripture guards)
         run: npx tsx scripts/check-mesin-terjemah.ts
 
+      # The Qur'an is never machine-translated: one reviewed translation per language from QuranEnc (Kemenag,
+      # Saheeh International, King Fahd Complex, Rowwad …), taken whole and exactly as published, with its credit
+      # (owner, 22 Nov 2026: "Klo Al-quran mah jgn di terjemah sembarangan").
+      - name: Check Qur'an translations are trusted, whole and credited
+        run: npx tsx scripts/check-quran-translations.ts
+
       # The pool is optional by design — no keys means gtx does the work. That
       # promise was broken silently: with an empty pool the parallel runner
       # built no workers, so no batch was ever attempted and every string came

@@ -25,6 +25,8 @@ interface MushafPageResponse {
   totalPages: number;
   juz: number | null;
   ayahs: MushafAyahDTO[];
+  /** Who translated the page's text (owner, 22 Nov 2026; QuranEnc's terms) — shown under it. */
+  translationSource?: string | null;
 }
 interface SurahMeta {
   id: number;
@@ -662,6 +664,9 @@ export function MushafReader({ locale }: { locale: string }) {
                     </p>
                   ) : null
                 )}
+                {typeof pageData.translationSource === "string" && pageData.translationSource ? (
+                  <p className="pt-1 text-[10px] text-text-secondary/70">{pageData.translationSource}</p>
+                ) : null}
               </div>
             )}
             </div>
