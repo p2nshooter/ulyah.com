@@ -17,7 +17,7 @@ import path from 'node:path';
 import { KURIKULUM, type Mapel } from '../src/data/kurikulum.ts';
 import { FORMAT, namaMapelSoal } from '../src/data/soal.ts';
 import { semuaNaskah, type NaskahPelajaran } from './pelajaran.ts';
-import { soalBse, uraianTulis, type ButirBse } from './soal-bse.ts';
+import { soalBse, uraianTulis, pgTulis, type ButirBse } from './soal-bse.ts';
 
 export type JenisSlot = 'pts' | 'pas' | 'latihan';
 export interface Slot { jenjang: 'mi' | 'mts'; kelas: number; m: Mapel; semester: 'ganjil' | 'genap'; jenis: JenisSlot }
@@ -334,7 +334,8 @@ function alokasiBse(slot: Slot): ReturnType<typeof alokasiCache.get> | null {
   const buku = nama.flatMap((n) => soalBse(n, slot.kelas));
   const ganjil = slot.semester === 'ganjil';
   const semua: ButirPos[] = buku.flatMap((b) => b.pg.map((x) => ({ ...x, pos: (x.bab + 0.5) / Math.max(1, b.jumlahBab) })))
-    .filter((x) => (ganjil ? x.pos < 0.5 : x.pos >= 0.5));
+    .filter((x) => (ganjil ? x.pos < 0.5 : x.pos >= 0.5))
+    .concat(pgTulis(slot.m.slug, slot.kelas, slot.semester).map((x) => ({ id: x.id, t: x.t, o: x.o, k: x.k, bukti: '', bab: 0, manual: true, pos: x.pts ? (ganjil ? 0.1 : 0.6) : (ganjil ? 0.4 : 0.9) })));
   const urRaw = [...buku.flatMap((b) => b.uraian.filter((u) => u.ok).map((u) => ({ t: u.t, j: u.j, pos: (u.bab + 0.5) / Math.max(1, b.jumlahBab) })).filter((u) => (ganjil ? u.pos < 0.5 : u.pos >= 0.5))),
     ...uraianTulis(slot.m.slug, slot.kelas, slot.semester).map((u) => ({ ...u, pos: u.pts ? (ganjil ? 0.1 : 0.6) : (ganjil ? 0.4 : 0.9) }))];
   const awal = (pos: number) => (ganjil ? pos < 0.25 : pos < 0.75);
