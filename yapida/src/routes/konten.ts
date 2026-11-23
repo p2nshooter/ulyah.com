@@ -1,4 +1,6 @@
 /** Rute publik isi lembaga (kabar, galeri, video, agenda, dokumen, karya, PPDB + formulir, struktur & guru) dan berkas media. */
+import { infoPage } from '../pages/info.ts';
+import { rentangInfo } from '../data/site.ts';
 import { Hono } from 'hono';
 import type { Ctx, HonoEnv } from '../lib/session.ts';
 import { asalSama } from '../lib/session.ts';
@@ -6,7 +8,7 @@ import { bersihTeks, kirimSaran, MAKS_ISI, URUT_KATEGORI, type KategoriSaran } f
 import { crumbs } from '../pages/layout.ts';
 import { kecil, media, origin, render, tidakAda } from '../lib/render.ts';
 import { getSitus, getUnit, listUnits } from '../data/site.ts';
-import { ambilSlug, bacaBidang, daftar, simpan, type Dok, type IxItem } from '../data/koleksi.ts';
+import { ambil, ambilSlug, bacaBidang, daftar, simpan, type Dok, type IxItem } from '../data/koleksi.ts';
 import { PENDAFTAR } from '../data/defs.ts';
 import { BERKAS_RE } from '../data/koleksi.ts';
 import { videoKanal } from '../data/yt.ts';
@@ -27,6 +29,7 @@ export function publikDok(kol: string, slug: string): string {
     case 'penghargaan': return `/prestasi/${slug}`;
     case 'video': return '/video';
     case 'agenda': return `/agenda#${slug}`;
+    case 'info': return `/informasi#${slug}`;
     case 'dokumen': return `/dokumen#${slug}`;
     default: return '/';
   }
@@ -109,6 +112,17 @@ konten.get('/video', async (c) => {
 });
 
 /* ── agenda, dokumen ───────────────────────────────────────────────────── */
+
+konten.get('/informasi', async (c) => {
+  const store = c.get('store');
+  const now = Date.now();
+  const semua = await daftar(store, 'info', { tayang: true, limit: 60 });
+  const docs = (await Promise.all(semua.slice(0, 40).map((it) => ambil(store, 'info', it.id)))).filter((d): d is Dok => Boolean(d && d.status === 'tayang'));
+  const masih = (d: Dok) => now < rentangInfo({ tanggal: d.tanggal, mulai: d.d.mulai, sampai: d.d.sampai })[1];
+  const aktif = docs.filter(masih).sort((a, b) => a.tanggal.localeCompare(b.tanggal));
+  const arsip = docs.filter((d) => !masih(d)).sort((a, b) => b.tanggal.localeCompare(a.tanggal)).slice(0, 20);
+  return render(c, { path: '/informasi', aktif: 'kabar', title: 'Informasi Akbar — Pengajian, Maulid, Kenaikan Kelas & Siaran Langsung | Yapida', desc: 'Pengumuman pengajian akbar, peringatan hari besar Islam, kenaikan kelas, wisuda, dan PPDB Yayasan Al-Huda Yapida beserta siaran langsung YouTube dan Facebook.', body: infoPage({ aktif, arsip, media: media(c) }), css: ['ibadah.css'], jsonLd: [crumbs(origin(c), [['Informasi', '/informasi']])] });
+});
 
 konten.get('/agenda', async (c) => {
   const x = await vctx(c);

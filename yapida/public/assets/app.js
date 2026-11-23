@@ -299,6 +299,35 @@
     if (ios && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua)) tampil(true);
   })();
 
+  /* ── informasi akbar: hitung mundur (H-7 · Besok · Hari ini · Berlangsung), berganti tiap 6 detik, bisa disembunyikan ── */
+  (function () {
+    var WIB = 7 * 3600000, hari = function (iso) { return Date.parse(iso + 'T00:00:00+07:00'); };
+    $$('[data-info-hitung]').forEach(function (x) {
+      var t = hari(x.getAttribute('data-info-hitung'));
+      if (!isFinite(t)) return;
+      var kini = Date.now(), selisih = Math.floor((t - (kini - ((kini + WIB) % 86400000))) / 86400000);
+      x.textContent = selisih > 1 ? 'H-' + selisih : selisih === 1 ? 'Besok' : selisih === 0 ? 'Hari ini' : 'Telah berlangsung';
+      x.classList.toggle('kini', selisih === 0);
+    });
+    var pita = $('[data-info-pita]');
+    if (!pita) return;
+    var butir = $$('[data-info-butir]', pita), titik = $$('.pita-info-titik i', pita), kunci = 'yp-info-tutup:' + butir.map(function (b) { var a = $('a', b); return a ? a.getAttribute('href') : ''; }).join('|');
+    try { if (sessionStorage.getItem(kunci)) { pita.hidden = true; return; } } catch (e) { /* abaikan */ }
+    var tutup = $('[data-info-tutup]', pita);
+    if (tutup) tutup.addEventListener('click', function () { pita.hidden = true; try { sessionStorage.setItem(kunci, '1'); } catch (e) { /* abaikan */ } });
+    if (butir.length < 2 || tenang) return;
+    var i = 0, jeda = false;
+    pita.addEventListener('mouseenter', function () { jeda = true; }); pita.addEventListener('mouseleave', function () { jeda = false; });
+    pita.addEventListener('focusin', function () { jeda = true; }); pita.addEventListener('focusout', function () { jeda = false; });
+    setInterval(function () {
+      if (jeda || d.hidden) return;
+      var lama = butir[i]; i = (i + 1) % butir.length;
+      lama.classList.remove('aktif'); lama.classList.add('keluar'); setTimeout(function () { lama.classList.remove('keluar'); }, 520);
+      butir[i].classList.add('aktif');
+      titik.forEach(function (t, k) { t.classList.toggle('aktif', k === i); });
+    }, 6000);
+  })();
+
   /* ── pintu portal: ketuk logo 3× (pemilik, 15 Nov 2026: „jgn make tombol login, tp make ketuk logo“; diturunkan dari 5×
      ke 3× atas perintah pemilik: „login lembaga kurangi dari 5 ketukan menjadi 3“).
      Satu ketukan tetap membuka beranda; tiga ketukan beruntun (jeda < 0,6 detik) membuka halaman masuk. ── */

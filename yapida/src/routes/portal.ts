@@ -685,7 +685,7 @@ async function simpanDok(c: Ctx) {
   const form: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(f)) if (k.startsWith('d_')) form[k.slice(2)] = Array.isArray(v) ? v.map(String) : typeof v === 'string' ? v : '';
   const units = await unitsBoleh(c);
-  const unit = def.privat ? lama!.unit : String(f.unit ?? '');
+  const unit = def.privat ? lama!.unit : def.hanyaYayasan ? 'yayasan' : String(f.unit ?? '');
   const judul = String(f.judul ?? '').trim();
   const stMinta = String(f.status ?? '') as Status;
   const status: Status = def.privat ? (lama?.status ?? 'tinjau') : def.tanpaPublik ? 'tayang' : statusBoleh(u).includes(stMinta) ? stMinta : statusBoleh(u)[0]!;
