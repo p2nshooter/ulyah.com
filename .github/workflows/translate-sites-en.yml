@@ -5,7 +5,9 @@ name: Situs artikel DE/ES → edisi Inggris
 # scripts/translate-sites-en.ts writes content/en/ for every German and Spanish site in sites/, document by document,
 # each one only when it passes the gates of sites/_engine/check.mjs; when a site is complete its English edition is
 # switched on (site.json "en" + theme/en.json) only if check.mjs passes. The result is committed to main, where
-# deploy-sites.yml puts it live. Every six hours until every site is done; an unchanged site costs nothing.
+# deploy-sites.yml puts it live. Every three hours until every site is done; an unchanged site costs nothing.
+# Parallel (owner, 23 Nov 2026: "lanjut kerjaan2 yg belum di kerjakan, engine translate web artikel"): one job per
+# unfinished site, up to 8 at once — each runner has its own IP, so the free translators do not throttle each other.
 
 on:
   workflow_dispatch:
@@ -15,11 +17,11 @@ on:
         required: false
         default: ""
       minutes:
-        description: "Translate for at most this many minutes"
+        description: "Translate for at most this many minutes (per site)"
         required: false
-        default: "300"
+        default: "150"
   schedule:
-    - cron: "37 */6 * * *"
+    - cron: "37 */3 * * *"
 
 concurrency:
   group: translate-sites-en
@@ -29,9 +31,38 @@ permissions:
   contents: write
 
 jobs:
-  translate:
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 340
+    outputs:
+      sites: ${{ steps.p.outputs.sites }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: p
+        env:
+          IN_SITE: ${{ inputs.site }}
+        run: |
+          # German & Spanish article sites whose English edition is not switched on yet (dawa.im is not an article site)
+          sites=$(IN_SITE="$IN_SITE" node -e '
+            const fs = require("fs");
+            const only = process.env.IN_SITE;
+            const out = fs.readdirSync("sites").filter((d) => {
+              if (d === "_engine" || d === "dawa.im" || (only && d !== only)) return false;
+              try { const j = JSON.parse(fs.readFileSync(`sites/${d}/site.json`, "utf8")); return ["de", "es"].includes(String(j.lang ?? "").slice(0, 2)) && !j.en; } catch { return false; }
+            });
+            process.stdout.write(JSON.stringify(out));')
+          echo "sites=$sites" >> "$GITHUB_OUTPUT"
+          echo "### Situs yang diterjemahkan putaran ini: $sites" >> "$GITHUB_STEP_SUMMARY"
+
+  translate:
+    needs: plan
+    if: ${{ needs.plan.outputs.sites != '[]' && needs.plan.outputs.sites != '' }}
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        site: ${{ fromJSON(needs.plan.outputs.sites) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 190
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
@@ -52,13 +83,12 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Translate
         env:
-          IN_SITE: ${{ inputs.site }}
-          IN_MINUTES: ${{ inputs.minutes || '300' }}
+          IN_SITE: ${{ matrix.site }}
+          IN_MINUTES: ${{ inputs.minutes || '150' }}
         run: |
           set -o pipefail
-          if [ -n "$IN_SITE" ]; then target="--site=$IN_SITE"; else target="--all"; fi
-          npx tsx scripts/translate-sites-en.ts $target --minutes="$IN_MINUTES" | tee /tmp/en.log
-          { echo "### Edisi Inggris situs artikel"; sed 's/^/- /' /tmp/en.log; } >> "$GITHUB_STEP_SUMMARY"
+          npx tsx scripts/translate-sites-en.ts --site="$IN_SITE" --minutes="$IN_MINUTES" | tee /tmp/en.log
+          { echo "### Edisi Inggris: $IN_SITE"; sed 's/^/- /' /tmp/en.log; } >> "$GITHUB_STEP_SUMMARY"
       - name: Commit the English editions
         if: ${{ !cancelled() }}
         run: |
@@ -66,9 +96,10 @@ jobs:
           if git diff --quiet -- sites && [ -z "$(git ls-files --others --exclude-standard sites)" ]; then echo "Nothing new."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sites/*/content/en sites/*/site.json sites/*/theme/en.json 2>/dev/null || true
-          git commit -m "sites: English editions from the translation engine" || exit 0
-          for attempt in 1 2 3 4 5; do
+          site="${{ matrix.site }}"
+          for f in content/en site.json theme/en.json; do if [ -e "sites/$site/$f" ]; then git add "sites/$site/$f"; fi; done
+          git commit -m "sites($site): English edition from the translation engine" || exit 0
+          for attempt in 1 2 3 4 5 6 7 8; do
             git fetch origin main
             git rebase FETCH_HEAD || { git rebase --abort; echo "rebase conflict — next run retries"; exit 0; }
             if git push origin HEAD:main; then echo "pushed on attempt ${attempt}"; exit 0; fi
