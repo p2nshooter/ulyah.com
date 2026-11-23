@@ -231,7 +231,7 @@ soal.get('/portal/bank-soal/:id', async (c) => {
   const p = await muatPaket(c);
   if (!p) return tolak(c);
   const units = await unitsMilik(c);
-  const unitCetak = units.some((x) => x.slug === c.req.query('unit')) ? c.req.query('unit')! : p.unit ?? units[0]?.slug ?? 'yayasan';
+  const unitCetak = pilihUnitCetak(units, p, c.req.query('unit'));
   const store = c.get('store');
   const hasil = await hasilPaket(store, p.id, lingkupSemua(u) ? null : u.units);
   // soal ujian: lembaga (jenjang paket) yang boleh dibagikan oleh akun ini + statusnya
@@ -243,10 +243,19 @@ soal.get('/portal/bank-soal/:id', async (c) => {
   });
 });
 
+/** Lembaga untuk kop cetak: pilihan di halaman → lembaga pemilik paket → lembaga sejenjang (MI untuk paket MI, MTs untuk
+ *  paket MTs, RA untuk paket RA) → lembaga pertama akun. Sebelumnya paket bawaan dicetak dengan kop lembaga pertama
+ *  di daftar (Masjid Jami’), bukan madrasahnya. */
+function pilihUnitCetak(units: { slug: string; jenis?: string }[], p: Pick<Paket, 'unit' | 'jenjang'>, minta?: string): string {
+  if (minta && units.some((x) => x.slug === minta)) return minta;
+  if (p.unit) return p.unit;
+  return units.find((x) => unitJenjang(x, p.jenjang))?.slug ?? units[0]?.slug ?? 'yayasan';
+}
+
 async function kopCetak(c: Ctx, p: Paket) {
   const store = c.get('store');
   const units = await unitsMilik(c);
-  const unit = units.some((x) => x.slug === c.req.query('unit')) ? c.req.query('unit')! : p.unit ?? units[0]?.slug ?? 'yayasan';
+  const unit = pilihUnitCetak(units, p, c.req.query('unit'));
   const [s, ud] = await Promise.all([getSitus(store), unit === 'yayasan' ? Promise.resolve(null) : getUnit(store, unit)]);
   return kopUntuk(store, unit, s, ud);
 }
