@@ -265,3 +265,19 @@ export function uraianTulis(mapel: string, kelas: number, smt: 'ganjil' | 'genap
   }
   return out;
 }
+
+/** PG tulisan peninjau (bila soal buku kurang): „p <mapel> <kelas> <ganjil|genap> <pts|pas> <soal> | *benar | salah | salah | salah“. */
+export function pgTulis(mapel: string, kelas: number, smt: 'ganjil' | 'genap'): { id: string; t: string; o: string[]; k: number; pts: boolean }[] {
+  const f = path.join(AKAR, 'soal', 'kunci-bse.list');
+  if (!fs.existsSync(f)) return [];
+  const out: { id: string; t: string; o: string[]; k: number; pts: boolean }[] = [];
+  for (const l of fs.readFileSync(f, 'utf8').split('\n')) {
+    const m = /^p\s+([a-z-]+)\s+(\d)\s+(ganjil|genap)\s+(pts|pas)\s+(.+)$/.exec(l.trim());
+    if (!m || m[1] !== mapel || Number(m[2]) !== kelas || m[3] !== smt) continue;
+    const [t, ...opsi] = m[5]!.split('|').map((x) => x.trim());
+    const k = opsi.findIndex((x) => x.startsWith('*'));
+    if (!t || opsi.length < 3 || k < 0) throw new Error(`kunci-bse.list: PG tulisan rusak: ${l}`);
+    out.push({ id: sidik(`p|${t}`.toLowerCase()), t, o: opsi.map((x) => x.replace(/^\*/, '').trim()), k, pts: m[4] === 'pts' });
+  }
+  return out;
+}
