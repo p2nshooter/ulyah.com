@@ -7,7 +7,7 @@ import { rinciSitus, tulisAlamat } from '../lib/alamat.ts';
 import type { Store } from '../lib/store.ts';
 import { bulanRomawi } from '../lib/text.ts';
 import { ambil, daftar, type Dok } from './koleksi.ts';
-import type { Kontak, Situs, Unit } from './model.ts';
+import { labelStatistik, type Kontak, type Situs, type Unit } from './model.ts';
 
 /* ── desain sertifikat ──────────────────────────────────────────────────── */
 
@@ -102,14 +102,14 @@ const alamatSitus = (s: Situs) => tulisAlamat(rinciSitus(s.alamat), { singkat: f
 export function kopDariProfil(u: Unit | null, s: Situs): Kop {
   const kota = s.alamat.kecamatan || s.alamat.kabupaten || 'Sukakarya';
   if (!u) return { induk: '', nama: s.nama.toUpperCase(), ket: s.singkatan ? `(${s.singkatan})` : undefined, alamat: alamatSitus(s), kontak: kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
-  return { induk: s.nama.toUpperCase(), nama: u.nama.toUpperCase(), ket: u.jenis, alamat: (u.alamatRinci ? tulisAlamat(u.alamatRinci, { singkat: false }) : u.alamat) || alamatSitus(s), kontak: kontakTeks(u.kontak) || kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
+  return { induk: s.nama.toUpperCase(), nama: u.nama.toUpperCase(), ket: u.jenis, nsm: u.nsm ? `${labelStatistik(u).split(' (')[0]}: ${u.nsm}` : undefined, alamat: (u.alamatRinci ? tulisAlamat(u.alamatRinci, { singkat: false }) : u.alamat) || alamatSitus(s), kontak: kontakTeks(u.kontak) || kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
 }
 
 /** Kop dari dokumen koleksi `kop`; bidang kosong diambil dari kop profil. */
 export function kopDariDok(d: Pick<Dok, 'judul' | 'd'>, dasar: Kop): Kop {
   const t = (k: string) => teks(d.d, k);
   return {
-    ...dasar, nama: d.judul.toUpperCase(), induk: t('induk') || dasar.induk, arab: t('arab') || undefined, ket: t('ket') || dasar.ket, nsm: t('nsm') || undefined,
+    ...dasar, nama: d.judul.toUpperCase(), induk: t('induk') || dasar.induk, arab: t('arab') || undefined, ket: t('ket') || dasar.ket, nsm: t('nsm') || dasar.nsm,
     alamat: t('alamat') || dasar.alamat, kontak: t('kontak') || dasar.kontak, gaya: GAYA_KOP.some(([k]) => k === t('gaya')) ? t('gaya') : 'tengah',
     warna: WARNA_KOP.some(([k]) => k === t('warna')) ? t('warna') : 'zamrud', logo: t('logo') || undefined, logoKanan: t('logoKanan') || undefined, kota: t('kota') || dasar.kota,
   };

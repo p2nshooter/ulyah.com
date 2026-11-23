@@ -24,9 +24,16 @@
   }
   var menu = $('[data-menu]'), bukaMenu = $('[data-menu-buka]');
   if (menu && bukaMenu) {
+    /* latar redup di belakang laci: diketuk = menutup menu */
+    var latar = d.createElement('div');
+    latar.className = 'menu-latar'; latar.setAttribute('aria-hidden', 'true');
+    menu.parentNode.insertBefore(latar, menu); /* di dalam kepala: satu tumpukan dengan laci (48) dan tombol menu (49) */
+    latar.addEventListener('click', function () { if (menu.classList.contains('buka')) bukaMenu.click(); });
     bukaMenu.addEventListener('click', function () {
       var buka = menu.classList.toggle('buka');
       bukaMenu.setAttribute('aria-expanded', String(buka));
+      latar.classList.toggle('buka', buka);
+      root.classList.toggle('menu-terbuka', buka);
       $$('[data-mega]', menu).forEach(function (m) { m.hidden = !buka; });
     });
     d.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('buka')) bukaMenu.click(); });
@@ -292,15 +299,16 @@
     if (ios && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua)) tampil(true);
   })();
 
-  /* ── pintu portal: ketuk logo 5× (pemilik, 15 Nov 2026: „untuk masuk login jgn make tombol login, tp make ketuk logo 5x“).
-     Satu ketukan tetap membuka beranda; lima ketukan beruntun (jeda < 0,6 detik) membuka halaman masuk. ── */
+  /* ── pintu portal: ketuk logo 3× (pemilik, 15 Nov 2026: „jgn make tombol login, tp make ketuk logo“; diturunkan dari 5×
+     ke 3× atas perintah pemilik: „login lembaga kurangi dari 5 ketukan menjadi 3“).
+     Satu ketukan tetap membuka beranda; tiga ketukan beruntun (jeda < 0,6 detik) membuka halaman masuk. ── */
   $$('[data-logo-ketuk]').forEach(function (logo) {
     var n = 0, waktu = 0;
     logo.addEventListener('click', function (e) {
       e.preventDefault();
       n += 1; clearTimeout(waktu);
       logo.classList.remove('ketuk'); void logo.offsetWidth; logo.classList.add('ketuk');
-      if (n >= 5) { n = 0; if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate([20, 40, 20]); window.location.href = '/masuk'; return; }
+      if (n >= 3) { n = 0; if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate([20, 40, 20]); window.location.href = '/masuk'; return; }
       waktu = setTimeout(function () { var x = n; n = 0; if (x === 1) window.location.href = logo.getAttribute('href') || '/'; }, 600);
     });
   });

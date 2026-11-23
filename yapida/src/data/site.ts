@@ -10,7 +10,7 @@
  */
 import type { Store } from '../lib/store.ts';
 import { unitRingkas, type Halaman, type Situs, type Unit, type UnitRingkas } from './model.ts';
-import { SEED_SDM, SEED_UNITS, SEED_VERSION, TAMBALAN_KEPALA, TAMBALAN_NAMA, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
+import { SEED_SDM, SEED_UNITS, SEED_VERSION, TAMBALAN_KEPALA, TAMBALAN_NAMA, TAMBALAN_NSM, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
 import { ambil, simpan } from './koleksi.ts';
 import { SDM } from './defs.ts';
 
@@ -148,6 +148,12 @@ async function tambalIsiAwal(store: Store, now: number): Promise<void> {
     const u = await store.get<Unit>(unitKey(slug));
     if (!u || (u.kepala?.nama && u.kepala.nama !== t.lama)) continue;
     const baru: Unit = { ...u, kepala: t.baru };
+    await store.put(unitKey(slug), baru, unitRingkas(baru) as unknown as Record<string, unknown>);
+  }
+  for (const [slug, nsm] of Object.entries(TAMBALAN_NSM)) {
+    const u = await store.get<Unit>(unitKey(slug));
+    if (!u || u.nsm) continue;
+    const baru: Unit = { ...u, nsm, ubah: now };
     await store.put(unitKey(slug), baru, unitRingkas(baru) as unknown as Record<string, unknown>);
   }
   for (const o of SEED_SDM) {

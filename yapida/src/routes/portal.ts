@@ -259,7 +259,7 @@ function formLembaga(c: Ctx, x: Partial<Unit>, baru: boolean): Raw {
     ${isian('Sarana (satu per baris)', 'fasilitas', (x.fasilitas ?? []).join('\n'), { baris: 4 })}
     <div class="p-baris">${isian('Waktu belajar / layanan', 'jadwal', x.jadwal, { maks: 120 })}${isian('Kurikulum', 'kurikulum', x.kurikulum, { maks: 160 })}</div>
     ${formAlamat(x)}
-    <div class="p-baris">${isian('NSM (12 angka)', 'nsm', x.nsm, { maks: 12, bantuan: 'Nomor Statistik Madrasah — impor file master mencocokkan siswa ke lembaga ini lewat NSM.' })}${isian('NPSN (8 angka)', 'npsn', x.npsn, { maks: 8 })}${isian('NIP/NUPTK kepala', 'nipKepala', x.nipKepala, { maks: 30 })}</div>`)}
+    <div class="p-baris">${isian('Nomor statistik — NSM / NSPQ (12 angka)', 'nsm', x.nsm, { maks: 12, bantuan: 'Madrasah: Nomor Statistik Madrasah (impor file master mencocokkan siswa lewat NSM). TPQ: Nomor Statistik TPQ. Tampil di halaman lembaga dan kop surat.' })}${isian('NPSN (8 angka)', 'npsn', x.npsn, { maks: 8 })}${isian('NIP/NUPTK kepala', 'nipKepala', x.nipKepala, { maks: 30 })}</div>`)}
   ${bagian('Kontak & media sosial', html`<div class="p-baris">${isian('Telepon', 'telepon', x.kontak?.telepon, { maks: 30 })}${isian('WhatsApp', 'wa', x.kontak?.wa, { maks: 30 })}${isian('E-mail', 'email', x.kontak?.email, { jenis: 'email', maks: 100 })}</div>
     <div class="p-baris">${isian('YouTube', 'youtube', x.sosmed?.youtube, { jenis: 'url' })}${isian('Facebook', 'facebook', x.sosmed?.facebook, { jenis: 'url' })}</div>
     <div class="p-baris">${isian('Instagram', 'instagram', x.sosmed?.instagram, { jenis: 'url' })}${isian('TikTok', 'tiktok', x.sosmed?.tiktok, { jenis: 'url' })}${isian('Situs web', 'situs', x.sosmed?.situs, { jenis: 'url' })}</div>
