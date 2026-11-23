@@ -24,11 +24,12 @@ const judulArab = (t: string): Raw => html`${t.split(/([\u0600-\u06FF\uFB50-\uFD
 /** Nama platform sebuah tautan siaran — label tombolnya. */
 export function labelTautan(url: string): string {
   try {
-    const h = new URL(url).hostname.replace(/^(www|m|web)\./, '');
-    if (/youtube\.com|youtu\.be/.test(h)) return '▶ Tonton di YouTube';
-    if (/facebook\.com|fb\.watch/.test(h)) return '▶ Live Facebook';
-    if (/tiktok\.com/.test(h)) return '▶ Live TikTok';
-    if (/instagram\.com/.test(h)) return '▶ Live Instagram';
+    const h = new URL(url).hostname.toLowerCase();
+    const host = (...nama: string[]) => nama.some((n) => h === n || h.endsWith(`.${n}`));
+    if (host('youtube.com', 'youtu.be')) return '▶ Tonton di YouTube';
+    if (host('facebook.com', 'fb.watch')) return '▶ Live Facebook';
+    if (host('tiktok.com')) return '▶ Live TikTok';
+    if (host('instagram.com')) return '▶ Live Instagram';
   } catch { /* abaikan */ }
   return 'Selengkapnya ↗';
 }
