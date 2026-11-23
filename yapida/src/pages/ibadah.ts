@@ -7,6 +7,7 @@
  */
 import { html, raw, type Raw } from '../lib/html.ts';
 import type { Situs } from '../data/model.ts';
+import { haramainSitus, sematanYoutube } from '../data/haramain.ts';
 import { hiasan, icon } from './layout.ts';
 import { kepalaHalaman } from './public.ts';
 
@@ -22,6 +23,7 @@ export const APLIKASI: Aplikasi[] = [
   { href: '/kiblat', nama: 'Arah Kiblat', ringkas: 'Kompas kiblat dari tempat Anda berdiri, lengkap dengan jarak ke Ka’bah.', ikon: 'pin', hidup: 'kiblat' },
   { href: '/kalender-hijriah', nama: 'Kalender Hijriah', ringkas: 'Tanggal hijriah, hari besar Islam, dan hari-hari puasa sunnah.', ikon: 'bulan', hidup: 'hijri' },
   { href: '/kalender-hijriah#ramadhan', nama: 'Hitung Mundur Ramadhan', ringkas: 'Berapa hari, jam, dan menit lagi menuju 1 Ramadhan.', ikon: 'bintang', hidup: 'ramadhan' },
+  { href: '/live-haramain', nama: 'Live Makkah & Madinah', ringkas: 'Siaran langsung 24 jam dari Masjidil Haram dan Masjid Nabawi.', ikon: 'surya' },
   { href: '/radio-quran', nama: 'Radio Qur’an', ringkas: 'Murottal 114 surah tanpa henti, dengan pilihan qari dan pengatur tidur.', ikon: 'buku' },
 ];
 
@@ -145,5 +147,26 @@ export function radioPage(): Raw {
     <div><b data-rl-berikut>—</b><span>surah berikutnya</span></div>
   </div>
   <div class="prosa sempit-tengah muncul"><h2>Tentang radio ini</h2><p>Radio ini seperti siaran radio sungguhan: semua pendengar mendengar bacaan yang sama pada saat yang sama. Setiap surah dibacakan oleh qari yang dipilih acak dari puluhan qari dunia (riwayat Hafs ‘an ‘Ashim, rekaman murattal yang dipublikasikan untuk umum oleh mp3quran.net); setelah An-Nas, siaran kembali ke Al-Fatihah dan hitungan khatam bertambah satu.</p><p>Nama qari tampil di layar kunci HP saat radio menyala. Di tab peramban biasa, suara baru berbunyi setelah satu ketukan pertama (aturan peramban); aplikasi Yapida yang sudah dipasang di HP langsung bersuara.</p></div>
+</div></section>`;
+}
+
+/** Siaran langsung 24 jam Masjidil Haram & Masjid Nabawi — tautannya diatur super admin (Portal → Pengaturan situs). */
+export function haramainPage(s: Situs): Raw {
+  const h = haramainSitus(s);
+  const kartu = (judul: string, arab: string, kota: string, url: string) => {
+    const src = sematanYoutube(url);
+    return html`<article class="hl-kartu muncul">
+      <header class="hl-kepala"><span class="hl-live"><b>LIVE</b> 24 jam</span><div><h2>${judul}</h2><p class="hl-arab" lang="ar" dir="rtl">${arab}</p></div><span class="hl-kota">${kota}</span></header>
+      <div class="hl-layar">${src
+        ? html`<iframe src="${src}" title="Siaran langsung ${judul}" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+        : html`<a class="hl-buka" href="${url}" target="_blank" rel="noopener">▶ Tonton siaran langsung</a>`}</div>
+      <p class="hl-kaki"><a href="${url}" target="_blank" rel="noopener">Buka di YouTube ↗</a><span>Suara dimulai dalam keadaan senyap — ketuk ikon suara pada video untuk mendengarkan.</span></p>
+    </article>`;
+  };
+  return html`${kepalaHalaman('Live 24 Jam dari Dua Tanah Suci', 'Siaran langsung Masjidil Haram, Makkah dan Masjid Nabawi, Madinah — dipancarkan tanpa henti oleh kanal resmi Kerajaan Arab Saudi lewat satelit dan YouTube.', [['Aplikasi Ibadah', '/ibadah'], ['Live Makkah & Madinah', '/live-haramain']], 'Siaran langsung')}
+<section class="bagian"><div class="wadah hl-kisi">
+  ${kartu('Masjidil Haram', 'المسجد الحرام', 'Makkah Al-Mukarramah', h.makkah)}
+  ${kartu('Masjid Nabawi', 'المسجد النبوي', 'Madinah Al-Munawwarah', h.madinah)}
+  <p class="hl-catatan">Sumber siaran: Saudi Quran TV (Masjidil Haram) dan Saudi Sunnah TV (Masjid Nabawi). Bila siaran sedang dimulai ulang oleh penyiarnya, muat ulang halaman ini sesaat kemudian.</p>
 </div></section>`;
 }

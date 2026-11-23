@@ -3,6 +3,7 @@
  * dasbor, profil lembaga, pengaturan situs, halaman, isi (koleksi), akun & PIN, log, unggah berkas.
  * Super admin mengelola semuanya; peran lembaga hanya lembaganya (src/data/users.ts).
  */
+import { HARAMAIN_BAWAAN, haramainSitus, tautanYoutube } from '../data/haramain.ts';
 import { Hono } from 'hono';
 import { hitungSaranBaru } from '../data/saran.ts';
 import { html, raw, type Raw } from '../lib/html.ts';
@@ -370,6 +371,8 @@ function formSitus(c: Ctx, s: Situs): Raw {
     <div class="p-baris">${isian('Instagram', 'instagram', s.sosmed.instagram, { jenis: 'url' })}${isian('TikTok', 'tiktok', s.sosmed.tiktok, { jenis: 'url' })}</div>`)}
   ${bagian('Siaran langsung', html`${centang('Sedang siaran langsung — tampilkan pita LIVE di seluruh situs', 'liveAktif', Boolean(s.live?.aktif))}
     <div class="p-baris">${isian('Tautan siaran', 'liveUrl', s.live?.url, { jenis: 'url', bantuan: 'YouTube, Facebook, atau TikTok.' })}${isian('Judul siaran', 'liveJudul', s.live?.judul, { maks: 120 })}</div>`)}
+  ${superAdmin ? bagian('Live 24 jam Masjidil Haram & Masjid Nabawi (super admin)', html`<p class="p-kecil">Tampil di halaman <a href="/live-haramain" target="_blank" rel="noopener">Live Makkah &amp; Madinah</a> dan menu Ibadah. Isi tautan YouTube (kanal …/channel/UC…/live, atau video/siaran tertentu). Dikosongkan = kanal resmi Saudi Quran TV dan Saudi Sunnah TV.</p>
+    <div class="p-baris">${isian('Live Masjidil Haram (YouTube)', 'liveMakkah', haramainSitus(s).makkah, { jenis: 'url' })}${isian('Live Masjid Nabawi (YouTube)', 'liveMadinah', haramainSitus(s).madinah, { jenis: 'url' })}</div>`) : ''}
   ${bagian('Sejarah, visi & misi', html`${isian('Sejarah', 'sejarah', s.sejarah, { baris: 12, md: true })}
     ${isian('Linimasa (satu per baris: tahun | judul | isi)', 'linimasa', s.linimasa.map((t) => `${t.tahun} | ${t.judul} | ${t.isi}`).join('\n'), { baris: 5 })}
     ${isian('Visi', 'visi', s.visi, { baris: 2, maks: 500 })}${isian('Misi (satu per baris)', 'misi', (s.misi ?? []).join('\n'), { baris: 5 })}`)}
@@ -402,6 +405,7 @@ portal.post('/portal/situs', async (c) => {
     kontak: { telepon: opsional(teks(f, 'telepon', 30)), wa: opsional(teks(f, 'wa', 30)), email: opsional(teks(f, 'email', 100)) },
     sosmed: { youtube: urlAman(teks(f, 'youtube')), facebook: urlAman(teks(f, 'facebook')), instagram: urlAman(teks(f, 'instagram')), tiktok: urlAman(teks(f, 'tiktok')) },
     live: { aktif: f.liveAktif === '1' && Boolean(urlAman(teks(f, 'liveUrl'))), url: urlAman(teks(f, 'liveUrl')) ?? '', judul: teks(f, 'liveJudul', 120) },
+    haramain: u.peran === 'super' ? { makkah: tautanYoutube(teks(f, 'liveMakkah', 300)) ?? HARAMAIN_BAWAAN.makkah, madinah: tautanYoutube(teks(f, 'liveMadinah', 300)) ?? HARAMAIN_BAWAAN.madinah } : s.haramain,
     sejarah: teks(f, 'sejarah', 60_000), sejarahHtml: renderMarkdown(teks(f, 'sejarah', 60_000)),
     linimasa: pipa(f.linimasa, 3).map(([tahun, judul, ...isi]) => ({ tahun: tahun!.slice(0, 12), judul: judul!.slice(0, 120), isi: isi.join(' | ').slice(0, 400) })).slice(0, 12),
     visi: opsional(teks(f, 'visi', 500)), misi: baris(f.misi).slice(0, 20),

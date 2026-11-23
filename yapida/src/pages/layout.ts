@@ -6,7 +6,7 @@ import { KELOMPOK, URUTAN_KELOMPOK, type Situs } from '../data/model.ts';
 import type { UnitItem } from '../data/site.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = 'c5a8b0f69d';
+export const ASSET_V = '78489c9688';
 
 const ICON: Record<string, string> = {
   kubah: '<path d="M12 2v2.2M12 4.2c-3.6 2-5.6 4.6-5.6 7.5V13h11.2v-1.3c0-2.9-2-5.5-5.6-7.5ZM4 13h16v8H4zM9.5 21v-3.5a2.5 2.5 0 0 1 5 0V21"/>',
@@ -102,7 +102,7 @@ export const MENU: ButirMenu[] = [
   { id: 'kabar', label: 'Kabar', href: '/kabar', anak: [['Kabar & kegiatan', '/kabar', 'pena'], ['Galeri foto', '/galeri', 'bintang'], ['Video & siaran langsung', '/video', 'surya'], ['Agenda', '/agenda', 'bulan'], ['Prestasi & penghargaan', '/prestasi', 'bintang'], ['Dokumen publik', '/dokumen', 'buku']] },
   { id: 'ppdb', label: 'PPDB', href: '/ppdb' },
   { id: 'belajar', label: 'Belajar', href: '/pustaka', anak: [['Portal Siswa', '/siswa', 'masuk'], ['Pelajaran madrasah (RA · MI · MTs)', '/pustaka/pelajaran/mi', 'bintang'], ['Perpustakaan digital', '/pustaka', 'buku'], ['Rak TK / RA', '/pustaka/rak/ra', 'bintang'], ['Rak MI kelas 1–6', '/pustaka/rak/mi', 'buku'], ['Rak MTs kelas 7–9', '/pustaka/rak/mts', 'buku'], ['Kitab pesantren', '/pustaka/rak/kitab', 'pena'], ['Kitab hadits & penjelasan', '/pustaka/rak/hadits', 'pena'], ['Bacaan guru & ustadz', '/pustaka/rak/guru', 'tangan'], ['Katalog dunia', '/pustaka/dunia', 'surya'], ['Karya tulis', '/karya', 'pena']] },
-  { id: 'ibadah', label: 'Ibadah', href: '/ibadah', anak: [['Al-Qur’an mushaf Utsmani', '/quran', 'buku'], ['Jadwal sholat', '/jadwal-sholat', 'surya'], ['Arah kiblat', '/kiblat', 'pin'], ['Kalender hijriah', '/kalender-hijriah', 'bulan'], ['Radio Qur’an', '/radio-quran', 'buku']] },
+  { id: 'ibadah', label: 'Ibadah', href: '/ibadah', anak: [['Al-Qur’an mushaf Utsmani', '/quran', 'buku'], ['Jadwal sholat', '/jadwal-sholat', 'surya'], ['Arah kiblat', '/kiblat', 'pin'], ['Kalender hijriah', '/kalender-hijriah', 'bulan'], ['Live Makkah & Madinah 24 jam', '/live-haramain', 'surya'], ['Radio Qur’an', '/radio-quran', 'buku']] },
   { id: 'kontak', label: 'Kontak', href: '/kontak' },
 ];
 
