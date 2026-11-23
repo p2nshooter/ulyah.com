@@ -107,7 +107,15 @@ function rapikanPokok(t0: string): string {
 const NAMA_DIRI = /^(Allah|Nabi|Rasul|Al-|Islam|Indonesia|Pancasila|Tuhan|Bung|Ir\.|Dr\.|Sultan|Kerajaan|Gunung|Sungai|Pulau|Selat|Laut|Samudra|Danau|Candi|Masjid|Kota|Provinsi|Jawa|Sumatra|Kalimantan|Sulawesi|Papua|Bali|Jakarta|Belanda|Jepang|Portugis|Inggris|Asia|Eropa|Afrika|Amerika|Australia|Microsoft|Windows|Word|Excel|Internet)/;
 const hurufAwalOpsi = (x: string) => (x.charAt(0).toLowerCase() === x.charAt(0) || /^[A-Z]{2}/.test(x) || NAMA_DIRI.test(x) || /^[A-Z][a-z]+ [A-Z]/.test(x) ? x : x.charAt(0).toLowerCase() + x.slice(1));
 
-function rapikanOpsi(o: string) { return o.replace(/^[\s:–-]+/, '').replace(/\s+\d{1,2}$/, '').trim(); }
+/** Rapikan tampilan pokok soal (setelah sidik dihitung — sidik tidak berubah): „…. .“ → „….“. */
+const rapiTampil = (t: string) => t.replace(/\.\.\.\.\s*\.\s*$/, '....').replace(/\s{2,}/g, ' ').trim();
+
+function rapikanOpsi(o: string) {
+  return o.replace(/^[\s:–-]+/, '')
+    .replace(/\s+(?:[A-Z][\w&'.-]*\s){1,6}(?:Kelas|untuk SD|untuk SMP|SD\/MI|SMP\/MTs)\b.*$/, '') // judul halaman berjalan
+    .replace(/\s+[A-E]\.?$/, '') // huruf bagian soal berikutnya („ayam B“)
+    .replace(/\s+\d{1,2}$/, '').trim();
+}
 
 function bukuSoal(bk: BukuBse, berkas: string): SoalBuku {
   const korpus: { s: string; w: Set<string>; bab: number }[] = [];
@@ -181,7 +189,7 @@ function bukuSoal(bk: BukuBse, berkas: string): SoalBuku {
       dilihat.add(kunciTeks);
       const k = 'abcd'.indexOf(manual);
       if (k >= o.length) continue;
-      pg.push({ id, t: /\.\.\.\.|[?]$/.test(t) ? t : `${t.replace(/[.:]$/, '')} ....`, o: o.map(hurufAwalOpsi), k, bukti: skor[k]!.s, bab: b.bab, manual: true });
+      pg.push({ id, t: rapiTampil(/\.\.\.\.|[?]$/.test(t) ? t : `${t.replace(/[.:]$/, '')} ....`), o: o.map(hurufAwalOpsi), k, bukti: skor[k]!.s, bab: b.bab, manual: true });
       continue;
     }
     // Kunci otomatis hanya SARAN untuk peninjau (uji: ±15% saran „pasti“ masih keliru) — yang tayang hanya kunci tinjauan.
@@ -190,7 +198,7 @@ function bukuSoal(bk: BukuBse, berkas: string): SoalBuku {
     if (!ketat && process.env.SOAL_BSE_DEBUG === '2') console.error(`~ ${t}\n   ${o.map((x, i) => (i === juara.i ? '*' : '') + x).join(' | ')}\n   ⟶ ${juara.s.slice(0, 140)}`);
     dilihat.add(kunciTeks);
     const opsi = o;
-    pg.push({ id, t: /\.\.\.\.|[?]$/.test(t) ? t : `${t.replace(/[.:]$/, '')} ....`, o: opsi.map(hurufAwalOpsi), k: juara.i, bukti: juara.s, bab: b.bab });
+    pg.push({ id, t: rapiTampil(/\.\.\.\.|[?]$/.test(t) ? t : `${t.replace(/[.:]$/, '')} ....`), o: opsi.map(hurufAwalOpsi), k: juara.i, bukti: juara.s, bab: b.bab });
   }
 
   // jawaban model uraian: kalimat materi paling cocok (kuat saja)
