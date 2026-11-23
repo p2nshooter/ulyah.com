@@ -86,10 +86,12 @@ export async function axtoGpuTick(env: Env): Promise<number> {
  * di buatkan GPU") ─────────────────────────────────────────────────────────────────────────────────────────────────────
  * Lukisan G- (gambar GPU) diubah GPU menjadi video pendek lewat Space ZeroGPU Hugging Face — gratis dalam jatah harian akun
  * pemilik kunci. Antrean `axto-gpu/video-jobs.json` ditulis workflow axto (ops/gpu-sync.mjs): {c, id, img, prompt}. Hasil →
- * `axto-gpu/vid/<c>/<id>.mp4` + `axto-gpu/video-done.json`; workflow axto menyalinnya ke R2 axto.io dan karya G- baru tampil
+ * `axto-gpu/vid/<c>/<id>-v<versi>.mp4` + `axto-gpu/video-done.json`; workflow axto menyalinnya ke R2 axto.io dan karya G- baru tampil
  * setelah videonya ada. Model: Wan 2.2 I2V cepat (gerak paling baik), cadangan LTX-Video distilled. Tanpa teks. */
 
-interface VideoJob { c: string; id: number; img: string; prompt: string }
+interface VideoJob { c: string; id: number; v?: number; img: string; prompt: string }
+/** Kunci & berkas video per versi lukisan (seri G- dibuat ulang 24 Nov 2026: id yang sama bisa berganti lukisan). */
+const kunciVideo = (j: VideoJob) => `${j.c}:${j.id}:v${j.v ?? 1}`;
 interface VideoDone { done: Record<string, { at: string; bytes: number; space: string }>; failed: Record<string, number> }
 
 const VIDEO_PER_TICK = 2;
@@ -149,7 +151,7 @@ export async function axtoVideoTick(env: Env, fetchImpl: typeof fetch = fetch): 
   const queue = await readJson<{ jobs: VideoJob[] }>(env, "axto-gpu/video-jobs.json", { jobs: [] });
   const state = await readJson<VideoDone>(env, "axto-gpu/video-done.json", { done: {}, failed: {} });
   state.failed ??= {};
-  const pending = queue.jobs.filter((j) => /^https:\/\/axto\.io\/gpu\//.test(j.img) && !state.done[`${j.c}:${j.id}`] && (state.failed[`${j.c}:${j.id}`] ?? 0) < 4).slice(0, VIDEO_PER_TICK);
+  const pending = queue.jobs.filter((j) => /^https:\/\/axto\.io\/gpu\//.test(j.img) && !state.done[kunciVideo(j)] && (state.failed[kunciVideo(j)] ?? 0) < 4).slice(0, VIDEO_PER_TICK);
   if (!pending.length) return 0;
   const keys = (await listKeySummaries(env, { fresh: false })).filter((k) => (k.provider === "hf-zerogpu" || k.provider === "hf-inference") && (k.status === "active" || k.status === "slow"));
   if (!keys.length) return 0;
@@ -171,8 +173,8 @@ export async function axtoVideoTick(env: Env, fetchImpl: typeof fetch = fetch): 
           if (Date.now() > until) break;
           const vid = await renderVideo(raw, spec, job, fetchImpl);
           if (!vid) continue;
-          await env.MEDIA_R2.put(`axto-gpu/vid/${job.c}/${job.id}.mp4`, vid, { httpMetadata: { contentType: "video/mp4" } });
-          state.done[`${job.c}:${job.id}`] = { at: new Date().toISOString(), bytes: vid.byteLength, space: spec.space };
+          await env.MEDIA_R2.put(`axto-gpu/vid/${job.c}/${job.id}-v${job.v ?? 1}.mp4`, vid, { httpMetadata: { contentType: "video/mp4" } });
+          state.done[kunciVideo(job)] = { at: new Date().toISOString(), bytes: vid.byteLength, space: spec.space };
           ok = true;
           made += 1;
           break;
@@ -181,7 +183,7 @@ export async function axtoVideoTick(env: Env, fetchImpl: typeof fetch = fetch): 
         // kunci berikutnya
       }
     }
-    if (!ok) state.failed[`${job.c}:${job.id}`] = (state.failed[`${job.c}:${job.id}`] ?? 0) + 1;
+    if (!ok) state.failed[kunciVideo(job)] = (state.failed[kunciVideo(job)] ?? 0) + 1;
     await save();
   }
   return made;
