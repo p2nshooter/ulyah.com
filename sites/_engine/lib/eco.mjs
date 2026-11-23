@@ -6,6 +6,8 @@
  *
  * One band, above the footer, outside the article: an AXTO card (a few words and a row of 5–10 exclusive works drawn at
  * random on every view by assets/engine-eco.js) and a LUAJA running banner (luaja.com's guide, waving, beside a ticker).
+ * The partner sites outside this repository (axto.us and the five Next.js sites) carry the same band, generated from
+ * this file, so every article site of the network shows it alike.
  * It is plainly labelled as the network's own projects, carries two static links (no link scheme: the works are added
  * by the script, outside the article), and every word below is true of the two sites today.
  */
@@ -54,6 +56,18 @@ const COPY = {
     names: { "ex-time": "AXTO Temps", "ex-stamp": "AXTO Timbre", "ex-quran": "AXTO Coran", "ex-model": "AXTO Modèle", "ex-hadith": "AXTO Hadith" },
     luaja: "LUAJA — apprendre les langues en ligne",
     ticker: ["<b>LUAJA</b> · Apprendre sans limites", "Allemand, anglais et japonais, niveau par niveau", "Préparation au TOEFL et à l'IELTS", "Leçons interactives, audio et bibliothèque numérique", "<b>Commencer sur luaja.com →</b>"],
+  },
+  // oldco.in and profity.in (Hindi + English partner sites) render the band from this copy too.
+  hi: {
+    label: "हमारे नेटवर्क से",
+    kicker: "AXTO · एक्सक्लूसिव संस्करण",
+    title: "जीवंत कला, जो बस एक बार जन्म लेती है।",
+    lead: "Base पर एनिमेटेड 1/1 मूल कृतियाँ — टिक-टिक करती घड़ियाँ, चलते-फिरते डाक टिकट, क़ुरआन की सुलेख-कला, हदीस और मॉडल आकृतियाँ। हर कृति अपने ही गणितीय DNA से जन्म लेती है और कभी दोहराई नहीं जाती।",
+    cta: "एक्सक्लूसिव संग्रह देखें",
+    rail: "AXTO के एक्सक्लूसिव संस्करण से एक यादृच्छिक चयन",
+    names: { "ex-time": "AXTO समय", "ex-stamp": "AXTO डाक टिकट", "ex-quran": "AXTO क़ुरआन", "ex-model": "AXTO मॉडल", "ex-hadith": "AXTO हदीस" },
+    luaja: "LUAJA — ऑनलाइन भाषाएँ सीखें",
+    ticker: ["<b>LUAJA</b> · बिना सीमाओं के सीखें", "जर्मन, अंग्रेज़ी और जापानी — स्तर दर स्तर", "TOEFL और IELTS की तैयारी", "इंटरैक्टिव पाठ, ऑडियो और डिजिटल लाइब्रेरी", "<b>luaja.com पर शुरू करें →</b>"],
   },
 };
 
@@ -106,7 +120,7 @@ const STYLE =
 const esc = (x) => String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /** The band's HTML for one edition (`lang`: the edition's language), `asset` names the engine files with their version. */
-export function ecoBand(lang, asset) {
+export function ecoBand(lang, asset, { script = true } = {}) {
   const w = COPY[lang] || COPY.en;
   const run = (hidden) =>
     `<span class="eco-ticker__run"${hidden ? ' aria-hidden="true"' : ""}>${w.ticker.map((t) => `<span>${t}</span>`).join("")}</span>`;
@@ -120,7 +134,7 @@ export function ecoBand(lang, asset) {
     `<a class="eco-luaja" href="https://luaja.com/" target="_blank" rel="noopener" aria-label="${esc(w.luaja)}">` +
     `<span class="eco-luaja__guide"><img src="${asset("engine-luaja.svg")}" width="97" height="104" alt="" loading="lazy" decoding="async"></span>` +
     `<span class="eco-ticker"><span class="eco-ticker__track">${run(false)}${run(true)}</span></span></a>` +
-    `<script src="${asset("engine-eco.js")}" defer></script>` +
+    (script ? `<script src="${asset("engine-eco.js")}" defer></script>` : "") +
     `</aside>\n`
   );
 }
