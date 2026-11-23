@@ -99,7 +99,7 @@ export function piecesOf(body: string): { lines: string[]; pieces: Piece[]; cell
     }
     if (fence || !/\p{L}/u.test(line)) return;
     if (/^\s*\|.*\|\s*$/.test(line)) {
-      if (/^\s*\|?\s*:?-{3,}/.test(line)) return;
+      if (/^\s*(?:\|\s*)?:?-{3,}/.test(line)) return;
       const parts = line.split("|");
       cells.set(i, parts);
       parts.forEach((c, k) => {
@@ -108,7 +108,7 @@ export function piecesOf(body: string): { lines: string[]; pieces: Piece[]; cell
       return;
     }
     if (/^\s*<\/?[a-z][^>]*>\s*$/i.test(line)) return;
-    const m = /^(\s*(?:#{1,6}\s+|(?:[-*+]|\d+[.)])\s+|>\s?)*)(.*)$/.exec(line)!;
+    const m = /^([ \t]*(?:(?:#{1,6}|[-*+]|\d+[.)])[ \t]+|>[ \t]*)*)([\s\S]*)/.exec(line)!;
     pieces.push({ line: i, prefix: m[1] ?? "", masked: maskMd(m[2] ?? "") });
   });
   return { lines, pieces, cells };
@@ -348,8 +348,8 @@ async function themeStrings(tr: Translate, domain: string, lang: string): Promis
   // Counts ("12 Artikel", "3 guías") become patterns so every number reads in English.
   const patterns = [...(cur.patterns ?? [])];
   for (const [p, e] of Object.entries(strings)) {
-    const m = /^(\d+)\s+(\p{L}+)$/u.exec(p);
-    const n = /^(\d+)\s+(.+)$/.exec(e);
+    const m = /^(\d+)[ \t]+(\p{L}+)$/u.exec(p);
+    const n = /^(\d+)[ \t]+(\S.*)$/.exec(e);
     if (m && n && !patterns.some(([re]) => re.includes(m[2]!))) patterns.push([`(\\d+) ${m[2]}`, `$1 ${n[2]}`]);
   }
   writeFileSync(file, `${JSON.stringify({ strings, patterns, keep: cur.keep ?? [] }, null, 2)}\n`);

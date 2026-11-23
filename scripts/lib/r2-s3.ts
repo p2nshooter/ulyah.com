@@ -30,6 +30,21 @@ export interface PutResult {
 /** Anything that can do an S3 request — the real signer, or a fake in the checks. */
 export type S3Fetch = (url: string, init?: RequestInit) => Promise<Response>;
 
+/** The text of every <tag>…</tag> in an S3 XML answer — one forward scan, no regular expression over network data. */
+export function xmlTexts(xml: string, tag: string): string[] {
+  const open = `<${tag}>`;
+  const close = `</${tag}>`;
+  const out: string[] = [];
+  for (let at = xml.indexOf(open); at !== -1; ) {
+    const start = at + open.length;
+    const end = xml.indexOf(close, start);
+    if (end === -1) break;
+    out.push(xml.slice(start, end));
+    at = xml.indexOf(open, end + close.length);
+  }
+  return out;
+}
+
 export class R2S3 {
   constructor(
     private readonly fetcher: S3Fetch,
@@ -82,9 +97,9 @@ export class R2S3 {
       const res = await this.send(u.toString());
       if (!res.ok) throw new Error(`R2 LIST ${prefix} → ${res.status} ${await res.text().catch(() => "")}`);
       const xml = await res.text();
-      for (const m of xml.matchAll(/<Key>([\s\S]*?)<\/Key>/g)) keys.push(decodeXml(m[1]!));
-      const next = /<NextContinuationToken>([\s\S]*?)<\/NextContinuationToken>/.exec(xml)?.[1];
-      if (!next || !/<IsTruncated>true<\/IsTruncated>/.test(xml)) break;
+      for (const k of xmlTexts(xml, "Key")) keys.push(decodeXml(k));
+      const next = xmlTexts(xml, "NextContinuationToken")[0];
+      if (!next || !xml.includes("<IsTruncated>true</IsTruncated>")) break;
       token = decodeXml(next);
     }
     return keys;
