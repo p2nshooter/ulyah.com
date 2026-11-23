@@ -318,9 +318,12 @@ type ButirPos = ButirBse & { pos: number };
 const UJUNG_ISIAN = /\s*(?:adalah|ialah|disebut|dinamakan|yaitu|merupakan)?\s*\.\.\.\.\s*[.]?$/;
 const bisaIsian = (x: ButirPos) => /\.\.\.\./.test(x.t) && jumlahKata(x.o[x.k]!) <= 3 && !/^[a-d]\b/i.test(x.o[x.k]!);
 const bisaJodoh = (x: ButirPos) => UJUNG_ISIAN.test(x.t) && (x.t.match(/\.\.\.\./g) ?? []).length === 1 && jumlahKata(x.t) <= 14 && jumlahKata(x.o[x.k]!) <= 4;
+/** Pembahasan: kalimat soal yang dilengkapi jawabannya. */
 const bahasBse = (x: ButirBse) => {
   const j = x.o[x.k]!;
-  return x.bukti && x.bukti.toLowerCase().includes(j.toLowerCase().split(/[ ,]/)[0]!) && x.bukti.length <= 260 ? x.bukti : `Jawaban yang tepat: ${j}.`;
+  const lengkap = x.t.includes('....') ? hurufBesar(x.t.replace('....', j).replace(/\s*\.\.\.\./g, '').replace(/\s+([.,;:])/g, '$1').replace(/[.?!:]*$/, '.')) : `Jawaban: ${j}.`;
+  // kalimat buku sebagai tambahan TIDAK dipakai: hasil ekstraksi PDF dua kolom kadang tercampur kalimat kolom sebelah
+  return lengkap;
 };
 const alokasiCache = new Map<string, Record<JenisSlot, { pg: ButirPos[]; isian: ButirPos[]; jodoh: ButirPos[]; pengecoh?: string; uraian: [string, string][] } | null>>();
 
@@ -375,7 +378,7 @@ function susunBse(slot: Slot): HasilMesin | null {
   const a = alokasiBse(slot)?.[slot.jenis];
   if (!a) return null;
   const pg = a.pg.map((x, i) => `${i + 1}. ${x.t}\n${x.o.map((o, j) => `${j === x.k ? '*' : ''}${huruf[j]}. ${o}`).join('\n')}\n> ${bahasBse(x)}`);
-  const kiri = (t: string) => hurufBesar(t.replace(UJUNG_ISIAN, '').replace(/[,:]$/, '').trim());
+  const kiri = (t: string) => hurufBesar(t.replace(UJUNG_ISIAN, '').replace(/[,:]$/, '').replace(/\s+(?:yang|ialah|adalah|disebut|bernama|dinamakan)$/i, '').trim());
   const jodoh = a.jodoh.length ? [...a.jodoh.map((x, i) => `${i + 1}. ${kiri(x.t).replace(/=/g, '-')} = ${x.o[x.k]!.replace(/=/g, '-')}`), ...(a.pengecoh ? [`~ ${a.pengecoh.replace(/=/g, '-')}`] : [])] : [];
   const isian = a.isian.map((x, i) => `${i + 1}. ${x.t.replace(/=/g, '-')} = ${x.o[x.k]!.replace(/=/g, '-')}`);
   const uraian = a.uraian.map(([t, j], i) => `${i + 1}. ${t}\n= ${j}`);

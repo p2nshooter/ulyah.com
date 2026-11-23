@@ -6,3 +6,1258 @@
 #   <id> = …         jawaban model uraian ditulis ulang
 #   u <mapel> <kelas> <ganjil|genap> <pts|pas> <pertanyaan> = <jawaban model>   uraian tambahan
 # Daftar butir & saran: npx tsx scripts/soal-bse.ts "<Mapel BSE>" <kelas>
+
+# ── IPA Kelas 4 SD (s-974, Ilmu Pengetahuan Alam 4) → IPAS MI 4 ──
+067bbsnl d
+0d7d8avd a
+0oyhhn7w c
+1tt3ylf6 d
+0xkdjeoo d
+1gm0v1ey x
+1ul3wm1o a
+03vzrvh8 b
+1n5hzi2b c
+1x4lz1eb b
+1uj377b9 a
+038lh192 d
+0r6nz6k8 a
+0impb4e4 c
+00yjji14 c
+1n12v70k d
+1kwhn4c2 c
+07uxf5ij b
+0gnpvu0c b
+0gzgsj7z a
+0e15n0x0 d
+14fxvlj9 b
+1qq2rm1h a
+1i88gpto x
+1sah9w9f a
+16xz7bev c
+0j8maml1 b
+1nue8tdg d
+06ofd8jj a
+1s9xm2j2 d
+0mumbf1t d
+1te8sv18 b
+12s471u4 a
+0iy8nvr9 x
+0io8lxu0 x
+0gb84ef9 x
+0z8xpf3a a
+0oljwued c
+0qyagcq6 c
+168b5gv5 b
+1n3rsjs7 b
+0g22xr5j b
+12bn9ueo b
+14nyyisb b
+00kwvqvb c
+16nwkooh c
+1ftkhxxx b
+11t661c0 a
+0hb3z8ao a
+0zitvt7c a
+1p24954r a
+0xb79fc9 c
+1y4hqfjr x
+0hl9wu9m c
+0xe0ux4e d
+0hy3dcnc c
+1fvr0ykd c
+1dhujzja d
+0xx45zkc c
+0tiy6zub c
+04ai93zl a
+02rbgzlg b
+1g55qpun b
+1pamafr3 c
+1szcbv8a b
+1mn8fb02 a
+1rzbzg9h c
+1746b0z2 a
+13k0dvj4 c
+13t9bds2 b
+0hag334c a
+00e4hyih c
+0x96e3xk d
+01w7s9pm a
+1j9fseuo a
+0ij4uhc2 c
+1cbc6fgg c
+1wmlggn4 d
+1abv374f b
+1bloo8l0 c
+06gssrj5 d
+1tqzp6dj b
+19wb4t8x a
+0nmw457w x
+19rdlyj4 d
+00ac22el c
+0ny7e1f5 b
+0us8edx5 b
+1rjqrq9x a
+03uadqai d
+0x81d4kg c
+0sy5b5xv c
+0ok44z6d d
+0equhy34 d
+0mssl7kt a
+12fufjpv c
+1jss9vrk a
+0pikhno2 d
+0dt7yydj b
+0esgds09 c
+018k1nq3 c
+0jpdy2k3 c
+0ne8k0wu c
+1hsw80jq d
+09bg6pkk b
+1bsaq52n a
+1b7qky8k c
+1bqqravb c
+1d5lqsgf c
+1h12knzr b
+0rxeyecb b
+0mpwxwqf c
+0gynycwk c
+13v2uxwj d
+0zqo8v10 a
+0p4ro703 d
+0aj37dzb x
+0wpgo2po c
+02g5dxhy c
+1jfst0zn b
+0dawl0qa a
+0ggqqcms c
+07ch3h3e b
+1u3i3bjp d
+0wgtc6qn d
+05b0itps c
+1eqs3wge a
+0ymn47bw x
+01icnu7i a
+0c9gxttt x
+0t676ian a
+0m1v7p75 b
+1rlwetp5 b
+18wbo3ux a
+1l8qcw6n a
+1v7vy4sv a
+00xwsrk8 x
+186sak53 d
+016ahi51 b
+1szvgbxu d
+0apot78i d
+0v73n5h1 d
+0a8sdrj8 a
+1c2ge7e8 c
+1oq5eipy b
+1lvyjk7b x
+0olvg1p1 c
+0lm5ek84 d
+11khejf3 a
+0l7xr2bl a
+02yn4n2f b
+1d5bmk4y d
+0ssto0md b
+1o7qqb12 d
+012yz822 a
+1d3nodwe c
+1ifzscqr d
+02sl2kmf b
+0esrs5lu a
+06e20z5w d
+05h0be1f a
+00r2z840 b
+0ez3bt61 d
+171jxze4 b
+1p8kcz80 a
+1rtd2j0f b
+1pysn57j c
+10w4ekxe d
+1fnopu8j c
+16ret94e c
+0t6fo6x1 c
+015h2s93 d
+0fg152tr c
+08dzqgos b
+1xs1xit6 b
+1wypmrh6 d
+1kgi9luy a
+0barcpx6 b
+0zqxsujd d
+19t9geyu a
+1hwcbjmq b
+00tpelfe b
+0nnbyxgf c
+0vsdum7d c
+1gewrqvn a
+19jyzq4z c
+0uemwzje c
+0bopkt7p d
+0bja8xj6 b
+0n4btyvr a
+1rdldw4z x
+15reng9b c
+1qd55b8q a
+1wnbkz9o b
+05i2nxm7 a
+16cjihlj d
+1qk5omxb a
+1slrmk41 b
+1j9lsx26 c
+1w0zcn64 b
+0gaigocs c
+0d9npe6y c
+1cws4a2v d
+0y8g8yrx b
+1r6rgi3y a
+06ghi1rf c
+0jwkrb7u c
+03rs9jka a
+13r0j01q b
+0t81xahy b
+1kbj09jf c
+1tbq26h4 b
+16pj9w9q b
+0oltaq4i c
+049zfbkv d
+1v2xi797 = Karena sapi, kerbau, kuda, dan kambing hanya memakan tumbuhan, seperti rumput dan daun-daunan.
+1capnp73 x
+0o006j8n ok
+0qao9qld = Populasi adalah sekelompok makhluk hidup sejenis yang hidup di suatu tempat, sedangkan komunitas adalah kumpulan beberapa populasi yang berbeda jenis di suatu tempat dan waktu tertentu.
+16spqz6t = Contohnya kayu dibakar menjadi arang, kertas dibakar menjadi abu, dan nasi yang menjadi basi.
+1muqvmgp = Saat pasang naik, air laut masuk ke tambak garam; saat pasang surut, air laut tertinggal di tambak lalu diuapkan panas matahari sehingga menjadi garam.
+1x36ulk3 = Kebakaran hutan menyebabkan pencemaran udara oleh asap, hewan kehilangan tempat tinggal, dan tanah menjadi gundul sehingga mudah longsor dan banjir.
+1cdv9dpw = Abrasi dapat dicegah dengan menanam hutan bakau di pantai, memasang beton pemecah ombak, dan tidak mengambil pasir atau terumbu karang di pantai.
+10c795fy = Gelombang air laut dapat dimanfaatkan untuk pembangkit listrik tenaga gelombang dan untuk olahraga selancar.
+0oo82ljh = Akar pepohonan di hutan menyerap dan menahan air hujan sehingga air tersimpan di dalam tanah, lalu keluar perlahan sebagai mata air.
+1rlxl7vm = Pada siang hari cahaya matahari sangat terang sehingga cahaya bintang yang jauh tidak tampak; pada malam hari langit gelap sehingga bintang terlihat.
+
+# ── IPS Kelas 4 SD (s-1199, IPS 4) → IPAS MI 4 ──
+1pm2zeeb x
+0bun4g26 a
+0h0phg65 a
+19hjxmsy c
+0wjw83tg a
+18xikaen x
+0sjef0ck c
+1km5xype b
+0h5m5oqh c
+0zy0nop0 x
+0214w64w a
+0kxawukx x
+1pc5mkey c
+1wm326wg a
+11efl9ls a
+14ios9w2 b
+170sngi3 b
+10qe18uh x
+1n6krz4s x
+0uce28ak c
+0x1sy5nu b
+0amrykcu c
+1rmf06nq d
+0n4o6qq9 b
+0ulzyku0 a
+0nieylcn d
+0ji9i8kn d
+0it3x6o1 c
+1pky7a39 a
+1fcavg3k b
+130j3go1 c
+1sdd5qiy b
+0jle8ta0 b
+0cjl831s x
+02oddxtx a
+0k2yefme x
+1sevcwwi b
+0vuzfg9r a
+03mtm17t c
+0c9bx0jg d
+1j4rcxaa a
+13zy70tl c
+1nysgf8y a
+18t70m4h d
+0mb867t1 c
+0tpjsgpp a
+1dy42ugk d
+191dbb2p d
+0gam8ges b
+10vk6fqe c
+0ovjmr8g x
+1csjb34v a
+01en60jn b
+06flc52s d
+05riw49s x
+u ipas 4 ganjil pts Sebutkan tiga bagian utama rangka manusia! = Rangka manusia terdiri atas tengkorak, rangka badan, dan rangka anggota gerak.
+u ipas 4 ganjil pts Sebutkan fungsi akar bagi tumbuhan! = Akar berfungsi menyerap air dan zat hara dari dalam tanah, menegakkan tumbuhan, dan pada tumbuhan tertentu menyimpan cadangan makanan.
+u ipas 4 ganjil pts Jelaskan perbedaan hewan herbivora, karnivora, dan omnivora! = Herbivora adalah hewan pemakan tumbuhan, karnivora adalah hewan pemakan daging, dan omnivora adalah hewan pemakan tumbuhan sekaligus daging.
+u ipas 4 ganjil pas Sebutkan urutan daur hidup kupu-kupu! = Telur – ulat – kepompong – kupu-kupu.
+u ipas 4 ganjil pas Jelaskan perbedaan metamorfosis sempurna dan metamorfosis tidak sempurna! = Metamorfosis sempurna melalui tahap telur, larva, kepompong (pupa), dan dewasa; metamorfosis tidak sempurna tidak melalui tahap kepompong (telur, nimfa, dewasa).
+u ipas 4 ganjil pas Sebutkan cara melestarikan kekayaan alam di sekitar kita! = Menanam kembali pohon yang ditebang, tidak membuang sampah sembarangan, menghemat air dan listrik, serta melindungi hewan langka di suaka margasatwa.
+
+# ── IPA Kelas 5 SD (s-979, Ilmu Pengetahuan Alam 5) → IPAS MI 5 ──
+1no6lnbc b
+1mbp0ghu c
+1kqbkepp c
+0mtvzkbb b
+05immc8w a
+1ufvr4qg b
+0ncc70kh d
+0jwylrlc a
+13ob8r1t a
+0bhyh2c9 d
+0gzu40ax c
+132ef5c4 b
+1gb91ssr a
+1xx2r9b1 a
+16dl886a c
+14jbbxko b
+1cux57ha b
+0u7azwqb a
+1s79nhxl d
+17adyzzy b
+00xvnafq b
+03ctfm21 c
+05vqs8gg a
+0273jokt c
+06iwa5s0 d
+18w87wzv d
+0ulicqjh c
+1bu8rpg3 a
+0oq3m29n d
+17n15yl3 c
+0kekv3go b
+0b5zippr a
+0ldk4fzg c
+0i3gzq5l a
+06fyk69j a
+1q97i251 c
+00b6m0ac c
+0hef8wh9 x
+0o00f4no c
+1o8jjr8o a
+04yzvdsp b
+0ctekrq5 a
+0hxlrqgt a
+0590q67n d
+1oyw1v6i c
+19gkeq6i d
+0pa8320a a
+16kd18oh x
+00u21yiu b
+16hdvsw3 x
+1vl0s8ei c
+1payo32i d
+08yxirmi b
+1m3uaknn c
+0vfmibbg c
+0xnzhyz3 b
+16h23q1r a
+1pfaek79 d
+0rsb6cr9 x
+1p952pr5 c
+05t96jjp b
+193i828v b
+0mzc3phq c
+0ofnnvow c
+1mbj0eqh c
+1iwc8nug x
+120zwtat x
+07lojutm a
+0d8kkbl2 a
+1709hhzc d
+0lcmtwni a
+0he0vw2d d
+06c5upij c
+1en28xtt c
+16eo985r c
+1hlixe0i c
+1yxxak86 c
+1jm64hcu c
+029am1o8 a
+025071wb d
+1smu7z1c x
+08gf32cl a
+1avcwxaw x
+0p5cl5fg a
+0yt4cwa7 a
+1kqbtp91 b
+0e8jffej b
+1utrh6go b
+1iqk8um3 a
+05iqtn4r c
+1eyrcfq2 c
+1oobq9uq c
+08py0zmz b
+0aonn17b b
+15pkx5jl b
+0p93i9o7 a
+03xp5k01 d
+0ccxrji9 b
+0gv5wcf4 x
+1u92ivw0 a
+15wn6ver b
+0xqifju2 b
+17otj9bs d
+1kl9isa7 d
+1ccund0z a
+1eaj6wvj d
+1un0zjvi d
+0ytfkf14 d
+0gyezxjn d
+0daccbtj x
+0g58c2ne x
+0v9rqjye a
+1qi4a8mu d
+1wj730lc c
+1ysx3wr0 b
+0yo21f0p c
+1fzxh0qk c
+0m849q17 a
+1y1m0iqf a
+0h3nc068 b
+0gso7rmi b
+1ib2hazl d
+0bu7324h c
+0uso1610 = Tumbuhan hijau menghasilkan oksigen untuk bernapas dan menjadi sumber makanan (produsen) bagi manusia dan hewan.
+15drabr0 = Manusia dan hewan akan kekurangan oksigen dan makanan karena tidak ada lagi produsen yang membuat makanan melalui fotosintesis, sehingga kehidupan di bumi terancam punah.
+0wn61c9v = Air + karbon dioksida, dengan bantuan cahaya matahari dan klorofil, menghasilkan karbohidrat (zat gula) + oksigen.
+1goudd91 = Akar, batang, daun, buah, biji, dan umbi.
+1k7iv4x2 = Wortel, singkong (ketela pohon), dan bengkuang.
+1p7i7xyj = Karena jamur tidak memiliki klorofil (zat hijau daun) sehingga tidak dapat berfotosintesis.
+046aad8r = Agar makhluk hidup dapat bertahan hidup, memperoleh makanan, melindungi diri dari musuh, dan berkembang biak sehingga jenisnya tetap lestari.
+04lxtiq3 ok
+1mhrux8a ok
+0fjom0wb = Perubahan fisika adalah perubahan zat yang sifatnya sementara dan dapat kembali ke wujud semula.
+1rga009t = Air membeku menjadi es, es mencair, air menguap, lilin dipanaskan lalu mencair, dan kapur barus menyublim.
+0po4xpiq = Kertas dibakar menjadi abu, besi berkarat, makanan membusuk, dan kayu dibakar menjadi arang.
+0vvxgmdh = Pada bidang miring yang bergerak adalah bendanya, sedangkan pada baji yang bergerak adalah alatnya (bajinya).
+06kqg3w8 = Jarak yang ditempuh menjadi lebih jauh (lebih panjang) walaupun gaya yang diperlukan lebih kecil.
+0ilkyve8 = Roda berporos memudahkan memindahkan benda berat karena gaya gesekannya kecil sehingga kendaraan mudah bergerak.
+18j7wqrg = Katrol tetap tidak berpindah tempat dan hanya mengubah arah gaya; katrol bebas ikut bergerak bersama beban dan memperkecil gaya yang diperlukan.
+1cfa3wb2 = Pembiasan cahaya adalah pembelokan arah rambat cahaya ketika melewati dua zat bening yang berbeda kerapatannya, misalnya pensil yang dicelupkan ke air tampak patah.
+1bppk5xd = Pemantulan teratur adalah pemantulan cahaya pada benda yang permukaannya rata dan licin sehingga cahaya dipantulkan searah.
+1egxe64q = Cahaya merambat lurus, dapat dipantulkan, dapat dibiaskan, dan dapat diuraikan (dispersi).
+1pkr3nvt = Batuan beku, batuan sedimen (endapan), dan batuan metamorf (malihan).
+1d0m43ju = Contoh batuan beku adalah granit, batu apung, obsidian, dan basal.
+1nbtyutx = Contoh batuan sedimen adalah batu pasir, batu kapur, dan batu serpih.
+13x88yzy = Contoh batuan metamorf adalah marmer (pualam) dan batu sabak.
+0bdct2cw = Lapisan bumi terdiri atas kerak bumi, selimut (mantel) bumi, dan inti bumi.
+03xaw8bw = Penebangan hutan, pembangunan gedung dan jalan yang menutup permukaan tanah, serta pembuangan sampah ke sungai.
+035u5727 = Menutup keran setelah digunakan, memakai air secukupnya, memakai air bekas cucian untuk menyiram tanaman, dan memperbaiki keran yang bocor.
+0w0bqe5b = Sumber daya alam adalah segala sesuatu yang berasal dari alam dan dapat dimanfaatkan untuk memenuhi kebutuhan hidup manusia.
+0uu2yccq = Sumber daya alam yang dapat diperbarui adalah sumber daya alam yang dapat dibentuk kembali atau dilestarikan sehingga tidak habis, contohnya air, tumbuhan, dan hewan.
+064eeyjr = Pertambangan, pembukaan lahan pertanian dan sawah terasering, penebangan hutan, serta pembangunan jalan dan bendungan.
+0asv0qit = Minyak bumi, batu bara, dan gas alam.
+
+# ── IPS Kelas 5 SD (s-421, Ilmu Pengetahuan Sosial 5) → IPAS MI 5 ──
+0vh52uhz x
+12gljm6a x
+1y2fzgqe x
+1hqpdn09 b
+1udc48s2 x
+0zw6ka7u x
+197o5s15 b
+112k6m1k a
+07283jsy c
+1lvk50ur d
+1k9uz89i a
+166wbz5i x
+0padclk7 x
+1818xmuz d
+02o0g31e x
+1msyy8ix d
+1bdrsqc3 b
+00k3clxx x
+1nct06mt x
+1u8gx6n6 b
+1tt20xf1 c
+1j3o17kc b
+074vaiwn a
+0fqu9cvb b
+1r9p58oi b
+00ebau8y a
+06y3u2ri b
+11rejno3 b
+03a21vgt c
+146oegso a
+1ayj6l5s x
+0nzr3u9q x
+091maqd5 x
+1j21o3bn x
+0dts4lx0 b
+0hycikia c
+10s3cpmd c
+1v5m705p b
+0afx8khp x
+1brsgh98 b
+0m38v4sa b
+0w5gsyvf c
+
+# ── IPA Kelas 6 SD (s-715, IPA dan Lingkunganku 6) → IPAS MI 6 ──
+0ftqaqk5 x
+0w4f8ppo c
+0qmvo7ep b
+0p0e4i19 x
+0ta9dbbo c
+05lo4rhf c
+0364jpfh a
+0k2dt8zf b
+18r3mgtm b
+06auoxsz b
+0702ilzp d
+0w6e31sc a
+17137rr4 c
+1ri4fbiw a
+04a2z2b2 x
+0xutp308 c
+150uadl0 b
+031cfcsp b
+0jxusyij a
+1u3crule c
+0f7phayu a
+1x2jbrzx x
+128w39fx x
+16e3lrp3 x
+1hd00egu x
+1qibeb21 d
+0lbru0w8 c
+0t6l0jn9 c
+1rgic3mj x
+08mrkdr4 b
+0il36e0t c
+1rxmks9b b
+1fw0vxex x
+0lvifsor a
+1sznxax4 a
+13u5n2g6 d
+1v8qdoxe b
+0qmkhbdl x
+1hue7obd a
+1afqs80t x
+0dlbzy5g c
+10z1rejq x
+1by6s6nt a
+18oe7bty b
+0mr3r95r x
+09ea87qn b
+0ed7cwe1 b
+1f26g1u6 c
+1xfaagjl x
+0v1x231o b
+0qhcni4a c
+18dkdtzb x
+1ogybmh2 b
+16uq53ke b
+1tpy1s7s b
+0kvx9pch c
+1hu5yvxt b
+1yg1oag2 b
+1b3xp1za c
+0zmyfdd8 c
+1hi5uk0w c
+18qgpdjm b
+0d29tkyj c
+152r4dmr c
+0id2uqx4 c
+03udrchs c
+1osqzibo b
+1udhhy82 b
+02ft2xvb x
+19f7febh b
+1nanwk4b a
+1wvvfj7i b
+1g7iyhj4 x
+078gijws = Karena setiap planet beredar pada garis edar (orbit) masing-masing yang berbeda sehingga tidak saling bertabrakan.
+0ya29y6n = Karena Venus tampak sangat terang di langit timur menjelang pagi dan di langit barat setelah Matahari terbenam.
+1m4xj96v = Kalender Masehi didasarkan pada revolusi Bumi mengelilingi Matahari (365–366 hari setahun), sedangkan kalender Hijriah didasarkan pada revolusi Bulan mengelilingi Bumi (354–355 hari setahun).
+1dx0bkt5 = Tata surya adalah susunan benda langit yang terdiri atas Matahari sebagai pusat serta planet, satelit, asteroid, meteor, dan komet yang beredar mengelilinginya.
+
+# ── IPS Kelas 6 SD (s-378, Ilmu Pengetahuan Sosial 6) → IPAS MI 6 ──
+1x4aflnt c
+0xpvzpvi d
+0u103v8w c
+0z5wbjqj b
+01jpn74u x
+1scs384i a
+13end5kq x
+1tjfz1cn d
+00mh74eo c
+1epcl0ca b
+1rqruio9 c
+0j4utsby c
+0j3fgi76 d
+1rpf42gk x
+1ihwwuec b
+1l31cu0p c
+0qyfq8yb d
+19v5pxni a
+1hpvogq8 c
+1pexf9cx a
+1nj32png x
+1yfui0vb d
+1xjb85ny c
+0ukc1teo d
+11xmecxo x
+1ulxwdxu c
+1jnpq3vy x
+0y4ow3ql x
+01xsg5d7 x
+17oc866w d
+1lxwcf9l a
+1l76xmcd x
+0can2jgk c
+0h02pr0o b
+1m0yjyul b
+1f8g8suw b
+14drgp3q a
+1n97oqnl d
+0x1q9orr a
+0fduhtj6 c
+0u9hvlmh x
+1ewh3iox a
+1vqh82j0 a
+0ywm0hsy a
+15ba1kcu c
+0v523ygt d
+1oblf7ek a
+13tspdwr a
+0u7yx7av b
+06zxcrbv b
+0vcsz20x x
+01eud2ur c
+13pt5ag1 b
+1c6d680h a
+0jg34wfi b
+0jhiia1b b
+19x7ht5b d
+0abvk31w x
+1p1jfhds x
+04u578v3 x
+1wog9v0x a
+1vlljjwb c
+1ngl8lrj b
+0tc2c9n7 x
+0jgquyfg d
+1ap2usxw c
+1q934zxc b
+1h5o5ojd a
+0fw2aq45 a
+08ebrryd c
+1ddkykn2 x
+1sj022x7 a
+1qw0o07e d
+03azh0mk a
+1d8m2vob x
+1moudwsz b
+0qmpsu4r a
+12i0adag c
+1gg22h08 c
+0rczzvgy a
+0hnrytzv a
+1wxp3ztt a
+0qmsvb3o c
+088e2hvq b
+0g5488ae d
+0r2a45dx a
+17d3qegs x
+1abws3yp c
+0zxxcgfq b
+0drs217s d
+0hm0nuiq a
+0ko9q3cv b
+1o2md279 x
+0vt75kqt b
+0xpgax0n a
+0rn9k2f3 d
+1clmdxxy a
+08yj6eld d
+18ewp5pb a
+0nvk8jze b
+19tv1c6w c
+159qebrb b
+0gqegis3 c
+0nggyduw b
+0xuc9g00 a
+1piiyjpt d
+0zb0k4ss b
+1gymkwsm d
+1rpbzhqn c
+0t9aah0t c
+0afl0ydy a
+0gpf482p d
+0jev11wa a
+0e7431tj a
+07gqdm0v d
+0d9nwzar c
+0yu5we9y b
+0yqfcj4j c
+0ubv4lum x
+0rb7lddj b
+0in211x8 x
+0757etyi a
+1kspqwt0 d
+0qzls1z3 b
+1yid5fcp a
+0tnef97e b
+0nnqa7ds a
+138q6vfq c
+1pcr3n79 b
+1sk8fn2c = Sumatra, Jawa Barat, Jawa Tengah, Jawa Timur, Borneo (Kalimantan), Sulawesi, Maluku, dan Sunda Kecil.
+0g5kythh = Hasil utama Brunei Darussalam adalah minyak bumi dan gas alam.
+1ax68qfe = Karena Singapura terletak di Selat Malaka, pada jalur silang pelayaran dan perdagangan internasional antara Asia Timur, Asia Selatan, Eropa, dan Australia.
+0o81uejt = Bangsa Negro, bangsa Arab (Semit), dan bangsa Berber (Hamit).
+1vi8zayo = New South Wales, Victoria, Queensland, Australia Selatan, Australia Barat, dan Tasmania.
+0fdy6q4k = Indonesia memiliki sumber daya alam yang melimpah, tenaga kerja yang banyak dengan upah relatif murah, serta jumlah penduduk yang besar sebagai pasar.
+1kdjuxi9 = Perusahaan multinasional adalah perusahaan yang memiliki cabang atau perusahaan sejenis di beberapa negara.
+06bevj0n = PT Freeport Indonesia, PT Unilever Indonesia, PT Toyota Astra Motor, dan PT Nestle Indonesia.
+0ap2rjkp = Memenuhi kebutuhan dalam negeri yang tidak dapat diproduksi sendiri, menambah devisa negara, memperluas pasar hasil produksi, dan mempererat hubungan antarnegara.
+
+# ── IPA Kelas 8 SMP (s-613, Alam Sekitar IPA Terpadu 8) → IPA MTs 8 ──
+1mni1n56 b
+0ynalyha d
+040sllfs d
+021f7td5 x
+0ziedb9g b
+14sjicyy b
+0mefln7b x
+19aeqz1e c
+0bgf1vhw d
+15jucpii a
+0cdvawtu x
+1y1w1bwl b
+1kgsu1kf x
+17tpyfr0 b
+1lerurxu b
+0saivg9v x
+0sjm1y29 d
+0w3fj5wp c
+0x00y9zw x
+1wszj86x a
+1vmsq70v c
+1w6gntvk d
+0s84qvis b
+1wuinr96 c
+1akl5bik a
+06as7omw b
+1xpg5k8d a
+0qcmmpsd a
+04l5i3vi d
+1aw6uwb3 b
+0iwkcpma a
+1s27jzp1 d
+0phjxu5b c
+1keb9xjr c
+1iwablb0 b
+00nnh9cf c
+05ks5jgk c
+1etbak1t b
+0pp1nm1r d
+0adscfj5 d
+02h12jea d
+1ydnhqh7 b
+0a34i10r a
+18fd8kcu b
+04ca4sax x
+15bx5kp0 c
+1bohhwuu x
+0tmgyhin c
+002gdw1y d
+105gok1y a
+0nzg4kxr b
+0uc3qv74 b
+0ulpmg5e b
+0qwr6h4r c
+0f0lqdxn b
+1p4v9l67 b
+1y7jsi0o x
+1f1xuvcs x
+032i4dpy a
+020128qy x
+100tt8v2 b
+07og5kug c
+0u3qigty b
+0d5b8owu c
+0uh2b4mb b
+106v4hez b
+1dr9o4om a
+0l0xafjq x
+1sytwm7x c
+06hudfs5 x
+0c8edclo x
+03e1zuze x
+0s2zpt69 b
+1hlk1b8s b
+0tj4nm3v c
+0k0r0ppe b
+10dp6t24 x
+1jv0v597 a
+00xjpp5r c
+12hvjfoa b
+0jkh6klv x
+04se8z10 x
+1htqwep7 a
+1hw64vli c
+1hxgky3z c
+1w4hn4uw b
+11rosdeb a
+0jwvvhie a
+12slowow x
+0uzqk15b x
+0m43n4j8 b
+1yctlh1r d
+0u1rjdpq a
+179uwvjk c
+1g6mrqsj x
+1heoeu12 x
+1ufwz8v2 d
+0j6lq1kx c
+1eosm9xf x
+0zgydu4v x
+0qfdgr7o b
+05mo2hsh a
+1mgkgqdp x
+1km2uufm c
+1kjja78c x
+1wkzc8s0 c
+16pynh94 a
+0ig3ywg8 x
+0kzctqv8 b
+1l0r932a x
+18870nm6 b
+1mfhq97a a
+0kr4hhey d
+1n4v990y b
+0x1rb0qq a
+04ti517y x
+1xjjip05 c
+100yn6lz c
+0nc0kgvk x
+19b2pv5v b
+066r2nvp x
+1ikw7uh9 c
+0x7pcaod b
+10ux278c d
+0p80lsa8 x
+0ndakj2k c
+083unsnw a
+1hbktzed a
+0mi2buxm b
+1goqhn5u d
+0dep1etm c
+0rbo6upf x
+1jhl8xbh b
+170fb8vg x
+0b7i498w b
+0foatv8s a
+09frokm2 x
+0gssp092 a
+11qi4yyn d
+089q0zrj b
+1c4r060v x
+1vinof5a x
+1nbnciak = Pertumbuhan adalah bertambahnya ukuran dan jumlah sel yang tidak dapat kembali (irreversibel) dan dapat diukur, sedangkan perkembangan adalah proses menuju kedewasaan atau kematangan fungsi organ yang tidak dapat diukur.
+04rvi1rm = Pada perkecambahan epigeal, kotiledon (keping biji) terangkat ke atas permukaan tanah, sedangkan pada perkecambahan hipogeal kotiledon tetap berada di dalam tanah.
+1pyg2eht = Faktor dalam (internal) seperti gen dan hormon, serta faktor luar (eksternal) seperti makanan atau nutrisi, air, cahaya, suhu, dan kelembapan.
+1ab2vu3c = Jaringan meristem adalah jaringan muda yang sel-selnya terus-menerus aktif membelah diri.
+10qbx3mf = Atom adalah bagian terkecil dari suatu unsur, ion adalah atom atau kumpulan atom yang bermuatan listrik, sedangkan molekul adalah gabungan dua atom atau lebih yang terikat secara kimia.
+0zc2t15m = Merokok dapat menyebabkan kanker paru-paru, penyakit jantung, gangguan pernapasan, gangguan kehamilan dan janin, serta ketagihan karena nikotin.
+1j048yno = Dimulai dari fertilisasi (pembuahan ovum oleh sperma) membentuk zigot, lalu berkembang menjadi embrio dan janin di dalam rahim; setelah lahir melalui masa bayi, kanak-kanak, remaja (pubertas), dewasa, dan lanjut usia.
+u ipa 8 genap pts Jelaskan bunyi Hukum I Newton dan berikan satu contohnya dalam kehidupan sehari-hari! = Hukum I Newton: benda yang diam akan tetap diam dan benda yang bergerak lurus beraturan akan tetap bergerak lurus beraturan jika resultan gaya yang bekerja padanya nol. Contoh: penumpang terdorong ke depan saat bus direm mendadak.
+u ipa 8 genap pts Sebutkan tiga jenis pesawat sederhana beserta contohnya! = Tuas/pengungkit (gunting, linggis), katrol (katrol timba sumur), dan bidang miring (tangga, sekrup, jalan berkelok di pegunungan).
+u ipa 8 genap pts Mengapa pisau yang tajam lebih mudah memotong daripada pisau yang tumpul? = Karena luas bidang tekan pisau tajam lebih kecil, sehingga dengan gaya yang sama tekanannya lebih besar (P = F/A).
+u ipa 8 genap pas Jelaskan perbedaan gelombang transversal dan gelombang longitudinal beserta contohnya! = Gelombang transversal arah getarnya tegak lurus arah rambatnya, contohnya gelombang pada tali dan gelombang cahaya; gelombang longitudinal arah getarnya sejajar arah rambatnya, contohnya gelombang bunyi dan gelombang pada slinki.
+u ipa 8 genap pas Sebutkan syarat terjadinya bunyi! = Ada sumber bunyi yang bergetar, ada medium (zat perantara) untuk merambat, dan ada pendengar (penerima) dengan frekuensi 20–20.000 Hz.
+u ipa 8 genap pas Sebutkan cacat mata miopi dan hipermetropi serta jenis kacamata untuk menolongnya! = Miopi (rabun jauh) tidak dapat melihat benda jauh dengan jelas, ditolong kacamata lensa cekung (negatif); hipermetropi (rabun dekat) tidak dapat melihat benda dekat dengan jelas, ditolong kacamata lensa cembung (positif).
+
+# ── IPS Kelas 8 SMP (s-616, Sudut Bumi IPS Terpadu 8) → IPS MTs 8 ──
+1mtx54pg a
+0pz7e67t b
+13oblzij a
+1ug6dean c
+1lwrdn19 x
+0euk2230 a
+0eyyvi1a b
+1659j5j3 b
+0dwyjz5t b
+1128vqoa c
+1g5vxl31 x
+125jksv0 x
+1d0o3lue b
+0pjo8gqc d
+175imvhf c
+0s23w1f3 a
+10mrsxob b
+0o7xmnz4 x
+0zdossqw x
+1begllz5 c
+082jitq1 x
+1imtjb78 a
+095jdqf9 a
+1d74bjwm a
+10d6gsr3 a
+14l990es x
+1nanegro c
+1h49d4j9 c
+1fuhq137 a
+1nfsnlxt x
+1nb4jzch d
+1qiiy2ai b
+000z0w0l d
+0dx1llif x
+1qaldnrd d
+09mvuspv c
+0dp27gzj c
+11vthp90 x
+1m73aohd b
+0c74om8v c
+1ijfbxbf c
+11h9zcru b
+1jq62fqm x
+1dkuwyj4 x
+0i9oso20 d
+0fu6yvpt a
+06jq7lss b
+0m9at37w a
+06jagfbd c
+07yxj5qe c
+02a0gkqy x
+1d9gw8n1 c
+0iyp11rz x
+1avgqv7n b
+0ysff1e3 d
+14prxu9r c
+1oj4nxf2 c
+1c27yzax d
+12en5cg8 d
+15v1jnce b
+0e53r5ip d
+13ep529g c
+1n3gvp3u c
+0stdspvc c
+128v9qap b
+0865bowi c
+1i4wou41 x
+0fx99dqa x
+0nspq1dl b
+0dlxhnva x
+1s2ul27m a
+1b109ym5 a
+1izvlwom x
+0mcbd1wc x
+05tz4qxv b
+0kbox82d a
+01zyv9s9 a
+1dncufyu x
+06vpugxq a
+05en9wtg x
+1urdel1k b
+0oevp32c b
+0souu4ov a
+1bqw9gre x
+02m1plgl x
+1mq4dfp0 c
+0z2m0hcm a
+0ukyrzq6 a
+0e1pxern c
+0qe7sofu c
+1vhythqg b
+0ospp138 d
+04pzqyed a
+14wfn3ft a
+0ycqth7h x
+0qbx99j9 x
+10czil1g = Politik etis (politik balas budi) adalah kebijakan pemerintah Hindia Belanda untuk membalas jasa rakyat Indonesia melalui edukasi (pendidikan), irigasi (pengairan), dan emigrasi (perpindahan penduduk).
+0s15agrk = Penyimpangan sosial adalah perilaku yang tidak sesuai dengan nilai dan norma yang berlaku dalam masyarakat.
+08pnzfxi = Sosialisasi yang tidak sempurna, pengaruh lingkungan atau pergaulan yang buruk, keluarga yang tidak harmonis, faktor ekonomi, serta kurangnya pemahaman agama.
+1sz9shpo = Rumah tangga ekonomi adalah pelaku kegiatan ekonomi (rumah tangga keluarga, perusahaan, pemerintah, dan luar negeri) yang melakukan kegiatan produksi, distribusi, dan konsumsi.
+1tdspann = Sebagai konsumen yang membeli barang dan jasa, serta sebagai pemilik faktor produksi (tenaga kerja, tanah, modal) yang dijual kepada perusahaan.
+0b9howwl = Memberikan pelayanan umum kepada masyarakat dan menjadi sumber pendapatan negara dari keuntungannya.
+1tbe69mu = Piagam Jakarta berisi rancangan dasar negara: (1) Ketuhanan dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya, (2) Kemanusiaan yang adil dan beradab, (3) Persatuan Indonesia, (4) Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan, (5) Keadilan sosial bagi seluruh rakyat Indonesia.
+044uvko7 = Pada 19 September 1945 orang Belanda mengibarkan bendera Belanda (merah-putih-biru) di Hotel Yamato, Surabaya. Para pemuda marah, memanjat hotel, dan merobek warna birunya sehingga menjadi bendera Merah Putih.
+05vrn7of = Pranata sosial adalah sistem norma atau aturan yang mengatur tindakan dalam kegiatan masyarakat untuk memenuhi kebutuhan hidup tertentu.
+0tvhqt9q = Menurut Koentjaraningrat, pranata sosial adalah sistem tata kelakuan dan hubungan yang berpusat pada aktivitas untuk memenuhi kebutuhan khusus dalam kehidupan masyarakat.
+0gfssnix = Memberi pedoman kepada anggota masyarakat tentang cara bertingkah laku, menjaga keutuhan masyarakat, dan menjadi pegangan dalam pengendalian sosial.
+0ghks6nf = Pengendalian individu terhadap individu, individu terhadap kelompok, kelompok terhadap individu, dan kelompok terhadap kelompok.
+0l5zfxm6 = Sifat preventif adalah usaha pengendalian yang dilakukan sebelum terjadi pelanggaran untuk mencegah penyimpangan.
+0w3241lz ok
+0c6f474x = Jumlah angkatan kerja lebih besar daripada lapangan kerja yang tersedia, kualitas tenaga kerja yang rendah, persebaran tenaga kerja yang tidak merata, dan tingginya angka pengangguran.
+1ueoc064 = Pengangguran adalah orang yang termasuk angkatan kerja tetapi tidak bekerja dan sedang mencari pekerjaan.
+1ewfj6st = Pajak penghasilan (PPh), pajak pertambahan nilai (PPN), pajak penjualan atas barang mewah (PPnBM), dan pajak bumi dan bangunan (PBB).
+08ibkycn ok
+0ydzex0m ok
+1adm5bd8 = Harga menjadi pedoman bagi produsen dalam menentukan jumlah barang yang diproduksi, pedoman bagi konsumen dalam membeli barang, serta alat untuk mendistribusikan barang dan jasa.
+00ucx3x6 = Hukum permintaan: jika harga naik, jumlah barang yang diminta turun, dan sebaliknya. Hukum penawaran: jika harga naik, jumlah barang yang ditawarkan naik, dan sebaliknya (dengan anggapan faktor lain tetap).
+u ips 8 ganjil pts Jelaskan perbedaan letak astronomis dan letak geografis Indonesia! = Letak astronomis adalah letak berdasarkan garis lintang dan bujur, yaitu 6° LU – 11° LS dan 95° BT – 141° BT; letak geografis adalah letak berdasarkan kenyataan di permukaan bumi, yaitu di antara Benua Asia dan Australia serta Samudra Hindia dan Samudra Pasifik.
+u ips 8 ganjil pts Sebutkan tiga faktor yang memengaruhi pertumbuhan penduduk! = Kelahiran (natalitas), kematian (mortalitas), dan perpindahan penduduk (migrasi).
+u ips 8 ganjil pas Jelaskan pengertian sistem tanam paksa (cultuur stelsel)! = Sistem tanam paksa adalah aturan pemerintah kolonial Belanda yang mewajibkan petani menanam tanaman ekspor yang laku di pasar dunia, seperti kopi, tebu, dan nila, pada seperlima tanahnya untuk diserahkan kepada pemerintah.
+u ips 8 ganjil pas Sebutkan tiga contoh upaya menjaga kelestarian lingkungan hidup! = Melakukan reboisasi (penanaman kembali hutan), membuang sampah pada tempatnya dan mendaur ulang sampah, serta tidak menggunakan bahan kimia berlebihan yang mencemari tanah dan air.
+
+# ── IPS Kelas 9 SMP (s-584, Ilmu Pengetahuan Sosial 9) → IPS MTs 9 ──
+0fdl7ll9 d
+17vi1kvs c
+1hmev5v0 c
+1e0wts6o x
+06a8txky b
+1c2k0l6n a
+0mesir17 c
+1oke5r09 b
+1q1yvu7r b
+08s1ashh d
+0uyz601b c
+0tcedtsu b
+0zzunlpv d
+0mdb6m0e c
+123zaomj x
+1lbtvkjj c
+0n9thzpa d
+1sztq53d b
+12ic1jnq b
+064uev0s c
+1u8jkt3y a
+07vhnu0w c
+0s077jyo a
+04frmv3m a
+1l0vz3nb a
+14z98mxn c
+081drleo d
+1nc1uiu8 b
+0qapinzn b
+1idsbtk5 b
+05hnxq2t c
+1rdw2fon c
+0cxsu4ql b
+06818r3j b
+15fighfc b
+0gthax7d c
+0axpkd0c b
+0nxu0csz c
+139srp7x a
+1b31ag5o c
+0p3bcgy4 b
+0iye5fey x
+02umg0g6 d
+1i2acy1v a
+09kty29p x
+1gdzmmfa x
+0phwu91c x
+1evfmk4p d
+1qtalgsp d
+0bs277cz c
+0dfchoyt c
+1x1rxr26 d
+1qx61ukz b
+1c4rbk8d c
+0gtevoeu d
+09zvs8se c
+0v3c0ko8 d
+00ayb4cj b
+0y7s9iz6 d
+0zgw92r7 a
+0mv494d2 a
+0m89s8fa d
+1i73oa58 a
+02xjj0w6 b
+1o9ld2wt b
+1eyw5nmv x
+0glclnf8 b
+0g7k9t4c c
+0j2z2436 a
+04f0mafi c
+19bgxmua b
+1f0lb6mh b
+0vmlzchq a
+0i74tgca b
+05t5kje2 d
+14cwqu6n d
+1tukpyb2 d
+1109he4e a
+1oie81at a
+1hedd890 a
+1cljgrxd b
+09hmikrn c
+0n9qufdw b
+062xmtpk c
+1v3c7xuf c
+071p8fwy b
+0ioulnll x
+1c0siu5u a
+1arlncy6 a
+1e0arj3z a
+0s6wz829 x
+11gy8hkd c
+07gt1sw9 a
+1h31ukwc a
+1tdkepvo a
+0skswt9u x
+0dmkxfo5 b
+1kbixocy c
+11kultfj a
+0fw9wle8 d
+05eifxss a
+0afodz6e x
+0k5xzx3i c
+0fyzhr5c d
+0zi82yyx a
+1pffmtbg d
+11fcaevf b
+0tk8pfmz x
+0hwj0s2g b
+06bj19xn a
+1kh0pdfo c
+0jl6j27v x
+0jwy8moa c
+15lgm2aq a
+198jq4zo d
+1xn8ml9n c
+0n6ejhfi c
+0tcr6y4m c
+01w6n6zt a
+06i1pvpa b
+1hb69dhj a
+0jug3n6j c
+1vglid6v x
+1xcmwmiz d
+074yzhqv d
+07nrj3ge c
+1g2ffkdm x
+1nm156cq d
+1dyyn475 b
+0kom4dfz a
+1dmq0bkk a
+1ks9e7gq b
+067k4mnp b
+0jyceuhl = Pada masa Jepang organisasi pergerakan dibubarkan, tetapi para tokoh nasional tetap berjuang dengan dua cara: kooperatif (bekerja sama), misalnya melalui Putera dan Jawa Hokokai, dan nonkooperatif (gerakan bawah tanah), misalnya kelompok Sutan Sjahrir.
+1m6djh0q = Agar produsen dalam negeri dapat menjual barangnya dengan harga lebih murah sehingga mampu bersaing dengan barang impor.
+0fmef0v1 = Sebagai alat pembayaran dalam transaksi internasional, cadangan untuk membayar utang luar negeri, alat membiayai impor, dan penjaga kestabilan nilai mata uang.
+1vnld8da = Gerakan Benteng adalah program ekonomi pemerintah (gagasan Sumitro Djojohadikusumo) untuk menumbuhkan kelas pengusaha pribumi dengan bantuan kredit dan izin impor.
+1079iehe = Belanda dikecam dunia internasional dan Dewan Keamanan PBB sehingga terpaksa berunding kembali dengan Indonesia dalam Perundingan Roem-Royen.
+09detxg4 = Belanda mengakui kedaulatan Republik Indonesia Serikat (RIS) pada akhir 1949, dibentuk Uni Indonesia–Belanda, dan masalah Irian Barat akan diselesaikan satu tahun kemudian.
+00v5zccu = Dengan garis kontur (garis yang menghubungkan tempat-tempat yang sama tingginya), dengan perbedaan warna (hijau dataran rendah, kuning hingga cokelat dataran tinggi dan pegunungan, biru perairan), dan dengan arsiran.
+0qytehr4 x
+1s43y3be = Samudra merupakan sumber utama air yang menguap oleh panas matahari, membentuk awan, lalu turun sebagai hujan dan kembali ke laut sehingga siklus air berlangsung terus-menerus.
+0i1qd9rz = Jenderal Ahmad Yani, Letjen R. Suprapto, Letjen M.T. Haryono, Letjen S. Parman, Mayjen D.I. Panjaitan, Mayjen Sutoyo Siswomiharjo, dan Kapten Pierre Tendean.
+0c9ll0f8 = Indonesia ikut membantu terbentuknya APEC pada tahun 1989 dan menjadi tuan rumah KTT APEC 1994 di Bogor yang menghasilkan Deklarasi Bogor tentang perdagangan bebas di kawasan Asia Pasifik.
+1fla4agz = Gerakan Non-Blok bertujuan meredakan ketegangan antara Blok Barat dan Blok Timur, menjaga perdamaian dunia, serta membantu negara berkembang memperjuangkan kemerdekaan dan kemajuan ekonominya.
+02kq49i9 = Karena globalisasi membuka pasar yang lebih luas bagi produk ekspor, mempermudah masuknya modal dan teknologi asing, serta mendorong efisiensi dan daya saing.
+0ge352zw = Kemudahan memperoleh informasi dan teknologi, terbukanya lapangan kerja, meningkatnya etos kerja dan disiplin, serta luasnya pasar bagi produk dalam negeri.
+17e64m19 = Perbedaan sumber daya alam, terbatasnya kemampuan memenuhi kebutuhan dalam negeri, perbedaan teknologi, serta keinginan memperluas pasar.
+1006cwwd = Meningkatkan ekspor dan impor, memperluas pasar, meningkatkan pertumbuhan ekonomi dan kesejahteraan, serta mempererat persahabatan antarnegara.
+1qsu9j9k = Perubahan sosial budaya adalah perubahan pada unsur-unsur sosial budaya dalam masyarakat, seperti struktur kemasyarakatan, nilai, norma, pola perilaku, dan lembaga sosial.
+15or3qpu = Bank sentral (Bank Indonesia) bertugas menetapkan dan melaksanakan kebijakan moneter, mengatur dan menjaga kelancaran sistem pembayaran, serta mengatur dan mengawasi bank.
+1vhvtxx5 = Samudra berfungsi sebagai sumber bahan makanan (ikan dan hasil laut), jalur transportasi, sumber bahan tambang dan garam, objek wisata, serta pengatur iklim dan bagian siklus air.
+
+# ── IPA Kelas 9 SMP (s-614, Alam Sekitar IPA Terpadu 9) → IPA MTs 9 ──
+0yo3qck4 c
+0i9rhkxs c
+1o0m2ls8 c
+0r5czqy7 b
+0l33xscg a
+1905115a c
+0ttx6t5k b
+15upjoul d
+1iayghp9 c
+1gibzfsd b
+076f0kc5 x
+128ljzg6 c
+0tia0g9r d
+1iqllvkz b
+0zyxbtzp b
+1u59afaq b
+14vj8a1o d
+13az7v3t c
+040av1h5 b
+0bf93398 a
+0e3wes3f b
+0nh401nk c
+12q377kr b
+1f2pniy9 a
+079g7a5v c
+0mn0geht c
+0slw8p80 b
+00x9irop d
+0h5p68ph d
+00ll3h5j c
+1kkleh7w a
+0jyadgvv b
+173ip4s1 x
+0rwzlpsp c
+07e64mt7 a
+110fu4il d
+14rm0lfv d
+12m2kqcs b
+1qnwdgdj d
+1wfyjznc c
+1j9balyf a
+11k8172h a
+0b2xqh43 d
+0go42p2p a
+0pgk4ayz c
+0bvkmmtw a
+08td4vxz d
+0c3kn34k a
+0qbu2k05 b
+1hl85a6h x
+1mo7pvn8 a
+0ftsyjlj x
+0bwnzt13 b
+032z15il a
+0wdjzxwk c
+0pxhkujt x
+0wpkhac6 x
+06kfmkbb c
+0dji4iwp c
+0ighc83n c
+1c4s0n4x a
+1hbrod2m x
+02rzcxgc x
+0w00vtdx x
+0g5o4gjd d
+1vhk87ht c
+1lnsl8na d
+1ccs51vs x
+1o6711gl b
+077zpc5m d
+0nbs14hx b
+1ty772o5 x
+1mec3qc1 b
+020mnn6n b
+13doehuq a
+0aznbgxu a
+1aoffgv9 b
+1nlxl25z x
+0sbcme0p b
+1uxuju6q c
+19c1qodi a
+0rkbki7o a
+16fg1snu b
+13i0yjnb a
+0za805ic a
+1urf0ihj b
+0x6l5b85 c
+1s97gijt a
+06rzfp2r b
+1jc6vkh7 a
+1qcd1aow a
+06rogeao d
+18ibivkd c
+19bfmldm a
+19u80jgv b
+00282m57 a
+1tjisw2h b
+0hjcz3wq x
+1ndc6h6d = Ekskresi adalah proses pengeluaran zat sisa metabolisme yang sudah tidak diperlukan tubuh, melalui ginjal (urine), kulit (keringat), paru-paru (karbon dioksida dan uap air), dan hati (empedu).
+0ve4jh4f = Bila sel telur tidak dibuahi, kadar hormon estrogen dan progesteron turun sehingga dinding rahim yang menebal luruh dan keluar bersama darah melalui vagina.
+u ipa 9 ganjil pts Sebutkan organ ekskresi pada manusia beserta zat yang dikeluarkannya! = Ginjal mengeluarkan urine, kulit mengeluarkan keringat, paru-paru mengeluarkan karbon dioksida dan uap air, serta hati mengeluarkan empedu.
+u ipa 9 ganjil pts Jelaskan perbedaan sistem saraf sadar dan sistem saraf tak sadar! = Sistem saraf sadar (somatik) bekerja di bawah kehendak kita, misalnya menggerakkan tangan; sistem saraf tak sadar (otonom) bekerja tanpa diperintah kehendak, misalnya denyut jantung dan gerak peristaltik usus.
+u ipa 9 ganjil pas Jelaskan perbedaan perkembangbiakan vegetatif alami dan vegetatif buatan beserta contohnya! = Vegetatif alami terjadi tanpa campur tangan manusia, misalnya umbi, geragih, dan tunas; vegetatif buatan dilakukan dengan bantuan manusia, misalnya mencangkok, menyetek, dan okulasi.
+u ipa 9 ganjil pas Sebutkan tiga contoh penerapan bioteknologi konvensional dalam bidang pangan! = Pembuatan tempe dengan jamur Rhizopus, pembuatan yoghurt dengan bakteri Lactobacillus, dan pembuatan tape dengan ragi (Saccharomyces).
+u ipa 9 genap pts Jelaskan perbedaan rangkaian listrik seri dan paralel! = Pada rangkaian seri komponen disusun berderet sehingga arus yang mengalir sama dan jika satu lampu putus semua padam; pada rangkaian paralel komponen disusun bercabang sehingga tegangannya sama dan jika satu lampu putus yang lain tetap menyala.
+u ipa 9 genap pts Sebutkan tiga cara menghemat energi listrik di rumah! = Mematikan lampu dan alat listrik yang tidak dipakai, menggunakan lampu hemat energi (LED), dan tidak membuka pintu lemari es terlalu lama.
+u ipa 9 genap pas Sebutkan tiga cara membuat magnet! = Dengan menggosok besi menggunakan magnet tetap searah, dengan induksi (mendekatkan besi pada magnet), dan dengan elektromagnet (mengalirkan arus listrik melalui kumparan yang melilit besi).
+u ipa 9 genap pas Jelaskan proses terjadinya gerhana matahari! = Gerhana matahari terjadi ketika Bulan berada di antara Matahari dan Bumi pada satu garis lurus sehingga bayangan Bulan menutupi sebagian atau seluruh cahaya Matahari yang sampai ke Bumi.
+u ipa 9 genap pts Jelaskan bunyi Hukum Ohm! = Kuat arus listrik yang mengalir pada suatu penghantar sebanding dengan beda potensial (tegangan) di ujung-ujungnya dan berbanding terbalik dengan hambatannya (V = I × R).
+u ipa 9 genap pas Sebutkan planet-planet dalam tata surya secara berurutan dari yang terdekat dengan Matahari! = Merkurius, Venus, Bumi, Mars, Yupiter, Saturnus, Uranus, dan Neptunus.
