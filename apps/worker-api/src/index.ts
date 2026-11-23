@@ -18,6 +18,7 @@ import { adopsTick } from "./lib/adops/runner.js";
 import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
 import { contentBotTick } from "./lib/content-bot.js";
+import { gpuCheckTick } from "./lib/gpu-check.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -277,6 +278,10 @@ export default {
         // AdOps (docs/ADMANAGER-BLUEPRINT.md): runs once a day after 03:00 UTC,
         // silent until the owner connects AdSense / Ad Manager in the admin.
         adopsTick(env).catch((e) => console.error("adops-tick failed", e)),
+        // GPU keys checked once a day by themselves (owner, 22–23 Nov 2026: is every GPU key alive, and can it make
+        // axto.io's art?): auth + capability probes only — the render test stays an admin button, so donated free
+        // credits are not spent daily. The verdict waits in Admin → Kunci.
+        gpuCheckTick(env).catch((e) => console.error("gpu-check failed", e)),
       ]).then(() => undefined)
     );
   },

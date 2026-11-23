@@ -180,3 +180,10 @@ export async function latestGpuCheck(env: Env): Promise<GpuCheckReport | null> {
     return null;
   }
 }
+
+/** The daily run of the 15-minute heartbeat: a fresh report when the last one is a day old (or missing). */
+export async function gpuCheckTick(env: Env): Promise<void> {
+  const last = await latestGpuCheck(env);
+  if (last && Date.now() - Date.parse(last.at) < 24 * 3_600_000) return;
+  await runGpuCheck(env, { render: false });
+}
