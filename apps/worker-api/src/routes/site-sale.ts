@@ -6,7 +6,7 @@ import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { getDemo } from "../lib/admin-demo.js";
 import { SITES, SITE_IDS, isSiteId, type SiteId } from "../lib/sites.js";
 import {
-  buildOffer, getSettings, listOffers, offerProblem, publicSettings, recentLog, recordOffer, saveSettings, updateOffer,
+  buildOffer, getSettings, isOfferOnly, listOffers, minimumOffer, offerProblem, publicSettings, recentLog, recordOffer, saveSettings, updateOffer,
   type OfferInput, type SaleOffer,
 } from "../lib/site-sale.js";
 
@@ -35,17 +35,20 @@ saleRoute.get("/", async (c) => {
   const site = siteParam(c.req.query("site"));
   const s = await getSettings(c.env.MEDIA_R2, site);
   c.header("Cache-Control", "public, max-age=60");
-  return c.json({ ...publicSettings(s), site });
+  return c.json({ ...publicSettings(s, site), site });
 });
 
 saleRoute.get("/network", async (c) => {
   const all = await Promise.all(SITE_IDS.map(async (id) => ({ id, s: await getSettings(c.env.MEDIA_R2, id) })));
   c.header("Cache-Control", "public, max-age=60");
   return c.json({
-    sites: all.filter(({ s }) => s.visible).map(({ id, s }) => ({
-      site: id, domain: SITES[id].domain, name: SITES[id].name, lang: SITES[id].lang,
-      priceUsd: s.priceUsd, minOfferUsd: s.minOfferUsd, negotiable: s.negotiable,
-    })),
+    sites: all.filter(({ s }) => s.visible).map(({ id, s }) => {
+      const p = publicSettings(s, id);
+      return {
+        site: id, domain: SITES[id].domain, name: SITES[id].name, lang: SITES[id].lang,
+        offerOnly: p.offerOnly, priceUsd: p.priceUsd, minOfferUsd: p.minOfferUsd, negotiable: p.negotiable,
+      };
+    }),
   });
 });
 
@@ -72,16 +75,16 @@ saleRoute.post("/offers", async (c) => {
   if (!c.env.MEDIA_R2) return c.json({ error: R2_OFF_MESSAGE, code: "storage" }, 503);
   const site = siteParam((b as OfferInput).site);
   const s = await getSettings(c.env.MEDIA_R2, site);
-  const problem = offerProblem(b, s);
+  const problem = offerProblem(b, s, site);
   if (problem) {
     const msg = {
       hidden: "The site is not offered for sale at the moment.",
       name: "Please enter your name.",
       email: "Please enter a valid e-mail address.",
       country: "Please enter your country.",
-      amount: `The minimum offer is ${usd(s.minOfferUsd)}.`,
+      amount: isOfferOnly(site) ? "Please enter your offer in US dollars." : `The minimum offer is ${usd(s.minOfferUsd)}.`,
     }[problem];
-    return c.json({ error: msg, code: problem, minOfferUsd: s.minOfferUsd }, problem === "hidden" ? 404 : 400);
+    return c.json({ error: msg, code: problem, minOfferUsd: minimumOffer(s, site) }, problem === "hidden" ? 404 : 400);
   }
   const offer = await buildOffer({ ...b, site }, ip(c));
   const { created } = await recordOffer(c.env.MEDIA_R2, offer);

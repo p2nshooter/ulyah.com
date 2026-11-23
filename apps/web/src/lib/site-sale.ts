@@ -1,6 +1,6 @@
 import { TENANT } from "./tenant";
 import { getCached } from "./api";
-import type { SaleCtx } from "./sale-copy";
+import { offerWord, type SaleCtx } from "./sale-copy";
 
 /**
  * ulyah.com is for sale (owner, 28–29 Oct 2026; docs/ADSENSE-BLUEPRINT.md §17):
@@ -15,6 +15,8 @@ import type { SaleCtx } from "./sale-copy";
 
 export interface SaleTerms {
   visible: boolean;
+  /** No price shown anywhere — "make an offer" to the owner's WhatsApp (owner, 22 Nov 2026). */
+  offerOnly: boolean;
   priceUsd: number;
   minOfferUsd: number;
   negotiable: boolean;
@@ -26,6 +28,8 @@ export interface SaleTerms {
 
 export const SALE_DEFAULTS: SaleTerms = {
   visible: true,
+  // Owner, 22 Nov 2026: "ubah harga jual … menjadi ajukan penawaran ke +6285691234561" — every site on sale.
+  offerOnly: true,
   priceUsd: 250_000,
   minOfferUsd: 50_000,
   negotiable: true,
@@ -46,6 +50,7 @@ export function toSaleTerms(raw: unknown): SaleTerms {
   const str = (v: unknown, d: string) => (typeof v === "string" ? v : d);
   return {
     visible: typeof r.visible === "boolean" ? r.visible : SALE_DEFAULTS.visible,
+    offerOnly: typeof r.offerOnly === "boolean" ? r.offerOnly : SALE_DEFAULTS.offerOnly,
     priceUsd: num(r.priceUsd, SALE_DEFAULTS.priceUsd),
     minOfferUsd: num(r.minOfferUsd, SALE_DEFAULTS.minOfferUsd),
     negotiable: typeof r.negotiable === "boolean" ? r.negotiable : SALE_DEFAULTS.negotiable,
@@ -74,9 +79,11 @@ export function saleContext(terms: SaleTerms, locale: string, stats: { kitabTota
   return {
     name: TENANT.siteName,
     domain: TENANT.siteUrl.replace(/^https?:\/\//, ""),
-    price: usd(terms.priceUsd, locale),
-    min: usd(terms.minOfferUsd, locale),
+    price: terms.offerOnly ? offerWord(locale) : usd(terms.priceUsd, locale),
+    min: terms.offerOnly ? "" : usd(terms.minOfferUsd, locale),
     negotiable: terms.negotiable,
+    offerOnly: terms.offerOnly,
+    wa: waDisplay(terms.whatsapp),
     ...stats,
   };
 }
@@ -101,14 +108,17 @@ export async function saleDemo(): Promise<SaleDemo | null> {
 }
 
 /** Another site on sale, for the "also for sale" list of every sale page. */
-export interface SaleSiteSummary { site: string; domain: string; name: string; priceUsd: number; minOfferUsd: number; negotiable: boolean }
+export interface SaleSiteSummary { site: string; domain: string; name: string; offerOnly: boolean; priceUsd: number; minOfferUsd: number; negotiable: boolean }
 
 export function toSaleNetwork(raw: unknown): SaleSiteSummary[] {
   const list = raw && typeof raw === "object" && Array.isArray((raw as { sites?: unknown }).sites) ? ((raw as { sites: unknown[] }).sites) : [];
   return list.filter((x): x is SaleSiteSummary => {
     const r = x as Partial<SaleSiteSummary> | null;
-    return !!r && typeof r.site === "string" && typeof r.domain === "string" && typeof r.name === "string" && typeof r.priceUsd === "number" && typeof r.minOfferUsd === "number";
-  }).map((x) => ({ ...x, negotiable: x.negotiable !== false }));
+    return !!r && typeof r.site === "string" && typeof r.domain === "string" && typeof r.name === "string";
+  }).map((x) => {
+    const offerOnly = x.offerOnly !== false || typeof x.priceUsd !== "number";
+    return { ...x, offerOnly, priceUsd: offerOnly ? 0 : x.priceUsd, minOfferUsd: offerOnly ? 0 : Number(x.minOfferUsd) || 0, negotiable: x.negotiable !== false };
+  });
 }
 
 /** Every site on sale (visible ones), refreshed every five minutes; empty when unreachable. */
@@ -149,4 +159,11 @@ export function offerEmail(v: string): string {
 /** A wa.me link with a prefilled first message. */
 export function waLink(phone: string, text: string): string {
   return `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+}
+
+/** "+6285691234561" → "+62 856-9123-4561", the way people write an Indonesian mobile number. */
+export function waDisplay(n: string): string {
+  const d = n.replace(/[^\d+]/g, "");
+  const m = /^\+62(8\d{2})(\d{4})(\d{3,5})$/.exec(d);
+  return m ? `+62 ${m[1]}-${m[2]}-${m[3]}` : n;
 }

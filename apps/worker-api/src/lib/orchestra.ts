@@ -2,6 +2,7 @@ import { chatComplete, extractJson } from "@ulyah/ai-engine";
 import type { KeyScope } from "@ulyah/shared/types";
 import type { Env } from "../env.js";
 import { selectKeyForScope, recordKeyUsage } from "./keypool-db.js";
+import { listKeySummaries, setKeyState, groupPool } from "./keypool-store.js";
 import { safeKvGet } from "./kv-safe.js";
 
 /**
@@ -101,17 +102,16 @@ export interface OrchestraResult {
  * The next real request re-tests a revived key and re-demotes it if still bad. */
 async function reviveCooledKeys(env: Env): Promise<void> {
   try {
-    await env.DB.batch([
-      env.DB.prepare(
-        "UPDATE ai_key_pool SET status = 'active' WHERE status = 'rate_limited' AND last_health_check < datetime('now', '-5 minutes')"
-      ),
-      env.DB.prepare(
-        "UPDATE ai_key_pool SET status = 'active' WHERE status = 'exhausted' AND last_health_check < datetime('now', '-6 hours')"
-      ),
-      env.DB.prepare(
-        "UPDATE ai_key_pool SET status = 'active' WHERE status = 'slow' AND last_health_check < datetime('now', '-30 minutes')"
-      ),
-    ]);
+    const now = Date.now();
+    const older = (iso: string | null, ms: number) => !iso || now - Date.parse(iso) > ms;
+    const wake = (await listKeySummaries(env, { fresh: true })).filter(
+      (k) =>
+        (k.status === "rate_limited" && older(k.last_health_check, 5 * 60_000)) ||
+        (k.status === "exhausted" && older(k.last_health_check, 6 * 3600_000)) ||
+        (k.status === "slow" && older(k.last_health_check, 30 * 60_000))
+    );
+    // Bounded per run: each wake is one compare-and-swap write in R2.
+    for (const k of wake.slice(0, 80)) await setKeyState(env, k.id, { status: "active" });
   } catch {
     /* non-fatal: revival is best-effort */
   }
@@ -133,21 +133,9 @@ async function reviveCooledKeys(env: Env): Promise<void> {
  * stays cheap and never slows the site down. */
 async function reconcileMisrejectedKeys(env: Env): Promise<void> {
   try {
-    await env.DB.prepare(
-      `UPDATE ai_key_pool
-         SET status = 'active', last_health_check = datetime('now')
-       WHERE id IN (
-         SELECT k.id FROM ai_key_pool k
-         WHERE k.status = 'rejected'
-           AND (
-             SELECT v.passed FROM key_validation_log v
-             WHERE v.key_id = k.id
-             ORDER BY v.created_at DESC, v.id DESC
-             LIMIT 1
-           ) = 1
-         LIMIT 60
-       )`
-    ).run();
+    // The verdict of a key's latest test is kept on the key itself (keypool-store.ts last_test_passed).
+    const healed = (await listKeySummaries(env)).filter((k) => k.status === "rejected" && k.last_test_passed === true);
+    for (const k of healed.slice(0, 60)) await setKeyState(env, k.id, { status: "active" });
   } catch {
     /* non-fatal: reconciliation is best-effort */
   }
@@ -215,7 +203,6 @@ export async function orchestrate(
   // Free Kaggle GPU/TPU first (when a notebook is live), then the donated keys.
   const kaggle = await getKaggleEndpoint(env);
   if (kaggle) {
-    const started = Date.now();
     try {
       const res = await chatComplete("kaggle", kaggle.token ?? "", opts.prompt, {
         model: kaggle.model,
@@ -286,11 +273,7 @@ export interface OrchestraHealthRow {
 /** Live health snapshot grouped by provider/scope/status — powers the admin
  * Orchestra Core observability view (who's active, slow, rate-limited). */
 export async function orchestraHealth(env: Env): Promise<OrchestraHealthRow[]> {
-  const { results } = await env.DB.prepare(
-    `SELECT provider, scope, status, COUNT(*) AS keys, AVG(latency_ms) AS avg_latency_ms, SUM(quota_used) AS quota_used
-     FROM ai_key_pool GROUP BY provider, scope, status ORDER BY provider, scope`
-  ).all<OrchestraHealthRow>();
-  return results as OrchestraHealthRow[];
+  return groupPool(await listKeySummaries(env)) as OrchestraHealthRow[];
 }
 
 /** The capability registry, exposed read-only so the admin UI can render the

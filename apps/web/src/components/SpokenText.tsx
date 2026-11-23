@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import { followReading } from "@/lib/follow-reading";
 
 interface Token {
   text: string;
@@ -60,10 +61,10 @@ export function SpokenText({
     return idx;
   }, [tokens, active, charIndex]);
 
+  // Follow the voice only when the word leaves the reading band (lib/follow-reading.ts) — never re-centre the
+  // page on every word, which kept it moving and fought the passage-level follow.
   useEffect(() => {
-    if (active && activeRef.current) {
-      activeRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    if (active && activeRef.current) followReading(activeRef.current);
   }, [activeWord, active]);
 
   if (!active) return <p className={className} dir={dir}>{text}</p>;
@@ -75,7 +76,7 @@ export function SpokenText({
           <span
             key={i}
             ref={i === activeWord ? activeRef : undefined}
-            className={i === activeWord ? "rounded-sm bg-accent px-0.5 text-primary shadow-xs" : undefined}
+            className={i === activeWord ? "rd-word rd-word-now" : i < activeWord ? "rd-word rd-word-done" : "rd-word"}
           >
             {t.text}
           </span>

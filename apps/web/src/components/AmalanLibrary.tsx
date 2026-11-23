@@ -5,6 +5,7 @@ import { NarrateButton } from "@/components/NarrateButton";
 import { narrateLabels } from "@/lib/narrate-labels";
 import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { amalanLabels } from "@/lib/amalan-labels";
+import { followReadingId } from "@/lib/follow-reading";
 
 interface Item {
   category_slug: string;
@@ -109,7 +110,7 @@ export function AmalanLibrary({ locale, categories }: { locale: string; categori
       return;
     }
     seqStopped.current = false;
-    document.getElementById(`amalan-item-${seqIdx}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReadingId(`amalan-item-${seqIdx}`);
 
     let cancelled = false;
     (async () => {

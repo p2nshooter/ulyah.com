@@ -1,0 +1,76 @@
+name: Situs artikel DE/ES → edisi Inggris
+
+# Owner, 22 Nov 2026: "Bikinin jg engine penerjemah seluruh website artikel yg berbahasa Spanyol dan Jerman, agar di
+# tambahkan translate bahasa inggris nya, dawa.im tidak termasuk ya karena bukan web artikel".
+# scripts/translate-sites-en.ts writes content/en/ for every German and Spanish site in sites/, document by document,
+# each one only when it passes the gates of sites/_engine/check.mjs; when a site is complete its English edition is
+# switched on (site.json "en" + theme/en.json) only if check.mjs passes. The result is committed to main, where
+# deploy-sites.yml puts it live. Every six hours until every site is done; an unchanged site costs nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      site:
+        description: "One site (blank = every German and Spanish site)"
+        required: false
+        default: ""
+      minutes:
+        description: "Translate for at most this many minutes"
+        required: false
+        default: "300"
+  schedule:
+    - cron: "37 */6 * * *"
+
+concurrency:
+  group: translate-sites-en
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ulyah-media
+      KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Translate
+        env:
+          IN_SITE: ${{ inputs.site }}
+          IN_MINUTES: ${{ inputs.minutes || '300' }}
+        run: |
+          set -o pipefail
+          if [ -n "$IN_SITE" ]; then target="--site=$IN_SITE"; else target="--all"; fi
+          npx tsx scripts/translate-sites-en.ts $target --minutes="$IN_MINUTES" | tee /tmp/en.log
+          { echo "### Edisi Inggris situs artikel"; sed 's/^/- /' /tmp/en.log; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit the English editions
+        if: ${{ !cancelled() }}
+        run: |
+          set -eu
+          if git diff --quiet -- sites && [ -z "$(git ls-files --others --exclude-standard sites)" ]; then echo "Nothing new."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sites/*/content/en sites/*/site.json sites/*/theme/en.json 2>/dev/null || true
+          git commit -m "sites: English editions from the translation engine" || exit 0
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase FETCH_HEAD || { git rebase --abort; echo "rebase conflict — next run retries"; exit 0; }
+            if git push origin HEAD:main; then echo "pushed on attempt ${attempt}"; exit 0; fi
+            sleep $(( (RANDOM % 8) + attempt * 3 ))
+          done

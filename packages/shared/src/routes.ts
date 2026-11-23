@@ -81,10 +81,8 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
   "/penafian": { en: "/disclaimer", fr: "/avertissement", de: "/haftungsausschluss", es: "/aviso-de-responsabilidad" },
   "/kebijakan-editorial": { en: "/editorial-policy", fr: "/politique-editoriale", de: "/redaktionelle-richtlinien", es: "/politica-editorial" },
   "/widget": { en: "/widget", fr: "/widget", de: "/widget", es: "/widget" },
-  // The Amazon shelf. ulyah.com has no entry because Amazon does not operate in
-  // Indonesia and the store is not published there at all — the folder is named
-  // in Indonesian only because every folder in this repo is.
-  "/toko": { en: "/store", fr: "/boutique", de: "/shop", es: "/tienda" },
+  // (The Amazon store, /toko — /store, /boutique, /shop, /tienda — was removed entirely: owner, 22 Nov 2026,
+  // "hapus total iklan penjualan dr Amazon dll". apps/web/src/middleware.ts answers 410 Gone there.)
   // The page introducing AXTO and XAA (apps/web/src/lib/ecosystem.ts).
   "/ekosistem": { en: "/ecosystem", fr: "/ecosysteme", de: "/oekosystem", es: "/ecosistema" },
 };
@@ -92,15 +90,11 @@ export const ROUTE_SLUGS: Record<string, Record<string, string>> = {
 /**
  * Routes that do NOT exist on every site, and the languages that do have them.
  *
- * /toko is the Amazon shelf. It exists only where there is an Amazon to point
- * at, and Amazon does not operate in Indonesia, so the page 404s on ulyah.com.
- * Without this, dawa.es would declare `hreflang="id" → ulyah.com/toko` and hand
- * Google an alternate that does not exist — the same class of error as pointing
- * hreflang at a redirect, and the reason this table is here rather than in one
- * of the two places that need it.
+ * Without this, a site would declare an hreflang alternate that does not exist — the same class of error as
+ * pointing hreflang at a redirect, and the reason this table is here rather than in one of the two places that
+ * need it.
  */
 export const ROUTE_LOCALES: Record<string, readonly string[]> = {
-  "/toko": ["en", "fr", "de", "es"],
   // The founders' family dedication is personal to ulyah.com; every other site
   // answers notFound(), so 1fr.fr/gratitude and tilawa.de/dankbarkeit must not
   // be announced as alternates (or listed in those sites' sitemaps).

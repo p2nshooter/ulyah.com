@@ -6,6 +6,7 @@ import { speak, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { SpokenText } from "@/components/SpokenText";
 import { useRadioStore } from "@/lib/radio-store";
 import { fillLabels } from "@/lib/fill-labels";
+import { followReadingId } from "@/lib/follow-reading";
 
 export interface StorySection {
   section_order: number;
@@ -78,7 +79,7 @@ export function ContinuousStoryReader({
   // fine-scrolls within it).
   useEffect(() => {
     if (!active) return;
-    document.getElementById(active.block)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReadingId(active.block);
   }, [active?.block]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function start() {

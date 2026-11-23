@@ -1,0 +1,61 @@
+name: Pindah ke R2 (sekali)
+
+# One-time moves of a module out of D1 into R2 (owner, 22 Nov 2026: "Jgn ke D1, pindah ke R2, jgn pernah memakai D1
+# sebagai database"; docs/R2-DATA-BLUEPRINT.md §5). Each move copies with the same ids, reads every row back from R2,
+# and records itself as verified; a verified move refuses to run again (pass force to repeat it).
+#   keypool  ai_key_pool (+ the last verdict of key_validation_log) → c/ai_key_pool/<id>.json
+#   mt       mt_cache + the corpus → mt/<pair>/<shard>.json (the translation engine's own move)
+
+on:
+  workflow_dispatch:
+    inputs:
+      module:
+        description: "Which module to move"
+        required: true
+        type: choice
+        options: [keypool, mt]
+      force:
+        description: "Repeat a move that was already verified"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  move:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ulyah-media
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Resolve the legacy database id (read-only, for this move)
+        run: |
+          set -eu
+          CF="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          AUTH="Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"
+          D1_ID=$(curl -sf -H "$AUTH" "$CF/d1/database?name=ulyah-db&per_page=100" | jq -r '.result[] | select(.name=="ulyah-db") | .uuid' | head -n1)
+          KV_ID=$(curl -sf -H "$AUTH" "$CF/storage/kv/namespaces?per_page=100" | jq -r '.result[] | select(.title=="ulyah-cache") | .id' | head -n1)
+          sed -i "s/__D1_DATABASE_ID__/${D1_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__KV_NAMESPACE_ID__/${KV_ID}/" apps/worker-api/wrangler.toml
+          sed -i "s/__R2_BUCKET_NAME__/ulyah-media/" apps/worker-api/wrangler.toml
+      - name: Move the key pool
+        if: ${{ inputs.module == 'keypool' }}
+        run: npx tsx scripts/move-keypool-to-r2.ts ${{ inputs.force && '--force' || '' }}
+      - name: Move the translation cache and corpus
+        if: ${{ inputs.module == 'mt' }}
+        run: npx tsx scripts/mesin-terjemah.ts --move ${{ inputs.force && '--force' || '' }}

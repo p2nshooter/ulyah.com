@@ -8,6 +8,7 @@ import { checkRateLimit } from "../lib/rate-limit.js";
 import { getSession, sessionCookieName } from "../lib/session.js";
 import { issueAutoCertificate, resolveDonorClient } from "../lib/certificates.js";
 import { AI_PROVIDERS } from "@ulyah/shared/providers";
+import { listKeySummaries } from "../lib/keypool-store.js";
 
 export const donateRoute = new Hono<{ Bindings: Env }>();
 
@@ -214,13 +215,16 @@ donateRoute.post("/api-key", async (c) => {
 // ── Public transparency (§15.4) ───────────────────────────────────────────
 
 donateRoute.get("/impact", async (c) => {
-  const stats = await c.env.DB.prepare(
-    `SELECT
-       COALESCE(SUM(CASE WHEN type='fiat' AND status='confirmed' THEN amount ELSE 0 END),0) AS total_fiat_usd,
-       COALESCE(SUM(CASE WHEN type='crypto' AND status='confirmed' THEN amount ELSE 0 END),0) AS total_crypto_usd,
-       (SELECT COUNT(*) FROM ai_key_pool WHERE status = 'active') AS active_api_keys,
-       (SELECT COUNT(DISTINCT donor_email) FROM donation_logs WHERE donor_email IS NOT NULL) AS unique_donors
-     FROM donation_logs`
-  ).first();
-  return c.json({ impact: stats });
+  const [stats, pool] = await Promise.all([
+    c.env.DB.prepare(
+      `SELECT
+         COALESCE(SUM(CASE WHEN type='fiat' AND status='confirmed' THEN amount ELSE 0 END),0) AS total_fiat_usd,
+         COALESCE(SUM(CASE WHEN type='crypto' AND status='confirmed' THEN amount ELSE 0 END),0) AS total_crypto_usd,
+         (SELECT COUNT(DISTINCT donor_email) FROM donation_logs WHERE donor_email IS NOT NULL) AS unique_donors
+       FROM donation_logs`
+    ).first<Record<string, unknown>>(),
+    listKeySummaries(c.env),
+  ]);
+  // Active donated keys, from the R2 key pool (lib/keypool-store.ts).
+  return c.json({ impact: { ...(stats ?? {}), active_api_keys: pool.filter((k) => k.status === "active").length } });
 });

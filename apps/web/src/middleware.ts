@@ -109,15 +109,8 @@ const ALWAYS_LIVE = ["id", ...Object.keys(LOCALE_SITE)];
 
 function withHreflang(res: NextResponse, route: string): NextResponse {
   const clean = route === "/" ? "" : route.replace(/\/+$/, "");
-  // A store CATEGORY page has no alternates anywhere. Its slug is this site's
-  // own word — hiyabs-y-panuelos on dawa.es, hijabs-et-foulards on 1fr.fr — so
-  // translating the path would name a url that does not exist on the other
-  // site. A page with no true alternate says nothing rather than something
-  // wrong.
-  if (clean.startsWith("/toko/")) return res;
   // A route that does not exist everywhere only names the languages that have
-  // it — /toko lives on the four sites with an Amazon, and declaring an
-  // Indonesian alternate would point Google at a 404 on ulyah.com.
+  // it — declaring an alternate that 404s would point Google at a dead page.
   const only = routeLocales(clean);
   const codes = ALWAYS_LIVE.filter((c) => !only || only.includes(c));
   if (codes.length === 0) return res;
@@ -145,8 +138,18 @@ function withSecurity(res: NextResponse): NextResponse {
   return res;
 }
 
+/**
+ * The Amazon store is gone for good (owner, 22 Nov 2026: "hapus total iklan penjualan dr Amazon dll"): every
+ * address it ever had — /toko and its localized names, with or without a language prefix — answers 410 Gone, so
+ * search engines drop those pages instead of retrying a 404 for months.
+ */
+const REMOVED_STORE = /^(?:\/[a-z]{2})?\/(?:toko|store|boutique|shop|tienda)(?:\/|$)/;
+
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  if (REMOVED_STORE.test(pathname)) {
+    return new NextResponse("Gone", { status: 410, headers: { "x-robots-tag": "noindex", "cache-control": "public, max-age=86400" } });
+  }
 
   // Force HTTPS ONLY when we can prove the *client* used plain HTTP. Inside a
   // Cloudflare Worker (OpenNext) the internal req.nextUrl.protocol is often

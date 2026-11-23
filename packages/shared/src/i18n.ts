@@ -199,6 +199,22 @@ export const MT_TARGET_LANGS: readonly string[] = Object.freeze([
 export const ECOSYSTEM_LANGS: readonly string[] = Object.freeze([HUB_DEFAULT, ...Object.keys(LOCALE_SITE)]);
 
 /**
+ * Every language the TRANSLATION ENGINE fills, offline, into R2 (scripts/mesin-terjemah.ts).
+ *
+ * Owner, 22 Nov 2026: "Bikinin engine penerjemah bahasa, cek di portal admin ulyah.com, bahasa apa aja yg blm
+ * di kerjakan … biar semuanya 100% setiap bahasa" — and "Jgn ke D1, pindah ke R2". So the engine works on every
+ * language in the registry, not only the five served today: a language can only ever be switched on once it is
+ * genuinely complete (isLocaleReady), and it can only become complete if something translates it. The cost
+ * that made the old warmer stop — every row in D1 — is gone: the engine writes R2 only.
+ *
+ * This is NOT the runtime gate. MT_TARGET_LANGS above still decides what a Worker may translate live, on a
+ * request; that stays one language per site. Arabic is never a target: it is the Qur'an and hadith themselves.
+ */
+export const ENGINE_TARGET_LANGS: readonly string[] = Object.freeze(
+  ALL_LOCALES.map((l) => l.code).filter((c) => c !== "ar")
+);
+
+/**
  * May this (source → target) pair be machine-translated at all?
  *
  * Checked at the single entry point of every translator (apps/worker-api

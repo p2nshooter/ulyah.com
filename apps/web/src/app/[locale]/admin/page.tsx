@@ -21,7 +21,6 @@ import { MediaTab } from "@/components/admin/MediaTab";
 import { RoadmapTab } from "@/components/admin/RoadmapTab";
 import { LibraryTab } from "@/components/admin/LibraryTab";
 import { WidgetStoreTab } from "@/components/admin/WidgetStoreTab";
-import { StoreTab } from "@/components/admin/StoreTab";
 import { LiveStreamsTab } from "@/components/admin/LiveStreamsTab";
 import { KaggleGuideTab } from "@/components/admin/KaggleGuideTab";
 import { KidsChannelsTab } from "@/components/admin/KidsChannelsTab";
@@ -46,7 +45,7 @@ import { toAdminSites, type AdminSite } from "@/lib/admin-sites";
 import { routePath } from "@/lib/paths";
 import { AdminAuthModal } from "@/components/AdminTrigger";
 
-type Tab = "promo" | "youtube" | "kids-youtube" | "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "adops" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "store" | "sale";
+type Tab = "promo" | "youtube" | "kids-youtube" | "dashboard" | "monitor" | "backlog" | "orchestra" | "sanad" | "grant" | "analytics" | "adops" | "traffic-ext" | "keys" | "content" | "donations" | "proofs" | "log" | "clients" | "scaling" | "account" | "settings" | "media" | "roadmap" | "library" | "widgets" | "live" | "kids" | "kids-audio" | "kaggle" | "pages" | "hajj" | "languages" | "sale";
 
 interface Dashboard {
   keys: { total: number; healthy: number };
@@ -130,7 +129,7 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
       key: "site",
       label: t.groups.site,
       tabs: owner
-        ? [["pages", `🧭 ${t.tabs.pages}`], ["live", "📡 Kanal live dunia"], ["kids", "🎬 Film anak (daftar bersama)"], ["kids-audio", "🔊 Al-Qur'an Kids"], ["media", "🖼️ Media"], ["library", "📚 Perpustakaan"], ["widgets", "🧩 Widget Store"], ["store", "🛒 Toko Amazon"]]
+        ? [["pages", `🧭 ${t.tabs.pages}`], ["live", "📡 Kanal live dunia"], ["kids", "🎬 Film anak (daftar bersama)"], ["kids-audio", "🔊 Al-Qur'an Kids"], ["media", "🖼️ Media"], ["library", "📚 Perpustakaan"], ["widgets", "🧩 Widget Store"]]
         : [["pages", `🧭 ${t.tabs.pages}`], ...(siteAdmin ? ([["account", `👤 ${t.tabs.account}`]] as [Tab, string][]) : [])],
     },
     ...(owner
@@ -263,7 +262,6 @@ export default function AdminPage({ params }: { params: Promise<{ locale: string
               {tab === "media" && <MediaTab />}
               {tab === "library" && <LibraryTab />}
               {tab === "widgets" && <WidgetStoreTab />}
-              {tab === "store" && <StoreTab />}
               {tab === "live" && <LiveStreamsTab />}
               {tab === "kids" && <KidsChannelsTab />}
               {tab === "kids-audio" && <KidsAudioTab />}

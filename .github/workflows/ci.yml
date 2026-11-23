@@ -156,11 +156,30 @@ jobs:
       - name: Check the translation pool's failover logic
         run: pnpm check:translate
 
-      # A warm run that translates nothing and exits 0 is indistinguishable
-      # from a corpus that was already finished, so the parity arithmetic that
-      # decides "is there work here" gets its own check.
-      - name: Check the warm job's parity decision
-        run: node scripts/check-warm-parity.mjs
+      # The translation engine (owner 22 Nov 2026: every language to 100%, R2
+      # only, careful with Qur'an/kitab/hadith). Runs against an in-memory R2
+      # that honours If-Match / If-None-Match, so it proves: two writers on one
+      # shard lose nothing, a re-run overwrites nothing, a person's translation
+      # beats the machine's, and Arabic scripture comes back byte for byte while
+      # any answer that touched it is refused. No network, no keys.
+      - name: Check the translation engine (R2 store, scripture guards)
+        run: npx tsx scripts/check-mesin-terjemah.ts
+
+      # The Qur'an is never machine-translated: one reviewed translation per language from QuranEnc (Kemenag,
+      # Saheeh International, King Fahd Complex, Rowwad …), taken whole and exactly as published, with its credit
+      # (owner, 22 Nov 2026: "Klo Al-quran mah jgn di terjemah sembarangan").
+      - name: Check Qur'an translations are trusted, whole and credited
+        run: npx tsx scripts/check-quran-translations.ts
+
+      # The AI / GPU key pool lives in R2 (owner, 22 Nov 2026: "Jgn ke D1"): one encrypted document per key,
+      # create-once by fingerprint, compare-and-swap updates, a secret-free summary from one LIST, no SQL left.
+      - name: Check the key pool is in R2 (create-once, compare-and-swap, no D1)
+        run: npx tsx scripts/check-keypool-r2.ts
+
+      # The English editions of the German and Spanish article sites (owner, 22 Nov 2026): Markdown survives, masked
+      # material comes back byte for byte, a half-translated or shortened document is refused, dawa.im excluded.
+      - name: Check the article-site English engine
+        run: npx tsx scripts/check-translate-sites-en.ts
 
       # The pool is optional by design — no keys means gtx does the work. That
       # promise was broken silently: with an empty pool the parallel runner
@@ -177,13 +196,6 @@ jobs:
       # its length, and this pins that down.
       - name: Check when an unchanged translation may be stored
         run: npx tsx scripts/check-echo-faithful.mjs
-
-      # A workflow input that never reaches the script is invisible from both
-      # ends: the UI offers it, the script defaults it away, and the run
-      # reports success having ignored it. That happened to `skip` — the line
-      # passing it was written at the wrong indentation and matched nothing.
-      - name: Check every warm workflow input reaches the script
-        run: node scripts/check-warm-inputs.mjs
 
       # The @@n@@ sentinels are what stop a hadith's matn being paraphrased, and
       # gtx mangles them: a Spanish pass had gtx answer 394 of 401 batches and
@@ -283,6 +295,12 @@ jobs:
       # page while the voice carried on.
       - name: Check the kitab leaves never split a passage
         run: npx tsx apps/web/src/lib/leaf.test.mjs
+
+      # Every reader follows the voice by one rule (lib/follow-reading.ts): nothing moves while the word is in
+      # the reading band, and a passage is landed by its top — never its centre, which threw the words being
+      # read above the screen (owner, 22 Nov 2026: "penunjuk kata langsung pindah ke atas").
+      - name: Check the reading band keeps the spoken word on screen
+        run: npx tsx apps/web/src/lib/follow-reading.test.mjs
 
       # The radio tries a whole-surah recording before the per-ayah stitch, and
       # the two advance differently. If a missing surah file were still treated

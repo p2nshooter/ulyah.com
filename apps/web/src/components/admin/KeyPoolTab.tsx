@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
+import { GpuCheckPanel } from "@/components/admin/GpuCheckPanel";
 
 interface ProviderDef {
   id: string;
@@ -179,6 +180,7 @@ export function KeyPoolTab() {
 
   return (
     <div className="space-y-6">
+      <GpuCheckPanel />
       <form onSubmit={addKey} className="grid gap-2 rounded-xl border border-(--color-border) bg-(--color-card) p-4 sm:grid-cols-6">
         <select value={form.provider} onChange={(e) => {
           const p = providers.find((x) => x.id === e.target.value);

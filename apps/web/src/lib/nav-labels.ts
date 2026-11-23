@@ -1,7 +1,6 @@
 import { fillLabels } from "./fill-labels";
 import { TENANT } from "./tenant";
 import { ecosystemCopy } from "./ecosystem";
-import { TENANT_MARKETPLACE } from "./store";
 import { IS_SALE_SITE } from "./site-sale";
 // Grouped navigation structure — the single source of truth for the header
 // dropdowns AND the footer columns, so the two can never drift apart again
@@ -407,20 +406,6 @@ export function applyPageOverrides(
   };
 }
 
-/**
- * The store's own menu entry (owner: "bikin menu husus aja").
- *
- * Only on a site that HAS a store — ulyah.com has no Amazon marketplace, so
- * the page 404s there and a menu item would be a dead link. Four languages,
- * written out rather than machine-filled, because a nav label is two words and
- * a wrong one is visible on every page.
- */
-const STORE_LABEL: Record<string, string> = {
-  en: "🛒 Store",
-  fr: "🛒 Boutique",
-  de: "🛒 Shop",
-  es: "🛒 Tienda",
-};
 
 export function navLabels(locale: string): NavLabels {
   const base = MAP[locale] ?? fillLabels(locale, EN);
@@ -428,7 +413,6 @@ export function navLabels(locale: string): NavLabels {
   // this site in this language, so the menu never links to a 404.
   const eco = ecosystemCopy(TENANT.id, locale);
   const store = [
-    ...(TENANT_MARKETPLACE ? [{ label: STORE_LABEL[locale] ?? STORE_LABEL.en!, path: "/toko" }] : []),
     ...(eco ? [{ label: eco.menu, path: "/ekosistem" }] : []),
   ];
   if (!TENANT.features.forSale && !TENANT.features.donationForward) {

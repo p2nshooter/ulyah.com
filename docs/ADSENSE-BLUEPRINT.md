@@ -1418,6 +1418,19 @@ ulyah.com, semua terkoneksi ke ulyah.com".
 | PR #382, deploy 560 | ✅ 29 Okt (`0ceac5b8`) |
 | Cek live (`admin-live-check.yml`, run 2) | ✅ 29 Okt — `/acquisition` 200 di kelima situs: ulyah.com US$250.000, 1fr.fr 250 000 $ US, tilawa.de 250.000 US$, dawa.im 250.000 US$, xad.es US$250,000; login demo dan portal admin setiap situs lulus |
 
+### 17.4 Tanpa harga — ajukan penawaran (pemilik, 22 Nov 2026)
+
+Perintah: „ubah harga jual di 1fr.fr tilawa.de dawa.im xad.es menjadi ajukan penawaran ke +6285691234561", lalu
+„ulyah.com juga mode jualnya di ganti".
+
+- Kelima situs (`OFFER_ONLY_SITES` di `apps/worker-api/src/lib/site-sale.ts`): API publik tidak lagi memuat harga maupun
+  penawaran minimum (`offerOnly: true`, `priceUsd: null`); setiap nilai penawaran yang serius diterima.
+- Web: menu header hanya „Situs dijual" (tanpa harga); pita beranda dan kartu harga di /acquisition menampilkan
+  „Ajukan penawaran / Make an offer / Faire une offre / Angebot machen / Hacer una oferta" + tombol WhatsApp
+  +62 856-9123-4561; kalimat yang dulu menyebut harga/minimum (langkah, tanya jawab, meta, pesan WhatsApp) diganti versi
+  penawaran dalam bahasa situsnya; JSON-LD tidak memuat harga; daftar „situs lain yang dijual" tanpa harga.
+- Dicek `scripts/check-site-sale.ts`.
+
 ## 18. Portal admin setiap situs: mandiri, demo hanya-lihat, mudah untuk promosi (pemilik, 29 Okt 2026)
 
 Perintah pemilik: „Aktifin admin panel mereka masing2, agar mandiri, kasih cara masuk admin panel nya dengan username dan
@@ -1971,6 +1984,7 @@ tidak disentuh.
 | Gambar animasi bertema (engine, 26 situs) | ✅ 9 Nov — `illustrate.mjs` + `lib/motifs.mjs`: 204 motif bergambar (rumah, perkakas, tanaman, kopi/teh, dapur, kucing, burung, kebersihan, energi, sepeda, olahraga, permata, sains, uang …) dipilih dari subjek judul artikel (kata kunci DE/ES/EN), adegan (bukit/laut/ruang/malam), dua pendamping, partikel, warna dari tema situs; SVG inline 6–10 kB, diam saat `prefers-reduced-motion`; `check.mjs` mewajibkannya di setiap artikel |
 | Engine dua bahasa (`/en/`, hreflang, sitemap, pemilih bahasa, gerbang) | ✅ 9 Nov — `build.mjs` membangun `content/en/` ke `/en/…` bila `site.json` punya `"en"`; teks tema lewat `theme/en.json`; `check.mjs`: semua artikel & halaman ada versi Inggris, panjang ≥ 90 % (de) / 78 % (es) dari aslinya, tidak ada kata Jerman/Spanyol tersisa di menu/label, hreflang dua arah |
 | Terjemahan per situs (22 situs) | 🔄 bertahap — ✅ **xko.es** 9 Nov (40 panduan + 9 halaman, `/en/`, lolos `check.mjs`); berikutnya situs .es/.lat lalu .de |
+| Mesin terjemahan Inggris untuk semua situs DE/ES (pemilik, 22 Nov 2026: „Bikinin jg engine penerjemah seluruh website artikel yg berbahasa Spanyol dan Jerman, agar di tambahkan translate bahasa inggris nya, dawa.im tidak termasuk“) | ✅ kode 22 Nov — `scripts/translate-sites-en.ts` + workflow `translate-sites-en.yml` (tiap 6 jam): artikel & halaman diterjemahkan per baris Markdown (tautan, kode, HTML, URL tidak pernah dikirim), pool kunci AI dari R2 + gtx cadangan; dokumen ditulis hanya bila lolos gerbang `check.mjs` (≥ 90 %/78 % kata, tanpa sisa bahasa asli, penanda utuh); setelah lengkap, blok `site.json` „en“ + `theme/en.json` dibuat dan edisi Inggris dinyalakan hanya bila `check.mjs` lulus; hasil di-commit ke main → deploy-sites. dawa.im tidak termasuk. Dicek `scripts/check-translate-sites-en.ts` |
 
 ## 30. „Konten tanpa manfaat“: perbaikan untuk semua situs artikel, yang selesai langsung live (pemilik, 9 Nov 2026)
 

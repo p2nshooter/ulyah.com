@@ -8,26 +8,19 @@ interface SettingStatus {
   label: string;
   secret: boolean;
   /** Which heading this credential sits under. The Worker decides the set —
-   *  a group with nothing in it simply does not render, which is how the
-   *  AliExpress block stays out of sight until its keys are issued. */
-  group: "payment" | "affiliate" | "admanager";
+   *  a group with nothing in it simply does not render. */
+  group: "payment" | "admanager";
   source: "database" | "env" | "unset";
   preview: string | null;
 }
 
-// Order of the panels, and the words above each. Affiliate sits AFTER payment
-// because payment is what someone opening this page is usually here to fix.
+// Order of the panels, and the words above each. (The AliExpress affiliate panel was removed with every
+// sales-affiliate feature — owner, 22 Nov 2026: "hapus total iklan penjualan dr Amazon dll".)
 const GROUPS: { id: SettingStatus["group"]; title: string; blurb: string }[] = [
   {
     id: "payment",
     title: "Pembayaran & donasi",
     blurb: "Kredensial PayPal dan NOWPayments yang dipakai halaman donasi.",
-  },
-  {
-    id: "affiliate",
-    title: "Afiliasi AliExpress",
-    blurb:
-      "App Key, App Secret dan Tracking ID dari AliExpress Open Platform. Ketiganya disimpan terenkripsi, termasuk Tracking ID.",
   },
   {
     id: "admanager",

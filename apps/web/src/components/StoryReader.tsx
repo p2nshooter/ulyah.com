@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import type { Dictionary } from "@/dictionaries";
+import { followReadingId } from "@/lib/follow-reading";
 
 /**
  * Narrated reading experience for kisah/hikmah/hadits sessions: the story is
@@ -46,7 +47,7 @@ export function StoryReader({
     for (let i = start; i < sentences.length; i++) {
       if (stopRef.current) break;
       setActive(i);
-      document.getElementById(`sent-${i}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      followReadingId(`sent-${i}`);
       const h = speak(sentences[i]!, lang, { owner: "kisah" });
       handleRef.current = h;
       await h.done;

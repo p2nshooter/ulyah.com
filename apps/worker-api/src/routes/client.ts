@@ -3,9 +3,10 @@ import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { setCookie, deleteCookie, getCookie } from "hono/cookie";
 import { hashPassword, verifyPassword } from "@ulyah/shared/crypto";
 import type { Env } from "../env.js";
-import { createSession, destroySession, sessionCookieName, getSession } from "../lib/session.js";
+import { createSession, destroySession, sessionCookieName } from "../lib/session.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireClient } from "../lib/auth-middleware.js";
+import { listKeySummaries } from "../lib/keypool-store.js";
 
 export const clientRoute = new Hono<{ Bindings: Env }>();
 
@@ -139,11 +140,13 @@ clientRoute.get("/me", requireClient, async (c) => {
   const session = c.get("client" as never) as { id: number; email: string };
   const [donations, keys, proofs] = await Promise.all([
     c.env.DB.prepare("SELECT * FROM donation_logs WHERE client_id = ? ORDER BY created_at DESC").bind(session.id).all(),
-    c.env.DB.prepare(
-      "SELECT id, provider, scope, status, donor_label, created_at FROM ai_key_pool WHERE donated_by_client_id = ? ORDER BY created_at DESC"
-    )
-      .bind(session.id)
-      .all(),
+    // The key pool lives in R2 (lib/keypool-store.ts).
+    listKeySummaries(c.env).then((rows) => ({
+      results: rows
+        .filter((k) => k.donated_by_client_id === session.id)
+        .sort((a, b) => b.created_at.localeCompare(a.created_at))
+        .map((k) => ({ id: k.id, provider: k.provider, scope: k.scope, status: k.status, donor_label: k.donor_label, created_at: k.created_at })),
+    })),
     c.env.DB.prepare(
       "SELECT id, method, sender_name, amount, currency, status, cert_no, review_note, created_at FROM donation_proofs WHERE client_id = ? ORDER BY created_at DESC"
     )

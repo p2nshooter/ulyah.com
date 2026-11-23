@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
-import { resolveTranslationLang, LOCALES } from "@ulyah/shared/i18n";
+import { LOCALES } from "@ulyah/shared/i18n";
 import { usePlayerStore, type QueueItem } from "@/lib/player-store";
 import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { mushafLabels } from "@/lib/mushaf-labels";
 import { analyzeTajwid, TAJWID_RULES, type TajwidRule } from "@/lib/tajwid";
 import { tajwidRuleTexts, tajwidUiLabels } from "@/lib/tajwid-labels";
 import { routePath } from "@/lib/paths";
+import { followReadingId } from "@/lib/follow-reading";
 
 interface MushafAyahDTO {
   surahId: number;
@@ -24,6 +25,8 @@ interface MushafPageResponse {
   totalPages: number;
   juz: number | null;
   ayahs: MushafAyahDTO[];
+  /** Who translated the page's text (owner, 22 Nov 2026; QuranEnc's terms) — shown under it. */
+  translationSource?: string | null;
 }
 interface SurahMeta {
   id: number;
@@ -151,12 +154,10 @@ export function MushafReader({ locale }: { locale: string }) {
   // Keep the recited ayah in view as recitation proceeds down the page.
   useEffect(() => {
     if (!activeKey) return;
-    document
-      .getElementById(`mushaf-ayah-${activeKey.replace(":", "-")}`)
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // The reading band (lib/follow-reading.ts): moves only when the ayah has left it.
+    followReadingId(`mushaf-ayah-${activeKey.replace(":", "-")}`);
   }, [activeKey]);
 
-  const translationLang = resolveTranslationLang(translationLocale);
 
   const fetchPage = useCallback(
     async (n: number): Promise<MushafPageResponse | null> => {
@@ -662,6 +663,9 @@ export function MushafReader({ locale }: { locale: string }) {
                     </p>
                   ) : null
                 )}
+                {typeof pageData.translationSource === "string" && pageData.translationSource ? (
+                  <p className="pt-1 text-[10px] text-text-secondary/70">{pageData.translationSource}</p>
+                ) : null}
               </div>
             )}
             </div>

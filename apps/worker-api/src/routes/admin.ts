@@ -8,12 +8,15 @@ import { requireAdmin } from "../lib/auth-middleware.js";
 import type { SessionData } from "../lib/session.js";
 import { logAdminAction } from "../lib/audit.js";
 import { ingestAndTestKey, ingestKeyNoTest } from "../lib/keypool-db.js";
+import { listKeySummaries, getKeyRow, setKeyState, logValidation, groupPool } from "../lib/keypool-store.js";
+import { runGpuCheck, latestGpuCheck } from "../lib/gpu-check.js";
 import { MANAGED_SETTINGS, listSettingsStatus, setSetting, deleteSetting } from "../lib/settings.js";
 import { MANAGED_MEDIA, listMediaStatus } from "../lib/media.js";
 import { safeKvGet, safeKvPut } from "../lib/kv-safe.js";
 import { registerAdopsAdmin } from "./adops.js";
 import { registerSiteSaleAdmin } from "./site-sale.js";
 import { registerPromoAdmin } from "./site-promo.js";
+import { registerTranslationEngineAdmin } from "./translation-engine.js";
 import { EXCLUDED_TRACK_IDS } from "@ulyah/shared/owner-sites";
 import { edgeMemo, memoResponse } from "../lib/edge-memo.js";
 import { PRESENCE_ONLINE_WINDOW_S } from "@ulyah/shared/presence";
@@ -27,13 +30,14 @@ registerSiteSaleAdmin(adminRoute);
 // Each site's own promotions + the demo logins (docs/ADSENSE-BLUEPRINT.md §18). The shared
 // lists are read through the helpers below (function declarations, hoisted).
 registerPromoAdmin(adminRoute, { liveRows: listLiveStreamRows, kidsRows: listKidsChannelRows });
+// The translation engine's measured progress, from R2 (docs/TRANSLATION-ENGINE.md).
+registerTranslationEngineAdmin(adminRoute);
 
 // GET /admin/dashboard — summary tiles for wireframe §23.1
 adminRoute.get("/dashboard", async (c) => {
   const [keys, jobs, donations, clients] = await Promise.all([
-    c.env.DB.prepare(
-      "SELECT COUNT(*) AS total, SUM(CASE WHEN status='active' THEN 1 ELSE 0 END) AS healthy FROM ai_key_pool"
-    ).first(),
+    // The key pool lives in R2 (lib/keypool-store.ts).
+    listKeySummaries(c.env).then((rows) => ({ total: rows.length, healthy: rows.filter((k) => k.status === "active").length })),
     c.env.DB.prepare(
       "SELECT COUNT(*) AS queued, SUM(CASE WHEN status='failed' THEN 1 ELSE 0 END) AS failed FROM generation_jobs WHERE status IN ('queued','running','failed')"
     ).first(),
@@ -98,9 +102,12 @@ adminRoute.delete("/site-pages", async (c) => {
 // ── Key Pool Manager (§12.2, §23.2) ───────────────────────────────────────
 
 adminRoute.get("/keys", async (c) => {
-  const { results } = await c.env.DB.prepare(
-    "SELECT id, provider, scope, status, quota_used, quota_limit, latency_ms, priority, donor_label, last_health_check, created_at FROM ai_key_pool ORDER BY priority, provider"
-  ).all();
+  const results = (await listKeySummaries(c.env, { fresh: true }))
+    .map((k) => ({
+      id: k.id, provider: k.provider, scope: k.scope, status: k.status, quota_used: k.quota_used, quota_limit: k.quota_limit,
+      latency_ms: k.latency_ms, priority: k.priority, donor_label: k.donor_label, last_health_check: k.last_health_check, created_at: k.created_at,
+    }))
+    .sort((a, b) => a.priority - b.priority || a.provider.localeCompare(b.provider));
   return c.json({ keys: results, providers: AI_PROVIDERS });
 });
 
@@ -234,37 +241,50 @@ adminRoute.post("/keys/bulk", async (c) => {
 
 adminRoute.delete("/keys/:id", async (c) => {
   const id = Number(c.req.param("id"));
-  await c.env.DB.prepare("UPDATE ai_key_pool SET status = 'revoked' WHERE id = ?").bind(id).run();
+  await setKeyState(c.env, id, { status: "revoked" });
   const admin = c.get("admin" as never) as { email: string };
   await logAdminAction(c.env, "key_revoked", admin.email, c.req.header("cf-connecting-ip") ?? null, { id });
   return c.json({ ok: true });
 });
 
+// ── GPU key check (owner, 22 Nov 2026): alive? and can it render art for axto.io? ──
+adminRoute.get("/keys/gpu-check", async (c) => c.json({ report: await latestGpuCheck(c.env) }));
+adminRoute.post("/keys/gpu-check", async (c) => {
+  const render = c.req.query("render") === "1";
+  const report = await runGpuCheck(c.env, { render });
+  const admin = c.get("admin" as never) as { email: string };
+  await logAdminAction(c.env, "keys_gpu_check", admin.email, c.req.header("cf-connecting-ip") ?? null, {
+    checked: report.checked,
+    alive: report.alive,
+    usableForAxto: report.usableForAxto,
+    render,
+  });
+  return c.json({ report });
+});
+// The proof image of a GPU render test (no secret in it), for the admin to look at.
+adminRoute.get("/keys/gpu-check/image/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (!Number.isFinite(id)) return c.json({ error: "Invalid id" }, 400);
+  const o = await c.env.MEDIA_R2?.get(`gpu-check/${id}.png`);
+  if (!o) return c.json({ error: "No image" }, 404);
+  return new Response(o.body, { headers: { "content-type": o.httpMetadata?.contentType ?? "image/png", "cache-control": "no-store" } });
+});
+
 // Re-run the automated safety/optimality test on demand (admin button)
 adminRoute.post("/keys/:id/retest", async (c) => {
   const id = Number(c.req.param("id"));
-  const row = await c.env.DB.prepare("SELECT provider, key_ref, key_iv FROM ai_key_pool WHERE id = ?")
-    .bind(id)
-    .first<{ provider: string; key_ref: string; key_iv: string }>();
+  const row = await getKeyRow(c.env, id);
   if (!row) return c.json({ error: "Key not found" }, 404);
 
   const rawKey = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, c.env.KEY_ENCRYPTION_SECRET);
   const test = await testApiKey(row.provider, rawKey);
 
-  await c.env.DB.prepare(
-    "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"
-  )
-    .bind(
-      test.passed ? (test.optimal ? "active" : "slow") : test.dead ? "rejected" : "rate_limited",
-      test.latencyMs,
-      id
-    )
-    .run();
-  await c.env.DB.prepare(
-    "INSERT INTO key_validation_log (key_id, test_type, passed, latency_ms, safety_score, detail) VALUES (?, 'auth_check', ?, ?, ?, ?)"
-  )
-    .bind(id, test.passed ? 1 : 0, test.latencyMs, test.safetyScore, test.detail)
-    .run();
+  await setKeyState(c.env, id, {
+    status: test.passed ? (test.optimal ? "active" : "slow") : test.dead ? "rejected" : "rate_limited",
+    latency_ms: test.latencyMs,
+    passed: test.passed,
+  });
+  await logValidation(c.env, { key_id: id, test_type: "auth_check", passed: test.passed, latency_ms: test.latencyMs, safety_score: test.safetyScore, detail: test.detail });
 
   return c.json({ test });
 });
@@ -275,13 +295,10 @@ adminRoute.post("/keys/:id/retest", async (c) => {
 // status is updated live. Optional ?provider= filter, capped per call.
 adminRoute.post("/keys/test-all", async (c) => {
   const provider = c.req.query("provider");
-  const { results } = await c.env.DB.prepare(
-    `SELECT id, provider, key_ref, key_iv FROM ai_key_pool
-     WHERE status != 'revoked'${provider ? " AND provider = ?" : ""}
-     ORDER BY last_health_check ASC LIMIT 120`
-  )
-    .bind(...(provider ? [provider] : []))
-    .all<{ id: number; provider: string; key_ref: string; key_iv: string }>();
+  const results = (await listKeySummaries(c.env, { fresh: true }))
+    .filter((k) => k.status !== "revoked" && (!provider || k.provider === provider))
+    .sort((a, b) => (a.last_health_check ?? "").localeCompare(b.last_health_check ?? ""))
+    .slice(0, 120);
 
   const out: { id: number; provider: string; passed: boolean; latencyMs: number; detail: string }[] = [];
   const BATCH = 10;
@@ -289,7 +306,9 @@ adminRoute.post("/keys/test-all", async (c) => {
     const batch = results.slice(i, i + BATCH);
     const settled = await Promise.allSettled(
       batch.map(async (row) => {
-        const rawKey = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, c.env.KEY_ENCRYPTION_SECRET);
+        const full = await getKeyRow(c.env, row.id);
+        if (!full) throw new Error(`key ${row.id} not found`);
+        const rawKey = await decryptApiKey({ ciphertext: full.key_ref, iv: full.key_iv }, c.env.KEY_ENCRYPTION_SECRET);
         const test = await testApiKey(row.provider, rawKey);
         // Only a CONFIRMED bad credential is permanently rejected; a transient
         // failure (rate limit / 5xx / timeout) cools down as rate_limited and
@@ -301,11 +320,7 @@ adminRoute.post("/keys/test-all", async (c) => {
           : test.dead
             ? "rejected"
             : "rate_limited";
-        await c.env.DB.prepare(
-          "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"
-        )
-          .bind(status, test.latencyMs, row.id)
-          .run();
+        await setKeyState(c.env, row.id, { status, latency_ms: test.latencyMs, passed: test.passed });
         return { id: row.id, provider: row.provider, passed: test.passed, latencyMs: test.latencyMs, detail: test.detail };
       })
     );
@@ -985,8 +1000,8 @@ adminRoute.get("/health", memoResponse("admin-health", 600), async (c) => {
     count("SELECT COUNT(*) n FROM stories WHERE status='published'"),
     count("SELECT COUNT(*) n FROM ebooks"),
     count("SELECT COUNT(*) n FROM tafsir"),
-    count("SELECT COUNT(*) n FROM ai_key_pool WHERE status IN ('active','slow')"),
-    count("SELECT COUNT(*) n FROM ai_key_pool"),
+    listKeySummaries(c.env).then((r) => r.filter((k) => k.status === "active" || k.status === "slow").length).catch(() => -1),
+    listKeySummaries(c.env).then((r) => r.length).catch(() => -1),
     count("SELECT COUNT(*) n FROM app_installs"),
   ]);
 
@@ -1069,13 +1084,18 @@ adminRoute.get("/site-analytics", async (c) => {
 // ── Clients / registered donors ──────────────────────────────────────────
 
 adminRoute.get("/clients", async (c) => {
-  const { results } = await c.env.DB.prepare(
-    `SELECT cl.id, cl.email, cl.name, cl.created_at, cl.last_login_at,
-       (SELECT COUNT(*) FROM donation_logs d WHERE d.client_id = cl.id) AS donation_count,
-       (SELECT COUNT(*) FROM ai_key_pool k WHERE k.donated_by_client_id = cl.id) AS keys_donated
-     FROM clients cl ORDER BY cl.created_at DESC LIMIT 200`
-  ).all();
-  return c.json({ clients: results });
+  const [{ results }, pool] = await Promise.all([
+    c.env.DB.prepare(
+      `SELECT cl.id, cl.email, cl.name, cl.created_at, cl.last_login_at,
+         (SELECT COUNT(*) FROM donation_logs d WHERE d.client_id = cl.id) AS donation_count
+       FROM clients cl ORDER BY cl.created_at DESC LIMIT 200`
+    ).all<{ id: number }>(),
+    listKeySummaries(c.env),
+  ]);
+  // Keys donated per client, from the R2 key pool.
+  const donated = new Map<number, number>();
+  for (const k of pool) if (k.donated_by_client_id) donated.set(k.donated_by_client_id, (donated.get(k.donated_by_client_id) ?? 0) + 1);
+  return c.json({ clients: results.map((cl) => ({ ...cl, keys_donated: donated.get(cl.id) ?? 0 })) });
 });
 
 // ── Smart scaling (portal admin requirement: keep DB always growing,
@@ -1090,9 +1110,9 @@ adminRoute.get("/scaling", async (c) => {
          (SELECT COUNT(*) FROM tafsir) AS tafsir_count,
          (SELECT COUNT(*) FROM ayah) - (SELECT COUNT(DISTINCT ayah_id) FROM tafsir) AS tafsir_gap`
     ).first(),
-    c.env.DB.prepare(
-      "SELECT provider, scope, status, COUNT(*) AS n, AVG(latency_ms) AS avg_latency FROM ai_key_pool GROUP BY provider, scope, status"
-    ).all(),
+    listKeySummaries(c.env).then((rows) => ({
+      results: groupPool(rows).map((g) => ({ provider: g.provider, scope: g.scope, status: g.status, n: g.keys, avg_latency: g.avg_latency_ms })),
+    })),
     c.env.DB.prepare(
       "SELECT status, COUNT(*) AS n FROM generation_jobs GROUP BY status"
     ).all(),
@@ -1417,186 +1437,7 @@ adminRoute.delete("/live-streams/:id", async (c) => {
   return c.json({ ok: true });
 });
 
-// ── Amazon store ──────────────────────────────────────────────────────────
-//
-// SHELVES, not products. Amazon's Associates agreement forbids scraping their
-// pages, and the sanctioned source (the Product Advertising API) opens only
-// after three qualifying sales — so there is no legal way to hold thousands of
-// products. A shelf is a category the owner names and describes, pointing at a
-// filtered Amazon search: the reader chooses from Amazon's thousands, there.
-//
-// Copying Amazon's own descriptions would not have helped even if it were
-// allowed: that text is identical on thousands of affiliate sites, and Google
-// treats syndicated product copy as low value. The sentences the owner writes
-// about a category exist nowhere else, which is why `blurb` is required.
-//
-// Nothing here is per-tenant: one owner curates all four shelves, and the
-// marketplace column decides which site each appears on.
-const STORE_MARKETPLACES = new Set(["com", "fr", "de", "es"]);
-
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 48);
-
-adminRoute.get("/store", async (c) => {
-  const [tags, shelves] = await Promise.all([
-    c.env.DB.prepare("SELECT marketplace, tag FROM affiliate_tag").all(),
-    c.env.DB.prepare(
-      `SELECT id, marketplace, slug, label, blurb, keywords, department, icon, detail, sort_order, enabled
-         FROM affiliate_shelf ORDER BY marketplace, sort_order, id`
-    ).all(),
-  ]);
-  return c.json({ tags: tags.results, shelves: shelves.results });
-});
-
-// The tracking tag per marketplace. ulyah-20 is a US tag and earns nothing on
-// amazon.de/fr/es, so each is stored on its own rather than assumed shared.
-adminRoute.post("/store/tag", async (c) => {
-  const body = await c.req.json<{ marketplace?: string; tag?: string }>();
-  const marketplace = (body.marketplace ?? "").trim();
-  const tag = (body.tag ?? "").trim();
-  if (!STORE_MARKETPLACES.has(marketplace)) return c.json({ error: "Marketplace tidak dikenal" }, 400);
-  if (tag && !/^[A-Za-z0-9_-]{2,32}$/.test(tag)) return c.json({ error: "Format tag tidak valid" }, 400);
-
-  if (!tag) {
-    // Clearing the tag switches that site's store off, which is the honest way
-    // to take it down: no tag, no store, no untagged traffic.
-    await c.env.DB.prepare("DELETE FROM affiliate_tag WHERE marketplace = ?").bind(marketplace).run();
-  } else {
-    await c.env.DB.prepare(
-      `INSERT INTO affiliate_tag (marketplace, tag) VALUES (?, ?)
-         ON CONFLICT(marketplace) DO UPDATE SET tag = excluded.tag, updated_at = datetime('now')`
-    )
-      .bind(marketplace, tag)
-      .run();
-  }
-  await logAdminAction(c.env, "store_tag_set", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { marketplace, tag: tag || null });
-  return c.json({ ok: true });
-});
-
-adminRoute.post("/store/shelf", async (c) => {
-  const body = await c.req.json<{
-    marketplace?: string;
-    label?: string;
-    blurb?: string;
-    keywords?: string;
-    department?: string;
-    icon?: string;
-    detail?: string;
-  }>();
-  const marketplace = (body.marketplace ?? "").trim();
-  const label = (body.label ?? "").trim();
-  const blurb = (body.blurb ?? "").trim();
-  const keywords = (body.keywords ?? "").trim();
-  const department = (body.department ?? "").trim() || null;
-  const icon = (body.icon ?? "").trim().slice(0, 8) || null;
-
-  if (!STORE_MARKETPLACES.has(marketplace)) return c.json({ error: "Marketplace tidak dikenal" }, 400);
-  if (!label) return c.json({ error: "Nama kategori wajib diisi" }, 400);
-  if (!keywords) return c.json({ error: "Kata kunci pencarian wajib diisi" }, 400);
-  // Not a formality. This is the only text on the page Google has not already
-  // seen on a thousand other affiliate sites; without it the page is exactly
-  // the "thin affiliate" pattern that earns a manual penalty.
-  if (blurb.length < 40) return c.json({ error: "Deskripsi kategori minimal 40 karakter" }, 400);
-
-  const slug = slugify(label);
-  if (!slug) return c.json({ error: "Nama kategori tidak bisa dijadikan slug" }, 400);
-  const exists = await c.env.DB.prepare(
-    "SELECT id FROM affiliate_shelf WHERE marketplace = ? AND slug = ?"
-  )
-    .bind(marketplace, slug)
-    .first();
-  if (exists) return c.json({ error: "Kategori dengan nama itu sudah ada" }, 409);
-
-  const next = await c.env.DB.prepare(
-    "SELECT COALESCE(MAX(sort_order), 0) + 1 AS n FROM affiliate_shelf WHERE marketplace = ?"
-  )
-    .bind(marketplace)
-    .first<{ n: number }>();
-
-  await c.env.DB.prepare(
-    `INSERT INTO affiliate_shelf (marketplace, slug, label, blurb, keywords, department, icon, detail, sort_order)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  )
-    .bind(marketplace, slug, label, blurb, keywords, department, icon, (body.detail ?? "").trim() || null, next?.n ?? 1)
-    .run();
-  await logAdminAction(c.env, "store_shelf_added", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { marketplace, slug });
-  return c.json({ ok: true });
-});
-
-adminRoute.patch("/store/shelf/:id", async (c) => {
-  const id = Number(c.req.param("id"));
-  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
-  const body = await c.req.json<{
-    label?: string;
-    blurb?: string;
-    keywords?: string;
-    department?: string;
-    icon?: string;
-    detail?: string;
-    sort_order?: number;
-    enabled?: boolean;
-  }>();
-
-  const cur = await c.env.DB.prepare(
-    "SELECT label, blurb, keywords, department, icon, detail, sort_order, enabled FROM affiliate_shelf WHERE id = ?"
-  )
-    .bind(id)
-    .first<{
-      label: string;
-      blurb: string;
-      keywords: string;
-      department: string | null;
-      icon: string | null;
-      detail: string | null;
-      sort_order: number;
-      enabled: number;
-    }>();
-  if (!cur) return c.json({ error: "Kategori tidak ditemukan" }, 404);
-
-  const label = body.label?.trim() ?? cur.label;
-  const blurb = body.blurb?.trim() ?? cur.blurb;
-  const keywords = body.keywords?.trim() ?? cur.keywords;
-  if (!label) return c.json({ error: "Nama kategori wajib diisi" }, 400);
-  if (!keywords) return c.json({ error: "Kata kunci pencarian wajib diisi" }, 400);
-  if (blurb.length < 40) return c.json({ error: "Deskripsi kategori minimal 40 karakter" }, 400);
-
-  await c.env.DB.prepare(
-    `UPDATE affiliate_shelf
-        SET label = ?, blurb = ?, keywords = ?, department = ?, icon = ?, detail = ?, sort_order = ?, enabled = ?
-      WHERE id = ?`
-  )
-    .bind(
-      label,
-      blurb,
-      keywords,
-      body.department === undefined ? cur.department : body.department.trim() || null,
-      body.icon === undefined ? cur.icon : body.icon.trim().slice(0, 8) || null,
-      // A guide long enough to deserve its own page, or nothing. Anything
-      // shorter would put a thin page into the sitemap, which is the one thing
-      // the split was designed to avoid.
-      body.detail === undefined ? cur.detail : body.detail.trim().length >= 400 ? body.detail.trim() : null,
-      Number.isFinite(body.sort_order) ? Number(body.sort_order) : cur.sort_order,
-      body.enabled === undefined ? cur.enabled : body.enabled ? 1 : 0,
-      id
-    )
-    .run();
-  await logAdminAction(c.env, "store_shelf_edited", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { id, enabled: body.enabled });
-  return c.json({ ok: true });
-});
-
-adminRoute.delete("/store/shelf/:id", async (c) => {
-  const id = Number(c.req.param("id"));
-  if (!Number.isInteger(id)) return c.json({ error: "Invalid id" }, 400);
-  await c.env.DB.prepare("DELETE FROM affiliate_shelf WHERE id = ?").bind(id).run();
-  await logAdminAction(c.env, "store_shelf_deleted", (c.get("admin" as never) as SessionData | undefined)?.email ?? "", c.req.header("cf-connecting-ip") ?? null, { id });
-  return c.json({ ok: true });
-});
+// The Amazon store was removed entirely (owner, 22 Nov 2026: "hapus total iklan penjualan dr Amazon dll").
 
 // ── Video Anak world channels management (show/hide + add/remove) ─────────
 /** The shared list of kids' YouTube channels (every site shows it until it keeps its own). */

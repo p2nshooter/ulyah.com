@@ -148,7 +148,7 @@ async function translateChunk(env: Env, text: string, sourceLang: string, target
  * sent to the translator once, then served from cache to every visitor
  * after that. This mirrors the fetch-and-cache pattern used for
  * tafsir/asbabun nuzul (lib/tafsir-source.ts) instead of machine-translating
- * and bulk-storing everything in D1 up front. `targetLang` accepts any of
+ * and bulk-storing everything up front. `targetLang` accepts any of
  * the site's locale codes (id/en/ru/de/fr/ar/zh/ja, packages/shared/i18n) —
  * every visitor's own language gets a real translation, not just id/en.
  */
@@ -176,79 +176,56 @@ function memSet(key: string, value: string): void {
   mtMem.set(key, value);
 }
 
-// ── Translation cache backend: D1, not KV ────────────────────────────────
-// The whole ecosystem's translations were being written to KV, whose FREE
-// plan caps writes at 1,000/day. The taxonomy alone is 5,000+ strings × the
-// sibling languages, so the daily cap was exhausted after ~0 useful writes
-// and EVERY string fell back to Indonesian on 1fr.fr/dawa.es/tilawa.de/xad.es
-// — no matter how often the cache was "warmed". D1 has no such daily write
-// cap (and the app already writes to it constantly for analytics), so the
-// translation cache lives here now. Same `mt:<src>-<tgt>:<hash>` key, moved
-// from a KV namespace to the `mt_cache` table (migration 0046). All ops are
-// wrapped so a cache hiccup degrades to a live/​source result, never a 500.
+// ── Translation store: R2 only ───────────────────────────────────────────
+// Owner, 22 Nov 2026: "Jgn ke D1, pindah ke R2, jgn pernah memakai D1 sebagai
+// database". Translations live in R2 shards (mt-r2.ts) written by ONE writer,
+// the translation engine (scripts/mesin-terjemah.ts), with compare-and-swap.
+// The Worker never writes a shard — concurrent read-modify-writes from many
+// isolates would overwrite each other. What it does instead is say what it
+// needed: a text the store did not have is recorded ONCE, create-only, as
+// `mt-want/<src>/<hash>.txt` (one object per text, so no hot key), and the
+// engine translates it into every language on its next pass. The page itself
+// still gets a live translation now (Google → MyMemory → Workers AI), held in
+// the isolate memo and the edge cache.
 async function mtDbGet(env: Env, key: string): Promise<string | null> {
-  try {
-    const row = await env.DB.prepare("SELECT v FROM mt_cache WHERE k = ?").bind(key).first<{ v: string }>();
-    if (row) return row.v;
-  } catch {
-    /* fall through to R2 — a D1 hiccup should not cost a translation */
-  }
-  // D1 holds what the Worker itself translated; R2 holds the warm job's
-  // output, which is the bulk of it and the part that survives a full D1.
-  // See mt-r2.ts: the warm job is the only writer, Workers only read.
   return mtR2Get(env, key);
 }
 
 async function mtDbGetMany(env: Env, keys: string[]): Promise<Map<string, string>> {
-  const map = new Map<string, string>();
-  const uniq = [...new Set(keys)];
-  for (let i = 0; i < uniq.length; i += 90) {
-    const chunk = uniq.slice(i, i + 90);
-    const ph = chunk.map(() => "?").join(",");
-    try {
-      const { results } = await env.DB.prepare(`SELECT k, v FROM mt_cache WHERE k IN (${ph})`)
-        .bind(...chunk)
-        .all<{ k: string; v: string }>();
-      for (const r of results) map.set(r.k, r.v);
-    } catch {
-      /* ignore — the R2 pass below still has a chance at these */
-    }
-  }
-  // Whatever D1 did not have, look for in the warm job's R2 shards. Grouped
-  // by shard, so a page asking for fifty strings costs a handful of fetches,
-  // each one cached for the life of the isolate.
-  const missing = uniq.filter((k) => !map.has(k));
-  if (missing.length > 0) {
-    const fromR2 = await mtR2GetMany(env, missing);
-    for (const [k, v] of fromR2) map.set(k, v);
-  }
-  return map;
+  return mtR2GetMany(env, [...new Set(keys)]);
 }
 
-async function mtDbPut(env: Env, key: string, value: string): Promise<void> {
-  try {
-    await env.DB.prepare("INSERT INTO mt_cache (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v")
-      .bind(key, value)
-      .run();
-  } catch {
-    /* non-fatal: the memo still holds it for this isolate */
-  }
-}
+/** Sources the engine translates from. Arabic is not one: scripture is never machine-translated. */
+const WANT_SOURCES = new Set(["id", "en"]);
+const MAX_WANTS_PER_CALL = 25;
+const MAX_WANT_CHARS = 20000;
+const wanted = new Set<string>();
 
-async function mtDbPutMany(env: Env, entries: { k: string; v: string }[]): Promise<void> {
-  if (!entries.length) return;
-  try {
-    await env.DB.batch(
-      entries.map((e) =>
-        env.DB.prepare("INSERT INTO mt_cache (k, v) VALUES (?, ?) ON CONFLICT(k) DO UPDATE SET v = excluded.v").bind(
-          e.k,
-          e.v
-        )
-      )
-    );
-  } catch {
-    /* non-fatal */
+/**
+ * Tell the engine these source texts are needed. Create-once (`etagDoesNotMatch: "*"`),
+ * remembered per isolate, capped per call — so a cold page costs a handful of
+ * small writes once, and nothing after that. Never throws.
+ */
+async function recordWants(env: Env, sourceLang: string, texts: string[]): Promise<void> {
+  if (!env.MEDIA_R2 || !WANT_SOURCES.has(sourceLang)) return;
+  const todo: { key: string; text: string }[] = [];
+  for (const raw of texts) {
+    const text = raw.trim();
+    if (!text || text.length > MAX_WANT_CHARS) continue;
+    const key = `mt-want/${sourceLang}/${hashKey(text)}.txt`;
+    if (wanted.has(key)) continue;
+    if (wanted.size > 20000) wanted.clear();
+    wanted.add(key);
+    todo.push({ key, text });
+    if (todo.length >= MAX_WANTS_PER_CALL) break;
   }
+  await Promise.all(
+    todo.map(({ key, text }) =>
+      env.MEDIA_R2!
+        .put(key, text, { onlyIf: { etagDoesNotMatch: "*" }, httpMetadata: { contentType: "text/plain; charset=utf-8" } })
+        .catch(() => null)
+    )
+  );
 }
 
 // ── Runtime translation budget (Error 1102 guard) ────────────────────────
@@ -264,7 +241,7 @@ async function mtDbPutMany(env: Env, entries: { k: string; v: string }[]): Promi
 // retry fan-out, a wall-clock deadline, and a cap on how many chunks one long
 // passage may spend. Whatever doesn't fit renders in the source language
 // (never a hole, never a 1102) and is filled in by the nightly warm job on a
-// GitHub runner, which has no such limits and persists everything to D1.
+// GitHub runner, which has no such limits and stores everything in R2.
 const MAX_UPSTREAM_BATCHES = 3;
 const MAX_SINGLE_RETRIES = 6;
 const UPSTREAM_DEADLINE_MS = 5000;
@@ -301,7 +278,7 @@ export async function translateText(
   targetLang: string,
   sourceLang: string = "ar",
   /** false: keep a new translation in the isolate memo only — for a caller whose answer is
-   * edge-cached anyway, so it adds no write to D1 (CLAUDE.md: storage is R2, never D1). */
+   * edge-cached anyway, so it records no want in R2 (CLAUDE.md: storage is R2, never D1). */
   opts: { persist?: boolean } = {}
 ): Promise<string | null> {
   const trimmed = text.trim();
@@ -326,7 +303,7 @@ export async function translateText(
       // other way a single request used to trip Cloudflare's resource limits
       // (Error 1102). Above the cap we don't attempt it at runtime at all: the
       // reader gets the source text and the warm job — which runs on a GitHub
-      // runner with no such limits — translates it into D1 for the next visit.
+      // runner with no such limits — translates it into R2 for the next visit.
       const chunks = chunkText(trimmed, 450);
       if (chunks.length > MAX_RUNTIME_CHUNKS) return null;
       const parts = await Promise.all(chunks.map((chunk) => translateChunk(env, chunk, sourceLang, targetLang)));
@@ -334,14 +311,15 @@ export async function translateText(
     }
     if (!result) {
       // Failure is transient now that Workers AI backs the chain — hold a
-      // short-lived miss in the isolate memo only, NEVER persist "" to D1
-      // (a stored failure marker is what used to freeze a page in Indonesian
-      // forever). The next request retries and almost always succeeds.
+      // short-lived miss in the isolate memo only, never a stored failure
+      // marker (that is what used to freeze a page in Indonesian forever).
+      // The engine is told the text is wanted, so it is filled for good.
       memSet(kvKey, "");
+      if (opts.persist !== false) await recordWants(env, sourceLang, [trimmed]);
       return null;
     }
     memSet(kvKey, result);
-    if (opts.persist !== false) await mtDbPut(env, kvKey, result);
+    if (opts.persist !== false) await recordWants(env, sourceLang, [trimmed]);
     return result;
   } catch {
     return null;
@@ -436,7 +414,7 @@ export async function localizeBatchProtected(
   const masked = texts.map((t) => {
     if (!t) {
       maps.push(null);
-      return t ?? null;
+      return t === "" ? "" : null;
     }
     const { masked, map } = maskProtected(t);
     maps.push(map);
@@ -457,11 +435,12 @@ export async function localizeBatch(
   const out: (string | null)[] = new Array(texts.length).fill(null);
   const misses: { idx: number; text: string; kvKey: string }[] = [];
 
-  // One batched D1 read for the whole list (chunked internally) instead of N
+  // One batched R2 read for the whole list (grouped by shard) instead of N
   // parallel lookups — keeps a cold 100-item list well inside the per-request
   // budget. Keys not in the memo are gathered and fetched together.
   const keyByIdx = new Map<number, string>();
   const needDbKeys: string[] = [];
+  const wantTexts: string[] = [];
   texts.forEach((raw, idx) => {
     const trimmed = raw?.trim();
     if (!trimmed) return;
@@ -483,8 +462,12 @@ export async function localizeBatch(
       out[idx] = hit;
     } else {
       misses.push({ idx, text: trimmed.replace(/\s*\n\s*/g, " "), kvKey });
+      wantTexts.push(trimmed);
     }
   });
+  // Whatever the store did not have, the engine translates for good — into
+  // every language — on its next pass (see recordWants).
+  await recordWants(env, sourceLang, wantTexts);
 
   // Batch misses: ≤30 texts and ≤6000 chars per upstream call.
   const batches: (typeof misses)[] = [];
@@ -514,15 +497,10 @@ export async function localizeBatch(
     const translated = await googleTranslate(joined, sourceLang, targetLang);
     const parts = translated?.split("\n").map((s) => s.trim()) ?? [];
     if (parts.length === batch.length) {
-      const writes: { k: string; v: string }[] = [];
       batch.forEach((m, i) => {
         out[m.idx] = parts[i] || m.text;
-        if (parts[i]) {
-          memSet(m.kvKey, parts[i]!);
-          writes.push({ k: m.kvKey, v: parts[i]! });
-        }
+        if (parts[i]) memSet(m.kvKey, parts[i]!);
       });
-      await mtDbPutMany(env, writes);
     } else {
       // Batch upstream failed (null) or the split mismatched — never
       // mis-assign. Retry a BOUNDED slice one string at a time via the
@@ -534,10 +512,7 @@ export async function localizeBatch(
         retry.map(async (m) => {
           const t = await translateChunk(env, m.text, sourceLang, targetLang);
           out[m.idx] = t || m.text;
-          if (t) {
-            memSet(m.kvKey, t);
-            await mtDbPut(env, m.kvKey, t);
-          }
+          if (t) memSet(m.kvKey, t);
         })
       );
     }

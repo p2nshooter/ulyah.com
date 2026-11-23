@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { speak, splitSentences, speechAvailable, type NarrationHandle } from "@/lib/speech";
 import { useRadioStore } from "@/lib/radio-store";
 import { fillLabels } from "@/lib/fill-labels";
+import { followReading } from "@/lib/follow-reading";
 
 type Mode = "all" | "translation" | "arabic";
 
@@ -106,7 +107,7 @@ export function GlobalReadAll({ locale }: { locale: string }) {
     el.style.boxShadow = "0 0 0 3px var(--color-accent, #c9a24a)";
     el.style.backgroundColor = "color-mix(in srgb, var(--color-accent, #c9a24a) 12%, transparent)";
     activeElRef.current = el;
-    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    followReading(el);
   }
 
   /** Collect the page's readable "leaf" text blocks, in document order. */
@@ -250,38 +251,35 @@ export function GlobalReadAll({ locale }: { locale: string }) {
     // digeser ke bawah dulu baru muncul" bug. Raised above the mobile browser
     // toolbar + OS nav with a safe-area-aware offset so it is visible without
     // scrolling. pointer-events only on the button so the row doesn't block taps.
-    <div
-      className="pointer-events-none fixed inset-x-0 z-50 flex justify-center px-4"
-      style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 4.75rem)" }}
-    >
-      <div className="pointer-events-auto">
+    <div className="fab-center">
+      <div>
       {reading ? (
         <button
           onClick={stop}
-          className="flex items-center gap-2 rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-2xl"
+          className="btn btn-danger shadow-2xl"
         >
           ⏹ {t.stop}
           <span className="hidden text-xs font-normal opacity-90 sm:inline">· {advancing ? t.next : t.reading}</span>
         </button>
       ) : open ? (
-        <div className="flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_92%,transparent)] p-1.5 shadow-2xl backdrop-blur-sm">
-          <button onClick={() => void start("all")} className="rounded-full bg-accent px-3.5 py-1.5 text-xs font-semibold text-primary">
+        <div className="flex items-center gap-1 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_92%,transparent)] p-1 shadow-2xl backdrop-blur-sm">
+          <button onClick={() => void start("all")} className="btn btn-sm btn-accent">
             {t.all}
           </button>
-          <button onClick={() => void start("translation")} className="rounded-full px-3 py-1.5 text-xs font-medium text-[#f4efe3] hover:bg-white/10">
+          <button onClick={() => void start("translation")} className="btn btn-sm btn-ghost text-[#f4efe3]">
             {t.translation}
           </button>
-          <button onClick={() => void start("arabic")} className="rounded-full px-3 py-1.5 text-xs font-medium text-[#f4efe3] hover:bg-white/10">
+          <button onClick={() => void start("arabic")} className="btn btn-sm btn-ghost text-[#f4efe3]">
             {t.arabic}
           </button>
-          <button onClick={() => setOpen(false)} aria-label="close" className="rounded-full px-2 py-1.5 text-xs text-[#f4efe3]/60 hover:bg-white/10">
+          <button onClick={() => setOpen(false)} aria-label="close" className="btn btn-sm btn-icon btn-ghost text-[#f4efe3]/70">
             ✕
           </button>
         </div>
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-1.5 rounded-full border border-accent/40 bg-[color-mix(in_srgb,var(--color-primary)_90%,transparent)] px-4 py-2 text-xs font-medium text-[#f4efe3] shadow-lg backdrop-blur-sm transition hover:border-accent"
+          className="fab static"
         >
           {t.menu}
         </button>

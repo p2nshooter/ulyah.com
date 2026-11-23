@@ -68,14 +68,15 @@ export function FloatingAiChat({ locale }: { locale: string }) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? t.closeBubble : t.openBubble}
-        className="fixed bottom-4 right-4 z-40 flex items-center gap-2 rounded-full border border-accent/40 bg-(--panel-bg) px-4 py-3 text-sm font-medium text-(--panel-fg) shadow-lg backdrop-blur-sm transition hover:brightness-125"
+        aria-expanded={open}
+        className="fab fab-slot-right"
       >
-        <span aria-hidden className="text-lg">{open ? "✕" : "💬"}</span>
-        {!open && <span className="hidden sm:inline">{t.bubble}</span>}
+        <span aria-hidden className="text-base">{open ? "✕" : "💬"}</span>
+        {!open && <span className="fab-label">{t.bubble}</span>}
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-4 z-40 flex max-h-[70vh] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-card) shadow-2xl">
+        <div className="fab-panel-right flex max-h-[70vh] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-card) shadow-2xl">
           <div className="flex items-center gap-2 border-b border-(--color-border) bg-(--panel-bg) px-3 py-2 text-(--panel-fg)">
             <span aria-hidden>💬</span>
             <span className="text-sm font-medium">{t.title}</span>

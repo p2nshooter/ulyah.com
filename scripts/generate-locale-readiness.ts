@@ -116,22 +116,24 @@ async function main() {
   const scored = en.map((_, i) => i).filter((i) => !neutral.has(i));
   console.log(`${en.length} dictionary leaves, ${neutral.size} language-neutral, ${scored.length} scored.`);
 
-  // Content coverage: what fraction of the site's own writing (tafsir, kisah,
-  // kitab, hadits) has actually been translated into this language and cached in
-  // D1. Measured, not assumed — see scripts/locale-content.json. A language can
-  // have a perfect UI and still show Indonesian articles, which is exactly the
-  // mixed experience this gate exists to prevent.
+  // Content coverage: what fraction of the site's own writing has a stored
+  // translation in this language. MEASURED by the translation engine
+  // (scripts/mesin-terjemah.ts) by counting, in R2: done / total over the whole
+  // corpus — never relative to another language. A language can have a perfect
+  // UI and still show Indonesian articles, which is exactly the mixed
+  // experience this gate exists to prevent.
   const contentFile = JSON.parse(readFileSync(CONTENT, "utf8")) as {
     _sourceLanguages: string[];
-    rows: Record<string, number>;
+    langs?: Record<string, { done: number; total: number }>;
   };
-  const best = Math.max(...Object.values(contentFile.rows));
   const contentPct = (code: string): number => {
     // Nothing is translated INTO a source language: Indonesian is what the site
     // is written in, Arabic is the Qur'an and hadith themselves.
     if (contentFile._sourceLanguages.includes(code)) return 100;
-    const n = contentFile.rows[code];
-    return n === undefined ? 0 : Math.round((n / best) * 1000) / 10;
+    const c = contentFile.langs?.[code];
+    if (!c || !c.total) return 0;
+    // Floor, not round: 99.96% is not finished, and "100" must mean every text.
+    return c.done >= c.total ? 100 : Math.floor((c.done / c.total) * 1000) / 10;
   };
 
   // Words a human checked and confirmed are correct as-is in that language —

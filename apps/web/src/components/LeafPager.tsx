@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { paginateLeaves, leafOf, LEAF_INK, type LeafItem } from "@/lib/leaf";
+import { followReadingId } from "@/lib/follow-reading";
 
 /**
  * A bab set as leaves of a printed kitab: the matn on the page, the terjemah
@@ -31,7 +32,7 @@ interface Props<T extends LeafItem> {
   /** The passage being narrated, if any — the leaf follows it. */
   activeId?: number | null;
   /** Which part of the passage is being read, so only that one highlights. */
-  activePart?: "ar" | "tr" | null;
+  activePart?: "ar" | "tr" | "ex" | null;
   mode?: LeafMode;
   size?: LeafSize;
   labels: Labels;
@@ -42,14 +43,20 @@ interface Props<T extends LeafItem> {
   /** Whether this passage has a terjemah at all — hadits keep it under a
    *  different column name than the kitab do. */
   hasTranslation?: (item: T) => boolean;
+  /** The syarah / explanation under the terjemah, when the reader narrates one too (owner, 22 Nov 2026: "full
+   *  otomatis voice hingga selesai satu kitab + tafsirnya") — what the voice reads must be on the page. */
+  renderExplanation?: (item: T, active: boolean) => React.ReactNode;
+  /** Its heading ("Penjelasan"); empty for none. */
+  explanationLabel?: string;
   /** Anything that belongs under the passage: narrator, grade, source. */
   renderFooter?: (item: T) => React.ReactNode;
   /** How much of a leaf one passage fills, when it is not `translation_id`. */
   cost?: (item: T) => number;
   /** Tapping a passage — used to start reading from it. */
   onSelect?: (item: T) => void;
-  /** Told whenever the leaf changes, so the caller can remember the place. */
-  onLeafChange?: (index: number, total: number) => void;
+  /** Told whenever the leaf changes, so the caller can remember the place — and start reading from the first
+   *  passage of the leaf on screen rather than from the top of the bab. */
+  onLeafChange?: (index: number, total: number, firstId: number | null) => void;
 }
 
 type FlipPhase = "idle" | "out" | "in";
@@ -65,22 +72,34 @@ export default function LeafPager<T extends LeafItem>({
   renderMatn,
   renderTranslation,
   hasTranslation,
+  renderExplanation,
+  explanationLabel = "",
   renderFooter,
   cost,
   onSelect,
   onLeafChange,
 }: Props<T>) {
-  const leaves = paginateLeaves(items, LEAF_INK, cost);
+  // Paginated once per bab (and per size of ink), not on every word the voice reads.
+  const leaves = useMemo(() => paginateLeaves(items, LEAF_INK, cost), [items, cost]);
   const [index, setIndex] = useState(0);
   const [flipPhase, setFlipPhase] = useState<FlipPhase>("idle");
   const [flipDirection, setFlipDirection] = useState<FlipDirection>("next");
   const flipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const shown = useRef(0);
+  // A turn asked for while the page is still turning. It used to be dropped — the voice moved on to the next
+  // leaf during the 0.9 s animation and the reader was left on the old one, reading a page nobody could see.
+  const pendingTurn = useRef<number | null>(null);
 
-  // A new bab starts at its first leaf.
+  // A new bab starts at its first leaf — or at the leaf of the passage already being read, when the voice
+  // crossed into the new bab before it rendered.
   useEffect(() => {
-    setIndex(0);
-    shown.current = 0;
+    const want = leafOf(leaves, activeId);
+    const start = want >= 0 ? want : 0;
+    setIndex(start);
+    shown.current = start;
+    pendingTurn.current = null;
+    onLeafChange?.(start, leaves.length, leaves[start]?.[0]?.id ?? null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   useEffect(() => {
@@ -90,14 +109,18 @@ export default function LeafPager<T extends LeafItem>({
   }, []);
 
   function turnTo(next: number) {
-    if (next < 0 || next >= leaves.length || next === index || flipPhase !== "idle") return;
-    setFlipDirection(next > index ? "next" : "prev");
+    if (next < 0 || next >= leaves.length || next === shown.current) return;
+    if (flipPhase !== "idle") {
+      pendingTurn.current = next; // taken as soon as this turn finishes
+      return;
+    }
+    setFlipDirection(next > shown.current ? "next" : "prev");
     setFlipPhase("out");
     flipTimer.current = setTimeout(() => {
       setIndex(next);
       shown.current = next;
       setFlipPhase("in");
-      onLeafChange?.(next, leaves.length);
+      onLeafChange?.(next, leaves.length, leaves[next]?.[0]?.id ?? null);
       flipTimer.current = setTimeout(() => setFlipPhase("idle"), 460);
     }, 420);
   }
@@ -108,15 +131,24 @@ export default function LeafPager<T extends LeafItem>({
     const want = leafOf(leaves, activeId);
     if (want >= 0 && want !== shown.current) turnTo(want);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeId]);
+  }, [activeId, leaves]);
 
-  // Keep the passage being recited in view as the voice works down the leaf.
+  // A turn that arrived mid-flip is taken the moment the page settles; then check the voice once more, in case
+  // it moved again while we were turning.
   useEffect(() => {
-    if (activeId == null) return;
-    document
-      .getElementById(`leaf-passage-${activeId}`)
-      ?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [activeId, index]);
+    if (flipPhase !== "idle") return;
+    const want = pendingTurn.current ?? leafOf(leaves, activeId);
+    pendingTurn.current = null;
+    if (want >= 0 && want !== shown.current) turnTo(want);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flipPhase]);
+
+  // Keep the start of the passage being recited on screen (the reading band — lib/follow-reading.ts): the
+  // words themselves are followed by SpokenText, so this only has to land the passage, never centre it.
+  useEffect(() => {
+    if (activeId == null || flipPhase !== "idle") return;
+    followReadingId(`leaf-passage-${activeId}`);
+  }, [activeId, index, flipPhase]);
 
   const leaf = leaves[index] ?? [];
   const flipClass =
@@ -140,7 +172,7 @@ export default function LeafPager<T extends LeafItem>({
               key={item.id}
               id={`leaf-passage-${item.id}`}
               onClick={onSelect ? () => onSelect(item) : undefined}
-              className={`leaf-passage ${active ? "leaf-passage-active px-2 py-1" : ""} ${onSelect ? "cursor-pointer" : ""}`}
+              className={`leaf-passage rd-block ${active ? "leaf-passage-active rd-block-now" : ""} ${onSelect ? "cursor-pointer" : ""}`}
             >
               <div dir="rtl" className="leaf-matn font-arabic" data-size={size}>
                 {renderMatn(item, active && activePart === "ar")}
@@ -157,6 +189,17 @@ export default function LeafPager<T extends LeafItem>({
                   </div>
                 </div>
               ) : null}
+              {renderExplanation ? (() => {
+                const ex = renderExplanation(item, active && activePart === "ex");
+                return ex ? (
+                  <div className="leaf-tarjamah mt-3 opacity-90">
+                    {explanationLabel ? (
+                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide opacity-60">{explanationLabel}</p>
+                    ) : null}
+                    <div className="text-sm leading-relaxed">{ex}</div>
+                  </div>
+                ) : null;
+              })() : null}
               {renderFooter ? <div className="mt-3">{renderFooter(item)}</div> : null}
             </article>
           );

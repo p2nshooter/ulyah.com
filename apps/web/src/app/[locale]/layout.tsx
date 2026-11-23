@@ -23,8 +23,10 @@ import { PresenceBeacon } from "@/components/PresenceBeacon";
 // animations → components → per-site themes (last, so tenant tokens win).
 import "../globals.css";
 import "@/styles/core/animations.css";
+import "@/styles/core/ui.css";
 import "@/styles/components/mushaf.css";
 import "@/styles/components/leaf.css";
+import "@/styles/components/reading.css";
 import "@/styles/components/kitab-cover.css";
 import "@/styles/components/kids.css";
 import "@/styles/components/sanad.css";

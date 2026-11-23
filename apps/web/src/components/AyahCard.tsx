@@ -30,8 +30,8 @@ export function AyahCard({
   return (
     <article
       id={`ayah-${ayah.number}`}
-      className={`scroll-mt-24 rounded-2xl border border-(--color-border) bg-(--color-card) p-5 transition ${
-        isActive ? "ayah-active-highlight ring-1 ring-accent" : ""
+      className={`rd-block scroll-mt-24 rounded-2xl border border-(--color-border) bg-(--color-card) p-5 ${
+        isActive ? "rd-block-now ring-1 ring-accent" : ""
       }`}
     >
       <p className="mb-2 text-xs font-medium uppercase tracking-wide text-accent">

@@ -35,6 +35,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The merge commit and its base, so the findings step can name the files this pull request changes.
+          fetch-depth: 2
 
       - name: Initialise CodeQL
         uses: github/codeql-action/init@v4.39.1
@@ -52,3 +55,23 @@ jobs:
         uses: github/codeql-action/analyze@v4.39.1
         with:
           category: "/language:javascript-typescript"
+          output: codeql-results
+
+      # The alert list lives behind the Security tab; print the findings in the files this pull request changes into
+      # the job log as well, so whoever fixes them can read rule, place and message from the run itself.
+      - name: Findings in the files this pull request changes
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        run: |
+          git diff --name-only HEAD^1 HEAD > /tmp/changed.txt || true
+          for f in codeql-results/*.sarif; do
+            [ -f "$f" ] || continue
+            jq -r --rawfile changed /tmp/changed.txt '
+              ($changed | split("\n") | map(select(length > 0))) as $c
+              | .runs[]
+              | ([.tool.driver.rules[]?, .tool.extensions[]?.rules[]?] | map({key: .id, value: (.properties["security-severity"] // "-")}) | from_entries) as $sev
+              | .results[]
+              | .locations[0].physicalLocation as $loc
+              | select(($c | index($loc.artifactLocation.uri)) != null)
+              | "\(.ruleId)\tseverity=\($sev[.ruleId] // "-")\t\(.level // "warning")\t\($loc.artifactLocation.uri):\($loc.region.startLine)\t\(.message.text | gsub("\\s+"; " ") | .[0:300])"
+            ' "$f" | sort | tee -a "$GITHUB_STEP_SUMMARY"
+          done

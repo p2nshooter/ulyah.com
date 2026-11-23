@@ -94,8 +94,13 @@
 
 /* One passage: matn above, terjemah below, divided by a rule rather than a
    box — the page should read as one sheet, not a stack of cards. */
+/* Every passage carries the same padding whether or not it is being read: the old active state added
+   px-2 py-1, so the passage the voice reached grew, re-wrapped and pushed the page down — every passage. */
+.leaf-passage {
+  padding: 0.35rem 0.5rem;
+}
 .leaf-passage + .leaf-passage {
-  margin-top: 1.35rem;
+  margin-top: 1rem;
   padding-top: 1.35rem;
   border-top: 1px solid var(--lf-rule);
 }

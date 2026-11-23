@@ -67,6 +67,10 @@ interface PlayerState {
    *  per ayat, tolong d pisah". Null = follow the global choice. */
   qoriOverride: string | null;
 
+  /** Set when a queue plays to its natural end (not paused, not repeated): which surah it was and when. The
+   *  per-ayah reader uses it to carry on into the next surah — owner, 22 Nov 2026: "auto pindah". */
+  queueEnded: { surahId: number; at: number } | null;
+
   loadSurahQueue: (ayat: QueueItem[], startIndex?: number, qoriOverride?: string | null) => void;
   patchBundle: (index: number, partial: Partial<QueueItem>) => void;
   playStory: (id: number, title: string) => void;
@@ -139,9 +143,11 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   storyTrack: null,
   audioUnavailableNotice: null,
   audioProgress: { current: 0, duration: 0 },
+  queueEnded: null,
 
   loadSurahQueue: (ayat, startIndex = 0, qoriOverride = null) => {
     set({
+      queueEnded: null,
       queue: ayat,
       currentIndex: startIndex,
       storyTrack: null,
@@ -218,7 +224,10 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     const nextIndex = currentIndex + 1;
     if (nextIndex >= queue.length) {
       if (repeatMode === "surah") set({ currentIndex: 0, isPlaying: true });
-      else set({ isPlaying: false, activeLayer: null });
+      else {
+        const last = queue[queue.length - 1];
+        set({ isPlaying: false, activeLayer: null, queueEnded: last ? { surahId: last.surahId, at: Date.now() } : null });
+      }
       return;
     }
     set({ currentIndex: nextIndex });
