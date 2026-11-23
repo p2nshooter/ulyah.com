@@ -1377,3 +1377,104 @@ p informatika 9 ganjil pts Perusahaan yang menyediakan jasa sambungan internet b
 p informatika 9 ganjil pas Topologi jaringan yang semua komputernya dihubungkan membentuk lingkaran disebut topologi .... | bus | star | *ring | tree
 p informatika 9 ganjil pas Alamat unik setiap komputer dalam jaringan internet yang berupa deretan angka disebut .... | URL | *IP address | e-mail | domain
 p informatika 9 ganjil pas Kabel jaringan yang menggunakan serat kaca dan mengirim data dalam bentuk cahaya adalah kabel .... | koaksial | UTP | STP | *serat optik
+
+# ── TIK Kelas 8 SMP (s-875, Teknologi Informasi dan Komunikasi 2) → Informatika MTs 8 ──
+1rr3libh b
+0sjmmg4l c
+1utanm5i b
+0jkiwtp1 c
+0u6et7pt b
+1mw0tg42 x
+10j3ebtb b
+0lu5b5jc c
+10vmqdne d
+1ws7ivn3 a
+0g4mpdts a
+1xlk313t a
+1uhfe7b3 b
+1b929wly d
+1vyam88v c
+0yhgleni c
+0vrh8ia1 d
+17mrji7j a
+1gxjtr65 x
+1yfjwd25 b
+1szore0g b
+06fj4ira a
+1sy9x45r a
+1p4krrfr d
+0htlx6on b
+0mii29ku c
+1cnot7uh x
+10qi9qvw x
+109x6013 x
+0zn6uxjt b
+0ftj8o1s x
+06im3h59 b
+1cdz2m19 x
+0pla4ez1 d
+0miy2vbz x
+0nrjkaif b
+16y51iai b
+163345aj d
+0f8cb453 a
+1q54bura a
+00qa6xwx d
+13er02uq a
+0ze2bele x
+1mlf46yg d
+0d8ejhiw x
+0zlpddhh d
+08yen52o a
+0qakv485 x
+0gn5arst c
+17fcut38 b
+0ssvh66v d
+0683yt2c c
+1vjlhiff d
+0pto9iuo b
+09e8tic1 b
+1iiag876 b
+193xhm2r b
+185slbds a
+0sgm2jnt c
+1f1ui2b7 x
+03aawklo a
+1igql1xq b
+11w7kp7o a
+1wh1ws6z c
+0ta7t7bg b
+1pzc4eyg c
+1k9bw2xa d
+00vhdohe a
+0wa9midb c
+1xp85l3d b
+1wkxrphf a
+0k8plgas x
+0rylyuvc b
+189feoz1 x
+1vownl4m x
+1n1t8j6i c
+0r8u0odi d
+0nrqfrop x
+06pjyfp5 x
+0qoeij4n d
+02qz0pfd d
+u informatika 8 ganjil pts Sebutkan lima bagian jendela Microsoft Word! = Office Button (tombol File), Quick Access Toolbar, baris judul (title bar), ribbon berisi tab-tab perintah, lembar kerja, dan baris status (status bar).
+u informatika 8 ganjil pts Jelaskan perbedaan perintah Save dan Save As! = Save menyimpan dokumen dengan nama dan tempat yang sama, sedangkan Save As menyimpan dokumen dengan nama, tempat, atau format yang baru.
+u informatika 8 ganjil pts Sebutkan langkah-langkah mencetak dokumen di Microsoft Word! = Klik Office Button (File), pilih Print, tentukan printer, halaman, dan jumlah salinan, lalu klik OK atau Print.
+u informatika 8 ganjil pas Apa kegunaan fasilitas Mail Merge? = Mail Merge digunakan untuk membuat surat massal, yaitu menggabungkan satu dokumen induk dengan sumber data berisi banyak nama dan alamat sehingga surat untuk banyak penerima dibuat sekaligus.
+u informatika 8 ganjil pas Sebutkan langkah-langkah membuat Mail Merge! = Buka tab Mailings, klik Start Mail Merge, pilih penerima (Select Recipients), sisipkan field dengan Insert Merge Field, periksa dengan Preview Results, lalu klik Finish & Merge.
+u informatika 8 ganjil pas Apa yang dimaksud dengan template pada Microsoft Word? = Template adalah dokumen contoh yang sudah memiliki format dan tata letak siap pakai, misalnya surat, laporan, brosur, dan kalender, sehingga pengguna tinggal mengisi isinya.
+u informatika 8 genap pts Apa yang dimaksud dengan sel, baris, dan kolom pada Microsoft Excel? = Baris adalah deretan mendatar yang diberi nomor (1, 2, 3, …), kolom adalah deretan tegak yang diberi huruf (A, B, C, …), dan sel adalah perpotongan antara baris dan kolom, misalnya sel B3.
+u informatika 8 genap pts Jelaskan perbedaan perintah Cut, Copy, dan Paste! = Cut memindahkan data, Copy menyalin data, dan Paste menempatkan data hasil Cut atau Copy ke tempat yang dituju.
+u informatika 8 genap pts Sebutkan langkah-langkah mengubah lebar kolom di Microsoft Excel! = Pilih kolom, klik tab Home, klik Format pada kelompok Cells, pilih Column Width, ketikkan lebar yang diinginkan, lalu klik OK.
+u informatika 8 genap pas Tuliskan rumus Excel untuk menjumlahkan, mencari rata-rata, dan nilai tertinggi data pada sel B2 sampai B10! = Penjumlahan =SUM(B2:B10), rata-rata =AVERAGE(B2:B10), dan nilai tertinggi =MAX(B2:B10).
+u informatika 8 genap pas Sebutkan langkah-langkah membuat grafik (chart) di Microsoft Excel! = Blok data yang akan dibuat grafik, klik tab Insert, pilih jenis grafik pada kelompok Charts, lalu atur judul dan keterangan grafik.
+u informatika 8 genap pas Apa fungsi perintah Sort pada Microsoft Excel? = Sort berfungsi mengurutkan data, baik dari kecil ke besar (ascending) maupun dari besar ke kecil (descending), atau menurut abjad.
+p informatika 8 ganjil pts Tombol keyboard untuk menyalin teks yang sudah diblok di Microsoft Word adalah .... | Ctrl + X | *Ctrl + C | Ctrl + V | Ctrl + Z
+p informatika 8 ganjil pts Perintah untuk membuat teks menjadi tebal adalah .... | Italic | Underline | *Bold | Strikethrough
+p informatika 8 ganjil pts Perintah untuk membuat teks rata kiri dan rata kanan sekaligus adalah .... | Align Left | Center | Align Right | *Justify
+p informatika 8 ganjil pas Fasilitas untuk menyisipkan gambar dari berkas komputer ke dalam dokumen Word terdapat pada tab .... | Home | *Insert | Page Layout | View
+p informatika 8 ganjil pas Perintah untuk mengatur ukuran kertas dokumen Word adalah .... | Orientation | Margins | *Size | Columns
+p informatika 8 ganjil pas Perintah untuk mengubah posisi kertas menjadi mendatar (landscape) terdapat pada .... | Size | Margins | *Orientation | Breaks
