@@ -115,6 +115,10 @@ jobs:
       - name: Readiness table from the measurement
         if: ${{ !cancelled() }}
         run: |
+          # The engine prints its measurement; it is written to the file here.
+          line=$(sed -n 's/^COVERAGE_JSON=//p' /tmp/mt.log 2>/dev/null | tail -1 || true)
+          if [ -n "$line" ]; then printf '%s' "$line" | jq . > scripts/locale-content.json; fi
+          { echo "### Mesin penerjemah"; grep -E '^(Translated|Refused|Upstream|Not yet 100%|AI pool|Corpus|Wants|Hand-written)' /tmp/mt.log 2>/dev/null | sed 's/^/- /'; } >> "$GITHUB_STEP_SUMMARY" || true
           npx tsx scripts/generate-locale-readiness.ts
           npx tsx scripts/generate-ui-i18n.ts
 

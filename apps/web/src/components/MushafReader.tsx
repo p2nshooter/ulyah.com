@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
-import { resolveTranslationLang, LOCALES } from "@ulyah/shared/i18n";
+import { LOCALES } from "@ulyah/shared/i18n";
 import { usePlayerStore, type QueueItem } from "@/lib/player-store";
 import { RECITERS, COUNTRIES } from "@/lib/qori-cdn";
 import { mushafLabels } from "@/lib/mushaf-labels";
@@ -158,7 +158,6 @@ export function MushafReader({ locale }: { locale: string }) {
     followReadingId(`mushaf-ayah-${activeKey.replace(":", "-")}`);
   }, [activeKey]);
 
-  const translationLang = resolveTranslationLang(translationLocale);
 
   const fetchPage = useCallback(
     async (n: number): Promise<MushafPageResponse | null> => {

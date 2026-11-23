@@ -33,7 +33,6 @@
  *
  * Usage: npx tsx scripts/import-quran-translations.ts [--langs=id,en] [--prefer=tr:turkish_rwwad] [--force] [--dry]
  */
-import { appendFileSync } from "node:fs";
 import { R2S3, mapLimit } from "./lib/r2-s3";
 
 const API = "https://quranenc.com/api/v1";
@@ -241,9 +240,6 @@ async function main() {
     }
   }
   for (const l of report) console.log(l);
-  if (process.env.GITHUB_STEP_SUMMARY) {
-    appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Terjemah & tafsir Al-Qur'an (QuranEnc)\n\n${report.map((l) => `- ${l}`).join("\n")}\n`);
-  }
   if (failed) process.exitCode = 1;
 }
 

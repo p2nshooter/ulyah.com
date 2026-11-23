@@ -38,7 +38,7 @@
  * AI key pool (read from R2, c/ai_key_pool/); without it the engine translates with gtx alone.
  */
 import { execFileSync } from "node:child_process";
-import { appendFileSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { ALL_LOCALES, ENGINE_TARGET_LANGS, LOCALE_SITE } from "../packages/shared/src/i18n";
 import {
@@ -348,7 +348,8 @@ async function warmLanguage(
       const prep = prepare(text);
       // Text that is nothing but masked material (an ayah on its own, a bare name) is already "translated":
       // it is reproduced as it is, which is exactly what the reader must see.
-      if (/^(\s*@@\d+@@\s*)+$/.test(prep.masked)) {
+      // Linear: the whitespace between placeholders is matched in one place only (no ReDoS on remote text).
+      if (/^\s*(?:@@\d+@@\s*)+$/.test(prep.masked)) {
         if (!dry) store.stage(key, prep.premasked ? prep.masked : text);
         translated++;
         continue;
@@ -621,32 +622,28 @@ export function order(langs: string[], coverage: Record<string, Coverage>): stri
   return [...langs].sort((a, b) => Number(live(b)) - Number(live(a)) || pct(a) - pct(b) || a.localeCompare(b));
 }
 
-/** scripts/locale-content.json — what the readiness table and the admin portal read. */
-function writeContentFile(state: EngineState): void {
-  const file = join(ROOT, "scripts", "locale-content.json");
+/**
+ * scripts/locale-content.json — what the readiness table and the admin portal read. Printed as one
+ * `COVERAGE_JSON=` line; the workflow writes it into the file (so this process never writes data it read from the
+ * network to disk).
+ */
+function printContentFile(state: EngineState): void {
   const langs: Record<string, { done: number; total: number }> = {};
   for (const l of ENGINE_TARGET_LANGS) {
     const c = state.coverage[l];
-    langs[l] = { done: c?.done ?? 0, total: c?.total ?? 0 };
+    langs[l] = { done: Math.max(0, Math.trunc(Number(c?.done) || 0)), total: Math.max(0, Math.trunc(Number(c?.total) || 0)) };
   }
-  const prev = (() => {
-    try {
-      return JSON.parse(readFileSync(file, "utf8")) as Record<string, unknown>;
-    } catch {
-      return {};
-    }
-  })();
+  const corpus: Record<string, number> = {};
+  for (const [k, v] of Object.entries(state.corpusSize ?? {})) if (/^[a-z]{2}$/.test(k)) corpus[k] = Math.max(0, Math.trunc(Number(v) || 0));
   const out = {
     _comment:
       "Content coverage per language, MEASURED by the translation engine (scripts/mesin-terjemah.ts): of every text in the R2 corpus (mt/_corpus/<src>.json) whose source language differs from the target, how many have a stored translation in R2. done/total, never an estimate and never relative to another language. Indonesian is the language the site is written in and Arabic is the Qur'an and hadith themselves, so neither is a target.",
     _measuredAt: new Date().toISOString().slice(0, 10),
     _sourceLanguages: ["id", "ar"],
-    corpus: state.corpusSize,
+    corpus,
     langs,
   };
-  if (JSON.stringify({ ...prev, _measuredAt: "" }) !== JSON.stringify({ ...out, _measuredAt: "" })) {
-    writeFileSync(file, JSON.stringify(out, null, 2) + "\n");
-  }
+  console.log(`COVERAGE_JSON=${JSON.stringify(out)}`);
 }
 
 function args() {
@@ -734,7 +731,7 @@ async function main() {
       };
       return s;
     }))!;
-    writeContentFile(state);
+    printContentFile(state);
   }
 
   const remaining = order(
@@ -751,7 +748,6 @@ async function main() {
     `Not yet 100%: ${remaining.map((l) => { const c = state.coverage[l]; return `${l} ${c && c.total ? ((c.done / c.total) * 100).toFixed(1) : "0"}%`; }).join(", ") || "none — every language is complete"}.`,
   ];
   for (const line of summary) console.log(line);
-  if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Mesin penerjemah\n\n${summary.map((s) => `- ${s}`).join("\n")}\n`);
   console.log(`WARM_TRANSLATED=${translated}`);
   console.log(`WARM_NEXT=${remaining.join(",")}`);
 }

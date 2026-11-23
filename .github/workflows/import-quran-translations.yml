@@ -61,3 +61,4 @@ jobs:
         run: |
           set -o pipefail
           npx tsx scripts/import-quran-translations.ts --langs="$IN_LANGS" --prefer="$IN_PREFER" $IN_FORCE | tee /tmp/quran-import.log
+          { echo "### Terjemah & tafsir Al-Qur'an (QuranEnc)"; sed 's/^/- /' /tmp/quran-import.log; } >> "$GITHUB_STEP_SUMMARY"
