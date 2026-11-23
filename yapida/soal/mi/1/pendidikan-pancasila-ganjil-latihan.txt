@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Pendidikan Pancasila
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Pancasila adalah dasar negara ....
+*a. Indonesia
+b. Malaysia
+c. Arab Saudi
+d. Jepang
+> Pancasila dasar negara Indonesia.
+2. Garuda Pancasila adalah lambang ....
+*a. negara
+b. sekolah
+c. desa
+d. masjid
+> Lambang negara Indonesia.
+3. Bintang adalah lambang sila ke ....
+*a. satu
+b. dua
+c. tiga
+d. empat
+> Sila pertama.
+4. Rantai adalah lambang sila ke ....
+a. satu
+*b. dua
+c. tiga
+d. lima
+> Sila kedua.
+5. Sila keempat dilambangkan dengan ....
+a. bintang
+b. rantai
+*c. kepala banteng
+d. pohon beringin
+> Kepala banteng.
+6. Semboyan bangsa Indonesia adalah ....
+*a. Bhinneka Tunggal Ika
+b. Indonesia Raya
+c. Merah Putih
+d. Garuda
+> Bhinneka Tunggal Ika.
+7. Berdoa sebelum belajar sesuai dengan sila ke ....
+*a. satu
+b. dua
+c. tiga
+d. lima
+> Ketuhanan Yang Maha Esa.
+8. Aturan di sekolah harus ....
+*a. ditaati
+b. dilanggar
+c. dilupakan
+d. diubah sendiri
+> Aturan untuk ditaati.
+9. Memakai seragam ke sekolah adalah contoh ....
+*a. menaati aturan sekolah
+b. aturan di rumah
+c. bermain
+d. berlibur
+> Seragam aturan sekolah.
+10. Sikap yang tidak sesuai aturan di kelas adalah ....
+a. mendengarkan guru
+b. mengerjakan tugas
+*c. berteriak ketika belajar
+d. duduk rapi
+> Berteriak mengganggu teman.
+11. Ayah menyuruh tidur pukul 9 malam. Itu adalah aturan di ....
+*a. rumah
+b. sekolah
+c. masjid
+d. jalan
+> Aturan dari orang tua.
+12. Menolong teman yang kesulitan sesuai sila ke ....
+a. satu
+*b. dua
+c. empat
+d. lima
+> Kemanusiaan.
+13. Sila ketiga berbunyi ....
+*a. Persatuan Indonesia
+b. Ketuhanan Yang Maha Esa
+c. Kemanusiaan yang adil dan beradab
+d. Keadilan sosial
+> Persatuan Indonesia.
+14. Siswa yang taat aturan disebut siswa yang ....
+*a. disiplin
+b. malas
+c. nakal
+d. sombong
+> Disiplin.
+15. Lambang padi dan kapas berarti ....
+*a. keadilan sosial
+b. persatuan
+c. ketuhanan
+d. musyawarah
+> Sila kelima.
+[MENJODOHKAN]
+1. Sila pertama = Ketuhanan Yang Maha Esa
+2. Sila kedua = Kemanusiaan yang adil dan beradab
+3. Sila ketiga = Persatuan Indonesia
+4. Sila kelima = Keadilan sosial bagi seluruh rakyat Indonesia
+5. Garuda Pancasila = lambang negara
+~ lagu kebangsaan
+[ISIAN]
+1. Pancasila memiliki .... sila. = lima | 5
+2. Lambang sila ketiga adalah pohon .... = beringin
+3. Lambang sila kedua adalah .... = rantai
+4. Aturan di sekolah dibuat oleh .... = sekolah | guru | kepala sekolah
+5. Taat pada aturan dan waktu disebut .... = disiplin
+6. Lambang negara kita adalah .... Pancasila. = Garuda
+7. Sila pertama dilambangkan dengan .... = bintang
+8. Sila keempat dilambangkan dengan kepala .... = banteng
+9. Bhinneka Tunggal Ika artinya berbeda-beda tetapi tetap .... = satu
+10. Aturan di rumah dibuat oleh .... = orang tua
+[URAIAN]
+1. Tuliskan bunyi sila kedua Pancasila!
+= Kemanusiaan yang adil dan beradab.
+2. Sebutkan dua contoh sikap disiplin di sekolah!
+= Datang tepat waktu, memakai seragam lengkap, mengerjakan tugas.
+3. Apa lambang sila keempat dan kelima?
+= Kepala banteng dan padi kapas.
+4. Mengapa ada aturan di rumah?
+= Agar anggota keluarga hidup tertib, teratur, dan nyaman.
+5. Tuliskan satu contoh pengamalan sila ketiga!
+= Bermain bersama teman tanpa membeda-bedakan, bekerja sama, dan rukun.

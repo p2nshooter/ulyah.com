@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Pendidikan Pancasila
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Lambang sila kedua Pancasila adalah ....
+a. bintang
+*b. rantai
+c. padi dan kapas
+d. pohon beringin
+> Rantai melambangkan kemanusiaan.
+2. Sila kelima Pancasila berbunyi ....
+a. Persatuan Indonesia
+*b. Keadilan sosial bagi seluruh rakyat Indonesia
+c. Ketuhanan Yang Maha Esa
+d. Kemanusiaan yang adil dan beradab
+> Sila kelima tentang keadilan sosial.
+3. Aturan adalah ....
+*a. petunjuk yang harus ditaati
+b. permainan
+c. hadiah
+d. hukuman saja
+> Aturan berisi hal yang boleh dan tidak boleh dilakukan.
+4. Contoh aturan di rumah adalah ....
+*a. tidur siang dan belajar tepat waktu
+b. datang ke sekolah pukul 7
+c. memakai seragam
+d. upacara hari Senin
+> Aturan di rumah dibuat orang tua.
+5. Contoh aturan di sekolah adalah ....
+a. membantu ibu memasak
+*b. memakai seragam sesuai jadwal
+c. tidur siang
+d. merapikan kamar
+> Aturan sekolah berlaku untuk semua siswa.
+6. Jika kita melanggar aturan, kita akan ....
+a. dipuji
+*b. mendapat teguran atau sanksi
+c. diberi hadiah
+d. diberi uang
+> Pelanggaran aturan ada akibatnya.
+7. Membuang sampah harus di ....
+*a. tempat sampah
+b. kolong meja
+c. sungai
+d. halaman
+> Menjaga kebersihan adalah aturan.
+8. Sikap yang benar ketika guru menjelaskan adalah ....
+a. mengobrol
+*b. mendengarkan dengan baik
+c. tidur
+d. bermain
+> Mendengarkan guru adalah aturan di kelas.
+9. Datang ke sekolah tepat waktu adalah sikap ....
+*a. disiplin
+b. malas
+c. sombong
+d. nakal
+> Disiplin artinya taat pada aturan dan waktu.
+10. Aturan di rumah dibuat oleh ....
+*a. orang tua
+b. guru
+c. kepala sekolah
+d. teman
+> Orang tua membuat aturan di rumah.
+11. Aturan di sekolah dibuat oleh ....
+a. orang tua
+*b. sekolah (kepala sekolah dan guru)
+c. pedagang
+d. tetangga
+> Sekolah membuat tata tertib.
+12. Menaati aturan membuat hidup kita ....
+*a. tertib dan nyaman
+b. kacau
+c. sedih
+d. berantakan
+> Aturan membuat keadaan tertib.
+13. Pohon beringin melambangkan ....
+a. keadilan
+*b. persatuan
+c. kemanusiaan
+d. ketuhanan
+> Sila ketiga: persatuan.
+14. Sebelum masuk kelas kita harus ....
+*a. berbaris dengan tertib
+b. berlari-lari
+c. berteriak
+d. mendorong teman
+> Berbaris tertib adalah aturan sekolah.
+15. Kepala banteng melambangkan sila tentang ....
+*a. musyawarah
+b. persatuan
+c. keadilan
+d. ketuhanan
+> Sila keempat tentang kerakyatan dan musyawarah.
+[MENJODOHKAN]
+1. Aturan di rumah = dibuat oleh orang tua
+2. Aturan di sekolah = dibuat oleh sekolah
+3. Disiplin = taat pada aturan dan waktu
+4. Melanggar aturan = mendapat teguran
+5. Membuang sampah = di tempat sampah
+~ dibuat oleh pedagang
+[ISIAN]
+1. Petunjuk yang harus ditaati disebut .... = aturan
+2. Aturan di rumah dibuat oleh .... = orang tua | ayah dan ibu
+3. Sampah harus dibuang di tempat .... = sampah
+4. Datang tepat waktu adalah sikap .... = disiplin
+5. Ketika guru menjelaskan kita harus .... = mendengarkan
+6. Menaati aturan membuat hidup tertib dan .... = nyaman | aman
+7. Sila kelima dilambangkan dengan padi dan .... = kapas
+8. Sila kedua dilambangkan dengan .... = rantai
+9. Seragam sekolah dipakai sesuai .... = jadwal | aturan
+10. Pelanggar aturan akan mendapat teguran atau .... = sanksi | hukuman
+[URAIAN]
+1. Apa yang dimaksud dengan aturan?
+= Petunjuk tentang hal yang boleh dan tidak boleh dilakukan yang harus ditaati.
+2. Sebutkan dua contoh aturan di rumah!
+= Bangun pagi, belajar setiap malam, merapikan tempat tidur, makan bersama.
+3. Sebutkan dua contoh aturan di sekolah!
+= Datang tepat waktu, memakai seragam, menjaga kebersihan kelas, tidak berkelahi.
+4. Apa akibatnya jika kita melanggar aturan?
+= Mendapat teguran atau hukuman, dan keadaan menjadi tidak tertib.
+5. Mengapa kita harus menaati aturan?
+= Agar hidup tertib, aman, nyaman, dan tidak merugikan orang lain.

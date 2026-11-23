@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Pendidikan Pancasila
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Setiap anak memiliki ciri ... yang berbeda.
+*a. fisik
+b. sama
+c. kembar
+d. buatan
+> Setiap anak unik.
+2. Contoh ciri fisik adalah ....
+*a. warna kulit dan bentuk rambut
+b. hobi
+c. makanan kesukaan
+d. cita-cita
+> Ciri fisik terlihat dari tubuh.
+3. Kegemaran disebut juga ....
+a. cita-cita
+*b. hobi
+c. nama
+d. alamat
+> Hobi adalah kegiatan yang disukai.
+4. Andi suka menggambar. Menggambar adalah ... Andi.
+*a. hobi
+b. ciri fisik
+c. nama
+d. alamat
+> Hobi Andi menggambar.
+5. Teman yang berbeda agama harus kita ....
+*a. hormati
+b. jauhi
+c. ejek
+d. musuhi
+> Saling menghormati perbedaan.
+6. Perbedaan di antara teman membuat kita harus saling ....
+a. bertengkar
+*b. menghargai
+c. mengejek
+d. menjauh
+> Perbedaan adalah keindahan.
+7. Identitas diri berisi ....
+*a. nama, alamat, tanggal lahir
+b. nama teman
+c. nama guru
+d. nama sekolah lain
+> Identitas diri menunjukkan siapa kita.
+8. Bersyukur atas diri sendiri artinya ....
+*a. menerima keadaan diri dan berterima kasih kepada Allah
+b. mengeluh setiap hari
+c. iri dengan teman
+d. menyombongkan diri
+> Kita diciptakan Allah dengan baik.
+9. Siti berambut lurus, Rina berambut keriting. Sikap kita adalah ....
+a. mengejek Rina
+*b. menghargai keduanya
+c. memilih teman berambut lurus
+d. tertawa
+> Ciri fisik tidak untuk diejek.
+10. Indonesia memiliki banyak suku, agama, dan ....
+*a. budaya
+b. bulan
+c. matahari
+d. planet
+> Indonesia beragam budaya.
+11. Teman dari suku berbeda tetap ....
+*a. saudara sebangsa
+b. orang asing
+c. musuh
+d. saingan
+> Kita satu bangsa Indonesia.
+12. Sikap menghargai perbedaan sesuai dengan semboyan ....
+*a. Bhinneka Tunggal Ika
+b. Tut Wuri Handayani
+c. Merdeka
+d. Gotong royong
+> Berbeda-beda tetapi tetap satu.
+13. Contoh sikap menghargai pendapat teman adalah ....
+*a. mendengarkan teman berbicara
+b. memotong pembicaraan
+c. menertawakan
+d. pergi begitu saja
+> Mendengarkan dengan baik.
+14. Kegemaran Ali bermain bola, kegemaran Budi membaca. Keduanya ....
+*a. boleh berbeda
+b. harus sama
+c. salah
+d. dilarang
+> Setiap orang boleh punya kegemaran berbeda.
+15. Ciptaan Allah yang paling sempurna adalah ....
+*a. manusia
+b. batu
+c. kursi
+d. buku
+> Manusia diciptakan dalam bentuk terbaik.
+[MENJODOHKAN]
+1. Ciri fisik = warna kulit dan bentuk rambut
+2. Hobi = kegiatan yang disukai
+3. Identitas diri = nama, alamat, tanggal lahir
+4. Bhinneka Tunggal Ika = berbeda-beda tetapi tetap satu
+5. Menghargai perbedaan = tidak mengejek teman
+~ mengejek teman
+[ISIAN]
+1. Kegiatan yang disukai disebut .... = hobi | kegemaran
+2. Warna kulit termasuk ciri .... = fisik
+3. Setiap anak diciptakan Allah .... = berbeda | unik
+4. Teman yang berbeda agama harus kita .... = hormati | hargai
+5. Berbeda-beda tetapi tetap satu disebut Bhinneka Tunggal .... = Ika
+6. Nama, alamat, dan tanggal lahir disebut .... diri. = identitas
+7. Indonesia memiliki banyak suku dan .... = budaya | agama
+8. Menerima keadaan diri dan berterima kasih kepada Allah disebut .... = bersyukur | syukur
+9. Kita tidak boleh .... teman yang berbeda. = mengejek | menghina
+10. Teman dari suku lain adalah saudara .... = sebangsa | setanah air
+[URAIAN]
+1. Sebutkan dua ciri fisik dirimu!
+= Misalnya rambut lurus hitam dan kulit sawo matang.
+2. Apa kegemaranmu?
+= Misalnya membaca, menggambar, atau bermain bola.
+3. Bagaimana sikapmu terhadap teman yang berbeda?
+= Tetap berteman, menghargai, tidak mengejek, dan saling membantu.
+4. Apa arti Bhinneka Tunggal Ika?
+= Berbeda-beda tetapi tetap satu.
+5. Mengapa kita harus bersyukur atas diri sendiri?
+= Karena Allah menciptakan kita dengan sebaik-baiknya dan setiap orang punya kelebihan.

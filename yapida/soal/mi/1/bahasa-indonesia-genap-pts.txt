@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Indonesia
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Kalimat diawali dengan huruf ....
+*a. kapital
+b. kecil
+c. miring
+d. angka
+> Awal kalimat huruf kapital.
+2. Kalimat berita diakhiri dengan tanda ....
+*a. titik (.)
+b. tanya (?)
+c. seru (!)
+d. koma (,)
+> Kalimat berita diakhiri titik.
+3. Penulisan kalimat yang benar adalah ....
+*a. Ibu memasak nasi.
+b. ibu memasak nasi
+c. ibu Memasak Nasi.
+d. IBU memasak nasi
+> Huruf kapital di awal dan titik di akhir.
+4. "Ayah membaca ...." Kata yang tepat untuk melengkapi adalah ....
+*a. koran
+b. nasi
+c. bola
+d. sapu
+> Ayah membaca koran.
+5. Kalimat tanya diakhiri dengan tanda ....
+a. titik
+*b. tanya (?)
+c. seru
+d. koma
+> Kalimat tanya: tanda tanya.
+6. Susunan kata "bola – Adi – menendang" yang benar adalah ....
+*a. Adi menendang bola.
+b. Bola Adi menendang.
+c. Menendang bola Adi.
+d. Adi bola menendang.
+> Siapa – melakukan apa – apa.
+7. Benda yang ada di dalam kelas adalah ....
+*a. papan tulis
+b. kompor
+c. tempat tidur
+d. lemari es
+> Papan tulis ada di kelas.
+8. Kata benda adalah ....
+*a. kursi
+b. berlari
+c. cantik
+d. tidur
+> Kursi nama benda.
+9. "Siti ... buku di perpustakaan." Kata yang tepat adalah ....
+*a. membaca
+b. memasak
+c. menyapu
+d. mencuci
+> Membaca buku.
+10. Tanda seru (!) dipakai pada kalimat ....
+*a. perintah atau ajakan
+b. berita
+c. tanya
+d. nama orang
+> Contoh: Ayo belajar!
+11. Kalimat tanya yang benar adalah ....
+*a. Di mana tasmu?
+b. Tasku di meja.
+c. Ambillah tasmu!
+d. tasku merah
+> Diakhiri tanda tanya.
+12. Kata "kursi" diawali huruf ....
+*a. k
+b. u
+c. r
+d. s
+> Huruf k.
+13. Benda yang ada di dapur adalah ....
+a. papan tulis
+*b. kompor
+c. bangku sekolah
+d. bendera
+> Kompor di dapur.
+14. Huruf kapital dipakai pada ....
+*a. awal kalimat dan nama orang
+b. akhir kalimat
+c. setiap huruf
+d. tengah kata
+> Awal kalimat dan nama diri.
+15. "Ani pergi ke sekolah" Tanda baca di akhir kalimat itu adalah ....
+*a. titik
+b. tanya
+c. seru
+d. koma
+> Kalimat berita: titik.
+[MENJODOHKAN]
+1. Tanda titik = akhir kalimat berita
+2. Tanda tanya = akhir kalimat tanya
+3. Tanda seru = kalimat perintah atau ajakan
+4. Huruf kapital = awal kalimat
+5. Papan tulis = benda di kelas
+~ akhir nama orang
+[ISIAN]
+1. Kalimat diawali dengan huruf .... = kapital | besar
+2. Kalimat berita diakhiri tanda .... = titik
+3. Kalimat tanya diakhiri tanda .... = tanya
+4. "Ayo belajar!" diakhiri tanda .... = seru
+5. Kursi dan meja termasuk kata .... = benda
+6. Benda di dapur untuk memasak adalah .... = kompor
+7. Susunan yang benar: Adi menendang .... = bola
+8. Nama orang diawali huruf .... = kapital | besar
+9. Benda di kelas untuk menulis guru adalah papan .... = tulis
+10. Kalimat "Di mana rumahmu" harus diakhiri tanda .... = tanya
+[URAIAN]
+1. Susunlah kata menjadi kalimat: "pasar – ke – ibu – pergi"!
+= Ibu pergi ke pasar.
+2. Perbaiki penulisan kalimat: "siti makan roti"!
+= Siti makan roti.
+3. Buatlah satu kalimat tanya!
+= Contoh: Kapan kamu berangkat sekolah?
+4. Sebutkan tiga benda yang ada di kelasmu!
+= Meja, kursi, papan tulis, lemari, jam dinding.
+5. Apa perbedaan kalimat berita dan kalimat tanya?
+= Kalimat berita memberi tahu dan diakhiri titik, kalimat tanya menanyakan sesuatu dan diakhiri tanda tanya.
