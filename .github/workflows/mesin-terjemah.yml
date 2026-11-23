@@ -105,9 +105,12 @@ jobs:
         if: ${{ github.event_name != 'workflow_dispatch' || !inputs.move }}
         env:
           KEY_ENCRYPTION_SECRET: ${{ secrets.KEY_ENCRYPTION_SECRET }}
+          # Inputs reach the shell as variables, never pasted into the script text.
+          IN_LANGS: ${{ inputs.langs }}
+          IN_MINUTES: ${{ inputs.minutes || '240' }}
         run: |
           set -o pipefail
-          npx tsx scripts/mesin-terjemah.ts --langs="${{ inputs.langs }}" --minutes="${{ inputs.minutes || '240' }}" | tee /tmp/mt.log
+          npx tsx scripts/mesin-terjemah.ts --langs="$IN_LANGS" --minutes="$IN_MINUTES" | tee /tmp/mt.log
 
       - name: Readiness table from the measurement
         if: ${{ !cancelled() }}

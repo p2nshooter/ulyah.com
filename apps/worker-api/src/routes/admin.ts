@@ -103,7 +103,10 @@ adminRoute.delete("/site-pages", async (c) => {
 
 adminRoute.get("/keys", async (c) => {
   const results = (await listKeySummaries(c.env, { fresh: true }))
-    .map(({ key_fingerprint: _fp, ...k }) => k)
+    .map((k) => ({
+      id: k.id, provider: k.provider, scope: k.scope, status: k.status, quota_used: k.quota_used, quota_limit: k.quota_limit,
+      latency_ms: k.latency_ms, priority: k.priority, donor_label: k.donor_label, last_health_check: k.last_health_check, created_at: k.created_at,
+    }))
     .sort((a, b) => a.priority - b.priority || a.provider.localeCompare(b.provider));
   return c.json({ keys: results, providers: AI_PROVIDERS });
 });

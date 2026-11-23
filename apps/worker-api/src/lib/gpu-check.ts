@@ -58,8 +58,8 @@ async function getJson(url: string, headers: Record<string, string>): Promise<{ 
       body = null;
     }
     return { ok: res.ok, status: res.status, body };
-  } catch (err) {
-    return { ok: false, status: 0, body: String(err) };
+  } catch {
+    return { ok: false, status: 0, body: null };
   }
 }
 
@@ -106,15 +106,14 @@ async function tryRender(env: Env, provider: string, rawKey: string, id: number)
     });
     const type = res.headers.get("content-type") ?? "";
     if (!res.ok || !type.startsWith("image/")) {
-      const t = (await res.text().catch(() => "")).slice(0, 160);
-      return { tried: true, ok: false, detail: `HTTP ${res.status} ${t}` };
+      return { tried: true, ok: false, detail: `HTTP ${res.status}${type ? ` (${type.split(";")[0]})` : ""}` };
     }
     const bytes = await res.arrayBuffer();
     const key = `gpu-check/${id}.png`;
     await env.MEDIA_R2?.put(key, bytes, { httpMetadata: { contentType: type } });
     return { tried: true, ok: true, detail: `${model}: gambar ${Math.round(bytes.byteLength / 1024)} KB`, image: key };
-  } catch (err) {
-    return { tried: true, ok: false, detail: String(err).slice(0, 160) };
+  } catch {
+    return { tried: true, ok: false, detail: "penyedia tidak menjawab" };
   }
 }
 
@@ -154,8 +153,9 @@ export async function runGpuCheck(env: Env, opts: { render?: boolean; limit?: nu
                   : { usable: false, reason: "aktif, tetapi tidak ada jalur render langsung (perlu aplikasi/notebook sendiri)" }
                 : { usable: false, reason: test.dead ? "kunci ditolak penyedia (mati)" : "sementara dibatasi / tidak menjawab" },
             };
-          } catch (err) {
-            return { ...base, alive: false, status: k.status, latency_ms: 0, detail: String(err).slice(0, 200), capabilities: [], render: null, forAxto: { usable: false, reason: "gagal diuji" } };
+          } catch {
+            // Never echo an exception to the admin page: it could carry a provider's response or a stack.
+            return { ...base, alive: false, status: k.status, latency_ms: 0, detail: "gagal diuji (dekripsi atau jaringan)", capabilities: [], render: null, forAxto: { usable: false, reason: "gagal diuji" } };
           }
         })
       ))

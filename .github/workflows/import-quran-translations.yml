@@ -52,10 +52,12 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Import (checked: 114 surahs, 6,236 ayat, numbered, non-empty — or nothing is written)
+      - name: "Import, checked: 114 surahs, 6,236 ayat, numbered, non-empty — or nothing is written"
+        env:
+          # Inputs reach the shell as variables, never pasted into the script text.
+          IN_LANGS: ${{ inputs.langs }}
+          IN_PREFER: ${{ inputs.prefer }}
+          IN_FORCE: ${{ inputs.force && '--force' || '' }}
         run: |
           set -o pipefail
-          npx tsx scripts/import-quran-translations.ts \
-            --langs="${{ inputs.langs }}" \
-            --prefer="${{ inputs.prefer }}" \
-            ${{ inputs.force && '--force' || '' }} | tee /tmp/quran-import.log
+          npx tsx scripts/import-quran-translations.ts --langs="$IN_LANGS" --prefer="$IN_PREFER" $IN_FORCE | tee /tmp/quran-import.log

@@ -348,7 +348,13 @@ export function QuranReaderWidget({ locale, dict }: { locale: string; dict: Dict
         // Ignore a response for a surah the user already navigated away from.
         if (cancelled || r.surah?.id !== wantId) return;
         setAyat(r.ayat ?? []);
-        setTranslationSource(r.translationSource && typeof r.translationSource.credit === "string" ? r.translationSource : null);
+        const src = r.translationSource;
+        // Only a QuranEnc page may become a link; anything else is shown as plain text.
+        setTranslationSource(
+          src && typeof src.credit === "string"
+            ? { credit: src.credit, url: typeof src.url === "string" && /^https:\/\/quranenc\.com\//.test(src.url) ? src.url : undefined }
+            : null
+        );
       })
       .catch(() => {
         if (!cancelled) setLoadError(true);

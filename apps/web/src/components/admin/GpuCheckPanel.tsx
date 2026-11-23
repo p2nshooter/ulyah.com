@@ -116,10 +116,10 @@ export function GpuCheckPanel() {
                             Render: {r.render.ok ? "berhasil" : r.render.tried ? "gagal" : "tidak diuji"} — {r.render.detail}
                           </span>
                         ) : null}
-                        {r.render?.ok ? (
+                        {r.render?.ok && Number.isSafeInteger(r.id) ? (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img
-                            src={`${api.base}/admin/keys/gpu-check/image/${r.id}`}
+                            src={`${api.base}/admin/keys/gpu-check/image/${Math.trunc(Number(r.id))}`}
                             alt=""
                             width={96}
                             height={96}

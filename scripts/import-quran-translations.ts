@@ -133,7 +133,10 @@ async function getJson(url: string): Promise<unknown> {
 async function listAll(): Promise<Entry[]> {
   const raw = await getJson(`${API}/translations/list`);
   const arr = Array.isArray(raw) ? raw : (raw as { translations?: unknown[] }).translations ?? [];
-  return (arr as Entry[]).filter((e) => e && typeof e.key === "string" && typeof e.language_iso_code === "string");
+  // A key becomes part of a URL path and of an R2 object name: only QuranEnc's own key shape is accepted.
+  return (arr as Entry[]).filter(
+    (e) => e && typeof e.key === "string" && /^[a-z0-9_]{2,64}$/.test(e.key) && typeof e.language_iso_code === "string" && /^[a-z]{2,3}$/.test(e.language_iso_code)
+  );
 }
 
 interface Meta {

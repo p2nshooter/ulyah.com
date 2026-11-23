@@ -121,9 +121,16 @@ export async function getKeyRow(env: Env, id: number): Promise<KeyRow | null> {
   }
 }
 
+/** A random integer below `n`, from the platform's cryptographic generator. */
+function randomBelow(n: number): number {
+  const b = new Uint32Array(1);
+  crypto.getRandomValues(b);
+  return b[0]! % n;
+}
+
 function newId(): number {
   // Milliseconds × 1000 + a random tail: unique without a counter (a counter would be a hot key).
-  return Date.now() * 1000 + Math.floor(Math.random() * 1000);
+  return Date.now() * 1000 + randomBelow(1000);
 }
 
 /**
@@ -171,7 +178,7 @@ export async function updateKey(env: Env, id: number, mutate: (row: KeyRow) => K
       forgetPool();
       return next;
     }
-    await new Promise((r) => setTimeout(r, 120 + Math.floor(Math.random() * 300)));
+    await new Promise((r) => setTimeout(r, 120 + randomBelow(300)));
   }
   return null;
 }
@@ -205,8 +212,8 @@ export interface ValidationEntry {
 export async function logValidation(env: Env, e: ValidationEntry): Promise<void> {
   if (!env.MEDIA_R2) return;
   const at = nowIso();
-  const key = `l/key_validation/${at.slice(0, 10)}/${at}-${e.key_id}-${Math.random().toString(36).slice(2, 8)}.json`;
-  await env.MEDIA_R2.put(key, JSON.stringify({ ...e, created_at: at }), { onlyIf: { etagDoesNotMatch: "*" } }).catch(() => null);
+  const objectName = `l/key_validation/${at.slice(0, 10)}/${at}-${e.key_id}-${randomBelow(1e9).toString(36)}.json`;
+  await env.MEDIA_R2.put(objectName, JSON.stringify({ ...e, created_at: at }), { onlyIf: { etagDoesNotMatch: "*" } }).catch(() => null);
 }
 
 /** Group the pool like `GROUP BY provider, scope, status` did. */
