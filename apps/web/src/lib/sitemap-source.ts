@@ -348,6 +348,18 @@ export async function sitemapEntries(group?: SitemapGroup): Promise<MetadataRout
           alternates: { languages: crossDomainLanguages(r) },
         });
       }
+      // One page per surah (app/[locale]/quran/[surah]): 114 indexable pages on every site, each with the full
+      // hreflang graph — the Qur'an in five languages (owner, 22 Nov 2026: "Perbanyak dan Perkuat SEO nya multi
+      // bahasa nya").
+      for (let n = 1; n <= 114; n++) {
+        const r = `/quran/${n}`;
+        entries.push({
+          url: urlFor(l.code, r),
+          changeFrequency: "monthly",
+          priority: 0.8,
+          alternates: { languages: crossDomainLanguages(r) },
+        });
+      }
     }
 
     // Content pages. No per-entry alternates: with thousands of pages that
