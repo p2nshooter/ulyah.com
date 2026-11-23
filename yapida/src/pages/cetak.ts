@@ -87,6 +87,14 @@ function segel(logo: string, teksMelingkar: string, idUnik: string): Raw {
 <polygon points="${gerigi}" fill="url(#yp-foil-r)" stroke="#7a5a0c" stroke-width="1"/><circle cx="100" cy="100" r="78" fill="url(#yp-foil)" stroke="#7a5a0c" stroke-width="1.2"/><circle cx="100" cy="100" r="71" fill="none" stroke="rgba(255,248,220,.75)" stroke-width="1" stroke-dasharray="1.2 2.2"/><path id="${idUnik}" d="M100 100m-60 0a60 60 0 1 1 120 0a60 60 0 1 1-120 0" fill="none"/><text class="segel-teks"><textPath href="#${idUnik}" startOffset="0" textLength="372">${teksMelingkar}</textPath></text><circle cx="100" cy="100" r="45" fill="#fffdf3" stroke="#7a5a0c" stroke-width="1"/><image href="${logo}" x="66" y="66" width="68" height="68" preserveAspectRatio="xMidYMid meet"/></svg></div>`;
 }
 
+/** Mutiara hikmah di sertifikat — hadits sahih yang masyhur, teksnya tetap (tidak pernah disusun mesin). */
+const MOTTO: Record<string, [string, string]> = {
+  tahfidz: ['خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ', 'Sebaik-baik kalian adalah yang mempelajari Al-Qur’an dan mengajarkannya. (HR. Bukhari)'],
+  teladan: ['إِنَّ مِنْ خِيَارِكُمْ أَحْسَنَكُمْ أَخْلَاقًا', 'Sesungguhnya yang terbaik di antara kalian adalah yang paling baik akhlaknya. (HR. Bukhari dan Muslim)'],
+  ilmu: ['مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللّٰهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ', 'Barang siapa menempuh jalan untuk mencari ilmu, Allah mudahkan baginya jalan menuju surga. (HR. Muslim)'],
+  anak: ['بَارَكَ اللّٰهُ فِيْكَ', 'Semoga Allah memberkahimu.'],
+};
+
 export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikasi?: string } = {}): Raw {
   const jenis = JUDUL_PENGHARGAAN[t(d, 'jenis')] ? t(d, 'jenis') : 'lainnya';
   const desain = DESAIN_ID[t(d, 'desain')] ? t(d, 'desain') : 'zamrud';
@@ -96,6 +104,8 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
   const logo = k.logo ? media(k.logo) : LOGO_YAYASAN;
   const idSegel = `segel-${(d.id ?? d.judul).replace(/[^A-Za-z0-9]/g, '').slice(-12) || 'x'}`;
   const melingkar = `✦ ${(k.induk || k.nama).replace(/\s+/g, ' ').trim()} ✦ ${k.kota.toUpperCase()} `;
+  const motto = MOTTO[anak ? 'anak' : jenis === 'tahfidz' ? 'tahfidz' : jenis === 'teladan' ? 'teladan' : 'ilmu']!;
+  const predikat = t(d, 'predikat');
   const ttd = (nama: string, jabatan: string) => (nama ? html`<div class="sert-ttd-blok"><p class="sert-ttd-jab">${jabatan || ' '}</p><div class="sert-ttd-ruang"></div><p class="sert-ttd-nama">${nama}</p></div>` : html`<div class="sert-ttd-blok kosong"></div>`);
   return html`<article class="lembar a4l sert premium d-${desain} j-${jenis}${foto ? ' berfoto' : ''}" lang="id">${raw(FOIL)}
   <div class="sert-latar" aria-hidden="true"><div class="sert-tanda"><img class="tanda-bayang" src="${logo}" alt=""><img class="tanda-terang" src="${logo}" alt=""><img class="tanda-logo" src="${logo}" alt=""></div></div>
@@ -116,7 +126,9 @@ export function sertifikatHtml(d: DokCetak, k: Kop, media: Media, o: { verifikas
         <p class="sert-nama">${d.judul}</p>
         ${SWASH}
         ${t(d, 'kelas') ? html`<p class="sert-kelas">${t(d, 'kelas')}${k.induk ? html` · ${k.nama}` : ''}</p>` : ''}
+        ${predikat ? html`<p class="sert-predikat"><span>Predikat</span><b>${predikat}</b></p>` : ''}
         <p class="sert-kalimat">${kalimatPenghargaan(d.d)}</p>
+        <p class="sert-motto"><span class="sert-motto-ar" lang="ar" dir="rtl">${motto[0]}</span><span class="sert-motto-arti">${motto[1]}</span></p>
       </div>
     </div>
     <footer class="sert-kaki">
