@@ -42,6 +42,8 @@
 
   var track = document.createElement("div");
   track.className = "eco-rail__track";
+  // Each image and the address it will show, kept here (never read back from the page) until the band comes near.
+  var pending = [];
   function tile(p, copy) {
     var a = document.createElement("a");
     a.className = "eco-nft";
@@ -60,7 +62,7 @@
     img.height = 160;
     img.alt = copy ? "" : name;
     img.decoding = "async";
-    img.setAttribute("data-src", "https://axto.io/img/" + p.c + "/" + p.id + ".svg?v=9");
+    pending.push({ img: img, url: "https://axto.io/img/" + p.c + "/" + p.id + ".svg?v=9" });
     var cap = document.createElement("span");
     cap.className = "eco-nft__cap";
     cap.textContent = name;
@@ -76,11 +78,8 @@
   rail.appendChild(track);
 
   function load() {
-    var imgs = track.querySelectorAll("img[data-src]");
-    for (var k = 0; k < imgs.length; k++) {
-      imgs[k].src = imgs[k].getAttribute("data-src");
-      imgs[k].removeAttribute("data-src");
-    }
+    for (var k = 0; k < pending.length; k++) pending[k].img.src = pending[k].url;
+    pending = [];
   }
   if (!("IntersectionObserver" in window)) {
     load();
