@@ -18,7 +18,7 @@ export function kartuPrestasi(x: Ctx, it: IxItem): Raw {
   </a>`;
 }
 
-export interface SaringPrestasi { pilihUnit: string; pilihJenis: string; pilihTahun: string; ada: Set<string>; jenisAda: string[]; tahunAda: string[] }
+export interface SaringPrestasi { pilihUnit: string; pilihJenis: string; pilihTahun: string; ada: Set<string>; jenisAda: string[]; tahunAda: string[]; contoh?: { desain: string; jenis: string }[] }
 
 export function prestasiIndex(x: Ctx, items: IxItem[], o: SaringPrestasi): Raw {
   const taut = (ubah: Partial<Record<'lembaga' | 'jenis' | 'tahun', string>>) => {
@@ -31,6 +31,7 @@ export function prestasiIndex(x: Ctx, items: IxItem[], o: SaringPrestasi): Raw {
   const unitOpsi = [{ slug: '', nama: 'Semua lembaga' }, ...(o.ada.has('yayasan') ? [{ slug: 'yayasan', nama: 'Yayasan' }] : []), ...x.units.filter((u) => o.ada.has(u.slug)).map((u) => ({ slug: u.slug, nama: u.singkat }))];
   const jenisOpsi = [['', 'Semua jenis'] as [string, string], ...JENIS_PENGHARGAAN.filter(([k]) => o.jenisAda.includes(k))];
   return html`${kepalaHalaman('Prestasi & Penghargaan', 'Sertifikat tahfidz, piagam juara lomba, peringkat kelas, dan penghargaan lain untuk santri dan siswa seluruh lembaga Yayasan Al-Huda Yapida — selamat kepada para bintang kami.', [['Prestasi', '/prestasi']], 'Bangga pada anak-anak kami')}
+${o.contoh ? bannerPrestasi(o.contoh) : ''}
 <section class="bagian"><div class="wadah">
   ${unitOpsi.length > 2 ? html`<nav class="saring saring-taut" aria-label="Saring menurut lembaga">${unitOpsi.map((u) => html`<a class="saring-tbl" href="${taut({ lembaga: u.slug })}"${u.slug === o.pilihUnit ? html` aria-current="true"` : ''}>${u.nama}</a>`)}</nav>` : ''}
   ${jenisOpsi.length > 2 ? html`<nav class="saring saring-taut saring-jenis" aria-label="Saring menurut jenis penghargaan">${jenisOpsi.map(([k, l]) => html`<a class="saring-tbl" href="${taut({ jenis: k })}"${k === o.pilihJenis ? html` aria-current="true"` : ''}>${l}</a>`)}</nav>` : ''}
@@ -63,16 +64,6 @@ export function prestasiDetail(x: Ctx, d: Dok, o: { url: string }): Raw {
 </div></section>`;
 }
 
-/** Pita „Bintang Yapida“ di beranda. */
-export function pitaPrestasi(x: Ctx, items: IxItem[]): Raw {
-  if (!items.length) return html``;
-  return html`<section class="bagian bagian-gading pita-prestasi"><div class="wadah">
-  ${kepalaBagian('Prestasi', 'Bintang-bintang Yapida', 'Tahfidz, juara lomba, dan peringkat kelas dari seluruh lembaga.')}
-  <div class="kisi-prestasi">${items.slice(0, 6).map((it) => kartuPrestasi(x, it))}</div>
-  <p class="tengah"><a class="tbl tbl-garis" href="/prestasi">Semua prestasi →</a></p>
-</div></section>`;
-}
-
 /** Bagian prestasi di halaman lembaga. */
 export function bagianPrestasiUnit(x: Ctx, u: UnitItem, items: IxItem[]): Raw {
   if (!items.length) return html``;
@@ -81,4 +72,44 @@ export function bagianPrestasiUnit(x: Ctx, u: UnitItem, items: IxItem[]): Raw {
   <div class="kisi-prestasi">${items.slice(0, 8).map((it) => kartuPrestasi(x, it))}</div>
   <p class="tengah"><a class="tbl tbl-garis" href="/prestasi?lembaga=${u.slug}">Semua prestasi ${u.singkat} →</a></p>
 </div></section>`;
+}
+
+/* ── etalase sertifikat & figur penyemangat (pemilik, 23 Nov 2026: „Sertifikat2 nya tampilin jg di homepage … bikin
+   animasi2 nya di menu sertifikatnya, ambil animasi2 nya dari model orang yg ada di axto.io … yg cocok buat ajakan
+   belajar, atau semangat belajar“). Figur: renderer MODEL axto (seri Pendidikan, kepala ilustrasi — tanpa foto),
+   dibangkitkan sekali oleh scripts/figur-axto.mjs ke public/assets/figur/. */
+const NAMA_DESAIN: Record<string, string> = { zamrud: 'Zamrud & Emas', kaligrafi: 'Zaitun Kaligrafi', malam: 'Hitam Emas', safir: 'Biru Safir', arabesque: 'Arabesque Hijau', ceria: 'Pelangi Ceria' };
+const AJAKAN = ['Ayo raih prestasimu!', 'Hafalkan Al-Qur’an, raih sertifikat tahfidz!', 'Rajin belajar, juara kelas menanti!', 'Setiap usaha belajarmu berharga di sisi Allah.', 'Bismillah, semangat belajar hari ini!'];
+
+export function figurSemangat(nama: 'wisuda' | 'membaca' | 'melambai' | 'semangat', kalimat: string[] = AJAKAN): Raw {
+  return html`<div class="figur-semangat"><img class="figur-tokoh" src="/assets/figur/${nama}.svg" alt="" width="360" height="360" loading="lazy" decoding="async"><p class="figur-gelembung" data-ganti-kata="${JSON.stringify(kalimat)}" aria-live="polite">${kalimat[0]}</p></div>`;
+}
+
+function etalaseContoh(contoh: { desain: string; jenis: string }[], batas: number): Raw {
+  return html`<div class="etalase-gulir" tabindex="0" aria-label="Contoh desain sertifikat">${contoh.slice(0, batas).map((ct, i) => html`<figure class="etalase-kartu muncul">
+    <a class="etalase-bingkai" href="/prestasi/contoh/${i}" target="_blank" rel="noopener" aria-label="Buka contoh sertifikat ${NAMA_DESAIN[ct.desain] ?? ct.desain}"><iframe src="/prestasi/contoh/${i}" title="Contoh sertifikat ${NAMA_DESAIN[ct.desain] ?? ct.desain}" loading="lazy" tabindex="-1"></iframe></a>
+    <figcaption><b>${labelJenis(ct.jenis)}</b><span>Desain ${NAMA_DESAIN[ct.desain] ?? ct.desain}</span></figcaption>
+  </figure>`)}</div>`;
+}
+
+/** Beranda: penghargaan yang sudah terbit (bila ada) + contoh desain sertifikat + figur penyemangat. Selalu tampil. */
+export function etalaseSertifikat(x: Ctx, items: IxItem[], contoh: { desain: string; jenis: string }[]): Raw {
+  return html`<section class="bagian bagian-gading etalase-sert"><div class="wadah">
+  <div class="etalase-kepala">${figurSemangat('wisuda')}<div>${kepalaBagian('Sertifikat & Piagam', 'Penghargaan untuk para bintang Yapida', 'Setiap lembaga menerbitkan sertifikat tahfidz, piagam juara lomba, peringkat kelas, dan santri teladan — siap cetak, berhias emas, dan dapat diperiksa keasliannya.')}
+    <p class="etalase-aksi"><a class="tbl tbl-emas" href="/prestasi">Lihat semua prestasi →</a></p></div></div>
+  ${items.length ? html`<div class="kisi-prestasi">${items.slice(0, 6).map((it) => kartuPrestasi(x, it))}</div>` : ''}
+  <h3 class="etalase-sub">Contoh desain sertifikat lembaga</h3>
+  ${etalaseContoh(contoh, 4)}
+</div></section>`;
+}
+
+/** Menu Prestasi: banner figur bergerak + seluruh contoh desain. */
+export function bannerPrestasi(contoh: { desain: string; jenis: string }[]): Raw {
+  return html`<section class="bagian banner-prestasi"><div class="wadah banner-prestasi-isi">
+  ${figurSemangat('semangat', ['Selamat kepada para bintang Yapida!', 'Prestasimu kebanggaan orang tua dan guru.', 'Terus semangat menghafal dan belajar!'])}
+  <div class="banner-prestasi-teks"><h2>Raih sertifikatmu berikutnya</h2><p>Sertifikat tahfidz, piagam juara, peringkat kelas, dan santri teladan diterbitkan oleh setiap lembaga. Ini contoh desainnya — sertifikat asli memuat nama, foto, nomor, dan tanda tangan kepala lembaga.</p></div>
+  ${figurSemangat('membaca', ['Ayo membaca setiap hari!', 'Ilmu adalah cahaya.', 'Belajar hari ini, berprestasi esok hari.'])}
+  </div>
+  <div class="wadah">${etalaseContoh(contoh, 6)}</div>
+</section>`;
 }

@@ -299,6 +299,18 @@
     if (ios && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua)) tampil(true);
   })();
 
+  /* ── gelembung ajakan figur penyemangat: kalimat berganti tiap 4,5 detik ── */
+  $$('[data-ganti-kata]').forEach(function (g) {
+    var daftar = []; try { daftar = JSON.parse(g.getAttribute('data-ganti-kata')); } catch (e) { return; }
+    if (daftar.length < 2 || tenang) return;
+    var i = 0;
+    setInterval(function () {
+      if (d.hidden) return;
+      g.classList.add('ganti');
+      setTimeout(function () { i = (i + 1) % daftar.length; g.textContent = daftar[i]; g.classList.remove('ganti'); }, 350);
+    }, 4500);
+  });
+
   /* ── informasi akbar: hitung mundur (H-7 · Besok · Hari ini · Berlangsung), berganti tiap 6 detik, bisa disembunyikan ── */
   (function () {
     var WIB = 7 * 3600000, hari = function (iso) { return Date.parse(iso + 'T00:00:00+07:00'); };

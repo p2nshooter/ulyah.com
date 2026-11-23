@@ -18,7 +18,8 @@ import { kesiswaan } from './routes/kesiswaan.ts';
 import { siswa } from './routes/siswa.ts';
 import { guru } from './routes/guru.ts';
 import { pesan } from './routes/pesan.ts';
-import { bagianPrestasiUnit, pitaPrestasi } from './pages/prestasi.ts';
+import { bagianPrestasiUnit, etalaseSertifikat } from './pages/prestasi.ts';
+import { CONTOH_SERTIFIKAT } from './routes/dokumen.ts';
 import { katalog, urutkan } from './data/pustaka.ts';
 import { peringkat, sepuluh } from './data/statistik.ts';
 import { RAK } from './data/buku.ts';
@@ -121,7 +122,7 @@ app.get('/', async (c) => {
     path: '/', aktif: 'beranda',
     title: `${s.nama} — Pendidikan Islam Terpadu di Sukakarya, Bekasi`,
     desc: s.deskripsi,
-    body: berandaPage(s, units, raw(beritaBeranda(x, kabar.filter(aktif).slice(0, 3), galeri.filter(aktif).slice(0, 4), ppdb.filter(aktif)).s + pitaPrestasi(x, prestasi.filter(aktif)).s + pitaPustaka(pilihanPustaka, topBaca, x).s + pitaAplikasi(s).s)), css: [...IBADAH_CSS, 'pustaka.css'], js: [...IBADAH_JS, 'pustaka.js'],
+    body: berandaPage(s, units, raw(beritaBeranda(x, kabar.filter(aktif).slice(0, 3), galeri.filter(aktif).slice(0, 4), ppdb.filter(aktif)).s + etalaseSertifikat(x, prestasi.filter(aktif), CONTOH_SERTIFIKAT).s + pitaPustaka(pilihanPustaka, topBaca, x).s + pitaAplikasi(s).s)), css: [...IBADAH_CSS, 'pustaka.css'], js: [...IBADAH_JS, 'pustaka.js'],
     jsonLd: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: s.nama, alternateName: s.singkatan, url: `${origin(c)}/`, inLanguage: 'id' }],
   });
 });

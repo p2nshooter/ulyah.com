@@ -21,7 +21,7 @@ export type DokCetak = Pick<Dok, 'judul' | 'tanggal' | 'd' | 'unit'> & Partial<P
 
 const t = (d: DokCetak, k: string) => (typeof d.d[k] === 'string' ? (d.d[k] as string).replace(/\s+/g, ' ').trim() : '');
 
-export function halamanCetak(o: { judul: string; isi: Raw; ukuran: 'a4l' | 'a4p'; pratinjau?: boolean; bingkai?: boolean; kembali?: string; info?: string }): string {
+export function halamanCetak(o: { judul: string; isi: Raw; ukuran: 'a4l' | 'a4p'; pratinjau?: boolean | string; bingkai?: boolean; kembali?: string; info?: string }): string {
   return `<!doctype html>
 <html lang="id">
 <head>
@@ -34,7 +34,7 @@ export function halamanCetak(o: { judul: string; isi: Raw; ukuran: 'a4l' | 'a4p'
 </head>
 <body class="cetak uk-${o.ukuran}${o.pratinjau || o.bingkai ? ' muat' : ''}">
 ${o.pratinjau || o.bingkai
-    ? (o.pratinjau ? '<div class="pita-pratinjau" aria-hidden="true">PRATINJAU</div>' : '')
+    ? (o.pratinjau ? `<div class="pita-pratinjau" aria-hidden="true">${typeof o.pratinjau === 'string' ? esc(o.pratinjau) : 'PRATINJAU'}</div>` : '')
     : `<div class="alat"><button type="button" class="alat-tbl utama" data-cetak>🖨️ Cetak / simpan PDF</button>${o.kembali ? `<a class="alat-tbl" href="${esc(o.kembali)}">← Kembali</a>` : ''}<span class="alat-ket">${o.info ? `${o.info} ` : ''}Kertas ${o.ukuran === 'a4l' ? 'A4 mendatar' : 'A4 tegak'} tanpa margin. Di dialog cetak pilih „Simpan sebagai PDF“ untuk berkas PDF.</span></div>`}
 <div class="panggung">${o.isi.s}</div>
 <script src="/assets/cetak.js?v=${ASSET_V}" defer></script>
