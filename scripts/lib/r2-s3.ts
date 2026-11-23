@@ -113,9 +113,11 @@ export class R2S3 {
   async put(
     key: string,
     body: string,
-    opts: { ifMatch?: string; ifNoneMatch?: boolean; contentType?: string } = {}
+    opts: { ifMatch?: string; ifNoneMatch?: boolean; contentType?: string; meta?: Record<string, string> } = {}
   ): Promise<PutResult> {
     const headers: Record<string, string> = { "content-type": opts.contentType ?? "application/json; charset=utf-8" };
+    // R2 keeps x-amz-meta-<name> as the object's customMetadata (what a Worker's LIST returns with include).
+    for (const [k, v] of Object.entries(opts.meta ?? {})) headers[`x-amz-meta-${k}`] = v;
     if (opts.ifMatch) headers["if-match"] = opts.ifMatch;
     if (opts.ifNoneMatch) headers["if-none-match"] = "*";
     const res = await this.send(this.url(key), { method: "PUT", body, headers });

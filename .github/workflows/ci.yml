@@ -171,6 +171,11 @@ jobs:
       - name: Check Qur'an translations are trusted, whole and credited
         run: npx tsx scripts/check-quran-translations.ts
 
+      # The AI / GPU key pool lives in R2 (owner, 22 Nov 2026: "Jgn ke D1"): one encrypted document per key,
+      # create-once by fingerprint, compare-and-swap updates, a secret-free summary from one LIST, no SQL left.
+      - name: Check the key pool is in R2 (create-once, compare-and-swap, no D1)
+        run: npx tsx scripts/check-keypool-r2.ts
+
       # The pool is optional by design — no keys means gtx does the work. That
       # promise was broken silently: with an empty pool the parallel runner
       # built no workers, so no batch was ever attempted and every string came

@@ -3,6 +3,7 @@ import { decryptApiKey } from "@ulyah/shared/crypto";
 import { testApiKey } from "@ulyah/key-pool";
 import type { AiKeyPoolEntry } from "@ulyah/shared/types";
 import type { Env } from "../env.js";
+import { listKeySummaries, getKeyRow, setKeyState, logValidation } from "../lib/keypool-store.js";
 
 /**
  * KeyPoolCoordinator — arsitektur doc §13. Single source of truth for
@@ -10,7 +11,7 @@ import type { Env } from "../env.js";
  * (Hibernation API, so idle admin dashboards cost nothing) to every worker
  * and to the admin dashboard's live "Key Pool Manager" view.
  *
- * D1 (`ai_key_pool`) remains the durable source of truth for the keys
+ * R2 (`c/ai_key_pool/`, lib/keypool-store.ts) remains the durable source of truth for the keys
  * themselves; this Durable Object is the low-latency coordination + fan-out
  * layer on top of it (job queue, health-check ticks, broadcast).
  */
@@ -97,21 +98,21 @@ export class KeyPoolCoordinator implements DurableObject {
   }
 
   private async poolSnapshot() {
-    const { results } = await this.env.DB.prepare(
-      "SELECT id, provider, scope, status, quota_used, quota_limit, latency_ms, priority, donor_label, last_health_check FROM ai_key_pool WHERE status != 'revoked'"
-    ).all();
-    return results;
+    return (await listKeySummaries(this.env)).filter((k) => k.status !== "revoked");
   }
 
-  /** Health Checker (§13.1) — pings every active/slow/pending key and updates status + latency. */
+  /** Health Checker (§13.1) — pings the 25 least-recently-checked active/slow/pending keys (R2, keypool-store.ts). */
   async runHealthTick(): Promise<{ checked: number; changed: number }> {
-    const { results } = await this.env.DB.prepare(
-      "SELECT id, provider, key_ref, key_iv, status FROM ai_key_pool WHERE status IN ('active','slow','pending_verification') LIMIT 25"
-    ).all<{ id: number; provider: string; key_ref: string; key_iv: string; status: string }>();
+    const results = (await listKeySummaries(this.env, { fresh: true }))
+      .filter((k) => k.status === "active" || k.status === "slow" || k.status === "pending_verification")
+      .sort((a, b) => (a.last_health_check ?? "").localeCompare(b.last_health_check ?? ""))
+      .slice(0, 25);
 
     let changed = 0;
-    for (const row of results) {
+    for (const summary of results) {
       try {
+        const row = await getKeyRow(this.env, summary.id);
+        if (!row) continue;
         const rawKey = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, this.env.KEY_ENCRYPTION_SECRET);
         const test = await testApiKey(row.provider, rawKey);
         // Only a CONFIRMED invalid credential is permanently rejected; a
@@ -125,16 +126,8 @@ export class KeyPoolCoordinator implements DurableObject {
             ? "active"
             : "slow";
         if (newStatus !== row.status) changed++;
-        await this.env.DB.prepare(
-          "UPDATE ai_key_pool SET status = ?, latency_ms = ?, last_health_check = datetime('now') WHERE id = ?"
-        )
-          .bind(newStatus, test.latencyMs, row.id)
-          .run();
-        await this.env.DB.prepare(
-          "INSERT INTO key_validation_log (key_id, test_type, passed, latency_ms, safety_score, detail) VALUES (?, 'latency_probe', ?, ?, ?, ?)"
-        )
-          .bind(row.id, test.passed ? 1 : 0, test.latencyMs, test.safetyScore, test.detail)
-          .run();
+        await setKeyState(this.env, row.id, { status: newStatus, latency_ms: test.latencyMs, passed: test.passed });
+        await logValidation(this.env, { key_id: row.id, test_type: "latency_probe", passed: test.passed, latency_ms: test.latencyMs, safety_score: test.safetyScore, detail: test.detail });
       } catch {
         // decryption/network failure — leave status as-is, will retry next tick
       }
