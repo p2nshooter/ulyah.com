@@ -32,6 +32,10 @@ interface Matn {
   quran_refs: QuranRef[];
   hadits_refs: string[];
 }
+/** What a passage costs a leaf: the matn, its terjemah and its syarah — everything the voice reads there. */
+const leafCost = (m: { text_ar: string; translation_id?: string | null; explanation_id?: string | null }) =>
+  (m.text_ar?.length ?? 0) + (m.translation_id?.length ?? 0) + (m.explanation_id?.length ?? 0);
+
 interface Chapter {
   id: number;
   order: number;
@@ -890,9 +894,9 @@ export function PesantrenKitabReader({
                       if (readingRef.current) stopAutoRead();
                       setTimeout(() => void startAutoRead(audioMode, m.id), 150);
                     }}
-                    activePart={
-                      readingPos?.part === "ar" || readingPos?.part === "tr" ? readingPos.part : null
-                    }
+                    activePart={readingPos?.part ?? null}
+                    // A leaf holds the syarah too, so it is paginated by everything the voice will read on it.
+                    cost={leafCost}
                     mode={theme === "dark" ? "night" : theme === "sepia" ? "sepia" : "light"}
                     size={LEAF_SIZE[fontSize]}
                     labels={{
@@ -916,6 +920,16 @@ export function PesantrenKitabReader({
                         charIndex={active ? (readingPos?.charIndex ?? -1) : -1}
                       />
                     )}
+                    explanationLabel={t.explanation}
+                    renderExplanation={(m, active) =>
+                      m.explanation_id ? (
+                        <SpokenText
+                          text={m.explanation_id}
+                          active={active}
+                          charIndex={active ? (readingPos?.charIndex ?? -1) : -1}
+                        />
+                      ) : null
+                    }
                   />
                 </div>
               ) : (

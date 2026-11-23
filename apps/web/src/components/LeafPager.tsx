@@ -32,7 +32,7 @@ interface Props<T extends LeafItem> {
   /** The passage being narrated, if any — the leaf follows it. */
   activeId?: number | null;
   /** Which part of the passage is being read, so only that one highlights. */
-  activePart?: "ar" | "tr" | null;
+  activePart?: "ar" | "tr" | "ex" | null;
   mode?: LeafMode;
   size?: LeafSize;
   labels: Labels;
@@ -43,6 +43,11 @@ interface Props<T extends LeafItem> {
   /** Whether this passage has a terjemah at all — hadits keep it under a
    *  different column name than the kitab do. */
   hasTranslation?: (item: T) => boolean;
+  /** The syarah / explanation under the terjemah, when the reader narrates one too (owner, 22 Nov 2026: "full
+   *  otomatis voice hingga selesai satu kitab + tafsirnya") — what the voice reads must be on the page. */
+  renderExplanation?: (item: T, active: boolean) => React.ReactNode;
+  /** Its heading ("Penjelasan"); empty for none. */
+  explanationLabel?: string;
   /** Anything that belongs under the passage: narrator, grade, source. */
   renderFooter?: (item: T) => React.ReactNode;
   /** How much of a leaf one passage fills, when it is not `translation_id`. */
@@ -67,6 +72,8 @@ export default function LeafPager<T extends LeafItem>({
   renderMatn,
   renderTranslation,
   hasTranslation,
+  renderExplanation,
+  explanationLabel = "",
   renderFooter,
   cost,
   onSelect,
@@ -182,6 +189,17 @@ export default function LeafPager<T extends LeafItem>({
                   </div>
                 </div>
               ) : null}
+              {renderExplanation ? (() => {
+                const ex = renderExplanation(item, active && activePart === "ex");
+                return ex ? (
+                  <div className="leaf-tarjamah mt-3 opacity-90">
+                    {explanationLabel ? (
+                      <p className="mb-1 text-[10px] font-semibold uppercase tracking-wide opacity-60">{explanationLabel}</p>
+                    ) : null}
+                    <div className="text-sm leading-relaxed">{ex}</div>
+                  </div>
+                ) : null;
+              })() : null}
               {renderFooter ? <div className="mt-3">{renderFooter(item)}</div> : null}
             </article>
           );
