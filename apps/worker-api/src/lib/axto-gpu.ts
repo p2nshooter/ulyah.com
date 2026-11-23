@@ -93,6 +93,8 @@ interface VideoJob { c: string; id: number; img: string; prompt: string }
 interface VideoDone { done: Record<string, { at: string; bytes: number; space: string }>; failed: Record<string, number> }
 
 const VIDEO_PER_TICK = 2;
+const VIDEO_TIMEOUT_MS = 150_000;
+const VIDEO_BUDGET_MS = 11 * 60_000;
 const VIDEO_NEGATIVE = "text, letters, words, writing, numbers, subtitles, watermark, logo, signature, people, face, blurry, distorted, deformed, melting, static, frozen, low quality";
 
 /** Space gambar→video ZeroGPU (Gradio REST: POST /gradio_api/call/<api>, lalu GET SSE hasilnya). */
@@ -113,24 +115,26 @@ export function urlVideo(base: string, out: unknown): string | null {
 }
 
 /** Satu render video lewat satu Space. null = gagal (pindah Space/kunci). */
-export async function renderVideo(rawKey: string, spec: (typeof VIDEO_SPACES)[number], job: VideoJob, fetchImpl: typeof fetch = fetch): Promise<ArrayBuffer | null> {
+export async function renderVideo(rawKey: string, spec: (typeof VIDEO_SPACES)[number], job: VideoJob, fetchImpl: typeof fetch = fetch, ms = VIDEO_TIMEOUT_MS): Promise<ArrayBuffer | null> {
   const base = `https://${spec.space}.hf.space/gradio_api`;
   const auth = { Authorization: `Bearer ${rawKey}` };
+  // antrean ZeroGPU bisa panjang; tick terjadwal Workers dibatasi 15 menit → tiap render dipotong (lalu Space/kunci berikutnya)
+  const signal = AbortSignal.timeout(ms);
   try {
     const img = { path: job.img, meta: { _type: "gradio.FileData" } };
     const seed = job.id % 2_147_483_647;
-    const r = await fetchImpl(`${base}/call/${spec.api}`, { method: "POST", headers: { ...auth, "Content-Type": "application/json" }, body: JSON.stringify({ data: spec.data(img, job.prompt, seed) }) });
+    const r = await fetchImpl(`${base}/call/${spec.api}`, { method: "POST", signal, headers: { ...auth, "Content-Type": "application/json" }, body: JSON.stringify({ data: spec.data(img, job.prompt, seed) }) });
     if (!r.ok) return null;
     const ev = ((await r.json()) as { event_id?: string }).event_id;
     if (!ev) return null;
-    const s = await fetchImpl(`${base}/call/${spec.api}/${ev}`, { headers: auth });
+    const s = await fetchImpl(`${base}/call/${spec.api}/${ev}`, { signal, headers: auth });
     if (!s.ok) return null;
     const sse = await s.text();
     const m = /event:\s*complete\s*\r?\ndata:\s*(.+)/.exec(sse);
     if (!m?.[1]) return null;
     const url = urlVideo(base, JSON.parse(m[1]));
     if (!url) return null;
-    const v = await fetchImpl(url, { headers: auth });
+    const v = await fetchImpl(url, { signal, headers: auth });
     if (!v.ok) return null;
     const bytes = await v.arrayBuffer();
     return bytes.byteLength > 20_000 ? bytes : null;
@@ -150,10 +154,13 @@ export async function axtoVideoTick(env: Env, fetchImpl: typeof fetch = fetch): 
   const keys = (await listKeySummaries(env, { fresh: false })).filter((k) => (k.provider === "hf-zerogpu" || k.provider === "hf-inference") && (k.status === "active" || k.status === "slow"));
   if (!keys.length) return 0;
   const start = Math.floor(Date.now() / 900_000) % keys.length;
+  const until = Date.now() + VIDEO_BUDGET_MS;
+  const save = () => env.MEDIA_R2!.put("axto-gpu/video-done.json", JSON.stringify(state), { httpMetadata: { contentType: "application/json" } });
   let made = 0;
   for (const [i, job] of pending.entries()) {
+    if (Date.now() > until) break;
     let ok = false;
-    for (let t = 0; t < Math.min(3, keys.length) && !ok; t += 1) {
+    for (let t = 0; t < Math.min(3, keys.length) && !ok && Date.now() < until; t += 1) {
       const k = keys[(start + i + t) % keys.length];
       if (!k) continue;
       try {
@@ -161,6 +168,7 @@ export async function axtoVideoTick(env: Env, fetchImpl: typeof fetch = fetch): 
         if (!row) continue;
         const raw = await decryptApiKey({ ciphertext: row.key_ref, iv: row.key_iv }, env.KEY_ENCRYPTION_SECRET);
         for (const spec of VIDEO_SPACES) {
+          if (Date.now() > until) break;
           const vid = await renderVideo(raw, spec, job, fetchImpl);
           if (!vid) continue;
           await env.MEDIA_R2.put(`axto-gpu/vid/${job.c}/${job.id}.mp4`, vid, { httpMetadata: { contentType: "video/mp4" } });
@@ -174,7 +182,7 @@ export async function axtoVideoTick(env: Env, fetchImpl: typeof fetch = fetch): 
       }
     }
     if (!ok) state.failed[`${job.c}:${job.id}`] = (state.failed[`${job.c}:${job.id}`] ?? 0) + 1;
+    await save();
   }
-  await env.MEDIA_R2.put("axto-gpu/video-done.json", JSON.stringify(state), { httpMetadata: { contentType: "application/json" } });
   return made;
 }
