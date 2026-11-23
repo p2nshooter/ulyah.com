@@ -1,0 +1,83 @@
+name: yapida — Ensiklopedia Hadits + penjelasan Indonesia (HadeethEnc)
+
+# Pemilik (18 Nov 2026): „tambahin dari ulyah.com kitab2 haditsnya dan terjemahin serta penjelasanya make bahasa
+# indonesia“ · (23 Nov 2026) „di yapida kitab2 hadits belum masuk“.
+# Kitab hadits lengkap (Bukhari, Muslim, …) datang dari seed ulyah.com dengan terjemah Indonesia. Penjelasannya (syarah,
+# faedah, kosakata) diambil utuh dari HadeethEnc.com bahasa Indonesia — lembaga yang sama dengan QuranEnc, sumber
+# tafsir tepercaya ulyah.com — tidak pernah dikarang atau diterjemahkan mesin. yapida/scripts/ambil-hadeethenc.ts
+# menyimpan ke yapida/pustaka/hadeethenc/, hasilnya di-commit ke main, lalu deploy-yapida.yml menayangkannya sebagai
+# rak „Ensiklopedia Hadits“ di perpustakaan digital.
+# Tahan gangguan: hasil disimpan tiap 50 hadits dan di-commit walau langkah sebelumnya gagal; jalan berikutnya hanya
+# mengambil yang belum ada. Mingguan dengan `--segar` di hari Senin pertama tiap bulan agar mengikuti versi terbaru.
+
+on:
+  workflow_dispatch:
+    inputs:
+      menit:
+        description: "Batas waktu mengambil (menit)"
+        required: false
+        default: "150"
+      segar:
+        description: "Ambil ulang semuanya (ikuti versi terbaru HadeethEnc)"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    - cron: "17 2 * * 3"
+
+concurrency:
+  group: yapida-hadits-syarah
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  ambil:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: yapida
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - name: Ambil hadits + penjelasan
+        env:
+          IN_MENIT: ${{ inputs.menit || '150' }}
+          IN_SEGAR: ${{ inputs.segar && '--segar' || '' }}
+        run: |
+          set -o pipefail
+          npx tsx scripts/ambil-hadeethenc.ts --menit="$IN_MENIT" $IN_SEGAR | tee /tmp/he.log
+          { echo "### Ensiklopedia Hadits (HadeethEnc, bahasa Indonesia)"; tail -n 5 /tmp/he.log | sed 's/^/- /'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Pustaka masih terbangun
+        run: npx tsx scripts/buat-pustaka.ts
+      - name: Commit ke main
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          if git diff --quiet -- pustaka/hadeethenc && [ -z "$(git ls-files --others --exclude-standard pustaka/hadeethenc)" ]; then echo "Tidak ada yang baru."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pustaka/hadeethenc
+          git commit -m "yapida: Ensiklopedia Hadits — penjelasan Indonesia dari HadeethEnc" || exit 0
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase FETCH_HEAD || { git rebase --abort; echo "rebase bentrok — jalan berikutnya mengulang"; exit 0; }
+            if git push origin HEAD:main; then
+              echo "terkirim pada percobaan ${attempt}"
+              # push dengan GITHUB_TOKEN tidak memicu workflow lain — deploy dipanggil langsung agar segera tayang.
+              gh workflow run deploy-yapida.yml --ref main || echo "deploy terjadwal harian akan menayangkannya"
+              exit 0
+            fi
+            sleep $(( (RANDOM % 8) + attempt * 3 ))
+          done
+          exit 1

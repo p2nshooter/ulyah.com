@@ -1,6 +1,6 @@
 /** Halaman publik. Semua isi datang dari dokumen R2 (pengaturan situs, lembaga, halaman) — tidak ada teks lembaga di sini. */
 import { html, raw, type Raw } from '../lib/html.ts';
-import { KELOMPOK, URUTAN_KELOMPOK, type Halaman, type Kelompok, type Situs, type Unit } from '../data/model.ts';
+import { KELOMPOK, URUTAN_KELOMPOK, labelStatistik, type Halaman, type Kelompok, type Situs, type Unit } from '../data/model.ts';
 import type { UnitItem } from '../data/site.ts';
 import { tanggal } from '../lib/text.ts';
 import { alamatLengkap, hiasan, icon } from './layout.ts';
@@ -194,6 +194,8 @@ export function unitPage(u: Unit, sebidang: UnitItem[], isi: Raw = raw('')): Raw
   if (u.kepala) fakta.push([u.kepala.jabatan, u.kepala.nama]);
   if (u.jadwal) fakta.push(['Waktu belajar', u.jadwal]);
   if (u.kurikulum) fakta.push(['Kurikulum', u.kurikulum]);
+  if (u.nsm) fakta.push([labelStatistik(u), u.nsm]);
+  if (u.npsn) fakta.push(['NPSN', u.npsn]);
   if (u.alamat) fakta.push(['Alamat', u.alamat]);
   const ko = u.kontak ?? {};
   const so = u.sosmed ?? {};

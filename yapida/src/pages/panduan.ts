@@ -42,7 +42,7 @@ export const PANDUAN_PORTAL: BagianPanduan[] = [
     id: 'masuk', kat: 'dasar', tur: '/portal', judul: 'Masuk portal & keamanan PIN', ikon: '🔐', tingkat: 0,
     ringkas: 'Portal pengelola dibuka dari logo situs. Setiap akun memakai PIN 5 angka pada papan angka yang posisinya selalu diacak.',
     langkah: [
-      'Buka www.yapida.sch.id, ketuk logo Yapida di kiri atas 5 kali (atau buka alamat /masuk).',
+      'Buka www.yapida.sch.id, ketuk logo Yapida di kiri atas 3 kali (atau buka alamat /masuk).',
       'Pilih nama akun Anda dari daftar.',
       'Ketik PIN 5 angka pada papan angka. Posisi angka diacak setiap kali agar PIN tidak mudah diintip.',
       'Akun baru wajib mengganti PIN awal: buka menu Akun → Ganti PIN, ketik PIN lama lalu PIN baru dua kali.',

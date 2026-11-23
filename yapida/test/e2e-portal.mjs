@@ -1,4 +1,4 @@
-/* Uji ujung-ke-ujung portal yapida.sch.id: pemasangan pertama dengan kode, papan PIN acak bergambar, ketuk logo 5×,
+/* Uji ujung-ke-ujung portal yapida.sch.id: pemasangan pertama dengan kode, papan PIN acak bergambar, ketuk logo 3×,
  * akun per lembaga, hak akses per peran, isi (kabar + foto, album, video, PPDB), formulir pendaftaran dan kontak.
  * Dijalankan oleh test/run-e2e.sh setelah e2e.mjs, terhadap wrangler dev yang sama.
  * Kode pemasangan uji: UJI00-UJI00-UJI00-UJI00 (hash-nya di .dev.vars buatan run-e2e.sh; kode produksi berbeda). */
@@ -34,7 +34,7 @@ async function ketukPin(page, pin) {
   for (const a of pin) await page.click(`[data-pos="${peta.get(a)}"]`);
 }
 
-/* ── 1. pintu: ketuk logo 5× membuka /masuk; sekali ketuk tetap ke beranda ── */
+/* ── 1. pintu: ketuk logo 3× membuka /masuk; sekali ketuk tetap ke beranda ── */
 {
   const { ctx, page } = await buka();
   await page.goto(BASE + '/profil');
@@ -42,9 +42,9 @@ async function ketukPin(page, pin) {
   await page.click('[data-logo-ketuk]');
   await page.waitForURL(BASE + '/');
   ok(page.url() === BASE + '/', 'sekali ketuk logo → beranda');
-  for (let i = 0; i < 5; i++) await page.click('[data-logo-ketuk]', { delay: 30 });
+  for (let i = 0; i < 3; i++) await page.click('[data-logo-ketuk]', { delay: 30 });
   await page.waitForURL(/\/masuk$/);
-  ok(/\/masuk$/.test(page.url()), 'lima ketukan logo → halaman masuk');
+  ok(/\/masuk$/.test(page.url()), 'tiga ketukan logo → halaman masuk');
   await ctx.close();
 }
 

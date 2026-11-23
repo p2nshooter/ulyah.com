@@ -286,6 +286,52 @@ for (const [kol, info] of Object.entries(KITAB_HADITS)) {
   }, bab);
 }
 
+/* ── Ensiklopedia Hadits + penjelasan Indonesia (HadeethEnc, scripts/ambil-hadeethenc.ts) ──────────────
+   Pemilik: „kitab2 haditsnya … terjemahin serta penjelasanya make bahasa indonesia“. Satu buku per kategori akar
+   (Akidah, Fikih, Keutamaan & Adab, …), bab = subkategori (≤ 25 hadits per bab). Setiap hadits: judul, matan Arab,
+   terjemah, takhrij & derajat, penjelasan, pelajaran (faedah), dan kartu kosakata yang bisa dibalik — semuanya utuh dari
+   HadeethEnc bahasa Indonesia, tidak ada yang dikarang atau diterjemahkan mesin. */
+
+const HE = join(KARYA, 'hadeethenc');
+const PER_BAB_HE = 25;
+for (const f of (() => { try { return readdirSync(HE).filter((x) => /^\d+\.json$/.test(x)).sort((a, b) => parseInt(a) - parseInt(b)); } catch { return []; } })()) {
+  const b = JSON.parse(readFileSync(join(HE, f), 'utf8')) as import('./ambil-hadeethenc.ts').BerkasAkar;
+  if (!b.hadits?.length) continue;
+  const judulAnak = new Map(b.anak.map((k) => [k.id, bersih(k.judul)]));
+  const kelompok = new Map<string, typeof b.hadits>();
+  for (const h of b.hadits) {
+    const sub = h.kategori.find((k) => judulAnak.has(k)) ?? '';
+    kelompok.set(sub, [...(kelompok.get(sub) ?? []), h]);
+  }
+  const bab: Bab[] = [];
+  for (const [sub, hs] of [...kelompok].sort((x, y) => (x[0] === '' ? 1 : y[0] === '' ? -1 : Number(x[0]) - Number(y[0])))) {
+    const nama = judulAnak.get(sub) || bersih(b.akar.judul);
+    for (let i = 0; i < hs.length; i += PER_BAB_HE) {
+      const potong = hs.slice(i, i + PER_BAB_HE);
+      bab.push({
+        n: bab.length + 1, judul: hs.length > PER_BAB_HE ? `${nama} (${i / PER_BAB_HE + 1})` : nama,
+        blok: potong.flatMap((h) => [
+          ...blok('h', h.judul), ...blok('ar', h.ar), ...blok('tr', h.terjemah),
+          ...blok('cat', [h.takhrij ? `Takhrij: ${h.takhrij}` : '', h.derajat ? `Derajat: ${h.derajat}` : ''].filter(Boolean).join(' · ')),
+          ...blok('cat', 'Penjelasan hadits'),
+          ...h.penjelasan.split(/\n+/).flatMap((p) => blok('p', p)),
+          ...(h.faedah.length ? [...blok('cat', 'Pelajaran dari hadits ini'), ...h.faedah.flatMap((x) => blok('li', x))] : []),
+          ...h.kosakata.slice(0, 6).flatMap((w) => blok('kartu', `${w.kata.replace(/\|/g, '/')} | ${w.arti.replace(/\|/g, '/')}`)),
+          ...blok('cat', `Sumber: HadeethEnc.com — hadits no. ${h.id}`),
+        ]),
+      });
+    }
+  }
+  tambah({
+    id: `k-he-${b.akar.id}`, judul: `Ensiklopedia Hadits: ${bersih(b.akar.judul)}`, judulAr: 'موسوعة الأحاديث النبوية المترجمة', penulis: 'Markaz Ruwwad At-Tarjamah (HadeethEnc.com)',
+    rak: ['hadits', 'guru', 'kitab'], suara: 'dewasa', mapel: 'Hadits', bahasa: 'ar',
+    ringkasan: `${b.hadits.length.toLocaleString('id-ID')} hadits tentang ${bersih(b.akar.judul).toLowerCase()}: matan Arab, terjemah Indonesia, takhrij dan derajat, penjelasan (syarah) berbahasa Indonesia, pelajaran dari setiap hadits, dan kartu kosakata.`,
+    sumber: 'HadeethEnc.com — Ensiklopedia Hadits Nabi Terjemah (Markaz Ruwwad At-Tarjamah), bahasa Indonesia', sumberUrl: 'https://hadeethenc.com/id/home',
+    lisensi: 'Diterbitkan ulang tanpa perubahan dengan menyebut sumber, sesuai syarat HadeethEnc.com', lisensiUrl: 'https://hadeethenc.com/id/home',
+    tag: ['hadits', 'syarah', 'penjelasan hadits', bersih(b.akar.judul).toLowerCase()],
+  }, bab);
+}
+
 /* ── Buku Pelajaran Yapida: satu buku per mapel per kelas (pelajaran/<jenjang>/<kelas>/<slug>.md, scripts/pelajaran.ts) ── */
 
 for (const n of semuaNaskah()) {

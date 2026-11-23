@@ -267,3 +267,22 @@ test('BSE pembaca pemula: baris huruf kecil tanpa tanda baca menjadi kalimat ber
   assert.deepEqual(blok.map((b) => b.t), ['h', 'p', 'cat']);
   assert.equal(blok[1]!.x, 'Mari bermain di luar kelas. Ambil sebuah kardus.');
 });
+
+test('HadeethEnc: hadits tanpa matan Arab, terjemah, atau penjelasan Indonesia ditolak; yang lengkap disimpan utuh', async () => {
+  const { uraiHadits } = await import('../scripts/ambil-hadeethenc.ts');
+  const lengkap = {
+    id: '3058', title: 'Amal tergantung niat', hadeeth_ar: 'إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ', hadeeth: 'Sesungguhnya amal tergantung niatnya.',
+    attribution: 'Muttafaq ‘alaih', grade: 'Sahih', explanation: 'Penjelasan.\r\nBaris kedua.', hints: ['Niat syarat diterimanya amal.', ''],
+    words_meanings: [{ word: 'النيات', meaning: 'niat-niat' }, { word: '', meaning: 'x' }], categories: [5, '7'],
+  };
+  const h = uraiHadits(lengkap);
+  assert.ok(typeof h === 'object');
+  assert.equal(h.penjelasan, 'Penjelasan.\nBaris kedua.');
+  assert.deepEqual(h.faedah, ['Niat syarat diterimanya amal.']);
+  assert.deepEqual(h.kosakata, [{ kata: 'النيات', arti: 'niat-niat' }]);
+  assert.deepEqual(h.kategori, ['5', '7']);
+  assert.equal(uraiHadits({ ...lengkap, hadeeth_ar: '' }), 'matan Arab kosong');
+  assert.equal(uraiHadits({ ...lengkap, hadeeth: 'إِنَّمَا' }), 'terjemah Indonesia kosong');
+  assert.equal(uraiHadits({ ...lengkap, explanation: '' }), 'penjelasan kosong');
+  assert.equal(uraiHadits({ ...lengkap, id: 'x' }), 'id tidak sah');
+});

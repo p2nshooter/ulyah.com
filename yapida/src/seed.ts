@@ -8,7 +8,7 @@
 import type { Halaman, Situs, Unit } from './data/model.ts';
 import { renderMarkdown } from './lib/markdown.ts';
 
-export const SEED_VERSION = 3;
+export const SEED_VERSION = 4;
 
 const ALAMAT = 'Jl. Yapida No. 3, Kp. Kuda-kuda RT 003 RW 002, Desa Sukakarya, Kecamatan Sukakarya, Kabupaten Bekasi, Jawa Barat 17641';
 
@@ -138,6 +138,7 @@ export const SEED_UNITS: UnitAwal[] = [
   }),
   awal({
     slug: 'tpq-al-huda', nama: 'TPQ Al Huda', singkat: 'TPQ Al Huda', jenis: 'Taman Pendidikan Al-Qur’an', kelompok: 'nonformal', urut: 7, suara: 'anak',
+    nsm: '411232161641',
     ringkas: 'Taman Pendidikan Al-Qur’an: tempat anak-anak di sekitar Yapida belajar membaca Al-Qur’an tahap demi tahap.',
     profil: 'TPQ Al Huda adalah Taman Pendidikan Al-Qur’an bagi anak-anak di sekitar Yapida. Di TPQ, anak belajar mengenal huruf hijaiyah dan membaca Al-Qur’an dengan tajwid, tahap demi tahap.\n\nJadwal mengaji dan pendaftaran diumumkan pengurus TPQ melalui halaman ini.',
   }),
@@ -281,6 +282,9 @@ export const SEED_SDM: SdmAwal[] = [
  * jadi suntingan admin di portal tidak pernah ditimpa. Pemilik, 15 Nov 2026: „Ngambil namanya jgn ngarang …“.
  */
 export const TAMBALAN_NAMA: { lama: string; baru: string }[] = [{ lama: 'Yayah Hipdiyah, S.Pd.I.', baru: 'Yayah Hifdiyah, S.Pd.I.' }];
+/** Nomor statistik dari pemilik (23 Nov 2026: „nomer statistik TPQ Al-Huda … 411232161641“). Ditulis hanya bila
+ *  lembaganya belum punya nomor — nomor yang sudah diisi admin lembaga tidak pernah ditimpa. */
+export const TAMBALAN_NSM: Record<string, string> = { 'tpq-al-huda': '411232161641' };
 export const TAMBALAN_KEPALA: Record<string, { lama?: string; baru: { nama: string; jabatan: string } }> = {
   'mi-al-huda': { lama: 'Fadli Robbi', baru: { nama: 'Fadli Robbi, S.Ag.', jabatan: 'Kepala Madrasah' } },
   'ra-al-huda': { baru: { nama: 'Hani Nurmawati', jabatan: 'Kepala RA' } },

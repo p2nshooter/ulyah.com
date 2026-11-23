@@ -64,7 +64,7 @@ export interface Unit {
   sosmed?: Sosmed;
   /** ID kanal YouTube (UC…) untuk menarik video kegiatan otomatis. */
   ytKanal?: string;
-  /** Nomor Statistik Madrasah (12 angka) & NPSN — impor file master mencocokkan siswa ke lembaga lewat NSM. */
+  /** Nomor statistik 12 angka (NSM madrasah, NSPQ TPQ, NSPP pesantren) & NPSN — impor file master mencocokkan siswa ke lembaga lewat NSM. */
   nsm?: string;
   npsn?: string;
   nipKepala?: string;
@@ -72,6 +72,15 @@ export interface Unit {
   suara: Suara;
   aktif: boolean;
   ubah: number;
+}
+
+/** Nama nomor statistik menurut jenis lembaga: madrasah → NSM, TPQ → NSPQ (Nomor Statistik Pendidikan Al-Qur’an). */
+export function labelStatistik(u: Pick<Unit, 'jenis' | 'slug'>): string {
+  const j = `${u.jenis} ${u.slug}`.toLowerCase();
+  if (/tpq|pendidikan al-qur/.test(j)) return 'Nomor Statistik TPQ (NSPQ)';
+  if (/madrasah|raudhatul|\b(ra|mi|mts)-/.test(j)) return 'NSM (Nomor Statistik Madrasah)';
+  if (/pesantren|ponpes/.test(j)) return 'NSPP (Nomor Statistik Pondok Pesantren)';
+  return 'Nomor statistik';
 }
 
 /** Ringkasan lembaga di customMetadata — daftar lembaga terbaca dengan satu operasi list. */
