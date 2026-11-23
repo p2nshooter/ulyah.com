@@ -181,6 +181,11 @@ jobs:
       - name: Check the article-site English engine
         run: npx tsx scripts/check-translate-sites-en.ts
 
+      # The network band on every article site carries luaja.com's own guide (owner, 23 Nov 2026); the file the engine
+      # ships must be exactly what luaja's figure draws today.
+      - name: Check the LUAJA guide in the network band is in step with luaja.com
+        run: npx tsx scripts/build-eco-luaja.ts --check
+
       # The pool is optional by design — no keys means gtx does the work. That
       # promise was broken silently: with an empty pool the parallel runner
       # built no workers, so no batch was ever attempted and every string came

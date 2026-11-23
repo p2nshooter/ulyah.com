@@ -126,6 +126,30 @@ folder situs, dan README cara memasangnya di akun Cloudflare pembeli. Sebelum
 diserahkan, ganti `adsense` dan `trackId` di `site.json` (lihat README di dalam
 arsip).
 
+## Pita jaringan: axto.io + luaja.com (semua situs)
+
+Perintah pemilik, 23 Nov 2026: „Promosikan axto.io dengan bahasa yg elegan, profesional dan tempat yg enak di pandang
+dan NFT bergulir random misal 5-10 NFT random bergulir semua stock NFT exclusive, promosikan di seluruh website artikel,
+promosikan juga luaja.com, sederhana aja, ambil animasi model di luaja.com dan tambahkan text promosi, bikin seperti
+banner berjalan".
+
+- `_engine/lib/eco.mjs` memasang satu pita di **setiap halaman setiap situs** (kedua edisi bahasa), di atas footer,
+  di luar artikel. Pita ini berlabel „Aus unserem Netzwerk / De nuestra red / From our network".
+- **Kartu AXTO**: teks dalam bahasa edisi, tombol ke `axto.io/en/exclusive`, dan barisan 5–10 karya acak dari
+  seluruh stok eksklusif (lima koleksi × 10.000). Barisan diundi ulang setiap kali halaman dibuka oleh
+  `_engine/assets/engine-eco.js`.
+  - Gambar (SVG animasi milik axto.io) baru dimuat saat pita mendekati layar.
+  - Gerak berhenti di luar layar, saat disorot atau difokus keyboard.
+  - Dengan `prefers-reduced-motion`, barisan cukup digeser dengan tangan.
+- **Banner berjalan LUAJA**: pemandu luaja.com (pose „sapa", melambai) dan teks berjalan.
+  - Pemandu dibuat dari `luaja/src/pages/figure.ts` oleh `scripts/build-eco-luaja.ts`, menjadi satu SVG mandiri
+    (`_engine/assets/engine-luaja.svg`, potret tertanam). Tidak ada permintaan ke luaja.com.
+  - CI memastikan file ini sama dengan yang digambar luaja.com hari ini.
+- Hanya dua tautan statis (AXTO, LUAJA). Karya-karya ditambahkan oleh skrip, dengan `data-nosnippet`, sehingga tidak
+  ada skema tautan. Tautan tidak pernah berada di dalam artikel.
+- Ini satu-satunya gaya bersama antar-situs. Gayanya berdiri sendiri (latar dan warna sendiri), sehingga tidak
+  menyentuh tema mana pun.
+
 ## Aturan desain
 
 Setiap situs punya tema "Istana Nabi Sulaiman" sendiri (docs/ADSENSE-BLUEPRINT.md

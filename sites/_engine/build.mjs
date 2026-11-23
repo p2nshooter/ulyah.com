@@ -23,6 +23,7 @@ import { countWords, esc, parseFrontmatter, renderMarkdown, slugify } from "./li
 import { adsenseFor, adsTxt, loaderTag, metaTag } from "./adsense.mjs";
 import { translateHtml, translateJson, translateScript, translator } from "./lib/i18n.mjs";
 import { illustration } from "./illustrate.mjs";
+import { ecoBand, withEcoBand } from "./lib/eco.mjs";
 
 const ENGINE = dirname(fileURLToPath(import.meta.url));
 const SITES = resolve(ENGINE, "..");
@@ -418,7 +419,7 @@ export async function build(domain, { quiet = false } = {}) {
     assetVersion["palace.en.js"] = createHash("sha256").update(js).digest("hex").slice(0, 10);
   }
   // The engine's own scripts and styles (every site, same code): the article reader bar (§28–29).
-  for (const f of ["engine-reader.js", "engine-tool.js"]) {
+  for (const f of ["engine-reader.js", "engine-tool.js", "engine-eco.js", "engine-luaja.svg"]) {
     const src = join(ENGINE, "assets", f);
     mkdirSync(join(out, "assets"), { recursive: true });
     cpSync(src, join(out, "assets", f));
@@ -616,7 +617,8 @@ export async function build(domain, { quiet = false } = {}) {
         html = top + translateHtml(rewriteLinks(html.slice(at)), tr);
       }
       if (second) html = html.replace(/(<body\b[^>]*>)/, `$1\n${switchFor(path)}`);
-      return html;
+      // The network's band (axto.io exclusive works + luaja.com), in this edition's language, above the footer.
+      return withEcoBand(html, ecoBand(ed.en ? "en" : site.lang, asset));
     };
 
     emit(ed.home, toolsBand(finish(ed.home, theme.home(ctx)), ed));
