@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Arab
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "Kitaabun" artinya ....
+*a. buku
+b. pena
+c. tas
+d. meja
+> Kitaab: buku.
+2. "Qalamun" artinya ....
+a. buku
+*b. pena
+c. kursi
+d. papan tulis
+> Qalam: pena.
+3. Tas dalam bahasa Arab adalah ....
+a. kitaab
+b. maktab
+*c. haqiibah
+d. kursiy
+> Haqiibah: tas.
+4. "Kursiyyun" artinya ....
+*a. kursi
+b. meja
+c. pintu
+d. jendela
+> Kursiy: kursi.
+5. Meja dalam bahasa Arab adalah ....
+a. kitaab
+*b. maktab
+c. qalam
+d. bab
+> Maktab: meja.
+6. "Mimhaatun" artinya ....
+a. pena
+b. buku
+*c. penghapus
+d. penggaris
+> Mimhaah: penghapus.
+7. Penggaris dalam bahasa Arab adalah ....
+*a. mistharah
+b. mimhaah
+c. haqiibah
+d. sabbuurah
+> Mistharah: penggaris.
+8. "Sabbuurah" artinya ....
+a. meja
+*b. papan tulis
+c. pintu
+d. kursi
+> Sabbuurah: papan tulis.
+9. "Maa haadza?" artinya ....
+*a. apa ini?
+b. siapa ini?
+c. di mana ini?
+d. berapa ini?
+> Maa haadza: apa ini.
+10. "Haadza kitaabun" artinya ....
+*a. ini buku
+b. itu pena
+c. ini tas
+d. itu meja
+> Haadza: ini.
+11. "Ismii Fathimah" artinya ....
+*a. namaku Fathimah
+b. ibuku Fathimah
+c. guruku Fathimah
+d. kakakku Fathimah
+> Ismii: namaku.
+12. "Kaifa haluki?" ditanyakan kepada ....
+a. laki-laki
+*b. perempuan
+c. banyak orang
+d. hewan
+> Haluki untuk perempuan, haluka untuk laki-laki.
+13. Ruang kelas dalam bahasa Arab adalah ....
+*a. fashlun
+b. baitun
+c. masjidun
+d. suuqun
+> Fashl: kelas.
+14. "Madrasatun" artinya ....
+a. rumah
+*b. sekolah
+c. pasar
+d. kebun
+> Madrasah: sekolah.
+15. "Mudarrisun" artinya ....
+*a. guru laki-laki
+b. murid
+c. ayah
+d. teman
+> Mudarris: guru.
+[MENJODOHKAN]
+1. Kitaabun = buku
+2. Qalamun = pena
+3. Haqiibatun = tas
+4. Maktabun = meja
+5. Mistharatun = penggaris
+~ pintu
+[ISIAN]
+1. Buku dalam bahasa Arab adalah .... = kitaab | kitaabun | kitab
+2. Pena dalam bahasa Arab adalah .... = qalam | qalamun
+3. "Kursiyyun" artinya .... = kursi
+4. "Haadza" artinya .... = ini
+5. "Maa haadza" artinya apa .... = ini
+6. Papan tulis dalam bahasa Arab adalah .... = sabbuurah | sabburah
+7. Sekolah dalam bahasa Arab adalah .... = madrasah | madrasatun
+8. "Mudarrisun" artinya .... = guru
+9. Penghapus dalam bahasa Arab adalah .... = mimhaah | mimhaatun
+10. "Ahlan wa sahlan" artinya selamat .... = datang
+[URAIAN]
+1. Sebutkan lima nama alat sekolah dalam bahasa Arab!
+= Kitaabun (buku), qalamun (pena), haqiibatun (tas), mistharatun (penggaris), mimhaatun (penghapus), maktabun (meja), kursiyyun (kursi).
+2. Bagaimana menanyakan "apa ini?" dalam bahasa Arab dan jawabannya untuk buku?
+= Maa haadza? Haadza kitaabun.
+3. Tuliskan cara memperkenalkan diri dalam bahasa Arab!
+= Assalamu'alaikum, ismii (nama), ana tilmiidzun (murid).
+4. Apa arti "madrasatun" dan "mudarrisun"?
+= Madrasatun artinya sekolah, mudarrisun artinya guru.
+5. Tuliskan dua kalimat bahasa Arab memakai kata "haadza"!
+= Haadza qalamun (ini pena), haadza maktabun (ini meja).

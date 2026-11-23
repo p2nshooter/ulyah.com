@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Arab
+@semester genap
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Angka satu dalam bahasa Arab adalah ....
+*a. waahid
+b. itsnaan
+c. tsalaatsah
+d. arba'ah
+> Waahid: satu.
+2. "Itsnaan" artinya ....
+a. satu
+*b. dua
+c. tiga
+d. empat
+> Itsnaan: dua.
+3. Angka tiga dalam bahasa Arab adalah ....
+a. khamsah
+*b. tsalaatsah
+c. sittah
+d. sab'ah
+> Tsalaatsah: tiga.
+4. "Arba'ah" artinya ....
+*a. empat
+b. lima
+c. enam
+d. tujuh
+> Arba'ah: empat.
+5. "Khamsah" artinya ....
+a. empat
+*b. lima
+c. enam
+d. delapan
+> Khamsah: lima.
+6. Angka enam dalam bahasa Arab adalah ....
+*a. sittah
+b. sab'ah
+c. tsamaaniyah
+d. tis'ah
+> Sittah: enam.
+7. "Sab'ah" artinya ....
+a. enam
+*b. tujuh
+c. delapan
+d. sembilan
+> Sab'ah: tujuh.
+8. Angka delapan dalam bahasa Arab adalah ....
+a. sittah
+b. tis'ah
+*c. tsamaaniyah
+d. 'asyarah
+> Tsamaaniyah: delapan.
+9. "Tis'ah" artinya ....
+a. tujuh
+b. delapan
+*c. sembilan
+d. sepuluh
+> Tis'ah: sembilan.
+10. Angka sepuluh dalam bahasa Arab adalah ....
+*a. 'asyarah
+b. waahid
+c. khamsah
+d. tis'ah
+> 'Asyarah: sepuluh.
+11. "Kam 'umruka?" artinya ....
+*a. berapa umurmu?
+b. siapa namamu?
+c. apa ini?
+d. apa warnanya?
+> Kam: berapa.
+12. Waahid ditambah waahid sama dengan ....
+a. waahid
+*b. itsnaan
+c. tsalaatsah
+d. arba'ah
+> 1 + 1 = 2 (itsnaan).
+13. Jumlah salat wajib sehari dalam bahasa Arab adalah ....
+a. tsalaatsah
+b. arba'ah
+*c. khamsah
+d. sittah
+> Salat wajib lima waktu: khamsah.
+14. "Akhdhar" artinya ....
+a. merah
+*b. hijau
+c. putih
+d. hitam
+> Akhdhar: hijau.
+15. Jumlah hari dalam satu minggu dalam bahasa Arab adalah ....
+a. sittah
+*b. sab'ah
+c. tsamaaniyah
+d. khamsah
+> Seminggu tujuh hari: sab'ah.
+[MENJODOHKAN]
+1. Waahid = satu
+2. Tsalaatsah = tiga
+3. Khamsah = lima
+4. Sab'ah = tujuh
+5. 'Asyarah = sepuluh
+~ sebelas
+[ISIAN]
+1. "Itsnaan" artinya .... = dua | 2
+2. "Arba'ah" artinya .... = empat | 4
+3. Angka enam dalam bahasa Arab adalah .... = sittah
+4. Angka delapan dalam bahasa Arab adalah .... = tsamaaniyah | tsamaniyah
+5. "Tis'ah" artinya .... = sembilan | 9
+6. "Kam" artinya .... = berapa
+7. Angka satu dalam bahasa Arab adalah .... = waahid | wahid
+8. "Ahmar" artinya .... = merah
+9. "Aswad" artinya .... = hitam
+10. Angka sepuluh dalam bahasa Arab adalah .... = 'asyarah | asyarah
+[URAIAN]
+1. Tuliskan angka 1 sampai 5 dalam bahasa Arab!
+= Waahid, itsnaan, tsalaatsah, arba'ah, khamsah.
+2. Tuliskan angka 6 sampai 10 dalam bahasa Arab!
+= Sittah, sab'ah, tsamaaniyah, tis'ah, 'asyarah.
+3. Bagaimana menanyakan umur dalam bahasa Arab dan contoh jawabannya?
+= Kam 'umruka? 'Umrii sab'u sanawaat (umurku tujuh tahun).
+4. Berapa jumlah rakaat salat subuh dalam bahasa Arab?
+= Itsnaan (dua).
+5. Sebutkan tiga warna dalam bahasa Arab beserta artinya!
+= Ahmar (merah), abyadh (putih), akhdhar (hijau), azraq (biru), ashfar (kuning), aswad (hitam).

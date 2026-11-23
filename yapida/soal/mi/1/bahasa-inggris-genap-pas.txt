@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Inggris
+@semester genap
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "Apple" artinya ....
+*a. apel
+b. jeruk
+c. pisang
+d. mangga
+> Apple: apel.
+2. Pisang dalam bahasa Inggris adalah ....
+a. apple
+*b. banana
+c. mango
+d. grape
+> Banana: pisang.
+3. "Mango" artinya ....
+a. melon
+*b. mangga
+c. nanas
+d. semangka
+> Mango: mangga.
+4. "Orange" sebagai buah artinya ....
+*a. jeruk
+b. anggur
+c. durian
+d. salak
+> Orange: jeruk.
+5. Anggur dalam bahasa Inggris adalah ....
+*a. grapes
+b. melon
+c. pear
+d. apple
+> Grapes: anggur.
+6. "Watermelon" artinya ....
+a. melon
+*b. semangka
+c. pepaya
+d. nanas
+> Watermelon: semangka.
+7. "Pineapple" artinya ....
+*a. nanas
+b. apel
+c. pir
+d. salak
+> Pineapple: nanas.
+8. Buah yang berwarna kuning dan panjang adalah ....
+a. apple
+*b. banana
+c. grapes
+d. watermelon
+> Pisang (banana) kuning dan panjang.
+9. "I like mango" artinya ....
+*a. saya suka mangga
+b. saya punya mangga
+c. saya makan apel
+d. saya tidak suka mangga
+> Like: suka.
+10. "Papaya" artinya ....
+a. jambu
+*b. pepaya
+c. kelapa
+d. salak
+> Papaya: pepaya.
+11. Buah apel biasanya berwarna ....
+*a. red
+b. blue
+c. black
+d. purple
+> Apel umumnya merah (red).
+12. "Coconut" artinya ....
+a. kacang
+*b. kelapa
+c. kentang
+d. jagung
+> Coconut: kelapa.
+13. "Fruit" artinya ....
+a. sayur
+*b. buah
+c. bunga
+d. pohon
+> Fruit: buah.
+14. "Three bananas" artinya ....
+a. dua pisang
+*b. tiga pisang
+c. empat pisang
+d. lima pisang
+> Three: tiga.
+15. "What fruit do you like?" artinya ....
+*a. buah apa yang kamu suka?
+b. apa warna buah itu?
+c. berapa buahmu?
+d. di mana buahmu?
+> Pertanyaan tentang buah kesukaan.
+[MENJODOHKAN]
+1. Apple = apel
+2. Banana = pisang
+3. Mango = mangga
+4. Grapes = anggur
+5. Watermelon = semangka
+~ durian
+[ISIAN]
+1. "Banana" artinya .... = pisang
+2. "Orange" sebagai buah artinya .... = jeruk
+3. Apel dalam bahasa Inggris adalah .... = apple
+4. Nanas dalam bahasa Inggris adalah .... = pineapple
+5. "Fruit" artinya .... = buah
+6. "Coconut" artinya .... = kelapa
+7. "I like" artinya saya .... = suka
+8. Mangga dalam bahasa Inggris adalah .... = mango
+9. Warna pisang matang dalam bahasa Inggris adalah .... = yellow
+10. "Two apples" artinya dua .... = apel
+[URAIAN]
+1. Sebutkan lima nama buah dalam bahasa Inggris beserta artinya!
+= Apple (apel), banana (pisang), mango (mangga), orange (jeruk), grapes (anggur), watermelon (semangka).
+2. Apa buah kesukaanmu? Jawab dalam bahasa Inggris!
+= I like (nama buah), misalnya I like mango.
+3. Tuliskan warna buah berikut dalam bahasa Inggris: pisang, apel, daun mangga!
+= Banana yellow, apple red, mango leaf green.
+4. Terjemahkan: "I have five oranges"!
+= Saya punya lima jeruk.
+5. Tuliskan angka 1 sampai 5 dalam bahasa Inggris!
+= One, two, three, four, five.

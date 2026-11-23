@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel BTQ
+@semester genap
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Harakat kasrah terletak di ....
+a. atas huruf
+*b. bawah huruf
+c. depan huruf
+d. samping huruf
+> Kasrah di bawah huruf.
+2. Huruf berharakat kasrah berbunyi ....
+a. a
+*b. i
+c. u
+d. e
+> Kasrah berbunyi i.
+3. Harakat dhammah berbentuk seperti huruf wau kecil di ....
+*a. atas huruf
+b. bawah huruf
+c. depan huruf
+d. belakang huruf
+> Dhammah di atas huruf.
+4. Huruf berharakat dhammah berbunyi ....
+a. a
+b. i
+*c. u
+d. o
+> Dhammah berbunyi u.
+5. بِ dibaca ....
+a. ba
+*b. bi
+c. bu
+d. ib
+> Kasrah: bi.
+6. بُ dibaca ....
+a. ba
+b. bi
+*c. bu
+d. ub
+> Dhammah: bu.
+7. مِ dibaca ....
+*a. mi
+b. ma
+c. mu
+d. im
+> Kasrah: mi.
+8. نُ dibaca ....
+a. na
+b. ni
+*c. nu
+d. un
+> Dhammah: nu.
+9. Kata كُتُبٌ dimulai dengan bunyi ....
+*a. ku
+b. ka
+c. ki
+d. ak
+> Kaf berharakat dhammah: ku.
+10. Kata سَمِعَ dibaca ....
+*a. sami'a
+b. sama'a
+c. sumi'a
+d. simi'a
+> Sa-mi-'a.
+11. Menulis huruf Arab dimulai dari arah ....
+a. kiri
+*b. kanan
+c. bawah
+d. tengah
+> Tulisan Arab dari kanan.
+12. Huruf يُ dibaca ....
+*a. yu
+b. ya
+c. yi
+d. uy
+> Ya berharakat dhammah: yu.
+13. Kata عَلِمَ dibaca ....
+a. 'alama
+*b. 'alima
+c. 'ulima
+d. 'ilima
+> 'A-li-ma.
+14. Tiga harakat dasar adalah ....
+*a. fathah, kasrah, dhammah
+b. sukun, tasydid, mad
+c. tanwin, sukun, fathah
+d. mad, kasrah, tasydid
+> Harakat dasar: fathah (a), kasrah (i), dhammah (u).
+15. Ketika menulis huruf hijaiyah kita harus ....
+*a. rapi dan sesuai bentuknya
+b. asal cepat
+c. sambil bercanda
+d. dari kiri ke kanan
+> Huruf ditulis rapi dari kanan.
+[MENJODOHKAN]
+1. Fathah = bunyi a
+2. Kasrah = bunyi i
+3. Dhammah = bunyi u
+4. بِ = bi
+5. بُ = bu
+~ bunyi o
+[ISIAN]
+1. Kasrah berbunyi .... = i
+2. Dhammah berbunyi .... = u
+3. Kasrah terletak di .... huruf. = bawah
+4. تِ dibaca .... = ti
+5. تُ dibaca .... = tu
+6. مُ dibaca .... = mu
+7. سَمِعَ dibaca .... = sami'a | samia
+8. Tulisan Arab ditulis dari arah .... = kanan
+9. لِ dibaca .... = li
+10. Harakat fathah berbunyi .... = a
+[URAIAN]
+1. Sebutkan tiga harakat dasar dan bunyinya!
+= Fathah berbunyi a, kasrah berbunyi i, dhammah berbunyi u.
+2. Bacalah dan tuliskan latinnya: بَ بِ بُ!
+= Ba, bi, bu.
+3. Bacalah dan tuliskan latinnya: سَمِعَ!
+= Sami'a.
+4. Bacalah dan tuliskan latinnya: عَلِمَ!
+= 'Alima.
+5. Bagaimana adab menulis huruf hijaiyah?
+= Dimulai dari kanan, rapi sesuai bentuk hurufnya, memakai alat tulis yang bersih, dan berdoa sebelum belajar.

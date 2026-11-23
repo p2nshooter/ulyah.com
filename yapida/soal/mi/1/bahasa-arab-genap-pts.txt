@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Arab
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "Ahmar" artinya ....
+*a. merah
+b. biru
+c. hijau
+d. kuning
+> Ahmar: merah.
+2. Biru dalam bahasa Arab adalah ....
+a. ahmar
+*b. azraq
+c. akhdhar
+d. ashfar
+> Azraq: biru.
+3. "Akhdhar" artinya ....
+a. putih
+b. hitam
+*c. hijau
+d. merah
+> Akhdhar: hijau.
+4. "Ashfar" artinya ....
+*a. kuning
+b. biru
+c. ungu
+d. coklat
+> Ashfar: kuning.
+5. Putih dalam bahasa Arab adalah ....
+*a. abyadh
+b. aswad
+c. ahmar
+d. azraq
+> Abyadh: putih.
+6. "Aswad" artinya ....
+a. putih
+*b. hitam
+c. merah
+d. hijau
+> Aswad: hitam.
+7. Warna daun adalah ....
+a. ahmar
+*b. akhdhar
+c. aswad
+d. abyadh
+> Daun berwarna hijau (akhdhar).
+8. Warna langit pada siang hari adalah ....
+*a. azraq
+b. ahmar
+c. ashfar
+d. aswad
+> Langit berwarna biru (azraq).
+9. Warna susu adalah ....
+a. aswad
+*b. abyadh
+c. akhdhar
+d. ahmar
+> Susu berwarna putih (abyadh).
+10. "Maa launu haadza?" artinya ....
+*a. apa warna ini?
+b. apa ini?
+c. siapa ini?
+d. berapa ini?
+> Launu: warna.
+11. Warna pisang yang matang adalah ....
+a. azraq
+b. aswad
+*c. ashfar
+d. akhdhar
+> Pisang matang berwarna kuning (ashfar).
+12. "Al-qalamu ahmar" artinya ....
+*a. pena itu merah
+b. pena itu biru
+c. buku itu merah
+d. tas itu merah
+> Al-qalamu: pena itu.
+13. Warna rambut kebanyakan orang Indonesia adalah ....
+*a. aswad
+b. abyadh
+c. azraq
+d. akhdhar
+> Rambut hitam: aswad.
+14. Warna apel merah adalah ....
+a. ashfar
+*b. ahmar
+c. azraq
+d. abyadh
+> Ahmar: merah.
+15. "Laun" artinya ....
+a. angka
+*b. warna
+c. buku
+d. nama
+> Laun: warna.
+[MENJODOHKAN]
+1. Ahmar = merah
+2. Azraq = biru
+3. Akhdhar = hijau
+4. Ashfar = kuning
+5. Aswad = hitam
+~ ungu
+[ISIAN]
+1. "Ahmar" artinya .... = merah
+2. "Abyadh" artinya .... = putih
+3. Hijau dalam bahasa Arab adalah .... = akhdhar | akhdar
+4. Kuning dalam bahasa Arab adalah .... = ashfar
+5. Hitam dalam bahasa Arab adalah .... = aswad
+6. Biru dalam bahasa Arab adalah .... = azraq
+7. "Laun" artinya .... = warna
+8. Warna daun dalam bahasa Arab adalah .... = akhdhar | akhdar
+9. Warna langit dalam bahasa Arab adalah .... = azraq
+10. Warna susu dalam bahasa Arab adalah .... = abyadh | abyad
+[URAIAN]
+1. Sebutkan lima warna dalam bahasa Arab beserta artinya!
+= Ahmar (merah), azraq (biru), akhdhar (hijau), ashfar (kuning), abyadh (putih), aswad (hitam).
+2. Bagaimana menanyakan warna sesuatu dalam bahasa Arab?
+= Maa launu haadza?
+3. Tuliskan warna benda berikut dalam bahasa Arab: daun, susu, pisang!
+= Daun akhdhar, susu abyadh, pisang ashfar.
+4. Terjemahkan: "Al-kitaabu azraq"!
+= Buku itu biru.
+5. Apa warna bendera Indonesia dalam bahasa Arab?
+= Ahmar (merah) dan abyadh (putih).

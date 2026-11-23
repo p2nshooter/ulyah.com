@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel BTQ
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Harakat fathah berbentuk garis kecil di ....
+*a. atas huruf
+b. bawah huruf
+c. depan huruf
+d. dalam huruf
+> Fathah di atas huruf.
+2. Huruf berharakat fathah dibaca dengan bunyi ....
+*a. a
+b. i
+c. u
+d. o
+> Fathah berbunyi a.
+3. بَ dibaca ....
+*a. ba
+b. bi
+c. bu
+d. ab
+> Ba berharakat fathah.
+4. تَ dibaca ....
+a. ti
+*b. ta
+c. tu
+d. at
+> Fathah: ta.
+5. جَ dibaca ....
+*a. ja
+b. ji
+c. ju
+d. jo
+> Jim fathah: ja.
+6. مَ dibaca ....
+a. mi
+b. mu
+*c. ma
+d. am
+> Mim fathah: ma.
+7. نَ dibaca ....
+*a. na
+b. ni
+c. nu
+d. an
+> Nun fathah: na.
+8. Kata كَتَبَ dibaca ....
+*a. kataba
+b. kitaba
+c. kutiba
+d. kutubu
+> Semua berharakat fathah: ka-ta-ba.
+9. Kata جَلَسَ dibaca ....
+a. julisa
+*b. jalasa
+c. jilisa
+d. jalisu
+> Ja-la-sa.
+10. Kata ذَهَبَ dibaca ....
+*a. dzahaba
+b. dzuhiba
+c. dzahabu
+d. dihiba
+> Dza-ha-ba.
+11. Kata فَتَحَ dibaca ....
+a. futiha
+*b. fataha
+c. fitaha
+d. fatuha
+> Fa-ta-ha.
+12. Harakat disebut juga ....
+*a. tanda baca
+b. huruf
+c. angka
+d. titik
+> Harakat adalah tanda baca huruf Arab.
+13. سَ dibaca ....
+*a. sa
+b. si
+c. su
+d. as
+> Sin fathah: sa.
+14. Kata نَصَرَ dibaca ....
+*a. nashara
+b. nushira
+c. nashiru
+d. nisara
+> Na-sha-ra.
+15. لَ dibaca ....
+a. li
+*b. la
+c. lu
+d. al
+> Lam fathah: la.
+[MENJODOHKAN]
+1. بَ = ba
+2. تَ = ta
+3. مَ = ma
+4. نَ = na
+5. لَ = la
+~ ki
+[ISIAN]
+1. Fathah berbunyi .... = a
+2. Fathah terletak di .... huruf. = atas
+3. بَ dibaca .... = ba
+4. كَتَبَ dibaca .... = kataba
+5. جَلَسَ dibaca .... = jalasa
+6. سَ dibaca .... = sa
+7. Tanda baca huruf Arab disebut .... = harakat
+8. فَ dibaca .... = fa
+9. رَ dibaca .... = ra
+10. Kata ذَهَبَ dibaca .... = dzahaba
+[URAIAN]
+1. Apa yang dimaksud harakat fathah?
+= Tanda baca berupa garis miring kecil di atas huruf yang membuat huruf berbunyi a.
+2. Bacalah dan tuliskan latinnya: بَ تَ ثَ!
+= Ba, ta, tsa.
+3. Bacalah dan tuliskan latinnya: كَتَبَ!
+= Kataba.
+4. Bacalah dan tuliskan latinnya: نَصَرَ!
+= Nashara.
+5. Mengapa kita harus membaca harakat dengan benar?
+= Karena salah harakat bisa mengubah arti bacaan Al-Qur'an.
