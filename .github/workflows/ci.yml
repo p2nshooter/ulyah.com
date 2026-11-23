@@ -176,6 +176,11 @@ jobs:
       - name: Check the key pool is in R2 (create-once, compare-and-swap, no D1)
         run: npx tsx scripts/check-keypool-r2.ts
 
+      # The English editions of the German and Spanish article sites (owner, 22 Nov 2026): Markdown survives, masked
+      # material comes back byte for byte, a half-translated or shortened document is refused, dawa.im excluded.
+      - name: Check the article-site English engine
+        run: npx tsx scripts/check-translate-sites-en.ts
+
       # The pool is optional by design — no keys means gtx does the work. That
       # promise was broken silently: with an empty pool the parallel runner
       # built no workers, so no batch was ever attempted and every string came

@@ -214,7 +214,7 @@ async function gtxBatch(texts: string[], tl: string, sl: string): Promise<(strin
   return res;
 }
 
-async function translateBatch(pool: PoolKey[], texts: string[], tl: string, sl: string): Promise<(string | null)[]> {
+export async function translateBatch(pool: PoolKey[], texts: string[], tl: string, sl: string): Promise<(string | null)[]> {
   if (pool.length > 0 && !PREFER_GTX.has(tl)) {
     upstream.poolTried++;
     const ai = await aiTranslateBatch(pool, texts, tl, sl);
@@ -280,7 +280,7 @@ export async function foldWants(r2: R2S3, dry: boolean): Promise<{ added: number
   return { added, droppedArabic };
 }
 
-async function loadKeyPool(r2: R2S3): Promise<PoolKey[]> {
+export async function loadKeyPool(r2: R2S3): Promise<PoolKey[]> {
   const secret = process.env.KEY_ENCRYPTION_SECRET;
   if (!secret) {
     console.log("AI pool: KEY_ENCRYPTION_SECRET not set — translating with gtx alone.");
