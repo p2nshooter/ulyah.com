@@ -19,6 +19,7 @@ import { runScalingTick } from "./lib/scaling.js";
 import { orchestraMaintenance } from "./lib/orchestra.js";
 import { contentBotTick } from "./lib/content-bot.js";
 import { gpuCheckTick } from "./lib/gpu-check.js";
+import { axtoGpuTick } from "./lib/axto-gpu.js";
 
 export { KeyPoolCoordinator } from "./durable-objects/KeyPoolCoordinator.js";
 
@@ -282,6 +283,8 @@ export default {
         // axto.io's art?): auth + capability probes only — the render test stays an admin button, so donated free
         // credits are not spent daily. The verdict waits in Admin → Kunci.
         gpuCheckTick(env).catch((e) => console.error("gpu-check failed", e)),
+        // Seri G- axto.io (pemilik 23 Nov 2026): render antrean karya GPU dari kunci Hugging Face yang hidup.
+        axtoGpuTick(env).catch((e) => console.error("axto-gpu failed", e)),
       ]).then(() => undefined)
     );
   },
