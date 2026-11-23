@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Seni Budaya
+@semester genap
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Gerak menirukan katak adalah ....
+*a. melompat
+b. terbang
+c. merayap
+d. berenang
+> Melompat.
+2. Pakaian untuk menari disebut ....
+*a. kostum
+b. seragam sekolah
+c. piyama
+d. jas
+> Kostum.
+3. Tari Saman berasal dari ....
+*a. Aceh
+b. Bali
+c. Papua
+d. Jawa Barat
+> Aceh.
+4. Bermain peran disebut juga ....
+*a. drama
+b. menyanyi
+c. menggambar
+d. menari
+> Drama.
+5. Tempat pertunjukan disebut ....
+*a. panggung
+b. dapur
+c. kamar
+d. pasar
+> Panggung.
+6. Ekspresi senang ditunjukkan dengan ....
+*a. tersenyum
+b. menangis
+c. cemberut
+d. marah
+> Senyum.
+7. Sapi berbunyi ....
+*a. mooo
+b. meong
+c. guk guk
+d. kukuruyuk
+> Mooo.
+8. Gerak menirukan pohon tertiup angin adalah ....
+*a. tangan bergoyang
+b. melompat
+c. berlari
+d. berguling
+> Bergoyang.
+9. Sebelum menari kita melakukan ....
+*a. pemanasan
+b. tidur
+c. makan banyak
+d. berteriak
+> Pemanasan.
+10. Penonton yang baik akan ....
+*a. tenang dan menghargai
+b. berteriak
+c. tidur
+d. bermain sendiri
+> Menghargai.
+11. Gerak tari yang berpindah dari satu tempat ke tempat lain disebut gerak ....
+*a. berpindah tempat
+b. di tempat
+c. diam
+d. duduk
+> Berpindah.
+12. Menari bersama gerakannya harus ....
+*a. kompak
+b. asal
+c. berbeda
+d. cepat sendiri
+> Kompak.
+13. Percakapan dalam drama disebut ....
+*a. dialog
+b. lagu
+c. gerak
+d. kostum
+> Dialog.
+14. Ekspresi sedih ditunjukkan dengan wajah ....
+*a. murung
+b. tertawa
+c. tersenyum
+d. ceria
+> Murung.
+15. Gerak burung terbang menggunakan ....
+*a. tangan seperti sayap
+b. kaki melompat
+c. kepala menggeleng
+d. jari mengetuk
+> Tangan.
+[MENJODOHKAN]
+1. Kostum = pakaian menari
+2. Panggung = tempat pertunjukan
+3. Dialog = percakapan dalam drama
+4. Penonton = orang yang menonton
+5. Pemanasan = persiapan sebelum menari
+~ alat musik tiup
+[ISIAN]
+1. Katak bergerak dengan cara .... = melompat
+2. Tari Saman berasal dari .... = Aceh
+3. Bermain peran disebut .... = drama
+4. Pakaian untuk menari disebut .... = kostum
+5. Tempat pertunjukan disebut .... = panggung
+6. Wajah senang ditunjukkan dengan .... = tersenyum | senyum
+7. Kucing berbunyi .... = meong
+8. Menari bersama harus .... = kompak
+9. Percakapan dalam drama disebut .... = dialog
+10. Sebelum menari kita .... = pemanasan
+[URAIAN]
+1. Bagaimana menirukan gerak burung terbang?
+= Merentangkan tangan dan mengepakkannya seperti sayap.
+2. Sebutkan dua ekspresi wajah dan contohnya!
+= Senang dengan tersenyum, sedih dengan murung, marah dengan cemberut.
+3. Apa yang dimaksud drama?
+= Pertunjukan bermain peran dengan dialog dan gerak.
+4. Sebutkan satu tari tradisional dan asalnya!
+= Tari Saman dari Aceh.
+5. Bagaimana sikap yang baik saat menonton pertunjukan?
+= Tenang, memperhatikan, dan bertepuk tangan setelah selesai.

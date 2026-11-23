@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel PJOK
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Berjalan, berlari, dan melompat termasuk gerak ....
+*a. berpindah tempat (lokomotor)
+b. di tempat
+c. memutar
+d. diam
+> Lokomotor: berpindah tempat.
+2. Ketika berjalan, kaki dan tangan diayun ....
+*a. bergantian
+b. bersamaan sisi yang sama
+c. tidak bergerak
+d. ke belakang saja
+> Ayunan berlawanan.
+3. Berlari lebih ... daripada berjalan.
+*a. cepat
+b. lambat
+c. pelan
+d. diam
+> Lari cepat.
+4. Melompat dengan dua kaki menolak bersamaan disebut ....
+*a. meloncat
+b. berjalan
+c. merangkak
+d. berguling
+> Meloncat dua kaki.
+5. Membungkukkan badan termasuk gerak ....
+*a. di tempat (non-lokomotor)
+b. berpindah tempat
+c. lari
+d. lompat jauh
+> Tidak berpindah.
+6. Memutar lengan termasuk gerak ....
+*a. di tempat
+b. berpindah tempat
+c. melempar
+d. menangkap
+> Non-lokomotor.
+7. Melempar bola termasuk gerak ....
+*a. manipulatif
+b. lokomotor
+c. non-lokomotor
+d. diam
+> Menggunakan benda.
+8. Sebelum berolahraga kita melakukan ....
+*a. pemanasan
+b. tidur
+c. makan banyak
+d. pendinginan dulu
+> Pemanasan.
+9. Setelah berolahraga kita melakukan ....
+*a. pendinginan
+b. pemanasan
+c. lari kencang
+d. tidur di lapangan
+> Pendinginan.
+10. Pakaian olahraga yang baik adalah ....
+*a. kaus olahraga dan sepatu
+b. baju pesta
+c. sarung
+d. jas hujan
+> Pakaian olahraga.
+11. Saat berlari, pandangan mata ke arah ....
+*a. depan
+b. bawah
+c. belakang
+d. samping
+> Melihat ke depan.
+12. Menangkap bola menggunakan ....
+*a. kedua tangan
+b. kepala
+c. kaki
+d. perut
+> Dua tangan.
+13. Menendang bola menggunakan ....
+*a. kaki
+b. tangan
+c. kepala
+d. bahu
+> Kaki.
+14. Olahraga membuat tubuh menjadi ....
+*a. sehat dan kuat
+b. sakit
+c. lemah
+d. malas
+> Sehat.
+15. Ketika berolahraga kita harus ....
+*a. mengikuti petunjuk guru
+b. bercanda berlebihan
+c. mendorong teman
+d. pergi sendiri
+> Disiplin dan aman.
+[MENJODOHKAN]
+1. Berjalan = gerak lokomotor
+2. Membungkuk = gerak non-lokomotor
+3. Melempar bola = gerak manipulatif
+4. Pemanasan = sebelum olahraga
+5. Pendinginan = setelah olahraga
+~ tidur siang
+[ISIAN]
+1. Berjalan dan berlari termasuk gerak .... = lokomotor | berpindah tempat
+2. Melempar bola termasuk gerak .... = manipulatif
+3. Sebelum olahraga kita melakukan .... = pemanasan
+4. Setelah olahraga kita melakukan .... = pendinginan
+5. Menendang bola menggunakan .... = kaki
+6. Menangkap bola menggunakan kedua .... = tangan
+7. Saat berlari pandangan ke arah .... = depan
+8. Membungkuk termasuk gerak di .... = tempat
+9. Olahraga membuat badan sehat dan .... = kuat | bugar
+10. Meloncat menggunakan .... kaki. = dua | 2
+[URAIAN]
+1. Sebutkan tiga contoh gerak berpindah tempat!
+= Berjalan, berlari, melompat, meloncat.
+2. Sebutkan dua contoh gerak di tempat!
+= Membungkuk, memutar lengan, menekuk lutut, menoleh.
+3. Sebutkan dua contoh gerak manipulatif!
+= Melempar, menangkap, menendang, memantulkan bola.
+4. Mengapa harus pemanasan sebelum olahraga?
+= Agar otot siap dan tidak cedera.
+5. Bagaimana cara berjalan yang benar?
+= Badan tegak, pandangan ke depan, kaki dan tangan diayun bergantian.

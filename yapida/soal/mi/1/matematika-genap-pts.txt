@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Matematika
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Bilangan setelah 15 adalah ....
+a. 14
+*b. 16
+c. 17
+d. 51
+> 15, 16.
+2. Angka 12 dibaca ....
+*a. dua belas
+b. dua puluh satu
+c. satu dua
+d. sebelas
+> 12 = dua belas.
+3. Lambang bilangan "delapan belas" adalah ....
+a. 81
+*b. 18
+c. 8
+d. 80
+> Delapan belas = 18.
+4. 10 + 5 = ....
+a. 14
+*b. 15
+c. 16
+d. 105
+> 10 + 5 = 15.
+5. 12 + 3 = ....
+*a. 15
+b. 14
+c. 16
+d. 9
+> 12 + 3 = 15.
+6. 17 – 4 = ....
+a. 12
+*b. 13
+c. 14
+d. 21
+> 17 – 4 = 13.
+7. 20 – 10 = ....
+*a. 10
+b. 20
+c. 0
+d. 30
+> 20 – 10 = 10.
+8. Bilangan di antara 13 dan 15 adalah ....
+a. 12
+*b. 14
+c. 16
+d. 11
+> 13, 14, 15.
+9. 19 lebih besar dari ....
+*a. 16
+b. 20
+c. 19
+d. 21
+> 19 > 16.
+10. Rani punya 11 kelereng, diberi 6 lagi. Kelereng Rani sekarang ....
+a. 16
+*b. 17
+c. 18
+d. 5
+> 11 + 6 = 17.
+11. Di kelas ada 18 siswa, 5 siswa pulang. Sisa siswa ....
+*a. 13
+b. 12
+c. 14
+d. 23
+> 18 – 5 = 13.
+12. Bilangan genap antara 10 dan 15 adalah ....
+*a. 12 dan 14
+b. 11 dan 13
+c. 13 dan 15
+d. 10 dan 15
+> Genap: 12, 14.
+13. 14 = 10 + ....
+a. 3
+*b. 4
+c. 5
+d. 14
+> 10 + 4 = 14.
+14. Urutan bilangan terbesar ke terkecil yang benar adalah ....
+*a. 20, 17, 14, 11
+b. 11, 14, 17, 20
+c. 17, 20, 11, 14
+d. 14, 11, 20, 17
+> Turun.
+15. 9 + 9 = ....
+a. 16
+b. 17
+*c. 18
+d. 19
+> 9 + 9 = 18.
+[MENJODOHKAN]
+1. Sebelas = 11
+2. Tiga belas = 13
+3. Enam belas = 16
+4. Sembilan belas = 19
+5. Dua puluh = 20
+~ 31
+[ISIAN]
+1. Bilangan setelah 19 adalah .... = 20 | dua puluh
+2. Bilangan sebelum 11 adalah .... = 10 | sepuluh
+3. 10 + 7 hasilnya .... = 17
+4. 15 – 5 hasilnya .... = 10
+5. 13 + 4 hasilnya .... = 17
+6. 16 – 3 hasilnya .... = 13
+7. Angka 14 dibaca .... = empat belas
+8. Lambang bilangan "lima belas" adalah .... = 15
+9. 8 + 8 hasilnya .... = 16
+10. 20 – 5 hasilnya .... = 15
+[URAIAN]
+1. Tuliskan bilangan 11 sampai 20!
+= 11, 12, 13, 14, 15, 16, 17, 18, 19, 20.
+2. Ayah membeli 12 telur, lalu membeli 6 telur lagi. Berapa telur ayah sekarang?
+= 12 + 6 = 18 telur.
+3. Ada 19 balon, 7 balon pecah. Berapa balon yang tersisa?
+= 19 – 7 = 12 balon.
+4. Urutkan dari terkecil: 18, 11, 15, 13!
+= 11, 13, 15, 18.
+5. Hitung: 14 + 5 dan 17 – 6!
+= 14 + 5 = 19, 17 – 6 = 11.

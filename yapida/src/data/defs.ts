@@ -79,6 +79,24 @@ export const AGENDA: Koleksi = {
   ],
 };
 
+/** Informasi akbar di kepala situs (pemilik, 23 Nov 2026: „klo mau memberikan Informasi akbar di header, contoh kenaikan
+ *  kelas, pengajian akbar, maulid dll beserta live youtube/Fb dll“). Tampil sebagai pita berganti di setiap halaman selama
+ *  rentang tayangnya, dan di /informasi beserta siaran langsungnya. */
+export const INFO: Koleksi = {
+  id: 'info', nama: 'Informasi akbar', satu: 'informasi', labelJudul: 'Judul informasi (tampil di kepala situs)', urut: 'baru', sampul: 'sampul', ringkasDari: 'ket',
+  tingkat: PERAN.yayasan.tingkat, hanyaYayasan: true,
+  bidang: [
+    { k: 'jenis', label: 'Jenis', jenis: 'pilih', wajib: true, indeks: true, pilihan: [['pengajian', 'Pengajian akbar'], ['maulid', 'Maulid Nabi ﷺ'], ['isra', 'Isra Mi’raj'], ['hijriah', 'Tahun Baru Hijriah'], ['ramadhan', 'Ramadhan & Idul Fitri'], ['adha', 'Idul Adha & kurban'], ['kenaikan', 'Kenaikan kelas'], ['wisuda', 'Wisuda / akhirussanah'], ['ppdb', 'Penerimaan siswa baru'], ['ujian', 'Ujian & penilaian'], ['libur', 'Libur'], ['lain', 'Informasi penting']] },
+    { k: 'jam', label: 'Jam', jenis: 'teks', maks: 40, indeks: true, bantuan: 'Mis. 19.30 WIB – selesai. Tanggal acara diisi pada kolom Tanggal di atas.' },
+    { k: 'tempat', label: 'Tempat', jenis: 'teks', maks: 120, indeks: true },
+    { k: 'mulai', label: 'Tampil di kepala situs mulai', jenis: 'tanggal', indeks: true, bantuan: 'Kosongkan = 14 hari sebelum tanggal acara.' },
+    { k: 'sampai', label: 'Tampil sampai', jenis: 'tanggal', indeks: true, bantuan: 'Kosongkan = sehari sesudah tanggal acara.' },
+    { k: 'tautan', label: 'Tautan siaran langsung / informasi', jenis: 'url', bantuan: 'YouTube, Facebook, TikTok, atau Instagram live — atau halaman lain. YouTube ditayangkan langsung di halaman Informasi.' },
+    { k: 'sampul', label: 'Pamflet (opsional)', jenis: 'gambar' },
+    { k: 'ket', label: 'Keterangan', jenis: 'markdown', maks: 4000 },
+  ],
+};
+
 export const DOKUMEN: Koleksi = {
   id: 'dokumen', nama: 'Dokumen publik', satu: 'dokumen', labelJudul: 'Nama dokumen', urut: 'baru', ringkasDari: 'ket',
   tingkat: PERAN.lembaga.tingkat,
@@ -298,5 +316,5 @@ export const TAGIHAN: Koleksi = {
   ],
 };
 
-export const KOLEKSI: Record<string, Koleksi> = { sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN, penghargaan: PENGHARGAAN, kwitansi: KWITANSI, surat: SURAT, kop: KOP, siswa: SISWA, tagihan: TAGIHAN };
+export const KOLEKSI: Record<string, Koleksi> = { info: INFO, sdm: SDM, kabar: KABAR, galeri: GALERI, video: VIDEO, agenda: AGENDA, dokumen: DOKUMEN, karya: KARYA, buku: BUKU, ppdb: PPDB, pendaftar: PENDAFTAR, pesan: PESAN, penghargaan: PENGHARGAAN, kwitansi: KWITANSI, surat: SURAT, kop: KOP, siswa: SISWA, tagihan: TAGIHAN };
 export const koleksi = (id: string): Koleksi | null => KOLEKSI[id] ?? null;

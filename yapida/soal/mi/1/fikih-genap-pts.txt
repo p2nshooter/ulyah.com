@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Fikih
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Wudu dilakukan sebelum ....
+*a. salat
+b. makan
+c. tidur
+d. bermain
+> Wudu adalah syarat sah salat.
+2. Air yang dipakai untuk berwudu harus air yang ....
+a. kotor
+*b. suci dan menyucikan
+c. berwarna
+d. bau
+> Wudu memakai air suci dan menyucikan.
+3. Gerakan wudu yang pertama adalah ....
+*a. berniat dan membasuh muka
+b. membasuh kaki
+c. mengusap kepala
+d. membasuh telinga
+> Rukun wudu pertama niat bersamaan membasuh muka.
+4. Sebelum berwudu kita disunahkan membaca ....
+*a. basmalah
+b. hamdalah
+c. takbir
+d. salam
+> Membaca basmalah sunah di awal wudu.
+5. Ketika membasuh tangan, dibasuh sampai ....
+a. pergelangan
+*b. siku
+c. bahu
+d. jari
+> Tangan dibasuh sampai kedua siku.
+6. Ketika membasuh kaki, dibasuh sampai ....
+a. lutut
+*b. mata kaki
+c. jari kaki
+d. betis
+> Kaki dibasuh sampai kedua mata kaki.
+7. Bagian kepala dalam wudu ....
+a. dibasuh seluruhnya
+*b. diusap dengan air
+c. tidak dibasahi
+d. dicuci dengan sabun
+> Kepala cukup diusap dengan air.
+8. Setiap anggota wudu sunah dibasuh sebanyak ....
+a. satu kali
+b. dua kali
+*c. tiga kali
+d. lima kali
+> Sunah membasuh anggota wudu tiga kali.
+9. Salat wajib sehari semalam ada ....
+a. tiga waktu
+b. empat waktu
+*c. lima waktu
+d. enam waktu
+> Salat wajib ada lima waktu.
+10. Salat yang dikerjakan pada siang hari ketika matahari tergelincir adalah salat ....
+a. subuh
+*b. zuhur
+c. magrib
+d. isya
+> Salat zuhur dimulai ketika matahari tergelincir.
+11. Salat subuh berjumlah ....
+*a. dua rakaat
+b. tiga rakaat
+c. empat rakaat
+d. lima rakaat
+> Subuh dua rakaat.
+12. Salat magrib berjumlah ....
+a. dua rakaat
+*b. tiga rakaat
+c. empat rakaat
+d. lima rakaat
+> Magrib tiga rakaat.
+13. Salat yang berjumlah empat rakaat adalah ....
+a. subuh dan magrib
+*b. zuhur, asar, dan isya
+c. subuh dan isya
+d. magrib dan asar
+> Zuhur, asar, dan isya masing-masing empat rakaat.
+14. Salat isya dikerjakan pada waktu ....
+a. pagi hari
+b. siang hari
+c. sore hari
+*d. malam hari
+> Isya dikerjakan setelah hilangnya mega merah sampai menjelang subuh.
+15. Jumlah rakaat salat wajib sehari semalam adalah ....
+a. 15
+*b. 17
+c. 19
+d. 20
+> 2 + 4 + 4 + 3 + 4 = 17 rakaat.
+[MENJODOHKAN]
+1. Salat subuh = dua rakaat
+2. Salat zuhur = empat rakaat, siang hari
+3. Salat asar = empat rakaat, sore hari
+4. Salat magrib = tiga rakaat
+5. Salat isya = empat rakaat, malam hari
+~ satu rakaat
+[ISIAN]
+1. Sebelum salat kita harus berwudu agar .... dari hadas kecil. = suci | bersih
+2. Tangan dibasuh sampai kedua .... = siku
+3. Kaki dibasuh sampai kedua mata .... = kaki
+4. Bagian kepala dalam wudu cukup .... = diusap | mengusap
+5. Salat wajib sehari semalam ada .... waktu. = lima | 5
+6. Salat subuh berjumlah .... rakaat. = dua | 2
+7. Salat magrib berjumlah .... rakaat. = tiga | 3
+8. Salat zuhur berjumlah .... rakaat. = empat | 4
+9. Salat yang dikerjakan sore hari adalah salat .... = asar | ashar
+10. Jumlah rakaat salat wajib sehari semalam ada .... = 17 | tujuh belas
+[URAIAN]
+1. Sebutkan urutan gerakan wudu!
+= Niat sambil membasuh muka, membasuh kedua tangan sampai siku, mengusap sebagian kepala, membasuh kedua kaki sampai mata kaki, dan tertib (berurutan).
+2. Mengapa kita harus berwudu sebelum salat?
+= Karena wudu menyucikan dari hadas kecil dan merupakan syarat sah salat.
+3. Sebutkan lima salat wajib dan jumlah rakaatnya!
+= Subuh 2 rakaat, zuhur 4 rakaat, asar 4 rakaat, magrib 3 rakaat, dan isya 4 rakaat.
+4. Kapan waktu salat magrib?
+= Ketika matahari terbenam sampai hilangnya mega merah di langit barat.
+5. Apa manfaat salat lima waktu bagi kita?
+= Membuat kita dekat dengan Allah, disiplin waktu, tenang hati, dan terhindar dari perbuatan buruk.

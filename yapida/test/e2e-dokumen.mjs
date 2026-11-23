@@ -107,7 +107,8 @@ for (const [nama, vp, opts] of [['desktop', { width: 1366, height: 900 }, {}], [
   ok(true, `${nama}: detail prestasi menampilkan sertifikatnya`);
   if (nama === 'ponsel') await page.screenshot({ path: `${OUT}/prestasi-ponsel.png`, fullPage: false });
   await page.goto(BASE + '/');
-  ok(await page.locator('.pita-prestasi .kartu-prestasi').count() >= 1, `${nama}: beranda memajang prestasi`);
+  ok(await page.locator('.etalase-sert .kartu-prestasi').count() >= 1, `${nama}: beranda memajang prestasi`);
+  ok(await page.locator('.etalase-sert .etalase-kartu iframe').count() >= 3, `${nama}: beranda memajang contoh desain sertifikat`);
   await ctx.close();
 }
 

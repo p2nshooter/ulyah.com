@@ -9,9 +9,11 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { FORMAT, idBawaan, namaMapelSoal, ringkasPaket, uraiSoal, type IndeksPaket, type Paket } from '../src/data/soal.ts';
+import { FORMAT, idBawaan, judulPaket, namaMapelSoal, ringkasPaket, uraiSoal, type IndeksPaket, type Paket } from '../src/data/soal.ts';
 import { KURIKULUM } from '../src/data/kurikulum.ts';
 import { bahanLatihan, semuaNaskah } from './pelajaran.ts';
+import { buatPaketMesin, kepalaMesin } from './mesin-soal.ts';
+import { SLOT_SOAL, kunciSlot, slugKurikulum } from '../src/data/soal.ts';
 
 const AKAR = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const SUMBER = path.join(AKAR, 'soal');
@@ -51,7 +53,16 @@ for (const f of berkas) {
   try { teks = sisipAyat(teks, rel); } catch (e) { console.error(String(e)); galat += 1; continue; }
   const h = uraiSoal(teks);
   if (!h.paket) { console.error(`✗ ${rel}\n  ${h.galat.join('\n  ')}`); galat += 1; continue; }
-  const p: Paket = { ...h.paket, id: idBawaan(h.paket), status: 'tayang' };
+  // Nama mapel seragam dengan kurikulum („SKI“, „Al-Qur'an Hadis“ → „Sejarah Kebudayaan Islam“, „Al-Qur’an Hadis“).
+  // id tetap dari nama lama (hasil siswa & salinan guru merujuk id ini).
+  const idLama = idBawaan(h.paket);
+  const mk = h.paket.jenjang === 'ra' ? undefined : KURIKULUM[h.paket.jenjang].mapel.find((x) => x.slug === slugKurikulum(h.paket!.mapel));
+  if (mk && h.paket.mapel !== namaMapelSoal(mk.nama)) {
+    const judulLama = judulPaket(h.paket);
+    h.paket.mapel = namaMapelSoal(mk.nama);
+    if (h.paket.judul === judulLama) h.paket.judul = judulPaket(h.paket);
+  }
+  const p: Paket = { ...h.paket, id: idLama, status: 'tayang' };
   if (id.has(p.id)) { console.error(`✗ ${rel}: paket ganda ${p.id}`); galat += 1; continue; }
   id.add(p.id);
   if (h.peringatan.length && p.jenjang !== 'ra') { console.error(`✗ ${rel}: format baku ${FORMAT.pg}/${FORMAT.jodoh}/${FORMAT.isian}/${FORMAT.uraian} — ${h.peringatan.join(' ')}`); galat += 1; continue; }
@@ -85,8 +96,30 @@ for (const n of semuaNaskah()) {
     dariBuku += 1;
   }
 }
+/* Slot yang masih kosong → mesin bank soal tanpa AI (scripts/mesin-soal.ts): Matematika dari templat hitungan, soal Uji
+   Kompetensi BSE yang kuncinya sudah ditinjau (soal/kunci-bse.list), dan Buku Pelajaran Yapida. Paket mesin wajib lolos
+   format baku yang sama; bila tidak lolos, slot dibiarkan kosong (tidak pernah setengah jadi). */
+let dariMesin = 0;
+const terisi = new Set(indeks.map((x) => kunciSlot(x)));
+for (const jj of ['mi', 'mts'] as const) for (const kelas of KURIKULUM[jj].kelas) for (const m of KURIKULUM[jj].mapel.filter((x) => x.kelas.includes(kelas))) for (const sl of SLOT_SOAL) {
+  if (terisi.has(kunciSlot({ jenjang: jj, kelas, mapel: m.slug, jenis: sl.jenis, semester: sl.semester }))) continue;
+  const slot = { jenjang: jj, kelas, m, semester: sl.semester, jenis: sl.jenis } as const;
+  const hasil = buatPaketMesin(slot);
+  if (!hasil) continue;
+  const h = uraiSoal(kepalaMesin(slot, hasil.sumber) + hasil.teks);
+  if (!h.paket || (sl.jenis !== 'latihan' && h.peringatan.length)) { console.error(`✗ mesin ${jj}${kelas} ${m.slug} ${sl.nama}: ${[...h.galat, ...h.peringatan].join(' ')}`); galat += 1; continue; }
+  const p: Paket = { ...h.paket, id: idBawaan(h.paket), status: 'tayang' };
+  if (id.has(p.id)) continue;
+  id.add(p.id);
+  fs.writeFileSync(path.join(KELUAR, 'p', `${p.id}.json`), JSON.stringify(p));
+  const r = ringkasPaket(p);
+  delete r.st;
+  indeks.push(r);
+  butir += r.jumlah;
+  dariMesin += 1;
+}
 if (galat) { console.error(`buat-soal: ${galat} paket galat`); process.exit(1); }
 const urut = { ra: 0, mi: 1, mts: 2 } as const;
 indeks.sort((a, b) => urut[a.jenjang] - urut[b.jenjang] || a.kelas - b.kelas || a.mapel.localeCompare(b.mapel, 'id') || a.semester.localeCompare(b.semester) || a.jenis.localeCompare(b.jenis));
 fs.writeFileSync(path.join(KELUAR, 'indeks.json'), JSON.stringify({ dibuat: new Date().toISOString().slice(0, 10), paket: indeks }));
-console.log(`bank soal: ${indeks.length} paket (${dariBuku} latihan dari buku pelajaran), ${butir} butir`);
+console.log(`bank soal: ${indeks.length} paket (${dariBuku} latihan dari buku pelajaran, ${dariMesin} dari mesin soal), ${butir} butir`);

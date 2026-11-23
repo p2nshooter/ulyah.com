@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Inggris
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "Good morning" artinya ....
+*a. selamat pagi
+b. selamat siang
+c. selamat malam
+d. selamat tidur
+> Morning: pagi.
+2. Kita mengucapkan "Good night" ketika akan ....
+a. makan
+*b. tidur
+c. sekolah
+d. bermain
+> Good night: selamat tidur/malam.
+3. "What is your name?" artinya ....
+*a. siapa namamu?
+b. apa kabarmu?
+c. di mana rumahmu?
+d. berapa umurmu?
+> What is your name: siapa namamu.
+4. Jawaban "What is your name?" adalah ....
+*a. My name is Ali
+b. I am fine
+c. Thank you
+d. Goodbye
+> My name is ...: namaku ...
+5. "How are you?" artinya ....
+a. siapa kamu?
+*b. apa kabarmu?
+c. di mana kamu?
+d. kamu dari mana?
+> How are you: apa kabar.
+6. Jawaban "How are you?" adalah ....
+a. My name is Siti
+*b. I am fine, thank you
+c. Good night
+d. See you
+> I am fine: aku baik.
+7. "Thank you" artinya ....
+*a. terima kasih
+b. sama-sama
+c. maaf
+d. permisi
+> Thank you: terima kasih.
+8. Jawaban "Thank you" adalah ....
+a. Sorry
+*b. You are welcome
+c. Good morning
+d. Hello
+> You are welcome: sama-sama.
+9. "Goodbye" diucapkan ketika ....
+a. bertemu
+*b. berpisah
+c. makan
+d. belajar
+> Goodbye: selamat tinggal.
+10. "Good afternoon" artinya ....
+a. selamat pagi
+*b. selamat siang/sore
+c. selamat malam
+d. selamat jalan
+> Afternoon: siang menjelang sore.
+11. "Hello" adalah ucapan untuk ....
+*a. menyapa
+b. berpisah
+c. meminta maaf
+d. berterima kasih
+> Hello: halo.
+12. "See you" artinya ....
+*a. sampai jumpa
+b. selamat datang
+c. permisi
+d. maaf
+> See you: sampai jumpa.
+13. "I am sorry" artinya ....
+a. terima kasih
+*b. saya minta maaf
+c. saya senang
+d. saya lapar
+> Sorry: maaf.
+14. Bertemu guru pada pukul tujuh pagi, kita mengucapkan ....
+*a. Good morning, teacher
+b. Good night, teacher
+c. Good evening, teacher
+d. Goodbye, teacher
+> Pagi hari: good morning.
+15. "Nice to meet you" artinya ....
+*a. senang bertemu denganmu
+b. sampai jumpa
+c. selamat tidur
+d. apa kabar
+> Nice to meet you: senang berkenalan.
+[MENJODOHKAN]
+1. Good morning = selamat pagi
+2. Good night = selamat tidur
+3. Thank you = terima kasih
+4. Goodbye = selamat tinggal
+5. How are you = apa kabar
+~ selamat ulang tahun
+[ISIAN]
+1. "Good morning" artinya selamat .... = pagi
+2. "Thank you" artinya terima .... = kasih
+3. Jawaban "thank you" adalah you are .... = welcome
+4. "My name is Budi" artinya .... saya Budi. = nama
+5. "I am fine" artinya saya .... = baik
+6. Ucapan ketika berpisah adalah .... = goodbye | bye | see you
+7. "Good night" diucapkan ketika akan .... = tidur
+8. Minta maaf dalam bahasa Inggris adalah .... = sorry | I am sorry
+9. "Hello" artinya .... = halo | hai
+10. "What is your name" artinya siapa .... = namamu | nama kamu
+[URAIAN]
+1. Tuliskan cara memperkenalkan diri dalam bahasa Inggris!
+= Hello, my name is (nama). I am a student. Nice to meet you.
+2. Tuliskan tiga sapaan waktu dalam bahasa Inggris beserta artinya!
+= Good morning (selamat pagi), good afternoon (selamat siang/sore), good evening (selamat malam), good night (selamat tidur).
+3. Bagaimana menjawab pertanyaan "How are you?"
+= I am fine, thank you.
+4. Apa jawaban dari "Thank you"?
+= You are welcome.
+5. Tuliskan ucapan berpisah dalam bahasa Inggris!
+= Goodbye, see you, bye.

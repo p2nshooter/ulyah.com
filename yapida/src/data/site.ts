@@ -11,7 +11,7 @@
 import type { Store } from '../lib/store.ts';
 import { unitRingkas, type Halaman, type Situs, type Unit, type UnitRingkas } from './model.ts';
 import { SEED_SDM, SEED_UNITS, SEED_VERSION, TAMBALAN_KEPALA, TAMBALAN_NAMA, TAMBALAN_NSM, seedHalaman, seedSitus, seedUnit } from '../seed.ts';
-import { ambil, simpan } from './koleksi.ts';
+import { ambil, daftar, simpan } from './koleksi.ts';
 import { SDM } from './defs.ts';
 
 const K_SITUS = 'k/situs.json';
@@ -161,4 +161,35 @@ async function tambalIsiAwal(store: Store, now: number): Promise<void> {
     if (!d || d.judul === o.nama || ganti(d.judul) !== o.nama) continue;
     await simpan(store, SDM, { id: d.id, unit: d.unit, status: d.status, judul: o.nama, tanggal: d.tanggal, d: d.d, penulis: d.penulis, penulisNama: d.penulisNama }, now);
   }
+}
+
+/* ── Informasi akbar di kepala situs (koleksi `info`) ─────────────────────────────────────────────────────────────── */
+
+export interface InfoAkbar { slug: string; judul: string; jenis: string; tanggal: string; jam?: string; tempat?: string; tautan?: string }
+const HARI = 86_400_000;
+const tgl = (v: unknown) => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? Date.parse(`${v}T00:00:00+07:00`) : NaN);
+
+/** Rentang tayang sebuah informasi: mulai (bawaan 14 hari sebelum acara) sampai akhir hari `sampai` (bawaan sehari sesudah acara). */
+export function rentangInfo(x: { tanggal?: string; mulai?: unknown; sampai?: unknown }): [number, number] {
+  const acara = tgl(x.tanggal);
+  const mulai = Number.isFinite(tgl(x.mulai)) ? tgl(x.mulai) : Number.isFinite(acara) ? acara - 14 * HARI : -Infinity;
+  const sampai = Number.isFinite(tgl(x.sampai)) ? tgl(x.sampai) + HARI : Number.isFinite(acara) ? acara + 2 * HARI : Infinity;
+  return [mulai, sampai];
+}
+
+/** Informasi yang sedang tayang (paling banyak 5, acara terdekat dulu) — diingat 30 detik per isolate. */
+export function infoAkbar(store: Store, now = Date.now()): Promise<InfoAkbar[]> {
+  return memo(store, 'info-akbar', async () => {
+    const items = (await daftar(store, 'info', { tayang: true, limit: 60 })).filter((it) => {
+      const [a, b] = rentangInfo({ tanggal: it.t, mulai: it.x?.mulai, sampai: it.x?.sampai });
+      return now >= a && now < b;
+    });
+    const docs = await Promise.all(items.slice(0, 5).map((it) => ambil(store, 'info', it.id)));
+    return docs.filter((d): d is NonNullable<typeof d> => Boolean(d && d.status === 'tayang')).map((d) => ({
+      slug: d.slug, judul: d.judul, jenis: String(d.d.jenis ?? 'lain'), tanggal: d.tanggal,
+      ...(typeof d.d.jam === 'string' && d.d.jam ? { jam: d.d.jam } : {}),
+      ...(typeof d.d.tempat === 'string' && d.d.tempat ? { tempat: d.d.tempat } : {}),
+      ...(typeof d.d.tautan === 'string' && /^https:\/\//.test(d.d.tautan) ? { tautan: d.d.tautan } : {}),
+    })).sort((a, b) => Math.abs(Date.parse(a.tanggal) - now) - Math.abs(Date.parse(b.tanggal) - now));
+  });
 }

@@ -138,6 +138,8 @@ export interface Situs {
   donasi: { tampil: boolean; rekening: Rekening[]; catatan?: string };
   /** Pita siaran langsung di seluruh situs. */
   live?: { aktif: boolean; url: string; judul: string };
+  /** Tautan siaran 24 jam Masjidil Haram & Masjid Nabawi (super admin); kosong = kanal resmi Saudi (data/haramain.ts). */
+  haramain?: { makkah: string; madinah: string };
   /** Titik lokasi untuk jadwal sholat dan kiblat (bawaan: Sukakarya). */
   lokasi?: { lat: number; lng: number; nama: string };
   ubah: number;

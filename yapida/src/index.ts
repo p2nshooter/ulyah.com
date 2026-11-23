@@ -18,7 +18,8 @@ import { kesiswaan } from './routes/kesiswaan.ts';
 import { siswa } from './routes/siswa.ts';
 import { guru } from './routes/guru.ts';
 import { pesan } from './routes/pesan.ts';
-import { bagianPrestasiUnit, pitaPrestasi } from './pages/prestasi.ts';
+import { bagianPrestasiUnit, etalaseSertifikat } from './pages/prestasi.ts';
+import { CONTOH_SERTIFIKAT } from './routes/dokumen.ts';
 import { katalog, urutkan } from './data/pustaka.ts';
 import { peringkat, sepuluh } from './data/statistik.ts';
 import { RAK } from './data/buku.ts';
@@ -36,7 +37,7 @@ import { ensureSeed, getHalaman, getSitus, getUnit, listHalaman, listUnits } fro
 import { ASSET_V, crumbs } from './pages/layout.ts';
 import { berandaPage, donasiPage, halamanLembaga, halamanPage, kontakPage, lembagaIndexPage, profilPage, unitPage } from './pages/public.ts';
 import type { Unit } from './data/model.ts';
-import { ibadahPage, jadwalPage, kalenderPage, kiblatPage, pitaAplikasi, radioPage } from './pages/ibadah.ts';
+import { ibadahPage, jadwalPage, kalenderPage, kiblatPage, pitaAplikasi, radioPage, haramainPage } from './pages/ibadah.ts';
 import { raw } from './lib/html.ts';
 
 const app = new Hono<HonoEnv>();
@@ -81,7 +82,7 @@ app.get('/sitemap.xml', async (c) => {
   const o = origin(c);
   const store2 = c.get('store');
   const isi = await Promise.all(['kabar', 'galeri', 'karya', 'ppdb', 'sdm', 'penghargaan'].map(async (k) => (await daftar(store2, k, { tayang: true, limit: 900, ...(k === 'penghargaan' ? { saring: tampilDiPrestasi } : {}) })).filter((it) => it.u === 'yayasan' || units.some((u) => u.slug === it.u)).map((it) => publikDok(k, it.sl))));
-  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/agenda', '/dokumen', '/karya', '/ppdb', '/prestasi', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...(Object.keys(KURIKULUM) as (keyof typeof KURIKULUM)[]).flatMap((j) => [`/pustaka/pelajaran/${j}`, ...KURIKULUM[j].kelas.flatMap((k) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(k)).map((m) => `/pustaka/pelajaran/${j}/${k}/${m.slug}`))]), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', '/saran', '/bank-soal', ...['ra', 'mi', 'mts'].map((j) => `/bank-soal?jenjang=${j}`), ...(await indeksBawaan(c.env)).filter((p) => p.jenis === 'latihan').map((p) => `/bank-soal/${p.id}`), ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
+  const urls = ['/', '/profil', '/profil/pendiri', '/struktur', '/lembaga', '/kabar', '/galeri', '/video', '/informasi', '/agenda', '/dokumen', '/karya', '/ppdb', '/prestasi', '/ibadah', '/quran', ...Array.from({ length: 114 }, (_, i) => `/quran/${i + 1}`), '/jadwal-sholat', '/kiblat', '/kalender-hijriah', '/radio-quran', '/live-haramain', '/pustaka', '/pustaka/dunia', ...RAK.map((r) => `/pustaka/rak/${r.id}`), ...(Object.keys(KURIKULUM) as (keyof typeof KURIKULUM)[]).flatMap((j) => [`/pustaka/pelajaran/${j}`, ...KURIKULUM[j].kelas.flatMap((k) => KURIKULUM[j].mapel.filter((m) => m.kelas.includes(k)).map((m) => `/pustaka/pelajaran/${j}/${k}/${m.slug}`))]), ...units.map((u) => `/pustaka/lembaga/${u.slug}`), ...(await katalog(c.env, store)).semua.filter((b) => b.asal === 'bawaan' || b.asal === 'lembaga').map((b) => `/pustaka/b/${b.id}`), '/kontak', '/saran', '/bank-soal', ...['ra', 'mi', 'mts'].map((j) => `/bank-soal?jenjang=${j}`), ...(await indeksBawaan(c.env)).filter((p) => p.jenis === 'latihan').map((p) => `/bank-soal/${p.id}`), ...(situs.donasi.tampil ? ['/donasi'] : []), ...units.map((u) => `/lembaga/${u.slug}`), ...halaman.map((h) => `/h/${h.slug}`), ...new Set(isi.flat())];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `<url><loc>${o}${u}</loc></url>`).join('\n')}\n</urlset>`;
   return c.body(xml, 200, { 'content-type': 'application/xml; charset=utf-8', 'cache-control': 'public, max-age=3600' });
 });
@@ -121,7 +122,7 @@ app.get('/', async (c) => {
     path: '/', aktif: 'beranda',
     title: `${s.nama} — Pendidikan Islam Terpadu di Sukakarya, Bekasi`,
     desc: s.deskripsi,
-    body: berandaPage(s, units, raw(beritaBeranda(x, kabar.filter(aktif).slice(0, 3), galeri.filter(aktif).slice(0, 4), ppdb.filter(aktif)).s + pitaPrestasi(x, prestasi.filter(aktif)).s + pitaPustaka(pilihanPustaka, topBaca, x).s + pitaAplikasi(s).s)), css: [...IBADAH_CSS, 'pustaka.css'], js: [...IBADAH_JS, 'pustaka.js'],
+    body: berandaPage(s, units, raw(beritaBeranda(x, kabar.filter(aktif).slice(0, 3), galeri.filter(aktif).slice(0, 4), ppdb.filter(aktif)).s + etalaseSertifikat(x, prestasi.filter(aktif), CONTOH_SERTIFIKAT).s + pitaPustaka(pilihanPustaka, topBaca, x).s + pitaAplikasi(s).s)), css: [...IBADAH_CSS, 'pustaka.css'], js: [...IBADAH_JS, 'pustaka.js'],
     jsonLd: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: s.nama, alternateName: s.singkatan, url: `${origin(c)}/`, inLanguage: 'id' }],
   });
 });
@@ -218,6 +219,12 @@ app.get('/kalender-hijriah', async (c) => {
   const s = await getSitus(c.get('store'));
   const desc = 'Kalender hijriah hari ini dengan padanan Masehi, hari besar Islam, puasa sunnah Senin-Kamis dan Ayyamul Bidh, serta hitung mundur Ramadhan.';
   return render(c, { path: '/kalender-hijriah', aktif: 'ibadah', title: 'Kalender Hijriah, Hari Besar Islam & Hitung Mundur Ramadhan', desc, body: kalenderPage(s), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Kalender Hijriah', '/kalender-hijriah'), appLd(origin(c), 'Kalender Hijriah Yapida', '/kalender-hijriah', desc)] });
+});
+
+app.get('/live-haramain', async (c) => {
+  const s = await getSitus(c.get('store'));
+  const desc = 'Live streaming 24 jam Masjidil Haram Makkah dan Masjid Nabawi Madinah — siaran langsung resmi Saudi Quran TV dan Saudi Sunnah TV tanpa henti, gratis di Yayasan Al-Huda Yapida.';
+  return render(c, { path: '/live-haramain', aktif: 'ibadah', title: 'Live 24 Jam Masjidil Haram & Masjid Nabawi — Siaran Langsung Makkah Madinah | Yapida', desc, body: haramainPage(s), css: IBADAH_CSS, js: IBADAH_JS, jsonLd: [remahIbadah(origin(c), 'Live Makkah & Madinah', '/live-haramain')] });
 });
 
 app.get('/radio-quran', (c) => {

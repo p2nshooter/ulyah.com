@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Arab
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "Assalamu'alaikum" dijawab dengan ....
+*a. Wa'alaikumussalam
+b. Shabahal khair
+c. Syukran
+d. Afwan
+> Salam dijawab dengan wa'alaikumussalam.
+2. "Ismii Ahmad" artinya ....
+*a. namaku Ahmad
+b. ayahku Ahmad
+c. temanku Ahmad
+d. guruku Ahmad
+> Ismii: namaku.
+3. "Maa ismuka?" artinya ....
+a. di mana rumahmu?
+*b. siapa namamu?
+c. berapa umurmu?
+d. apa kabarmu?
+> Maa ismuka: siapa namamu (untuk laki-laki).
+4. "Kaifa haluka?" artinya ....
+*a. apa kabarmu?
+b. siapa namamu?
+c. di mana kamu?
+d. kapan kamu datang?
+> Kaifa haluka: bagaimana keadaanmu.
+5. Jawaban "Kaifa haluka?" adalah ....
+*a. Ana bikhair, alhamdulillah
+b. Ismii Ali
+c. Wa'alaikumussalam
+d. Ma'assalamah
+> Ana bikhair: aku baik.
+6. "Shabahal khair" artinya ....
+a. selamat malam
+*b. selamat pagi
+c. selamat siang
+d. selamat jalan
+> Shabahal khair: selamat pagi.
+7. "Syukran" artinya ....
+*a. terima kasih
+b. sama-sama
+c. maaf
+d. permisi
+> Syukran: terima kasih.
+8. Jawaban dari "syukran" adalah ....
+a. na'am
+*b. 'afwan
+c. laa
+d. ahlan
+> 'Afwan: sama-sama.
+9. "Ana tilmiidzun" artinya ....
+a. aku guru
+*b. aku murid laki-laki
+c. aku ayah
+d. aku dokter
+> Tilmiidz: murid laki-laki.
+10. Murid perempuan dalam bahasa Arab adalah ....
+a. tilmiidz
+*b. tilmiidzah
+c. mudarris
+d. ustadz
+> Tambahan ta marbuthah untuk perempuan.
+11. "Ma'assalamah" diucapkan ketika ....
+a. bertemu
+*b. berpisah
+c. makan
+d. tidur
+> Ma'assalamah: selamat jalan / sampai jumpa.
+12. "Ahlan wa sahlan" artinya ....
+*a. selamat datang
+b. selamat tidur
+c. terima kasih
+d. maaf
+> Ahlan wa sahlan: selamat datang.
+13. Kata "ana" artinya ....
+*a. saya
+b. kamu
+c. dia
+d. kami
+> Ana: saya.
+14. Kata "anta" artinya ....
+a. saya
+*b. kamu (laki-laki)
+c. dia perempuan
+d. mereka
+> Anta: kamu laki-laki.
+15. "Ana muslimun" artinya ....
+*a. saya seorang muslim
+b. saya guru
+c. saya murid
+d. saya senang
+> Muslim: orang Islam.
+[MENJODOHKAN]
+1. Syukran = terima kasih
+2. 'Afwan = sama-sama
+3. Shabahal khair = selamat pagi
+4. Ma'assalamah = sampai jumpa
+5. Ahlan wa sahlan = selamat datang
+~ selamat malam
+[ISIAN]
+1. "Ismii" artinya .... = namaku | nama saya
+2. "Ana" artinya .... = saya | aku
+3. "Anta" artinya .... = kamu
+4. Jawaban salam adalah wa'alaikumus .... = salam
+5. "Syukran" artinya terima .... = kasih
+6. Selamat pagi dalam bahasa Arab adalah shabahal .... = khair | khoir
+7. "Maa ismuka" artinya siapa .... = namamu | nama kamu
+8. Murid laki-laki dalam bahasa Arab disebut .... = tilmiidz | tilmidz
+9. "Ana bikhair" artinya aku dalam keadaan .... = baik
+10. Ketika berpisah kita mengucapkan .... = ma'assalamah | maassalamah
+[URAIAN]
+1. Bagaimana cara memperkenalkan diri dalam bahasa Arab? Tuliskan contohnya!
+= Assalamu'alaikum, ismii (nama), ana tilmiidzun/tilmiidzatun.
+2. Apa arti "Kaifa haluka" dan bagaimana menjawabnya?
+= Artinya apa kabarmu; dijawab "Ana bikhair, alhamdulillah".
+3. Tuliskan ucapan terima kasih dan jawabannya dalam bahasa Arab!
+= Syukran, dijawab 'afwan.
+4. Apa perbedaan tilmiidz dan tilmiidzah?
+= Tilmiidz untuk murid laki-laki, tilmiidzah untuk murid perempuan.
+5. Tuliskan dua ucapan salam dalam bahasa Arab beserta artinya!
+= Shabahal khair (selamat pagi), ma'assalamah (sampai jumpa), ahlan wa sahlan (selamat datang).

@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel BTQ
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Huruf hijaiyah pokok berjumlah ....
+a. 26
+*b. 28
+c. 20
+d. 35
+> Huruf hijaiyah pokok ada 28, dari alif sampai ya.
+2. Huruf hijaiyah pertama adalah ....
+*a. alif
+b. ba
+c. ta
+d. ya
+> Urutan huruf hijaiyah diawali alif.
+3. Huruf ب dibaca ....
+a. ta
+*b. ba
+c. tsa
+d. nun
+> Satu titik di bawah: ba.
+4. Huruf ت dibaca ....
+a. ba
+*b. ta
+c. tsa
+d. ya
+> Dua titik di atas: ta.
+5. Huruf ث dibaca ....
+a. ta
+b. ba
+*c. tsa
+d. syin
+> Tiga titik di atas: tsa.
+6. Huruf ج dibaca ....
+*a. jim
+b. ha
+c. kho
+d. dal
+> Satu titik di dalam bawah: jim.
+7. Huruf yang tidak bertitik di antara pilihan berikut adalah ....
+a. ج
+*b. ح
+c. خ
+d. ب
+> Ha (ح) tidak bertitik.
+8. Huruf خ dibaca ....
+a. ha
+b. jim
+*c. kho
+d. 'ain
+> Satu titik di atas: kho.
+9. Huruf د dibaca ....
+*a. dal
+b. dzal
+c. ra
+d. zai
+> Dal tanpa titik.
+10. Huruf ر dibaca ....
+a. zai
+*b. ra
+c. wau
+d. dal
+> Ra tanpa titik.
+11. Huruf س dibaca ....
+*a. sin
+b. syin
+c. shad
+d. tsa
+> Sin tanpa titik.
+12. Huruf terakhir hijaiyah adalah ....
+a. alif
+b. wau
+*c. ya
+d. ha
+> Urutan hijaiyah diakhiri ya.
+13. Huruf hijaiyah ditulis dan dibaca dari ....
+a. kiri ke kanan
+*b. kanan ke kiri
+c. atas ke bawah
+d. bawah ke atas
+> Tulisan Arab dari kanan ke kiri.
+14. Huruf م dibaca ....
+a. nun
+*b. mim
+c. lam
+d. kaf
+> Mim.
+15. Huruf ن dibaca ....
+*a. nun
+b. ba
+c. ta
+d. ya
+> Satu titik di atas: nun.
+[MENJODOHKAN]
+1. ا = alif
+2. ب = ba
+3. ج = jim
+4. د = dal
+5. س = sin
+~ syin
+[ISIAN]
+1. Huruf hijaiyah pertama adalah .... = alif
+2. Huruf hijaiyah terakhir adalah .... = ya
+3. Tulisan Arab dibaca dari .... ke kiri. = kanan
+4. Huruf ب memiliki .... titik di bawah. = satu | 1
+5. Huruf ت memiliki .... titik di atas. = dua | 2
+6. Huruf ث memiliki .... titik di atas. = tiga | 3
+7. Huruf م dibaca .... = mim
+8. Huruf ر dibaca .... = ra
+9. Huruf ن dibaca .... = nun
+10. Huruf yang dipakai menulis Al-Qur'an disebut huruf .... = hijaiyah | Arab
+[URAIAN]
+1. Tuliskan urutan lima huruf hijaiyah pertama!
+= Alif, ba, ta, tsa, jim.
+2. Apa perbedaan huruf ب dan ت?
+= Ba bertitik satu di bawah, ta bertitik dua di atas.
+3. Dari arah mana tulisan Arab dibaca?
+= Dari kanan ke kiri.
+4. Sebutkan tiga huruf hijaiyah yang tidak bertitik!
+= Alif, ha (ح), dal, ra, sin, mim, lam, kaf, wau.
+5. Mengapa kita harus mengenal huruf hijaiyah?
+= Supaya bisa membaca Al-Qur'an dengan benar.

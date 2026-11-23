@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Akidah Akhlak
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Kalimat syahadat ada ....
+a. satu
+*b. dua
+c. tiga
+d. empat
+> Syahadat ada dua: syahadat tauhid dan syahadat rasul.
+2. Syahadat pertama disebut syahadat ....
+*a. tauhid
+b. rasul
+c. salat
+d. puasa
+> Syahadat pertama berisi pengakuan bahwa tidak ada Tuhan selain Allah.
+3. Syahadat kedua disebut syahadat ....
+a. tauhid
+*b. rasul
+c. iman
+d. ihsan
+> Syahadat kedua berisi pengakuan bahwa Nabi Muhammad utusan Allah.
+4. Tidak ada Tuhan selain ....
+a. malaikat
+b. nabi
+*c. Allah
+d. manusia
+> Hanya Allah yang wajib disembah.
+5. Nabi Muhammad adalah utusan ....
+*a. Allah
+b. raja
+c. malaikat
+d. orang tua
+> Nabi Muhammad diutus Allah untuk seluruh manusia.
+6. Orang yang mengucapkan dua kalimat syahadat berarti masuk agama ....
+a. Hindu
+*b. Islam
+c. Buddha
+d. Kristen
+> Syahadat adalah tanda seseorang masuk Islam.
+7. Mengucapkan dua kalimat syahadat termasuk rukun Islam yang ke ....
+*a. satu
+b. dua
+c. tiga
+d. lima
+> Rukun Islam pertama adalah syahadat.
+8. Kalimat basmalah dibaca ketika akan ....
+a. selesai makan
+*b. memulai pekerjaan baik
+c. bersin
+d. mendengar kabar duka
+> Setiap pekerjaan baik diawali dengan basmalah.
+9. Bacaan basmalah artinya "Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha ...."
+a. Kuat
+b. Besar
+*c. Penyayang
+d. Mendengar
+> Bismillahirrahmanirrahim: dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.
+10. Kalimat hamdalah adalah ....
+a. Bismillah
+*b. Alhamdulillah
+c. Subhanallah
+d. Allahu Akbar
+> Hamdalah berarti mengucapkan Alhamdulillah.
+11. Alhamdulillah artinya ....
+*a. segala puji bagi Allah
+b. Allah Maha Besar
+c. Maha Suci Allah
+d. dengan nama Allah
+> Hamdalah adalah ungkapan memuji Allah.
+12. Hamdalah dibaca ketika ....
+a. akan tidur
+*b. selesai makan
+c. masuk kamar mandi
+d. akan belajar
+> Setelah makan kita bersyukur dengan membaca Alhamdulillah.
+13. Ketika akan makan, Ali membaca ....
+*a. Bismillah
+b. Alhamdulillah
+c. Astagfirullah
+d. Innalillahi
+> Sebelum makan kita membaca basmalah.
+14. Membaca basmalah sebelum belajar membuat belajar kita ....
+a. cepat bosan
+*b. diberkahi Allah
+c. tidak selesai
+d. terlambat
+> Pekerjaan yang diawali nama Allah mendapat berkah.
+15. Kalimat basmalah dan hamdalah disebut kalimat ....
+a. tasbih
+*b. thayyibah
+c. takbir
+d. tahlil
+> Kalimat thayyibah artinya kalimat yang baik.
+[MENJODOHKAN]
+1. Syahadat pertama = syahadat tauhid
+2. Syahadat kedua = syahadat rasul
+3. Bismillah = dibaca sebelum memulai pekerjaan
+4. Alhamdulillah = dibaca setelah selesai makan
+5. Kalimat thayyibah = kalimat yang baik
+~ dibaca ketika bersin dan menguap
+[ISIAN]
+1. Kalimat syahadat ada .... = dua | 2
+2. Syahadat yang berisi pengakuan Allah satu-satunya Tuhan disebut syahadat .... = tauhid
+3. Nabi Muhammad adalah utusan .... = Allah
+4. Sebelum makan kita membaca .... = basmalah | bismillah
+5. Setelah makan kita membaca .... = hamdalah | alhamdulillah
+6. Alhamdulillah artinya segala puji bagi .... = Allah
+7. Rukun Islam yang pertama adalah membaca dua kalimat .... = syahadat
+8. Basmalah dibaca ketika akan .... pekerjaan baik. = memulai
+9. Kalimat yang baik disebut kalimat .... = thayyibah
+10. Orang yang bersyahadat berarti beragama .... = Islam
+[URAIAN]
+1. Sebutkan dua macam kalimat syahadat!
+= Syahadat tauhid dan syahadat rasul.
+2. Apa arti syahadat tauhid?
+= Aku bersaksi bahwa tidak ada Tuhan selain Allah.
+3. Kapan kita membaca basmalah? Sebutkan dua contoh!
+= Ketika akan memulai pekerjaan baik, misalnya akan makan dan akan belajar.
+4. Kapan kita membaca hamdalah? Sebutkan dua contoh!
+= Ketika selesai melakukan sesuatu atau mendapat nikmat, misalnya setelah makan dan setelah bangun tidur.
+5. Mengapa kita harus membaca basmalah sebelum melakukan pekerjaan?
+= Supaya pekerjaan kita diberkahi Allah dan kita selalu ingat kepada Allah.

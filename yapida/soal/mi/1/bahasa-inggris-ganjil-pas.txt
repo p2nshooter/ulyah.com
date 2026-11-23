@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Inggris
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "One" artinya ....
+*a. satu
+b. dua
+c. tiga
+d. empat
+> One: satu.
+2. Angka dua dalam bahasa Inggris adalah ....
+a. one
+*b. two
+c. three
+d. four
+> Two: dua.
+3. "Three" artinya ....
+a. dua
+*b. tiga
+c. empat
+d. lima
+> Three: tiga.
+4. "Four" artinya ....
+*a. empat
+b. lima
+c. enam
+d. tujuh
+> Four: empat.
+5. Angka lima dalam bahasa Inggris adalah ....
+a. four
+*b. five
+c. six
+d. seven
+> Five: lima.
+6. "Six" artinya ....
+a. lima
+*b. enam
+c. tujuh
+d. delapan
+> Six: enam.
+7. "Seven" artinya ....
+*a. tujuh
+b. delapan
+c. sembilan
+d. sepuluh
+> Seven: tujuh.
+8. Angka delapan dalam bahasa Inggris adalah ....
+a. seven
+*b. eight
+c. nine
+d. ten
+> Eight: delapan.
+9. "Nine" artinya ....
+a. delapan
+*b. sembilan
+c. sepuluh
+d. tujuh
+> Nine: sembilan.
+10. Angka sepuluh dalam bahasa Inggris adalah ....
+*a. ten
+b. nine
+c. one
+d. two
+> Ten: sepuluh.
+11. "How many?" artinya ....
+*a. berapa banyak?
+b. siapa?
+c. apa?
+d. di mana?
+> How many: berapa banyak.
+12. Two plus three is ....
+a. four
+*b. five
+c. six
+d. seven
+> 2 + 3 = 5 (five).
+13. "Good evening" artinya ....
+a. selamat pagi
+b. selamat siang
+*c. selamat malam
+d. selamat tidur
+> Evening: malam.
+14. Jumlah jari pada satu tangan adalah ....
+a. four
+*b. five
+c. six
+d. ten
+> Satu tangan ada lima jari.
+15. "Nice to meet you" diucapkan ketika ....
+*a. berkenalan
+b. berpisah
+c. makan
+d. tidur
+> Ucapan saat pertama berkenalan.
+[MENJODOHKAN]
+1. One = satu
+2. Three = tiga
+3. Five = lima
+4. Eight = delapan
+5. Ten = sepuluh
+~ dua belas
+[ISIAN]
+1. "Two" artinya .... = dua | 2
+2. "Four" artinya .... = empat | 4
+3. Angka enam dalam bahasa Inggris adalah .... = six
+4. Angka tujuh dalam bahasa Inggris adalah .... = seven
+5. "Nine" artinya .... = sembilan | 9
+6. Angka satu dalam bahasa Inggris adalah .... = one
+7. "How many" artinya berapa .... = banyak
+8. One plus one is .... = two
+9. "Good morning" artinya selamat .... = pagi
+10. Jawaban "how are you" adalah I am .... = fine
+[URAIAN]
+1. Tuliskan angka 1 sampai 5 dalam bahasa Inggris!
+= One, two, three, four, five.
+2. Tuliskan angka 6 sampai 10 dalam bahasa Inggris!
+= Six, seven, eight, nine, ten.
+3. Ada berapa jari di dua tangan? Tulis dalam bahasa Inggris!
+= Ten.
+4. Bagaimana cara menyapa guru pada pagi hari dalam bahasa Inggris?
+= Good morning, teacher.
+5. Tuliskan percakapan berkenalan singkat dalam bahasa Inggris!
+= A: Hello, what is your name? B: My name is Ali. A: Nice to meet you.

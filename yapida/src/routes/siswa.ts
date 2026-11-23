@@ -82,7 +82,7 @@ siswa.get('/siswa', async (c) => {
   const j = jenjangUnit(d.unit);
   const rak = RAK.find((r) => r.id === (j === 'RA' ? 'ra' : j === 'MI' ? 'mi' : j === 'MTs' ? 'mts' : ''));
   const res = await render(c, {
-    path: '/siswa', title: `${d.judul} — Portal Siswa Yapida`, desc: 'Portal Siswa Yayasan Al-Huda Yapida.', noindex: true, noAds: true, noStore: true, kelas: 'hal-siswa', css: ['siswa.css', 'tur.css'], js: ['tur.js'],
+    path: '/siswa', title: `${d.judul} — Portal Siswa Yapida`, desc: 'Portal Siswa Yayasan Al-Huda Yapida.', noindex: true, noAds: true, noStore: true, kelas: 'hal-siswa', css: ['siswa.css', 'tur.css'], js: ['suara.js', 'siswa-beranda.js', 'tur.js'],
     body: html`${berandaSiswa({ nama: d.judul, foto: typeof d.d.foto === 'string' ? d.d.foto : undefined, lembaga: units.find((u) => u.slug === d.unit)?.singkat ?? d.unit, p, d: d.d, riwayat: riwayatKelas(d.d, d.unit), tagihan, kwitansi, penghargaan: penghargaan.filter((x) => x.s !== 'arsip'), hari: hariIni(), rak: rak ? { href: `/pustaka/rak/${rak.id}`, nama: `Rak ${rak.nama}` } : undefined, soal: { kelasku: soal.kelasku, jumlahLain: soal.lain.length, riwayat }, mediaUrl: (f) => media(c)(f) })}${dataTur(TUR_SISWA_BERANDA)}`,
   });
   res.headers.set('x-robots-tag', 'noindex, nofollow');

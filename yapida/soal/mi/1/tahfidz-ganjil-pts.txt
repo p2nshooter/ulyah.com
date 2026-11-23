@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Tahfidz
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Tahfidz artinya ....
+*a. menghafal Al-Qur'an
+b. menulis Al-Qur'an
+c. menerjemahkan Al-Qur'an
+d. membeli Al-Qur'an
+> Tahfidz: menghafal.
+2. Orang yang hafal Al-Qur'an disebut ....
+*a. hafiz
+b. qari
+c. imam
+d. muazin
+> Hafiz/hafizah: penghafal Al-Qur'an.
+3. Sebelum menghafal Al-Qur'an sebaiknya kita ....
+*a. berwudu dan berdoa
+b. bermain dahulu
+c. tidur
+d. makan banyak
+> Menghafal dalam keadaan suci dan diawali doa.
+4. Cara mudah menghafal Al-Qur'an adalah ....
+*a. mengulang-ulang sedikit demi sedikit
+b. menghafal sekaligus banyak
+c. tidak pernah mengulang
+d. menghafal sambil bermain
+> Hafalan dikuatkan dengan pengulangan.
+5. Surah yang paling sering dihafal pertama kali adalah ....
+*a. Al-Fatihah
+b. Al-Baqarah
+c. Yasin
+d. Al-Kahfi
+> Al-Fatihah dibaca di setiap salat.
+6. Ayat kedua surah Al-Fatihah adalah ....
+*a. Alhamdulillahi rabbil 'alamin
+b. Bismillahirrahmanirrahim
+c. Ar-rahmanir rahim
+d. Maliki yaumiddin
+> Ayat 2: Alhamdulillahi rabbil 'alamin.
+7. Lanjutan "Ar-rahmanir rahim" adalah ....
+*a. Maliki yaumiddin
+b. Iyyaka na'budu
+c. Ihdinash shirathal mustaqim
+d. Shirathal ladzina
+> Ayat 4: Maliki yaumiddin.
+8. Lanjutan "Iyyaka na'budu" adalah ....
+*a. wa iyyaka nasta'in
+b. rabbil 'alamin
+c. waladhdhallin
+d. yaumiddin
+> Iyyaka na'budu wa iyyaka nasta'in.
+9. Surah Al-Fatihah diakhiri dengan kata ....
+*a. waladh dhallin
+b. ar-rahim
+c. nasta'in
+d. al-mustaqim
+> Ayat 7 diakhiri waladh dhallin.
+10. Surah An-Nas ayat pertama adalah ....
+*a. Qul a'udzu birabbin nas
+b. Malikin nas
+c. Ilahin nas
+d. Minal jinnati wan nas
+> Ayat 1 An-Nas.
+11. Lanjutan "Qul a'udzu birabbin nas" adalah ....
+*a. Malikin nas
+b. Ilahin nas
+c. Min syarril waswasil khannas
+d. Alladzi yuwaswisu
+> Ayat 2: Malikin nas.
+12. Ayat terakhir surah An-Nas adalah ....
+a. Malikin nas
+b. Ilahin nas
+*c. Minal jinnati wan nas
+d. Qul a'udzu birabbin nas
+> Ayat 6: Minal jinnati wan nas.
+13. Menghafal Al-Qur'an sebaiknya disetorkan kepada ....
+*a. guru
+b. teman bermain
+c. adik
+d. kucing
+> Hafalan disetorkan kepada guru agar benar.
+14. Waktu yang baik untuk menghafal adalah ....
+*a. setelah subuh
+b. ketika mengantuk
+c. sambil menonton televisi
+d. sambil berlari
+> Pagi hari pikiran segar.
+15. Al-Qur'an yang sudah dihafal harus ....
+a. dilupakan
+*b. dijaga dengan sering diulang
+c. disimpan saja
+d. tidak dibaca lagi
+> Hafalan dijaga dengan muraja'ah.
+[MENJODOHKAN]
+1. Tahfidz = menghafal Al-Qur'an
+2. Hafiz = penghafal Al-Qur'an
+3. Muraja'ah = mengulang hafalan
+4. Setoran = membacakan hafalan kepada guru
+5. Al-Fatihah = surah pembukaan
+~ menulis kaligrafi
+[ISIAN]
+1. Menghafal Al-Qur'an disebut .... = tahfidz | tahfiz
+2. Penghafal Al-Qur'an laki-laki disebut .... = hafiz | hafidz
+3. Mengulang hafalan disebut .... = muraja'ah | murajaah
+4. Surah Al-Fatihah terdiri dari .... ayat. = tujuh | 7
+5. Surah An-Nas terdiri dari .... ayat. = enam | 6
+6. Lanjutan "Maliki" adalah .... = yaumiddin
+7. Lanjutan "Malikin nas" adalah .... nas. = ilahin
+8. Hafalan disetorkan kepada .... = guru | ustadz | ustadzah
+9. Sebelum menghafal kita berwudu dan .... = berdoa
+10. Ayat pertama Al-Fatihah adalah .... = basmalah | bismillahirrahmanirrahim
+[URAIAN]
+1. Apa arti tahfidz?
+= Menghafal Al-Qur'an.
+2. Sebutkan dua cara agar mudah menghafal Al-Qur'an!
+= Menghafal sedikit demi sedikit, mengulang-ulang, mendengarkan murottal, dan menyetorkan kepada guru.
+3. Tuliskan ayat ke-2 sampai ke-4 surah Al-Fatihah dalam huruf latin!
+= Alhamdulillahi rabbil 'alamin, ar-rahmanir rahim, maliki yaumiddin.
+4. Tuliskan ayat 1 sampai 3 surah An-Nas dalam huruf latin!
+= Qul a'udzu birabbin nas, malikin nas, ilahin nas.
+5. Mengapa hafalan harus sering diulang?
+= Supaya tidak lupa dan bacaannya tetap lancar.

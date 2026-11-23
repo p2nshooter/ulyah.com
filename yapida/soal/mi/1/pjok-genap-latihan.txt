@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel PJOK
+@semester genap
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Tubuh yang sehat dan kuat disebut ....
+*a. bugar
+b. lemah
+c. sakit
+d. lelah
+> Bugar.
+2. Push up melatih otot ....
+*a. lengan
+b. perut
+c. mata
+d. leher
+> Lengan.
+3. Sit up melatih otot ....
+*a. perut
+b. lengan
+c. jari
+d. telinga
+> Perut.
+4. Mandi sebaiknya ....
+*a. dua kali sehari
+b. seminggu sekali
+c. sebulan sekali
+d. tidak perlu
+> Dua kali.
+5. Sebelum makan kita ....
+*a. mencuci tangan
+b. bermain
+c. berlari
+d. tidur
+> Cuci tangan.
+6. Kuku panjang harus ....
+*a. dipotong
+b. dibiarkan
+c. digigit
+d. diwarnai
+> Dipotong.
+7. Senam diiringi musik disebut senam ....
+*a. irama
+b. lantai
+c. renang
+d. lari
+> Irama.
+8. Menyeberang jalan harus melihat ....
+*a. kanan dan kiri
+b. atas
+c. bawah
+d. belakang saja
+> Kanan kiri.
+9. Makanan sehat adalah ....
+*a. sayur dan buah
+b. permen terus-menerus
+c. minuman bersoda
+d. jajanan berpengawet
+> Sayur buah.
+10. Gigi disikat ....
+*a. pagi dan sebelum tidur
+b. sebulan sekali
+c. jika sakit saja
+d. tidak pernah
+> Dua kali sehari.
+11. Olahraga sebaiknya dilakukan ....
+*a. teratur
+b. sekali setahun
+c. saat sakit
+d. tengah malam
+> Teratur.
+12. Kebersihan sebagian dari ....
+*a. iman
+b. olahraga
+c. permainan
+d. pelajaran
+> Hadits.
+13. Air minum yang sehat adalah air ....
+*a. matang
+b. selokan
+c. keruh
+d. bau
+> Matang.
+14. Lari di tempat termasuk latihan ....
+*a. kebugaran
+b. menulis
+c. menggambar
+d. bernyanyi
+> Kebugaran.
+15. Benda tajam harus ....
+*a. dijauhkan dari anak-anak
+b. dimainkan
+c. dilempar
+d. dibawa berlari
+> Keselamatan.
+[MENJODOHKAN]
+1. Bugar = sehat dan kuat
+2. Push up = otot lengan
+3. Sit up = otot perut
+4. Senam irama = diiringi musik
+5. Kuku panjang = dipotong
+~ dibiarkan
+[ISIAN]
+1. Push up melatih otot .... = lengan
+2. Sit up melatih otot .... = perut
+3. Mandi .... kali sehari. = dua | 2
+4. Sebelum makan mencuci .... = tangan
+5. Senam diiringi musik disebut senam .... = irama
+6. Kebersihan sebagian dari .... = iman
+7. Gigi disikat .... kali sehari. = dua | 2
+8. Air minum harus .... = matang | bersih
+9. Olahraga dilakukan secara .... = teratur | rutin
+10. Menyeberang melihat kanan dan .... = kiri
+[URAIAN]
+1. Sebutkan dua latihan kebugaran!
+= Push up, sit up, lari di tempat, lompat tali.
+2. Sebutkan tiga cara menjaga kebersihan diri!
+= Mandi, menyikat gigi, memotong kuku, mencuci rambut.
+3. Mengapa kita harus makan makanan sehat?
+= Agar tubuh tumbuh sehat, kuat, dan tidak mudah sakit.
+4. Bagaimana cara menyeberang yang aman?
+= Melihat kanan dan kiri, menyeberang di zebra cross, bersama orang dewasa.
+5. Apa manfaat olahraga teratur?
+= Tubuh bugar, sehat, kuat, dan semangat belajar.

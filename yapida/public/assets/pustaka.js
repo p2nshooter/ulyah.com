@@ -427,9 +427,12 @@
     var rc = r.getBoundingClientRect();
     if (!rc.width && !rc.height) return;
     if (mode === 'halaman') {
-      var kotak = lembar.getBoundingClientRect();
-      if (rc.left >= kotak.right - 4 && hal < jumlah - 1) balik(Math.min(jumlah - 1, hal + Math.max(1, Math.floor((rc.left - kotak.left) / Math.max(1, lebar)))), 1);
-      else if (rc.right <= kotak.left + 4 && hal > 0) balik(hal - 1, -1);
+      /* Halaman kata dihitung dari letaknya di dalam isi (kata dan isi sama-sama ikut bergeser), bukan dari letaknya di
+         layar: selama animasi balik halaman (.45 dtk) letak di layar belum final, dan dulu itu membuat halaman melompat
+         terlalu jauh lalu mundur lagi berulang-ulang ketika dibacakan. */
+      var x = rc.left + rc.width / 2 - isi.getBoundingClientRect().left;
+      var tuju = Math.max(0, Math.min(jumlah - 1, Math.floor(x / Math.max(1, lebar))));
+      if (tuju !== hal) balik(tuju, tuju > hal ? 1 : -1);
     } else if (rc.bottom > innerHeight - 90 || rc.top < 80) scrollBy({ top: rc.top - innerHeight * 0.4, behavior: tenang ? 'auto' : 'smooth' });
   }
   /* Perangkat tanpa suara Indonesia (sebagian HP memakai mesin suara bawaan pabrik) akan membaca dengan logat lain —

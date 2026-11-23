@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Fikih
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Rukun Islam ada ....
+a. tiga
+b. empat
+*c. lima
+d. enam
+> Rukun Islam ada lima perkara.
+2. Rukun Islam yang pertama adalah ....
+*a. membaca dua kalimat syahadat
+b. salat
+c. zakat
+d. puasa
+> Syahadat adalah rukun Islam pertama.
+3. Rukun Islam yang kedua adalah ....
+a. zakat
+*b. mendirikan salat
+c. haji
+d. puasa
+> Rukun Islam kedua adalah salat.
+4. Rukun Islam yang ketiga adalah ....
+a. salat
+b. puasa
+*c. membayar zakat
+d. haji
+> Rukun Islam ketiga adalah zakat.
+5. Puasa Ramadan termasuk rukun Islam yang ke ....
+a. dua
+b. tiga
+*c. empat
+d. lima
+> Puasa Ramadan rukun Islam keempat.
+6. Rukun Islam yang kelima adalah ....
+a. salat
+b. zakat
+c. puasa
+*d. haji bagi yang mampu
+> Haji diwajibkan bagi yang mampu.
+7. Ibadah haji dilakukan di kota ....
+*a. Makkah
+b. Jakarta
+c. Bandung
+d. Kairo
+> Haji dilaksanakan di Makkah dan sekitarnya.
+8. Puasa wajib dilaksanakan pada bulan ....
+a. Syawal
+*b. Ramadan
+c. Rajab
+d. Muharram
+> Puasa wajib adalah puasa Ramadan.
+9. Najis artinya ....
+*a. kotoran yang membuat tidak sah ibadah
+b. air bersih
+c. pakaian baru
+d. tempat salat
+> Najis harus dibersihkan sebelum beribadah.
+10. Contoh benda najis adalah ....
+a. air hujan
+*b. air kencing
+c. daun
+d. pasir
+> Air kencing termasuk najis.
+11. Bersuci dalam bahasa Arab disebut ....
+a. salat
+*b. thaharah
+c. zakat
+d. siyam
+> Thaharah artinya bersuci.
+12. Alat untuk membersihkan najis yang paling utama adalah ....
+*a. air yang suci
+b. minyak
+c. susu
+d. sirup
+> Najis dibersihkan dengan air yang suci dan menyucikan.
+13. Pakaian yang terkena najis harus ....
+a. langsung dipakai salat
+*b. dicuci sampai bersih
+c. dijemur saja
+d. dibuang
+> Pakaian bernajis dicuci sampai hilang najisnya.
+14. Agama Allah yang dibawa Nabi Muhammad adalah ....
+*a. Islam
+b. Hindu
+c. Buddha
+d. Konghucu
+> Nabi Muhammad membawa agama Islam.
+15. Kotoran hewan termasuk ....
+a. barang suci
+*b. najis
+c. makanan
+d. hiasan
+> Kotoran hewan termasuk najis.
+[MENJODOHKAN]
+1. Rukun Islam pertama = syahadat
+2. Rukun Islam kedua = salat
+3. Rukun Islam ketiga = zakat
+4. Rukun Islam keempat = puasa Ramadan
+5. Rukun Islam kelima = haji
+~ sedekah
+[ISIAN]
+1. Rukun Islam ada .... = lima | 5
+2. Salat termasuk rukun Islam yang ke .... = dua | 2 | kedua
+3. Zakat termasuk rukun Islam yang ke .... = tiga | 3 | ketiga
+4. Haji wajib bagi orang yang .... = mampu
+5. Puasa wajib dilaksanakan pada bulan .... = Ramadan | Ramadhan
+6. Bersuci dalam bahasa Arab disebut .... = thaharah | taharah
+7. Kotoran yang harus dibersihkan sebelum ibadah disebut .... = najis
+8. Najis dibersihkan dengan .... yang suci. = air
+9. Air kencing termasuk benda .... = najis
+10. Ibadah haji dilaksanakan di kota .... = Makkah | Mekah | Mekkah
+[URAIAN]
+1. Sebutkan rukun Islam yang lima!
+= Membaca dua kalimat syahadat, mendirikan salat, membayar zakat, berpuasa Ramadan, dan berhaji bagi yang mampu.
+2. Apa yang dimaksud dengan najis?
+= Kotoran yang harus dibersihkan karena membuat ibadah seperti salat tidak sah.
+3. Sebutkan tiga contoh benda najis!
+= Air kencing, kotoran manusia atau hewan, darah, dan bangkai.
+4. Bagaimana cara membersihkan pakaian yang terkena air kencing?
+= Dicuci dengan air yang suci sampai hilang bau, warna, dan bekasnya.
+5. Mengapa badan dan pakaian kita harus suci ketika salat?
+= Karena suci dari najis adalah syarat sah salat, dan Allah menyukai orang yang bersih.

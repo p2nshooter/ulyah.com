@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Indonesia
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Huruf vokal terdiri dari ....
+*a. a, i, u, e, o
+b. b, c, d, f, g
+c. a, b, c, d, e
+d. k, l, m, n, o
+> Huruf vokal: a, i, u, e, o.
+2. Huruf yang bukan vokal disebut huruf ....
+*a. konsonan
+b. besar
+c. kecil
+d. sambung
+> Konsonan: b, c, d, f, g, dan seterusnya.
+3. Kata "buku" terdiri dari suku kata ....
+*a. bu – ku
+b. b – uku
+c. buk – u
+d. bu – k – u
+> Bu-ku: dua suku kata.
+4. Kata "sapu" diawali huruf ....
+a. a
+*b. s
+c. p
+d. u
+> Huruf pertama s.
+5. Huruf vokal pada kata "bola" adalah ....
+*a. o dan a
+b. b dan l
+c. b dan o
+d. l dan a
+> Vokalnya o dan a.
+6. Anggota tubuh untuk melihat adalah ....
+*a. mata
+b. telinga
+c. hidung
+d. lidah
+> Mata untuk melihat.
+7. Anggota tubuh untuk mendengar adalah ....
+a. mata
+*b. telinga
+c. tangan
+d. kaki
+> Telinga untuk mendengar.
+8. Hidung digunakan untuk ....
+*a. mencium bau
+b. melihat
+c. mendengar
+d. berjalan
+> Hidung untuk mencium.
+9. Suku kata "ma" + "ta" menjadi kata ....
+*a. mata
+b. tama
+c. matta
+d. amat
+> Ma-ta.
+10. Kata yang diawali huruf vokal adalah ....
+*a. ikan
+b. kuda
+c. sapi
+d. meja
+> Ikan diawali i.
+11. Huruf pertama dalam abjad adalah ....
+*a. a
+b. b
+c. z
+d. o
+> Abjad dimulai dari a.
+12. Huruf terakhir dalam abjad adalah ....
+a. a
+b. y
+*c. z
+d. x
+> Abjad diakhiri z.
+13. Kata "kaki" terdiri dari ... suku kata.
+a. satu
+*b. dua
+c. tiga
+d. empat
+> Ka-ki.
+14. Lidah digunakan untuk ....
+*a. mengecap rasa
+b. melihat
+c. mendengar
+d. memegang
+> Lidah mengecap rasa.
+15. Kata "rumah" dipenggal menjadi ....
+*a. ru – mah
+b. rum – ah
+c. r – umah
+d. ru – ma – h
+> Ru-mah.
+[MENJODOHKAN]
+1. Mata = untuk melihat
+2. Telinga = untuk mendengar
+3. Hidung = untuk mencium bau
+4. Lidah = untuk mengecap rasa
+5. Kaki = untuk berjalan
+~ untuk berpikir
+[ISIAN]
+1. Huruf a, i, u, e, o disebut huruf .... = vokal | hidup
+2. Huruf selain vokal disebut huruf .... = konsonan | mati
+3. Kata "buku" dipenggal menjadi bu – .... = ku
+4. Gabungan suku kata "sa" dan "pu" menjadi .... = sapu
+5. Anggota tubuh untuk melihat adalah .... = mata
+6. Anggota tubuh untuk mendengar adalah .... = telinga
+7. Huruf pertama kata "ikan" adalah .... = i
+8. Abjad diakhiri huruf .... = z
+9. Kaki digunakan untuk .... = berjalan
+10. Kata "meja" terdiri dari .... suku kata. = dua | 2
+[URAIAN]
+1. Sebutkan lima huruf vokal!
+= a, i, u, e, o.
+2. Penggallah kata "kelas" menjadi suku kata!
+= ke – las.
+3. Sebutkan tiga anggota tubuh dan kegunaannya!
+= Mata untuk melihat, telinga untuk mendengar, tangan untuk memegang.
+4. Tuliskan dua kata yang diawali huruf vokal!
+= Ikan, ular, ayam, ember, obat.
+5. Bagaimana cara merawat mata?
+= Membaca di tempat terang, tidak terlalu dekat melihat layar, dan istirahat yang cukup.

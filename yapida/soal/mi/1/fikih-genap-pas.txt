@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Fikih
+@semester genap
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Wudu adalah syarat sah ....
+*a. salat
+b. makan
+c. belajar
+d. tidur
+> Salat tidak sah tanpa wudu.
+2. Anggota wudu yang dibasuh sampai siku adalah ....
+a. kaki
+*b. tangan
+c. muka
+d. kepala
+> Tangan dibasuh sampai siku.
+3. Wudu menjadi batal jika ....
+a. minum air
+*b. buang angin
+c. membaca buku
+d. tersenyum
+> Keluar sesuatu dari dua jalan (seperti buang angin) membatalkan wudu.
+4. Tidur nyenyak sambil berbaring membuat wudu ....
+a. tetap sah
+*b. batal
+c. bertambah
+d. sempurna
+> Tidur nyenyak yang tidak tetap duduknya membatalkan wudu.
+5. Salat yang dikerjakan ketika fajar adalah salat ....
+*a. subuh
+b. zuhur
+c. asar
+d. isya
+> Subuh dikerjakan sejak terbit fajar.
+6. Salat asar berjumlah ....
+a. dua rakaat
+b. tiga rakaat
+*c. empat rakaat
+d. lima rakaat
+> Asar empat rakaat.
+7. Salat yang dikerjakan setelah matahari terbenam adalah salat ....
+a. zuhur
+b. asar
+*c. magrib
+d. subuh
+> Magrib setelah matahari terbenam.
+8. Panggilan untuk salat disebut ....
+*a. azan
+b. iqamah
+c. takbir
+d. salam
+> Azan adalah panggilan tanda masuk waktu salat.
+9. Orang yang mengumandangkan azan disebut ....
+a. imam
+*b. muazin
+c. makmum
+d. khatib
+> Muazin adalah orang yang beradzan.
+10. Bacaan yang dikumandangkan ketika salat akan segera dimulai disebut ....
+a. azan
+*b. iqamah
+c. doa
+d. zikir
+> Iqamah tanda salat berjamaah segera dimulai.
+11. Kalimat pertama azan adalah ....
+*a. Allahu Akbar
+b. Hayya 'alas salah
+c. Asyhadu an la ilaha illallah
+d. La ilaha illallah
+> Azan dibuka dengan Allahu Akbar.
+12. Ketika mendengar azan, sikap kita adalah ....
+a. terus bermain
+*b. diam dan menjawab azan
+c. berteriak
+d. tidur
+> Kita disunahkan menjawab azan.
+13. Setelah azan selesai kita membaca ....
+*a. doa sesudah azan
+b. doa makan
+c. doa tidur
+d. doa bepergian
+> Doa sesudah azan dibaca setelah azan selesai.
+14. Kalimat "Hayya 'alas salah" artinya ....
+*a. marilah salat
+b. Allah Maha Besar
+c. marilah menuju kemenangan
+d. salat lebih baik daripada tidur
+> Hayya 'alas salah: marilah salat.
+15. Kalimat "Ash-shalatu khairum minan naum" hanya dibaca pada azan salat ....
+*a. subuh
+b. zuhur
+c. asar
+d. isya
+> Kalimat itu khusus azan subuh.
+[MENJODOHKAN]
+1. Azan = panggilan masuk waktu salat
+2. Iqamah = tanda salat segera dimulai
+3. Muazin = orang yang mengumandangkan azan
+4. Hayya 'alas salah = marilah salat
+5. Hayya 'alal falah = marilah menuju kemenangan
+~ orang yang memimpin salat berjamaah
+[ISIAN]
+1. Wudu adalah syarat sah .... = salat
+2. Kaki dibasuh sampai mata .... = kaki
+3. Buang angin membuat wudu menjadi .... = batal
+4. Salat subuh berjumlah .... rakaat. = dua | 2
+5. Salat magrib dikerjakan setelah matahari .... = terbenam
+6. Panggilan untuk salat disebut .... = azan | adzan
+7. Orang yang azan disebut .... = muazin | muadzin
+8. Azan dimulai dengan kalimat Allahu .... = Akbar
+9. Bacaan sebelum salat berjamaah dimulai disebut .... = iqamah | ikamah
+10. Kalimat "salat lebih baik daripada tidur" dibaca pada azan .... = subuh
+[URAIAN]
+1. Sebutkan dua hal yang membatalkan wudu!
+= Keluar sesuatu dari kubul atau dubur (buang air, buang angin), tidur nyenyak, dan hilang akal.
+2. Apa perbedaan azan dan iqamah?
+= Azan adalah panggilan tanda masuk waktu salat, iqamah adalah tanda salat berjamaah segera dimulai.
+3. Apa yang kita lakukan ketika mendengar azan?
+= Diam, mendengarkan, menjawab azan, lalu membaca doa sesudah azan dan bersiap salat.
+4. Tuliskan nama salat lima waktu sesuai urutan waktunya dari pagi!
+= Subuh, zuhur, asar, magrib, isya.
+5. Bagaimana sikapmu jika waktu salat tiba ketika sedang bermain?
+= Berhenti bermain, berwudu, lalu segera melaksanakan salat.

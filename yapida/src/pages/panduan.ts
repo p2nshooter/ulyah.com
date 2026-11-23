@@ -82,6 +82,16 @@ export const PANDUAN_PORTAL: BagianPanduan[] = [
     langkah: ['Buka Profil lembaga, ubah data yang perlu, lalu simpan.', 'Alamat diisi per bagian (jalan, RT/RW, desa, kecamatan, kabupaten, provinsi, kode pos) agar rapi di kop, sertifikat, dan formulir.'],
   },
   {
+    id: 'info', kat: 'isi', judul: 'Informasi akbar di kepala situs', ikon: '📣', menu: '/portal/k/info', tingkat: T.yayasan,
+    ringkas: 'Pengumuman besar (pengajian akbar, maulid, isra mi’raj, kenaikan kelas, wisuda, PPDB) yang tampil sebagai pita emas di atas setiap halaman, lengkap dengan tombol siaran langsung.',
+    langkah: [
+      'Buka Informasi akbar, tekan Tambah, tulis judul, pilih jenis, lalu isi tanggal acara, jam, dan tempat.',
+      'Tempel tautan siaran langsung YouTube, Facebook, TikTok, atau Instagram. Siaran YouTube langsung diputar di halaman Informasi.',
+      'Atur rentang tampil bila perlu — bila dikosongkan, pita muncul 14 hari sebelum acara dan hilang sehari sesudahnya. Pilih Tayang lalu simpan.',
+    ],
+    kiat: ['Pita menampilkan hitung mundur otomatis (H-7, Besok, Hari ini).', 'Bila ada beberapa informasi, pita bergantian setiap 6 detik; pengunjung bisa menutupnya.'],
+  },
+  {
     id: 'isi', kat: 'isi', tur: '/portal/k/kabar', judul: 'Isi situs: kabar, galeri, video, agenda, dokumen, karya, SDM', ikon: '📰', cocok: ['/portal/k/'], tingkat: T.kontributor,
     ringkas: 'Semua isi publik lembaga ditulis di sini dan langsung tampil rapi di situs bila ditayangkan.',
     langkah: [

@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Indonesia
+@semester genap
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Kalimat berita diakhiri tanda ....
+*a. titik
+b. tanya
+c. seru
+d. koma
+> Titik.
+2. Kalimat "Apakah kamu sudah makan" seharusnya diakhiri tanda ....
+a. titik
+*b. tanya
+c. seru
+d. koma
+> Kalimat tanya.
+3. Kalimat yang benar adalah ....
+*a. Adik minum susu.
+b. adik minum susu
+c. Adik minum susu
+d. adik Minum Susu.
+> Kapital dan titik.
+4. Susunan yang benar adalah ....
+*a. Ayah membaca koran.
+b. Koran ayah membaca.
+c. Membaca ayah koran.
+d. Ayah koran membaca.
+> Siapa – apa – apa.
+5. Lawan kata "besar" adalah ....
+*a. kecil
+b. luas
+c. tinggi
+d. berat
+> Kecil.
+6. Lawan kata "gelap" adalah ....
+*a. terang
+b. hitam
+c. malam
+d. dingin
+> Terang.
+7. Ayah dari ibu disebut ....
+*a. kakek
+b. paman
+c. kakak
+d. adik
+> Kakek.
+8. Benda yang ada di kelas adalah ....
+*a. meja dan kursi
+b. kompor
+c. kasur
+d. lemari es
+> Meja kursi.
+9. Kata benda adalah ....
+*a. buku
+b. menulis
+c. lari
+d. senang
+> Buku.
+10. Kalimat ajakan adalah ....
+*a. Ayo bermain bersama!
+b. Aku bermain bola.
+c. Kamu bermain apa?
+d. Dia sedang bermain.
+> Ajakan.
+11. "Dina mempunyai boneka berwarna merah muda." Warna boneka Dina adalah ....
+*a. merah muda
+b. biru
+c. kuning
+d. hijau
+> Dari bacaan.
+12. Kata "nenek" dipenggal menjadi ....
+*a. ne – nek
+b. nen – ek
+c. n – enek
+d. ne – ne – k
+> Ne-nek.
+13. Huruf kapital digunakan di ... kalimat.
+*a. awal
+b. akhir
+c. tengah
+d. semua huruf
+> Awal kalimat.
+14. Lawan kata "panjang" adalah ....
+*a. pendek
+b. besar
+c. tinggi
+d. lebar
+> Pendek.
+15. Saudara perempuan ayah disebut ....
+*a. bibi
+b. paman
+c. kakek
+d. nenek
+> Bibi.
+[MENJODOHKAN]
+1. Besar = kecil
+2. Panas = dingin
+3. Tinggi = rendah
+4. Panjang = pendek
+5. Gelap = terang
+~ luas
+[ISIAN]
+1. Kalimat diawali huruf .... = kapital | besar
+2. Kalimat tanya diakhiri tanda .... = tanya
+3. Lawan kata kecil adalah .... = besar
+4. Lawan kata dingin adalah .... = panas
+5. Ibu dari ayah disebut .... = nenek
+6. Saudara laki-laki ibu disebut .... = paman | om
+7. Meja dan kursi termasuk kata .... = benda
+8. "Ayo makan!" adalah kalimat .... = ajakan | perintah
+9. Kata "sekolah" terdiri dari .... suku kata. = tiga | 3
+10. Lawan kata terang adalah .... = gelap
+[URAIAN]
+1. Susunlah: "sekolah – ke – Ani – berangkat"!
+= Ani berangkat ke sekolah.
+2. Perbaiki: "ayah pergi ke kantor"!
+= Ayah pergi ke kantor.
+3. Buatlah satu kalimat tanya tentang buku!
+= Contoh: Di mana buku bahasa Indonesiamu?
+4. Sebutkan anggota keluarga besar selain ayah dan ibu!
+= Kakek, nenek, paman, bibi, sepupu.
+5. Tuliskan lawan kata: gelap, panjang, tinggi!
+= Terang, pendek, rendah.

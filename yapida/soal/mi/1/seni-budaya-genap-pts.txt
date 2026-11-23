@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Seni Budaya
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Gerak tari yang menirukan burung terbang dilakukan dengan menggerakkan ....
+*a. kedua tangan seperti sayap
+b. kepala saja
+c. jari kaki
+d. mata
+> Tangan seperti sayap.
+2. Gerak menirukan katak adalah ....
+*a. melompat-lompat
+b. terbang
+c. merayap
+d. berenang
+> Katak melompat.
+3. Gerak menirukan pohon tertiup angin adalah ....
+*a. menggoyangkan tangan ke kanan dan ke kiri
+b. melompat
+c. berlari
+d. berguling
+> Pohon bergoyang.
+4. Gerak tari yang menirukan alam disebut gerak ....
+*a. meniru (imitatif)
+b. bebas
+c. lari
+d. diam
+> Menirukan alam dan hewan.
+5. Menari diiringi dengan ....
+*a. musik atau lagu
+b. pidato
+c. berita
+d. diam
+> Tari diiringi musik.
+6. Gerak tari yang dilakukan di tempat disebut gerak ....
+*a. di tempat
+b. berpindah
+c. melompat jauh
+d. berlari
+> Tidak berpindah tempat.
+7. Gerak tari yang berpindah tempat disebut gerak ....
+a. diam
+*b. berpindah tempat
+c. di tempat
+d. duduk
+> Bergerak ke tempat lain.
+8. Gerak menirukan kupu-kupu dilakukan dengan ....
+*a. mengepakkan tangan pelan-pelan
+b. melompat-lompat
+c. berguling
+d. merangkak
+> Kupu-kupu mengepak.
+9. Gerak menirukan gajah dilakukan dengan ....
+*a. berjalan pelan dan berat sambil mengayunkan tangan seperti belalai
+b. melompat cepat
+c. terbang
+d. merayap
+> Gajah besar dan pelan.
+10. Saat menari bersama, gerakan harus ....
+*a. kompak
+b. berbeda-beda
+c. asal-asalan
+d. saling dorong
+> Kompak.
+11. Sebelum menari sebaiknya kita ....
+*a. melakukan pemanasan
+b. makan banyak
+c. tidur
+d. berlari kencang
+> Pemanasan mencegah cedera.
+12. Ekspresi wajah ketika menari lagu gembira adalah ....
+*a. tersenyum
+b. cemberut
+c. menangis
+d. marah
+> Wajah ceria.
+13. Gerak menirukan ombak dilakukan dengan ....
+*a. tangan bergelombang naik turun
+b. melompat
+c. tepuk tangan
+d. diam
+> Gelombang.
+14. Tari tradisional dari Aceh yang dilakukan sambil duduk adalah tari ....
+*a. Saman
+b. Kecak
+c. Piring
+d. Jaipong
+> Tari Saman.
+15. Pakaian yang dipakai saat menari disebut ....
+*a. kostum
+b. seragam olahraga
+c. piyama
+d. jas hujan
+> Kostum tari.
+[MENJODOHKAN]
+1. Burung = tangan mengepak seperti sayap
+2. Katak = melompat-lompat
+3. Pohon tertiup angin = tangan bergoyang
+4. Ombak = tangan bergelombang
+5. Gajah = berjalan pelan dan berat
+~ berenang di kolam
+[ISIAN]
+1. Menari diiringi .... = musik | lagu
+2. Gerak menirukan hewan disebut gerak .... = meniru | imitatif
+3. Katak bergerak dengan cara .... = melompat
+4. Pakaian untuk menari disebut .... = kostum
+5. Tari Saman berasal dari .... = Aceh
+6. Sebelum menari kita melakukan .... = pemanasan
+7. Menari bersama harus .... = kompak
+8. Wajah saat menari lagu gembira harus .... = tersenyum | ceria
+9. Gerak yang tidak berpindah tempat disebut gerak di .... = tempat
+10. Kupu-kupu menggerakkan .... = sayap | sayapnya
+[URAIAN]
+1. Bagaimana cara menirukan gerak burung terbang?
+= Merentangkan kedua tangan lalu mengepakkan naik turun seperti sayap sambil berjalan ringan.
+2. Sebutkan dua contoh gerak menirukan alam!
+= Pohon tertiup angin, ombak, hujan turun, matahari terbit.
+3. Apa bedanya gerak di tempat dan gerak berpindah tempat?
+= Gerak di tempat dilakukan tanpa berpindah, gerak berpindah tempat bergerak ke tempat lain.
+4. Mengapa harus pemanasan sebelum menari?
+= Agar otot siap dan tidak cedera.
+5. Sebutkan satu tari tradisional Indonesia dan asalnya!
+= Tari Saman dari Aceh, tari Piring dari Sumatera Barat, tari Jaipong dari Jawa Barat.

@@ -221,3 +221,23 @@ button.kal-sel:hover{transform:translateY(-3px);border-color:var(--e500);box-sha
 [data-tema="malam"] .radio-angka b{color:var(--e300)}
 .radio-angka span{font-size:.82rem;color:var(--redup)}
 @media (max-width:760px){.radio-live{grid-template-columns:1fr;text-align:center}.radio-live .radio-piring{max-width:220px;margin:0 auto}.radio-lencana{justify-content:center}.radio-live .radio-arab{text-align:center}.radio-angka{grid-template-columns:1fr 1fr}}
+
+/* ── Live 24 jam Masjidil Haram & Masjid Nabawi (/live-haramain) ── */
+.hl-kisi{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(1rem,3vw,1.8rem)}
+.hl-kartu{position:relative;isolation:isolate;border-radius:28px;padding:clamp(.9rem,2.4vw,1.3rem);color:#fdf8e6;background:radial-gradient(120% 120% at 0% 0%,#14805a,#04281b 58%,#02160f);box-shadow:var(--bayang-besar);border:1px solid rgba(236,217,144,.35);overflow:hidden}
+.hl-kartu::before{content:"";position:absolute;inset:0;background:var(--pola);background-size:90px;opacity:.06;z-index:-1}
+.hl-kepala{display:flex;align-items:center;gap:.9rem;margin:.2rem .2rem .9rem}
+.hl-kepala h2{margin:0;font-size:clamp(1.25rem,2.6vw,1.6rem);color:#fff3c8}
+.hl-arab{margin:0;font-family:var(--f-arab);font-size:1.15rem;color:#e7cf7d;line-height:1.4}
+.hl-kota{margin-left:auto;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#cbbf9a;text-align:right}
+.hl-live{flex:none;display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .65rem;border-radius:999px;background:rgba(200,32,43,.18);border:1px solid rgba(255,120,120,.45);font-size:.78rem;font-weight:700}
+.hl-live b{background:#c8202b;color:#fff;padding:.05rem .4rem;border-radius:6px;letter-spacing:.06em;animation:hl-denyut 1.6s ease-in-out infinite}
+@keyframes hl-denyut{50%{opacity:.55}}
+.hl-layar{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;box-shadow:inset 0 0 0 1px rgba(236,217,144,.3)}
+.hl-layar iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hl-buka{position:absolute;inset:0;display:grid;place-items:center;color:#fff3c8;font-weight:700;text-decoration:none;font-size:1.1rem}
+.hl-kaki{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;justify-content:space-between;margin:.8rem .2rem 0;font-size:.85rem;color:#cbbf9a}
+.hl-kaki a{color:#ecd990;font-weight:700}
+.hl-catatan{grid-column:1/-1;margin:0;font-size:.88rem;color:var(--redup);text-align:center}
+@media (prefers-reduced-motion:reduce){.hl-live b{animation:none}}
+@media (max-width:560px){.hl-kepala{flex-wrap:wrap}.hl-kota{width:100%;margin-left:0;text-align:left}}

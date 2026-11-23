@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Matematika
+@semester genap
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Angka 16 dibaca ....
+*a. enam belas
+b. enam puluh
+c. satu enam
+d. enam satu
+> 16 = enam belas.
+2. 11 + 4 = ....
+a. 14
+*b. 15
+c. 16
+d. 7
+> 11 + 4 = 15.
+3. 18 – 6 = ....
+*a. 12
+b. 13
+c. 11
+d. 24
+> 18 – 6 = 12.
+4. Bilangan setelah 17 adalah ....
+*a. 18
+b. 16
+c. 19
+d. 71
+> 17, 18.
+5. Dadu berbentuk ....
+*a. kubus
+b. bola
+c. tabung
+d. kerucut
+> Kubus.
+6. Pola: 1, 2, 3, 4, ... berikutnya adalah ....
+*a. 5
+b. 6
+c. 7
+d. 3
+> Bertambah satu.
+7. Kita sarapan pada waktu ....
+*a. pagi
+b. siang
+c. sore
+d. malam
+> Pagi.
+8. Jarum pendek di angka 9, jarum panjang di angka 12. Pukul ....
+*a. 9.00
+b. 12.00
+c. 12.09
+d. 9.12
+> Pukul 9.
+9. Mengukur dengan langkah kaki termasuk satuan ....
+*a. tidak baku
+b. baku
+c. berat
+d. isi
+> Tidak baku.
+10. 13 + 5 = ....
+a. 17
+*b. 18
+c. 19
+d. 8
+> 13 + 5 = 18.
+11. Bola sepak berbentuk ....
+*a. bola
+b. kubus
+c. balok
+d. tabung
+> Bola.
+12. 20 – 8 = ....
+*a. 12
+b. 11
+c. 13
+d. 28
+> 20 – 8 = 12.
+13. Pola ○□○□○ ... gambar berikutnya ....
+*a. □
+b. ○
+c. △
+d. ☆
+> Berselang-seling.
+14. Lemari pakaian berbentuk ....
+*a. balok
+b. bola
+c. kerucut
+d. tabung
+> Balok.
+15. 7 + 7 = ....
+a. 13
+*b. 14
+c. 15
+d. 0
+> 7 + 7 = 14.
+[MENJODOHKAN]
+1. Kubus = dadu
+2. Tabung = kaleng susu
+3. Balok = lemari
+4. Bola = bola sepak
+5. Kerucut = topi ulang tahun
+~ uang logam
+[ISIAN]
+1. 10 + 6 hasilnya .... = 16
+2. 19 – 4 hasilnya .... = 15
+3. Lambang bilangan "sebelas" adalah .... = 11
+4. Pola 2, 4, 6, .... = 8
+5. Satuan panjang dengan jengkal adalah satuan tidak .... = baku
+6. Jarum pendek jam menunjukkan .... = jam
+7. 12 + 7 hasilnya .... = 19
+8. 15 – 15 hasilnya .... = 0 | nol
+9. Kaleng susu berbentuk .... = tabung
+10. Pola 10, 20, 30, .... = 40
+[URAIAN]
+1. Ibu membeli 13 jeruk dan 6 apel. Berapa jumlah buah yang dibeli ibu?
+= 13 + 6 = 19 buah.
+2. Ada 20 kue, 9 kue dimakan. Berapa kue yang tersisa?
+= 20 – 9 = 11 kue.
+3. Lanjutkan pola: 5, 10, 15, ..., ...!
+= 20, 25.
+4. Sebutkan dua benda berbentuk balok!
+= Lemari, kotak kapur, batu bata, kardus.
+5. Pukul berapa kamu berangkat sekolah? Jelaskan letak jarum jamnya!
+= Misalnya pukul 6.00: jarum pendek di angka 6, jarum panjang di angka 12.

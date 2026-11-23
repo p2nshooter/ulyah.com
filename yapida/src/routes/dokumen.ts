@@ -26,7 +26,7 @@ const bolehDef = (u: User, def: Koleksi) => tingkat(u) >= (def.tingkat ?? 0);
 /** Semua penghargaan yang tayang tampil di publik (perintah pemilik). Disimpan sebagai fungsi agar satu tempat. */
 export const tampilDiPrestasi = (_it: IxItem) => true;
 
-async function renderDok(c: Ctx, def: Koleksi, d: DokCetak, o: { pratinjau?: boolean; bingkai?: boolean; verifikasi?: string; kembali?: string } = {}): Promise<string> {
+async function renderDok(c: Ctx, def: Koleksi, d: DokCetak, o: { pratinjau?: boolean | string; bingkai?: boolean; verifikasi?: string; kembali?: string } = {}): Promise<string> {
   const store = c.get('store');
   const [s, u] = await Promise.all([getSitus(store), d.unit === 'yayasan' ? null : getUnit(store, d.unit)]);
   const k = def.id === 'kop' ? kopDariDok(d, kopDariProfil(u, s)) : await kopUntuk(store, d.unit, s, u);
@@ -115,7 +115,7 @@ dokumen.get('/prestasi', async (c) => {
     path: '/prestasi', aktif: 'kabar', noindex: disaring,
     title: 'Prestasi & Penghargaan Santri — Yayasan Al-Huda Yapida Sukakarya',
     desc: 'Sertifikat tahfidz Al-Qur’an, piagam juara lomba, peringkat kelas, dan penghargaan santri RA, MI, MTs, pesantren, dan TPQ Al Huda Yapida, Sukakarya, Bekasi.',
-    body: prestasiIndex(x, items, { pilihUnit, pilihJenis, pilihTahun, ada: new Set(semua.map((it) => it.u)), jenisAda, tahunAda }),
+    body: prestasiIndex(x, items, { pilihUnit, pilihJenis, pilihTahun, ada: new Set(semua.map((it) => it.u)), jenisAda, tahunAda, contoh: CONTOH_SERTIFIKAT }),
     jsonLd: [crumbs(origin(c), [['Prestasi', '/prestasi']])],
   });
 });
@@ -142,6 +142,26 @@ dokumen.get('/prestasi/:slug', async (c) => {
     body: prestasiDetail(x, d, { url: `${o}/prestasi/${d.slug}` }), ogImage: foto ? (foto.startsWith('http') ? foto : `${o}${foto}`) : undefined,
     jsonLd: [crumbs(o, [['Prestasi', '/prestasi'], [d.judul, `/prestasi/${d.slug}`]]), { '@context': 'https://schema.org', '@type': 'EducationalOccupationalCredential', name: `${labelJenis(d.d.jenis)} — ${d.judul}`, credentialCategory: labelJenis(d.d.jenis), description: String(d.d.capaian ?? ''), dateCreated: d.tanggal, recognizedBy: { '@id': `${o}/#yayasan` }, url: `${o}/prestasi/${d.slug}` }],
   });
+});
+
+/** Contoh desain sertifikat untuk beranda & menu Prestasi (pemilik, 23 Nov 2026: „Sertifikat2 nya tampilin jg di homepage,
+ *  contoh2 sertifikat yg d keluarkan lembaga“). Nama contoh „Fulanah binti Fulan“ dan pita CONTOH — bukan penghargaan sungguhan. */
+export const CONTOH_SERTIFIKAT: { desain: string; jenis: string; capaian: string; predikat: string; kegiatan: string; unit: string; kelas: string }[] = [
+  { desain: 'zamrud', jenis: 'tahfidz', capaian: 'Juz 30 (An-Naba’ – An-Nas)', predikat: 'Mumtaz', kegiatan: 'Wisuda Tahfidz', unit: 'mi-al-huda', kelas: 'Kelas 5' },
+  { desain: 'kaligrafi', jenis: 'tahfidz', capaian: 'Juz 29 (Al-Mulk – Al-Mursalat)', predikat: 'Jayyid Jiddan', kegiatan: 'Wisuda Tahfidz', unit: 'mts-al-huda', kelas: 'Kelas 8' },
+  { desain: 'malam', jenis: 'lomba', capaian: 'Lomba Adzan tingkat Kecamatan Sukakarya', predikat: 'Juara 1', kegiatan: 'Peringatan Maulid Nabi ﷺ', unit: 'mi-al-huda', kelas: 'Kelas 6' },
+  { desain: 'safir', jenis: 'ranking', capaian: 'Peringkat 1 Kelas 7', predikat: 'Terbaik', kegiatan: 'Semester Ganjil', unit: 'mts-al-huda', kelas: 'Kelas 7' },
+  { desain: 'arabesque', jenis: 'teladan', capaian: 'Santri Teladan Pondok Pesantren', predikat: 'Teladan', kegiatan: 'Haflah Akhirussanah', unit: 'ponpes-al-huda', kelas: '' },
+  { desain: 'ceria', jenis: 'tahfidz', capaian: 'Hafalan Surah Pendek', predikat: 'Mumtaz', kegiatan: 'Wisuda Iqra’', unit: 'tpq-al-huda', kelas: 'Jilid 6' },
+];
+
+dokumen.get('/prestasi/contoh/:n', async (c) => {
+  const n = Number(c.req.param('n'));
+  const ct = CONTOH_SERTIFIKAT[n];
+  if (!Number.isInteger(n) || !ct) return c.notFound();
+  const d: DokCetak = { judul: 'Fulanah binti Fulan', tanggal: hariIni(), unit: ct.unit, d: { jenis: ct.jenis, desain: ct.desain, capaian: ct.capaian, predikat: ct.predikat, kegiatan: ct.kegiatan, kelas: ct.kelas, tahun: '2026/2027', nomor: 'CONTOH', ttd1Nama: 'Kepala Lembaga', ttd1Jabatan: 'Kepala', ttd2Nama: 'Ketua Yayasan', ttd2Jabatan: 'Ketua Yayasan Al-Huda Yapida' } };
+  const res = c.html(await renderDok(c, KOLEKSI.penghargaan!, d, { pratinjau: 'CONTOH', bingkai: true }), 200, { 'cache-control': 'public, max-age=3600', 'x-robots-tag': 'noindex' });
+  return res;
 });
 
 dokumen.get('/prestasi/:slug/sertifikat', async (c) => {

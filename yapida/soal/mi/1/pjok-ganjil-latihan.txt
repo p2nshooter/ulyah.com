@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel PJOK
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Berlari termasuk gerak ....
+*a. lokomotor
+b. non-lokomotor
+c. manipulatif
+d. diam
+> Berpindah tempat.
+2. Melempar bola termasuk gerak ....
+*a. manipulatif
+b. lokomotor
+c. non-lokomotor
+d. lompat
+> Memakai benda.
+3. Sebelum olahraga kita ....
+*a. pemanasan
+b. pendinginan
+c. tidur
+d. mandi
+> Pemanasan.
+4. Lompat satu kaki disebut ....
+*a. engklek
+b. lari
+c. loncat
+d. jalan
+> Engklek.
+5. Menendang bola menggunakan ....
+*a. kaki
+b. tangan
+c. kepala
+d. siku
+> Kaki.
+6. Memutar lengan termasuk gerak ....
+*a. di tempat
+b. berpindah
+c. melempar
+d. lari
+> Non-lokomotor.
+7. Bermain sesuai aturan disebut ....
+*a. sportif
+b. curang
+c. egois
+d. malas
+> Sportif.
+8. Saat berlari pandangan ke ....
+*a. depan
+b. belakang
+c. atas
+d. bawah
+> Depan.
+9. Menangkap bola menggunakan ....
+*a. dua tangan
+b. satu jari
+c. kepala
+d. kaki
+> Dua tangan.
+10. Lompat tali melatih ....
+*a. melompat
+b. menulis
+c. membaca
+d. menggambar
+> Melompat.
+11. Pakaian olahraga yang tepat adalah ....
+*a. kaus dan celana olahraga
+b. baju muslim pesta
+c. jas
+d. piyama
+> Pakaian olahraga.
+12. Setelah olahraga kita melakukan ....
+*a. pendinginan
+b. pemanasan
+c. lari lagi
+d. lompat tinggi
+> Pendinginan.
+13. Membungkuk termasuk gerak ....
+*a. di tempat
+b. berpindah tempat
+c. manipulatif
+d. lari
+> Non-lokomotor.
+14. Berjalan, tangan diayun ....
+*a. bergantian
+b. diam
+c. ke atas
+d. di saku
+> Bergantian.
+15. Jika teman jatuh kita ....
+*a. menolong
+b. menertawakan
+c. meninggalkan
+d. mendorong
+> Menolong.
+[MENJODOHKAN]
+1. Berlari = lokomotor
+2. Membungkuk = non-lokomotor
+3. Menangkap bola = manipulatif
+4. Engklek = lompat satu kaki
+5. Sportif = bermain jujur
+~ curang
+[ISIAN]
+1. Berjalan termasuk gerak .... = lokomotor | berpindah tempat
+2. Sebelum olahraga kita melakukan .... = pemanasan
+3. Melempar bola termasuk gerak .... = manipulatif
+4. Lompat satu kaki disebut .... = engklek
+5. Menendang memakai .... = kaki
+6. Bermain jujur disebut .... = sportif
+7. Lompat tali melatih kemampuan .... = melompat
+8. Setelah olahraga melakukan .... = pendinginan
+9. Saat berlari tangan diayun .... = bergantian | berlawanan
+10. Menangkap bola memakai dua .... = tangan
+[URAIAN]
+1. Sebutkan dua gerak lokomotor!
+= Berjalan, berlari, melompat, meloncat.
+2. Sebutkan dua gerak manipulatif!
+= Melempar, menangkap, menendang, memantulkan.
+3. Apa manfaat pemanasan?
+= Menyiapkan otot dan mencegah cedera.
+4. Sebutkan satu permainan tradisional dan geraknya!
+= Lompat tali (melompat), engklek (melompat satu kaki), gobak sodor (berlari).
+5. Mengapa kita harus bermain sportif?
+= Agar permainan adil, menyenangkan, dan tidak ada yang dirugikan.

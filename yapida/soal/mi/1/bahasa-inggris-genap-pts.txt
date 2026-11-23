@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Inggris
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. "Red" artinya ....
+*a. merah
+b. biru
+c. hijau
+d. kuning
+> Red: merah.
+2. Biru dalam bahasa Inggris adalah ....
+a. red
+*b. blue
+c. green
+d. yellow
+> Blue: biru.
+3. "Green" artinya ....
+a. kuning
+*b. hijau
+c. hitam
+d. putih
+> Green: hijau.
+4. "Yellow" artinya ....
+*a. kuning
+b. coklat
+c. ungu
+d. merah
+> Yellow: kuning.
+5. Putih dalam bahasa Inggris adalah ....
+*a. white
+b. black
+c. brown
+d. pink
+> White: putih.
+6. "Black" artinya ....
+a. putih
+*b. hitam
+c. merah muda
+d. abu-abu
+> Black: hitam.
+7. Daun berwarna ....
+a. red
+*b. green
+c. black
+d. blue
+> Daun berwarna hijau (green).
+8. Langit siang hari berwarna ....
+*a. blue
+b. black
+c. yellow
+d. brown
+> Langit biru (blue).
+9. "Orange" sebagai warna artinya ....
+a. ungu
+*b. jingga
+c. coklat
+d. abu-abu
+> Orange: jingga.
+10. "Brown" artinya ....
+*a. coklat
+b. ungu
+c. merah
+d. hijau
+> Brown: coklat.
+11. "What color is it?" artinya ....
+*a. apa warnanya?
+b. apa ini?
+c. berapa ini?
+d. siapa itu?
+> Color: warna.
+12. Warna bendera Indonesia adalah ....
+*a. red and white
+b. blue and white
+c. green and yellow
+d. black and red
+> Merah putih: red and white.
+13. "Purple" artinya ....
+a. merah muda
+*b. ungu
+c. jingga
+d. coklat
+> Purple: ungu.
+14. "Pink" artinya ....
+*a. merah muda
+b. hitam
+c. hijau
+d. biru
+> Pink: merah muda.
+15. Susu berwarna ....
+a. black
+*b. white
+c. green
+d. red
+> Susu putih (white).
+[MENJODOHKAN]
+1. Red = merah
+2. Blue = biru
+3. Green = hijau
+4. Yellow = kuning
+5. Black = hitam
+~ abu-abu
+[ISIAN]
+1. "Red" artinya .... = merah
+2. "White" artinya .... = putih
+3. Hijau dalam bahasa Inggris adalah .... = green
+4. Kuning dalam bahasa Inggris adalah .... = yellow
+5. Biru dalam bahasa Inggris adalah .... = blue
+6. "Brown" artinya .... = coklat | cokelat
+7. "Color" artinya .... = warna
+8. Hitam dalam bahasa Inggris adalah .... = black
+9. Ungu dalam bahasa Inggris adalah .... = purple
+10. Warna daun dalam bahasa Inggris adalah .... = green
+[URAIAN]
+1. Sebutkan lima warna dalam bahasa Inggris beserta artinya!
+= Red (merah), blue (biru), green (hijau), yellow (kuning), white (putih), black (hitam).
+2. Bagaimana menanyakan warna dalam bahasa Inggris?
+= What color is it?
+3. Tuliskan warna benda berikut dalam bahasa Inggris: daun, langit, susu!
+= Daun green, langit blue, susu white.
+4. Apa warna bendera Indonesia dalam bahasa Inggris?
+= Red and white.
+5. Terjemahkan: "The bag is black"!
+= Tas itu hitam.

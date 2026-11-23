@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel BTQ
+@semester ganjil
+@jenis pas
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Huruf ح dan ج dibedakan dari ....
+*a. titiknya
+b. warnanya
+c. besarnya
+d. suaranya saja
+> Jim bertitik di bawah, ha tanpa titik.
+2. Huruf ذ dibaca ....
+a. dal
+*b. dzal
+c. zai
+d. ra
+> Dal bertitik satu di atas: dzal.
+3. Huruf ز dibaca ....
+a. ra
+*b. zai
+c. dal
+d. sin
+> Ra bertitik di atas: zai.
+4. Huruf ش dibaca ....
+a. sin
+*b. syin
+c. shad
+d. tsa
+> Sin bertitik tiga: syin.
+5. Huruf ص dibaca ....
+*a. shad
+b. dhad
+c. sin
+d. tha
+> Shad tanpa titik.
+6. Huruf ض dibaca ....
+a. shad
+*b. dhad
+c. dzal
+d. zha
+> Shad bertitik satu: dhad.
+7. Huruf ط dibaca ....
+*a. tha
+b. zha
+c. ta
+d. dal
+> Tha tanpa titik.
+8. Huruf ع dibaca ....
+*a. 'ain
+b. ghain
+c. ha
+d. hamzah
+> 'Ain tanpa titik.
+9. Huruf غ dibaca ....
+a. 'ain
+*b. ghain
+c. kho
+d. fa
+> 'Ain bertitik: ghain.
+10. Huruf ف dibaca ....
+*a. fa
+b. qaf
+c. kaf
+d. wau
+> Fa bertitik satu di atas.
+11. Huruf ق dibaca ....
+a. fa
+*b. qaf
+c. kaf
+d. ghain
+> Qaf bertitik dua di atas.
+12. Pasangan huruf yang bentuknya mirip adalah ....
+*a. ب dan ت
+b. ا dan م
+c. ك dan و
+d. ل dan ع
+> Ba dan ta mirip, bedanya pada titik.
+13. Huruf ك dibaca ....
+*a. kaf
+b. qaf
+c. lam
+d. ha
+> Kaf.
+14. Huruf و dibaca ....
+a. ya
+*b. wau
+c. ha
+d. lam
+> Wau.
+15. Huruf ي dibaca ....
+a. ba
+b. nun
+*c. ya
+d. ta
+> Ya bertitik dua di bawah.
+[MENJODOHKAN]
+1. ش = syin
+2. ض = dhad
+3. غ = ghain
+4. ق = qaf
+5. ي = ya
+~ tha
+[ISIAN]
+1. Huruf ز dibaca .... = zai
+2. Huruf ذ dibaca .... = dzal
+3. Huruf ع dibaca .... = ain | 'ain
+4. Huruf ف dibaca .... = fa
+5. Huruf ك dibaca .... = kaf
+6. Huruf و dibaca .... = wau | waw
+7. Huruf ش memiliki .... titik. = tiga | 3
+8. Huruf ق memiliki .... titik di atas. = dua | 2
+9. Huruf ي memiliki dua titik di .... = bawah
+10. Huruf ص dibaca .... = shad | sad
+[URAIAN]
+1. Sebutkan tiga pasang huruf hijaiyah yang bentuknya mirip!
+= Ba–ta–tsa, jim–ha–kho, dal–dzal, ra–zai, sin–syin, shad–dhad, tha–zha, 'ain–ghain.
+2. Apa perbedaan huruf س dan ش?
+= Sin tanpa titik, syin bertitik tiga di atas.
+3. Apa perbedaan huruf ع dan غ?
+= 'Ain tanpa titik, ghain bertitik satu di atas.
+4. Apa perbedaan huruf ف dan ق?
+= Fa bertitik satu, qaf bertitik dua; bentuk qaf lebih dalam.
+5. Bagaimana cara agar tidak keliru membaca huruf yang mirip?
+= Memperhatikan jumlah dan letak titiknya serta berlatih setiap hari.

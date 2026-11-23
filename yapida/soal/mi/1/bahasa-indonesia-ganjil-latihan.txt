@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Bahasa Indonesia
+@semester ganjil
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Huruf vokal adalah ....
+*a. a, i, u, e, o
+b. b, d, k, m, s
+c. p, q, r, s, t
+d. a, b, c, d, e
+> Vokal a i u e o.
+2. Kata "roti" diawali huruf ....
+*a. r
+b. o
+c. t
+d. i
+> R.
+3. Kata "kucing" dipenggal menjadi ....
+*a. ku – cing
+b. kuc – ing
+c. k – ucing
+d. kuci – ng
+> Ku-cing.
+4. Gabungan "ba" + "ju" menjadi ....
+*a. baju
+b. juba
+c. bajju
+d. abu
+> Ba-ju.
+5. Anggota tubuh untuk memegang adalah ....
+*a. tangan
+b. kaki
+c. mata
+d. telinga
+> Tangan.
+6. Kata yang diawali huruf vokal adalah ....
+*a. obat
+b. topi
+c. nasi
+d. lampu
+> Obat diawali o.
+7. Kata "lampu" terdiri dari ... suku kata.
+a. satu
+*b. dua
+c. tiga
+d. empat
+> Lam-pu.
+8. Kegiatan pagi hari sebelum sekolah adalah ....
+*a. mandi
+b. tidur
+c. makan malam
+d. menonton film
+> Mandi pagi.
+9. Huruf konsonan pada kata "ayam" adalah ....
+*a. y dan m
+b. a dan a
+c. a dan y
+d. a dan m
+> Konsonan y dan m.
+10. Nama orang ditulis dengan huruf awal ....
+*a. kapital
+b. kecil
+c. angka
+d. simbol
+> Kapital.
+11. Mencuci tangan dilakukan sebelum ....
+*a. makan
+b. tidur
+c. bermain
+d. menulis
+> Sebelum makan cuci tangan.
+12. Hidung untuk ....
+*a. mencium bau
+b. melihat
+c. mendengar
+d. merasa
+> Mencium.
+13. Gabungan "ka" + "ki" menjadi ....
+*a. kaki
+b. kika
+c. akik
+d. kakki
+> Ka-ki.
+14. Abjad dimulai dari huruf ....
+*a. a
+b. b
+c. m
+d. z
+> A.
+15. Penulisan nama yang benar adalah ....
+*a. Budi Santoso
+b. budi santoso
+c. Budi santoso
+d. budi Santoso
+> Setiap kata nama diawali kapital.
+[MENJODOHKAN]
+1. a, i, u, e, o = huruf vokal
+2. b, c, d = huruf konsonan
+3. Tangan = untuk memegang
+4. Telinga = untuk mendengar
+5. Sarapan = makan pagi
+~ makan malam
+[ISIAN]
+1. Huruf vokal ada .... = lima | 5
+2. Kata "baju" dipenggal ba – .... = ju
+3. Anggota tubuh untuk melihat adalah .... = mata
+4. Anggota tubuh untuk berjalan adalah .... = kaki
+5. Huruf pertama kata "obat" adalah .... = o
+6. Gabungan "bu" dan "ku" menjadi .... = buku
+7. Makan pagi disebut .... = sarapan
+8. Nama orang diawali huruf .... = kapital | besar
+9. Huruf terakhir abjad adalah .... = z
+10. Sebelum makan kita mencuci .... = tangan
+[URAIAN]
+1. Tuliskan huruf vokal yang ada pada kata "ikan"!
+= i dan a.
+2. Penggallah kata "kucing" dan "lampu"!
+= ku – cing dan lam – pu.
+3. Sebutkan anggota tubuh dan kegunaannya (dua saja)!
+= Mata untuk melihat, kaki untuk berjalan, tangan untuk memegang.
+4. Ceritakan kegiatanmu sebelum berangkat sekolah!
+= Bangun, salat subuh, mandi, sarapan, memakai seragam, berpamitan.
+5. Tuliskan nama lengkapmu dengan benar!
+= Nama siswa dengan huruf awal kapital setiap kata.

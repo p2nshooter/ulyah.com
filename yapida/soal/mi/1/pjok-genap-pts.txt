@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel PJOK
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Tubuh yang bugar adalah tubuh yang ....
+*a. sehat dan kuat
+b. mudah lelah
+c. sakit-sakitan
+d. lemah
+> Bugar.
+2. Gerak senam yang mengikuti irama musik disebut senam ....
+*a. irama
+b. lantai
+c. lari
+d. renang
+> Senam irama.
+3. Sikap berdiri tegak disebut sikap ....
+*a. sempurna
+b. istirahat
+c. duduk
+d. tidur
+> Siap/sempurna.
+4. Gerakan merentangkan kedua tangan ke samping disebut ....
+*a. rentang tangan
+b. menekuk kaki
+c. lompat
+d. berguling
+> Rentang tangan.
+5. Contoh latihan kebugaran adalah ....
+*a. lari di tempat
+b. menonton televisi
+c. tidur
+d. bermain gim
+> Lari di tempat.
+6. Push up melatih kekuatan ....
+*a. lengan
+b. mata
+c. telinga
+d. rambut
+> Otot lengan.
+7. Sit up melatih kekuatan otot ....
+*a. perut
+b. telinga
+c. leher
+d. jari
+> Perut.
+8. Berolahraga yang baik dilakukan ....
+*a. secara teratur
+b. sekali setahun
+c. saat sakit
+d. tengah malam
+> Teratur.
+9. Senam pagi dilakukan pada waktu ....
+*a. pagi hari
+b. tengah malam
+c. saat hujan petir
+d. setelah makan banyak
+> Pagi.
+10. Gerakan memutar pergelangan tangan termasuk ....
+*a. pemanasan
+b. pendinginan saja
+c. lari cepat
+d. lompat jauh
+> Pemanasan sendi.
+11. Kelentukan tubuh dilatih dengan gerak ....
+*a. membungkuk menyentuh ujung kaki
+b. tidur
+c. duduk diam
+d. berteriak
+> Melatih kelenturan.
+12. Gerakan senam harus dilakukan ....
+*a. sesuai aba-aba
+b. sembarangan
+c. sambil bercanda
+d. mendahului teman
+> Sesuai aba-aba.
+13. Setelah berolahraga tubuh berkeringat, sebaiknya ....
+*a. beristirahat lalu mandi
+b. langsung tidur
+c. minum es banyak
+d. lari lagi
+> Istirahat lalu bersih diri.
+14. Lompat di tempat melatih kekuatan ....
+*a. kaki
+b. telinga
+c. mata
+d. rambut
+> Kaki.
+15. Contoh olahraga di rumah adalah ....
+*a. senam
+b. menonton
+c. tidur
+d. makan
+> Senam.
+[MENJODOHKAN]
+1. Push up = melatih otot lengan
+2. Sit up = melatih otot perut
+3. Lari di tempat = melatih jantung dan kaki
+4. Membungkuk menyentuh kaki = melatih kelentukan
+5. Senam irama = mengikuti musik
+~ melatih penglihatan
+[ISIAN]
+1. Tubuh sehat dan kuat disebut .... = bugar
+2. Senam yang diiringi musik disebut senam .... = irama
+3. Push up melatih otot .... = lengan
+4. Sit up melatih otot .... = perut
+5. Olahraga sebaiknya dilakukan secara .... = teratur | rutin
+6. Senam pagi dilakukan pada .... hari. = pagi
+7. Sikap berdiri tegak disebut sikap .... = sempurna | siap
+8. Lompat di tempat melatih kekuatan .... = kaki
+9. Gerakan senam dilakukan sesuai .... = aba-aba | hitungan
+10. Setelah olahraga kita beristirahat lalu .... = mandi
+[URAIAN]
+1. Apa yang dimaksud tubuh bugar?
+= Tubuh yang sehat, kuat, dan tidak mudah lelah saat beraktivitas.
+2. Sebutkan dua latihan kebugaran!
+= Lari di tempat, push up, sit up, lompat tali.
+3. Apa manfaat senam pagi?
+= Membuat badan segar, sehat, dan semangat beraktivitas.
+4. Mengapa berolahraga harus teratur?
+= Agar tubuh tetap bugar dan sehat.
+5. Apa yang dilakukan setelah berolahraga?
+= Pendinginan, beristirahat, minum secukupnya, lalu mandi.

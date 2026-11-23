@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Seni Budaya
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Garis yang dibuat dari kiri ke kanan mendatar disebut garis ....
+*a. horizontal
+b. vertikal
+c. lengkung
+d. zig-zag
+> Garis mendatar: horizontal.
+2. Garis tegak dari atas ke bawah disebut garis ....
+a. horizontal
+*b. vertikal
+c. miring
+d. lengkung
+> Garis tegak: vertikal.
+3. Garis yang bentuknya seperti gigi gergaji disebut garis ....
+a. lurus
+b. lengkung
+*c. zig-zag
+d. putus-putus
+> Zig-zag naik turun tajam.
+4. Garis yang melengkung seperti pelangi disebut garis ....
+*a. lengkung
+b. lurus
+c. tegak
+d. zig-zag
+> Garis lengkung.
+5. Warna primer (pokok) adalah ....
+*a. merah, kuning, biru
+b. hijau, ungu, jingga
+c. hitam, putih, abu-abu
+d. coklat, merah muda, hijau
+> Tiga warna pokok.
+6. Warna daun adalah ....
+*a. hijau
+b. merah
+c. biru
+d. ungu
+> Daun hijau.
+7. Alat untuk mewarnai gambar adalah ....
+*a. krayon
+b. penggaris
+c. penghapus
+d. gunting
+> Krayon untuk mewarnai.
+8. Bentuk matahari yang digambar anak biasanya berbentuk ....
+*a. lingkaran
+b. segitiga
+c. persegi
+d. persegi panjang
+> Matahari bulat.
+9. Menggambar bebas sesuai keinginan disebut menggambar ....
+*a. ekspresif
+b. bentuk
+c. teknik
+d. ilustrasi
+> Menggambar ekspresif.
+10. Campuran warna merah dan kuning menjadi warna ....
+*a. jingga
+b. hijau
+c. ungu
+d. coklat
+> Merah + kuning = jingga.
+11. Campuran warna biru dan kuning menjadi warna ....
+a. jingga
+*b. hijau
+c. ungu
+d. merah
+> Biru + kuning = hijau.
+12. Campuran warna merah dan biru menjadi warna ....
+a. hijau
+b. jingga
+*c. ungu
+d. kuning
+> Merah + biru = ungu.
+13. Gambar rumah biasanya memakai bentuk ....
+*a. segitiga untuk atap dan persegi untuk dinding
+b. lingkaran saja
+c. garis lengkung saja
+d. titik saja
+> Atap segitiga, dinding persegi.
+14. Setelah selesai menggambar, alat-alat harus ....
+*a. dirapikan kembali
+b. dibuang
+c. ditinggal di meja
+d. dipatahkan
+> Merapikan alat.
+15. Sebelum mewarnai, gambar harus ....
+*a. dibuat sketsanya dahulu
+b. langsung dibuang
+c. dilipat
+d. dirobek
+> Sketsa dahulu.
+[MENJODOHKAN]
+1. Garis mendatar = horizontal
+2. Garis tegak = vertikal
+3. Merah + kuning = jingga
+4. Biru + kuning = hijau
+5. Merah + biru = ungu
+~ hitam
+[ISIAN]
+1. Warna primer ada .... = tiga | 3
+2. Garis tegak disebut garis .... = vertikal
+3. Garis mendatar disebut garis .... = horizontal
+4. Alat mewarnai adalah .... = krayon | pensil warna
+5. Merah dicampur kuning menjadi .... = jingga | oranye
+6. Biru dicampur kuning menjadi .... = hijau
+7. Merah dicampur biru menjadi .... = ungu
+8. Warna langit cerah adalah .... = biru
+9. Garis seperti gigi gergaji disebut garis .... = zig-zag | zigzag
+10. Menggambar bebas sesuai perasaan disebut menggambar .... = ekspresif
+[URAIAN]
+1. Sebutkan tiga warna primer!
+= Merah, kuning, dan biru.
+2. Sebutkan empat macam garis!
+= Garis lurus, lengkung, zig-zag, dan bergelombang (juga horizontal dan vertikal).
+3. Warna apa yang terjadi jika merah dicampur kuning?
+= Jingga (oranye).
+4. Bentuk apa saja yang dipakai untuk menggambar rumah?
+= Segitiga untuk atap, persegi atau persegi panjang untuk dinding, pintu, dan jendela.
+5. Bagaimana sikap yang baik setelah menggambar?
+= Merapikan alat gambar dan menjaga kebersihan meja.

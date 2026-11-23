@@ -1,0 +1,8 @@
+# Kunci tinjauan soal Uji Kompetensi buku BSE (pustaka/bse) — dibaca scripts/soal-bse.ts saat build.
+# Hanya butir yang tercatat di sini yang masuk bank soal; kunci otomatis hanya saran bagi peninjau.
+#   <id> a|b|c|d     kunci pilihan ganda hasil tinjauan
+#   <id> x           butir dibuang (ambigu, bergambar, keliru di buku)
+#   <id> ok          jawaban model uraian dari kalimat buku diterima
+#   <id> = …         jawaban model uraian ditulis ulang
+#   u <mapel> <kelas> <ganjil|genap> <pts|pas> <pertanyaan> = <jawaban model>   uraian tambahan
+# Daftar butir & saran: npx tsx scripts/soal-bse.ts "<Mapel BSE>" <kelas>

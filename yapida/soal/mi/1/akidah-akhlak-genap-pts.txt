@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Akidah Akhlak
+@semester genap
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Rukun iman ada ....
+a. empat
+b. lima
+*c. enam
+d. tujuh
+> Rukun iman ada enam perkara.
+2. Rukun iman yang pertama adalah iman kepada ....
+*a. Allah
+b. malaikat
+c. kitab
+d. rasul
+> Iman kepada Allah adalah rukun iman pertama.
+3. Rukun iman yang kedua adalah iman kepada ....
+a. Allah
+*b. malaikat
+c. hari akhir
+d. takdir
+> Setelah iman kepada Allah, kita beriman kepada malaikat.
+4. Iman kepada kitab-kitab Allah termasuk rukun iman yang ke ....
+a. dua
+*b. tiga
+c. empat
+d. lima
+> Urutan: Allah, malaikat, kitab, rasul, hari akhir, qada dan qadar.
+5. Rukun iman yang keempat adalah iman kepada ....
+a. kitab
+*b. rasul
+c. malaikat
+d. hari akhir
+> Rukun iman keempat adalah iman kepada rasul-rasul Allah.
+6. Iman kepada hari akhir termasuk rukun iman yang ke ....
+a. tiga
+b. empat
+*c. lima
+d. enam
+> Hari akhir adalah rukun iman kelima.
+7. Rukun iman yang terakhir adalah iman kepada ....
+a. Allah
+b. rasul
+*c. qada dan qadar
+d. malaikat
+> Rukun iman keenam: iman kepada qada dan qadar.
+8. Iman artinya ....
+*a. percaya
+b. bermain
+c. berlari
+d. tidur
+> Iman berarti percaya dengan hati, diucapkan, dan diamalkan.
+9. Ar-Rahman artinya Allah Maha ....
+a. Kuat
+*b. Pengasih
+c. Melihat
+d. Kaya
+> Ar-Rahman: Allah Maha Pengasih.
+10. Ar-Rahim artinya Allah Maha ....
+a. Besar
+b. Mendengar
+*c. Penyayang
+d. Mengetahui
+> Ar-Rahim: Allah Maha Penyayang.
+11. Allah memberi kita udara, air, dan makanan. Itu tanda Allah Maha ....
+*a. Pengasih
+b. Kuasa
+c. Melihat
+d. Mendengar
+> Semua nikmat itu bukti kasih sayang Allah.
+12. Karena Allah Maha Penyayang, kita juga harus ....
+a. suka marah
+*b. menyayangi sesama
+c. mengejek teman
+d. merusak tanaman
+> Kita meneladani sifat kasih sayang dengan menyayangi sesama.
+13. Contoh sikap menyayangi hewan adalah ....
+a. memukul kucing
+*b. memberi makan kucing
+c. menangkap burung untuk dimainkan
+d. menginjak semut
+> Memberi makan hewan termasuk menyayangi makhluk Allah.
+14. Ar-Rahman dan Ar-Rahim termasuk Asmaul ....
+*a. Husna
+b. Hadis
+c. Iman
+d. Islam
+> Asmaul Husna artinya nama-nama Allah yang baik.
+15. Kita percaya ada malaikat walaupun tidak bisa melihatnya. Itu termasuk ....
+a. rukun Islam
+*b. rukun iman
+c. adab makan
+d. adab tidur
+> Iman kepada malaikat adalah bagian dari rukun iman.
+[MENJODOHKAN]
+1. Rukun iman pertama = iman kepada Allah
+2. Rukun iman kedua = iman kepada malaikat
+3. Rukun iman keempat = iman kepada rasul
+4. Ar-Rahman = Allah Maha Pengasih
+5. Ar-Rahim = Allah Maha Penyayang
+~ Allah Maha Melihat
+[ISIAN]
+1. Jumlah rukun iman ada .... = enam | 6
+2. Iman artinya .... = percaya
+3. Rukun iman yang ketiga adalah iman kepada .... = kitab | kitab-kitab Allah
+4. Rukun iman yang kelima adalah iman kepada hari .... = akhir | kiamat
+5. Rukun iman yang keenam adalah iman kepada qada dan .... = qadar
+6. Ar-Rahman artinya Allah Maha .... = Pengasih
+7. Ar-Rahim artinya Allah Maha .... = Penyayang
+8. Nama-nama Allah yang baik disebut Asmaul .... = Husna
+9. Karena Allah Maha Penyayang, kita harus .... sesama. = menyayangi | sayang
+10. Memberi makan kucing termasuk sikap .... kepada hewan. = sayang | menyayangi | kasih sayang
+[URAIAN]
+1. Sebutkan enam rukun iman!
+= Iman kepada Allah, malaikat, kitab-kitab, rasul-rasul, hari akhir, serta qada dan qadar.
+2. Apa arti Ar-Rahman dan Ar-Rahim?
+= Ar-Rahman artinya Allah Maha Pengasih, Ar-Rahim artinya Allah Maha Penyayang.
+3. Sebutkan dua contoh kasih sayang Allah kepada kita!
+= Allah memberi udara untuk bernapas, air, makanan, orang tua, dan kesehatan.
+4. Sebutkan dua contoh sikap menyayangi sesama!
+= Menolong teman, berbagi makanan, tidak mengejek, menyayangi adik, dan memberi makan hewan.
+5. Mengapa kita harus beriman kepada Allah?
+= Karena Allah yang menciptakan kita dan seluruh alam, satu-satunya Tuhan yang wajib disembah.

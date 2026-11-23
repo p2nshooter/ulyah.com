@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Pendidikan Pancasila
+@semester genap
+@jenis latihan
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Kegiatan yang paling kita sukai disebut ....
+*a. hobi
+b. tugas
+c. aturan
+d. ciri fisik
+> Hobi atau kegemaran.
+2. Bentuk rambut termasuk ....
+*a. ciri fisik
+b. hobi
+c. cita-cita
+d. alamat
+> Terlihat dari tubuh.
+3. Teman yang berbeda suku harus kita ....
+*a. hargai
+b. ejek
+c. jauhi
+d. bentak
+> Saling menghargai.
+4. Kerja bakti adalah contoh ....
+*a. gotong royong
+b. perlombaan
+c. permainan
+d. pertengkaran
+> Bekerja bersama.
+5. Keluarga inti terdiri dari ....
+*a. ayah, ibu, anak
+b. kakek, nenek
+c. paman, bibi
+d. guru, murid
+> Keluarga inti.
+6. Bersikap ramah kepada tetangga termasuk akhlak ....
+*a. terpuji
+b. tercela
+c. buruk
+d. sombong
+> Akhlak terpuji.
+7. Membersihkan kelas bersama disebut ....
+*a. piket
+b. upacara
+c. istirahat
+d. libur
+> Piket kelas.
+8. Pekerjaan berat menjadi ringan jika dikerjakan ....
+*a. bersama-sama
+b. sendirian
+c. sambil marah
+d. sambil tidur
+> Gotong royong.
+9. Allah menciptakan manusia berbeda-beda agar saling ....
+*a. mengenal
+b. bermusuhan
+c. mengejek
+d. menjauhi
+> Saling mengenal dan menghargai.
+10. Contoh menghargai pendapat teman adalah ....
+a. mengejek
+*b. mendengarkan sampai selesai
+c. memotong pembicaraan
+d. tidak peduli
+> Mendengarkan.
+11. Contoh lingkungan sekolah adalah ....
+*a. kelas, halaman, kantin
+b. kamar tidur
+c. dapur rumah
+d. pasar
+> Bagian sekolah.
+12. Merusak tanaman di taman sekolah adalah sikap ....
+a. terpuji
+*b. tercela
+c. disiplin
+d. peduli
+> Merusak itu tercela.
+13. Ketika berunding untuk mufakat kita melakukan ....
+*a. musyawarah
+b. pertengkaran
+c. perlombaan
+d. pertunjukan
+> Musyawarah.
+14. Nama, alamat, dan tanggal lahir disebut ....
+*a. identitas diri
+b. hobi
+c. cita-cita
+d. ciri fisik
+> Identitas diri.
+15. Gotong royong menjadikan warga semakin ....
+*a. rukun
+b. bertengkar
+c. jauh
+d. malas
+> Mempererat persaudaraan.
+[MENJODOHKAN]
+1. Hobi = kegemaran
+2. Kerja bakti = gotong royong warga
+3. Piket kelas = membersihkan kelas bergiliran
+4. Tetangga = orang di sekitar rumah
+5. Identitas diri = nama, alamat, tanggal lahir
+~ merusak tanaman
+[ISIAN]
+1. Kegemaran disebut juga .... = hobi
+2. Bentuk rambut termasuk ciri .... = fisik
+3. Bekerja bersama-sama disebut gotong .... = royong
+4. Orang yang tinggal di sekitar rumah disebut .... = tetangga
+5. Membersihkan kelas bergiliran disebut .... kelas. = piket
+6. Berunding untuk mufakat disebut .... = musyawarah
+7. Teman berbeda agama harus kita .... = hormati | hargai
+8. Ayah, ibu, dan anak disebut keluarga .... = inti
+9. Gotong royong membuat pekerjaan menjadi .... = ringan | cepat selesai
+10. Merusak lingkungan adalah sikap .... = tercela | buruk
+[URAIAN]
+1. Sebutkan identitas dirimu (nama dan tanggal lahir)!
+= Jawaban sesuai identitas siswa.
+2. Apa hobimu dan mengapa kamu menyukainya?
+= Jawaban sesuai pengalaman siswa, misalnya membaca karena menambah ilmu.
+3. Sebutkan dua contoh gotong royong!
+= Kerja bakti, piket kelas, membantu tetangga yang punya hajat.
+4. Bagaimana sikapmu terhadap teman yang berbeda suku atau agama?
+= Menghargai, tetap berteman, dan tidak mengejek.
+5. Mengapa kita harus menjaga lingkungan sekolah?
+= Agar sekolah bersih, sehat, nyaman untuk belajar.

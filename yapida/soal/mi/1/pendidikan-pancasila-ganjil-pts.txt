@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Pendidikan Pancasila
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Dasar negara Indonesia adalah ....
+*a. Pancasila
+b. Garuda
+c. Merah Putih
+d. Indonesia Raya
+> Pancasila adalah dasar negara Indonesia.
+2. Pancasila terdiri dari ... sila.
+a. tiga
+b. empat
+*c. lima
+d. enam
+> Pancasila berarti lima dasar.
+3. Lambang negara Indonesia adalah ....
+*a. Garuda Pancasila
+b. bendera
+c. peta
+d. bunga melati
+> Garuda Pancasila lambang negara.
+4. Lambang sila pertama adalah ....
+*a. bintang
+b. rantai
+c. pohon beringin
+d. padi dan kapas
+> Bintang melambangkan sila Ketuhanan Yang Maha Esa.
+5. Lambang sila kedua adalah ....
+a. bintang
+*b. rantai
+c. kepala banteng
+d. pohon beringin
+> Rantai: Kemanusiaan yang adil dan beradab.
+6. Pohon beringin adalah lambang sila ke ....
+a. satu
+b. dua
+*c. tiga
+d. empat
+> Sila ketiga: Persatuan Indonesia.
+7. Kepala banteng adalah lambang sila ke ....
+a. dua
+b. tiga
+*c. empat
+d. lima
+> Sila keempat: Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan.
+8. Padi dan kapas adalah lambang sila ke ....
+a. dua
+b. tiga
+c. empat
+*d. lima
+> Sila kelima: Keadilan sosial bagi seluruh rakyat Indonesia.
+9. Bunyi sila pertama adalah ....
+*a. Ketuhanan Yang Maha Esa
+b. Persatuan Indonesia
+c. Kemanusiaan yang adil dan beradab
+d. Keadilan sosial bagi seluruh rakyat Indonesia
+> Sila pertama: Ketuhanan Yang Maha Esa.
+10. Bunyi sila ketiga adalah ....
+a. Ketuhanan Yang Maha Esa
+*b. Persatuan Indonesia
+c. Keadilan sosial bagi seluruh rakyat Indonesia
+d. Kemanusiaan yang adil dan beradab
+> Sila ketiga: Persatuan Indonesia.
+11. Burung garuda mencengkeram pita bertuliskan ....
+*a. Bhinneka Tunggal Ika
+b. Merdeka
+c. Indonesia Raya
+d. Pancasila
+> Bhinneka Tunggal Ika artinya berbeda-beda tetapi tetap satu.
+12. Contoh pengamalan sila pertama adalah ....
+*a. rajin beribadah
+b. bermain bersama
+c. menabung
+d. berolahraga
+> Rajin beribadah sesuai agama mengamalkan sila pertama.
+13. Menolong teman yang jatuh sesuai dengan sila ke ....
+a. satu
+*b. dua
+c. tiga
+d. lima
+> Menolong sesama sesuai sila kemanusiaan.
+14. Bermain bersama teman tanpa membeda-bedakan sesuai dengan sila ke ....
+a. satu
+b. dua
+*c. tiga
+d. empat
+> Rukun dengan teman: persatuan.
+15. Lambang sila pertama berbentuk bintang berwarna ....
+*a. kuning emas
+b. merah
+c. hijau
+d. biru
+> Bintang emas dengan perisai hitam.
+[MENJODOHKAN]
+1. Bintang = sila pertama
+2. Rantai = sila kedua
+3. Pohon beringin = sila ketiga
+4. Kepala banteng = sila keempat
+5. Padi dan kapas = sila kelima
+~ bendera merah putih
+[ISIAN]
+1. Dasar negara Indonesia adalah .... = Pancasila
+2. Pancasila terdiri dari .... sila. = lima | 5
+3. Lambang negara Indonesia adalah Garuda .... = Pancasila
+4. Lambang sila pertama adalah .... = bintang
+5. Lambang sila ketiga adalah pohon .... = beringin
+6. Lambang sila kelima adalah padi dan .... = kapas
+7. Semboyan pada pita Garuda adalah Bhinneka Tunggal .... = Ika
+8. Sila pertama berbunyi Ketuhanan Yang Maha .... = Esa
+9. Sila ketiga berbunyi .... Indonesia. = Persatuan
+10. Lambang sila keempat adalah kepala .... = banteng
+[URAIAN]
+1. Sebutkan lima lambang sila Pancasila!
+= Bintang, rantai, pohon beringin, kepala banteng, padi dan kapas.
+2. Tuliskan bunyi sila pertama dan sila ketiga!
+= Sila pertama: Ketuhanan Yang Maha Esa. Sila ketiga: Persatuan Indonesia.
+3. Apa arti Bhinneka Tunggal Ika?
+= Berbeda-beda tetapi tetap satu jua.
+4. Tuliskan satu contoh pengamalan sila pertama di rumah!
+= Salat berjamaah bersama keluarga, berdoa sebelum makan, atau mengaji.
+5. Mengapa kita harus hafal Pancasila?
+= Karena Pancasila dasar negara Indonesia yang menjadi pedoman hidup bangsa.

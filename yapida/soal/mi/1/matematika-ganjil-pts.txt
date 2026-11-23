@@ -1,0 +1,127 @@
+@jenjang mi
+@kelas 1
+@mapel Matematika
+@semester ganjil
+@jenis pts
+@tahun 2026/2027
+
+[PILIHAN GANDA]
+1. Bilangan setelah 4 adalah ....
+a. 3
+*b. 5
+c. 6
+d. 7
+> 4, 5: setelah 4 adalah 5.
+2. Bilangan sebelum 8 adalah ....
+*a. 7
+b. 9
+c. 6
+d. 10
+> 7, 8.
+3. Lambang bilangan "enam" adalah ....
+a. 5
+*b. 6
+c. 8
+d. 9
+> Enam ditulis 6.
+4. Angka 9 dibaca ....
+a. delapan
+*b. sembilan
+c. tujuh
+d. sepuluh
+> 9 = sembilan.
+5. Ani punya 3 apel. Banyak apel Ani adalah ....
+*a. tiga
+b. dua
+c. empat
+d. lima
+> 3 = tiga.
+6. Bilangan terbesar di antara 2, 7, 5, 4 adalah ....
+a. 2
+b. 5
+*c. 7
+d. 4
+> 7 paling besar.
+7. Bilangan terkecil di antara 6, 3, 9, 8 adalah ....
+*a. 3
+b. 6
+c. 8
+d. 9
+> 3 paling kecil.
+8. Urutan bilangan dari terkecil yang benar adalah ....
+*a. 1, 2, 3, 4
+b. 4, 3, 2, 1
+c. 2, 1, 4, 3
+d. 3, 1, 2, 4
+> Urut naik.
+9. 5 lebih ... dari 3.
+*a. banyak
+b. sedikit
+c. sama
+d. kecil
+> 5 > 3.
+10. Bilangan di antara 6 dan 8 adalah ....
+a. 5
+*b. 7
+c. 9
+d. 10
+> 6, 7, 8.
+11. Jari pada satu tangan ada ....
+a. empat
+*b. lima
+c. enam
+d. sepuluh
+> Lima jari.
+12. Bilangan genap di bawah ini adalah ....
+a. 3
+*b. 4
+c. 5
+d. 7
+> Genap: 2, 4, 6, 8, 10.
+13. Kaki ayam ada ....
+*a. 2
+b. 3
+c. 4
+d. 6
+> Ayam berkaki dua.
+14. Urutan bilangan dari terbesar adalah ....
+*a. 9, 8, 7, 6
+b. 6, 7, 8, 9
+c. 7, 9, 6, 8
+d. 8, 6, 9, 7
+> Urut turun.
+15. Bilangan "sepuluh" ditulis ....
+a. 1
+b. 01
+*c. 10
+d. 100
+> Sepuluh = 10.
+[MENJODOHKAN]
+1. Tiga = 3
+2. Lima = 5
+3. Tujuh = 7
+4. Delapan = 8
+5. Sepuluh = 10
+~ 12
+[ISIAN]
+1. Bilangan setelah 6 adalah .... = 7 | tujuh
+2. Bilangan sebelum 3 adalah .... = 2 | dua
+3. Angka 4 dibaca .... = empat
+4. Bilangan di antara 8 dan 10 adalah .... = 9 | sembilan
+5. Kaki kucing ada .... = 4 | empat
+6. Bilangan terbesar dari 3, 9, 5 adalah .... = 9 | sembilan
+7. Bilangan terkecil dari 7, 2, 6 adalah .... = 2 | dua
+8. Lambang bilangan "delapan" adalah .... = 8
+9. Mata kita berjumlah .... = 2 | dua
+10. Urutan: 1, 2, 3, ...., 5 = 4 | empat
+[URAIAN]
+1. Tuliskan bilangan 1 sampai 10 secara berurutan!
+= 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.
+2. Urutkan dari yang terkecil: 7, 2, 9, 4!
+= 2, 4, 7, 9.
+3. Budi punya 6 kelereng, Andi punya 4 kelereng. Siapa yang kelerengnya lebih banyak?
+= Budi, karena 6 lebih banyak dari 4.
+4. Tuliskan lambang bilangan: lima, tujuh, sembilan!
+= 5, 7, 9.
+5. Sebutkan bilangan genap dari 1 sampai 10!
+= 2, 4, 6, 8, 10.

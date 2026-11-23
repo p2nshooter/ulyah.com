@@ -363,3 +363,22 @@ body.cetak.muat{background:transparent;overflow:hidden}
 .bio-riwayat td{padding:2mm;border:.25mm solid #e2d8b6;text-align:center;font-size:9pt}
 .bio-riwayat b,.bio-riwayat span{display:block}
 .bio-ttd{margin:auto 0 0 auto}
+
+/* ── penghalusan sertifikat (pemilik, 23 Nov 2026: „sertifikatnya jg di perbaiki, agar lebih elegan, indah“) ──
+   watermark logo jauh lebih tipis (dulu bayangan gelap 35% menutupi tengah), predikat sebagai lencana emas,
+   mutiara hikmah (hadits sahih) di atas kaki, basmalah besar untuk desain Kaligrafi. */
+.sert-tanda img{width:150mm;height:150mm}
+.tanda-bayang{opacity:.05 !important;filter:brightness(0) blur(2.4mm)}
+.tanda-logo{opacity:.075 !important;mix-blend-mode:multiply;filter:grayscale(1) sepia(.5) contrast(1.05)}
+.d-malam .tanda-logo{mix-blend-mode:screen;opacity:.06 !important;filter:grayscale(1) sepia(.8) brightness(1.6)}
+.d-malam .tanda-bayang{opacity:0 !important}
+.sert-predikat{display:inline-flex;align-items:center;gap:2mm;margin:2mm 0 0;padding:1mm 4mm 1mm 1.2mm;border-radius:20mm;background:linear-gradient(135deg,#f3e3a4,#dcbf62 40%,#b08a1e 75%,#ecd990);box-shadow:0 .6mm 1.6mm rgba(90,60,0,.35),inset 0 .3mm 0 rgba(255,255,255,.6);color:#2a1e00}
+.sert-predikat span{font:700 6.5pt var(--f-cap);letter-spacing:.2em;text-transform:uppercase;padding:.8mm 2.4mm;border-radius:20mm;background:rgba(255,255,255,.55)}
+.sert-predikat b{font:700 12pt var(--f-serif);letter-spacing:.06em;text-transform:uppercase}
+.sert-motto{margin:3mm auto 0;max-width:150mm;display:flex;flex-direction:column;align-items:center;gap:.6mm}
+.sert-motto-ar{font:400 15pt/1.5 var(--f-arab);color:var(--emas)}
+.sert-motto-arti{font:italic 400 8.5pt/1.35 var(--f-serif);color:var(--tinta);opacity:.78}
+.d-malam .sert-motto-arti{color:#e9dcb0}
+.d-kaligrafi.premium .sert-bismillah{font-size:30pt;line-height:1.15;margin:0 0 1.5mm;background:linear-gradient(180deg,#d9a066,#8a4f24);-webkit-background-clip:text;background-clip:text;color:transparent}
+.d-kaligrafi .sert-motto-ar{font-size:17pt}
+@media print{.sert-predikat{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
