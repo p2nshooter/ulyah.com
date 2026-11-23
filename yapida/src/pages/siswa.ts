@@ -29,6 +29,58 @@ export function masukSiswaPage(o: { galat?: string; nomor?: string; pesan?: stri
 
 interface Terkait { id: string; j: string; t: string; u: string; s: string; sl: string; x: Record<string, unknown> }
 
+/** Kemajuan belajar siswa dari riwayat latihannya: persentase latihan kelasnya yang sudah dikerjakan, rata-rata, nilai
+ *  terbaik, runtutan hari belajar (WIB), paket berikutnya, dan lencana. Pemilik: „Di portal siswa jg supaya lebih
+ *  interaktif, siswa jg bisa nyaman“. */
+export function kemajuanSiswa(kelasku: IndeksPaket[], riwayat: { p: string; v: number; t: number }[], now = Date.now()) {
+  const terakhir = new Map<string, number>();
+  for (const r of [...riwayat].sort((a, b) => a.t - b.t)) terakhir.set(r.p, r.v);
+  const latihan = kelasku.filter((p) => p.jenis === 'latihan');
+  const selesai = latihan.filter((p) => terakhir.has(p.id)).length;
+  const nilai = [...terakhir.values()];
+  const rata = nilai.length ? Math.round(nilai.reduce((a, b) => a + b, 0) / nilai.length) : 0;
+  const terbaik = nilai.length ? Math.max(...nilai) : 0;
+  const hari = new Set(riwayat.map((r) => Math.floor((r.t + 7 * 3600_000) / 86_400_000)));
+  const kini = Math.floor((now + 7 * 3600_000) / 86_400_000);
+  let runtut = 0;
+  for (let h = hari.has(kini) ? kini : kini - 1; hari.has(h); h--) runtut++;
+  const berikut = latihan.find((p) => !terakhir.has(p.id)) ?? null;
+  const lencana: [string, string, boolean][] = [
+    ['🌱', 'Latihan pertama', riwayat.length >= 1],
+    ['📘', '5 latihan', terakhir.size >= 5],
+    ['🔥', '3 hari beruntun', runtut >= 3],
+    ['🏆', 'Nilai sempurna', terbaik >= 100],
+    ['⭐', 'Rata-rata ≥ 85', nilai.length >= 3 && rata >= 85],
+    ['🎓', 'Semua latihan kelas', latihan.length > 0 && selesai === latihan.length],
+  ];
+  return { ada: nilai.length > 0, total: latihan.length, selesai, persen: latihan.length ? Math.round((selesai / latihan.length) * 100) : 0, rata, terbaik, runtut, berikut, lencana };
+}
+
+function kartuKemajuan(k: ReturnType<typeof kemajuanSiswa>): Raw {
+  const r = 34, kel = 2 * Math.PI * r;
+  return html`<section class="sw-kartu sw-maju muncul" id="kemajuan"><h2>Kemajuan belajarku</h2>
+    <div class="sw-maju-isi">
+      <div class="sw-cincin" role="img" aria-label="${k.selesai} dari ${k.total} latihan kelasmu sudah dikerjakan">
+        <svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="${r}" class="sw-cincin-dasar"/><circle cx="40" cy="40" r="${r}" class="sw-cincin-isi" style="stroke-dasharray:${kel.toFixed(1)};stroke-dashoffset:${(kel * (1 - k.persen / 100)).toFixed(1)}"/></svg>
+        <span><b>${k.persen}%</b><small>${k.selesai}/${k.total} latihan</small></span>
+      </div>
+      <dl class="sw-angka">
+        <div><dt>Rata-rata</dt><dd>${k.ada ? k.rata : '—'}</dd></div>
+        <div><dt>Nilai terbaik</dt><dd>${k.ada ? k.terbaik : '—'}</dd></div>
+        <div><dt>Runtutan belajar</dt><dd>${k.runtut ? html`🔥 ${k.runtut} hari` : '—'}</dd></div>
+      </dl>
+    </div>
+    ${k.berikut ? html`<a class="sw-lanjut" href="/siswa/bank-soal/${k.berikut.id}"><span aria-hidden="true">▶</span><span><small>Lanjutkan belajar</small><b>${k.berikut.mapel} · ${k.berikut.semester === 'ganjil' ? 'Ganjil' : 'Genap'}</b></span></a>` : k.total ? html`<p class="sw-selamat">MasyaAllah, semua latihan kelasmu sudah dikerjakan! Ulangi untuk menaikkan nilaimu. 🎉</p>` : ''}
+    <ul class="sw-lencana" aria-label="Lencana">${k.lencana.map(([ikon, nama, dapat]) => html`<li class="${dapat ? 'dapat' : ''}" title="${dapat ? 'Sudah kamu raih' : 'Belum diraih'}"><span aria-hidden="true">${ikon}</span><small>${nama}</small></li>`)}</ul>
+  </section>`;
+}
+
+const DOA_BELAJAR = {
+  ar: 'رَضِيْتُ بِاللّٰهِ رَبًّا، وَبِالْإِسْلَامِ دِيْنًا، وَبِمُحَمَّدٍ نَبِيًّا وَرَسُوْلًا، رَبِّ زِدْنِيْ عِلْمًا وَارْزُقْنِيْ فَهْمًا',
+  lt: 'Radhitu billahi rabba, wa bil-islami dina, wa bi Muhammadin nabiyyaw wa rasula. Rabbi zidni ‘ilma warzuqni fahma.',
+  arti: 'Aku rida Allah sebagai Tuhanku, Islam sebagai agamaku, dan Muhammad sebagai nabi dan rasul. Ya Tuhanku, tambahkanlah ilmu kepadaku dan berilah aku pemahaman.',
+};
+
 export function berandaSiswa(o: {
   nama: string; foto?: string; lembaga: string; p: Posisi; d: Record<string, unknown>; riwayat: { tp: string; tingkat: string; rombel: string }[];
   tagihan: Terkait[]; kwitansi: Terkait[]; penghargaan: Terkait[]; hari: string; rak?: { href: string; nama: string }; mediaUrl: (f: string) => string;
@@ -51,6 +103,11 @@ export function berandaSiswa(o: {
     </div>
   </section>
   <div class="wadah sw-isi">
+    ${o.soal ? kartuKemajuan(kemajuanSiswa(o.soal.kelasku, o.soal.riwayat)) : ''}
+    <section class="sw-kartu sw-doa muncul"><h2>Doa sebelum belajar</h2>
+      <p class="sw-doa-ar" lang="ar" dir="rtl">${DOA_BELAJAR.ar}</p><p class="sw-doa-lt">${DOA_BELAJAR.lt}</p><p class="sw-doa-arti">${DOA_BELAJAR.arti}</p>
+      <button class="tbl tbl-garis tbl-kecil" type="button" data-ucap-ar="${DOA_BELAJAR.ar}" data-ucap-id="${DOA_BELAJAR.arti}">🔊 Dengarkan doa</button>
+    </section>
     <section class="sw-kartu" id="tagihan"><h2>Tagihan &amp; pembayaran</h2>
       ${o.tagihan.length ? html`<ul class="sw-tagihan">${o.tagihan.map((x) => { const st = statusTagihan(x.x, o.hari); return html`<li><div><b>${labelUntuk(x.x.untuk)}</b><span>${String(x.x.periode ?? '')}${x.x.jatuhTempo ? ` · jatuh tempo ${tanggal(String(x.x.jatuhTempo))}` : ''}</span></div><div class="sw-angka"><strong>${rupiah(Number(x.x.jumlah) || 0)}</strong>${st.kode !== 'lunas' && Number(x.x.dibayar) ? html`<small>dibayar ${rupiah(Number(x.x.dibayar))} · sisa ${rupiah(st.sisa)}</small>` : ''}</div>${lencanaTagihan(st.kode, st.label)}</li>`; })}</ul>` : html`<p class="sw-kosong">Belum ada tagihan untukmu.</p>`}
       ${o.kwitansi.length ? html`<h3>Kwitansi pembayaran</h3><ul class="sw-kw">${o.kwitansi.map((x) => html`<li><a href="/siswa/kwitansi/${x.id}" target="_blank" rel="noopener"><span>🧾 ${String(x.x.nomor ?? 'Kwitansi')}</span><b>${rupiah(Number(x.x.jumlah) || 0)}</b><small>${labelUntuk(x.x.untuk)}${x.x.keterangan ? ` · ${String(x.x.keterangan)}` : ''} · ${tanggal(x.t)}</small></a></li>`)}</ul>` : ''}
