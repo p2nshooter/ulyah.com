@@ -203,7 +203,6 @@ export async function orchestrate(
   // Free Kaggle GPU/TPU first (when a notebook is live), then the donated keys.
   const kaggle = await getKaggleEndpoint(env);
   if (kaggle) {
-    const started = Date.now();
     try {
       const res = await chatComplete("kaggle", kaggle.token ?? "", opts.prompt, {
         model: kaggle.model,

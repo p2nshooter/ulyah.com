@@ -188,7 +188,7 @@ async function main() {
   });
   await t("the Worker names a want the way the engine reads it", () => {
     const mt = readFileSync(join(ROOT, "apps/worker-api/src/lib/mt.ts"), "utf8");
-    assert.ok(mt.includes("`mt-want/${sourceLang}/${hashKey(text)}.txt`"), "want key template");
+    assert.ok(/`mt-want\/\$\{sourceLang\}\/\$\{hashKey\(text\)\}\.txt`/.test(mt), "want key template");
     assert.ok(mt.includes('etagDoesNotMatch: "*"'), "wants are create-once");
   });
   await t("hand-written translations are read from the repo", () => {

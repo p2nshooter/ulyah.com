@@ -3,7 +3,7 @@ import { R2_OFF_MESSAGE } from "../lib/r2.js";
 import { setCookie, deleteCookie, getCookie } from "hono/cookie";
 import { hashPassword, verifyPassword } from "@ulyah/shared/crypto";
 import type { Env } from "../env.js";
-import { createSession, destroySession, sessionCookieName, getSession } from "../lib/session.js";
+import { createSession, destroySession, sessionCookieName } from "../lib/session.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
 import { requireClient } from "../lib/auth-middleware.js";
 import { listKeySummaries } from "../lib/keypool-store.js";

@@ -1249,7 +1249,7 @@ contentRoute.get("/kisah-anak", async (c) => {
     "SELECT id, slug, episode_order, title_id, title_en, moral_id, moral_en, motif, age_range FROM kisah_anak ORDER BY episode_order"
   ).all<{ title_id: string; title_en: string | null; moral_id: string | null; moral_en: string | null }>();
 
-  let episodes: unknown[] = results;
+  let episodes: unknown[];
   if (lang === "id") {
     episodes = results.map((r) => ({ ...r, title: r.title_id, moral: r.moral_id }));
   } else if (lang === "en") {

@@ -245,7 +245,13 @@ export async function translateDoc(
   for (let n = 2; usedSlugs.has(slug); n++) slug = `${slug.replace(/-\d+$/, "")}-${n}`;
   usedSlugs.add(slug);
   const front = [`slug: ${slug}`, `title: ${yaml(enTitle)}`, ...(description ? [`description: ${yaml(enDesc)}`] : [])];
-  writeFileSync(outPath, `---\n${front.join("\n")}\n---\n${enBody}`);
+  try {
+    // Create-once: an English file that already exists (written by hand, or by another pass) is never overwritten.
+    writeFileSync(outPath, `---\n${front.join("\n")}\n---\n${enBody}`, { flag: "wx" });
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "EEXIST") return { file, ok: false, reason: "an English version already exists" };
+    throw err;
+  }
   return { file, ok: true };
 }
 
@@ -255,6 +261,16 @@ export async function translateDoc(
 
 function readJson<T>(p: string): T {
   return JSON.parse(readFileSync(p, "utf8")) as T;
+}
+
+/** The file's JSON, or null when there is no such file — read in one step, never "check, then read". */
+function readJsonIfAny<T>(p: string): T | null {
+  try {
+    return readJson<T>(p);
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") return null;
+    throw err;
+  }
 }
 
 interface SiteJson {
@@ -342,7 +358,7 @@ async function themeStrings(tr: Translate, domain: string, lang: string): Promis
   const outs = await translatePieces(tr, list.map((p) => maskMd(p).text), lang);
   if (!outs) return -1;
   const file = join(SITES, domain, "theme", "en.json");
-  const cur = existsSync(file) ? readJson<{ strings?: Record<string, string>; patterns?: [string, string][]; keep?: string[] }>(file) : {};
+  const cur = readJsonIfAny<{ strings?: Record<string, string>; patterns?: [string, string][]; keep?: string[] }>(file) ?? {};
   const strings = { ...(cur.strings ?? {}) };
   list.forEach((p, i) => (strings[p] = unmaskMd(outs[i]!, maskMd(p).map)));
   // Counts ("12 Artikel", "3 guías") become patterns so every number reads in English.
@@ -370,13 +386,14 @@ export async function translateSite(tr: Translate, domain: string, outOfTime: ()
     const dst = join(dir, "content", "en", kind);
     if (!existsSync(src)) continue;
     mkdirSync(dst, { recursive: true });
+    const already = new Set(readdirSync(dst));
     const used = new Set<string>(
-      readdirSync(dst)
+      [...already]
         .filter((f) => f.endsWith(".md"))
         .map((f) => String((parseFrontmatter(readFileSync(join(dst, f), "utf8")) as { data: { slug?: string } }).data.slug ?? ""))
     );
     for (const f of readdirSync(src).filter((x) => x.endsWith(".md")).sort()) {
-      if (existsSync(join(dst, f))) continue;
+      if (already.has(f)) continue;
       if (outOfTime()) break;
       if (dry) {
         waiting++;
@@ -399,7 +416,7 @@ export async function translateSite(tr: Translate, domain: string, outOfTime: ()
 
   // Every document exists: switch the English edition on — only if the site's own gate passes.
   const pending = join(dir, "content", "en", "site-en.json");
-  const block = existsSync(pending) ? readJson<Record<string, unknown>>(pending) : await englishBlock(tr, site, domain);
+  const block = readJsonIfAny<Record<string, unknown>>(pending) ?? (await englishBlock(tr, site, domain));
   if (!block) return [...report, `${domain}: site texts could not be translated yet`];
   const raw = readFileSync(siteFile, "utf8");
   writeFileSync(siteFile, `${JSON.stringify({ ...site, en: block }, null, 2)}\n`);
@@ -409,7 +426,7 @@ export async function translateSite(tr: Translate, domain: string, outOfTime: ()
     const { check } = (await import("../sites/_engine/check.mjs")) as { check: (d: string) => Promise<number> };
     const failed = await check(domain);
     if (failed) throw new Error(`check.mjs: ${failed} gate(s) failed`);
-    if (existsSync(pending)) rmSync(pending);
+    rmSync(pending, { force: true });
     return [...report, `${domain}: ENGLISH EDITION ON (/en/), check.mjs passed`];
   } catch (err) {
     writeFileSync(siteFile, raw); // back off: the site stays as it was

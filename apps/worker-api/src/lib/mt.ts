@@ -414,7 +414,7 @@ export async function localizeBatchProtected(
   const masked = texts.map((t) => {
     if (!t) {
       maps.push(null);
-      return t ?? null;
+      return t === "" ? "" : null;
     }
     const { masked, map } = maskProtected(t);
     maps.push(map);

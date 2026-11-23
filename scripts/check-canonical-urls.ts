@@ -125,7 +125,7 @@ console.log("\n=== x-default always resolves to the Indonesian hub ===");
 bad = 0;
 for (const route of ROUTES) {
   const xd = localeCanonicalUrl("id", localizedRoute(route, "id"));
-  if (!xd.startsWith("https://ulyah.com")) {
+  if (new URL(xd).origin !== "https://ulyah.com") {
     fail(`x-default for ${route || "/"} is ${xd}`);
     bad++;
   }
