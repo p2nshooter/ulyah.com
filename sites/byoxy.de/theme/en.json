@@ -1,0 +1,40 @@
+{
+  "strings": {
+    "Zum Inhalt springen": "Skip to content",
+    "ist Fußball-Weltmeister 2026": "is the 2026 soccer world champion",
+    "BYOXY — Startseite": "BYOXY — Home page",
+    "Themen": "Topics",
+    "© 2026 BYOXY · byoxy.de · Unabhängiger Ratgeber für Pflanzen und grünes Wohnen. Manche Pflanzen sind für Kinder und Haustiere giftig: Lies unsere": "© 2026 BYOXY · byoxy.de · Independent guide for plants and green living. Some plants are poisonous to children and pets: read ours",
+    "Hinweise zur Pflanzensicherheit .": "Plant Safety Notes.",
+    "Angaben zum Ratgeber": "Information about the guide",
+    "Thema": "topic",
+    "Lesezeit": "Reading time",
+    "In diesem Ratgeber": "In this guide",
+    "Hinweisen zur Pflanzensicherheit .": "Plant safety information.",
+    "Weiter gärtnern": "Keep gardening",
+    "Passende Ratgeber": "Appropriate advice",
+    "8 Min. Lesezeit": "8 min reading time",
+    "Der bienenfreundliche Balkon im Herbst und Winter": "The bee-friendly balcony in autumn and winter",
+    "7 Min. Lesezeit": "7 min reading time",
+    "10 Min. Lesezeit": "10 min reading time",
+    "9 Min. Lesezeit": "9 min reading time",
+    "Grünes Wohnen für Einsteiger und Pflanzenfreunde": "Green living for beginners and plant lovers",
+    "Mehr": "More",
+    "Ersten Ratgeber lesen": "Read the first guide",
+    "Was wächst bei dir?": "What is growing with you?",
+    "9 Ratgeber": "9 guides",
+    "8 Ratgeber": "8 guides",
+    "6 Ratgeber": "6 guides",
+    "7 Ratgeber": "7 guides",
+    "Neue Ratgeber": "New guides",
+    "Alles auf einen Blick": "Everything at a glance",
+    "Verzeichnis aller Ratgeber": "List of all guides"
+  },
+  "patterns": [
+    [
+      "(\\d+) Ratgeber",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

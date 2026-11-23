@@ -1,0 +1,92 @@
+{
+  "since": "2026-11-23",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Bring your OXYgen home",
+  "tagline": "Houseplants, balconies and herbs: green living, clearly explained",
+  "description": "BYOXY is a guide for green living: choosing and caring for houseplants, watering, understanding light and soil, identifying pests, propagating plants and creating a balcony and herb garden, with clear instructions and sources for beginners and advanced users.",
+  "author": "BYOXY editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "zimmerpflanzen": {
+      "slug": "houseplants",
+      "name": "Houseplants",
+      "description": "Popular houseplants in portrait: location, care and typical problems from monstera to bow hemp."
+    },
+    "pflege-grundlagen": {
+      "slug": "care-basics",
+      "name": "Care basics",
+      "description": "Watering, light, soil, fertilizer and repotting: the tools with which plants grow healthily."
+    },
+    "schaedlinge-und-probleme": {
+      "slug": "pests-problems",
+      "name": "Pests & Problems",
+      "description": "Fungus gnats, spider mites, yellow leaves, root rot: identify the causes and gently eliminate them."
+    },
+    "vermehren": {
+      "slug": "multiply",
+      "name": "Multiply",
+      "description": "Cuttings, offshoots, division and sowing: one plant becomes many."
+    },
+    "balkon-und-terrasse": {
+      "slug": "balcony-terrace",
+      "name": "Balcony & terrace",
+      "description": "Balcony boxes, potted plants, privacy screens and wintering: green spaces in the open air."
+    },
+    "kraeuter-und-gemuese": {
+      "slug": "herbs-vegetables",
+      "name": "Herbs & Vegetables",
+      "description": "Basil, mint, tomatoes and lettuce on the windowsill and balcony: harvest fresh in a small space."
+    }
+  },
+  "promo": {
+    "label": "✦ Green helpers digital"
+  },
+  "menu": [
+    {
+      "label": "helper",
+      "href": "/helfer/"
+    },
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Plant safety",
+      "href": "/pflanzensicherheit/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

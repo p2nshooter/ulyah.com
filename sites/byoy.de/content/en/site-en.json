@@ -1,0 +1,92 @@
+{
+  "since": "2026-11-23",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Organic, without poison: garden with heart",
+  "tagline": "Vegetables, fruit and healthy soil in the organic garden: gardening without poison, with patience and joy",
+  "description": "BYOY is a guide for organic kitchen gardens in Germany: create vegetable patches and raised beds, build compost and healthy soil, plan mixed crops and crop rotation, care for fruit trees and berry bushes, promote beneficial insects and collect seeds yourself, without any chemical plant protection.",
+  "author": "BYOY editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "gemuesegarten": {
+      "slug": "vegetable-garden",
+      "name": "vegetable garden",
+      "description": "Create beds and raised beds, potatoes, tomatoes, zucchini, beans, onions and garlic: grow vegetables organically outdoors."
+    },
+    "kompost-und-boden": {
+      "slug": "compost-soil",
+      "name": "Compost & Soil",
+      "description": "Creating compost and using it correctly, recognizing soil type, mulching, green manure and organic fertilizing: the basis of every organic garden."
+    },
+    "mischkultur-und-fruchtfolge": {
+      "slug": "mixed-culture-crop-rotation",
+      "name": "Mixed culture & crop rotation",
+      "description": "Good and bad neighbors, heavy and weak feeders, cultivation plan, pre- and post-culture: plan beds wisely so that the soil stays healthy."
+    },
+    "obst-und-beeren": {
+      "slug": "fruit-berries",
+      "name": "Fruit & Berries",
+      "description": "Planting and cutting fruit trees, suitable varieties for small gardens, currants, raspberries, strawberries and blueberries in the garden."
+    },
+    "naturgarten-und-nuetzlinge": {
+      "slug": "natural-garden-beneficial-insects",
+      "name": "Natural garden & beneficial insects",
+      "description": "Promote beneficial insects, deal with snails and fungal diseases without poison, wild bees, hedgehogs, flowering meadows, dead wood hedges and dry stone walls."
+    },
+    "saatgut-und-jungpflanzen": {
+      "slug": "seeds-young-plants",
+      "name": "Seeds & young plants",
+      "description": "Understand and obtain hardened seeds yourself, harden off and plant germination samples, direct sowing, cold frames and young plants safely."
+    }
+  },
+  "promo": {
+    "label": "✦ From the bed to the net"
+  },
+  "menu": [
+    {
+      "label": "Planner",
+      "href": "/planer/"
+    },
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Garden calendar",
+      "href": "/gartenkalender/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}
