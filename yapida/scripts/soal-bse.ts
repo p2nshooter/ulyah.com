@@ -159,7 +159,7 @@ function bukuSoal(bk: BukuBse, berkas: string): SoalBuku {
     const t = rapikanPokok(b.t);
     const o = b.o.map(rapikanOpsi);
     if (t.length < 15 || t.length > 220 || BURUK_POKOK.test(t) || ARAB.test(t + o.join(''))) continue;
-    if (o.some((x) => !x || x.length > 70 || /^\d+(\s*(,|dan)\s*\d+)+$/.test(x) || /\.\.\.\./.test(x) || BURUK_POKOK.test(x) || /semua (jawaban )?benar|a dan b|b dan c|a, b/i.test(x))) continue;
+    if (o.some((x) => !x || x.length > 70 || /^\d+(\s*(,|dan)\s*\d+)+$/.test(x) || /\.\.\.\.|⁄|…/.test(x) || BURUK_POKOK.test(x) || /semua (jawaban )?benar|a dan b|b dan c|a, b/i.test(x))) continue;
     if (new Set(o.map((x) => x.toLowerCase())).size !== o.length) continue;
     const kunciTeks = t.toLowerCase();
     if (dilihat.has(kunciTeks)) continue;
