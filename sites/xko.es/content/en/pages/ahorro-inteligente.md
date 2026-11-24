@@ -1,23 +1,17 @@
 ---
 slug: smart-saving
 title: Smart saving with digital tools – AXTO and XAA, our own advertising
-description: We explain openly how AXTO helps you understand energy bills and contracts with AI and privacy, and how XAA builds websites for installers and energy advisers.
+description: We explain openly what AXTO, a digital museum of living artworks, offers, and how XAA builds websites for installers and energy advisers.
 order: 8
-updated: 2026-11-09
+updated: 2026-11-24
 ---
 At XKO we explain how to understand your electricity and gas bills, contract only the power you need and spend less at home without being cold or hot. This page has a different purpose: to introduce two digital projects from the same publisher as XKO. As with everything we publish, we are upfront about it: this is our own advertising.
 
-## Your bill explained without handing over your data: AXTO
+## AXTO: fixed prices, living art
 
-Energy bills are full of confusing terms: network tolls, system charges, contracted power, energy term, excess-power penalties. They also carry your name, your address, your CUPS supply-point code and your bank account. [AXTO](https://axto.io/?utm_source=xko.es&utm_medium=referral&utm_campaign=ecosystem) is an AI workspace that lets you ask for help without exposing all of that.
+Saving also means knowing what each thing costs. At [AXTO](https://axto.io/?utm_source=xko.es&utm_medium=referral&utm_campaign=ecosystem), a digital museum of living works – clocks in real time, stamps from fictional countries, unmodified calligraphy of the Qur'an and hadith and animated figures – prices do not change. Each work is born from a unique DNA and is kept as an NFT on the Base network.
 
-**Step 1 – protect.** With **Privacy Vault** you upload the bill as a PDF or a photo and the tool blacks out the personal and bank details on your own device.
-
-**Step 2 – understand.** In **AI Studio** you ask for each item to be explained, compare two retailers' offers or work out what would happen if you lowered your contracted power. You can send the same question to several AI models and see where they agree.
-
-**Step 3 – decide.** The decision is yours. AI can get tariffs that change often wrong, so always check the conditions on the retailer's website or in the regulator's official information.
-
-AXTO works with your own AI key, and Google Gemini or Groq offer free tiers, which fits nicely with the idea of not paying more than you need. In local mode the AI runs on your computer with no cloud at all. The interface is available in English and nine other languages.
+The exclusive editions **AC-** always cost 1 dollar, paid in AXTO coins, with ten editions per work and gas-free gifting to several wallets. The public ones **OS-** are sold on OpenSea between 1 and 10,000 dollars depending on rarity, 1 to 10 editions per work; the **G** distinguishes those painted by a GPU. The AXTO coin is neither savings nor an investment.
 
 ## If you work in energy efficiency: XAA
 

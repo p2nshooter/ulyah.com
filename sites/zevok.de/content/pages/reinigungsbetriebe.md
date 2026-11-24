@@ -1,20 +1,16 @@
 ---
 title: Sauber organisiert – AXTO und XAA für Haushalte und Reinigungsbetriebe
-description: Klar gekennzeichnete Eigenwerbung – AXTO hilft, Pflegeetiketten, Anleitungen und Unterlagen zu verstehen; XAA baut Reinigungsfirmen Website und Buchungssystem.
+description: Klar gekennzeichnete Eigenwerbung – AXTO, ein digitales Museum lebender Kunstwerke; XAA baut Reinigungsfirmen Website und Buchungssystem.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Flecken, Kalk, Schimmel, Wäscheberge: ZEVOK erklärt, wie du sauber machst, ohne Material zu ruinieren oder dich selbst zu gefährden. Ordnung braucht es aber nicht nur im Putzschrank, sondern auch auf dem Schreibtisch – und genau dort setzen die zwei Projekte an, die wir dir hier zeigen. Sie gehören demselben Betreiber wie ZEVOK. Deshalb vorweg ganz klar: Das ist Werbung in eigener Sache.
 
-## Unterlagen verstehen statt rätseln: AXTO
+## AXTO: Kunst ohne Staub
 
-Kennst du das? Ein Teppich mit Pflegesymbolen, die niemand mehr deuten kann, ein Reinigungsgerät mit einer Anleitung in fünf Sprachen, aber nicht in deiner, ein Mietvertrag mit einer Klausel zur Endreinigung. [AXTO](https://axto.io/?utm_source=zevok.de&utm_medium=referral&utm_campaign=ecosystem) ist ein KI-Arbeitsplatz, der solche Momente leichter macht.
+Nach dem Großputz darf es auch etwas Schönes sein: [AXTO](https://axto.io/?utm_source=zevok.de&utm_medium=referral&utm_campaign=ecosystem) ist ein digitales Museum mit bewegten Werken. Die Sammlung reicht von Uhren in Echtzeit über Briefmarken erdachter Länder und Kalligrafie aus Koran und Hadith mit unverändertem Text bis zu animierten Figuren. Jedes Werk wird aus einer einzigartigen DNA erzeugt und nie wiederholt.
 
-- Im **AI Studio** fotografierst du das Etikett oder lädst die Anleitung hoch und lässt dir erklären, was dort steht. Mehrere KI-Modelle können parallel antworten, sodass du Unterschiede sofort erkennst.
-- Der **Privacy Vault** schwärzt vorher Namen, Adressen und Kontodaten in Dokumenten – auf deinem eigenen Gerät –, damit nichts Persönliches unnötig weitergegeben wird.
-- **Legal AI** hilft, eine Vertragsklausel in verständliche Sprache zu übersetzen. Sie ist ein Werkzeug zum Verstehen, keine Rechtsberatung; bei einem echten Streit wende dich an einen Mieterverein oder eine Anwältin.
-
-Du benutzt bei AXTO deinen eigenen KI-Schlüssel, und im lokalen Modus läuft die KI auf deinem Rechner, ohne Cloud. Deutsch ist eine der Sprachen der Oberfläche. Und weil wir ZEVOK sind: Bei der Frage, welche Reiniger man mischen darf, gilt immer das Sicherheitsdatenblatt und der gesunde Menschenverstand – nie eine Vermutung, auch keine künstlich intelligente.
+Exklusiv (**AC-**): 1 US-Dollar je Edition, bezahlt in AXTO-Münzen, zehn Editionen pro Werk, ohne Gasgebühr an mehrere Wallets verschenkbar. Öffentlich (**OS-**): auf OpenSea, 1 bis 10 Editionen, Festpreis von 1 bis 10.000 Dollar. Ein **G** markiert Werke, die eine GPU gemalt hat. Die Münze ist ausschließlich ein Zahlungsmittel und keine Anlage.
 
 ## Für Reinigungsfirmen, Hausmeisterdienste und Wäschereien: XAA
 

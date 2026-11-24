@@ -1,22 +1,16 @@
 ---
 title: Küche trifft Technik – wie AXTO und XAA Köchinnen, Hofküchen und Restaurants helfen
-description: In eigener Sache – KI-Werkzeuge von AXTO für Saisonpläne und Kochvideos, und Websites, Shops und Bestellportale von XAA für Restaurants, Caterer und Manufakturen.
+description: In eigener Sache – AXTO, ein digitales Museum lebender Kunstwerke, und Websites, Shops und Bestellportale von XAA für Restaurants, Caterer und Manufakturen.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Saisonal zu kochen heißt, mit dem zu arbeiten, was gerade wächst – und dafür braucht es Planung: Was gibt es im März? Wie lange halten eingekochte Tomaten? Wie wird aus einem Kürbis drei verschiedene Mahlzeiten? RUBIY beantwortet solche Fragen. Auf dieser Seite sprechen wir über zwei digitale Projekte aus demselben Haus wie RUBIY. Wir sagen es offen: Das ist Werbung in eigener Sache.
 
-## Den Saisonplan schreiben lassen, das Kochen selbst erledigen
+## Etwas fürs Auge: AXTO
 
-[AXTO](https://axto.io/?utm_source=rubiy.de&utm_medium=referral&utm_campaign=ecosystem) vereint mehrere KI-Anwendungen. In der Küche besonders nützlich:
+Gutes Essen ist auch Gestaltung – und davon lebt [AXTO](https://axto.io/?utm_source=rubiy.de&utm_medium=referral&utm_campaign=ecosystem), ein digitales Museum bewegter Kunst. Uhren laufen dort in echter Zeit, Briefmarken erzählen von erfundenen Reichen, Koranverse und Hadithe erscheinen als Kalligrafie, deren Text unangetastet bleibt, und Figuren bewegen sich. Hinter jedem Werk steht eine einzigartige DNA; es wird kein zweites Mal hergestellt.
 
-**AI Studio** – Lade deinen Wochenplan, die Liste deiner Vorräte oder ein Foto des Gemüsekorbs hoch und bitte die KI um Vorschläge für Gerichte, die diese Woche Sinn ergeben. Weil mehrere Modelle antworten können, bekommst du verschiedene Ideen auf einen Blick.
-
-**Clipper** – Hast du dein Rezept für Rote-Bete-Suppe gefilmt? Clipper macht aus dem langen Video auf deinem eigenen Gerät kurze, untertitelte Clips für soziale Netzwerke.
-
-**Prompt Library** – Vorlagen für Menüplanung, Einkaufslisten oder das Umrechnen von Mengen, die du speichern und wiederverwenden kannst.
-
-Du verwendest deinen eigenen KI-Schlüssel, das Programm leitet die Anfragen nur weiter, und der lokale Modus lässt die KI auf deinem Gerät laufen. Deutsch gehört zu den Sprachen der Oberfläche. Bei Fragen zur Lebensmittelsicherheit – etwa beim Einkochen oder Fermentieren – bleiben die Empfehlungen der zuständigen Behörden maßgeblich, nicht die Antwort einer KI.
+Wer verschenken möchte, greift zu exklusiven Editionen (**AC-**): 1 US-Dollar in AXTO-Münzen, zehn Editionen je Werk, ohne Gasgebühr an viele Wallets zugleich. Öffentliche Werke (**OS-**) gibt es auf OpenSea mit 1 bis 10 Editionen zum festen Preis von 1 bis 10.000 Dollar; GPU-Bilder tragen ein **G**. Die Münze ist nur Zahlungsmittel, keine Geldanlage.
 
 ## Eine eigene Adresse für deine Küche
 
@@ -30,4 +24,4 @@ Die Arbeit ist in Etappen gegliedert, die einzeln bezahlt werden – per PayPal,
 
 ## Am Herd bleibt alles beim Alten
 
-Die Rezepte und das Vorratswissen auf RUBIY entstehen unabhängig. Keine Zutat, kein Gerät und kein Rezept wird hier empfohlen, weil es mit AXTO oder XAA zu tun hat. Wenn dir eine KI beim Planen Zeit spart, hast du mehr davon für das Schönste: das Kochen selbst.
+Die Rezepte und das Vorratswissen auf RUBIY entstehen unabhängig. Keine Zutat, kein Gerät und kein Rezept wird hier empfohlen, weil es mit AXTO oder XAA zu tun hat. Wenn dir eines der beiden Projekte Freude macht, schön – das Schönste bleibt das Kochen selbst.

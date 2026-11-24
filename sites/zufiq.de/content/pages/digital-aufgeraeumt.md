@@ -1,22 +1,16 @@
 ---
 title: Digital aufgeräumt – zwei Werkzeuge für weniger Ballast. AXTO und XAA in eigener Sache
-description: Ehrlich als Werbung gekennzeichnet – wie AXTO mit KI Zeit und Daten schont und wie XAA Selbstständigen eine ruhige, gut gebaute Website schafft.
+description: Ehrlich als Werbung gekennzeichnet – AXTO, ein digitales Museum lebender Kunstwerke, und wie XAA Selbstständigen eine ruhige, gut gebaute Website schafft.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Ein ruhiger Alltag entsteht aus guten Gewohnheiten und aus dem Mut, Überflüssiges wegzulassen. ZUFIQ schreibt darüber, wie das gelingt. Ballast gibt es allerdings nicht nur in Schränken und Kalendern, sondern auch auf Bildschirmen: zu viele Apps, zu viele Konten, zu viele offene Fenster. Hier stellen wir dir zwei Projekte vor, die zum selben Betreiber gehören wie ZUFIQ. Deshalb sagen wir klar: Das ist Werbung in eigener Sache.
 
-## Ein Ort statt zehn: AXTO
+## AXTO: wenig, aber besonders
 
-Viele Menschen nutzen inzwischen mehrere KI-Dienste nebeneinander – einen zum Schreiben, einen für Bilder, einen für Übersetzungen – jeweils mit eigenem Konto und eigenem Abo. [AXTO](https://axto.io/?utm_source=zufiq.de&utm_medium=referral&utm_campaign=ecosystem) fasst das zusammen:
+Aufgeräumt heißt nicht leer. [AXTO](https://axto.io/?utm_source=zufiq.de&utm_medium=referral&utm_campaign=ecosystem) ist ein digitales Museum mit wenigen, aber besonderen Dingen: Uhren in echter Zeit, Briefmarken aus imaginären Reichen, Kalligrafie aus Koran und Hadith mit unverändertem Text und bewegte Figuren. Jedes Werk ist ein Unikat aus eigener DNA, gesichert als NFT im Base-Netzwerk.
 
-- **AI Studio** vereint die führenden KI-Modelle an einem Ort, mit Dateien, Bildern, Sprache und dem direkten Vergleich mehrerer Antworten.
-- Die **Prompt Library** liefert erprobte Vorlagen, die du einmal einrichtest und immer wieder verwendest – für Wochenplanung, E-Mail-Entwürfe oder das Zusammenfassen langer Texte.
-- Der **Privacy Vault** schwärzt persönliche Daten in Dokumenten auf deinem Gerät, bevor eine KI sie sieht.
-
-Du arbeitest mit deinem eigenen KI-Schlüssel und zahlst damit nur, was du wirklich nutzt; Google Gemini und Groq bieten sogar kostenlose Kontingente. Wer ganz auf Cloud verzichten möchte, nutzt den lokalen Modus, in dem die KI auf dem eigenen Gerät arbeitet. Die Oberfläche ist auf Deutsch verfügbar.
-
-Unser ZUFIQ-Rat dazu: Ein Werkzeug ist nur dann eine Entlastung, wenn es ein anderes ersetzt. Prüfe nach einem Monat, ob du weniger Zeit am Bildschirm verbringst – nicht mehr.
+Exklusive Editionen (**AC-**) kosten 1 US-Dollar in AXTO-Münzen, je Werk zehn Stück, verschenkbar ohne Gasgebühr. Öffentliche Werke (**OS-**) gibt es auf OpenSea mit 1 bis 10 Editionen zum Festpreis zwischen 1 und 10.000 Dollar; ein **G** kennzeichnet GPU-Gemälde. Die Münze ist ein Zahlungsmittel – keine Geldanlage, kein Gewinnversprechen.
 
 ## Eine Website, die nicht ständig Aufmerksamkeit verlangt: XAA
 

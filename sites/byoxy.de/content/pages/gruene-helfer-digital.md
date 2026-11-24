@@ -1,16 +1,16 @@
 ---
 title: Grüne Helfer, digital – was AXTO und XAA für Pflanzenfreunde und Gärtnereien tun
-description: In eigener Sache vorgestellt – KI-Werkzeuge von AXTO für Pflanzenfotos und Notizen, und XAA für Gärtnereien, Blumenläden und Pflanzen-Shops im Netz.
+description: In eigener Sache vorgestellt – AXTO, ein digitales Museum lebender Kunstwerke, und XAA für Gärtnereien, Blumenläden und Pflanzen-Shops im Netz.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Eine Monstera mit gelben Blättern, ein Basilikum, das schlappmacht, eine Orchidee, die seit zwei Jahren nicht mehr blüht – bei BYOXY suchen wir mit dir nach den Ursachen. Manchmal hilft dabei auch ein digitales Werkzeug. Zwei davon möchten wir dir hier vorstellen. Sie stammen vom selben Betreiber wie BYOXY, und deshalb sagen wir es gleich zu Beginn ganz offen: Das hier ist Werbung in eigener Sache.
 
-## Wenn du eine zweite Meinung zu deinem Sorgenkind suchst
+## Wenn du Schönes sammeln möchtest: AXTO
 
-[AXTO](https://axto.io/?utm_source=byoxy.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Arbeitsplatz für künstliche Intelligenz. Im **AI Studio** kannst du ein Foto deiner Pflanze hochladen, beschreiben, wo sie steht und wie du gießt, und dir mögliche Ursachen erklären lassen. Weil mehrere KI-Modelle nebeneinander antworten können, siehst du sofort, wo sie sich einig sind und wo nicht. Das ersetzt keinen Blick in unsere Ratgeber und erst recht keine Beratung in der Gärtnerei, aber es kann dir helfen, die richtigen Fragen zu stellen.
+Nicht alles, was wächst, braucht Erde. [AXTO](https://axto.io/?utm_source=byoxy.de&utm_medium=referral&utm_campaign=ecosystem) lässt digitale Kunstwerke wachsen – jedes aus einem einmaligen Bauplan, der sich nie wiederholt. Es gibt tickende Uhren, die deine Ortszeit kennen, Briefmarken ferner Fantasieländer, kalligrafierte Koranverse und Hadithe, deren Text nicht verändert wird, sowie animierte Figuren. Gespeichert sind sie als NFT im Base-Netzwerk.
 
-Für deine Pflanzenpflege-Notizen, Gießpläne oder die Liste der Pflanzen, die für Katzen und Kinder giftig sind, eignen sich die fertigen Vorlagen der **Prompt Library**. Und wenn du lieber gar nichts in eine Cloud schicken möchtest: Im lokalen Modus läuft die KI direkt auf deinem eigenen Gerät. Bei AXTO benutzt du deinen eigenen KI-Schlüssel, die Anfragen werden nur weitergereicht, und gespeicherte Arbeit ist pro Konto verschlüsselt.
+Als Geschenk für Pflanzenfreunde eignen sich die exklusiven Werke mit der Kennung **AC-**: 1 US-Dollar je Edition, gezahlt in AXTO-Münzen, zehn Editionen pro Motiv, ohne Gasgebühr an mehrere Wallets verschickbar. Die öffentlichen Sammlungen mit **OS-** liegen auf OpenSea (1–10 Editionen, Festpreis 1 bis 10.000 Dollar), GPU-Gemälde tragen ein **G**. Ein Investment ist das nicht, Rendite verspricht niemand.
 
 ## Wenn du Pflanzen verkaufst
 

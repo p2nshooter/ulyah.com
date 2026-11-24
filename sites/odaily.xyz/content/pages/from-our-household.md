@@ -1,20 +1,16 @@
 ---
 title: From our household – AXTO, XAA and ULYAH, clearly marked as our own promotion
-description: The publisher of ODAILY introduces its other projects here: private AI tools from AXTO, custom websites by the XAA studio and the free knowledge portal ULYAH.
+description: "The publisher of ODAILY introduces its other projects here: AXTO, a digital museum of living artworks, custom websites by the XAA studio and the free knowledge portal ULYAH."
 order: 8
-updated: 2026-10-26
+updated: 2026-11-24
 ---
 Let us be upfront: this page is an advertisement for ourselves. ODAILY belongs to the same publisher as the three projects below. Everywhere else on ODAILY you will only find cooking, and none of these names appears in a recipe or guide.
 
-## AXTO: artificial intelligence that leaves your files with you
+## AXTO: art that keeps moving
 
-A busy kitchen produces more paperwork and media than you might think: recipe notes on scraps of paper, videos of a grandmother's bread, photos of a dish you want to remember. [AXTO](https://axto.io/?utm_source=odaily.xyz&utm_medium=referral&utm_campaign=ecosystem) is a set of AI tools built around one idea: your files are processed on your own device rather than uploaded to someone else's server.
+Between two pots on the stove, there is time for a look at [AXTO](https://axto.io/?utm_source=odaily.xyz&utm_medium=referral&utm_campaign=ecosystem), a museum of living artworks: clocks showing the actual hour, postage stamps of make-believe countries, Qur'an and hadith calligraphy reproduced word for word, and animated figures. No two works are alike, because each grows from a unique mathematical DNA, and all of them are NFTs on Base.
 
-- **Clipper** turns a long cooking video into short clips with subtitles, for example the moment the dough comes together, and the editing happens on your computer.
-- **AI Studio** puts answers from several AI models side by side, useful when you are drafting a menu for a party or rewriting a family recipe in clear steps.
-- **Privacy Vault** blacks out names, addresses and account numbers in a document before any AI reads it.
-
-When you use online models, you bring your own key and AXTO only passes the request along. In local mode the AI runs entirely on your machine.
+Exclusive pieces carry the code **AC-** and cost 1 dollar per edition in AXTO coins, ten editions per work, easy to gift to a whole family chat without gas. Public pieces carry **OS-** and are listed on OpenSea, 1 to 10 editions each at fixed prices up to 10,000 dollars; **G** marks GPU paintings. The coin is a payment token, not an investment.
 
 ## XAA: websites for bakeries, caterers and cooking clubs
 

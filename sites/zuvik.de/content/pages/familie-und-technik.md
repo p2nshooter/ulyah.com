@@ -1,8 +1,8 @@
 ---
 title: Familie und Technik – AXTO und XAA für Eltern, Kitas und Vereine (in eigener Sache)
-description: Offen als Eigenwerbung gekennzeichnet – Familienvideos schneiden und Kinderdaten schützen mit AXTO, Websites für Kitas, Elterninitiativen und Vereine von XAA.
+description: Offen als Eigenwerbung gekennzeichnet – AXTO, ein digitales Museum lebender Kunstwerke, und Websites für Kitas, Elterninitiativen und Vereine von XAA.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Auf ZUVIK erzählen wir Geschichten aus dem Familienalltag – vom Chaos am Morgen bis zum Familienrat am Küchentisch – und geben euch kleine Ideen für euer eigenes Zuhause mit. Diese Seite ist anders: Hier stellen wir euch zwei Projekte vor, die demselben Betreiber gehören wie ZUVIK. Damit ihr wisst, woran ihr seid: Das ist Werbung in eigener Sache.
 
@@ -10,14 +10,11 @@ Auf ZUVIK erzählen wir Geschichten aus dem Familienalltag – vom Chaos am Morg
 
 Als Frau Brandt nach den Sommerferien die Videos vom Zelturlaub sichten wollte, waren es drei Stunden Material: Lagerfeuer, Wasserschlacht, der Moment, in dem der Jüngste zum ersten Mal ohne Schwimmflügel schwamm. Für den Familien-Chat brauchte sie zwei Minuten. Die drei Stunden hat sie nie angeschaut – bis heute nicht. Vielleicht kennt ihr das.
 
-## AXTO: Familienerinnerungen und Familiendaten in guten Händen
+## AXTO: ein Museum zum gemeinsamen Staunen
 
-[AXTO](https://axto.io/?utm_source=zuvik.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Arbeitsplatz für künstliche Intelligenz. Für Familien sind besonders zwei Anwendungen interessant:
+Kinder lieben Dinge, die sich bewegen. [AXTO](https://axto.io/?utm_source=zuvik.de&utm_medium=referral&utm_campaign=ecosystem) ist ein digitales Museum voller solcher Werke: Uhren mit echter Uhrzeit, Briefmarken aus Märchenländern, Kalligrafie aus Koran und Hadith mit originalem Text und animierte Figuren. Jedes Werk entsteht aus einer einmaligen DNA, keines gibt es zweimal.
 
-- **Clipper** sucht in langen Videos die schönsten Momente heraus, schneidet sie ins Hochformat und setzt Untertitel. Das geschieht auf eurem eigenen Gerät – die Bilder eurer Kinder werden dafür nirgendwo hochgeladen.
-- **Privacy Vault** findet in Dokumenten Namen, Geburtsdaten, Adressen und andere persönliche Angaben und schwärzt sie, bevor ihr zum Beispiel einen Elternbrief oder ein Formular von einer KI erklären lasst.
-
-Im **AI Studio** könnt ihr euch außerdem Briefe der Schule in einfache Sprache übersetzen lassen oder Ideen für einen Kindergeburtstag sammeln. Ihr nutzt dabei euren eigenen KI-Schlüssel, und im lokalen Modus bleibt alles auf eurem Rechner. Die Oberfläche gibt es auf Deutsch. Eine Bitte von uns: Kinder sollten KI nur gemeinsam mit Erwachsenen nutzen, und Fotos von Kindern gehören grundsätzlich nicht ins offene Netz.
+Für Familien und Kitas eignen sich exklusive Editionen (**AC-**): 1 US-Dollar je Edition in AXTO-Münzen, zehn pro Werk, ohne Gasgebühr an viele Wallets verschenkbar – etwa zum Geburtstag oder zum Ramadan. Öffentliche Werke (**OS-**) liegen auf OpenSea, 1 bis 10 Editionen, Festpreis 1 bis 10.000 Dollar, GPU-Werke mit **G**. Die Münze ist für Erwachsene ein Zahlungsmittel, keine Geldanlage.
 
 ## XAA: ein digitales Zuhause für Kita, Elterninitiative und Verein
 

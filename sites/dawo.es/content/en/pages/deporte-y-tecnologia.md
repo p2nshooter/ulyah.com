@@ -1,19 +1,17 @@
 ---
 slug: sport-and-technology
 title: Sport and technology – AXTO and XAA for athletes, coaches and clubs
-description: Our own advertising, stated plainly – cut your match videos with AXTO and give your club a website with sign-ups and payments thanks to XAA.
+description: Our own advertising, stated plainly – AXTO, a digital museum of living artworks, and a club website with sign-ups and payments thanks to XAA.
 order: 8
-updated: 2026-11-09
+updated: 2026-11-24
 ---
 At DAWO we write about sport you enjoy: running without injury, swimming with good technique, going back to the gym after a break, understanding the rules of a match. Today we are telling you about something different. We want to introduce two digital projects from the same publisher as DAWO, so we make it clear before anything else: this is our own advertising.
 
-## Your best moves, in minutes rather than hours
+## AXTO: a museum in motion
 
-Filming a five-a-side match, a basketball practice or a fun run is easy. The hard part is getting the thirty seconds worth keeping out of two hours of video. **Clipper,** one of the apps in [AXTO](https://axto.io/?utm_source=dawo.es&utm_medium=referral&utm_campaign=ecosystem), does exactly that: it analyses the video, scores the best moments, reframes them vertically and adds subtitles. It all happens on your own device, without uploading the team's video to any server.
+Athletes like movement, and so does [AXTO](https://axto.io/?utm_source=dawo.es&utm_medium=referral&utm_campaign=ecosystem). This digital museum brings together clocks that follow the real time, stamps from fantasy realms, verses of the Qur'an and hadith in calligraphy faithful to the original, and animated figures. Each piece comes from its own mathematical DNA and never repeats.
 
-If you coach others, **AI Studio** can also help you organise your thoughts: summarise your notes from the season, prepare a clear explanation of a rule for parents or compare several AI models' answers to the same question. One warning that matters to us: training plans, nutrition and injury recovery should be reviewed by health and sports professionals, not by an AI.
-
-AXTO works with your own AI key and in local mode it can run without any cloud. The interface is available in English and nine other languages.
+To give the team a present there are the exclusive editions **AC-**: 1 dollar each, paid in AXTO coins, ten copies per work and sent without gas to many wallets at once. On OpenSea the public pieces **OS-** are sold, 1 to 10 editions at a fixed price from 1 to 10,000 dollars; the **G** marks works painted by a GPU. Nobody promises profits: the coin is only a means of payment.
 
 ## The website your club deserves
 
