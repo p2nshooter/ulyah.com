@@ -2049,3 +2049,15 @@ f08c47fec0942fa0“. `adsense-stack.json` → `stack` kini 4 akun (6560360898389
 apps/web `ad-config.ts`, detektor-artikel `ui.ts` (+ uji e2e 4 akun), jenius `adsense.ts`, 26 `sites/*/ADSENSE.txt`,
 `docs/ADSENSE-SEMUA-DOMAIN.txt`; axto.io dan delapan repositori mitra mengikuti. `scripts/site-audit.mjs` membaca daftar yang
 sama, jadi domain tanpa akun ke-4 dilaporkan **WRONG** sampai live.
+
+### 23.10 — 24 Nov 2026: 5 akun, akun ke-5 `pub-5092800160376210`
+
+Pemilik: „cek ini tag meta dan ads.txt kode adsense ini, kenapa kok hampir semua tidak d temukan, cek ke 42 website sy …
+pastikan semuanya live, hapus kode adsense yg lain … setiap domain pasang 5 kode adsense ini aja + bikinin tag meta nya,
+pastikan sampai live“ (pub-4906992051458194, pub-6560360898389273, pub-5928074389292014, pub-6701063918838796,
+pub-5092800160376210). Audit live 23 Nov 2026: 44/44 domain OK dengan 4 akun — „tidak ditemukan“ di AdSense berarti akun ke-5
+memang belum tercantum di mana pun, atau crawler AdSense belum membaca ulang ads.txt (bisa beberapa hari). `adsense-stack.json`
+→ `stack` 5 akun; setiap domain: 5 tag meta, 5 baris ads.txt, tetap 1 loader (akun utama tidak berubah). Salinan diperbarui:
+apps/web `ad-config.ts`, detektor-artikel `ui.ts` (+ uji e2e 5 akun), jenius `adsense.ts`, 26 `sites/*/ADSENSE.txt`,
+`docs/ADSENSE-SEMUA-DOMAIN.txt`; luaja.com & yapida.sch.id membaca `adsense-stack.json` langsung; axto.io dan delapan
+repositori mitra (xaa, axtodev, oldco.in, profity.in, Jai, Lie, axto.us) mengikuti.

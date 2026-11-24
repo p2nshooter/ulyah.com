@@ -10,7 +10,26 @@ Situs di `sites/` juga punya salinan di `sites/<domain>/ADSENSE.txt`.
 karakter saja dari file itu. Situs lain diperiksa di browser oleh
 `.github/workflows/site-audit.yml`.
 
-> **22 Nov 2026 (lanjutan) — BERLAKU SEKARANG: 4 AKUN.** Pemilik: „Tamabahin kode adsense ini di semua web
+> **24 Nov 2026 — BERLAKU SEKARANG: 5 AKUN.** Pemilik: „setiap domain pasang 5 kode adsense ini aja + bikinin tag meta nya,
+> hapus kode adsense yg lain … pastikan sampai live“:
+>
+> ```
+> google.com, pub-4906992051458194, DIRECT, f08c47fec0942fa0
+> google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0
+> google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0
+> google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0
+> google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0
+> ```
+>
+> - Setiap domain (44, termasuk axto.io dan semua repositori mitra): **5 tag meta, 5 baris ads.txt, 1 loader** (akun utama
+>   domain itu tidak berubah — salah satu dari lima). Akun lain tidak boleh ada; `scripts/site-audit.mjs` melaporkan WRONG.
+> - Cuplikan akun baru ke-5: loader
+>   `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5092800160376210" crossorigin="anonymous"></script>`
+>   (hanya dipakai bila akun ini dijadikan akun utama sebuah domain; saat ini tidak ada) ·
+>   `<meta name="google-adsense-account" content="ca-pub-5092800160376210">` · `google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0`
+> - Daftar per domain: `docs/ADSENSE-SEMUA-DOMAIN.txt` (ditulis `scripts/adsense-summary.mjs` dari `adsense-stack.json`).
+
+> **22 Nov 2026 (lanjutan) — digantikan 24 Nov 2026: 4 AKUN.** Pemilik: „Tamabahin kode adsense ini di semua web
 > google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0“ → `ca-pub-6701063918838796` menjadi akun tumpukan ke-4.
 >
 > - Setiap domain sekarang: **4 tag meta, 4 baris ads.txt, 1 loader** (akun utama domain itu tidak berubah).

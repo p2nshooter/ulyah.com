@@ -145,15 +145,15 @@ for (const path of ['/', '/en', '/cara-kerja', '/en/how-it-works', '/harga', '/e
 {
   const r = await p.goto(BASE + '/');
   ok(!r.headers()['x-robots-tag'], 'tidak ada X-Robots-Tag yang menghambat Google');
-  // 22 Nov 2026: 3 akun, lalu akun ke-4 pub-6701063918838796 (adsense-stack.json) — satu tag meta per akun, akun utama lebih dulu; satu loader.
+  // 24 Nov 2026: 5 akun (adsense-stack.json; akun ke-5 pub-5092800160376210) — satu tag meta per akun, akun utama lebih dulu; satu loader.
   const metas = await p.locator('meta[name="google-adsense-account"]').evaluateAll((els) => els.map((e) => e.getAttribute('content')));
-  ok(metas.length === 4 && metas[0] === 'ca-pub-5928074389292014' && new Set(metas).size === 4 && metas.includes('ca-pub-4906992051458194') && metas.includes('ca-pub-6701063918838796'), 'AdSense: tag meta per akun (4)');
+  ok(metas.length === 5 && metas[0] === 'ca-pub-5928074389292014' && new Set(metas).size === 5 && metas.includes('ca-pub-4906992051458194') && metas.includes('ca-pub-6701063918838796') && metas.includes('ca-pub-5092800160376210'), 'AdSense: tag meta per akun (5)');
   ok((await p.locator('script[src*="adsbygoogle.js?client="]').count()) === 1, 'AdSense: tepat satu loader');
   ok((await p.locator('script[src*="adsbygoogle.js?client=ca-pub-5928074389292014"]').count()) === 1, 'AdSense: loader akun utama');
   ok((await p.locator('meta[name=robots]').count()) === 0, 'beranda bisa diindeks');
   const ads = await (await p.request.get(BASE + '/ads.txt')).text();
   const adsLines = ads.trim().split('\n');
-  ok(adsLines.length === 4 && adsLines[0] === 'google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0' && adsLines.every((l) => /^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/.test(l)), 'ads.txt: satu baris per akun (4)');
+  ok(adsLines.length === 5 && adsLines[0] === 'google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0' && adsLines.every((l) => /^google\.com, pub-\d{16}, DIRECT, f08c47fec0942fa0$/.test(l)), 'ads.txt: satu baris per akun (4)');
   const robots = await (await p.request.get(BASE + '/robots.txt')).text();
   ok(/User-agent: Googlebot\nAllow: \//.test(robots) && /User-agent: Mediapartners-Google\nAllow: \//.test(robots) && !/Disallow: \/\n/.test(robots) && /Sitemap: /.test(robots), 'robots.txt membuka semua crawler Google');
   ok((await p.request.get(BASE + '/blueprint')).status() === 404, 'blueprint internal tidak publik');
