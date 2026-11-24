@@ -1,4 +1,4 @@
-AdSense xko.es — 4 akun (adsense-stack.json, docs/ADSENSE-BLUEPRINT.md §23)
+AdSense xko.es — 5 akun (adsense-stack.json, docs/ADSENSE-BLUEPRINT.md §23)
 
 Cuplikan adsense (di <head> setiap halaman — satu loader saja, akun utama)
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4906992051458194"
@@ -9,9 +9,11 @@ google.com, pub-4906992051458194, DIRECT, f08c47fec0942fa0
 google.com, pub-6560360898389273, DIRECT, f08c47fec0942fa0
 google.com, pub-5928074389292014, DIRECT, f08c47fec0942fa0
 google.com, pub-6701063918838796, DIRECT, f08c47fec0942fa0
+google.com, pub-5092800160376210, DIRECT, f08c47fec0942fa0
 
 Tag meta (di <head> setiap halaman — satu per akun)
 <meta name="google-adsense-account" content="ca-pub-4906992051458194">
 <meta name="google-adsense-account" content="ca-pub-6560360898389273">
 <meta name="google-adsense-account" content="ca-pub-5928074389292014">
 <meta name="google-adsense-account" content="ca-pub-6701063918838796">
+<meta name="google-adsense-account" content="ca-pub-5092800160376210">

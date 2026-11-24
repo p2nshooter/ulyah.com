@@ -43,7 +43,7 @@ L.push(" saling bentrok dan tidak melanggar kebijakan adsense, maksudnya 1 websi
 L.push(" adsense dari akun yg berbeda“.");
 L.push("");
 L.push(" Cara menumpuk (rapi, tidak bentrok):");
-L.push(`   • ads.txt   : SATU BARIS PER AKUN (akun utama dulu, lalu ${S.stack.length} akun). Boleh banyak baris.`);
+L.push(`   • ads.txt   : SATU BARIS PER AKUN (akun utama dulu, lalu akun lainnya — total ${S.stack.length} akun). Boleh banyak baris.`);
 L.push("   • tag meta  : SATU TAG PER AKUN di <head> setiap halaman, jadi setiap akun bisa");
 L.push("                 memverifikasi situs dengan tag meta atau dengan ads.txt.");
 L.push("   • loader    : HANYA SATU per halaman, yaitu akun utama domain itu. Google mengabaikan");
@@ -51,7 +51,7 @@ L.push("                 tag kepala AdSense kedua di halaman yang sama („Only 
 L.push("                 supported per page“), jadi banyak loader hanya menambah error, bukan iklan.");
 L.push("   • Auto ads saja, tanpa slot manual. Sumber tunggal: adsense-stack.json di repo ulyah.com.");
 L.push("");
-L.push("-".repeat(69), ` A. ${S.stack.length} AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik; ke-17 s.d. ke-21 ditambah 8 Nov, ke-22 ditambah 14 Nov 2026)`, "-".repeat(69), "");
+L.push("-".repeat(69), ` A. ${S.stack.length} AKUN YANG DITUMPUK DI SETIAP DOMAIN (urutan dari pemilik; akun ke-5 pub-5092800160376210 ditambah 24 Nov 2026)`, "-".repeat(69), "");
 S.stack.forEach((c, i) => L.push(` ${String(i + 1).padStart(2)}. ${c}`));
 L.push("", ` Baris ads.txt ke-${S.stack.length} akun (sama di setiap domain):`);
 for (const c of S.stack) L.push(`   ${ads(c)}`);
