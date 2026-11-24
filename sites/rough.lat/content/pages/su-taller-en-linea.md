@@ -1,20 +1,16 @@
 ---
 title: Su taller, en línea – AXTO y XAA para artesanos y comercios de gemas en América Latina
-description: Publicidad propia, señalada con claridad – descripciones bilingües y documentos protegidos con AXTO, y tiendas o plataformas B2B para joyería con XAA.
+description: Publicidad propia, señalada con claridad – AXTO, un museo digital de obras vivas, y tiendas o plataformas B2B para joyería con XAA.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 De las esmeraldas colombianas a los ópalos mexicanos y las turmalinas brasileñas, América Latina tiene un patrimonio gemológico extraordinario, y miles de talleres que lo transforman en joyas. ROUGH.LAT lo cuenta con calma y rigor. En esta página presentamos dos proyectos digitales que pertenecen al mismo editor que ROUGH.LAT; por eso lo anunciamos desde el inicio: es publicidad propia.
 
-## Vender más allá de la frontera: AXTO
+## AXTO: un museo de obras irrepetibles
 
-Muchos talleres latinoamericanos venden a compradores de Estados Unidos, Europa o Asia, y eso exige fichas de producto en inglés, correspondencia con clientes extranjeros y documentación ordenada. [AXTO](https://axto.io/?utm_source=rough.lat&utm_medium=referral&utm_campaign=ecosystem) reúne varias herramientas de inteligencia artificial en una sola cuenta:
+[AXTO](https://axto.io/?utm_source=rough.lat&utm_medium=referral&utm_campaign=ecosystem) reúne arte digital que respira: relojes con la hora verdadera, estampillas de reinos imaginarios, versos del Corán y hadices en caligrafía sin cambios en el texto y figuras que se mueven. Detrás de cada obra hay un ADN matemático que no se repite jamás, y cada una queda guardada como NFT en Base.
 
-- **AI Studio** redacta y revisa descripciones de piezas en inglés a partir de sus notas en español, resume cartas de compradores o explica términos de un certificado. Las respuestas de distintos modelos pueden compararse lado a lado.
-- **Prompt Library** ofrece plantillas probadas para tareas comerciales repetitivas, que usted ajusta una vez y guarda como flujos de trabajo propios.
-- **Privacy Vault** protege a sus clientes: borra nombres, direcciones y datos de pago de los documentos en su propio dispositivo antes de cualquier consulta a una IA.
-
-Con AXTO se trabaja con la propia clave de IA; la plataforma solo retransmite las solicitudes, y en modo local todo queda en su equipo. La interfaz se ofrece en inglés y en otros nueve idiomas; el español todavía no figura entre ellos. Recuerde que la descripción final de una gema debe coincidir siempre con lo que certifica un laboratorio.
+Quien quiera regalar algo a clientes de otros países puede elegir una edición exclusiva **AC-** por 1 dólar, pagada con monedas AXTO, diez por obra y sin costo de gas. En OpenSea están las colecciones públicas **OS-**: de 1 a 10 ediciones, precio fijo de 1 a 10.000 dólares; **G** señala pintura de GPU. La moneda se usa para pagar, no para invertir.
 
 ## Una tienda o una plataforma a su medida: XAA
 

@@ -1,8 +1,8 @@
 ---
 title: Lernen mit KI – fair, sicher und mit Köpfchen. AXTO und XAA stellen sich vor
-description: Werbung in eigener Sache – wie du KI-Werkzeuge von AXTO ehrlich zum Lernen nutzt, und wie XAA Nachhilfe-Anbietern und Lerngruppen eine Plattform baut.
+description: Werbung in eigener Sache – faire Regeln fürs Lernen mit KI, AXTO, ein digitales Museum lebender Kunstwerke, und wie XAA Nachhilfe-Anbietern und Lerngruppen eine Plattform baut.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Bei QULEN geht es um Mut beim Lernen: Geschichten von Menschen, die nicht aufgegeben haben, und praktische Wege durch Schule, Ausbildung und Studium. Künstliche Intelligenz gehört inzwischen für viele zu diesem Weg dazu. Darum stellen wir dir hier zwei Projekte vor, die vom gleichen Betreiber kommen wie QULEN. Das ist Eigenwerbung – und wir finden, du solltest das wissen, bevor du weiterliest.
 
@@ -10,16 +10,11 @@ Bei QULEN geht es um Mut beim Lernen: Geschichten von Menschen, die nicht aufgeg
 
 Bevor wir über Software sprechen, das Wichtigste: Eine KI darf dir beim Verstehen helfen, aber sie darf nicht für dich denken. Prüfungen, Hausarbeiten und Bewerbungen müssen deine eigene Leistung sein. Frag im Zweifel deine Lehrkraft oder deine Hochschule, welche Hilfsmittel erlaubt sind. Wer KI heimlich Texte schreiben lässt, lernt nichts und riskiert viel.
 
-## AXTO: ein Lernplatz mit vielen KI-Modellen
+## AXTO: ein Museum zum Staunen
 
-[AXTO](https://axto.io/?utm_source=qulen.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Arbeitsplatz für künstliche Intelligenz. So kann er dir beim Lernen helfen, ohne zu schummeln:
+Lernen braucht auch Pausen, in denen man einfach staunt. [AXTO](https://axto.io/?utm_source=qulen.de&utm_medium=referral&utm_campaign=ecosystem) zeigt dafür Kunstwerke, die leben: eine Uhr, die die Zeit deiner Stadt anzeigt, Briefmarken aus Reichen, die es nicht gibt, Verse aus Koran und Hadith in Kalligrafie – unverfälscht wiedergegeben – und bewegte Figuren. Mathematik spielt mit: Jedes Werk folgt einer einzigartigen DNA und existiert nur einmal.
 
-- **Erklären lassen statt abschreiben.** Im AI Studio lädst du dein Skript oder ein Foto deiner Mitschrift hoch und lässt dir einen schwierigen Abschnitt in einfachen Worten erklären. Verstehst du die Antwort nicht, fragst du ein zweites Modell und vergleichst.
-- **Abfragen üben.** Lass dir aus deinen eigenen Notizen Übungsfragen stellen, beantworte sie selbst und hol dir danach Rückmeldung.
-- **Fertige Lernvorlagen.** Die Prompt Library enthält erprobte Vorlagen, die du an dein Fach anpassen kannst.
-- **Privat bleiben.** Du nutzt deinen eigenen KI-Schlüssel – für Google Gemini und Groq gibt es kostenlose Kontingente. Persönliche Daten in Dokumenten lassen sich mit dem Privacy Vault vorher schwärzen, und im lokalen Modus läuft die KI direkt auf deinem Gerät.
-
-Die Oberfläche von AXTO gibt es auch auf Deutsch.
+Exklusive Werke mit **AC-** kosten 1 US-Dollar je Edition in AXTO-Münzen; Lerngruppen können ein Motiv zehnfach teilen und ohne Gasgebühr verschenken. Öffentliche Werke mit **OS-** stehen auf OpenSea, mit 1 bis 10 Editionen zu Festpreisen zwischen 1 und 10.000 Dollar, GPU-Gemälde mit **G**. Die AXTO-Münze dient dem Bezahlen und ist keine Geldanlage.
 
 ## XAA: eine Plattform für alle, die anderen das Lernen erleichtern
 

@@ -1,21 +1,15 @@
 ---
 slug: digital-tools-for-your-home-project-axto-and-xaa-own-advertising
 title: Digital tools for your home project – AXTO and XAA, own advertising
-description: We present, with transparency, AXTO to review plans, budgets and contracts with AI, and XAA for the website of architecture studios and construction companies.
+description: We present, with transparency, AXTO, a digital museum of living artworks, and XAA for the website of architecture studios and construction companies.
 ---
 A house well thought out for the climate of Latin America is born from many decisions: the orientation, the cross ventilation, the eaves that protect from the rain, the material that keeps the cool. At DAI we explain those decisions. On this page, however, we present two digital projects that belong to the same publisher as DAI. That's why we say it from the first line: it is our own advertising.
 
-## Before building: understand each document with AXTO
+## AXTO: art that moves
 
-Whoever builds or renovates accumulates papers: budgets from various contractors, technical reports, construction contracts, municipal permits, materials sheets in English. [AXTO](https://axto.io/?utm_source=dai.lat&utm_medium=referral&utm_campaign=ecosystem) is an artificially intelligent workspace that helps tidy up that pile.
+A home also fills up with beautiful things. [AXTO](https://axto.io/?utm_source=dai.lat&utm_medium=referral&utm_campaign=ecosystem) is a digital museum of living works: clocks that show the real time, stamps from invented countries, calligraphy of the Qur'an and hadith with the text intact, and animated figures. Each work is born from an unrepeatable mathematical DNA and is recorded as an NFT on the Base network.
 
-**AI Studio** brings together leading AI models in one place. You can upload two quotes and request a comparison table item by item, or a photo of a technical sheet so that it can be explained to you in simple words. If an answer leaves you unsure, the same question can be sent to another model and compared.
-
-**Legal AI** offers workspaces to review contracts in more than two hundred jurisdictions, including those in Latin America. Helps understand clauses about deadlines, guarantees or penalties; It is not a substitute for a lawyer or notary, and any important decisions should be consulted with a local professional.
-
-**Privacy Vault** removes names, IDs and bank details from files, right on your device, before an AI reads them.
-
-AXTO works with its own AI key: the platform only transmits the requests. In local mode, the AI ​​runs on your own computer. The interface is available in English and nine other languages, although not yet in Spanish.
+The exclusive editions, with the code **AC-**, cost 1 dollar each and are paid with the AXTO coin; there are ten per work and they can be gifted to many wallets without gas fees. The public collections, with **OS-**, are on OpenSea: 1 to 10 editions at fixed prices between 1 and 10,000 dollars. A **G** indicates a painting made by a GPU. The coin is for paying; it is not an investment.
 
 ## For studies, construction companies and suppliers: XAA
 

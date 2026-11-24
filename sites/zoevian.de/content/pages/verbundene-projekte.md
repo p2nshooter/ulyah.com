@@ -1,20 +1,16 @@
 ---
 title: Verbundene Projekte – AXTO, XAA und ULYAH, ehrlich als Eigenwerbung gekennzeichnet
-description: Auf dieser Seite stellt der Herausgeber von ZOEVIAN seine anderen Projekte vor – private KI-Werkzeuge von AXTO, Websites von XAA und das Wissensportal ULYAH.
+description: Auf dieser Seite stellt der Herausgeber von ZOEVIAN seine anderen Projekte vor – AXTO, ein digitales Museum lebender Kunstwerke, Websites von XAA und das Wissensportal ULYAH.
 order: 8
-updated: 2026-10-26
+updated: 2026-11-24
 ---
 Bevor du weiterliest: Diese Seite ist Werbung in eigener Sache. Hinter ZOEVIAN steht derselbe Herausgeber wie hinter den drei Projekten, die wir dir hier vorstellen. Alle übrigen Seiten von ZOEVIAN handeln von Vögeln und bleiben frei von solchen Hinweisen.
 
-## AXTO: KI-Helfer, die nichts von dir mitnehmen
+## AXTO: Werke, die leben
 
-Vogelfreundinnen und Vogelfreunde sammeln mit der Zeit erstaunlich viel Material: Fotos vom Futterhaus, Videos aus der Nistkastenkamera, Listen mit Beobachtungen. [AXTO](https://axto.io/?utm_source=zoevian.de&utm_medium=referral&utm_campaign=ecosystem) ist eine Sammlung von KI-Werkzeugen, die bei solchen Aufgaben hilft, ohne dass deine Dateien auf fremden Servern landen:
+Vogelbeobachter kennen das Staunen über Bewegung. [AXTO](https://axto.io/?utm_source=zoevian.de&utm_medium=referral&utm_campaign=ecosystem) bringt es in ein digitales Museum: Uhren schlagen in echter Zeit, Briefmarken stammen aus erdachten Reichen, Koran- und Hadith-Verse erscheinen als Kalligrafie im Originalwortlaut, Figuren bewegen sich. Jedes Werk folgt seiner eigenen DNA und bleibt einmalig; gespeichert ist es im Base-Netzwerk.
 
-- **Clipper** macht aus einer stundenlangen Aufnahme der Nistkastenkamera kurze Ausschnitte mit Untertiteln, etwa den Moment, in dem die jungen Meisen zum ersten Mal ausfliegen. Das Schneiden geschieht auf deinem eigenen Gerät.
-- **AI Studio** hilft dir beim Schreiben, zum Beispiel beim Bericht für die Ortsgruppe deines Naturschutzvereins oder bei einem Infoblatt für die Nachbarschaft, und kann die Vorschläge mehrerer KI-Modelle nebeneinanderstellen.
-- **Privacy Vault** macht Namen, Anschriften und Kontodaten in Dokumenten unkenntlich, bevor eine KI sie liest.
-
-Anfragen an KI-Dienste laufen mit deinem eigenen Schlüssel und werden von AXTO nur weitergereicht. Im lokalen Modus bleibt die KI vollständig auf deinem Computer.
+Exklusive Werke tragen **AC-**, kosten 1 US-Dollar je Edition in AXTO-Münzen und lassen sich zehnfach an Freunde verschenken, ohne Gasgebühr. Öffentliche Werke mit **OS-** finden sich bei OpenSea: 1 bis 10 Editionen, feste Preise von 1 bis 10.000 Dollar, GPU-Werke mit **G**. Die Münze ist kein Anlageprodukt.
 
 ## XAA: Websites für Vereine, Gärtnereien und Zoohandlungen
 

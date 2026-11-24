@@ -1,20 +1,16 @@
 ---
 title: Für Reisende und Gastgeber – AXTO und XAA, offen als Eigenwerbung gekennzeichnet
-description: Wie AXTO beim Planen und Übersetzen hilft und wie XAA Ferienwohnungen, Pensionen und Gästeführern zu einer eigenen Website mit Direktbuchung verhilft.
+description: AXTO, ein digitales Museum lebender Kunstwerke, und wie XAA Ferienwohnungen, Pensionen und Gästeführern zu einer eigenen Website mit Direktbuchung verhilft.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Urlaub in Deutschland – an der Küste, auf den Inseln, an den Seen oder in den Städten – plant ZOLUN mit ruhiger Hand und ehrlichen Informationen. Auf dieser Seite wechseln wir kurz die Perspektive und stellen zwei Projekte vor, die vom gleichen Betreiber stammen wie ZOLUN. Wir halten es mit der Transparenz wie bei unseren Reisetipps: Das hier ist Werbung in eigener Sache.
 
-## Wer verreist: Pläne, Unterlagen und Erinnerungen mit AXTO
+## Ein Souvenir ohne Koffer: AXTO
 
-Vor einer Reise sammelt sich einiges an: Buchungsbestätigungen, Fahrpläne, Hausordnungen der Ferienwohnung, Hinweise zu Kurtaxe und Parken. [AXTO](https://axto.io/?utm_source=zolun.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Arbeitsplatz für künstliche Intelligenz, der dabei unterstützt:
+Manche Erinnerungen passen in keinen Koffer. [AXTO](https://axto.io/?utm_source=zolun.de&utm_medium=referral&utm_campaign=ecosystem) zeigt Uhren, die die Zeit jedes Reiseziels anzeigen können, Briefmarken aus Ländern, die es nur in der Fantasie gibt, Koran- und Hadith-Kalligrafie mit wortgetreuem Text und animierte Figuren – ein digitales Museum, dessen Werke aus jeweils einmaliger DNA entstehen und im Base-Netzwerk liegen.
 
-- Das **AI Studio** fasst lange Unterlagen zusammen, erstellt aus deinen Notizen einen Tagesplan oder übersetzt die englische Hausordnung einer Unterkunft. Antworten verschiedener KI-Modelle stehen auf Wunsch nebeneinander.
-- Der **Privacy Vault** entfernt Namen, Buchungsnummern und Kontodaten aus Dokumenten, bevor du sie einer KI zeigst – direkt auf deinem Gerät.
-- Mit **Clipper** werden aus langen Urlaubsvideos auf deinem eigenen Rechner kurze, untertitelte Clips für Familie und Freunde.
-
-AXTO arbeitet mit deinem eigenen KI-Schlüssel und leitet Anfragen nur weiter; im lokalen Modus bleibt die KI auf deinem Gerät. Die Oberfläche kannst du auf Deutsch nutzen. Für aktuelle Fahrpläne, Fährzeiten und Sturmwarnungen gelten natürlich die offiziellen Quellen der Betreiber und Wetterdienste.
+Gastgeber können Gästen ein exklusives Werk schenken: Kennung **AC-**, 1 US-Dollar je Edition, bezahlt mit AXTO-Münzen, gebührenfrei an viele Wallets. Auf OpenSea (**OS-**) gibt es 1 bis 10 Editionen je Werk zum Festpreis von 1 bis 10.000 Dollar; **G** steht für GPU-gemalt. Die Münze ist kein Investment und verspricht keinen Gewinn.
 
 ## Wer Gäste empfängt: eine eigene Website mit XAA
 

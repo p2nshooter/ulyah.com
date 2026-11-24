@@ -1,20 +1,16 @@
 ---
 title: Vom Beet ins Netz – AXTO und XAA für Gärtnerinnen, Hofläden und Gemeinschaftsgärten
-description: Unsere Empfehlung in eigener Sache – wie AXTO beim Planen von Fruchtfolge und Notizen hilft und wie XAA Hofläden und Gartenprojekten eine eigene Website baut.
+description: Unsere Empfehlung in eigener Sache – AXTO, ein digitales Museum lebender Kunstwerke, und wie XAA Hofläden und Gartenprojekten eine eigene Website baut.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Im Bio-Garten braucht vieles Zeit: Der Boden lebt erst nach Jahren richtig auf, die Fruchtfolge will gut überlegt sein, und das Wissen über Sorten, Aussaattermine und Nützlinge wächst Saison für Saison. Auf BYOY schreiben wir darüber. Hier, auf einer eigenen Seite, zeigen wir dir zwei Projekte aus demselben Haus – mit dem ehrlichen Hinweis, dass es sich um Eigenwerbung handelt.
 
-### Für dein Gartentagebuch: AXTO
+### Für lange Winterabende: AXTO
 
-Viele Gärtnerinnen führen Notizbücher voller Aussaatdaten, Ernteerträge und Beobachtungen. [AXTO](https://axto.io/?utm_source=byoy.de&utm_medium=referral&utm_campaign=ecosystem) kann helfen, aus diesen Notizen etwas Brauchbares zu machen:
+Wenn draußen nichts zu tun ist, lohnt ein Blick in [AXTO](https://axto.io/?utm_source=byoy.de&utm_medium=referral&utm_campaign=ecosystem), ein digitales Museum, dessen Werke sich bewegen. Zu sehen sind Uhren in echter Ortszeit, Briefmarken aus Ländern der Fantasie, Kalligrafien aus Koran und Hadith – originalgetreu übernommen – und lebendige Figuren. Kein Werk gleicht einem anderen, denn jedes beruht auf einer einzigartigen digitalen Erbanlage; gesichert sind sie im Base-Netzwerk.
 
-- Im **AI Studio** fasst eine KI deine Aufzeichnungen zusammen, schlägt eine Übersicht für die Fruchtfolge der nächsten Jahre vor oder erklärt einen Fachbegriff aus einem englischen Saatgutkatalog. Du kannst Antworten mehrerer Modelle vergleichen und Fotos von Blättern oder Schädlingen mitschicken.
-- Die **Prompt Library** bietet erprobte Vorlagen, die du für wiederkehrende Aufgaben – etwa den Wochenplan im Frühjahr – speichern kannst.
-- Mit **Clipper** schneidest du ein langes Video von deiner Hügelbeet-Anlage auf deinem eigenen Gerät zu kurzen Clips, etwa für den Verein oder die Familie.
-
-Wichtig für alle, die Wert auf Datensparsamkeit legen: Du nutzt deinen eigenen KI-Schlüssel, und im lokalen Modus bleibt die KI ganz auf deinem Rechner. Die Oberfläche gibt es auf Deutsch. Und natürlich gilt: Was eine KI über Pflanzenschutz schreibt, prüfst du bitte immer nach – gerade im ökologischen Anbau zählt jedes Detail.
+Die exklusiven Editionen (**AC-**) kosten jeweils 1 US-Dollar in AXTO-Münzen und eignen sich zum Verschenken an Familie oder Gartenverein, sogar an viele Wallets auf einmal. Auf OpenSea (**OS-**) verkauft AXTO je Werk 1 bis 10 Editionen zu festen Preisen von 1 bis 10.000 Dollar; ein **G** markiert Bilder einer GPU. Die AXTO-Münze bleibt ein Zahlungsmittel und keine Kapitalanlage.
 
 ### Für deinen Hofladen oder Gartenverein: XAA
 

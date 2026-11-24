@@ -1,22 +1,16 @@
 ---
 title: Digital Companions – AXTO and XAA, Introduced Openly as Our Own
-description: A clearly labelled note from the publisher – AXTO's private AI tools for memoirs, letters and family videos, and XAA's websites for small businesses and memoirs.
+description: A clearly labelled note from the publisher – AXTO, a digital museum of living artworks, and XAA's websites for small businesses and memoirs.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 CRONE is about living the second half of life with character, curiosity and a little nerve. Many of our readers are writing memoirs, running small businesses, learning new skills or keeping a scattered family close. Technology can help with all of that — when it is kind to your time and careful with your privacy. On this page we introduce two projects that belong to the same publisher as CRONE. That makes this a promotion of our own work, and we would rather you knew that from the first sentence.
 
-## AXTO: a calm, private place to work with AI
+## AXTO: a quiet gallery of living art
 
-[AXTO](https://axto.io/?utm_source=crone.skin&utm_medium=referral&utm_campaign=ecosystem) gathers several artificial-intelligence tools under one account. Three of them suit the way many of our readers live:
+[AXTO](https://axto.io/?utm_source=crone.skin&utm_medium=referral&utm_campaign=ecosystem) is a digital museum whose works move gently: clocks that keep the real time, stamps from imagined realms, calligraphy of Qur'anic verses and hadith with the text left exactly as it is, and animated figures. Each piece is generated from its own unrepeatable DNA and kept as an NFT on the Base network.
 
-**For the memoir in the drawer.** In **AI Studio** you can upload pages of your life story and ask for gentle suggestions: a clearer order for your chapters, questions that might unlock more memories, or a tidy transcript of a voice recording. You can even put the same request to several AI models and compare their replies side by side. Your words remain yours; the tool simply helps you shape them.
-
-**For family letters and paperwork.** **Privacy Vault** finds names, addresses, dates of birth and account numbers in documents and blacks them out — on your own device — before anything is shown to an AI. That makes it safer to ask for help understanding a pension letter or a long insurance renewal. (For decisions about money, health or law, please still speak to a qualified adviser.)
-
-**For the grandchildren's videos.** **Clipper** turns an hour of birthday-party footage into short, captioned clips, again on your own device, so private family moments are never uploaded anywhere.
-
-AXTO works with your own AI key and only passes requests along; in Local Mode the AI runs entirely on your computer. The interface is available in English and nine other languages.
+Exclusive works, marked **AC-**, cost one US dollar per edition and are paid with the AXTO coin; ten editions exist of each, and they can be sent as gifts to many wallets at once without gas fees. Public works, marked **OS-**, are sold on OpenSea with one to ten editions at fixed prices from 1 to 10,000 dollars. A **G** in the code means a GPU painted it. The coin is for paying, never an investment.
 
 ## XAA: a website that looks the way you hoped
 

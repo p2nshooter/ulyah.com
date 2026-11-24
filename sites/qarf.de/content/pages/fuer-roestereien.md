@@ -1,20 +1,16 @@
 ---
 title: Für Röstereien, Teehäuser und Genießer – AXTO und XAA kurz vorgestellt
-description: Eigenwerbung mit offenen Karten – KI-Werkzeuge von AXTO für Verkostungsnotizen und Videos, und XAA für den Online-Shop deiner Rösterei oder deines Teehauses.
+description: Eigenwerbung mit offenen Karten – AXTO, ein digitales Museum lebender Kunstwerke, und XAA für den Online-Shop deiner Rösterei oder deines Teehauses.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Guter Kaffee und guter Tee entstehen aus Sorgfalt: die richtige Bohne, das passende Wasser, die Geduld beim Ziehen. QARF erklärt diese Sorgfalt Schritt für Schritt. Auf dieser Seite geht es ausnahmsweise nicht um Mahlgrad und Wassertemperatur, sondern um zwei digitale Projekte, die vom gleichen Betreiber stammen wie QARF. Wir kennzeichnen diese Seite deshalb klar als Werbung in eigener Sache.
 
-## Verkosten, notieren, teilen
+## Für die Tasse danach: AXTO
 
-Wer viele Kaffees probiert, sammelt Notizen: Herkunft, Aufbereitung, Röstgrad, Rezept, Eindruck in der Tasse. Mit [AXTO](https://axto.io/?utm_source=qarf.de&utm_medium=referral&utm_campaign=ecosystem) lassen sich solche Notizen leichter ordnen.
+Wer bei einer Tasse Kaffee gern Schönes betrachtet, findet bei [AXTO](https://axto.io/?utm_source=qarf.de&utm_medium=referral&utm_campaign=ecosystem) ein digitales Museum voller bewegter Werke: Uhren, die die echte Zeit zeigen, Briefmarken aus imaginären Ländern, Kalligrafie aus dem Koran und den Hadithen mit wortgetreu übernommenem Text sowie animierte Figuren. Jedes Werk entsteht einmalig aus seiner eigenen DNA und wird nie nachgedruckt.
 
-**AI Studio** bringt die führenden KI-Modelle in einen geschützten Arbeitsbereich. Du kannst deine Verkostungsnotizen hochladen, dir eine Vergleichstabelle erstellen lassen oder die Beschreibung eines äthiopischen Lots aus dem Englischen übersetzen lassen – und siehst bei Bedarf, wie verschiedene Modelle dieselbe Frage beantworten.
-
-**Clipper** ist für alle gedacht, die ihr Wissen auch zeigen: Aus einem langen Video über die Zubereitung mit dem Handfilter entstehen auf deinem eigenen Gerät kurze, untertitelte Clips im Hochformat.
-
-Du arbeitest dabei mit deinem eigenen KI-Schlüssel: Deine Dateien werden auf deinem Gerät aufbereitet, an das KI-Modell geht nur, was du selbst abschickst, und im lokalen Modus läuft die KI sogar ganz ohne Cloud. Die Oberfläche spricht unter anderem Deutsch.
+Exklusive Editionen mit **AC-** kosten 1 US-Dollar und werden mit AXTO-Münzen bezahlt – ein kleines Geschenk für die Stammkundschaft, das sich ohne Gasgebühr an viele Wallets verteilen lässt. Bei OpenSea gibt es die Sammlungen mit **OS-**, 1 bis 10 Editionen je Werk, Festpreis 1 bis 10.000 Dollar; ein **G** steht für GPU-Malerei. Die Münze ist Zahlungsmittel, kein Investment.
 
 ## Deine Rösterei im Netz
 

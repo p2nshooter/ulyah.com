@@ -1,20 +1,16 @@
 ---
 title: Our other projects – AXTO, XAA and ULYAH, openly labelled as self-promotion
-description: On this page the publisher of XDAILY presents its sister projects: AXTO's privacy-first AI tools, the XAA web studio and the free knowledge library ULYAH.
+description: "On this page the publisher of XDAILY presents its sister projects: AXTO, a digital museum of living artworks, the XAA web studio and the free knowledge library ULYAH."
 order: 8
-updated: 2026-10-26
+updated: 2026-11-24
 ---
 A quick disclosure before anything else: this page promotes our own work. XDAILY is published by the same people behind the three projects described here. The explainers on the rest of the site are about science alone, and they never mention these names.
 
-## AXTO: AI tools that respect where your data lives
+## AXTO: a museum of generative art
 
-If you enjoy understanding how technology works, you may appreciate how [AXTO](https://axto.io/?utm_source=xdaily.xyz&utm_medium=referral&utm_campaign=ecosystem) is designed. Its tools process video, documents and images on your own device instead of shipping them off to a remote server, which is both a privacy decision and an engineering one.
+[AXTO](https://axto.io/?utm_source=xdaily.xyz&utm_medium=referral&utm_campaign=ecosystem) publishes artworks that are generated rather than drawn: clocks running on real time, stamps from fictional states, calligraphy of Qur'anic verses and hadith whose text is never changed, and animated figures. An algorithm assigns every work a one-off DNA, so nothing is ever reprinted; the works are recorded as NFTs on Base.
 
-- **Clipper** cuts long recordings, a lecture or a telescope time-lapse for example, into short subtitled clips, and the processing runs locally on your computer.
-- **AI Studio** shows the responses of several AI models next to each other, a handy way to see how differently they reason about the same question.
-- **Privacy Vault** masks names, addresses and account details in a file before an AI model ever sees it.
-
-Online models are used with your own API key and AXTO merely forwards the request. Switch to local mode and the AI runs completely on your hardware, with nothing leaving the machine.
+There are two shelves. Exclusive works with the code **AC-** sell for one dollar per edition in AXTO coins, ten editions each, and can be gifted to many wallets without gas. Public works with **OS-** appear on OpenSea at fixed prices from 1 to 10,000 dollars, 1 to 10 editions each; **G** identifies GPU paintings. The coin pays for purchases and makes no promise of returns.
 
 ## XAA: custom websites for schools, clubs and small labs
 

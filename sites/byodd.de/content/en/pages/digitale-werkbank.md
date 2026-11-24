@@ -1,21 +1,15 @@
 ---
 slug: the-digital-workbench-axto-and-xaa-for-do-it-yourselfers-and-craft
 title: The digital workbench – AXTO and XAA for do-it-yourselfers and craft businesses
-description: "On our own behalf - how AXTO's AI tools help with planning and how XAA builds their own website or platform for craft businesses."
+description: On our own behalf – AXTO, a digital museum of living artworks, and how XAA builds their own website or platform for craft businesses.
 ---
 Anyone who renovates plans a lot: material lists, offers, photos of the construction site, operating instructions, invoices. On BYODD we explain how to work with tools and materials. On this page we present two projects that belong to the same operator as BYODD and that we recommend with a clear conscience - because they help exactly where the workshop ends and the desk begins.
 
-## AXTO – an AI workplace that respects your data
+## AXTO – art that moves
 
-[AXTO](https://axto.io/?utm_source=byodd.de&utm_medium=referral&utm_campaign=ecosystem) bundles multiple AI applications into one account. Three are particularly interesting for do-it-yourselfers:
+People who like working with their hands appreciate good craftsmanship – digital craftsmanship too. [AXTO](https://axto.io/?utm_source=byodd.de&utm_medium=referral&utm_campaign=ecosystem) is a museum of living artworks: clocks with the real time, stamps from imagined realms, Qur'an and hadith calligraphy with unaltered wording and moving figures. Each piece is created from its own mathematical DNA and remains one of a kind on the Base network.
 
-- **AI Studio:** You talk to leading AI models, upload files and photos, and can compare answers from different models side by side - useful when you want to understand an offer, cross-check a materials list, or have English assembly instructions summarized.
-- **Privacy Vault:** Before an invoice or contract goes to an AI, the vault finds and blacks out names, addresses, account numbers and other personal data - right on your device.
-- **Prompt Library:** Hundreds of tried-and-tested templates for jobs and everyday life that you can customize and save as your own routines.
-
-You work with your own AI keys; AXTO only forwards the requests. In local mode, the AI ​​even runs entirely on your computer. For companies that want to keep everything in-house, there are self-hosted products for Linux and Windows. The interface is available in German.
-
-An honest caveat: An AI does not replace a structural engineer, electrician or chimney sweep. It helps with understanding and ordering - the responsibility for safe work remains with you and the experts.
+Exclusive pieces carry the code **AC-** and cost 1 US dollar per edition, paid with AXTO coins; there are ten of each. On OpenSea (code **OS-**) there are 1 to 10 editions at fixed prices between 1 and 10,000 dollars. A **G** in the code means: painted by a GPU. The coin is meant for paying, not as an investment.
 
 ## XAA – the website for your business, cleanly built
 

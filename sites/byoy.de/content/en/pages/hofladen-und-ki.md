@@ -1,19 +1,15 @@
 ---
 slug: from-the-bed-to-the-internet-axto-and-xaa-for-gardeners-farm-shops
 title: From the bed to the internet – AXTO and XAA for gardeners, farm shops and community gardens
-description: Our recommendation on our own behalf - how AXTO helps with planning crop rotation and notes and how XAA builds its own website for farm shops and garden projects.
+description: Our recommendation on our own behalf – AXTO, a digital museum of living artworks, and how XAA builds its own website for farm shops and garden projects.
 ---
 A lot of things in an organic garden take time: the soil only comes to life after years, the crop rotation needs to be carefully considered, and the knowledge about varieties, sowing dates and beneficial organisms grows season after season. We write about it on BYOY. Here, on a separate page, we show you two projects from the same company - with the honest note that they are self-promotion.
 
-### For your garden diary: AXTO
+### For long winter evenings: AXTO
 
-Many gardeners keep notebooks full of sowing dates, harvest yields and observations. [AXTO](https://axto.io/?utm_source=byoy.de&utm_medium=referral&utm_campaign=ecosystem) can help turn these notes into something useful:
+When there is nothing to do outside, it is worth a look at [AXTO](https://axto.io/?utm_source=byoy.de&utm_medium=referral&utm_campaign=ecosystem), a digital museum whose works move. On show are clocks in real local time, stamps from lands of fantasy, calligraphy from the Qur'an and hadith – reproduced faithfully – and living figures. No work resembles another, because each rests on a unique digital genome; they are secured on the Base network.
 
-- In the **AI Studio**, an AI summarizes your records, suggests an overview of the crop rotation for the next few years or explains a technical term from an English seed catalog. You can compare answers from multiple models and include photos of leaves or pests.
-- The **Prompt Library** offers tried-and-tested templates that you can save for recurring tasks - such as the weekly plan in spring.
-- With **Clipper** you can cut a long video of your hill bed system into short clips on your own device, for example for the club or family.
-
-Important for everyone who values ​​data economy: You use your own AI key, and in local mode the AI ​​remains entirely on your computer. The interface is available in German. And of course: Please always check what an AI writes about crop protection - especially in organic farming, every detail counts.
+The exclusive editions (**AC-**) cost 1 US dollar each in AXTO coins and make good gifts for family or the garden club, even to many wallets at once. On OpenSea (**OS-**) AXTO sells 1 to 10 editions per work at fixed prices from 1 to 10,000 dollars; a **G** marks pictures by a GPU. The AXTO coin remains a means of payment and not an investment.
 
 ### For your farm shop or garden club: XAA
 

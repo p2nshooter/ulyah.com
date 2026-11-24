@@ -1,22 +1,16 @@
 ---
 title: Smart Tools That Respect Your Budget – AXTO and XAA, a Publisher's Own Promotion
-description: Our own projects, labelled as such – AXTO's pay-for-what-you-use AI with your own key, and XAA's milestone-priced websites for small businesses and side hustles.
+description: Our own projects, labelled as such – AXTO, a digital museum of living artworks, and XAA's milestone-priced websites for small businesses and side hustles.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 SAVED is about spending less on the things that don't matter, so there is more for the things that do. Software subscriptions are one of the sneakiest leaks in a modern budget: a writing assistant here, an image tool there, a website builder that renews every year whether you use it or not. This page introduces two projects run by the same publisher as SAVED. In plain words: it is an advertisement for our own work, and we think you deserve to know that before reading on.
 
-## AXTO: AI without stacking subscriptions
+## AXTO: small gifts, fixed prices
 
-Many people now pay for two or three AI services at once. [AXTO](https://axto.io/?utm_source=saved.lat&utm_medium=referral&utm_campaign=ecosystem) takes a different approach that budget-minded readers tend to like.
+For readers who count every dollar, [AXTO](https://axto.io/?utm_source=saved.lat&utm_medium=referral&utm_campaign=ecosystem) keeps things simple. It is a digital museum of moving artworks – real-time clocks, stamps from imaginary realms, Qur'an and hadith calligraphy with unaltered text, animated figures – each created once from a unique DNA and stored on the Base network.
 
-**Bring your own key.** You connect your own key from an AI provider, and AXTO relays your requests. You pay the provider for what you actually use — and some providers, such as Google Gemini and Groq, offer free tiers that cover light personal use.
-
-**One workspace, several tools.** **AI Studio** puts the leading AI models in one place, with files, images, voice and side-by-side comparison of answers. The **Prompt Library** holds hundreds of tested templates you can adapt once and reuse, which saves time on repetitive tasks such as drafting letters or summarising long documents.
-
-**Privacy built in.** **Privacy Vault** removes personal and financial details from statements, contracts and spreadsheets on your own device before an AI sees them, and Local Mode can run AI entirely on your computer.
-
-A frugal tip, in the spirit of SAVED: before adding any tool, cancel one you no longer use. Then check after a month whether the new one genuinely replaced it. And for important financial decisions, use AI to understand the paperwork — not to make the decision for you.
+Prices never float. Exclusive editions (**AC-**) cost exactly one dollar each, paid in AXTO coins, with ten editions per work and free gifting to many wallets. On OpenSea, public editions (**OS-**) have fixed prices between 1 and 10,000 dollars depending on rarity, 1 to 10 editions per work; GPU-painted versions add a **G**. The AXTO coin is a way to pay on axto.io, not a savings or investment product.
 
 ## XAA: a website you pay for step by step
 

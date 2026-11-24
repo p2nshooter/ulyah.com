@@ -1,20 +1,16 @@
 ---
 title: Aus unserem Haus – AXTO, XAA und ULYAH, offen als Eigenwerbung gekennzeichnet
-description: Hier stellt der Herausgeber von NEXVILO seine weiteren Projekte vor – datensparsame KI-Werkzeuge von AXTO, das Webstudio XAA und das Wissensportal ULYAH.
+description: Hier stellt der Herausgeber von NEXVILO seine weiteren Projekte vor – AXTO, ein digitales Museum lebender Kunstwerke, das Webstudio XAA und das Wissensportal ULYAH.
 order: 8
-updated: 2026-10-26
+updated: 2026-11-24
 ---
 Ein offenes Wort vorweg: Auf dieser Seite machen wir Werbung für uns selbst. NEXVILO gehört zum selben Herausgeber wie die drei Projekte, die hier vorgestellt werden. Überall sonst auf NEXVILO geht es ausschließlich um Smartphones, Computer, Sicherheit und Technik im Alltag, ohne solche Hinweise.
 
-## AXTO: KI nutzen und die eigenen Dateien behalten
+## AXTO: Kunstwerke mit eigener DNA
 
-In unseren Anleitungen raten wir oft, genau zu überlegen, welche Daten man einem KI-Dienst anvertraut. [AXTO](https://axto.io/?utm_source=nexvilo.de&utm_medium=referral&utm_campaign=ecosystem) ist nach demselben Gedanken gebaut: Die Werkzeuge verarbeiten Videos, Dokumente und Fotos auf deinem eigenen Gerät, statt sie auf einen fremden Server hochzuladen.
+[AXTO](https://axto.io/?utm_source=nexvilo.de&utm_medium=referral&utm_campaign=ecosystem) ist kein Werkzeug, sondern ein Ausstellungshaus im Netz. Es zeigt bewegte Uhren mit realer Zeit, Marken aus erfundenen Staaten, Koran- und Hadith-Kalligrafie ohne Textänderung und animierte Figurenserien. Ein Algorithmus erzeugt jedes Werk aus einer unverwechselbaren DNA; als NFT liegt es im Base-Netzwerk.
 
-- **Clipper** schneidet aus langen Aufnahmen, zum Beispiel einem Vereinsvortrag oder einem Familienvideo, kurze Ausschnitte mit Untertiteln. Die Datei verlässt dabei deinen Rechner nicht.
-- **AI Studio** stellt die Antworten mehrerer KI-Modelle nebeneinander, damit du vergleichen kannst, statt einer einzigen Antwort blind zu vertrauen, etwa beim Entwurf einer Beschwerde an den Mobilfunkanbieter.
-- **Privacy Vault** schwärzt Namen, Adressen, Telefonnummern und IBANs in einem Dokument, bevor eine KI es zu sehen bekommt.
-
-Wer Online-Modelle nutzt, verwendet dafür seinen eigenen Zugangsschlüssel; AXTO leitet die Anfrage nur weiter. Wer gar nichts aus der Hand geben möchte, schaltet den lokalen Modus ein, dann läuft die KI vollständig auf dem eigenen Computer.
+Technisch Interessierte finden zwei Wege: exklusive Werke mit der Kennung **AC-** für 1 US-Dollar je Edition, bezahlt mit der AXTO-Münze und gebührenfrei an viele Wallets verschenkbar, oder öffentliche Werke mit **OS-** bei OpenSea, je 1 bis 10 Editionen zum Festpreis von 1 bis 10.000 Dollar. Steht ein **G** in der Kennung, stammt das Bild von einer GPU. Wichtig: Die Münze ist kein Anlageprodukt.
 
 ## XAA: die Website, die der Verein oder der Laden noch braucht
 

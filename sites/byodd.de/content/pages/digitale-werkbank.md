@@ -1,22 +1,16 @@
 ---
 title: Die digitale Werkbank – AXTO und XAA für Heimwerker und Handwerksbetriebe
-description: In eigener Sache – wie die KI-Werkzeuge von AXTO beim Planen helfen und wie XAA Handwerksbetrieben eine eigene Website oder Plattform baut.
+description: In eigener Sache – AXTO, ein digitales Museum lebender Kunstwerke, und wie XAA Handwerksbetrieben eine eigene Website oder Plattform baut.
 order: 8
-updated: 2026-10-19
+updated: 2026-11-24
 ---
 Wer renoviert, plant viel: Materiallisten, Angebote, Fotos von der Baustelle, Bedienungsanleitungen, Rechnungen. Auf BYODD erklären wir die Arbeit mit Werkzeug und Material. Auf dieser Seite stellen wir zwei Projekte vor, die zum selben Betreiber gehören wie BYODD und die wir guten Gewissens empfehlen – weil sie genau dort helfen, wo die Werkstatt endet und der Schreibtisch beginnt.
 
-## AXTO – ein KI-Arbeitsplatz, der deine Daten respektiert
+## AXTO – Kunst, die sich bewegt
 
-[AXTO](https://axto.io/?utm_source=byodd.de&utm_medium=referral&utm_campaign=ecosystem) bündelt mehrere KI-Anwendungen in einem Konto. Für Heimwerker sind vor allem drei interessant:
+Wer gern mit den Händen arbeitet, schätzt gutes Handwerk – auch digitales. [AXTO](https://axto.io/?utm_source=byodd.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Museum für lebendige Kunstwerke: Uhren mit der echten Uhrzeit, Briefmarken aus erdachten Reichen, Koran- und Hadith-Kalligrafie mit unverändertem Wortlaut und bewegte Figuren. Jedes Stück wird aus einer eigenen mathematischen DNA erzeugt und bleibt im Base-Netzwerk ein Unikat.
 
-- **AI Studio:** Du sprichst mit führenden KI-Modellen, lädst Dateien und Fotos hoch und kannst Antworten verschiedener Modelle nebeneinander vergleichen – praktisch, wenn du ein Angebot verstehen, eine Materialliste gegenprüfen oder eine englische Montageanleitung zusammenfassen lassen willst.
-- **Privacy Vault:** Bevor eine Rechnung oder ein Vertrag an eine KI geht, findet der Tresor Namen, Adressen, Kontonummern und andere persönliche Daten und schwärzt sie – direkt auf deinem Gerät.
-- **Prompt Library:** Hunderte erprobte Vorlagen für Berufe und Alltag, die du anpassen und als eigene Abläufe speichern kannst.
-
-Du arbeitest mit deinen eigenen KI-Schlüsseln; AXTO leitet die Anfragen nur weiter. Im lokalen Modus läuft die KI sogar komplett auf deinem Rechner. Für Betriebe, die alles im eigenen Haus behalten wollen, gibt es selbst gehostete Produkte für Linux und Windows. Die Oberfläche ist auf Deutsch verfügbar.
-
-Eine ehrliche Einschränkung: Eine KI ersetzt keinen Statiker, Elektriker oder Schornsteinfeger. Sie hilft beim Verstehen und Ordnen – die Verantwortung für sicheres Arbeiten bleibt bei dir und bei den Fachleuten.
+Exklusive Stücke tragen die Kennung **AC-** und kosten 1 US-Dollar pro Edition, bezahlt mit AXTO-Münzen; von jedem gibt es zehn. Auf OpenSea (Kennung **OS-**) erscheinen 1 bis 10 Editionen zum Festpreis zwischen 1 und 10.000 Dollar. Ein **G** in der Kennung bedeutet: von einer GPU gemalt. Die Münze ist zum Bezahlen gedacht, nicht als Geldanlage.
 
 ## XAA – die Website für deinen Betrieb, sauber gebaut
 

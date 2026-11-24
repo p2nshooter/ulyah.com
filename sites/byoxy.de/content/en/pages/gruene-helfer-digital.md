@@ -1,15 +1,15 @@
 ---
 slug: green-helpers-digital-what-axto-and-xaa-do-for-plant-lovers-and
 title: Green helpers, digital – what AXTO and XAA do for plant lovers and gardeners
-description: Presented on our own behalf – AI tools from AXTO for plant photos and notes, and XAA for nurseries, flower shops and online plant shops.
+description: Presented on our own behalf – AXTO, a digital museum of living artworks, and XAA for nurseries, flower shops and online plant shops.
 ---
 A monstera with yellow leaves, a basil that is going limp, an orchid that hasn't bloomed for two years - at BYOXY we look for the causes with you. Sometimes a digital tool can also help. We would like to introduce you to two of them here. They come from the same operator as BYOXY, and that's why we'll say it quite openly right from the start: This is advertising on our own behalf.
 
-## If you are looking for a second opinion about your problem child
+## If you like collecting beautiful things: AXTO
 
-[AXTO](https://axto.io/?utm_source=byoxy.de&utm_medium=referral&utm_campaign=ecosystem) is an artificial intelligence workplace. In the **AI Studio** you can upload a photo of your plant, describe where it is and how you water it, and have possible causes explained to you. Because multiple AI models can respond side by side, you can immediately see where they agree and where they disagree. This does not replace a look at our guides and certainly not advice at the gardening center, but it can help you ask the right questions.
+Not everything that grows needs soil. [AXTO](https://axto.io/?utm_source=byoxy.de&utm_medium=referral&utm_campaign=ecosystem) grows digital artworks – each from a unique blueprint that never repeats. There are ticking clocks that know your local time, stamps from distant fantasy lands, calligraphed Qur'anic verses and hadith whose text is not changed, and animated figures. They are stored as NFTs on the Base network.
 
-The ready-made templates from the **Prompt Library** are suitable for your plant care notes, watering schedules or the list of plants that are poisonous to cats and children. And if you'd rather not send anything to a cloud: In local mode, the AI ​​runs directly on your own device. With AXTO, you use your own AI key, requests are just forwarded, and saved work is encrypted per account.
+As a gift for plant lovers, the exclusive works with the code **AC-** fit well: 1 US dollar per edition, paid in AXTO coins, ten editions per motif, sendable to several wallets without gas fees. The public collections with **OS-** are on OpenSea (1–10 editions, fixed price 1 to 10,000 dollars); GPU paintings carry a **G**. This is not an investment and nobody promises a return.
 
 ## If you sell plants
 
