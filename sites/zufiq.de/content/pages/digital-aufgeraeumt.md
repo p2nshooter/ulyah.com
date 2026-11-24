@@ -10,7 +10,7 @@ Ein ruhiger Alltag entsteht aus guten Gewohnheiten und aus dem Mut, Überflüssi
 
 Aufgeräumt heißt nicht leer. [AXTO](https://axto.io/?utm_source=zufiq.de&utm_medium=referral&utm_campaign=ecosystem) ist ein digitales Museum mit wenigen, aber besonderen Dingen: Uhren in echter Zeit, Briefmarken aus imaginären Reichen, Kalligrafie aus Koran und Hadith mit unverändertem Text und bewegte Figuren. Jedes Werk ist ein Unikat aus eigener DNA, gesichert als NFT im Base-Netzwerk.
 
-Exklusive Editionen (**AC-**) kosten 1 US-Dollar in AXTO-Münzen, je Werk zehn Stück, verschenkbar ohne Gasgebühr. Öffentliche Werke (**OS-**) gibt es auf OpenSea mit 1 bis 10 Editionen zum Festpreis zwischen 1 und 10.000 Dollar; ein **G** kennzeichnet GPU-Gemälde. Die Münze ist ein Zahlungsmittel – keine Geldanlage, kein Gewinnversprechen.
+Exklusive Editionen (**AC-**) kosten 1 US-Dollar in AXTO-Münzen, je Werk zehn Stück, verschenkbar ohne Gasgebühr. Öffentliche Werke (**OS-**) gibt es auf OpenSea mit 1 bis 10 Editionen zum Festpreis zwischen 1 und 250 Dollar; ein **G** kennzeichnet GPU-Gemälde. Aufgeräumt gesagt: AXTO ist eine Beteiligung an der axto.io-Gemeinschaft ab 1 Dollar, gestakte Bestände werden mit Originalen belohnt – ohne Garantie auf Wertzuwachs.
 
 ## Eine Website, die nicht ständig Aufmerksamkeit verlangt: XAA
 

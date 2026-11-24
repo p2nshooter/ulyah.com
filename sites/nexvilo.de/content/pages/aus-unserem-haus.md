@@ -10,7 +10,7 @@ Ein offenes Wort vorweg: Auf dieser Seite machen wir Werbung für uns selbst. NE
 
 [AXTO](https://axto.io/?utm_source=nexvilo.de&utm_medium=referral&utm_campaign=ecosystem) ist kein Werkzeug, sondern ein Ausstellungshaus im Netz. Es zeigt bewegte Uhren mit realer Zeit, Marken aus erfundenen Staaten, Koran- und Hadith-Kalligrafie ohne Textänderung und animierte Figurenserien. Ein Algorithmus erzeugt jedes Werk aus einer unverwechselbaren DNA; als NFT liegt es im Base-Netzwerk.
 
-Technisch Interessierte finden zwei Wege: exklusive Werke mit der Kennung **AC-** für 1 US-Dollar je Edition, bezahlt mit der AXTO-Münze und gebührenfrei an viele Wallets verschenkbar, oder öffentliche Werke mit **OS-** bei OpenSea, je 1 bis 10 Editionen zum Festpreis von 1 bis 10.000 Dollar. Steht ein **G** in der Kennung, stammt das Bild von einer GPU. Wichtig: Die Münze ist kein Anlageprodukt.
+Technisch Interessierte finden zwei Wege: exklusive Werke mit der Kennung **AC-** für 1 US-Dollar je Edition, bezahlt mit der AXTO-Münze und gebührenfrei an viele Wallets verschenkbar, oder öffentliche Werke mit **OS-** bei OpenSea, je 1 bis 10 Editionen zum Festpreis von 1 bis 250 Dollar. Steht ein **G** in der Kennung, stammt das Bild von einer GPU. Ab 1 Dollar lässt sich in die AXTO-Gemeinschaftsmünze investieren, Staking belohnt mit 1/1-Werken – Gewinne sind nicht versprochen, Verluste sind möglich.
 
 ## XAA: die Website, die der Verein oder der Laden noch braucht
 

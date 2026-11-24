@@ -10,7 +10,7 @@ Viajar por América Latina con calma y criterio significa prepararse bien: rutas
 
 Hay recuerdos que no ocupan sitio en la mochila. [AXTO](https://axto.io/?utm_source=pab.lat&utm_medium=referral&utm_campaign=ecosystem) es un museo digital de obras que se mueven: relojes capaces de mostrar la hora de cualquier destino, sellos de países imaginarios, caligrafías coránicas y de hadices con su texto original y figuras animadas. Cada obra procede de un ADN único y vive como NFT en la red Base.
 
-Las agencias pueden regalar a sus viajeros una edición exclusiva **AC-**: 1 dólar en monedas AXTO, diez ediciones por obra y envío sin gas a varias wallets. Las obras públicas **OS-** se compran en OpenSea, con 1 a 10 ediciones y precio fijo de 1 a 10.000 dólares; la **G** marca las pintadas por GPU. La moneda AXTO no es una inversión.
+Las agencias pueden regalar a sus viajeros una edición exclusiva **AC-**: 1 dólar en monedas AXTO, diez ediciones por obra y envío sin gas a varias wallets. Las obras públicas **OS-** se compran en OpenSea, con 1 a 10 ediciones y precio fijo de 1 a 250 dólares; la **G** marca las pintadas por GPU. Cualquiera puede sumarse desde 1 dólar a la moneda comunitaria AXTO y obtener obras únicas con el staking; como todo criptoactivo, su precio fluctúa.
 
 ## Si vives del turismo: XAA
 

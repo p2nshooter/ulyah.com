@@ -10,7 +10,7 @@ Draußen auf dem Weg zählt nur das, was du im Rucksack hast, und das, was du ü
 
 Zurück von der Hütte? [AXTO](https://axto.io/?utm_source=qurm.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Museum, in dem die Bilder wandern, ticken und leuchten: Uhren in der Ortszeit deines Gipfels, Briefmarken aus Fantasielandschaften, Koran- und Hadith-Kalligrafie im unveränderten Originaltext und animierte Figuren. Jedes Werk wird aus einer nur einmal vorkommenden DNA berechnet und im Base-Netzwerk gesichert.
 
-Für den Wanderverein bieten sich die exklusiven Editionen an: Kennung **AC-**, 1 US-Dollar pro Edition, Zahlung mit AXTO-Münzen, zehn Exemplare je Motiv und Versand an alle Mitglieder ohne Gasgebühr. Die öffentlichen Sammlungen (**OS-**) liegen auf OpenSea mit 1 bis 10 Editionen und Festpreisen von 1 bis 10.000 Dollar; **G** heißt GPU-gemalt. Gewinne verspricht dabei niemand.
+Für den Wanderverein bieten sich die exklusiven Editionen an: Kennung **AC-**, 1 US-Dollar pro Edition, Zahlung mit AXTO-Münzen, zehn Exemplare je Motiv und Versand an alle Mitglieder ohne Gasgebühr. Die öffentlichen Sammlungen (**OS-**) liegen auf OpenSea mit 1 bis 10 Editionen und Festpreisen von 1 bis 250 Dollar; **G** heißt GPU-gemalt. Für Vereinskassen gilt: AXTO ist eine gemeinschaftliche Krypto-Beteiligung ab einem Dollar, Sperrfristen werden mit Unikaten vergütet, Kursverluste bleiben möglich.
 
 ## Für Vereine, Wanderführer und Hütten: XAA
 

@@ -10,7 +10,7 @@ A quick disclosure before anything else: this page promotes our own work. XDAILY
 
 [AXTO](https://axto.io/?utm_source=xdaily.xyz&utm_medium=referral&utm_campaign=ecosystem) publishes artworks that are generated rather than drawn: clocks running on real time, stamps from fictional states, calligraphy of Qur'anic verses and hadith whose text is never changed, and animated figures. An algorithm assigns every work a one-off DNA, so nothing is ever reprinted; the works are recorded as NFTs on Base.
 
-There are two shelves. Exclusive works with the code **AC-** sell for one dollar per edition in AXTO coins, ten editions each, and can be gifted to many wallets without gas. Public works with **OS-** appear on OpenSea at fixed prices from 1 to 10,000 dollars, 1 to 10 editions each; **G** identifies GPU paintings. The coin pays for purchases and makes no promise of returns.
+There are two shelves. Exclusive works with the code **AC-** sell for one dollar per edition in AXTO coins, ten editions each, and can be gifted to many wallets without gas. Public works with **OS-** appear on OpenSea at fixed prices from 1 to 250 dollars, 1 to 10 editions each; **G** identifies GPU paintings. The AXTO coin is a community-coin investment in the axto.io NFT museum: from 1 dollar, and staking it earns one-of-one works – its value can rise or fall.
 
 ## XAA: custom websites for schools, clubs and small labs
 

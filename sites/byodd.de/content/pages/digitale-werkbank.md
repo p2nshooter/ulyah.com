@@ -10,7 +10,7 @@ Wer renoviert, plant viel: Materiallisten, Angebote, Fotos von der Baustelle, Be
 
 Wer gern mit den Händen arbeitet, schätzt gutes Handwerk – auch digitales. [AXTO](https://axto.io/?utm_source=byodd.de&utm_medium=referral&utm_campaign=ecosystem) ist ein Museum für lebendige Kunstwerke: Uhren mit der echten Uhrzeit, Briefmarken aus erdachten Reichen, Koran- und Hadith-Kalligrafie mit unverändertem Wortlaut und bewegte Figuren. Jedes Stück wird aus einer eigenen mathematischen DNA erzeugt und bleibt im Base-Netzwerk ein Unikat.
 
-Exklusive Stücke tragen die Kennung **AC-** und kosten 1 US-Dollar pro Edition, bezahlt mit AXTO-Münzen; von jedem gibt es zehn. Auf OpenSea (Kennung **OS-**) erscheinen 1 bis 10 Editionen zum Festpreis zwischen 1 und 10.000 Dollar. Ein **G** in der Kennung bedeutet: von einer GPU gemalt. Die Münze ist zum Bezahlen gedacht, nicht als Geldanlage.
+Exklusive Stücke tragen die Kennung **AC-** und kosten 1 US-Dollar pro Edition, bezahlt mit AXTO-Münzen; von jedem gibt es zehn. Auf OpenSea (Kennung **OS-**) erscheinen 1 bis 10 Editionen zum Festpreis zwischen 1 und 250 Dollar. Ein **G** in der Kennung bedeutet: von einer GPU gemalt. Die AXTO-Münze versteht sich als Investition in die Community-Münze des NFT-Museums axto.io: Einstieg ab 1 Dollar, und wer per Staking festlegt, erhält einmalige 1/1-Werke – der Kurs kann allerdings steigen wie fallen.
 
 ## XAA – die Website für deinen Betrieb, sauber gebaut
 

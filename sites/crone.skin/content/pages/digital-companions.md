@@ -10,7 +10,7 @@ CRONE is about living the second half of life with character, curiosity and a li
 
 [AXTO](https://axto.io/?utm_source=crone.skin&utm_medium=referral&utm_campaign=ecosystem) is a digital museum whose works move gently: clocks that keep the real time, stamps from imagined realms, calligraphy of Qur'anic verses and hadith with the text left exactly as it is, and animated figures. Each piece is generated from its own unrepeatable DNA and kept as an NFT on the Base network.
 
-Exclusive works, marked **AC-**, cost one US dollar per edition and are paid with the AXTO coin; ten editions exist of each, and they can be sent as gifts to many wallets at once without gas fees. Public works, marked **OS-**, are sold on OpenSea with one to ten editions at fixed prices from 1 to 10,000 dollars. A **G** in the code means a GPU painted it. The coin is for paying, never an investment.
+Exclusive works, marked **AC-**, cost one US dollar per edition and are paid with the AXTO coin; ten editions exist of each, and they can be sent as gifts to many wallets at once without gas fees. Public works, marked **OS-**, are sold on OpenSea with one to ten editions at fixed prices from 1 to 250 dollars. A **G** in the code means a GPU painted it. From 1 dollar you can invest in AXTO, the community coin behind axto.io; staking pays out one-of-one pieces, though profits are never promised.
 
 ## XAA: a website that looks the way you hoped
 

@@ -10,7 +10,7 @@ Una casa bien pensada para el clima de América Latina nace de muchas decisiones
 
 Una casa también se llena de cosas bellas. [AXTO](https://axto.io/?utm_source=dai.lat&utm_medium=referral&utm_campaign=ecosystem) es un museo digital con obras vivas: relojes que marcan la hora real, sellos de países inventados, caligrafías del Corán y de hadices con el texto intacto y figuras animadas. Cada obra nace de un ADN matemático irrepetible y queda registrada como NFT en la red Base.
 
-Las ediciones exclusivas, con el código **AC-**, cuestan 1 dólar cada una y se pagan con la moneda AXTO; hay diez por obra y se pueden regalar a muchas wallets sin comisión de gas. Las colecciones públicas, con **OS-**, están en OpenSea: de 1 a 10 ediciones con precio fijo entre 1 y 10.000 dólares. Una **G** indica pintura hecha por GPU. La moneda sirve para pagar, no es una inversión.
+Las ediciones exclusivas, con el código **AC-**, cuestan 1 dólar cada una y se pagan con la moneda AXTO; hay diez por obra y se pueden regalar a muchas wallets sin comisión de gas. Las colecciones públicas, con **OS-**, están en OpenSea: de 1 a 10 ediciones con precio fijo entre 1 y 250 dólares. Una **G** indica pintura hecha por GPU. La moneda AXTO es una inversión en la moneda comunitaria del museo NFT axto.io: desde 1 dólar, y al hacer staking se reciben obras únicas 1/1; su valor puede subir o bajar.
 
 ## Para estudios, constructoras y proveedores: XAA
 

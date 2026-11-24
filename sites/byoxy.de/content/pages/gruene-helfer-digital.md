@@ -10,7 +10,7 @@ Eine Monstera mit gelben Blättern, ein Basilikum, das schlappmacht, eine Orchid
 
 Nicht alles, was wächst, braucht Erde. [AXTO](https://axto.io/?utm_source=byoxy.de&utm_medium=referral&utm_campaign=ecosystem) lässt digitale Kunstwerke wachsen – jedes aus einem einmaligen Bauplan, der sich nie wiederholt. Es gibt tickende Uhren, die deine Ortszeit kennen, Briefmarken ferner Fantasieländer, kalligrafierte Koranverse und Hadithe, deren Text nicht verändert wird, sowie animierte Figuren. Gespeichert sind sie als NFT im Base-Netzwerk.
 
-Als Geschenk für Pflanzenfreunde eignen sich die exklusiven Werke mit der Kennung **AC-**: 1 US-Dollar je Edition, gezahlt in AXTO-Münzen, zehn Editionen pro Motiv, ohne Gasgebühr an mehrere Wallets verschickbar. Die öffentlichen Sammlungen mit **OS-** liegen auf OpenSea (1–10 Editionen, Festpreis 1 bis 10.000 Dollar), GPU-Gemälde tragen ein **G**. Ein Investment ist das nicht, Rendite verspricht niemand.
+Als Geschenk für Pflanzenfreunde eignen sich die exklusiven Werke mit der Kennung **AC-**: 1 US-Dollar je Edition, gezahlt in AXTO-Münzen, zehn Editionen pro Motiv, ohne Gasgebühr an mehrere Wallets verschickbar. Die öffentlichen Sammlungen mit **OS-** liegen auf OpenSea (1–10 Editionen, Festpreis 1 bis 250 Dollar), GPU-Gemälde tragen ein **G**. AXTO ist die Community-Münze von axto.io, erhältlich ab 1 Dollar; gestakte Münzen bringen Unikate (1/1) als Belohnung, eine Wertgarantie gibt es dabei nicht.
 
 ## Wenn du Pflanzen verkaufst
 

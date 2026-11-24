@@ -9,7 +9,7 @@ A house well thought out for the climate of Latin America is born from many deci
 
 A home also fills up with beautiful things. [AXTO](https://axto.io/?utm_source=dai.lat&utm_medium=referral&utm_campaign=ecosystem) is a digital museum of living works: clocks that show the real time, stamps from invented countries, calligraphy of the Qur'an and hadith with the text intact, and animated figures. Each work is born from an unrepeatable mathematical DNA and is recorded as an NFT on the Base network.
 
-The exclusive editions, with the code **AC-**, cost 1 dollar each and are paid with the AXTO coin; there are ten per work and they can be gifted to many wallets without gas fees. The public collections, with **OS-**, are on OpenSea: 1 to 10 editions at fixed prices between 1 and 10,000 dollars. A **G** indicates a painting made by a GPU. The coin is for paying; it is not an investment.
+The exclusive editions, with the code **AC-**, cost 1 dollar each and are paid with the AXTO coin; there are ten per work and they can be gifted to many wallets without gas fees. The public collections, with **OS-**, are on OpenSea: 1 to 10 editions at fixed prices between 1 and 250 dollars. A **G** indicates a painting made by a GPU. From 1 dollar you can invest in AXTO, the community coin behind axto.io; staking pays out one-of-one pieces, though profits are never promised.
 
 ## For studies, construction companies and suppliers: XAA
 

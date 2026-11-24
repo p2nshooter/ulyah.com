@@ -10,7 +10,7 @@ Guter Kaffee und guter Tee entstehen aus Sorgfalt: die richtige Bohne, das passe
 
 Wer bei einer Tasse Kaffee gern Schönes betrachtet, findet bei [AXTO](https://axto.io/?utm_source=qarf.de&utm_medium=referral&utm_campaign=ecosystem) ein digitales Museum voller bewegter Werke: Uhren, die die echte Zeit zeigen, Briefmarken aus imaginären Ländern, Kalligrafie aus dem Koran und den Hadithen mit wortgetreu übernommenem Text sowie animierte Figuren. Jedes Werk entsteht einmalig aus seiner eigenen DNA und wird nie nachgedruckt.
 
-Exklusive Editionen mit **AC-** kosten 1 US-Dollar und werden mit AXTO-Münzen bezahlt – ein kleines Geschenk für die Stammkundschaft, das sich ohne Gasgebühr an viele Wallets verteilen lässt. Bei OpenSea gibt es die Sammlungen mit **OS-**, 1 bis 10 Editionen je Werk, Festpreis 1 bis 10.000 Dollar; ein **G** steht für GPU-Malerei. Die Münze ist Zahlungsmittel, kein Investment.
+Exklusive Editionen mit **AC-** kosten 1 US-Dollar und werden mit AXTO-Münzen bezahlt – ein kleines Geschenk für die Stammkundschaft, das sich ohne Gasgebühr an viele Wallets verteilen lässt. Bei OpenSea gibt es die Sammlungen mit **OS-**, 1 bis 10 Editionen je Werk, Festpreis 1 bis 250 Dollar; ein **G** steht für GPU-Malerei. Die Gemeinschaftsmünze AXTO startet bei 1 Dollar; festgelegte Münzen werden mit einmaligen Originalen belohnt, ihr Preis ist jedoch nicht garantiert.
 
 ## Deine Rösterei im Netz
 

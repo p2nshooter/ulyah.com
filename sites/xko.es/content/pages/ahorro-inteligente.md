@@ -10,7 +10,7 @@ En XKO explicamos cómo entender la factura de la luz y del gas, contratar solo 
 
 Ahorrar también es saber qué cuesta cada cosa. En [AXTO](https://axto.io/?utm_source=xko.es&utm_medium=referral&utm_campaign=ecosystem), un museo digital de obras vivas –relojes en hora real, sellos de países ficticios, caligrafías del Corán y de hadices sin modificar y figuras animadas–, los precios no cambian. Cada obra nace de un ADN único y se guarda como NFT en la red Base.
 
-Las ediciones exclusivas **AC-** cuestan siempre 1 dólar, pagado en monedas AXTO, con diez ediciones por obra y regalo sin gas a varias wallets. Las públicas **OS-** se venden en OpenSea entre 1 y 10.000 dólares según su rareza, de 1 a 10 ediciones por obra; la **G** distingue las pintadas por GPU. La moneda AXTO no es un ahorro ni una inversión.
+Las ediciones exclusivas **AC-** cuestan siempre 1 dólar, pagado en monedas AXTO, con diez ediciones por obra y regalo sin gas a varias wallets. Las públicas **OS-** se venden en OpenSea entre 1 y 250 dólares según su rareza, de 1 a 10 ediciones por obra; la **G** distingue las pintadas por GPU. Para el ahorro inteligente conviene saberlo: AXTO es una moneda de comunidad desde 1 dólar, con premios de obras únicas por staking y sin rentabilidad prometida.
 
 ## Si trabajas en eficiencia energética: XAA
 

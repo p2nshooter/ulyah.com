@@ -10,7 +10,7 @@ Bevor du weiterliest: Diese Seite ist Werbung in eigener Sache. Hinter ZOEVIAN s
 
 Vogelbeobachter kennen das Staunen über Bewegung. [AXTO](https://axto.io/?utm_source=zoevian.de&utm_medium=referral&utm_campaign=ecosystem) bringt es in ein digitales Museum: Uhren schlagen in echter Zeit, Briefmarken stammen aus erdachten Reichen, Koran- und Hadith-Verse erscheinen als Kalligrafie im Originalwortlaut, Figuren bewegen sich. Jedes Werk folgt seiner eigenen DNA und bleibt einmalig; gespeichert ist es im Base-Netzwerk.
 
-Exklusive Werke tragen **AC-**, kosten 1 US-Dollar je Edition in AXTO-Münzen und lassen sich zehnfach an Freunde verschenken, ohne Gasgebühr. Öffentliche Werke mit **OS-** finden sich bei OpenSea: 1 bis 10 Editionen, feste Preise von 1 bis 10.000 Dollar, GPU-Werke mit **G**. Die Münze ist kein Anlageprodukt.
+Exklusive Werke tragen **AC-**, kosten 1 US-Dollar je Edition in AXTO-Münzen und lassen sich zehnfach an Freunde verschenken, ohne Gasgebühr. Öffentliche Werke mit **OS-** finden sich bei OpenSea: 1 bis 10 Editionen, feste Preise von 1 bis 250 Dollar, GPU-Werke mit **G**. AXTO, die Münze dieser Kunst-Gemeinschaft, gibt es ab einem Dollar; Sperren lohnt sich mit Unikaten, eine Rendite wird jedoch nicht versprochen.
 
 ## XAA: Websites für Vereine, Gärtnereien und Zoohandlungen
 
