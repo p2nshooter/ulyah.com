@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Sports, Activity, Wellness and Leisure",
+  "tagline": "The sport that is enjoyed, explained calmly",
+  "description": "DAWO is an independent magazine about amateur sports and active life: running, paddle tennis, soccer, strength, rest and outdoor leisure, explained with rigor and without miracle promises.",
+  "author": "DAWO Editorial",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "correr": {
+      "slug": "run",
+      "name": "run",
+      "description": "Start running, improve technique, gain distance and reach the finish line without injuries."
+    },
+    "padel-y-raqueta": {
+      "slug": "paddle-and-racket",
+      "name": "Paddle and racket",
+      "description": "Paddle, tennis and badminton for amateurs: rules, strokes, equipment and prevention."
+    },
+    "futbol": {
+      "slug": "soccer",
+      "name": "Soccer",
+      "description": "Amateur football, 7-a-side football and futsal: technique, physical preparation and team play."
+    },
+    "fuerza-y-movilidad": {
+      "slug": "strength-and-mobility",
+      "name": "Strength and mobility",
+      "description": "Strength, mobility and core training for any age, in the gym or at home."
+    },
+    "descanso-y-nutricion": {
+      "slug": "rest-and-nutrition",
+      "name": "Rest and nutrition",
+      "description": "Sleep, nutrition, hydration and recovery: what sustains the entire training."
+    },
+    "ocio-activo": {
+      "slug": "active-leisure",
+      "name": "Active leisure",
+      "description": "Hiking, cycling, swimming and family sports to move around and enjoy."
+    }
+  },
+  "promo": {
+    "label": "✦ Sports and technology"
+  },
+  "menu": [
+    {
+      "label": "Calculators",
+      "href": "/herramientas/"
+    },
+    {
+      "label": "About DAWO",
+      "href": "/sobre-nosotros/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contacto/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Legal notice",
+      "href": "/aviso-legal/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/politica-de-privacidad/"
+    },
+    {
+      "label": "Cookies",
+      "href": "/politica-de-cookies/"
+    },
+    {
+      "label": "Terms and conditions",
+      "href": "/terminos-y-condiciones/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/descargo-de-responsabilidad/"
+    },
+    {
+      "label": "Editorial policy",
+      "href": "/politica-editorial/"
+    }
+  ]
+}

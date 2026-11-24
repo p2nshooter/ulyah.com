@@ -1,0 +1,92 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Bring Your Own DIY & Decoration",
+  "tagline": "DIY, renovation and living: explained step by step, safely and without a professional workshop",
+  "description": "BYODD explains DIY and renovation for tenants and owners: tools and basics, walls and floors, wood and furniture, bathroom and kitchen, decoration and living as well as small household repairs, with clear instructions and safety instructions.",
+  "author": "BYODD editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "werkzeug-und-grundlagen": {
+      "slug": "tools-basics",
+      "name": "Tools & Basics",
+      "description": "The right basic equipment, drilling, doweling, measuring and safe work: the foundation of every project."
+    },
+    "waende-und-boeden": {
+      "slug": "walls-floors",
+      "name": "Walls & floors",
+      "description": "Painting, wallpapering, filling, laminate, vinyl and tiles: surfaces that you see and use every day."
+    },
+    "holz-und-moebel": {
+      "slug": "wood-furniture",
+      "name": "Wood & Furniture",
+      "description": "Sanding, oiling and painting wood, refinishing furniture, building shelves and screws that hold."
+    },
+    "bad-und-kueche": {
+      "slug": "bathroom-kitchen",
+      "name": "Bathroom & kitchen",
+      "description": "Refresh silicone joints, fittings, drains, tiles and small jobs around water, clean and tight."
+    },
+    "deko-und-wohnen": {
+      "slug": "decoration-living",
+      "name": "Decoration & Living",
+      "description": "Hang pictures, plan lighting, curtains, colors and small rooms: living with character, even for rent."
+    },
+    "reparaturen-im-haushalt": {
+      "slug": "household-repairs",
+      "name": "Household repairs",
+      "description": "Dripping taps, sticking doors, wobbling chairs and adjusting windows: do small repairs yourself."
+    }
+  },
+  "promo": {
+    "label": "✦ Digital workbench"
+  },
+  "menu": [
+    {
+      "label": "Calculator",
+      "href": "/werkzeuge/"
+    },
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Security",
+      "href": "/sicherheitshinweise/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

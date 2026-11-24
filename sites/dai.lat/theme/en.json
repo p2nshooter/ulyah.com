@@ -1,0 +1,37 @@
+{
+  "strings": {
+    "Ir al contenido": "Go to content",
+    "España, campeona del mundo 2026": "Spain, world champion 2026",
+    "España , campeona del mundo": "Spain, world champion",
+    "DAI — inicio": "DAI — start",
+    "Temas": "Topics",
+    "Inicio": "Home",
+    "Temas en el pie": "Topics in the foot",
+    "© 2026 DAI · dai.lat · Contenido divulgativo. Para obras, instalaciones eléctricas, gas o estructura consulta siempre a profesionales con licencia y a la normativa de tu municipio.": "© 2026 DAI · dai.lat · Informative content. For works, electrical installations, gas or structure, always consult licensed professionals and the regulations of your municipality.",
+    "· 7 min de lectura": "· 7 min reading",
+    "Memoria de la guía": "Guide memory",
+    "Tema": "Theme",
+    "Lectura": "Reading",
+    "Contenido": "Content",
+    "Esta guía es orientativa. Las obras de estructura, electricidad, gas y agua deben hacerlas profesionales con licencia y cumplir la normativa y los permisos de tu municipio. Lee el": "This guide is indicative. Structure, electricity, gas and water works must be done by licensed professionals and comply with the regulations and permits of your municipality. Read the",
+    "Para seguir": "To continue",
+    "Guías relacionadas": "Related guides",
+    "· 8 min de lectura": "· 8 min reading",
+    "Casas que se entienden con su": "Houses that understand each other with their",
+    "y su": "and his",
+    "Leer la guía más reciente": "Read the latest guide",
+    "Nuestro método": "Our method",
+    "Seis temas": "six themes",
+    "7 guías": "7 guides",
+    "6 guías": "6 guides",
+    "Últimas guías": "Latest guides",
+    "Todas las guías por tema": "All guides by topic"
+  },
+  "patterns": [
+    [
+      "(\\d+) guías",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

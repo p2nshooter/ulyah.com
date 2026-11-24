@@ -1,0 +1,84 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "expansion": "Design, Architecture and Interiors",
+  "tagline": "Houses well thought out for the climate, light and life of Latin America",
+  "description": "DAI is a magazine about design, architecture and interiors for homes in Latin America: distribution, materials, natural light, thermal comfort, kitchens, bathrooms and patios explained with criteria and without fads.",
+  "author": "DAI Editorial",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "arquitectura-y-casas": {
+      "slug": "architecture-and-houses",
+      "name": "Architecture and houses",
+      "description": "Distribution, orientation, ventilation and structure: how to think of a house that works in the climate where it is built."
+    },
+    "interiores-y-decoracion": {
+      "slug": "interiors-and-decoration",
+      "name": "Interiors and decoration",
+      "description": "Color, furniture, textiles, lighting and order for spaces that feel spacious, warm and personal."
+    },
+    "cocinas-y-banos": {
+      "slug": "kitchens-and-bathrooms",
+      "name": "Kitchens and bathrooms",
+      "description": "Planning, materials, storage and maintenance of the two rooms that are most used and cost the most to renovate."
+    },
+    "materiales-y-acabados": {
+      "slug": "materials-and-finishes",
+      "name": "Materials and finishes",
+      "description": "Brick, concrete, wood, adobe, ceramic, stone and paints: what each one offers, how long it lasts and how it is cared for."
+    },
+    "patios-y-exteriores": {
+      "slug": "patios-and-exteriors",
+      "name": "Patios and exteriors",
+      "description": "Patios, terraces, balconies and gardens: shade, plants, exterior floors and outdoor living spaces."
+    },
+    "confort-y-sostenibilidad": {
+      "slug": "comfort-and-sustainability",
+      "name": "Comfort and sustainability",
+      "description": "Heat, humidity, noise, water and energy: passive and efficient solutions to live better while spending less."
+    }
+  },
+  "promo": {
+    "label": "✦ Tools for your project"
+  },
+  "menu": [
+    {
+      "label": "About DAI",
+      "href": "/sobre-nosotros/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contacto/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Legal notice",
+      "href": "/aviso-legal/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/politica-de-privacidad/"
+    },
+    {
+      "label": "Cookies",
+      "href": "/politica-de-cookies/"
+    },
+    {
+      "label": "Terms of use",
+      "href": "/terminos-y-condiciones/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/descargo-de-responsabilidad/"
+    },
+    {
+      "label": "Editorial policy",
+      "href": "/politica-editorial/"
+    }
+  ]
+}
