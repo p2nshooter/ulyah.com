@@ -14,7 +14,7 @@ Als Frau Brandt nach den Sommerferien die Videos vom Zelturlaub sichten wollte, 
 
 Kinder lieben Dinge, die sich bewegen. [AXTO](https://axto.io/?utm_source=zuvik.de&utm_medium=referral&utm_campaign=ecosystem) ist ein digitales Museum voller solcher Werke: Uhren mit echter Uhrzeit, Briefmarken aus Märchenländern, Kalligrafie aus Koran und Hadith mit originalem Text und animierte Figuren. Jedes Werk entsteht aus einer einmaligen DNA, keines gibt es zweimal.
 
-Für Familien und Kitas eignen sich exklusive Editionen (**AC-**): 1 US-Dollar je Edition in AXTO-Münzen, zehn pro Werk, ohne Gasgebühr an viele Wallets verschenkbar – etwa zum Geburtstag oder zum Ramadan. Öffentliche Werke (**OS-**) liegen auf OpenSea, 1 bis 10 Editionen, Festpreis 1 bis 250 Dollar, GPU-Werke mit **G**. Die Gemeinschaftsmünze AXTO startet bei 1 Dollar; festgelegte Münzen werden mit einmaligen 1/1-Werken belohnt, ihr Preis ist jedoch nicht garantiert.
+Für Familien und Kitas eignen sich exklusive Editionen (**AC-**): 1 US-Dollar je Edition in AXTO-Münzen, zehn pro Werk, ohne Gasgebühr an viele Wallets verschenkbar – etwa zum Geburtstag oder zum Ramadan. Öffentliche Werke (**OS-**) liegen auf OpenSea, 1 bis 10 Editionen, Festpreis 1 bis 250 Dollar, GPU-Werke mit **G**. Für Erwachsene ist AXTO eine Gemeinschaftsmünze ab 1 Dollar mit Staking-Belohnungen in Gestalt einzigartiger Werke; ihr Kurs kann steigen oder fallen.
 
 ## XAA: ein digitales Zuhause für Kita, Elterninitiative und Verein
 

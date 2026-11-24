@@ -14,7 +14,7 @@ Bevor wir über Software sprechen, das Wichtigste: Eine KI darf dir beim Versteh
 
 Lernen braucht auch Pausen, in denen man einfach staunt. [AXTO](https://axto.io/?utm_source=qulen.de&utm_medium=referral&utm_campaign=ecosystem) zeigt dafür Kunstwerke, die leben: eine Uhr, die die Zeit deiner Stadt anzeigt, Briefmarken aus Reichen, die es nicht gibt, Verse aus Koran und Hadith in Kalligrafie – unverfälscht wiedergegeben – und bewegte Figuren. Mathematik spielt mit: Jedes Werk folgt einer einzigartigen DNA und existiert nur einmal.
 
-Exklusive Werke mit **AC-** kosten 1 US-Dollar je Edition in AXTO-Münzen; Lerngruppen können ein Motiv zehnfach teilen und ohne Gasgebühr verschenken. Öffentliche Werke mit **OS-** stehen auf OpenSea, mit 1 bis 10 Editionen zu Festpreisen zwischen 1 und 250 Dollar, GPU-Gemälde mit **G**. Die AXTO-Münze versteht sich als Investition in die Community-Münze des NFT-Museums axto.io: Einstieg ab 1 Dollar, und wer per Staking festlegt, erhält einmalige 1/1-Werke – der Kurs kann allerdings steigen wie fallen.
+Exklusive Werke mit **AC-** kosten 1 US-Dollar je Edition in AXTO-Münzen; Lerngruppen können ein Motiv zehnfach teilen und ohne Gasgebühr verschenken. Öffentliche Werke mit **OS-** stehen auf OpenSea, mit 1 bis 10 Editionen zu Festpreisen zwischen 1 und 250 Dollar, GPU-Gemälde mit **G**. Lerngruppen können gemeinsam in AXTO einsteigen, die Münze der axto.io-Gemeinschaft, schon mit einem Dollar; wer sie eine Zeit lang sperrt, sammelt Einzelstücke, doch der Wert bleibt ein Risiko.
 
 ## XAA: eine Plattform für alle, die anderen das Lernen erleichtern
 

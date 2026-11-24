@@ -11,7 +11,7 @@ At XKO we explain how to understand your electricity and gas bills, contract onl
 
 Saving also means knowing what each thing costs. At [AXTO](https://axto.io/?utm_source=xko.es&utm_medium=referral&utm_campaign=ecosystem), a digital museum of living works – clocks in real time, stamps from fictional countries, unmodified calligraphy of the Qur'an and hadith and animated figures – prices do not change. Each work is born from a unique DNA and is kept as an NFT on the Base network.
 
-The exclusive editions **AC-** always cost 1 dollar, paid in AXTO coins, with ten editions per work and gas-free gifting to several wallets. The public ones **OS-** are sold on OpenSea between 1 and 250 dollars depending on rarity, 1 to 10 editions per work; the **G** distinguishes those painted by a GPU. AXTO is the community coin of axto.io, available from 1 dollar; staked coins are rewarded with 1/1 artworks, and no return is guaranteed.
+The exclusive editions **AC-** always cost 1 dollar, paid in AXTO coins, with ten editions per work and gas-free gifting to several wallets. The public ones **OS-** are sold on OpenSea between 1 and 250 dollars depending on rarity, 1 to 10 editions per work; the **G** distinguishes those painted by a GPU. Anyone can join the AXTO community coin from 1 dollar and receive unique 1/1 works by staking; like every crypto asset, its price moves both ways.
 
 ## If you work in energy efficiency: XAA
 

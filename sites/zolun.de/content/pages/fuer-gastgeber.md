@@ -10,7 +10,7 @@ Urlaub in Deutschland – an der Küste, auf den Inseln, an den Seen oder in den
 
 Manche Erinnerungen passen in keinen Koffer. [AXTO](https://axto.io/?utm_source=zolun.de&utm_medium=referral&utm_campaign=ecosystem) zeigt Uhren, die die Zeit jedes Reiseziels anzeigen können, Briefmarken aus Ländern, die es nur in der Fantasie gibt, Koran- und Hadith-Kalligrafie mit wortgetreuem Text und animierte Figuren – ein digitales Museum, dessen Werke aus jeweils einmaliger DNA entstehen und im Base-Netzwerk liegen.
 
-Gastgeber können Gästen ein exklusives Werk schenken: Kennung **AC-**, 1 US-Dollar je Edition, bezahlt mit AXTO-Münzen, gebührenfrei an viele Wallets. Auf OpenSea (**OS-**) gibt es 1 bis 10 Editionen je Werk zum Festpreis von 1 bis 250 Dollar; **G** steht für GPU-gemalt. Wer mag, beteiligt sich schon ab 1 Dollar an der AXTO-Community-Münze und bekommt beim Staking einzigartige 1/1-Kunstwerke; wie jede Kryptowährung schwankt ihr Wert.
+Gastgeber können Gästen ein exklusives Werk schenken: Kennung **AC-**, 1 US-Dollar je Edition, bezahlt mit AXTO-Münzen, gebührenfrei an viele Wallets. Auf OpenSea (**OS-**) gibt es 1 bis 10 Editionen je Werk zum Festpreis von 1 bis 250 Dollar; **G** steht für GPU-gemalt. Gastgeber sollten wissen: Der Einstieg in die AXTO-Gemeinschaft beginnt bei 1 Dollar, Staking bringt einmalige Kunstwerke, und der Wert der Münze kann sinken.
 
 ## Wer Gäste empfängt: eine eigene Website mit XAA
 

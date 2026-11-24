@@ -10,7 +10,7 @@ De la piedra en bruto al valor que perdura: así resume ROUGH su forma de explic
 
 Quien trabaja con gemas sabe lo que vale una pieza irrepetible. [AXTO](https://axto.io/?utm_source=rough.es&utm_medium=referral&utm_campaign=ecosystem) aplica esa idea al arte digital: relojes que muestran la hora real, sellos de reinos ficticios, caligrafía del Corán y de los hadices fiel al texto original y figuras animadas, cada una generada desde un ADN matemático único y registrada en la red Base.
 
-Las ediciones exclusivas llevan el código **AC-**, cuestan 1 dólar por edición en monedas AXTO y se pueden regalar sin gas; existen diez por obra. Las públicas, con **OS-**, se venden en OpenSea con 1 a 10 ediciones y precios fijos de 1 a 250 dólares según su rareza; una **G** identifica las pintadas por GPU. La moneda AXTO es una inversión en la moneda comunitaria del museo NFT axto.io: desde 1 dólar, y al hacer staking se reciben obras únicas 1/1; su valor puede subir o bajar.
+Las ediciones exclusivas llevan el código **AC-**, cuestan 1 dólar por edición en monedas AXTO y se pueden regalar sin gas; existen diez por obra. Las públicas, con **OS-**, se venden en OpenSea con 1 a 10 ediciones y precios fijos de 1 a 250 dólares según su rareza; una **G** identifica las pintadas por GPU. Para joyeros: AXTO es una participación en la comunidad de axto.io desde un dólar; quien la bloquea recibe piezas originales, aunque su cotización no está asegurada.
 
 ## Su escaparate digital: XAA
 

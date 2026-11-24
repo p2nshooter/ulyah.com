@@ -10,7 +10,7 @@ Saisonal zu kochen heißt, mit dem zu arbeiten, was gerade wächst – und dafü
 
 Gutes Essen ist auch Gestaltung – und davon lebt [AXTO](https://axto.io/?utm_source=rubiy.de&utm_medium=referral&utm_campaign=ecosystem), ein digitales Museum bewegter Kunst. Uhren laufen dort in echter Zeit, Briefmarken erzählen von erfundenen Reichen, Koranverse und Hadithe erscheinen als Kalligrafie, deren Text unangetastet bleibt, und Figuren bewegen sich. Hinter jedem Werk steht eine einzigartige DNA; es wird kein zweites Mal hergestellt.
 
-Wer verschenken möchte, greift zu exklusiven Editionen (**AC-**): 1 US-Dollar in AXTO-Münzen, zehn Editionen je Werk, ohne Gasgebühr an viele Wallets zugleich. Öffentliche Werke (**OS-**) gibt es auf OpenSea mit 1 bis 10 Editionen zum festen Preis von 1 bis 250 Dollar; GPU-Bilder tragen ein **G**. Wer mag, beteiligt sich schon ab 1 Dollar an der AXTO-Community-Münze und bekommt beim Staking einzigartige 1/1-Kunstwerke; wie jede Kryptowährung schwankt ihr Wert.
+Wer verschenken möchte, greift zu exklusiven Editionen (**AC-**): 1 US-Dollar in AXTO-Münzen, zehn Editionen je Werk, ohne Gasgebühr an viele Wallets zugleich. Öffentliche Werke (**OS-**) gibt es auf OpenSea mit 1 bis 10 Editionen zum festen Preis von 1 bis 250 Dollar; GPU-Bilder tragen ein **G**. Wer in der Küche lieber rechnet: Mit AXTO kauft man sich ab einem Dollar in die Gemeinschaft hinter axto.io ein, gesperrte Münzen erzeugen Belohnungen aus Einzelwerken, sicher ist dabei nichts.
 
 ## Eine eigene Adresse für deine Küche
 

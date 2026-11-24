@@ -11,7 +11,7 @@ At DAWO we write about sport you enjoy: running without injury, swimming with go
 
 Athletes like movement, and so does [AXTO](https://axto.io/?utm_source=dawo.es&utm_medium=referral&utm_campaign=ecosystem). This digital museum brings together clocks that follow the real time, stamps from fantasy realms, verses of the Qur'an and hadith in calligraphy faithful to the original, and animated figures. Each piece comes from its own mathematical DNA and never repeats.
 
-To give the team a present there are the exclusive editions **AC-**: 1 dollar each, paid in AXTO coins, ten copies per work and sent without gas to many wallets at once. On OpenSea the public pieces **OS-** are sold, 1 to 10 editions at a fixed price from 1 to 250 dollars; the **G** marks works painted by a GPU. The AXTO coin is a community-coin investment in the axto.io NFT museum: from 1 dollar, and staking it earns one-of-one works – its value can rise or fall.
+To give the team a present there are the exclusive editions **AC-**: 1 dollar each, paid in AXTO coins, ten copies per work and sent without gas to many wallets at once. On OpenSea the public pieces **OS-** are sold, 1 to 10 editions at a fixed price from 1 to 250 dollars; the **G** marks works painted by a GPU. The AXTO community coin starts at 1 dollar, staking it brings one-of-one artworks, and its value is not guaranteed.
 
 ## The website your club deserves
 

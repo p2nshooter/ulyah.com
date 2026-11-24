@@ -10,7 +10,7 @@ Auf ZAVIK dreht sich alles um ein gutes Leben mit Katze: Ernährung, Gesundheit,
 
 Katzen bewegen sich elegant – die Werke von [AXTO](https://axto.io/?utm_source=zavik.de&utm_medium=referral&utm_campaign=ecosystem) auch. Das digitale Museum zeigt Uhren mit realer Zeit, Briefmarken aus Fantasiereichen, Kalligrafie aus Koran und Hadith, deren Text originalgetreu bleibt, und animierte Figuren. Jedes Stück hat eine eigene mathematische DNA und ist ein Einzelstück im Base-Netzwerk.
 
-Exklusive Editionen (**AC-**) kosten 1 US-Dollar und werden mit AXTO-Münzen bezahlt; je Werk gibt es zehn, verschenken klappt ohne Gasgebühr an viele Wallets. Auf OpenSea (**OS-**) bietet AXTO 1 bis 10 Editionen pro Werk zum Festpreis von 1 bis 250 Dollar an, GPU-Werke mit **G**. Die Gemeinschaftsmünze AXTO startet bei 1 Dollar; festgelegte Münzen werden mit einmaligen 1/1-Werken belohnt, ihr Preis ist jedoch nicht garantiert.
+Exklusive Editionen (**AC-**) kosten 1 US-Dollar und werden mit AXTO-Münzen bezahlt; je Werk gibt es zehn, verschenken klappt ohne Gasgebühr an viele Wallets. Auf OpenSea (**OS-**) bietet AXTO 1 bis 10 Editionen pro Werk zum Festpreis von 1 bis 250 Dollar an, GPU-Werke mit **G**. Die AXTO-Münze bietet Tierfreunden einen Einstieg ab 1 Dollar in die axto.io-Community; per Staking entstehen Einzelwerke als Dank, ein fester Ertrag ist nicht zugesagt.
 
 ## Für Tierpensionen, Katzensitter, Züchter mit Herz und Praxen
 

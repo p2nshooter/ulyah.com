@@ -9,7 +9,7 @@ First of all, an open word: On this site we advertise ourselves. NEXVILO belongs
 
 [AXTO](https://axto.io/?utm_source=nexvilo.de&utm_medium=referral&utm_campaign=ecosystem) is not a tool, but an exhibition house on the Internet. It shows moving clocks with real time, brands from fictional states, Koran and Hadith calligraphy without text changes and animated series of figures. An algorithm creates each work from a unique DNA; as an NFT it is on the Base network.
 
-Those interested in technology can find two options: exclusive works with the identifier **AC-** for 1 US dollar per edition, paid for with the AXTO coin and can be given away to many wallets free of charge, or public works with **OS-** at OpenSea, 1 to 10 editions each for a fixed price of 1 to 250 dollars. If there is a **G** in the identifier, the image comes from a GPU. AXTO is the community coin of axto.io, available from 1 dollar; staked coins are rewarded with 1/1 artworks, and no return is guaranteed.
+Those interested in technology can find two options: exclusive works with the identifier **AC-** for 1 US dollar per edition, paid for with the AXTO coin and can be given away to many wallets free of charge, or public works with **OS-** at OpenSea, 1 to 10 editions each for a fixed price of 1 to 250 dollars. If there is a **G** in the identifier, the image comes from a GPU. The AXTO coin is a community-coin investment in the axto.io NFT museum: from 1 dollar, and staking it earns one-of-one works – its value can rise or fall.
 
 ## XAA: the website that the club or store still needs
 
