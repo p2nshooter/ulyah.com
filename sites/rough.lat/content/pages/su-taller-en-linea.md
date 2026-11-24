@@ -10,7 +10,7 @@ De las esmeraldas colombianas a los ópalos mexicanos y las turmalinas brasileñ
 
 [AXTO](https://axto.io/?utm_source=rough.lat&utm_medium=referral&utm_campaign=ecosystem) reúne arte digital que respira: relojes con la hora verdadera, estampillas de reinos imaginarios, versos del Corán y hadices en caligrafía sin cambios en el texto y figuras que se mueven. Detrás de cada obra hay un ADN matemático que no se repite jamás, y cada una queda guardada como NFT en Base.
 
-Quien quiera regalar algo a clientes de otros países puede elegir una edición exclusiva **AC-** por 1 dólar, pagada con monedas AXTO, diez por obra y sin costo de gas. En OpenSea están las colecciones públicas **OS-**: de 1 a 10 ediciones, precio fijo de 1 a 10.000 dólares; **G** señala pintura de GPU. La moneda se usa para pagar, no para invertir.
+Quien quiera regalar algo a clientes de otros países puede elegir una edición exclusiva **AC-** por 1 dólar, pagada con monedas AXTO, diez por obra y sin costo de gas. En OpenSea están las colecciones públicas **OS-**: de 1 a 10 ediciones, precio fijo de 1 a 250 dólares; **G** señala pintura de GPU. AXTO es la moneda comunitaria de axto.io, disponible desde 1 dólar; las monedas en staking se premian con obras 1/1 y no hay ganancias garantizadas.
 
 ## Una tienda o una plataforma a su medida: XAA
 

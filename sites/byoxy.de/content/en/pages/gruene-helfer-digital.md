@@ -9,7 +9,7 @@ A monstera with yellow leaves, a basil that is going limp, an orchid that hasn't
 
 Not everything that grows needs soil. [AXTO](https://axto.io/?utm_source=byoxy.de&utm_medium=referral&utm_campaign=ecosystem) grows digital artworks – each from a unique blueprint that never repeats. There are ticking clocks that know your local time, stamps from distant fantasy lands, calligraphed Qur'anic verses and hadith whose text is not changed, and animated figures. They are stored as NFTs on the Base network.
 
-As a gift for plant lovers, the exclusive works with the code **AC-** fit well: 1 US dollar per edition, paid in AXTO coins, ten editions per motif, sendable to several wallets without gas fees. The public collections with **OS-** are on OpenSea (1–10 editions, fixed price 1 to 10,000 dollars); GPU paintings carry a **G**. This is not an investment and nobody promises a return.
+As a gift for plant lovers, the exclusive works with the code **AC-** fit well: 1 US dollar per edition, paid in AXTO coins, ten editions per motif, sendable to several wallets without gas fees. The public collections with **OS-** are on OpenSea (1–10 editions, fixed price 1 to 250 dollars); GPU paintings carry a **G**. AXTO is the community coin of axto.io, available from 1 dollar; staked coins are rewarded with 1/1 artworks, and no return is guaranteed.
 
 ## If you sell plants
 

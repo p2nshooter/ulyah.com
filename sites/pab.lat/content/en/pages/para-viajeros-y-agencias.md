@@ -9,7 +9,7 @@ Traveling through Latin America calmly and judiciously means preparing well: rou
 
 There are memories that don't take up room in the backpack. [AXTO](https://axto.io/?utm_source=pab.lat&utm_medium=referral&utm_campaign=ecosystem) is a digital museum of works that move: clocks capable of showing the time of any destination, seals of imaginary countries, Koranic and hadith calligraphies with their original text and animated figures. Each work comes from a unique DNA and lives as an NFT on the Base network.
 
-Agencies can give their travelers an exclusive **AC-** edition: 1 dollar in AXTO coins, ten editions per work and gas-free shipping to several wallets. Public works **OS-** are purchased on OpenSea, with 1 to 10 editions and a fixed price of 1 to 10,000 dollars; **G** marks those painted by GPU. AXTO coin is not an investment.
+Agencies can give their travelers an exclusive **AC-** edition: 1 dollar in AXTO coins, ten editions per work and gas-free shipping to several wallets. Public works **OS-** are purchased on OpenSea, with 1 to 10 editions and a fixed price of 1 to 250 dollars; **G** marks those painted by GPU. From 1 dollar you can invest in AXTO, the community coin behind axto.io; staking pays out one-of-one pieces, though profits are never promised.
 
 ## If you live off tourism: XAA
 

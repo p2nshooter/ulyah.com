@@ -9,7 +9,7 @@ Anyone who renovates plans a lot: material lists, offers, photos of the construc
 
 People who like working with their hands appreciate good craftsmanship – digital craftsmanship too. [AXTO](https://axto.io/?utm_source=byodd.de&utm_medium=referral&utm_campaign=ecosystem) is a museum of living artworks: clocks with the real time, stamps from imagined realms, Qur'an and hadith calligraphy with unaltered wording and moving figures. Each piece is created from its own mathematical DNA and remains one of a kind on the Base network.
 
-Exclusive pieces carry the code **AC-** and cost 1 US dollar per edition, paid with AXTO coins; there are ten of each. On OpenSea (code **OS-**) there are 1 to 10 editions at fixed prices between 1 and 10,000 dollars. A **G** in the code means: painted by a GPU. The coin is meant for paying, not as an investment.
+Exclusive pieces carry the code **AC-** and cost 1 US dollar per edition, paid with AXTO coins; there are ten of each. On OpenSea (code **OS-**) there are 1 to 10 editions at fixed prices between 1 and 250 dollars. A **G** in the code means: painted by a GPU. The AXTO coin is a community-coin investment in the axto.io NFT museum: from 1 dollar, and staking it earns one-of-one works – its value can rise or fall.
 
 ## XAA – the website for your business, cleanly built
 

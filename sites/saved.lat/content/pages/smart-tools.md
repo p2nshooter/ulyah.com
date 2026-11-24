@@ -10,7 +10,7 @@ SAVED is about spending less on the things that don't matter, so there is more f
 
 For readers who count every dollar, [AXTO](https://axto.io/?utm_source=saved.lat&utm_medium=referral&utm_campaign=ecosystem) keeps things simple. It is a digital museum of moving artworks – real-time clocks, stamps from imaginary realms, Qur'an and hadith calligraphy with unaltered text, animated figures – each created once from a unique DNA and stored on the Base network.
 
-Prices never float. Exclusive editions (**AC-**) cost exactly one dollar each, paid in AXTO coins, with ten editions per work and free gifting to many wallets. On OpenSea, public editions (**OS-**) have fixed prices between 1 and 10,000 dollars depending on rarity, 1 to 10 editions per work; GPU-painted versions add a **G**. The AXTO coin is a way to pay on axto.io, not a savings or investment product.
+Prices never float. Exclusive editions (**AC-**) cost exactly one dollar each, paid in AXTO coins, with ten editions per work and free gifting to many wallets. On OpenSea, public editions (**OS-**) have fixed prices between 1 and 250 dollars depending on rarity, 1 to 10 editions per work; GPU-painted versions add a **G**. The AXTO community coin starts at 1 dollar, staking it brings one-of-one artworks, and its value is not guaranteed.
 
 ## XAA: a website you pay for step by step
 

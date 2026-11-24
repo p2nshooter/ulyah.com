@@ -10,7 +10,7 @@ Flecken, Kalk, Schimmel, Wäscheberge: ZEVOK erklärt, wie du sauber machst, ohn
 
 Nach dem Großputz darf es auch etwas Schönes sein: [AXTO](https://axto.io/?utm_source=zevok.de&utm_medium=referral&utm_campaign=ecosystem) ist ein digitales Museum mit bewegten Werken. Die Sammlung reicht von Uhren in Echtzeit über Briefmarken erdachter Länder und Kalligrafie aus Koran und Hadith mit unverändertem Text bis zu animierten Figuren. Jedes Werk wird aus einer einzigartigen DNA erzeugt und nie wiederholt.
 
-Exklusiv (**AC-**): 1 US-Dollar je Edition, bezahlt in AXTO-Münzen, zehn Editionen pro Werk, ohne Gasgebühr an mehrere Wallets verschenkbar. Öffentlich (**OS-**): auf OpenSea, 1 bis 10 Editionen, Festpreis von 1 bis 10.000 Dollar. Ein **G** markiert Werke, die eine GPU gemalt hat. Die Münze ist ausschließlich ein Zahlungsmittel und keine Anlage.
+Exklusiv (**AC-**): 1 US-Dollar je Edition, bezahlt in AXTO-Münzen, zehn Editionen pro Werk, ohne Gasgebühr an mehrere Wallets verschenkbar. Öffentlich (**OS-**): auf OpenSea, 1 bis 10 Editionen, Festpreis von 1 bis 250 Dollar. Ein **G** markiert Werke, die eine GPU gemalt hat. Die AXTO-Münze versteht sich als Investition in die Community-Münze des NFT-Museums axto.io: Einstieg ab 1 Dollar, und wer per Staking festlegt, erhält einmalige 1/1-Werke – der Kurs kann allerdings steigen wie fallen.
 
 ## Für Reinigungsfirmen, Hausmeisterdienste und Wäschereien: XAA
 

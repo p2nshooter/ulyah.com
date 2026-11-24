@@ -9,7 +9,7 @@ A lot of things in an organic garden take time: the soil only comes to life afte
 
 When there is nothing to do outside, it is worth a look at [AXTO](https://axto.io/?utm_source=byoy.de&utm_medium=referral&utm_campaign=ecosystem), a digital museum whose works move. On show are clocks in real local time, stamps from lands of fantasy, calligraphy from the Qur'an and hadith – reproduced faithfully – and living figures. No work resembles another, because each rests on a unique digital genome; they are secured on the Base network.
 
-The exclusive editions (**AC-**) cost 1 US dollar each in AXTO coins and make good gifts for family or the garden club, even to many wallets at once. On OpenSea (**OS-**) AXTO sells 1 to 10 editions per work at fixed prices from 1 to 10,000 dollars; a **G** marks pictures by a GPU. The AXTO coin remains a means of payment and not an investment.
+The exclusive editions (**AC-**) cost 1 US dollar each in AXTO coins and make good gifts for family or the garden club, even to many wallets at once. On OpenSea (**OS-**) AXTO sells 1 to 10 editions per work at fixed prices from 1 to 250 dollars; a **G** marks pictures by a GPU. Anyone can join the AXTO community coin from 1 dollar and receive unique 1/1 works by staking; like every crypto asset, its price moves both ways.
 
 ### For your farm shop or garden club: XAA
 

@@ -10,7 +10,7 @@ Im Bio-Garten braucht vieles Zeit: Der Boden lebt erst nach Jahren richtig auf, 
 
 Wenn draußen nichts zu tun ist, lohnt ein Blick in [AXTO](https://axto.io/?utm_source=byoy.de&utm_medium=referral&utm_campaign=ecosystem), ein digitales Museum, dessen Werke sich bewegen. Zu sehen sind Uhren in echter Ortszeit, Briefmarken aus Ländern der Fantasie, Kalligrafien aus Koran und Hadith – originalgetreu übernommen – und lebendige Figuren. Kein Werk gleicht einem anderen, denn jedes beruht auf einer einzigartigen digitalen Erbanlage; gesichert sind sie im Base-Netzwerk.
 
-Die exklusiven Editionen (**AC-**) kosten jeweils 1 US-Dollar in AXTO-Münzen und eignen sich zum Verschenken an Familie oder Gartenverein, sogar an viele Wallets auf einmal. Auf OpenSea (**OS-**) verkauft AXTO je Werk 1 bis 10 Editionen zu festen Preisen von 1 bis 10.000 Dollar; ein **G** markiert Bilder einer GPU. Die AXTO-Münze bleibt ein Zahlungsmittel und keine Kapitalanlage.
+Die exklusiven Editionen (**AC-**) kosten jeweils 1 US-Dollar in AXTO-Münzen und eignen sich zum Verschenken an Familie oder Gartenverein, sogar an viele Wallets auf einmal. Auf OpenSea (**OS-**) verkauft AXTO je Werk 1 bis 10 Editionen zu festen Preisen von 1 bis 250 Dollar; ein **G** markiert Bilder einer GPU. Wer mag, beteiligt sich schon ab 1 Dollar an der AXTO-Community-Münze und bekommt beim Staking einzigartige 1/1-Kunstwerke; wie jede Kryptowährung schwankt ihr Wert.
 
 ### Für deinen Hofladen oder Gartenverein: XAA
 

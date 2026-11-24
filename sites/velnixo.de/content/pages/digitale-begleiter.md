@@ -10,7 +10,7 @@ VELNIXO erklärt Fahrräder. Aber wer Rad fährt, plant auch Touren, filmt Ausfa
 
 [AXTO](https://axto.io/?utm_source=velnixo.de&utm_medium=referral&utm_campaign=ecosystem) versteht sich als lebendiges Museum. Zu den Exponaten gehören Uhren, die die echte Uhrzeit anzeigen, Briefmarken aus Fantasiewelten, Kalligrafie aus Koran und Hadith ohne jede Textänderung sowie bewegte Figuren. Ein mathematisches Verfahren gibt jedem Werk eine einzigartige DNA, gespeichert ist es als NFT im Base-Netzwerk.
 
-Zwei Sammlungsarten gibt es: Exklusives mit der Kennung **AC-** für 1 US-Dollar pro Edition, bezahlt mit AXTO-Münzen und als Geschenk ohne Gasgebühr an mehrere Wallets verschickbar, und Öffentliches mit **OS-** auf OpenSea, 1 bis 10 Editionen je Werk zu Festpreisen von 1 bis 10.000 Dollar. Ein **G** zeigt GPU-Malerei an. Bitte beachten: Die Münze ist kein Investment.
+Zwei Sammlungsarten gibt es: Exklusives mit der Kennung **AC-** für 1 US-Dollar pro Edition, bezahlt mit AXTO-Münzen und als Geschenk ohne Gasgebühr an mehrere Wallets verschickbar, und Öffentliches mit **OS-** auf OpenSea, 1 bis 10 Editionen je Werk zu Festpreisen von 1 bis 250 Dollar. Ein **G** zeigt GPU-Malerei an. Ab 1 Dollar lässt sich in die AXTO-Gemeinschaftsmünze investieren, Staking belohnt mit 1/1-Werken – Gewinne sind nicht versprochen, Verluste sind möglich.
 
 ## XAA: eine Website für deinen Fahrradladen
 

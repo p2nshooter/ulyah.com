@@ -10,7 +10,7 @@ En DAWO hablamos del deporte que se disfruta: correr sin lesionarse, nadar con b
 
 A los deportistas les gusta el movimiento, y a [AXTO](https://axto.io/?utm_source=dawo.es&utm_medium=referral&utm_campaign=ecosystem) también. Este museo digital reúne relojes que siguen la hora real, sellos de reinos de fantasía, versículos del Corán y hadices en caligrafía fiel al original y figuras animadas. Cada pieza sale de su propio ADN matemático y nunca se repite.
 
-Para regalar al equipo están las ediciones exclusivas **AC-**: 1 dólar cada una, pagado en monedas AXTO, diez ejemplares por obra y envío sin gas a muchas wallets a la vez. En OpenSea se venden las piezas públicas **OS-**, de 1 a 10 ediciones a precio fijo de 1 a 10.000 dólares; la **G** señala obras pintadas por GPU. Nadie promete ganancias: la moneda es solo un medio de pago.
+Para regalar al equipo están las ediciones exclusivas **AC-**: 1 dólar cada una, pagado en monedas AXTO, diez ejemplares por obra y envío sin gas a muchas wallets a la vez. En OpenSea se venden las piezas públicas **OS-**, de 1 a 10 ediciones a precio fijo de 1 a 250 dólares; la **G** señala obras pintadas por GPU. AXTO es la moneda comunitaria de axto.io, disponible desde 1 dólar; las monedas en staking se premian con obras 1/1 y no hay ganancias garantizadas.
 
 ## La web que tu club se merece
 

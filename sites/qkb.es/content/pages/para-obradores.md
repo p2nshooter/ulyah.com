@@ -10,7 +10,7 @@ En QKB hablamos del obrador casero: el queso que madura en la bodega, la masa ma
 
 Un buen queso también entra por los ojos, y [AXTO](https://axto.io/?utm_source=qkb.es&utm_medium=referral&utm_campaign=ecosystem) vive de eso: es un museo digital de arte en movimiento con relojes en hora real, sellos de reinos que no existen, caligrafía del Corán y de los hadices sin alterar una palabra y figuras animadas. Ninguna obra se repite, porque cada una surge de un ADN propio.
 
-Para obsequiar a clientes fieles sirven las ediciones exclusivas (**AC-**): 1 dólar por edición, pagado con la moneda AXTO, diez por obra, sin gas al enviarlas a varias wallets. En OpenSea están las públicas (**OS-**), entre 1 y 10 ediciones con precio fijo de 1 a 10.000 dólares; las de GPU llevan **G**. La moneda es un medio de pago y no una inversión.
+Para obsequiar a clientes fieles sirven las ediciones exclusivas (**AC-**): 1 dólar por edición, pagado con la moneda AXTO, diez por obra, sin gas al enviarlas a varias wallets. En OpenSea están las públicas (**OS-**), entre 1 y 10 ediciones con precio fijo de 1 a 250 dólares; las de GPU llevan **G**. Desde 1 dólar se puede invertir en AXTO, la moneda de la comunidad de axto.io; el staking entrega piezas únicas, aunque nadie promete beneficios.
 
 ## Del obrador a la mesa del cliente: XAA
 

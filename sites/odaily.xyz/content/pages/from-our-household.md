@@ -10,7 +10,7 @@ Let us be upfront: this page is an advertisement for ourselves. ODAILY belongs t
 
 Between two pots on the stove, there is time for a look at [AXTO](https://axto.io/?utm_source=odaily.xyz&utm_medium=referral&utm_campaign=ecosystem), a museum of living artworks: clocks showing the actual hour, postage stamps of make-believe countries, Qur'an and hadith calligraphy reproduced word for word, and animated figures. No two works are alike, because each grows from a unique mathematical DNA, and all of them are NFTs on Base.
 
-Exclusive pieces carry the code **AC-** and cost 1 dollar per edition in AXTO coins, ten editions per work, easy to gift to a whole family chat without gas. Public pieces carry **OS-** and are listed on OpenSea, 1 to 10 editions each at fixed prices up to 10,000 dollars; **G** marks GPU paintings. The coin is a payment token, not an investment.
+Exclusive pieces carry the code **AC-** and cost 1 dollar per edition in AXTO coins, ten editions per work, easy to gift to a whole family chat without gas. Public pieces carry **OS-** and are listed on OpenSea, 1 to 10 editions each at fixed prices up to 250 dollars; **G** marks GPU paintings. Anyone can join the AXTO community coin from 1 dollar and receive unique 1/1 works by staking; like every crypto asset, its price moves both ways.
 
 ## XAA: websites for bakeries, caterers and cooking clubs
 
