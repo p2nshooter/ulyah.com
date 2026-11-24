@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { axtoHandoffTick } from "./lib/axto-handoff.js";
 import { cors } from "hono/cors";
 import type { Env } from "./env.js";
 import { quranRoute } from "./routes/quran.js";
@@ -283,7 +284,8 @@ export default {
         // credits are not spent daily. The verdict waits in Admin → Kunci.
         gpuCheckTick(env).catch((e) => console.error("gpu-check failed", e)),
         // Seri G- axto.io dirender axto.io sendiri sejak 24 Nov 2026 (pemilik: „Copy aja API GPU dari ulyah.com, biar ga
-        // terhubung ke ulyah.com"): kunci aktif diserahkan lewat .github/workflows/axto-keys-handoff.yml.
+        // terhubung ke ulyah.com" · „Ambil semua apinya yg aktif"): sekali sehari semua kunci aktif disegel untuk axto.io.
+        axtoHandoffTick(env).catch((e) => console.error("axto-handoff failed", e)),
       ]).then(() => undefined)
     );
   },
