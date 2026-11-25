@@ -7,7 +7,7 @@ import { KELOMPOK, URUTAN_KELOMPOK, type Situs } from '../data/model.ts';
 import type { UnitItem } from '../data/site.ts';
 
 /** Versi aset — naikkan setiap CSS/JS berubah agar cache peramban dan CDN ikut berganti. */
-export const ASSET_V = '4670a4ce65';
+export const ASSET_V = 'c4f295ea33';
 
 const ICON: Record<string, string> = {
   kubah: '<path d="M12 2v2.2M12 4.2c-3.6 2-5.6 4.6-5.6 7.5V13h11.2v-1.3c0-2.9-2-5.5-5.6-7.5ZM4 13h16v8H4zM9.5 21v-3.5a2.5 2.5 0 0 1 5 0V21"/>',
@@ -198,6 +198,7 @@ ${o.body.s}
       <img src="/assets/logo-192.webp" width="66" height="84" alt="" loading="lazy">
       <p class="kaki-nama">${esc(s.nama)}</p>
       <p class="kaki-alamat">${icon('pin').s}<span>${esc(alamatLengkap(s))}</span></p>
+      ${s.kontak.email ? `<p class="kaki-alamat kaki-surel">${icon('surat').s}<a href="mailto:${esc(s.kontak.email)}">${esc(s.kontak.email)}</a></p>` : ''}
     </div>
     ${URUTAN_KELOMPOK.map((k) => `<nav class="kaki-kol" aria-label="${esc(KELOMPOK[k].nama)}"><p>${esc(KELOMPOK[k].nama)}</p>${o.units.filter((u) => u.kelompok === k).map((u) => `<a href="/lembaga/${esc(u.slug)}">${esc(u.singkat)}</a>`).join('')}</nav>`).join('\n    ')}
   </div>

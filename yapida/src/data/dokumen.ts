@@ -95,14 +95,24 @@ export interface Kop {
   kota: string;
 }
 
-const kontakTeks = (k?: Kontak) => [k?.telepon && `Telp. ${k.telepon}`, k?.wa && `WA ${k.wa}`, k?.email].filter(Boolean).join(' · ');
+const kontakTeks = (k?: Kontak) => [k?.telepon && `Telp. ${k.telepon}`, k?.wa && `WA ${k.wa}`, k?.email && `Email: ${k.email}`].filter(Boolean).join(' · ');
+/** Setiap kop memuat email: email lembaga bila ada, selain itu email yayasan. */
+const denganEmail = (k: Kontak | undefined, s: Situs): Kontak => ({ ...(k ?? {}), email: k?.email?.trim() || s.kontak?.email || undefined });
 const alamatSitus = (s: Situs) => tulisAlamat(rinciSitus(s.alamat), { singkat: false });
 
 /** Kop dari profil (tanpa kop tersimpan): lembaga memakai nama yayasan sebagai induk; yayasan memakai namanya sendiri. */
 export function kopDariProfil(u: Unit | null, s: Situs): Kop {
   const kota = s.alamat.kecamatan || s.alamat.kabupaten || 'Sukakarya';
   if (!u) return { induk: '', nama: s.nama.toUpperCase(), ket: s.singkatan ? `(${s.singkatan})` : undefined, alamat: alamatSitus(s), kontak: kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
-  return { induk: s.nama.toUpperCase(), nama: u.nama.toUpperCase(), ket: u.jenis, nsm: u.nsm ? `${labelStatistik(u).split(' (')[0]}: ${u.nsm}` : undefined, alamat: (u.alamatRinci ? tulisAlamat(u.alamatRinci, { singkat: false }) : u.alamat) || alamatSitus(s), kontak: kontakTeks(u.kontak) || kontakTeks(s.kontak) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
+  return { induk: s.nama.toUpperCase(), nama: u.nama.toUpperCase(), ket: u.jenis, nsm: u.nsm ? `${labelStatistik(u).split(' (')[0]}: ${u.nsm}` : undefined, alamat: (u.alamatRinci ? tulisAlamat(u.alamatRinci, { singkat: false }) : u.alamat) || alamatSitus(s), kontak: (u.kontak?.telepon || u.kontak?.wa || u.kontak?.email ? kontakTeks(denganEmail(u.kontak, s)) : kontakTeks(s.kontak)) || 'yapida.sch.id', gaya: 'tengah', warna: 'zamrud', kota };
+}
+
+/** Kontak kop tersimpan yang belum memuat email → email dari kop profil ditambahkan di belakangnya. */
+function tambahEmail(tersimpan: string, dasar: string): string {
+  if (!tersimpan) return dasar;
+  if (tersimpan.includes('@')) return tersimpan;
+  const email = /Email: \S+@\S+/.exec(dasar)?.[0];
+  return email ? `${tersimpan} · ${email}` : tersimpan;
 }
 
 /** Kop dari dokumen koleksi `kop`; bidang kosong diambil dari kop profil. */
@@ -110,7 +120,7 @@ export function kopDariDok(d: Pick<Dok, 'judul' | 'd'>, dasar: Kop): Kop {
   const t = (k: string) => teks(d.d, k);
   return {
     ...dasar, nama: d.judul.toUpperCase(), induk: t('induk') || dasar.induk, arab: t('arab') || undefined, ket: t('ket') || dasar.ket, nsm: t('nsm') || dasar.nsm,
-    alamat: t('alamat') || dasar.alamat, kontak: t('kontak') || dasar.kontak, gaya: GAYA_KOP.some(([k]) => k === t('gaya')) ? t('gaya') : 'tengah',
+    alamat: t('alamat') || dasar.alamat, kontak: tambahEmail(t('kontak'), dasar.kontak), gaya: GAYA_KOP.some(([k]) => k === t('gaya')) ? t('gaya') : 'tengah',
     warna: WARNA_KOP.some(([k]) => k === t('warna')) ? t('warna') : 'zamrud', logo: t('logo') || undefined, logoKanan: t('logoKanan') || undefined, kota: t('kota') || dasar.kota,
   };
 }

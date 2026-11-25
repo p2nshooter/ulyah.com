@@ -69,12 +69,16 @@ export async function ensureSeed(store: Store, now = Date.now()): Promise<boolea
   return true;
 }
 
+/** Email resmi yayasan (pemilik, 25 Nov 2026): tampil di kop surat, halaman Kontak, kaki situs, dan data terstruktur.
+ *  Bila pengurus mengisi email lain di portal, yang diisi itulah yang dipakai. */
+export const EMAIL_YAYASAN = 'salam@yapida.sch.id';
+
 export async function getSitus(store: Store): Promise<Situs> {
   await siap(store);
   return memo(store, 'situs', async () => {
     const s = await store.get<Situs>(K_SITUS);
     if (!s) throw new Error('Pengaturan situs tidak terbaca.');
-    return s;
+    return { ...s, kontak: { ...(s.kontak ?? {}), email: s.kontak?.email?.trim() || EMAIL_YAYASAN } };
   });
 }
 
