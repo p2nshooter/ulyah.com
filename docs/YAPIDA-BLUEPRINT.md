@@ -220,6 +220,12 @@ Folder `yapida/` · Worker `yapida-sch-id` · deploy `.github/workflows/deploy-y
     diputar sekali otomatis), /portal/panduan berupa kartu menu dengan langkah satu per satu, saringan kelompok, cari, dan
     lingkaran kemajuan „sudah dipelajari“; /siswa/panduan dengan **simulasi masuk** (pembaca tanggal yang sama dengan halaman
     masuk) dan **soal contoh** yang bisa diserahkan, dinilai, dan dibahas; tur cara masuk dan tur beranda siswa.
+45. „Tolong masukin email ini salam@yapida.sch.id ke kop yayasan Al-huda yapida dan yg memang harus ada dan di website
+    yapida.sch.id di posisi yg pas, elegan dan seharunya ada“ (25 Nov 2026) — `EMAIL_YAYASAN` (src/data/site.ts) menjadi
+    email bawaan yayasan (pengurus tetap bisa menggantinya di portal): kop surat yayasan „Email: salam@yapida.sch.id“, kop
+    lembaga yang belum punya email ikut memakai email yayasan, kop tersimpan tanpa email ditambahi; halaman Kontak, kaki
+    situs (di bawah alamat, tautan mailto bergaris emas) dan data terstruktur (schema.org `email`). Diuji
+    test/email-yayasan.test.ts.
 
 ## 1. Aturan yang berlaku
 

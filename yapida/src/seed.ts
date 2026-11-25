@@ -29,7 +29,7 @@ export function seedSitus(now: number): Situs {
     slogan: 'Dari pengajian sore tahun 1967 menjadi rumah ibadah, sekolah, pesantren, usaha, dan layanan sosial bagi warga Sukakarya.',
     deskripsi: 'Yayasan Al-Huda Yapida di Sukakarya, Kabupaten Bekasi, menaungi masjid dan musholla, RA, MI, MTs, pondok pesantren, TPQ, majelis taklim, BLKK, BMT, koperasi, minimarket, LKSA, santunan, dan UPZ.',
     alamat: { jalan: 'Jl. Yapida No. 3, Kp. Kuda-kuda RT 003 RW 002', desa: 'Sukakarya', kecamatan: 'Sukakarya', kabupaten: 'Kabupaten Bekasi', provinsi: 'Jawa Barat', kodepos: '17641' },
-    kontak: {},
+    kontak: { email: 'salam@yapida.sch.id' },
     sosmed: {},
     legal: {
       akta: { nomor: '16', tanggal: '2015-12-24', notaris: 'Yatin Rufiatina, S.H., M.H. — Notaris di Kabupaten Bekasi' },
