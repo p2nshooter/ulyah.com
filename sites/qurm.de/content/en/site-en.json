@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-25",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Springs, jungle, backpack, dawn",
+  "tagline": "Hiking in Germany: big trails, beautiful peaks and honest knowledge about equipment, weather and safety",
+  "description": "QURM is a hiking guide for Germany: long-distance hiking trails such as Rennsteig, Malerweg, Rheinsteig and Westweg, day tours from Saxon Switzerland to the Allgäu, plus equipment, safety and weather, planning and navigation as well as hiking with children and dogs.",
+  "author": "QURM editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "fernwanderwege": {
+      "slug": "long-distance-hiking-trails",
+      "name": "Long-distance hiking trails",
+      "description": "Rennsteig, Malerweg, Rheinsteig, Westweg, Eifelsteig and Harzer Hexenstieg: course, stages and character of the major paths, honestly described."
+    },
+    "berge-und-tagestouren": {
+      "slug": "mountains-day-tours",
+      "name": "Mountains & day tours",
+      "description": "Zugspitze, Allgäu, Berchtesgaden, Saxon Switzerland, Bavarian Forest and Palatinate Forest: peaks, gorges and tours for one day."
+    },
+    "ausruestung": {
+      "slug": "equipment",
+      "name": "Equipment",
+      "description": "Hiking boots, backpack, onion clothing, sticks, first aid and provisions: what you really need and what matters."
+    },
+    "sicherheit-und-wetter": {
+      "slug": "safety-weather",
+      "name": "Safety & Weather",
+      "description": "Thunderstorms, heat, cold, ticks, emergency calls and mountain weather: recognize dangers early, react correctly and arrive safely."
+    },
+    "planung-und-navigation": {
+      "slug": "planning-navigation",
+      "name": "Planning & Navigation",
+      "description": "Tour planning, walking time, map and compass, apps and GPX, waymarks and overnight stays in huts and trekking sites."
+    },
+    "kinder-und-hund": {
+      "slug": "with-children-dog",
+      "name": "With children & dog",
+      "description": "Traveling with babies, toddlers and schoolchildren, the first night in a hut as a family and tours with dogs: tips for relaxing hiking days."
+    }
+  },
+  "promo": {
+    "label": "✦ Tours digitally"
+  },
+  "menu": [
+    {
+      "label": "Travel safely",
+      "href": "/sicher-unterwegs/"
+    },
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

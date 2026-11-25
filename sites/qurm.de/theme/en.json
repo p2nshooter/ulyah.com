@@ -1,0 +1,43 @@
+{
+  "strings": {
+    "Zum Inhalt springen": "Skip to content",
+    "Spanien ist Fußball-Weltmeister 2026": "Spain is the 2026 World Cup",
+    "ist Fußball-Weltmeister 2026": "is the 2026 soccer world champion",
+    "QURM, zur Startseite": "QURM, to the home page",
+    "Themen": "Topics",
+    "Themen im Fußbereich": "Topics in the footer area",
+    "Über QURM und Rechtliches": "About QURM and legal matters",
+    "112 . Mehr im": "112. More in",
+    "Angaben zum Ratgeber": "Information about the guide",
+    "Thema": "topic",
+    "Lesezeit": "Reading time",
+    "112 . Mehr dazu auf der Seite": "112. More about this on the page",
+    "Passende Ratgeber": "Appropriate advice",
+    "8 Min. Lesezeit": "8 min reading time",
+    "9 Min. Lesezeit": "9 min reading time",
+    "Jeder gute Weg beginnt im": "Every good path begins",
+    "Vom Rennsteig bis zur Zugspitze, vom ersten Wanderschuh bis zur Nacht auf der Hütte: Wir erklären, wie Wege verlaufen, was du mitnimmst und wann du besser umkehrst.": "From the Rennsteig to the Zugspitze, from the first hiking boot to the night in the hut: We explain how the paths run, what you should take with you and when it is better to turn back.",
+    "Ein steinerner Wachturm auf einem Felsen über zedernbewaldeten Bergen im Morgenrot": "A stone watchtower on a rock above cedar forested mountains at dawn",
+    "Vom Turm aus gesehen": "Seen from the tower",
+    "8 Ratgeber": "8 guides",
+    "9 Ratgeber": "9 guides",
+    "7 Ratgeber": "7 guides",
+    "6 Ratgeber": "6 guides",
+    "Neue Ratgeber": "New guides",
+    "Das ganze Wegenetz": "The entire network of paths",
+    "Alle Ratgeber auf einen Blick": "All guides at a glance",
+    "Ratgeber in Equipment": "Guide in Equipment",
+    "Ratgeber in Long-distance hiking trails": "Guide to long-distance hiking trails",
+    "Ratgeber in Mountains": "Guide to Mountains",
+    "Ratgeber in Planning": "Guide to Planning",
+    "Ratgeber in Safety": "Guide in Safety",
+    "Ratgeber in With children": "Guide in With children"
+  },
+  "patterns": [
+    [
+      "(\\d+) Ratgeber",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

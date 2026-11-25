@@ -1,0 +1,84 @@
+{
+  "since": "2026-11-25",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Cheese, Kefir and Pastries",
+  "tagline": "The home bakery: cheeses, fermented products, bread and pastries explained step by step",
+  "description": "QKB is a home cooking magazine dedicated to the domestic kitchen: fresh cheeses, kefir and fermented cheeses, sourdough, bread, Spanish pastries and preserves, with proven recipes and food safety criteria.",
+  "author": "QKB Workshop",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "quesos-caseros": {
+      "slug": "homemade-cheeses",
+      "name": "Homemade cheeses",
+      "description": "Fresh cheese, cottage cheese, mozzarella and labneh in the kitchen at home, with safe milk and simple technique."
+    },
+    "kefir-y-fermentados": {
+      "slug": "kefir-and-fermented",
+      "name": "Kefir and fermented",
+      "description": "Milk and water kefir, yogurt, kombucha and fermented vegetables, with hygiene and patience."
+    },
+    "masa-madre-y-pan": {
+      "slug": "sourdough-and-bread",
+      "name": "sourdough and bread",
+      "description": "Create and care for sourdough, understand flours and bake loaves, ciabattas and sliced bread."
+    },
+    "bolleria": {
+      "slug": "spanish-pastries",
+      "name": "Spanish pastries",
+      "description": "Homemade croissants, ensaimadas, muffins, roscón, torrijas and churros."
+    },
+    "conservas": {
+      "slug": "preserves-and-pickles",
+      "name": "Preserves and pickles",
+      "description": "Jams, pickles, seasoned olives and homemade preserves with safety criteria."
+    },
+    "tecnica": {
+      "slug": "workshop-technique",
+      "name": "Workshop technique",
+      "description": "Temperature, salt, yeast, utensils and hygiene: the basis that makes everything turn out well."
+    }
+  },
+  "promo": {
+    "label": "✦ For workshops"
+  },
+  "menu": [
+    {
+      "label": "About QKB",
+      "href": "/sobre-nosotros/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contacto/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Legal notice",
+      "href": "/aviso-legal/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/politica-de-privacidad/"
+    },
+    {
+      "label": "Cookies",
+      "href": "/politica-de-cookies/"
+    },
+    {
+      "label": "Terms and conditions",
+      "href": "/terminos-y-condiciones/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/descargo-de-responsabilidad/"
+    },
+    {
+      "label": "Food safety",
+      "href": "/seguridad-alimentaria/"
+    }
+  ]
+}

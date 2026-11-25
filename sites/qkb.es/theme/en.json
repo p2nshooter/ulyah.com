@@ -1,0 +1,47 @@
+{
+  "strings": {
+    "Ir al contenido": "Go to content",
+    "España, campeona del mundo 2026": "Spain, world champion 2026",
+    "campeona del mundo": "world champion",
+    "QKB — inicio": "QKB — home",
+    "el obrador casero": "the home workshop",
+    "Sobre QKB": "About QKB",
+    "© 2026 QKB · qkb.es · Recetas y guías divulgativas. Ante alergias, embarazo o dudas de salud, consulta a un profesional.": "© 2026 QKB · qkb.es · Recipes and informative guides. If you have allergies, pregnancy or health concerns, consult a professional.",
+    "Lectura": "Reading",
+    "7 minutos": "7 minutes",
+    "Publicado": "Published",
+    "Por": "By",
+    "Pasos de la guía": "Guide steps",
+    "Trabaja con utensilios limpios, leche pasteurizada y temperaturas controladas. Las personas embarazadas, inmunodeprimidas, mayores o con alergias deben extremar las precauciones. Lee nuestra": "Work with clean utensils, pasteurized milk and controlled temperatures. Pregnant, immunocompromised, elderly or people with allergies should take extreme precautions. Read our",
+    "guía de seguridad alimentaria .": "food safety guide.",
+    "Para seguir en el obrador": "To continue in the workshop",
+    "Guías relacionadas": "Related guides",
+    "7 min de lectura": "7 min read",
+    "8 minutos": "8 minutes",
+    "Recetario y guías del obrador doméstico": "Recipe book and guides for the domestic workshop",
+    "Empezar a leer": "start reading",
+    "Las seis despensas": "The six pantries",
+    "7 guías": "7 guides",
+    "8 guías": "8 guides",
+    "5 guías": "5 guides",
+    "Del obrador": "From the workshop",
+    "Últimas recetas y guías": "Latest recipes and guides",
+    "El índice completo": "The complete index",
+    "Todas las guías por despensa": "All pantry guides",
+    "7 recetas y guías": "7 recipes and guides",
+    "8 min de lectura": "8 min read",
+    "5 recetas y guías": "5 recipes and guides",
+    "8 recetas y guías": "8 recipes and guides"
+  },
+  "patterns": [
+    [
+      "(\\d+) minutos",
+      "$1 minutes"
+    ],
+    [
+      "(\\d+) guías",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}
