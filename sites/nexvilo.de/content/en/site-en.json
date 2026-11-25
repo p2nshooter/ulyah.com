@@ -1,0 +1,84 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Next · virtual · local – everyday digital life understandable",
+  "tagline": "Smartphone, computer, online security, smart home and AI: technology that simply works in everyday life",
+  "description": "NEXVILO explains everyday digital life step by step: setting up and maintaining your smartphone and computer, being safe online, recognizing fraud, planning a smart home, using AI sensibly and accompanying the whole family digitally.",
+  "author": "NEXVILO editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "smartphone": {
+      "slug": "smartphone",
+      "name": "Smartphone",
+      "description": "Battery, storage, backup, data protection settings and purchasing advice: This is how you get more out of your Android phone or iPhone, without specialist knowledge."
+    },
+    "computer-und-windows": {
+      "slug": "computers-windows",
+      "name": "Computers & Windows",
+      "description": "Make Windows faster, understand updates, organize and back up files, set up printers, find the right laptop and continue to use old computers."
+    },
+    "sicher-im-netz": {
+      "slug": "safe-online",
+      "name": "Safe online",
+      "description": "Strong passwords, two-factor protection, detect phishing and messenger scams, secure Wi-Fi, shop safely and act correctly if an account is hacked."
+    },
+    "smart-home": {
+      "slug": "smart-home",
+      "name": "Smart home",
+      "description": "The entry into the connected home: Matter, smart heating and sockets, voice assistants, cameras with respect for the law and better WiFi in every room."
+    },
+    "ki-im-alltag": {
+      "slug": "ai-in-everyday-life",
+      "name": "AI in everyday life",
+      "description": "What AI assistants can and cannot do: ask questions well, recognize errors, see through deepfakes, protect data and use AI sensibly at school and at work."
+    },
+    "digitales-leben": {
+      "slug": "digital-life",
+      "name": "Digital life",
+      "description": "Digital with the whole family: the first children's cell phone, screen time, smartphone for older people, online banking, video telephony, online ID and digital legacy."
+    }
+  },
+  "promo": {
+    "label": "✦ From our house"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Source of aromatic roasts & fine teas",
+  "tagline": "The guide to coffee and tea at home: beans, leaves, water and time, explained thoroughly and calmly",
+  "description": "QARF explains coffee and tea for home: beans and roasting, hand filters, French press, espresso maker, portafilter and cold brew, grinders and water, types of tea, brewing times as well as caffeine, storage, origin and seals.",
+  "author": "QARF editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "bohnen-und-roestung": {
+      "slug": "beans-roasting",
+      "name": "Beans & Roasting",
+      "description": "Arabica and Robusta, preparation, roasting levels, roasting date and coffee origin: what is in the bean before you grind it."
+    },
+    "kaffee-zubereiten": {
+      "slug": "making-coffee",
+      "name": "Making coffee",
+      "description": "Hand filter, filter machine, French press, espresso maker, portafilter, cold brew and mocha: each method step by step."
+    },
+    "muehlen-und-wasser": {
+      "slug": "mills-water",
+      "name": "Mills & water",
+      "description": "Grinders, grinding degree, mill care, water hardness, descaling and extraction: the silent levers behind every good cup."
+    },
+    "teesorten": {
+      "slug": "types-of-tea",
+      "name": "Types of tea",
+      "description": "Green tea, black tea, oolong, white tea, matcha, pu-erh and herbal tea: where they come from, how they are created and how they taste."
+    },
+    "tee-zubereiten": {
+      "slug": "prepare-tea",
+      "name": "Prepare tea",
+      "description": "Brewing times and temperatures, accessories, Gongfu Cha, iced tea, chai and East Frisian tea culture: pour tea without bitterness."
+    },
+    "genuss-und-wissen": {
+      "slug": "enjoyment-knowledge",
+      "name": "Enjoyment & knowledge",
+      "description": "Caffeine, storage, growing countries, seals, decaffeinated coffee and tasting: background knowledge for conscious enjoyment."
+    }
+  },
+  "promo": {
+    "label": "✦ For roasters"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Brewing table",
+      "href": "/bruehtabelle/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

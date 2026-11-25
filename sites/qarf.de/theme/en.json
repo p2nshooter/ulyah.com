@@ -1,0 +1,44 @@
+{
+  "strings": {
+    "Zum Inhalt springen": "Skip to content",
+    "Spanien ist Fußball-Weltmeister 2026": "Spain is the 2026 World Cup",
+    "ist Fußball-Weltmeister 2026": "is the 2026 soccer world champion",
+    "QARF — Startseite": "QARF — Home page",
+    "Themen": "Topics",
+    "Über QARF und Rechtliches": "About QARF and legal matters",
+    "Angaben zum Ratgeber": "Information about the guide",
+    "Thema": "topic",
+    "Lesezeit": "Reading time",
+    "Inhalt": "Content",
+    "Noch eine Tasse?": "Another cup?",
+    "Passende Ratgeber": "Appropriate advice",
+    "8 Min. Lesezeit": "8 min reading time",
+    "9 Min. Lesezeit": "9 min reading time",
+    "7 Min. Lesezeit": "7 min reading time",
+    "in deine Tasse": "into your cup",
+    "Zur Brühtabelle": "To the brewing table",
+    "Nachtlager einer Gewürzkarawane: Kupferkanne, Porzellanschalen, Teeglas und Gewürzsäcke unter einer Laterne vor einem Palast": "Night camp of a spice caravan: copper pot, porcelain bowls, tea glass and spice sacks under a lantern in front of a palace",
+    "6 Ratgeber": "6 guides",
+    "8 Ratgeber": "8 guides",
+    "7 Ratgeber": "7 guides",
+    "5 Ratgeber": "5 guides",
+    "Für die Küchenwand": "For the kitchen wall",
+    "Die Brühtabelle auf einen Blick": "The brewing table at a glance",
+    "Verhältnis, Mahlgrad, Temperatur und Zeit für jede Methode, dazu Ziehzeiten für Grüntee, Oolong, Schwarztee und Kräuter.": "Ratio, grind size, temperature and time for each method, plus steeping times for green tea, oolong, black tea and herbs.",
+    "Neue Ratgeber": "New guides",
+    "Alle Ratgeber nach Themen": "All guides by topic",
+    "Ratgeber zum Thema Beans": "Guide to beans",
+    "Ratgeber zum Thema Enjoyment": "Guide to the topic of enjoyment",
+    "Ratgeber zum Thema Making coffee": "Guide to making coffee",
+    "Ratgeber zum Thema Mills": "Guide to Mills",
+    "Ratgeber zum Thema Prepare tea": "Guide to preparing tea",
+    "Ratgeber zum Thema Types of tea": "Guide to types of tea"
+  },
+  "patterns": [
+    [
+      "(\\d+) Ratgeber",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

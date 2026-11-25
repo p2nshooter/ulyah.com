@@ -1,0 +1,84 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "expansion": "Landscapes, Adventures and Logs",
+  "tagline": "Travel through Latin America with calm, discretion and eyes wide open",
+  "description": "PAB is a travel magazine for Latin America: beaches, cities, mountains, jungles, road trips and local cuisine, with practical guides to plan, spend wisely and travel respectfully.",
+  "author": "PAB Editorial",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "playas-y-costas": {
+      "slug": "beaches-and-coasts",
+      "name": "Beaches and coasts",
+      "description": "Caribbean, Pacific and Atlantic: when to go, how to get around, where to swim safely and how to take care of the sea you visit."
+    },
+    "ciudades-y-cultura": {
+      "slug": "cities-and-culture",
+      "name": "Cities and culture",
+      "description": "Historic centers, museums, neighborhoods, festivals and architecture: how to explore Latin American cities without rushing."
+    },
+    "montanas-y-naturaleza": {
+      "slug": "mountains-and-nature",
+      "name": "Mountains and nature",
+      "description": "Andes, jungles, deserts and national parks: altitude, climate, equipment and trails to enjoy safely."
+    },
+    "rutas-por-carretera": {
+      "slug": "road-routes",
+      "name": "Road routes",
+      "description": "Travel by car, bus and train: itineraries, realistic distances, documents, fuel and worthwhile stops."
+    },
+    "planificacion-y-presupuesto": {
+      "slug": "planning-and-budget",
+      "name": "Planning and budget",
+      "description": "Documents, insurance, money, traveler's health and luggage: what should be resolved before leaving home."
+    },
+    "sabores-del-viaje": {
+      "slug": "flavors-of-travel",
+      "name": "Flavors of travel",
+      "description": "Markets, regional cuisines and traditional drinks: eat well and with respect in each destination."
+    }
+  },
+  "promo": {
+    "label": "✦ Travelers and agencies"
+  },
+  "menu": [
+    {
+      "label": "About PAB",
+      "href": "/sobre-nosotros/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contacto/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Legal notice",
+      "href": "/aviso-legal/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/politica-de-privacidad/"
+    },
+    {
+      "label": "Cookies",
+      "href": "/politica-de-cookies/"
+    },
+    {
+      "label": "Terms of use",
+      "href": "/terminos-y-condiciones/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/descargo-de-responsabilidad/"
+    },
+    {
+      "label": "Editorial policy",
+      "href": "/politica-editorial/"
+    }
+  ]
+}

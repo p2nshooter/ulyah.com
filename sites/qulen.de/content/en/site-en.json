@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-24",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Source of learning",
+  "tagline": "Invented encouraging stories about learning and practical ways that will really help you in school, training and studies",
+  "description": "QULEN tells fictitious, encouraging stories from schoolchildren, trainees and students. Each story ends with a practical part: learning plan, test anxiety, concentration, vocabulary, math gaps, presentations and motivation.",
+  "author": "QULEN editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "lernplan-und-hausaufgaben": {
+      "slug": "study-plan-homework",
+      "name": "Study plan & homework",
+      "description": "Create a learning plan, find a weekly routine, overcome procrastination and do homework without arguments: stories and instructions for a structured everyday learning routine."
+    },
+    "pruefungen-und-pruefungsangst": {
+      "slug": "exams-test-anxiety",
+      "name": "Exams & test anxiety",
+      "description": "Class tests, exams, Abitur and final exams in training and studies: prepare well, deal with test anxiety and catch a blackout."
+    },
+    "konzentration-und-motivation": {
+      "slug": "concentration-motivation",
+      "name": "Concentration & motivation",
+      "description": "Distraction through the cell phone, the right place to learn, perseverance after setbacks and mistakes as a learning opportunity: motivation that doesn't sound like a calendar saying."
+    },
+    "vokabeln-und-lernmethoden": {
+      "slug": "vocabulary-learning-methods",
+      "name": "Vocabulary & learning methods",
+      "description": "Retaining vocabulary permanently, flashcards, spaced repetition, summaries and mind maps: learning methods that support your memory instead of overwhelming it."
+    },
+    "mathe-und-lernluecken": {
+      "slug": "math-learning-gap",
+      "name": "Math & Learning Gap",
+      "description": "Finding and closing math gaps, understanding word problems, catching up on the basics and practicing sensibly: how learners get back on solid ground."
+    },
+    "referate-und-praesentieren": {
+      "slug": "lectures-presentations",
+      "name": "Lectures & Presentations",
+      "description": "Prepare presentations, design slides, speak freely, tame stage fright and participate orally: step by step from a blank page to a confident presentation."
+    }
+  },
+  "promo": {
+    "label": "✦ Learning with AI"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Help & advice",
+      "href": "/hilfe-und-beratung/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}
