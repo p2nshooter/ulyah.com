@@ -1,0 +1,83 @@
+{
+  "since": "2026-11-26",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "expansion": "Gems, precious stones and jewelry from Latin America",
+  "tagline": "From Raw Beauty to Timeless Value — from raw beauty to value that lasts",
+  "description": "ROUGH.LAT is an editorial magazine about raw gems, precious stones, jewelry, artisanal carving and responsible luxury, designed for readers in Latin America: clear guides, verifiable sources and zero investment promises.",
+  "author": "ROUGH.LAT Editorial",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "gemas-en-bruto": {
+      "slug": "gems-in-the-rough",
+      "name": "Gems in the rough",
+      "description": "How gems are born in the rock, how they are recognized without cutting and what a crystal reveals before passing through the lapidary wheel."
+    },
+    "piedras-preciosas": {
+      "slug": "gemstones",
+      "name": "gemstones",
+      "description": "Quality, treatments, synthetics, imitations and laboratory reports: what you need to know before trusting a stone."
+    },
+    "joyeria-y-diseno": {
+      "slug": "jewelry-and-design",
+      "name": "Jewelry and design",
+      "description": "Metals, settings, engagement rings, custom design and care of the jewelry so that it lasts for generations."
+    },
+    "arte-tallado-y-artesania": {
+      "slug": "carving-and-crafts",
+      "name": "Carving and crafts",
+      "description": "The lapidary wheel, the types of carving, the traditional workshops and the path from the rough stone to the finished jewel."
+    },
+    "lujo-y-estilo-de-vida": {
+      "slug": "luxury-and-lifestyle",
+      "name": "Luxury and lifestyle",
+      "description": "How to wear, gift and collect jewelry judiciously, and how to buy luxury responsibly."
+    }
+  },
+  "promo": {
+    "label": "✦ Your workshop, online"
+  },
+  "menu": [
+    {
+      "label": "Tools",
+      "href": "/herramientas/"
+    },
+    {
+      "label": "Us",
+      "href": "/sobre-nosotros/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contacto/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Legal notice",
+      "href": "/aviso-legal/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/politica-de-privacidad/"
+    },
+    {
+      "label": "Cookies",
+      "href": "/politica-de-cookies/"
+    },
+    {
+      "label": "Terms of use",
+      "href": "/terminos-y-condiciones/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/descargo-de-responsabilidad/"
+    },
+    {
+      "label": "Editorial policy",
+      "href": "/politica-editorial/"
+    }
+  ]
+}
