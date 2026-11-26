@@ -1,0 +1,35 @@
+{
+  "strings": {
+    "Zum Inhalt springen": "Skip to content",
+    "ist Fußball-Weltmeister 2026": "is the 2026 soccer world champion",
+    "ZAVIK — Startseite": "ZAVIK — Home page",
+    "Themen": "Topics",
+    "Angaben zum Ratgeber": "Information about the guide",
+    "Auf einen Blick": "At a glance",
+    "Thema": "topic",
+    "Lesezeit": "Reading time",
+    "Inhalt": "Content",
+    "Woran du einen Notfall erkennst .": "How do you recognize an emergency?",
+    "Passende Ratgeber": "Appropriate advice",
+    "8 Min. Lesezeit": "8 min reading time",
+    "7 Min. Lesezeit": "7 min reading time",
+    "Der Katzen-Ratgeber": "The cat guide",
+    "Sechs Stufen zu einem": "Six levels to one",
+    "mit deiner Katze": "with your cat",
+    "Mit dem Einzug beginnen": "Start moving in",
+    "Welches Thema beschäftigt dich?": "What topic concerns you?",
+    "8 Ratgeber": "8 guides",
+    "7 Ratgeber": "7 guides",
+    "Neue Ratgeber": "New guides",
+    "Alles auf einen Blick": "Everything at a glance",
+    "Alle Ratgeber": "All guides",
+    "9 Min. Lesezeit": "9 min reading time"
+  },
+  "patterns": [
+    [
+      "(\\d+) Ratgeber",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

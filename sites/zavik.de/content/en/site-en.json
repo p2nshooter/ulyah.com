@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-26",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Delicate four-legged friends, clever cat care",
+  "tagline": "The cat guide for a good life with a cat: understandable, thorough and with heart",
+  "description": "ZAVIK is a guide for cat owners: moving in and settling in, nutrition, health and visiting the vet, body language and behavior, apartment and outdoor space, grooming and everyday life, explained in thorough instructions for beginners and experienced people.",
+  "author": "ZAVIK editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "einzug-und-eingewoehnung": {
+      "slug": "moving-in-settling-in",
+      "name": "Moving in & settling in",
+      "description": "Adoption from the animal shelter, initial equipment, the first days, second cat, children and dog: this is how you get started with a cat."
+    },
+    "ernaehrung": {
+      "slug": "nutrition",
+      "name": "Nutrition",
+      "description": "Wet food and dry food, drinking, changing food, obesity and labels: what cats really need."
+    },
+    "gesundheit": {
+      "slug": "health",
+      "name": "Health",
+      "description": "Vaccinations, castration, parasites, teeth, kidneys and warning signs: health care explained in an understandable way."
+    },
+    "verhalten": {
+      "slug": "behavior",
+      "name": "behavior",
+      "description": "Body language, purring, meowing, scratching, uncleanliness and nighttime romps: understand cats better."
+    },
+    "wohnung-und-freigang": {
+      "slug": "apartment-freedom",
+      "name": "Apartment & freedom",
+      "description": "Housing, balcony net, cat toilet, scratching post, poisonous plants and the first release."
+    },
+    "pflege-und-alltag": {
+      "slug": "care-everyday-life",
+      "name": "Care & everyday life",
+      "description": "Grooming, claws, playing, transport box, medication and vacation: everyday life with a cat, step by step."
+    }
+  },
+  "promo": {
+    "label": "✦ For animal professionals"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Emergency & Vet",
+      "href": "/notfall-und-tierarzt/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

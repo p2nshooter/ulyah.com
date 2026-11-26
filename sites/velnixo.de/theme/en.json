@@ -1,0 +1,37 @@
+{
+  "strings": {
+    "Zum Inhalt springen": "Skip to content",
+    "· Glückwunsch aus der Speichenwerkstatt": "· Congratulations from the spoke workshop",
+    "VELNIXO – Startseite": "VELNIXO – Home page",
+    "Über VELNIXO": "About VELNIXO",
+    "© 2026 VELNIXO · velnixo.de · Allgemeine Informationen rund ums Radfahren. Sicherheitsrelevante Arbeiten an Bremsen, Lenkung, Rahmen, Akku und Motor gehören im Zweifel in eine Fachwerkstatt.": "© 2026 VELNIXO · velnixo.de · General information about cycling. If in doubt, safety-relevant work on the brakes, steering, frame, battery and motor should be carried out in a specialist workshop.",
+    "Von der VELNIXO editorial team ·": "By the VELNIXO editorial team ·",
+    "· 8 Min. Lesezeit": "· 8 min reading time",
+    "In diesem Ratgeber": "In this guide",
+    "Das könnte dich auch interessieren": "This might also interest you",
+    "8 Min. Lesezeit": "8 min reading time",
+    "9 Min. Lesezeit": "9 min reading time",
+    "· 9 Min. Lesezeit": "· 9 min. reading time",
+    "Which bicycle tools you really need: from pumps, Allen keys and tire levers to torque wrenches, chain tools and repair stands, with expansion stages and purchasing instructions.": "Which bicycle tools you really need: from pumps, Allen keys and tire levers to torque wrenches, chain tools and repair stands, with expansion stages and purchasing instructions.",
+    "· 10 Min. Lesezeit": "· 10 min. reading time",
+    "Der Fahrradratgeber für Deutschland": "The bicycle guide for Germany",
+    "Jetzt lesen": "Read now",
+    "Unser Anspruch": "Our claim",
+    "8 Ratgeber": "8 guides",
+    "7 Ratgeber": "7 guides",
+    "Neu in der Werkstatt": "New in the workshop",
+    "Neueste Ratgeber": "Latest guides",
+    "Das ganze Archiv": "The whole archive",
+    "Alle Ratgeber nach Rubrik": "All guides by category",
+    "8 Ratgeber in dieser Rubrik": "8 guides in this section",
+    "10 Min. Lesezeit": "10 min reading time",
+    "7 Ratgeber in dieser Rubrik": "7 guides in this section"
+  },
+  "patterns": [
+    [
+      "(\\d+) Ratgeber",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

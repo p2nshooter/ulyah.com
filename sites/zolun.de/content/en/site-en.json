@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-26",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Between the Baltic Sea, land and North Sea",
+  "tagline": "Vacation in Germany planned with a steady hand: coast, islands, lakes and cities, explained honestly and thoroughly",
+  "description": "ZOLUN is a guide for holidays in Germany: North Sea and Baltic Sea, islands, lakes and city trips, as well as arrival by train and Germany ticket, accommodation, best travel time, packing lists and traveling with children or dogs.",
+  "author": "ZOLUN editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "nordsee-und-ostsee": {
+      "slug": "north-sea-baltic-sea",
+      "name": "North Sea & Baltic Sea",
+      "description": "Watts and tides, seaside resorts, beach chairs, piers and cliffs: how holidays on the North and Baltic Seas work and which coast is right for you."
+    },
+    "inseln": {
+      "slug": "islands",
+      "name": "Islands",
+      "description": "Sylt, Föhr, Amrum, Rügen, Usedom, Fehmarn, the East Frisian Islands and the Halligen: ferries, car-free islands, travel times and everyday life on the island explained."
+    },
+    "seen-und-fluesse": {
+      "slug": "lakes-rivers",
+      "name": "Lakes & Rivers",
+      "description": "Lake Constance, Lake Chiemsee, Mecklenburg Lake District, Spreewald and river valleys: swimming, boating, cycling on the shore and quiet holidays by the water."
+    },
+    "staedtereisen": {
+      "slug": "city-trips",
+      "name": "City trips",
+      "description": "Berlin, Hamburg, Munich, Dresden, Cologne and small old towns: plan weekends wisely, museums, Christmas markets, city passes and accommodation in a good location."
+    },
+    "anreise-und-unterkunft": {
+      "slug": "arrival-accommodation",
+      "name": "Arrival & accommodation",
+      "description": "Train and Germany ticket, long-distance bus, car and ferry, plus a holiday apartment, hotel, guesthouse or camping: so you arrive relaxed and live appropriately."
+    },
+    "reiseplanung": {
+      "slug": "travel-planning",
+      "name": "Travel planning",
+      "description": "Best travel time, packing lists, vacation with children or dogs, ideas for rainy days and an honest budget: planning that will make your vacation noticeably more relaxing."
+    }
+  },
+  "promo": {
+    "label": "✦ For hosts"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Traveler's check",
+      "href": "/reisecheck/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

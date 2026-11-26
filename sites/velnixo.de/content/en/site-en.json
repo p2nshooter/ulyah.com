@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-26",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Bicycle · Nature · Infrastructure · X-routes · Order",
+  "tagline": "Cycling in everyday life: the right bike, good care and safe routes, clearly explained",
+  "description": "VELNIXO is a guide for everyone who rides a bike in Germany: choose your bike and e-bike correctly, maintain and repair it yourself, get through town and country safely, plan tours and find the right equipment, thoroughly, independently and without technical jargon.",
+  "author": "VELNIXO editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "kaufberatung": {
+      "slug": "buying-advice",
+      "name": "Buying advice",
+      "description": "Which bike is right for me? Frame size, bike types, buying new or used, budget and test ride, step by step."
+    },
+    "wartung-und-reparatur": {
+      "slug": "maintenance-repair",
+      "name": "Maintenance & Repair",
+      "description": "Maintain and adjust the chain, brakes, gears, tires and lights yourself, with a tool list and clear boundaries as to when it's the workshop's turn."
+    },
+    "e-bike": {
+      "slug": "e-bikes-pedelecs",
+      "name": "E-bikes & Pedelecs",
+      "description": "Motor, battery, range, charging, care and law relating to Pedelecs and S-Pedelecs, explained honestly and without advertising promises."
+    },
+    "sicher-unterwegs": {
+      "slug": "travel-safely",
+      "name": "Travel safely",
+      "description": "Traffic rules, visibility, helmet, theft protection and smart driving in the city, country and in bad weather."
+    },
+    "touren-und-reisen": {
+      "slug": "tours-cycling-trips",
+      "name": "Tours & cycling trips",
+      "description": "Cycle paths and long-distance cycle paths in Germany, plan tours, combine cycle trips with luggage, train and bike."
+    },
+    "ausruestung": {
+      "slug": "equipment-everyday-life",
+      "name": "Equipment & everyday life",
+      "description": "Bags, clothing, child seats and trailers, cargo bikes and everything that makes the bike an everyday vehicle."
+    }
+  },
+  "promo": {
+    "label": "✦ Digital companions"
+  },
+  "menu": [
+    {
+      "label": "Calculator",
+      "href": "/werkzeuge/"
+    },
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

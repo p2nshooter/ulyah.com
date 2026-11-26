@@ -1,0 +1,92 @@
+{
+  "since": "2026-11-26",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Reliably explained, from oven to collar",
+  "tagline": "Thorough instructions for cleaning, staining and laundry: understandable, gentle on materials and safe",
+  "description": "ZEVOK is a household guide: cleaning systematically and cleaning plans, removing stains according to the type of stain and material, washing, drying and caring for laundry, keeping the kitchen and bathroom clean and using home remedies such as vinegar, baking soda or soda safely.",
+  "author": "ZEVOK editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "putzen-mit-system": {
+      "slug": "systematic-cleaning",
+      "name": "Systematic cleaning",
+      "description": "Cleaning plans, the right order, good tools and techniques for floors, windows and dust: this makes cleaning planned, thorough and noticeably faster."
+    },
+    "flecken-entfernen": {
+      "slug": "remove-stains",
+      "name": "Remove stains",
+      "description": "Red wine, grease, blood, grass or ballpoint pen: Treat stains according to the type of stain and material, on clothing, carpet and upholstery, safely step by step."
+    },
+    "waesche-und-pflege": {
+      "slug": "laundry-care",
+      "name": "Laundry & care",
+      "description": "Sorting, temperature, dosage, care symbols, drying and ironing: wash and care for laundry so that clothes, towels and bed linen stay beautiful for a long time."
+    },
+    "kueche-reinigen": {
+      "slug": "clean-kitchen",
+      "name": "Clean kitchen",
+      "description": "Oven, refrigerator, sink, extractor hood, kettle and cutting boards: keep the kitchen hygienically clean without damaging surfaces and appliances."
+    },
+    "bad-und-wc": {
+      "slug": "bathroom-toilet",
+      "name": "Bathroom & toilet",
+      "description": "Limescale on fittings and shower walls, joints, urine scale, drains and mold prevention: clean the bathroom and toilet thoroughly and protect sensitive materials."
+    },
+    "hausmittel": {
+      "slug": "home-remedies",
+      "name": "home remedies",
+      "description": "Vinegar, baking soda, citric acid, soda and bile soap: what each home remedy can really do, where it causes damage and why you should never mix cleaners."
+    }
+  },
+  "promo": {
+    "label": "✦ Neatly organized"
+  },
+  "menu": [
+    {
+      "label": "Tools",
+      "href": "/werkzeuge/"
+    },
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Clean safely",
+      "href": "/sicherheit-beim-putzen/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

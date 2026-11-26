@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-26",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Turnip, Pear & Season",
+  "tagline": "Cook seasonally with what's growing: recipes, pantry knowledge and kitchen crafts",
+  "description": "RUBIY is a guide for seasonal cooking in Germany: What grows in spring, summer, autumn and winter, how to store it, preserve it and prepare it, with tried-and-tested recipes, seasonal calendars and kitchen knowledge for every day.",
+  "author": "RUBIY kitchen editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "fruehling": {
+      "slug": "spring",
+      "name": "Spring",
+      "description": "Asparagus, wild garlic, rhubarb, radishes and the first strawberries: recipes and knowledge for the fresh season."
+    },
+    "sommer": {
+      "slug": "summer",
+      "name": "Summer",
+      "description": "Tomatoes, zucchini, berries, cucumbers and plums: light summer cuisine and ideas for harvest abundance."
+    },
+    "herbst": {
+      "slug": "autumn",
+      "name": "Autumn",
+      "description": "Pumpkin, apples, mushrooms, red cabbage, chestnuts and quinces: warming autumn cuisine with regional ingredients."
+    },
+    "winter": {
+      "slug": "winter",
+      "name": "Winter",
+      "description": "Kale, beetroot, turnip, lamb's lettuce and root vegetables: hearty winter cuisine from the camp."
+    },
+    "vorrat-und-konservieren": {
+      "slug": "stock-preserve",
+      "name": "Stock & Preserve",
+      "description": "Preserving, jam, fermenting, freezing and drying: preserving the harvest safely."
+    },
+    "kuechenwissen": {
+      "slug": "kitchen-knowledge",
+      "name": "Kitchen knowledge",
+      "description": "Seasonal calendar, storage, cooking leftovers, cutting techniques and shopping at the weekly market."
+    }
+  },
+  "promo": {
+    "label": "✦ Kitchen & technology"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Seasonal calendar",
+      "href": "/saisonkalender/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}
