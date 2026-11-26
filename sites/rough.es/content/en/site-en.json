@@ -1,0 +1,84 @@
+{
+  "since": "2026-11-25",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Rough gems, jewelry and style with character",
+  "tagline": "From raw stone to lasting value",
+  "description": "ROUGH is an independent magazine about rough gems, precious stones, cutting, jewelry and men's style with character: rigorous guides, without investment promises or made-up prices.",
+  "author": "ROUGH Editorial",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "gemas-en-bruto": {
+      "slug": "gems-in-the-rough",
+      "name": "Gems in the rough",
+      "description": "Minerals and deposits from Spain, from Navajún pyrite to Asturian fluorite and jet: how to recognize them, conserve them and collect them responsibly."
+    },
+    "piedras-preciosas": {
+      "slug": "gemstones",
+      "name": "gemstones",
+      "description": "Ruby, sapphire, spinel, garnets, tourmaline and alexandrite: quality, treatments, synthetics, imitations and gemological instruments."
+    },
+    "talla-y-joyeria": {
+      "slug": "carving-and-jewelry",
+      "name": "Carving and jewelry",
+      "description": "Cabochon, faceting, casting, filigree, damascening, enamels and hallmarks: the crafts that turn stone and metal into a well-made jewel."
+    },
+    "compra-y-valoracion": {
+      "slug": "purchase-and-evaluation",
+      "name": "Purchase and evaluation",
+      "description": "Buy, appraise, sell and claim judiciously in Spain: jewelry stores, online purchases, auctions, sale of gold, vintage jewelry and guarantees."
+    },
+    "estilo-masculino": {
+      "slug": "men-s-style",
+      "name": "Men's style",
+      "description": "Durable clothing, boots, leather, watches and rings: a wardrobe with character that is built with a few good pieces."
+    },
+    "cuidado-personal": {
+      "slug": "personal-care",
+      "name": "Personal care",
+      "description": "Shaving, beard, skin, hair, hands and fragrance explained sensibly, without miracle promises or impossible routines."
+    }
+  },
+  "promo": {
+    "label": "✦ For jewelers"
+  },
+  "menu": [
+    {
+      "label": "About ROUGH",
+      "href": "/sobre-nosotros/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contacto/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Legal notice",
+      "href": "/aviso-legal/"
+    },
+    {
+      "label": "Privacy",
+      "href": "/politica-de-privacidad/"
+    },
+    {
+      "label": "Cookies",
+      "href": "/politica-de-cookies/"
+    },
+    {
+      "label": "Terms of use",
+      "href": "/terminos-y-condiciones/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/descargo-de-responsabilidad/"
+    },
+    {
+      "label": "Editorial policy",
+      "href": "/politica-editorial/"
+    }
+  ]
+}

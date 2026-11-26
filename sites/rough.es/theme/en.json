@@ -1,0 +1,43 @@
+{
+  "strings": {
+    "Ir al contenido": "Go to content",
+    "España, campeona del mundo 2026": "Spain, world champion 2026",
+    "campeona del mundo": "world champion",
+    "Secciones del pie": "Foot sections",
+    "El taller": "The workshop",
+    "© 2026 ROUGH · rough.es · Contenido divulgativo. Ninguna guía sustituye una tasación profesional ni un informe de laboratorio gemológico.": "© 2026 ROUGH · rough.es · Informative content. No guide is a substitute for a professional appraisal or gemological laboratory report.",
+    "7 min de lectura": "7 min read",
+    "Ficha de la guía": "Guide sheet",
+    "Ficha del lapidario": "Lapidary file",
+    "Lectura": "Reading",
+    "7 minutos": "7 minutes",
+    "En esta guía": "In this guide",
+    "Aviso del taller.": "Workshop notice.",
+    "Sigue en el taller": "Stay in the workshop",
+    "Guías relacionadas": "Related guides",
+    "8 min de lectura": "8 min read",
+    "9 min de lectura": "9 min read",
+    "8 minutos": "8 minutes",
+    "9 minutos": "9 minutes",
+    "Revista de gemología práctica y estilo con carácter": "Magazine of practical gemology and style with character",
+    "al valor que perdura": "to the value that lasts",
+    "Empezar a leer": "start reading",
+    "Seis cajones del taller": "Six workshop drawers",
+    "7 guías": "7 guides",
+    "6 guías": "6 guides",
+    "Últimas guías": "Latest guides",
+    "El inventario completo": "The complete inventory",
+    "Todas las guías por sección": "All guides by section"
+  },
+  "patterns": [
+    [
+      "(\\d+) minutos",
+      "$1 minutes"
+    ],
+    [
+      "(\\d+) guías",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}
