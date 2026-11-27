@@ -1,0 +1,84 @@
+{
+  "since": "2026-11-27",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Zoë · Avian – Living with birds",
+  "tagline": "Observing, understanding and protecting birds: from bird feeders in the garden to species-appropriate husbandry",
+  "description": "ZOEVIAN is a guide about birds in Germany: recognizing garden birds, feeding and watering them correctly, building and hanging nesting boxes, creating habitat, observing and photographing birds and keeping ornamental birds appropriate to their species, thoroughly, close to nature and without technical jargon.",
+  "author": "ZOEVIAN editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "gartenvoegel": {
+      "slug": "garden-birds",
+      "name": "Garden birds",
+      "description": "The birds outside your window: tits, sparrows, blackbirds, robins and the like, their annual cycle, their behavior and what a bird-friendly garden needs."
+    },
+    "fuettern-und-traenken": {
+      "slug": "feeding-watering",
+      "name": "Feeding & watering",
+      "description": "All year round or just in winter? Which food for which bird, clean feeding places, bird baths and the most common mistakes when feeding."
+    },
+    "nistkaesten-und-lebensraum": {
+      "slug": "nesting-boxes-habitat",
+      "name": "Nesting boxes & habitat",
+      "description": "Build, hang and clean nesting boxes correctly, native hedges and wildflowers, water, dead wood and protection from cats and glass panes."
+    },
+    "vogelarten-erkennen": {
+      "slug": "recognize-bird-species",
+      "name": "Recognize bird species",
+      "description": "Identify by shape, plumage, behavior and voice: mixed-up pairs, migratory birds, winter guests and birds on water, forests and fields."
+    },
+    "beobachten-und-fotografieren": {
+      "slug": "observe-photograph",
+      "name": "Observe & photograph",
+      "description": "Choosing binoculars, learning bird calls, reporting sightings, photographing birds without disturbing them, and the best seasons and locations."
+    },
+    "ziervoegel": {
+      "slug": "ornamental-birds-species-appropriate",
+      "name": "Ornamental birds species-appropriate",
+      "description": "Budgies, canaries, cockatiels and co.: aviary, free flight, nutrition, companionship, employment and how to recognize sick birds."
+    }
+  },
+  "promo": {
+    "label": "✦ Related projects"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

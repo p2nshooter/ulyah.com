@@ -1,0 +1,40 @@
+{
+  "strings": {
+    "Zum Inhalt springen": "Skip to content",
+    "ist Fußball-Weltmeister": "is soccer world champion",
+    "· ein Gruß aus dem Zedernhof": "· a greeting from the cedar yard",
+    "ZOEVIAN – Startseite": "ZOEVIAN – Home page",
+    "Themen": "Topics",
+    "Über ZOEVIAN": "About ZOEVIAN",
+    "Das Haus": "The house",
+    "Von der ZOEVIAN editorial team ·": "By the ZOEVIAN editorial team ·",
+    "· 8 Min. Lesezeit": "· 8 min reading time",
+    "In diesem Ratgeber": "In this guide",
+    "Das könnte dich auch interessieren": "This might also interest you",
+    "8 Min. Lesezeit": "8 min reading time",
+    "10 Min. Lesezeit": "10 min reading time",
+    "· 9 Min. Lesezeit": "· 9 min. reading time",
+    "· 10 Min. Lesezeit": "· 10 min. reading time",
+    "Der Vogelratgeber für Garten, Balkon und Natur": "The bird guide for the garden, balcony and nature",
+    "Jetzt lesen": "Read now",
+    "Sechs Themen": "Six topics",
+    "8 Ratgeber": "8 guides",
+    "7 Ratgeber": "7 guides",
+    "9 Ratgeber": "9 guides",
+    "6 Ratgeber": "6 guides",
+    "Neueste Ratgeber": "Latest guides",
+    "9 Min. Lesezeit": "9 min reading time",
+    "Alle Ratgeber nach Thema": "All guides by topic",
+    "7 Ratgeber in diesem Thema": "7 guides on this topic",
+    "8 Ratgeber in diesem Thema": "8 guides on this topic",
+    "9 Ratgeber in diesem Thema": "9 guides on this topic",
+    "6 Ratgeber in diesem Thema": "6 guides on this topic"
+  },
+  "patterns": [
+    [
+      "(\\d+) Ratgeber",
+      "$1 guides"
+    ]
+  ],
+  "keep": []
+}

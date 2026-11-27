@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-27",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "Live contentedly, organize wisely, quality instead of quantity",
+  "tagline": "The guide for a calm everyday life: good habits, less ballast and more time for what is important to you",
+  "description": "ZUFIQ is a guide for a calm, contented life: routines for morning and evening, decluttering and organization systems, digital peace, conscious consumption, time and energy management and sleep as a habit, explained in thorough, everyday instructions.",
+  "author": "ZUFIQ editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "gewohnheiten-und-routinen": {
+      "slug": "habits-routines",
+      "name": "Habits & Routines",
+      "description": "Morning routine and evening routine, building new habits, letting go of old ones and finding a weekly rhythm: small steps that make everyday life quieter and more reliable."
+    },
+    "ausmisten-und-minimalismus": {
+      "slug": "decluttering-minimalism",
+      "name": "Decluttering & minimalism",
+      "description": "Clear out room by room, wardrobe, memorabilia and gifts: minimalism without dogma, so that what you really use, need or love remains."
+    },
+    "ordnung-und-papierkram": {
+      "slug": "order-paperwork",
+      "name": "Order & paperwork",
+      "description": "Organization systems for the kitchen, hallway, bathroom and storage room, fixed places and labels as well as a shelf for paperwork and documents that will last even in busy everyday life."
+    },
+    "digitale-ruhe": {
+      "slug": "digital-peace",
+      "name": "Digital peace",
+      "description": "Less screen time, silent notifications, a tidy email inbox and ordering photos and files: ways to calmly use your cell phone and computer."
+    },
+    "bewusster-konsum": {
+      "slug": "conscious-consumption",
+      "name": "Conscious consumption",
+      "description": "Make purchasing decisions calmly, curb spontaneous purchases, check subscriptions, care for things and pass them on: consume consciously without experiencing deprivation as a punishment."
+    },
+    "zeit-energie-und-schlaf": {
+      "slug": "time-energy-sleep",
+      "name": "Time, energy & sleep",
+      "description": "Plan your day realistically, set priorities, take breaks, organize your energy and cultivate sleep as a habit: for days with more air and evenings with real rest."
+    }
+  },
+  "promo": {
+    "label": "✦ Digitally tidy"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "Help & contact points",
+      "href": "/hilfe-und-anlaufstellen/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "since": "2026-11-27",
+  "locale": "en-GB",
+  "ogLocale": "en_GB",
+  "expansion": "At home, lots of children's laughter",
+  "tagline": "Stories from everyday family life that give you courage, with ideas for your own home",
+  "description": "ZUVIK tells short, warm-hearted family stories from everyday German life: morning chaos and bedtime rituals, sibling arguments and reconciliation, grandparents, celebrations, school and daycare. Each story ends with practical ideas that parents can try right away.",
+  "author": "ZUVIK editorial team",
+  "paths": {
+    "article": "/en/guides/",
+    "category": "/en/topics/"
+  },
+  "categories": {
+    "morgens-und-abends": {
+      "slug": "morning-evening",
+      "name": "Morning & evening",
+      "description": "Getting up, breakfast, going to school, dinner and bedtime rituals: how families make the edges of the day more relaxed."
+    },
+    "geschwister": {
+      "slug": "siblings",
+      "name": "siblings",
+      "description": "Fights over toys, jealousy of the baby, big siblings and little ones: stories about solidarity and reconciliation."
+    },
+    "grosseltern-und-generationen": {
+      "slug": "grandparents-generations",
+      "name": "Grandparents & generations",
+      "description": "Grandma, Grandpa and the rest of the family: memories, visits, farewells and what generations learn from each other."
+    },
+    "feste-und-jahreszeiten": {
+      "slug": "festivals-seasons",
+      "name": "Festivals & Seasons",
+      "description": "Saint Martin, Advent, Easter, summer holidays and autumn rain: how families experience the year together."
+    },
+    "schule-und-kita": {
+      "slug": "school-daycare",
+      "name": "School & daycare",
+      "description": "Getting used to it, the first day of school, homework, friendships and bad grades: stories about daycare and classrooms."
+    },
+    "zusammenleben-zuhause": {
+      "slug": "living-together-at-home",
+      "name": "Living together at home",
+      "description": "Pocket money, household services, screen time, moving and family advice: how a home works for everyone."
+    }
+  },
+  "promo": {
+    "label": "✦ Family & Technology"
+  },
+  "menu": [
+    {
+      "label": "About us",
+      "href": "/ueber-uns/"
+    },
+    {
+      "label": "This is how we write",
+      "href": "/redaktionsgrundsaetze/"
+    },
+    {
+      "label": "Contact",
+      "href": "/kontakt/"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Imprint",
+      "href": "/impressum/"
+    },
+    {
+      "label": "Data protection",
+      "href": "/datenschutz/"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-richtlinie/"
+    },
+    {
+      "label": "Terms of Use",
+      "href": "/nutzungsbedingungen/"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/haftungsausschluss/"
+    },
+    {
+      "label": "Editorial principles",
+      "href": "/redaktionsgrundsaetze/"
+    }
+  ]
+}
